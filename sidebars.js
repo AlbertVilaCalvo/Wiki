@@ -13,4 +13,7 @@ module.exports = {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
     Features: ['docs/mdx'],
   },
+  talksSidebar: [
+    'talks',
+  ],
 };

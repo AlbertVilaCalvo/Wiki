@@ -82,6 +82,10 @@ module.exports = {
               to: 'blog',
             },
             {
+              label: 'Talks',
+              to: 'talks',
+            },
+            {
               label: 'GitHub',
               href: 'https://github.com/facebook/docusaurus',
             },
