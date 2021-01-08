@@ -2,7 +2,7 @@
 module.exports = {
   title: 'Wiki',
   tagline: 'Albert Vila Calvo',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://albert.wiki',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -87,7 +87,11 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/AlbertVilaCalvo',
+            },
+            {
+              label: 'Source',
+              href: 'https://github.com/AlbertVilaCalvo/Wiki',
             },
           ],
         },
