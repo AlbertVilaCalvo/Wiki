@@ -1,13 +1,13 @@
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
+  title: 'Wiki',
+  tagline: 'Albert Vila Calvo',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'AlbertVilaCalvo', // Usually your GitHub org/user name.
+  projectName: 'Wiki', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'My Site',
@@ -51,21 +51,25 @@ module.exports = {
           items: [
             {
               label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://stackoverflow.com/users/4034572/albert-vila-calvo',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              href: 'https://twitter.com/AlbertVilaCalvo',
+            },
+            {
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/in/albertvilacalvo',
             },
           ],
         },
         {
           title: 'More',
           items: [
+            {
+              label: 'Personal Website',
+              to: 'https://albert.vc',
+            },
             {
               label: 'Blog',
               to: 'blog',
@@ -77,7 +81,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Albert Vila Calvo`,
     },
   },
   presets: [
