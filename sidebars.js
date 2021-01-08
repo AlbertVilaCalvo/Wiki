@@ -3,6 +3,11 @@ module.exports = {
   cliSidebar: [
     'cli/git',
     'cli/brew',
+    'cli/ohmyzsh',
+    'cli/npm',
+    'cli/yarn',
+    'cli/android',
+    'cli/gradle',
   ],
   docsSidebar: {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
