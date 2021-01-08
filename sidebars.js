@@ -1,6 +1,11 @@
+// https://v2.docusaurus.io/docs/sidebar
 module.exports = {
-  someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
+  cliSidebar: [
+    'cli/git',
+    'cli/brew',
+  ],
+  docsSidebar: {
+    Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
+    Features: ['docs/mdx'],
   },
 };

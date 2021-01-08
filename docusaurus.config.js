@@ -1,3 +1,4 @@
+// API reference: https://v2.docusaurus.io/docs/docusaurus.config.js/
 module.exports = {
   title: 'Wiki',
   tagline: 'Albert Vila Calvo',
@@ -10,19 +11,25 @@ module.exports = {
   projectName: 'Wiki', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'Home',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
       },
       items: [
         {
-          to: 'docs/',
+          to: 'cli/git',
+          activeBasePath: 'cli',
+          label: 'CLI',
+          position: 'left',
+        },
+        {
+          to: 'docs/doc1',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        {to: 'blog', label: 'Blog', position: 'right'},
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
@@ -38,7 +45,7 @@ module.exports = {
           items: [
             {
               label: 'Style Guide',
-              to: 'docs/',
+              to: 'docs/doc1/',
             },
             {
               label: 'Second Doc',
@@ -89,6 +96,9 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          // Change routes from '/docs/cli/git' to '/cli/git'.
+          // See Docs-only mode https://v2.docusaurus.io/docs/docs-introduction#docs-only-mode
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
