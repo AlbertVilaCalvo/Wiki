@@ -22,6 +22,8 @@ Note that this is a very small fraction of them since I started to write them re
 
 [Kotlin 1.4 Online Event October 12–15, 2020](https://kotlinlang.org/lp/event-14/)
 
+[Entrevista a GUILLERMO RAUCH, CEO de Vercel](https://www.youtube.com/watch?v=CmZEJcDCBxM)
+
 [Dan Abramov - Live React: Hot Reloading with Time Travel at react-europe 2015](https://www.youtube.com/watch?v=xsSnOQynTHs)
 
 [Shopify React Native with Farhan Thawar](https://softwareengineeringdaily.com/2020/04/15/shopify-react-native-with-farhan-thawar/)
@@ -34,6 +36,10 @@ Highlight: 'with Fibers the need for reactive frameworks goes away' (last minute
 [Why SQLite succeeded as a database](https://changelog.com/podcast/201)
 
 [Going Full Kotlin Multiplatform](https://talkingkotlin.com/going-full-kotlin-multiplatform/)
+
+[TC39, el presente y futuro de Javascript | WTFront](https://www.youtube.com/watch?v=pqUpX1jxiNQ)
+
+[Ryan Dahl. Deno, a new way to JavaScript. JS Fest 2019 Spring](https://www.youtube.com/watch?v=z6JRlx5NC9E)
 
 [Solving Problems the Clojure Way - Rafal Dittwald](https://www.youtube.com/watch?v=vK1DazRK_a0)
 
