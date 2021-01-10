@@ -12,6 +12,10 @@ Upgrade npm itself:
 
 (If this command fails and we then get `zsh: command not found: npm` we can fix it with `brew reinstall node`.)
 
+Install to devDependencies: `npm install webpack --save-dev`
+
+## Global
+
 List global pacakges:
 
 `npm list -g --depth=0`

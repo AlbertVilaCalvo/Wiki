@@ -16,6 +16,8 @@ Upgrade all packages to latest:
 
 `yarn upgrade --latest`
 
+Install to devDependencies: `yarn add webpack --dev`
+
 ## Global
 
 List global packages:
