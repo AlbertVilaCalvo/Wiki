@@ -2,6 +2,18 @@
 title: npm
 ---
 
+https://semver.npmjs.com/
+
+MAJOR.MINOR.PATCH
+
+```
+"dependencies": {
+  "exact": "15.7.2",
+  "same-major": "^15.7.2", -> upgrade to 15.X.Y (eg 15.7.3 and 15.8.0, but not 16.0.0)
+  "same-major-and-minor": "~15.7.2" -> upgrade to 15.7.X
+}
+```
+
 CLI docs: https://docs.npmjs.com/cli-documentation/
 
 Tip: `npm run` lists all the executable commands/scripts.
