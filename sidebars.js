@@ -9,6 +9,10 @@ module.exports = {
     'cli/android',
     'cli/gradle',
   ],
+  miscSidebar: [
+    'misc/battery',
+    'misc/prettier',
+  ],
   docsSidebar: {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
     Features: ['docs/mdx'],
