@@ -2,6 +2,7 @@
 module.exports = {
   cliSidebar: [
     'cli/git',
+    'cli/commands',
     'cli/brew',
     'cli/ohmyzsh',
     'cli/npm',
