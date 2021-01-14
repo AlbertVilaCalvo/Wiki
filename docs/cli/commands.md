@@ -2,6 +2,8 @@
 title: Commands
 ---
 
+tldr man pages: https://tldr.sh
+
 ## find
 
 `find . -type d -name "build"`
