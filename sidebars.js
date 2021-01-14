@@ -11,6 +11,7 @@ module.exports = {
   ],
   miscSidebar: [
     'misc/battery',
+    'misc/macos',
     'misc/prettier',
   ],
   docsSidebar: {
