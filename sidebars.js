@@ -14,6 +14,7 @@ module.exports = {
     'misc/battery',
     'misc/macos',
     'misc/prettier',
+    'misc/hosts',
   ],
   docsSidebar: {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
