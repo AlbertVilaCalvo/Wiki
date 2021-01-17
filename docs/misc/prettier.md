@@ -22,16 +22,19 @@ Check: `npx prettier --check .`
 
 ## Options
 
-```
+https://prettier.io/docs/en/options.html
+
+```json
+// .prettierrc.json
 {
-  "semi": false,
-  "singleQuote": true
+  "semi": false, // default true
+  "singleQuote": true // default false
 }
 ```
 
-`semi: false` - Only add semicolons at the beginning of lines that may introduce ASI failures - [docs](https://prettier.io/docs/en/options.html#semicolons)
+`semi: false` -> Only add semicolons at the beginning of lines that may introduce ASI failures - [docs](https://prettier.io/docs/en/options.html#semicolons)
 
-`singleQuote: true` - Chooses the one which results in the fewest number of escapes, but in case of a tie or the string not containing any quotes, defaults to _single_ quotes - [docs](https://prettier.io/docs/en/options.html#quotes) - [rationale](https://prettier.io/docs/en/rationale.html#strings)
+`singleQuote: true` -> Chooses the one which results in the fewest number of escapes, but in case of a tie or the string not containing any quotes, defaults to _single_ quotes - [docs](https://prettier.io/docs/en/options.html#quotes) - [rationale](https://prettier.io/docs/en/rationale.html#strings)
 
 ## WebStorm setup
 
