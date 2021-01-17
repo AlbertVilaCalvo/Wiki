@@ -2,17 +2,15 @@
 title: Talks
 ---
 
-Just a list of talks/podcasts I've watched/listened, in reverse cronological order.
-
-(If I don't write them down I forget.)
-
-Note that this is a very small fraction of them since I started to write them recently (2021).
+Just a list of talks/podcasts I've watched/listened, in reverse cronological order. (If I don't write them down I forget.) Note that this is a very small fraction of them since I started to write them recently (2021).
 
 ## 2021
 
 [Sebastian Markbage: Minimal API Surface Area | JSConf EU 2014](https://www.youtube.com/watch?v=4anAwXYqLG8)
 
 ## 2020
+
+[Why you should make useless things | Simone Giertz](https://www.youtube.com/watch?v=c0bsKc4tiuY)
 
 [Modularizing Android Applications - Marvin Ramin](https://www.youtube.com/watch?v=TWLkswxjSr0)
 

@@ -16,11 +16,13 @@ module.exports = {
     'misc/prettier',
     'misc/hosts',
   ],
+  logSidebar: [
+    'log/talks',
+    'log/articles',
+    'log/pelis',
+  ],
   docsSidebar: {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
     Features: ['docs/mdx'],
   },
-  talksSidebar: [
-    'talks',
-  ],
 };

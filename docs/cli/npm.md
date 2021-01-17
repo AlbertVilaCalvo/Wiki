@@ -24,7 +24,7 @@ Install to devDependencies: `npm install webpack --save-dev`
 
 https://docs.npmjs.com/cli/v6/configuring-npm/package-json#dependencies
 
-https://semver.npmjs.com/
+https://semver.npmjs.com
 
 MAJOR.MINOR.PATCH
 
