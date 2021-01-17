@@ -14,6 +14,8 @@ tldr man pages: https://tldr.sh
 
 `find . -type f -name "*.iml" -exec rm -rf {} +`
 
+Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
+
 ## diff
 
 `diff -qr Carpeta1 Carpeta2`

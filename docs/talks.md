@@ -22,6 +22,8 @@ Note that this is a very small fraction of them since I started to write them re
 
 [Kotlin 1.4 Online Event October 12–15, 2020](https://kotlinlang.org/lp/event-14/)
 
+[React Native EU 2020](https://www.youtube.com/watch?v=QwoQgzBgJu8&list=PLZ3MwD-soTTEGG42-BvoqD0qK0vKV2ygm)
+
 [Entrevista a GUILLERMO RAUCH, CEO de Vercel](https://www.youtube.com/watch?v=CmZEJcDCBxM)
 
 [Dan Abramov - Live React: Hot Reloading with Time Travel at react-europe 2015](https://www.youtube.com/watch?v=xsSnOQynTHs)
@@ -32,6 +34,9 @@ Note that this is a very small fraction of them since I started to write them re
 
 [Java, Today and Tomorrow by Mark Reinhold](https://www.youtube.com/watch?v=kpio9jFhpD8)
 Highlight: 'with Fibers the need for reactive frameworks goes away' (last minute).
+
+[Intro to React Hooks](https://developers.facebook.com/videos/2019/intro-to-react-hooks/)
+Hooks allow you to re-use stateful logic between components
 
 [Why SQLite succeeded as a database](https://changelog.com/podcast/201)
 
