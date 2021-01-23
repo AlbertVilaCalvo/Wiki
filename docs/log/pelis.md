@@ -24,11 +24,31 @@ Peanut butter falcon / La família que tú eliges [FA](https://www.filmaffinity.
 
 La profesora de piano [FA](https://www.filmaffinity.com/es/film717328.html)
 
+Judy [FA](https://www.filmaffinity.com/es/film845142.html)
+
 Especiales [FA](https://www.filmaffinity.com/es/film608545.html)
+
+Adú [FA](https://www.filmaffinity.com/es/film307683.html)
+
+¿Podrás perdonarme algún día? [FA](https://www.filmaffinity.com/es/film368446.html)
+
+Jojo Rabbit [FA](https://www.filmaffinity.com/es/film760663.html)
+
+Mujercitas [FA](https://www.filmaffinity.com/es/film792587.html)
+
+Parásitos [FA](https://www.filmaffinity.com/es/film520465.html)
+
+Pavarotti [FA](https://www.filmaffinity.com/es/film519073.html)
 
 1917 [FA](https://www.filmaffinity.com/es/film145446.html)
 
+La odisea de los giles [FA](https://www.filmaffinity.com/es/film988821.html)
+
+Knives Out [FA](https://www.filmaffinity.com/es/film599723.html)
+
 The favorite [FA](https://www.filmaffinity.com/es/film625500.html)
+
+ Star Wars: El ascenso de Skywalker [FA](https://www.filmaffinity.com/es/film738787.html)
 
 ## 2019
 
