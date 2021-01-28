@@ -30,6 +30,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'css/reset',
+          activeBasePath: 'css',
+          label: 'CSS',
+          position: 'left',
+        },
+        {
           to: 'misc/battery',
           activeBasePath: 'misc',
           label: 'Misc',

@@ -16,6 +16,9 @@ module.exports = {
     'dev/react-native',
     'dev/prettier',
   ],
+  cssSidebar: [
+    'css/reset',
+  ],
   miscSidebar: [
     'misc/battery',
     'misc/macos',

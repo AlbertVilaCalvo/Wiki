@@ -84,7 +84,7 @@ Examples:
 
 https://github.com/gradle/gradle-profiler
 
-Example of how to use it: https://adambennett.dev/2020/08/disabling-jetifier/
+Example of how to use it: https://adambennett.dev/2020/08/disabling-jetifier
 
 ## Daemon
 
