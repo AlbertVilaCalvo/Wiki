@@ -2,10 +2,15 @@
 title: Prettier
 ---
 
+https://prettier.io
+
+## Install
+
 https://prettier.io/docs/en/install.html
 
 ```
 npm install --save-dev --save-exact prettier
+yarn add --dev --exact prettier
 
 echo {}> .prettierrc.json
 
