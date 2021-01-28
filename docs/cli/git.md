@@ -2,7 +2,7 @@
 title: Git
 ---
 
-## Undo
+## Undo last commit
 ```
 git reset --soft HEAD^   # keeps changes
 git reset --hard HEAD^   # discards changes
@@ -63,9 +63,28 @@ git merge upstream/master
 git push origin master
 ```
 
-## Rebase till the first (root) commit
+## Rebase interactive
 
-`git rebase -i --root``
+https://git-scm.com/docs/git-rebase
+
+```
+git rebase -i <commit you want to amend>^
+```
+**e** - modify commit
+```
+gc!
+grbc
+````
+**r** - amend commit message
+```
+ga some/file.txt
+gc!
+grbc
+```
+
+### Rebase until first (root) commit
+
+`git rebase -i --root`
 
 
 ## Misc
