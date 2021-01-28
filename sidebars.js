@@ -15,6 +15,7 @@ module.exports = {
     'misc/macos',
     'misc/prettier',
     'misc/hosts',
+    'misc/javascript',
   ],
   logSidebar: [
     'log/talks',
