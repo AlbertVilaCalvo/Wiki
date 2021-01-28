@@ -19,6 +19,7 @@ module.exports = {
   logSidebar: [
     'log/talks',
     'log/articles',
+    'log/courses',
     'log/pelis',
   ],
   docsSidebar: {
