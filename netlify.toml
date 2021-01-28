@@ -1,11 +1,16 @@
-# https://docs.netlify.com/configure-builds/file-based-configuration/
+# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+
 [build]
   command = "yarn build"
   publish = "build"
 
+
+# Redirects
 # https://docs.netlify.com/routing/redirects/#syntax-for-the-netlify-configuration-file
 # https://docs.netlify.com/routing/redirects/redirect-options/
 # https://docs.netlify.com/configure-builds/file-based-configuration/#redirects
+
 [[redirects]]
   from = "https://vila.wiki/*"
   to = "https://albert.wiki/:splat"
