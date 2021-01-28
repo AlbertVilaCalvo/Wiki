@@ -10,12 +10,16 @@ module.exports = {
     'cli/android',
     'cli/gradle',
   ],
+  devSidebar: [
+    'dev/javascript',
+    'dev/react',
+    'dev/react-native',
+    'dev/prettier',
+  ],
   miscSidebar: [
     'misc/battery',
     'misc/macos',
-    'misc/prettier',
     'misc/hosts',
-    'misc/javascript',
   ],
   logSidebar: [
     'log/talks',

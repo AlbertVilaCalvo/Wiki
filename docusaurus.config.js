@@ -24,6 +24,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'dev/javascript',
+          activeBasePath: 'dev',
+          label: 'Dev',
+          position: 'left',
+        },
+        {
           to: 'misc/battery',
           activeBasePath: 'misc',
           label: 'Misc',
