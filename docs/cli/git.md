@@ -63,6 +63,11 @@ git merge upstream/master
 git push origin master
 ```
 
+## Rebase till the first (root) commit
+
+`git rebase -i --root``
+
+
 ## Misc
 
 ### Remove untracked files
@@ -125,3 +130,4 @@ If you see `^M` run `sed -i.bak $'s/\r//' filename` (with backup) or `sed -i '' 
 
 If you are in master: `git branch -M main`
 
+Set the default branch name for new repositories: `git config --global init.defaultBranch <name>`
