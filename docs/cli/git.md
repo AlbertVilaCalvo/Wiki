@@ -69,15 +69,18 @@ https://git-scm.com/docs/git-rebase
 
 ```
 git rebase -i <commit you want to amend>^
+// or
+grbi <commit you want to amend>^
 ```
-**e** - modify commit
+**r reword** - amend commit message
 ```
 gc!
 grbc
-````
-**r** - amend commit message
 ```
-ga some/file.txt
+**e edit** - modify commit
+```
+// edit file(s)
+gaa // or ga some/file.txt
 gc!
 grbc
 ```
