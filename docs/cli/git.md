@@ -3,19 +3,24 @@ title: Git
 ---
 
 ## Undo last commit
-```
-git reset --soft HEAD^   # keeps changes
-git reset --hard HEAD^   # discards changes
+
+If not pushed yet
+```shell
+# keep changes
+git reset --soft HEAD^
+
+# discard changes
+git reset --hard HEAD^
 ```
 [source](https://stackoverflow.com/a/6376039/4034572)
 
-### Undo a public commit
+On a public commit
 ```
 git revert HEAD
 ```
 
 ## Merge changes from remote master branch to a feature branch without switching to master
-```
+```shell
 git checkout some-branch
 git fetch origin # gets you up to date with origin by getting all commits on all branches, but named 'origin/branch'
 git merge origin/master # brings all commits in 'origin/master' to whatever branch we are; we could use --ff-only
@@ -80,7 +85,7 @@ grbc
 **e edit** - modify commit
 ```
 // edit file(s)
-gaa // or ga some/file.txt
+gaa (or) ga some/file.txt
 gc!
 grbc
 ```
