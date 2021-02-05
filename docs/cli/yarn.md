@@ -6,7 +6,7 @@ CLI docs: https://classic.yarnpkg.com/en/docs/cli/
 
 Tip: `yarn run` lists all the executable commands/scripts.
 
-To upgrade yarn itself use Homebrew.
+To upgrade yarn itself use npm.
 
 Know which version of a package you are using:
 
