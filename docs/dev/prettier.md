@@ -10,9 +10,12 @@ https://prettier.io/docs/en/install.html
 
 ```
 npm install --save-dev --save-exact prettier
+// or
 yarn add --dev --exact prettier
 
 echo {}> .prettierrc.json
+// or
+echo '{\n  "semi": false,\n  "singleQuote": true\n}' >> .prettierrc.json
 
 touch .prettierignore
 ```
