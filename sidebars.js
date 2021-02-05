@@ -23,6 +23,7 @@ module.exports = {
     'misc/battery',
     'misc/macos',
     'misc/hosts',
+    'misc/markdown',
   ],
   logSidebar: [
     'log/talks',
