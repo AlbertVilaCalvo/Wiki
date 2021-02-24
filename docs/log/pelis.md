@@ -4,6 +4,14 @@ title: Pelis
 
 ## 2021
 
+The Kid (Chaplin) (restaurada 4K 100 aniversari) [FA](https://www.filmaffinity.com/es/film344683.html)
+
+Nuestros mejores años / Gli anni più belli [FA](https://www.filmaffinity.com/es/film411682.html)
+
+Perfumes [FA](https://www.filmaffinity.com/es/film732508.html)
+
+Martin Eden [FA](https://www.filmaffinity.com/es/film656062.html)
+
 El Padre [FA](https://www.filmaffinity.com/es/film701512.html)
 
 Madame Curie [FA](https://www.filmaffinity.com/es/film218688.html)
@@ -48,7 +56,7 @@ Knives Out [FA](https://www.filmaffinity.com/es/film599723.html)
 
 The favorite [FA](https://www.filmaffinity.com/es/film625500.html)
 
- Star Wars: El ascenso de Skywalker [FA](https://www.filmaffinity.com/es/film738787.html)
+Star Wars: El ascenso de Skywalker [FA](https://www.filmaffinity.com/es/film738787.html)
 
 ## 2019
 
