@@ -18,6 +18,10 @@ console.log(...)
 console.groupEnd()
 ```
 
+## `delete` operator
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
+
 
 ## Object.assign
 
@@ -30,6 +34,22 @@ Eg to toggle 'complete' of an object in a Redux reducer without modifying it:
 `Object.assign({}, todo, {complete: !todo.complete})`
 
 This creates a new object {}, merges all the properties of the 'todo' object into this new object, and then overrides the 'complete' property. The original 'todo' object is not modified, so the reducer is pure.
+
+
+## Array
+
+### Delete an item with `items.splice(index, 1)`
+
+We need the index of the item. If we have the item, use `indexOf`: `items.splice(items.indexOf(item), 1)`.
+
+Otherwise use `findIndex` to find the index:
+
+```
+const index = items.findIndex((item) => item.id === id)
+if (index !== -1) {
+  items.splice(index, 1)
+}
+```
 
 
 ## Promise
