@@ -31,6 +31,7 @@ module.exports = {
     'log/courses',
     'log/pelis',
     'log/videos',
+    'log/cuina',
   ],
   docsSidebar: {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
