@@ -41,3 +41,16 @@ https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-co
 
 Languages YAML file: https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 
+## Hidden content with `details`
+
+```xml
+<details>
+  <summary>Visible part</summary>
+  This will be hidden until the user clicks the triangle
+</details>
+```
+
+<details>
+  <summary>Visible part</summary>
+  This will be hidden until the user clicks the triangle
+</details>
