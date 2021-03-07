@@ -4,11 +4,13 @@ title: Prettier
 
 https://prettier.io
 
+https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style/Formatting_JS_Code_With_Prettier_and_eslint
+
 ## Install
 
 https://prettier.io/docs/en/install.html
 
-```
+```shell
 npm install --save-dev --save-exact prettier
 // or
 yarn add --dev --exact prettier
@@ -20,13 +22,21 @@ echo '{\n  "semi": false,\n  "singleQuote": true\n}' >> .prettierrc.json
 touch .prettierignore
 ```
 
+> Note: If you forget to install Prettier first, npx will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your package.json. And it’s faster, too.
+
 > Tip! Base your .prettierignore on .gitignore and .eslintignore.
 
 Note that it ignores files located in `node_modules` directory - [docs](https://prettier.io/docs/en/cli.html#--with-node-modules)
 
+
+## Commands
+
+https://prettier.io/docs/en/cli.html
+
 Run: `npx prettier --write .`
 
 Check: `npx prettier --check .`
+
 
 ## Options
 
