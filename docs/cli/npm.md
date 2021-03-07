@@ -20,6 +20,13 @@ Install to devDependencies: `npm install webpack --save-dev`
 `npx` command runs a binary in ./node_modules/.bin/
 
 
+## Init
+
+https://docs.npmjs.com/cli/v7/commands/npm-init
+
+Init without questions: `npm init -y`
+
+
 ## Dependency version
 
 https://docs.npmjs.com/cli/v6/configuring-npm/package-json#dependencies

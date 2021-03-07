@@ -2,6 +2,10 @@
 title: Yarn
 ---
 
+:::important
+Si la versió que em surt fent `yarn -v` és la 1.21.1 enlloc de 1.22.10 fer `npm install --global yarn`.
+:::
+
 CLI docs: https://classic.yarnpkg.com/en/docs/cli/
 
 Tip: `yarn run` lists all the executable commands/scripts.
@@ -17,6 +21,8 @@ Upgrade all packages to latest:
 `yarn upgrade --latest`
 
 Install to devDependencies: `yarn add webpack --dev`
+
+Check **outdated** dependencies: `yarn outdated`
 
 ## Global
 
