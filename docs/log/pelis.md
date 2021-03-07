@@ -4,6 +4,10 @@ title: Pelis
 
 ## 2021
 
+El profesor de persa [FA](https://www.filmaffinity.com/es/film603499.html)
+
+Josep [FA](https://www.filmaffinity.com/es/film912441.html)
+
 The Kid (Chaplin) (restaurada 4K 100 aniversari) [FA](https://www.filmaffinity.com/es/film344683.html)
 
 Nuestros mejores años / Gli anni più belli [FA](https://www.filmaffinity.com/es/film411682.html)

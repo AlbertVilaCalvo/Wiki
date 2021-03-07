@@ -4,9 +4,15 @@ title: Courses
 
 ## 2021
 
-2020/01 - https://ui.dev/react-hooks
+2021/03 - https://ui.dev/react-typescript
 
-2020/01 - https://ui.dev/react
+2021/03 - https://ui.dev/typescript
+
+2021/02 - https://ui.dev/react-router-v5
+
+2021/01 - https://ui.dev/react-hooks
+
+2021/01 - https://ui.dev/react
 
 ## 2020
 
