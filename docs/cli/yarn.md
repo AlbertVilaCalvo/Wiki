@@ -20,7 +20,7 @@ Upgrade all packages to latest:
 
 `yarn upgrade --latest`
 
-Install to devDependencies: `yarn add webpack --dev`
+Install to devDependencies: `yarn add --dev webpack` or `yarn add -D webpack`
 
 Check **outdated** dependencies: `yarn outdated`
 

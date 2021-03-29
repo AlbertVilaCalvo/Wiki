@@ -6,6 +6,8 @@ https://docs.brew.sh/FAQ
 
 https://docs.brew.sh/Manpage
 
+Upgrade:
+
 ```
 brew update --debug --verbose
 brew outdated
@@ -14,6 +16,10 @@ brew cleanup
 ```
 
 Stop certain formulae from being updated: `brew pin <formula>`. To allow that formulae to update again do: `brew unpin <formula>`.
+
+Install: `brew install git`
+
+Uninstall: `brew uninstall git`
 
 
 ## Cask
@@ -27,7 +33,7 @@ brew outdated --cask
 brew upgrade --cask
 ```
 
-## yarn
+## yarn issues
 
 :::important
 
