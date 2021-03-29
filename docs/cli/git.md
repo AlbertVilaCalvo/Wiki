@@ -95,6 +95,22 @@ grbc
 `git rebase -i --root`
 
 
+## Amend
+
+https://git-scm.com/docs/git-commit
+
+`-a`/`--all`: Automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected
+
+`--no-edit`: Use the selected commit message without launching an editor. For example, git commit --amend --no-edit amends a commit without changing its commit message.
+
+```
+'gc!'='git commit -v --amend'
+'gcn!'='git commit -v --no-edit --amend'
+
+'gca!'='git commit -v -a --amend'
+'gcan!'='git commit -v -a --no-edit --amend'
+```
+
 ## Misc
 
 ### Remove untracked files
