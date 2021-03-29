@@ -36,6 +36,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'html/misc',
+          activeBasePath: 'html',
+          label: 'HTML',
+          position: 'left',
+        },
+        {
           to: 'misc/battery',
           activeBasePath: 'misc',
           label: 'Misc',

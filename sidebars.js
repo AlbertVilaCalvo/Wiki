@@ -22,6 +22,11 @@ module.exports = {
     'css/flexbox',
     'css/misc',
   ],
+  html: [
+    'html/misc',
+    'html/elements',
+    'html/dom-api',
+  ],
   misc: [
     'misc/battery',
     'misc/macos',
