@@ -42,6 +42,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'disseny/color',
+          activeBasePath: 'disseny',
+          label: 'Disseny',
+          position: 'left',
+        },
+        {
           to: 'docs/doc1',
           activeBasePath: 'docs',
           label: 'Docs',

@@ -26,6 +26,10 @@ module.exports = {
     'misc/hosts',
     'misc/markdown',
   ],
+  dissenySidebar: [
+    'disseny/color',
+    'disseny/tipografia',
+  ],
   logSidebar: [
     'log/talks',
     'log/articles',
