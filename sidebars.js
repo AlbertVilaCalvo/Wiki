@@ -19,6 +19,8 @@ module.exports = {
   ],
   css: [
     'css/reset',
+    'css/flexbox',
+    'css/misc',
   ],
   misc: [
     'misc/battery',
