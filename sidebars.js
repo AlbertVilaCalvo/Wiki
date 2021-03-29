@@ -15,6 +15,7 @@ module.exports = {
     'dev/react',
     'dev/react-native',
     'dev/prettier',
+    'dev/jetbrains',
   ],
   cssSidebar: [
     'css/reset',
