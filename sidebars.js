@@ -1,6 +1,6 @@
 // https://v2.docusaurus.io/docs/sidebar
 module.exports = {
-  cliSidebar: [
+  cli: [
     'cli/git',
     'cli/commands',
     'cli/brew',
@@ -10,27 +10,27 @@ module.exports = {
     'cli/android',
     'cli/gradle',
   ],
-  devSidebar: [
+  dev: [
     'dev/javascript',
     'dev/react',
     'dev/react-native',
     'dev/prettier',
     'dev/jetbrains',
   ],
-  cssSidebar: [
+  css: [
     'css/reset',
   ],
-  miscSidebar: [
+  misc: [
     'misc/battery',
     'misc/macos',
     'misc/hosts',
     'misc/markdown',
   ],
-  dissenySidebar: [
+  disseny: [
     'disseny/color',
     'disseny/tipografia',
   ],
-  logSidebar: [
+  log: [
     'log/talks',
     'log/articles',
     'log/courses',
@@ -38,7 +38,7 @@ module.exports = {
     'log/videos',
     'log/cuina',
   ],
-  docsSidebar: {
+  docs: {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
     Features: ['docs/mdx'],
   },
