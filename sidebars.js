@@ -41,9 +41,6 @@ module.exports = {
     'log/talks',
     'log/articles',
     'log/courses',
-    'log/pelis',
-    'log/videos',
-    'log/cuina',
   ],
   docs: {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
