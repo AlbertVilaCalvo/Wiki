@@ -45,5 +45,10 @@ module.exports = {
   docs: {
     Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
     Features: ['docs/mdx'],
+    'Docusaurus Tutorial': [
+      'docs/create-a-page',
+      'docs/create-a-document',
+      'docs/markdown-features',
+    ]
   },
 };
