@@ -2,6 +2,7 @@
 module.exports = {
   cli: [
     'cli/git',
+    'cli/github-pr',
     'cli/commands',
     'cli/brew',
     'cli/ohmyzsh',
