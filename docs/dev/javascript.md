@@ -7,6 +7,13 @@ https://doesitmutate.xyz
 https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-mutating/
 
 
+## JSDoc
+
+https://jsdoc.app
+
+https://devhints.io/jsdoc
+
+
 ## console.group
 
 https://developer.mozilla.org/en-US/docs/Web/API/Console/group

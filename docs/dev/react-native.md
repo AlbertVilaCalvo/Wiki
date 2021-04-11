@@ -2,6 +2,12 @@
 title: React Native
 ---
 
+
+:::important
+Always open `.xcworkspace` not `.xcodeproj`.
+:::
+
+
 ## CLI
 
 Start Metro bundler: `npx react-native start`

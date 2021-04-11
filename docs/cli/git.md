@@ -103,6 +103,8 @@ https://git-scm.com/docs/git-commit
 
 `--no-edit`: Use the selected commit message without launching an editor. For example, git commit --amend --no-edit amends a commit without changing its commit message.
 
+`alias | grep amend`:
+
 ```
 'gc!'='git commit -v --amend'
 'gcn!'='git commit -v --no-edit --amend'
