@@ -8,6 +8,12 @@ Just a list of talks/podcasts I've watched/listened, in reverse cronological ord
 
 [Sebastian Markbage: Minimal API Surface Area | JSConf EU 2014](https://www.youtube.com/watch?v=4anAwXYqLG8)
 
+[TC39: How we work, what we are working on, and how you can get involved (dotJS 2019)](https://www.youtube.com/watch?v=iFZf_3NXSE4)
+
+[Reanimated 2 By Krzysztof Magiera ](https://swmansion.com/academy/webinars/krzysztof-magiera-reanimated-2/) ([YouTube](https://www.youtube.com/watch?v=IdVnnIkNzGA))
+
+[React Native Radio 164: Another Look at React Native at Shopify with Farhan Thawar](https://castbox.fm/episode/id3370642-id311377616)
+
 ## 2020
 
 [Why you should make useless things | Simone Giertz](https://www.youtube.com/watch?v=c0bsKc4tiuY)

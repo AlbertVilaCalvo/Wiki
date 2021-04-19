@@ -25,6 +25,8 @@ Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
 
 ## youtube-dl
 
+https://github.com/ytdl-org/youtube-dl/
+
 `youtube-dl --write-description --write-auto-sub --sub-lang es URL`
 
 List subtitles: `youtube-dl --list-subs URL`
