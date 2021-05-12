@@ -8,6 +8,8 @@ Just a list of talks/podcasts I've watched/listened, in reverse cronological ord
 
 [Sebastian Markbage: Minimal API Surface Area | JSConf EU 2014](https://www.youtube.com/watch?v=4anAwXYqLG8)
 
+[Cheng Lou - On the Spectrum of Abstraction at react-europe 2016](https://www.youtube.com/watch?v=mVVNJKv9esE)
+
 [TC39: How we work, what we are working on, and how you can get involved (dotJS 2019)](https://www.youtube.com/watch?v=iFZf_3NXSE4)
 
 [Reanimated 2 By Krzysztof Magiera ](https://swmansion.com/academy/webinars/krzysztof-magiera-reanimated-2/) ([YouTube](https://www.youtube.com/watch?v=IdVnnIkNzGA))

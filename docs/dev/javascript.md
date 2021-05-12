@@ -6,6 +6,8 @@ https://doesitmutate.xyz
 
 https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-mutating/
 
+`npx code-complexity . --limit 20 --sort ratio` - https://www.kevinpeters.net/the-fastest-way-to-understand-new-code-bases
+
 
 ## JSDoc
 
@@ -84,3 +86,8 @@ Promise.all([
   console.log('Posts', posts)
 })
 ```
+
+
+# Regex
+
+Name capture groups: https://twitter.com/addyosmani/status/1386031624232456194

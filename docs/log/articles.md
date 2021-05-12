@@ -2,6 +2,12 @@
 title: Articles
 ---
 
+# 2021
+
+Integration verbosity and good layering
+https://jakewharton.com/integration-verbosity-and-good-layering/
+
+
 ## 2020
 
 Fighting impostor syndrome in four easy steps

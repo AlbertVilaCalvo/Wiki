@@ -12,6 +12,8 @@ Always open `.xcworkspace` not `.xcodeproj`.
 
 Start Metro bundler: `npx react-native start`
 
+Reset cache: `npx react-native start --reset-cache`
+
 Run instructions for iOS: `npx react-native run-ios` or open ios/YourAppName.xcworkspace in Xcode (or run "xed -b ios") and then hit the run button.
 
 Run instructions for Android: `npx react-native run-android`. You may have an Android emulator running or a device connected.

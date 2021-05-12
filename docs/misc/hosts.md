@@ -8,6 +8,7 @@ https://github.com/StevenBlack/hosts
 
 ```
 cd ~/Informàtica/hosts
+gco -- .
 ggpull
 python3 updateHostsFile.py [--backup]
 ```

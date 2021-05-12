@@ -19,6 +19,8 @@ Install to devDependencies: `npm install webpack --save-dev`
 
 `npx` command runs a binary in ./node_modules/.bin/
 
+`npm ci` -> when you want to make sure you're doing a clean install of your dependencies [docs](https://docs.npmjs.com/cli/v7/commands/npm-ci)
+
 
 ## Init
 
