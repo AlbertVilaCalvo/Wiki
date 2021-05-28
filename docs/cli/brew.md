@@ -27,7 +27,8 @@ Uninstall: `brew uninstall git`
 List of commands: https://github.com/Homebrew/homebrew-cask/blob/master/USAGE.md
 
 ```
-brew cask install <package>
+brew install <package>
+brew uninstall <package>
 brew list --cask
 brew outdated --cask
 brew upgrade --cask

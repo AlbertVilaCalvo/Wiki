@@ -88,6 +88,18 @@ Promise.all([
 ```
 
 
-# Regex
+## Date format
+
+https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+
+[Date.prototype.toLocaleDateString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString)
+
+```
+new Date(search.date).toLocaleDateString() -> 5/27/2021
+new Date(search.date).toLocaleDateString('es-ES') -> 27/5/2021
+```
+
+
+## Regex
 
 Name capture groups: https://twitter.com/addyosmani/status/1386031624232456194

@@ -115,6 +115,19 @@ https://git-scm.com/docs/git-commit
 
 ## Misc
 
+### Reset local branch like remote branch
+
+```
+git reset --hard @{u}
+```
+or
+```
+git fetch origin
+git reset --hard origin/mybranch
+```
+
+[source](https://stackoverflow.com/q/1628088/4034572)
+
 ### Remove untracked files
 ```
 git clean -f -d
