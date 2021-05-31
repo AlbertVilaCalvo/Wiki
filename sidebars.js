@@ -1,4 +1,4 @@
-// https://v2.docusaurus.io/docs/sidebar
+// https://docusaurus.io/docs/sidebar
 module.exports = {
   cli: [
     'cli/git',

@@ -47,6 +47,27 @@ This creates a new object {}, merges all the properties of the 'todo' object int
 
 ## Array
 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+### Get first N elements
+
+`items.slice(0, MAX_COUNT)`
+
+### Sort (eg by date)
+
+```
+export interface Item {
+    date: number; // time in millis, eg 1622451442822
+}
+
+function sortByDate(a: Item, b: Item): number {
+    return a.date - b.date // oldest first
+    return b.date - a.date // newest first
+}
+
+items.sort(sortByDate)
+```
+
 ### Delete an item with `items.splice(index, 1)`
 
 We need the index of the item. If we have the item, use `indexOf`: `items.splice(items.indexOf(item), 1)`.
@@ -86,6 +107,15 @@ Promise.all([
   console.log('Posts', posts)
 })
 ```
+
+
+## String
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[startsWith()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith)
+
+[endsWith()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith)
 
 
 ## Date format

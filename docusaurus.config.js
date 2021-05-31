@@ -131,7 +131,7 @@ module.exports = {
       {
         docs: {
           // Change routes from '/docs/cli/git' to '/cli/git'.
-          // See Docs-only mode https://v2.docusaurus.io/docs/docs-introduction#docs-only-mode
+          // See Docs-only mode https://docusaurus.io/docs/docs-introduction#docs-only-mode
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
