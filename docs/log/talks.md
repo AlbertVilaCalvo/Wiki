@@ -2,11 +2,13 @@
 title: Talks
 ---
 
-Just a list of talks/podcasts I've watched/listened, in reverse cronological order. (If I don't write them down I forget.) Note that this is a very small fraction of them since I started to write them recently (2021).
+Just a list of some of the talks/podcasts I've watched/listened, in reverse cronological order. (If I don't write them down I forget.) Note that this is a very small fraction of them since I started to write them recently (2021) and I forget to add them.
 
 ## 2021
 
 [Sebastian Markbage: Minimal API Surface Area | JSConf EU 2014](https://www.youtube.com/watch?v=4anAwXYqLG8)
+
+[React Native Radio 172: React Native Ultimate Guide with Mike Grabowski](https://castbox.fm/episode/id3370642-id311377635)
 
 [Cheng Lou - On the Spectrum of Abstraction at react-europe 2016](https://www.youtube.com/watch?v=mVVNJKv9esE)
 
@@ -15,6 +17,8 @@ Just a list of talks/podcasts I've watched/listened, in reverse cronological ord
 [Reanimated 2 By Krzysztof Magiera ](https://swmansion.com/academy/webinars/krzysztof-magiera-reanimated-2/) ([YouTube](https://www.youtube.com/watch?v=IdVnnIkNzGA))
 
 [React Native Radio 164: Another Look at React Native at Shopify with Farhan Thawar](https://castbox.fm/episode/id3370642-id311377616)
+
+[JAMStack Content Management with Scott Gallant, Jordan Patterson, and Nolan Phillips](https://softwareengineeringdaily.com/2020/04/30/jamstack-content-management-with-scott-gallant-jordan-patterson-and-nolan-phillips/)
 
 ## 2020
 

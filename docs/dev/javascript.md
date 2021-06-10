@@ -118,7 +118,12 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 [endsWith()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith)
 
 
-## Date format
+## Dates
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
+
+
+### Date format
 
 https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
 

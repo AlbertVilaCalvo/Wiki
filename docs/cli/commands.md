@@ -32,3 +32,5 @@ https://github.com/ytdl-org/youtube-dl/
 List subtitles: `youtube-dl --list-subs URL`
 
 Use `--skip-download` if you want to get the subtitles or description only.
+
+Quality: `-f 'bestvideo[height<=480]+bestaudio'`

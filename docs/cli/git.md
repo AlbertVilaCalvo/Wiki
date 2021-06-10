@@ -113,6 +113,11 @@ https://git-scm.com/docs/git-commit
 'gcan!'='git commit -v -a --no-edit --amend'
 ```
 
+### Amend undo
+
+https://stackoverflow.com/questions/1459150/how-to-undo-git-commit-amend-done-instead-of-git-commit
+
+
 ## Misc
 
 ### Reset local branch like remote branch
