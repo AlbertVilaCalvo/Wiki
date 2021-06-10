@@ -19,6 +19,7 @@ module.exports = {
     'dev/react-native',
     'dev/prettier',
     'dev/jetbrains',
+    'dev/android',
   ],
   css: [
     'css/reset',
