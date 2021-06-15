@@ -118,6 +118,23 @@ https://git-scm.com/docs/git-commit
 https://stackoverflow.com/questions/1459150/how-to-undo-git-commit-amend-done-instead-of-git-commit
 
 
+### Fix conflict 'both added'
+
+https://stackoverflow.com/questions/9823692/resolving-a-both-added-merge-conflict-in-git
+
+Estic a una branca i faig merge de `dev` a la meva branca. Si vull lo de `dev` faig:
+```
+git checkout --theirs <filename>
+git add <filename>
+```
+I si vull lo de la meva branca:
+```
+git checkout --ours <filename>
+git add <filename>
+```
+Nota: pel <filename> es pot fer servir `*` per seleccionar varis fitxers alhora, i també pot ser una carpeta.
+
+
 ## Misc
 
 ### Reset local branch like remote branch
