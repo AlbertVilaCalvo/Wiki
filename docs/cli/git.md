@@ -132,7 +132,7 @@ I si vull lo de la meva branca:
 git checkout --ours <filename>
 git add <filename>
 ```
-Nota: pel <filename> es pot fer servir `*` per seleccionar varis fitxers alhora, i també pot ser una carpeta.
+Nota: pel `<filename>` es pot fer servir `*` per seleccionar varis fitxers alhora, i també pot ser una carpeta.
 
 
 ## Misc
