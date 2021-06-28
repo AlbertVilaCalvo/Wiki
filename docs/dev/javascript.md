@@ -8,6 +8,8 @@ https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-muta
 
 `npx code-complexity . --limit 20 --sort ratio` - https://www.kevinpeters.net/the-fastest-way-to-understand-new-code-bases
 
+In JavaScript `typeof null` is "object".
+
 
 ## JSDoc
 

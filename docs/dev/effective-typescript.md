@@ -2,6 +2,9 @@
 title: Effective TypeScript
 ---
 
+
+## 1 - Getting to know TypeScript
+
 ### 1 - Relationship between JS and TS
 
 - Some errors only happen if you explicitly add type annotations.
@@ -43,3 +46,53 @@ title: Effective TypeScript
 - `any` masks bugs when refactoring.
 - `any` hides the type design. Better write it so that it is explicit.
 - TypeScript with lots of `any` can be harder than regular JavaScript because you have to fix the type errors _and_ still keep track of types in your head.
+
+
+## 2 - Type system
+
+### 6 - Editor
+
+- There are 2 executables: `tsc` and `tsserver`. The server provides language services (autocomplete, inspection, navigation, refactoring...).
+- In JavaScript `typeof null` is "object".
+
+### 7 - Types are best thought as sets of values
+
+- `keyof (A&B) = (keyof A) | (keyof B)`
+- `keyof (A|B) = (keyof A) & (keyof B)`
+- ℹ️ Important: an object can still belong to a type even if it has additional properties that were not mentioned in the type declaration.
+
+### 8 - Symbols in value space or type space
+
+- 💡 One of the best ways to see if something is on the type or value space is with the playground: https://www.typescriptlang.org/play. Symbols that disappear on JS are on the types space.
+- 'abc' can be a string literal or a string literal type.
+- Something after a `:` or `as` is in the type space. Everything after an `=` is in the value space.
+- ⚡️ `class` and `enum` introduce both a type and a value.
+- The TypeScript type introduced by a class is based on its shape (properties and methods) while the value is the constructor (a function).
+- `typeof` means different things in a type or value context:
+```
+interface User {
+  name: string
+  age: number
+}
+function canDrive(user: User): boolean {
+  return user.age > 18
+}
+const user = {name: 'Ot', age: 22}
+
+type T = typeof user //  Type is { name: string; age: number; }
+const v = typeof user // Value is "object" (the JavaScript runtime type)
+
+type T2 = typeof canDrive // Value is (user: User) => boolean
+const v2 = typeof canDrive // Value is "function" (the JavaScript runtime type)
+```
+- `typeof` always operates on values, you can't apply it to types.
+- Since `class` introduces both a type and a value, `typeof` a class depends on the context:
+```
+class Person {
+  name: string;
+}
+type T3 = typeof Person; // Type is typeof Person
+const v3 = typeof Person; // Value is "function", the constructor function
+```
+- Use `InstanceType` to 'construct a type consisting of the instance type of a constructor function' ([docs](https://www.typescriptlang.org/docs/handbook/utility-types.html#instancetypetype)).
+- `obj['field']` and `obj.field` are equivalent in value space, but you must use `obj['field']` to get the type of a type's property.
