@@ -2,6 +2,11 @@
 title: JetBrains
 ---
 
+:::important
+Improving IDE performance - https://blog.jetbrains.com/kotlin/2021/06/simple-steps-for-improving-your-ide-performance
+
+Des-habilitar plugins que no faig servir!
+:::
 
 ## WebStorm
 

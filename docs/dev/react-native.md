@@ -39,3 +39,13 @@ Launch Android emulator: `${ANDROID_HOME}/emulator/emulator -avd Galaxy_Nexus_AP
   - Run `adb shell input keyevent 82` or `adb shell input keyevent KEYCODE_MENU`
 - iOS
   - Press Cmd + D, or shake your device (Cmd + Ctrl + Z).
+
+## ScrollView issues
+
+### Avoid dismiss keyboard on touch
+
+Fix it with `<ScrollView keyboardShouldPersistTaps='never'>`. See [issue #28871](https://github.com/facebook/react-native/issues/28871) (Touchable/Button in Modal dismisses keyboard on Touch if Modal's parent is a ScrollView without keyboardShouldPersistTaps).
+
+### Have to click 2 times on a button for the click event to work
+
+Fix it with `<ScrollView keyboardShouldPersistTaps='never'>`. See [issue #4087](https://github.com/facebook/react-native/issues/4087) (Need to tap twice in order to tap on TouchableHighlight when it is within a ScrollView or ListView).

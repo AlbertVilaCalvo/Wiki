@@ -55,6 +55,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 `items.slice(0, MAX_COUNT)`
 
+Does not mutate. [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+
 ### Sort (eg by date)
 
 ```
