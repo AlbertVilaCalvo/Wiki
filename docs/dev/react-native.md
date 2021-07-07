@@ -44,7 +44,7 @@ Launch Android emulator: `${ANDROID_HOME}/emulator/emulator -avd Galaxy_Nexus_AP
 
 ### Avoid dismiss keyboard on touch
 
-Fix it with `<ScrollView keyboardShouldPersistTaps='never'>`. See [issue #28871](https://github.com/facebook/react-native/issues/28871) (Touchable/Button in Modal dismisses keyboard on Touch if Modal's parent is a ScrollView without keyboardShouldPersistTaps).
+Fix it with `<ScrollView keyboardShouldPersistTaps='handled'>`. See [issue #28871](https://github.com/facebook/react-native/issues/28871) (Touchable/Button in Modal dismisses keyboard on Touch if Modal's parent is a ScrollView without keyboardShouldPersistTaps).
 
 ### Have to click 2 times on a button for the click event to work
 

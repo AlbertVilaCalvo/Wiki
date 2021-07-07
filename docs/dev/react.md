@@ -18,6 +18,21 @@ https://create-react-app.dev/docs/advanced-configuration
 Prevent automatically open browser on 'yarn start': `"start": "BROWSER=none react-scripts start"`
 
 
+## Imports
+
+Correct:
+
+```
+import { useState } from 'react'
+import * as React from 'react'
+```
+
+Not correct: `import React from 'react'`
+
+See https://twitter.com/dan_abramov/status/1308739731551858689
+
+Also, the new JSX transform: https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+
 
 # Inputs
 
