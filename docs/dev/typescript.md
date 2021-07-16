@@ -84,3 +84,5 @@ import * as React from 'react';
 type WithChildren<T> = T & {children: React.ReactNode};
 ```
 [source](https://fettblog.eu/typescript-react-component-patterns/)
+
+[It's already defined on the definitions!](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/24f1d0c82da2d898acd03fbb3e692eba3c431f82/types/react/index.d.ts#L773)

@@ -49,3 +49,34 @@ Fix it with `<ScrollView keyboardShouldPersistTaps='handled'>`. See [issue #2887
 ### Have to click 2 times on a button for the click event to work
 
 Fix it with `<ScrollView keyboardShouldPersistTaps='never'>`. See [issue #4087](https://github.com/facebook/react-native/issues/4087) (Need to tap twice in order to tap on TouchableHighlight when it is within a ScrollView or ListView).
+
+
+## Debug symbols on Android
+
+Docs: https://developer.android.com/studio/build/shrink-code#native-crash-support
+
+If you see this message after uploading an aab at Google Play:
+
+> This App Bundle contains native code, and you've not uploaded debug symbols. We recommend you upload a symbol file to make your crashes and ANRs easier to analyze and debug.
+
+Add this to android/app/build.gradle:
+
+```
+buildTypes {
+    debug {
+    }
+    release {
+        ndk {
+            debugSymbolLevel 'SYMBOL_TABLE'
+        }
+    }
+}
+```
+
+This requires having the NDK installed (otherwise `:app:extractReleaseNativeSymbolTables` fails with error 'NDK is not installed'). Also, add `ndk.dir=/Users/myusername/Library/Android/sdk/ndk/22.1.7171670` to the `local.properties` file so that it can be found - [source](https://stackoverflow.com/questions/29122903/ndk-is-not-configured-issue-in-android-studio#comment118085044_60682236).
+
+Symbol files are automatically added to app bundles, but not to apk - [see docs](https://developer.android.com/studio/build/shrink-code#native-crash-support).
+
+Useful links:
+- https://stackoverflow.com/questions/63394726/how-to-publish-native-code-symbols-to-google-play-console
+- https://stackoverflow.com/questions/62568757/playstore-error-app-bundle-contains-native-code-and-youve-not-uploaded-debug

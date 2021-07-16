@@ -20,9 +20,9 @@ Play App Signing utilitza 2 keys: el 'app signing key' i el 'upload key'.
 
 La signing key es pot generar de varies maneres:
 
-1) La genera Google al seu servidor. Nunca se puede perder. Esta es la opción recomendada ahora. Si quieres firmar siempre tienes que pasar por Google Play y luego descargar el apk firmado o usar internal app sharing (un enlace) o beta (Google Play).
-2) La generamos nosotros y la subimos. En este caso la key la podemos guardar (así podemos firmar en local) o no (puesto que Google ya la tiene). Tampoco se puede perder.
-3) La generamos nosotros y no se sube; se firma en local y se sube el apk firmado. Esta opción va a desaparecer puesto que el nuevo formato app bundle requiere que Google tenga la key para generar apk optimizados (por ejemplo solo con la traducción al idioma del dispositivo). Hay el riesgo de que se pierda la key.
+1. La genera Google al seu servidor. Nunca se puede perder. Esta es la opción recomendada ahora. Si quieres firmar siempre tienes que pasar por Google Play y luego descargar el apk firmado o usar internal app sharing (un enlace) o beta (Google Play).
+2. La generamos nosotros y la subimos. En este caso la key la podemos guardar (así podemos firmar en local) o no (puesto que Google ya la tiene). Tampoco se puede perder.
+3. La generamos nosotros y no se sube; se firma en local y se sube el apk firmado. Esta opción va a desaparecer puesto que el nuevo formato app bundle requiere que Google tenga la key para generar apk optimizados (por ejemplo solo con la traducción al idioma del dispositivo). Hay el riesgo de que se pierda la key.
 
 En los casos 1 y 2 (Play App Signing) hay el upload key que se puede re-generar cuando quieras, de tal modo que nadie puede subir un apk sin el upload key, pero que si lo pierdes puedes contactar a Google y te generan otro
 
