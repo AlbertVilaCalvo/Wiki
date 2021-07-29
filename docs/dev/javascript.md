@@ -131,7 +131,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
 
-[Date.prototype.toLocaleDateString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString)
+[Date.prototype.toLocaleDateString() at MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString)
+
+`toLocaleString` options: https://www.jsman.net/manual/Standard-Global-Objects/Date/toLocaleString
 
 ```
 new Date(search.date).toLocaleDateString() -> 5/27/2021

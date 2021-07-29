@@ -19,6 +19,8 @@ On a public commit
 git revert HEAD
 ```
 
+Also see: [git undo: We can do better](https://blog.waleedkhan.name/git-undo/)
+
 ## Merge changes from remote master branch to a feature branch without switching to master
 ```shell
 git checkout some-branch
@@ -211,3 +213,9 @@ If you see `^M` run `sed -i.bak $'s/\r//' filename` (with backup) or `sed -i '' 
 If you are in master: `git branch -M main`
 
 Set the default branch name for new repositories: `git config --global init.defaultBranch <name>`
+
+### Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
+
+https://news.ycombinator.com/item?id=27643608
+
+https://akrabat.com/ignoring-revisions-with-git-blame/

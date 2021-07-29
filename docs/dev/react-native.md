@@ -40,6 +40,7 @@ Launch Android emulator: `${ANDROID_HOME}/emulator/emulator -avd Galaxy_Nexus_AP
 - iOS
   - Press Cmd + D, or shake your device (Cmd + Ctrl + Z).
 
+
 ## ScrollView issues
 
 ### Avoid dismiss keyboard on touch
@@ -49,6 +50,11 @@ Fix it with `<ScrollView keyboardShouldPersistTaps='handled'>`. See [issue #2887
 ### Have to click 2 times on a button for the click event to work
 
 Fix it with `<ScrollView keyboardShouldPersistTaps='never'>`. See [issue #4087](https://github.com/facebook/react-native/issues/4087) (Need to tap twice in order to tap on TouchableHighlight when it is within a ScrollView or ListView).
+
+
+## FlatList issues
+
+Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. See https://github.com/facebook/react-native/issues/26610#issuecomment-539843444
 
 
 ## Debug symbols on Android

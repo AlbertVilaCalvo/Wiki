@@ -8,6 +8,8 @@ CSS colors: https://www.w3schools.com/cssref/css_colors.asp
 
 CSS Color Module Level 3: https://www.w3.org/TR/css-color-3
 
+Sorted CSS colors: https://enes.in/sorted-colors/
+
 
 ### Convert color with opacity/alpha to color without
 
