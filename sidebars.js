@@ -18,6 +18,7 @@ module.exports = {
     'dev/prettier',
     'dev/jetbrains',
     'dev/android',
+    'dev/ios',
   ],
   css: [
     'css/reset',
