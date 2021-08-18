@@ -20,17 +20,25 @@ Reset cache: `npx react-native start --reset-cache`
 
 ### iOS
 
+[`run-ios` docs](https://github.com/react-native-community/cli/blob/master/docs/commands.md#run-ios)
+
 Run instructions for iOS: `npx react-native run-ios` or open ios/YourAppName.xcworkspace in Xcode (or run "xed -b ios") and then hit the run button.
 
 Run on a specific iOS simulator: `npx react-native run-ios --simulator "iPhone XS Max"`.
 
+Run Release configuration: `npx react-native run-ios --configuration Release` (default configuration is 'Debug').
+
 ### Android
+
+[`run-android` docs](https://github.com/react-native-community/cli/blob/master/docs/commands.md#run-android)
 
 Run instructions for Android: `npx react-native run-android`. You may have an Android emulator running or a device connected.
 
 Run on a specific Android emulator: `npx react-native run-android --deviceId emulator-5554`. You can get the emulator id with `adb devices`.
 
 Launch Android emulator: `${ANDROID_HOME}/emulator/emulator -avd Galaxy_Nexus_API_22_5.1_xhdpi_-_Google_APIs &`. Use `emulator -list-avds` to list the existing emulators.
+
+Run Release variant: `npx react-native run-android --variant=release`
 
 ## Show developer menu
 
