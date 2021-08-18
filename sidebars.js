@@ -16,6 +16,8 @@ module.exports = {
     'dev/react',
     'dev/react-native',
     'dev/prettier',
+    'dev/eslint',
+    'dev/git-hooks',
     'dev/jetbrains',
     'dev/android',
     'dev/ios',
