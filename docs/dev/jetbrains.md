@@ -8,6 +8,14 @@ Improving IDE performance - https://blog.jetbrains.com/kotlin/2021/06/simple-ste
 Des-habilitar plugins que no faig servir!
 :::
 
+
+## IDE Directories
+
+Eliminar versions antigues: Help -> Delete Leftover IDE Directories…
+
+[Directories used by the IDE to store settings, caches, plugins and logs](https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs)
+
+
 ## WebStorm
 
 Guide: https://www.jetbrains.com/webstorm/guide/

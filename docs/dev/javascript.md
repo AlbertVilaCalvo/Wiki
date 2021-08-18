@@ -17,8 +17,12 @@ https://jsdoc.app
 
 https://devhints.io/jsdoc
 
+## console
 
-## console.group
+- Use console.log() like a pro: [Hacker News](https://news.ycombinator.com/item?id=26779800) - [Article](https://markodenic.com/use-console-log-like-a-pro/)
+- Advanced console.log Tips & Tricks: [Hacker News](https://news.ycombinator.com/item?id=27499335) - [Article](https://medium.com/nmc-techblog/advanced-console-log-tips-tricks-fa3762930bca)
+
+### console.group
 
 https://developer.mozilla.org/en-US/docs/Web/API/Console/group
 

@@ -120,7 +120,7 @@ https://git-scm.com/docs/git-commit
 https://stackoverflow.com/questions/1459150/how-to-undo-git-commit-amend-done-instead-of-git-commit
 
 
-### Fix conflict 'both added'
+## Fix conflict 'both added'
 
 https://stackoverflow.com/questions/9823692/resolving-a-both-added-merge-conflict-in-git
 
@@ -161,6 +161,29 @@ git clean -f -d
 ```
 git remote prune origin
 ```
+
+### Ensure merge without merge commit with `--ff-only`
+
+From the [docs](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---ff):
+
+> `--ff` is the default...
+>
+> With `--ff`, when possible resolve the merge as a fast-forward (only update the branch pointer to match the merged branch; do not create a merge commit). When not possible (when the merged-in history is not a descendant of the current history), create a merge commit.
+>
+> With `--ff-only`, resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.
+
+```
+git checkout -b feature-branch
+
+# make some commits
+
+git rebase main
+git checkout main
+git merge --ff-only feature-branch
+```
+[scource](https://stackoverflow.com/a/16358699/4034572)
+
+[--ff-only docs](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---ff-only)
 
 ### See commit differences between two branches
 ```

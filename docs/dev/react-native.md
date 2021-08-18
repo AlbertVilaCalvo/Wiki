@@ -40,6 +40,14 @@ Launch Android emulator: `${ANDROID_HOME}/emulator/emulator -avd Galaxy_Nexus_AP
 - iOS
   - Press Cmd + D, or shake your device (Cmd + Ctrl + Z).
 
+## Check platform
+
+```
+import { Platform } from 'react-native'
+
+export const isAndroid: boolean = Platform.OS === 'android'
+export const isIOS: boolean = Platform.OS === 'ios'
+```
 
 ## ScrollView issues
 
