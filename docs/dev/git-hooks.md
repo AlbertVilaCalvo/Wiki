@@ -23,7 +23,7 @@ cp git-hooks/pre-commit .git/hooks
 
 Every time we update the pre-commit hook we need to run `cp git-hooks/pre-commit .git/hooks`.
 
-Check Prettier and ESLint:
+Example of pre-commit hook that checks Prettier and ESLint. Note that it always commits (never aborts), and it does not modify the files (ie it does not do `prettier write`, just checks).
 
 ```bash
 #!/bin/sh
@@ -36,9 +36,9 @@ FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk
 
 echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --check
 
-echo "\nChecking ESLint..."
+printf "\nChecking ESLint..."
 echo "$FILES" | xargs ./node_modules/.bin/eslint
-echo "ESLint check done.\n"
+printf "ESLint check done.\n"
 
 exit 0
 ```
@@ -47,6 +47,26 @@ exit 0
 ## lint-staged
 
 https://github.com/okonet/lint-staged
+
+`.husky/pre-commit` is always the same:
+
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx lint-staged
+```
+
+Then in `package.json` we specify the commands:
+
+```json
+"lint-staged": {
+  "*.js": "eslint --cache --fix",
+  "*.{js,css,md}": "prettier --write"
+}
+```
+
+We can [run multiple commands](https://github.com/okonet/lint-staged/#running-multiple-commands-in-a-sequence), one after another, using an array:
 
 ```json
 "lint-staged": {
@@ -85,6 +105,8 @@ npm run prettier-check ||
 
 echo '✅ Success :) ✅'
 ```
+
+[source blog](https://blog.jarrodwatts.com/nextjs-eslint-prettier-husky) [source video](https://www.youtube.com/watch?v=sH93pQb9bWM)
 
 Note that we can also put hooks in `package.json`:
 

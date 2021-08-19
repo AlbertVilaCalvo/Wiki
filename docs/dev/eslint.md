@@ -41,4 +41,5 @@ https://eslint.org/docs/user-guide/command-line-interface
 ```
 npx eslint src/**/*.js
 npx eslint . --ext ts --ext tsx --ext js
+eslint --cache --fix
 ```
