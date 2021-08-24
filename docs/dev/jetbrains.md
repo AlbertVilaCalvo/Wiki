@@ -8,6 +8,10 @@ Improving IDE performance - https://blog.jetbrains.com/kotlin/2021/06/simple-ste
 Des-habilitar plugins que no faig servir!
 :::
 
+## Preferences
+
+Add line at end of file: Editor -> General -> check 'Ensure every saved line ends with a line break'. Also check 'Remove trailing blank lines at the end of saved files' there too.
+
 
 ## IDE Directories
 

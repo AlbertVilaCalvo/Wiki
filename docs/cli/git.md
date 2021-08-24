@@ -76,20 +76,20 @@ https://git-scm.com/docs/git-rebase
 
 ```
 git rebase -i <commit you want to amend>^
-// or
+// or with the alias
 grbi <commit you want to amend>^
 ```
-**r reword** - amend commit message
+**r or reword** - amend commit message (note that if we are only rewording we don't need to do any of the following commands, just save the new commit message and we are done)
 ```
-gc!
-grbc
+gc! (git commit --amend)
+grbc (git rebase --continue)
 ```
-**e edit** - modify commit
+**e or edit** - modify commit
 ```
-// edit file(s)
+// edit file(s)...
 gaa (or) ga some/file.txt
-gc!
-grbc
+gc! (git commit --amend)
+grbc (git rebase --continue)
 ```
 
 ### Rebase until first (root) commit

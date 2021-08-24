@@ -106,7 +106,7 @@ npm run prettier-check ||
 echo '✅ Success :) ✅'
 ```
 
-[source blog](https://blog.jarrodwatts.com/nextjs-eslint-prettier-husky) [source video](https://www.youtube.com/watch?v=sH93pQb9bWM)
+[source blog](https://blog.jarrodwatts.com/nextjs-eslint-prettier-husky), [source video](https://www.youtube.com/watch?v=sH93pQb9bWM)
 
 Note that we can also put hooks in `package.json`:
 
