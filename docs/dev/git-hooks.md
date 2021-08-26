@@ -28,17 +28,19 @@ Example of pre-commit hook that checks Prettier and ESLint. Note that it always 
 ```bash
 #!/bin/sh
 
-# Runs Prettier and ESLint on .ts, .tsx and .js files.
+# Runs Prettier and ESLint on .ts/.tsx/.js files. Only checks the committed files.
 # Inspired by https://prettier.io/docs/en/precommit.html#option-5-shell-script
 
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$/')
 [ -z "$FILES" ] && exit 0
 
+printf "Files:\n\n%s\n\n" "$FILES"
+
 echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --check
 
 printf "\nChecking ESLint..."
 echo "$FILES" | xargs ./node_modules/.bin/eslint
-printf "ESLint check done.\n"
+printf "ESLint check done.\n\n"
 
 exit 0
 ```

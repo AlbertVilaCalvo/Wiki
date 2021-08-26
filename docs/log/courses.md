@@ -4,6 +4,8 @@ title: Courses
 
 ## 2021
 
+2021/08 - Charming Development in Symfony 5 - https://symfonycasts.com/screencast/symfony
+
 2021/04 - https://www.manning.com/liveproject/refactoring-to-react-hooks
 
 2021/03 - https://start-react-native.dev

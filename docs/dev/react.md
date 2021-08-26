@@ -11,6 +11,13 @@ https://imgur.com/bmfcRQm
 https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
 
+## Cancel async operations done in useEffect
+
+To avoid updating the UI if the component is unmounted.
+
+Using an `unmounted` variable: https://stackoverflow.com/questions/53861916/canceling-an-axios-rest-call-in-react-hooks-useeffects-cleanup-failing
+
+
 ## Create React App
 
 https://create-react-app.dev/docs/advanced-configuration
