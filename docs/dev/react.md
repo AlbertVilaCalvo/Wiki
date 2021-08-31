@@ -74,13 +74,19 @@ https://stackoverflow.com/questions/33199959/how-to-detect-a-react-component-vs-
 
 Used in FlatList `ListHeaderComponent` - see [source code](https://github.com/facebook/react-native/blob/8eeb01686f70a87ae4c38540283e9f9374f5bb0e/Libraries/Lists/VirtualizedList.js#L904).
 
+```jsx
+interface Props {
+  ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
+}
 ```
+
+```jsx
 ListHeaderComponent={() => <SomeComponent />}
 ListHeaderComponent={<SomeComponent />}
 ListHeaderComponent={SomeComponent}
 ```
 
-```
+```jsx
 const element = React.isValidElement(ListHeaderComponent) ? (
   ListHeaderComponent
 ) : (
@@ -88,4 +94,18 @@ const element = React.isValidElement(ListHeaderComponent) ? (
 );
 
 <View>{element}</View>
+```
+
+### Examples
+
+```jsx
+<Button Icon={IconAddUser} />
+
+function Button({ Icon }: { Icon: React.ComponentType<any> }) {
+  return (
+    <Pressable>
+      <Icon />
+    </Pressable>
+  )
+}
 ```

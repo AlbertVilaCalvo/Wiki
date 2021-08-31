@@ -3,7 +3,7 @@ title: Yarn
 ---
 
 :::important
-Si la versió que em surt fent `yarn -v` és la 1.21.1 enlloc de 1.22.10 fer `npm install --global yarn`.
+Si la versió que em surt fent `yarn -v` és la 1.21.1 enlloc de 1.22.11 fer `npm install --global yarn`. Això passa després de fer `yarn global upgrade-interactive --latest`.
 :::
 
 CLI docs: https://classic.yarnpkg.com/en/docs/cli/
