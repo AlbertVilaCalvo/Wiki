@@ -8,6 +8,8 @@ Just a list of some of the talks/podcasts I've watched/listened, in reverse cron
 
 [Sebastian Markbage: Minimal API Surface Area | JSConf EU 2014](https://www.youtube.com/watch?v=4anAwXYqLG8)
 
+No abstraction > Wrong abstraction. Fewer abstractions, more repetition. Explicit repetitive code. Only abstract to solve bugs.
+
 [React Native Radio 172: React Native Ultimate Guide with Mike Grabowski](https://castbox.fm/episode/id3370642-id311377635)
 
 [Cheng Lou - On the Spectrum of Abstraction at react-europe 2016](https://www.youtube.com/watch?v=mVVNJKv9esE)

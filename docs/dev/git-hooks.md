@@ -23,24 +23,28 @@ cp git-hooks/pre-commit .git/hooks
 
 Every time we update the pre-commit hook we need to run `cp git-hooks/pre-commit .git/hooks`.
 
-Example of pre-commit hook that checks Prettier and ESLint. Note that it always commits (never aborts), and it does not modify the files (ie it does not do `prettier write`, just checks).
+Example of pre-commit hook that checks Prettier and ESLint:
 
 ```bash
 #!/bin/sh
 
 # Runs Prettier and ESLint on .ts/.tsx/.js files. Only checks the committed files.
+# Always commits (never aborts, even with errors), and does not modify the files (ie
+# does not do `prettier write`), just checks them.
 # Inspired by https://prettier.io/docs/en/precommit.html#option-5-shell-script
 
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$/')
+
+printf "📁 Files\n\n%s" "$FILES"
+
 [ -z "$FILES" ] && exit 0
 
-printf "Files:\n\n%s\n\n" "$FILES"
-
+printf "\n\n🔍 Prettier\n\n"
 echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --check
 
-printf "\nChecking ESLint..."
+printf "\n🔍 ESLint\n"
 echo "$FILES" | xargs ./node_modules/.bin/eslint
-printf "ESLint check done.\n\n"
+printf "ESLint check done\n\n"
 
 exit 0
 ```
