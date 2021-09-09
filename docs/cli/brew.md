@@ -21,6 +21,8 @@ Install: `brew install git`
 
 Uninstall: `brew uninstall git`
 
+List installed: `brew list`
+
 
 ## Cask
 
@@ -33,6 +35,7 @@ brew list --cask
 brew outdated --cask
 brew upgrade --cask
 ```
+
 
 ## yarn issues
 

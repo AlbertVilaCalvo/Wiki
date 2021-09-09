@@ -3,7 +3,7 @@ title: Tipografia
 ---
 
 
-# Weight
+## Weight
 
 https://www.w3.org/TR/css-fonts-3/#font-weight-prop
 

@@ -41,10 +41,13 @@ where `ANDROID_SDK_ROOT` is `/Users/albert/Library/Android/sdk` [source](https:/
 
 ## Get the SHA-1
 
-- `keytool -list -v -keystore ./android/app/debug.keystore` (asks for password)
-- `keytool -list -v -keystore ./android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android`
+- `keytool -list -v -keystore release.keystore` (asks for password)
+- My `~/.android` key: `keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
+- React Native debug key: `keytool -list -v -keystore ./android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android`
 
 https://stackoverflow.com/questions/15727912/sha-1-fingerprint-of-keystore-certificate
+
+https://developers.google.com/android/guides/client-auth
 
 
 ## App signing

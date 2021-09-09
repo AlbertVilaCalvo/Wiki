@@ -17,3 +17,9 @@ title: macOS
 Character Viewer ([emoji picker](https://support.apple.com/en-au/guide/mac-help/mchlp1560/mac)): <kbd>⌘</kbd> + <kbd>Ctrl</kbd> + <kbd>Space</kbd>
 
 Show/hide hidden files: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>.</kbd>
+
+## kexts
+
+Used by Little Snitch and Razer Synapse.
+
+Are located in `/Library/Extensions/`.

@@ -18,6 +18,8 @@ Start Metro bundler: `npx react-native start`
 
 Reset cache: `npx react-native start --reset-cache`
 
+*Also see* https://github.com/pmadruga/react-native-clean-project
+
 ### iOS
 
 [`run-ios` docs](https://github.com/react-native-community/cli/blob/master/docs/commands.md#run-ios)

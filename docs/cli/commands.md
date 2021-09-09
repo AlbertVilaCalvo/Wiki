@@ -5,6 +5,11 @@ title: Commands
 tldr man pages: https://tldr.sh
 
 
+What shell is used: `echo $SHELL`
+
+Command history is saved in `~/.zsh_history`.
+
+
 ## find
 
 `find . -type d -name "build"`
@@ -21,6 +26,17 @@ Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
 ## diff
 
 `diff -qr Carpeta1 Carpeta2`
+
+
+## fc
+
+`fc [-e ename] [-lnr] [first] [last]`
+
+`fc -s [pat=rep] [command]`
+
+https://www.geeksforgeeks.org/fc-command-linux-examples
+
+List recent commands in history: `fc -l`
 
 
 ## youtube-dl
