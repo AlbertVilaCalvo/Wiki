@@ -23,6 +23,8 @@ Uninstall: `brew uninstall git`
 
 List installed: `brew list`
 
+Doctor: `brew doctor` <-- check from time to time!
+
 
 ## Cask
 
@@ -35,6 +37,28 @@ brew list --cask
 brew outdated --cask
 brew upgrade --cask
 ```
+
+
+## Services
+
+```
+brew services start postgresql
+brew services stop postgresql
+brew services restart postgres
+brew services list
+```
+
+If you un-install the `postgresql` then you can remove its links with `brew services cleanup`. [source](https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3#gistcomment-3443897)
+
+All commands:
+- `cleanup`: Get rid of stale services and unused plists
+- `list`: List all services managed by brew services
+- `restart`: Gracefully restart selected service
+- `run`: Run selected service. Don't start at login (nor boot)
+- `start`: Start selected service
+- `stop`: Stop selected service
+
+You can find the commands in `/usr/local/Homebrew/Library/Taps/homebrew/homebrew-services/completions/zsh/_brew_services`.
 
 
 ## yarn issues
