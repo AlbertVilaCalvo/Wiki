@@ -185,13 +185,19 @@ git merge --ff-only feature-branch
 
 [--ff-only docs](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---ff-only)
 
-### See commit differences between two branches
-```
-git log master..feature-branch
-```
-If you've already switched to `feature-branch` you can use `git log master..`.
+### See commit and code differences between two branches
 
-[source](https://stackoverflow.com/q/13965391/4034572)
+```bash
+# commits
+git log main..feature-branch
+# code
+git diff main..feature-branch
+# files changed
+git diff --name-status main..feature-branch
+```
+Note that you can have 3 dots (`...`). And if you've already switched to `feature-branch` you can use `git log main..`.
+
+[See source](https://stackoverflow.com/q/13965391/4034572)
 
 ### Squash all commits on a branch
 ```
@@ -229,13 +235,30 @@ If you see `^M` run `sed -i.bak $'s/\r//' filename` (with backup) or `sed -i '' 
 
 [source](https://stackoverflow.com/a/21622340/4034572)
 
-### Rename branch, eg master to main
+### Rename local branch only
+
+Eg rename master to main.
 
 `git branch (-m | -M) [<oldbranch>] <newbranch>`
 
-If you are in master: `git branch -M main`
+If you are in master: `git branch -m main`. If you are not do `git branch -m master main`.
 
 Set the default branch name for new repositories: `git config --global init.defaultBranch <name>`
+
+### Rename local _and_ remote branch
+
+Note that this assumes that we are on the branch that we want to rename. If we are not do `git branch -m old-name new-name`.
+
+```bash
+# Rename:
+git branch -m new-name # if we are on the branch
+git branch -m old-name new-name # if we are not
+
+# Delete the old-name remote branch and push the new-name local branch:
+git push origin :old-name new-name
+```
+
+[source and more info](https://stackoverflow.com/a/45561865/4034572)
 
 ### Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
 
