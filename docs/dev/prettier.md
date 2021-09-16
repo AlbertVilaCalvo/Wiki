@@ -28,7 +28,7 @@ touch .prettierignore
 
 > Tip! Base your .prettierignore on .gitignore and .eslintignore.
 
-Finally edit your `.eslintrc.js` so that it extends 'prettier' - see [ESLint](/eslint.md).
+Finally edit your `.eslintrc.js` so that it extends 'prettier' - see [ESLint](eslint.md).
 
 Note that it ignores files located in `node_modules` directory - [docs](https://prettier.io/docs/en/cli.html#--with-node-modules)
 
