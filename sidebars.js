@@ -21,6 +21,8 @@ module.exports = {
     'dev/jetbrains',
     'dev/android',
     'dev/ios',
+    'dev/docker',
+    'dev/python',
   ],
   css: [
     'css/reset',

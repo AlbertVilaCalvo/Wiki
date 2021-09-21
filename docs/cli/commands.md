@@ -28,6 +28,11 @@ Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
 `diff -qr Carpeta1 Carpeta2`
 
 
+## tree
+
+`tree somefolder`
+
+
 ## fc
 
 `fc [-e ename] [-lnr] [first] [last]`
