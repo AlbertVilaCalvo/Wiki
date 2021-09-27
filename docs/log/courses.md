@@ -4,6 +4,8 @@ title: Courses
 
 ## 2021
 
+2021/09 - Managing Python Dependencies - https://www.manning.com/livevideo/talk-python-managing-python-dependencies
+
 2021/08 - Charming Development in Symfony 5 - https://symfonycasts.com/screencast/symfony
 
 2021/04 - https://www.manning.com/liveproject/refactoring-to-react-hooks

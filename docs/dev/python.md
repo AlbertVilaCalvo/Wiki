@@ -5,6 +5,11 @@ title: Python
 https://pypi.org - Python Package Index
 
 
+:::important
+Best practice: to avoid surprises and issues, always use exacte versions (ie `==`) for all dependencies, including secondary dependencies.
+:::
+
+
 ## pip
 
 Python Package Index - https://github.com/pypa/pip
@@ -43,14 +48,26 @@ Upgrade package: `pip install --upgrade requests` or `pip install -U requests`
 
 Uninstall package: `pip uninstall requests`. Important: this does _not_ remove the uninstalled package dependencies! Those will remain :/
 
+### Links
+
+https://github.com/jazzband/pip-tools
+
+https://github.com/bndr/pipreqs
+
+https://github.com/naiquevin/pipdeptree
+
+https://github.com/pypa/pipx
+
 
 ## venv
+
+Docs: https://docs.python.org/3/library/venv.html
 
 Provides isolated Python environments, with project-specific dependencies and Python interpreter. pip installs dependencies systemwide (globally), which means that you can only have 1 version of a library. venv allows 2 projects to use different versions of the same library, and also different Python versions.
 
 Create virtual environment: `python3 -m venv ./venv` or `python3 -m venv ~/.virtualenvs/djangodev`
 
-(This creates a lof of files and folder - see them with `tree venv`.)
+(This creates lots of files and folders - see them with `tree venv`.)
 
 Activate the virtual environment: `source ./venv/bin/activate` or `source ~/.virtualenvs/djangodev/bin/activate`. This needs to be done for each new terminal session.
 
@@ -59,3 +76,47 @@ Activate the virtual environment: `source ./venv/bin/activate` or `source ~/.vir
 Leave active venv and go back to the global environment: `deactivate`
 
 To destroy the venv first run `deactivate` (if active) and then delete the folder (eg `rm -rf ./venv`).
+
+
+## requirements.txt
+
+Docs: https://pip.pypa.io/en/latest/user_guide/#requirements-files
+
+It includes transitive (secondary) dependencies. Does not specify the Python version.
+
+Print packages: `pip freeze`
+
+Create file: `pip freeze > requirements.txt`
+
+Install dependencies: `pip install -r requirements.txt` or `pip install -r requirements.txt -t ./venv`
+
+Every time we do `pip install somepackage` we need to do `pip freeze > requirements.txt`.
+
+Example:
+```
+# This is a comment
+requests>=2.20
+flake8>=3.8,<=4.0
+schedule==0.4.2
+```
+See the example in the docs: https://pip.pypa.io/en/stable/cli/pip_install/#example-requirements-file
+
+### dev dependencies
+
+requirements.txt
+```
+Flask==1.0
+```
+requirements-dev.txt
+```
+-r requirements.txt
+mock==2.0.0
+```
+Example: https://github.com/Yelp/love
+
+
+## pip-tools
+
+https://github.com/jazzband/pip-tools
+
+https://stackoverflow.com/questions/61536466/pips-requirements-txt-best-practice
