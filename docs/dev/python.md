@@ -2,29 +2,70 @@
 title: Python
 ---
 
-https://pypi.org - Python Package Index
+[Python Package Index - pypi.org](https://pypi.org)
 
+
+## pyenv
+
+Python versions are installed in `pyenv root`.
+
+Upgrade it with `brew upgrade pyenv`.
+
+The global version is set in `~/.pyenv/version`. You can use `system`.
+
+Commands: https://github.com/pyenv/pyenv/blob/master/COMMANDS.md
+
+List commands: `pyenv commands`
+
+Display current version: `pyenv version`
+
+List versions: `pyenv versions`
+
+
+## Packaging
 
 :::important
-Best practice: to avoid surprises and issues, always use exacte versions (ie `==`) for all dependencies, including secondary dependencies.
+Best practice: pin package versions!
+
+To avoid surprises and bugs, always use exacte versions (`==`) for all dependencies, including transitive/secondary dependencies.
 :::
+
+Python Packaging User Guide: https://packaging.python.org
+
+### Tools
+
+[github.com/pypa/pipenv](https://github.com/pypa/pipenv) - Python Development Workflow for Humans (Pipfile.lock)
+
+[github.com/jazzband/pip](https://github.com/jazzband/pip-tools) - A set of tools to keep your pinned Python dependencies fresh (requirements.in)
+
+[github.com/bndr/pipreqs](https://github.com/bndr/pipreqs) - Generate pip requirements.txt file based on imports of any project
+
+[github.com/naiquevin/pipdeptree](https://github.com/naiquevin/pipdeptree) - A command line utility to display dependency tree of the installed Python packages
+
+[github.com/pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
+
+### Search pacakges
+
+[pypi.org](https://pypi.org)
+
+[awesome-python.com](https://awesome-python.com)
+
+[python.libhunt.com](https://python.libhunt.com/)
 
 
 ## pip
 
-Python Package Index - https://github.com/pypa/pip
+Python package installer - https://github.com/pypa/pip
 
 Docs: https://pip.pypa.io/en/stable
 
-Python Packaging User Guide: https://packaging.python.org
-
-To search packages go to https://pypi.org
-
 https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/pip
+
+_pip installs packages systemwide (globally) by default if we are not on a venv_
 
 ### Commands
 
-_pip installs packages systemwide (globally) by default if we are not on a venv_
+Docs: https://pip.pypa.io/en/stable/cli/
 
 `pip3 --version`
 
@@ -47,16 +88,6 @@ List outdated packages: `pip list --outdated`
 Upgrade package: `pip install --upgrade requests` or `pip install -U requests`
 
 Uninstall package: `pip uninstall requests`. Important: this does _not_ remove the uninstalled package dependencies! Those will remain :/
-
-### Links
-
-https://github.com/jazzband/pip-tools
-
-https://github.com/bndr/pipreqs
-
-https://github.com/naiquevin/pipdeptree
-
-https://github.com/pypa/pipx
 
 
 ## venv
@@ -92,7 +123,7 @@ Install dependencies: `pip install -r requirements.txt` or `pip install -r requi
 
 Every time we do `pip install somepackage` we need to do `pip freeze > requirements.txt`.
 
-Example:
+### Example
 ```
 # This is a comment
 requests>=2.20
@@ -114,8 +145,7 @@ mock==2.0.0
 ```
 Example: https://github.com/Yelp/love
 
-
-## pip-tools
+### pip-tools
 
 https://github.com/jazzband/pip-tools
 
