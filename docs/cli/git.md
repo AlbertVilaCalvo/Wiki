@@ -62,7 +62,7 @@ git remote add upstream git@github.com:Kotlin/kotlinx.coroutines.git
 ```
 
 ### Incorporating upstream changes
-```
+```shell
 git fetch upstream master
 git log --oneline --graph --decorate --all
 git checkout master`
@@ -107,7 +107,7 @@ https://git-scm.com/docs/git-commit
 
 `alias | grep amend`:
 
-```
+```shell
 'gc!'='git commit -v --amend'
 'gcn!'='git commit -v --no-edit --amend'
 
@@ -139,18 +139,17 @@ Nota: pel `<filename>` es pot fer servir `*` per seleccionar varis fitxers alhor
 
 ## Misc
 
-### Reset local branch like remote branch
+### Overwrite/reset local branch like remote branch
 
-```
+```shell
 git reset --hard @{u}
 ```
 or
-```
+```shell
 git fetch origin
 git reset --hard origin/mybranch
 ```
-
-[source](https://stackoverflow.com/q/1628088/4034572)
+[source1](https://stackoverflow.com/q/1628088/4034572), [source2](https://stackoverflow.com/a/8888015/4034572)
 
 ### Remove untracked files
 ```

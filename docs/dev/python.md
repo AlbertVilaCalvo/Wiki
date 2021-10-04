@@ -36,7 +36,7 @@ Python Packaging User Guide: https://packaging.python.org
 
 [github.com/pypa/pipenv](https://github.com/pypa/pipenv) - Python Development Workflow for Humans (Pipfile.lock)
 
-[github.com/jazzband/pip](https://github.com/jazzband/pip-tools) - A set of tools to keep your pinned Python dependencies fresh (requirements.in)
+[github.com/jazzband/pip-tools](https://github.com/jazzband/pip-tools) - A set of tools to keep your pinned Python dependencies fresh (requirements.in)
 
 [github.com/bndr/pipreqs](https://github.com/bndr/pipreqs) - Generate pip requirements.txt file based on imports of any project
 
@@ -150,3 +150,38 @@ Example: https://github.com/Yelp/love
 https://github.com/jazzband/pip-tools
 
 https://stackoverflow.com/questions/61536466/pips-requirements-txt-best-practice
+
+
+## pipenv
+
+[github.com/pypa/pipenv](https://github.com/pypa/pipenv)
+
+Upgrade pipenv: `pip3 install --user --upgrade pipenv`
+
+### Commands
+
+Create a new project: `pipenv --three` or `pipenv --python 3.7`
+
+Activate project's virtualenv: `pipenv shell`. Type 'exit' or 'Ctrl+D' to return
+
+(If we do `which python` or `which pip3` outside the environment we get `/usr/bin/python` and `/usr/local/bin/pip3`. Inside we get `/Users/albertvilacalvo/.local/share/virtualenvs/.../bin/...`.)
+
+Install all packages: `pipenv install`
+
+Install all packages, including dev dependencies: `pipenv install --dev`
+
+Install package: `pipenv install requests`
+
+Install package to dev: `pipenv install pytest --dev`
+
+Uninstall package: `pipenv uninstall requests`
+
+Generate a lockfile: `pipenv lock`
+
+Run: `pipenv run python main.py`
+
+Locate the virtualenv: `pipenv --venv`
+
+Locate the Python interpreter: `pipenv --py`
+
+Show graph of dependencies: `pipenv graph`
