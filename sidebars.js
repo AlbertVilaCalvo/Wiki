@@ -23,6 +23,7 @@ module.exports = {
     'dev/ios',
     'dev/docker',
     'dev/python',
+    'dev/postgresql',
   ],
   css: [
     'css/reset',
