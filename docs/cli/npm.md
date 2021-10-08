@@ -63,6 +63,8 @@ MyProject
 ```
 Here the transitive dependency `@typescript-eslint/typescript-estree` is being imported by the direct dependency `@react-native-community/eslint-config` (which appears in package.json).
 
+Yarn has [`yarn list`](https://classic.yarnpkg.com/en/docs/cli/list).
+
 [source](https://stackoverflow.com/a/49523073/4034572)
 
 

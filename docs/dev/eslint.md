@@ -20,6 +20,10 @@ Turn off all rules that are unnecessary or might conflict with Prettier: https:/
 
 ## .eslintrc.js
 
+https://prettier.io/docs/en/integrating-with-linters.html
+
+https://github.com/prettier/eslint-config-prettier
+
 ```js
 module.exports = {
   root: true,
