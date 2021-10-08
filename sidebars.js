@@ -29,6 +29,7 @@ module.exports = {
     'css/reset',
     'css/flexbox',
     'css/misc',
+    'css/text'
   ],
   html: [
     'html/misc',
