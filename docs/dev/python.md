@@ -4,8 +4,12 @@ title: Python
 
 [Python Package Index - pypi.org](https://pypi.org)
 
+Cheatsheet: https://www.pythonsheets.com
+
 
 ## pyenv
+
+https://github.com/pyenv/pyenv
 
 Python versions are installed in `pyenv root`.
 
@@ -20,6 +24,10 @@ List commands: `pyenv commands`
 Display current version: `pyenv version`
 
 List versions: `pyenv versions`
+
+List available versions to install: `pyenv install --list`
+
+Install version: `pyenv install 3.9.7`
 
 
 ## Packaging

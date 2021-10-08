@@ -4,13 +4,24 @@ title: Docker
 
 Start:
 ```bash
-sudo docker-compose -f docker-compose.yml up
+docker-compose -f docker-compose.yml up
 ```
+Or:
 ```bash
-sudo docker-compose up -d
+docker-compose up -d
 ```
 
 Connect to a container:
 ```bash
-sudo docker exec -ti sense_app bash
+docker exec -ti sense_app bash
 ```
+
+Shut down:
+```bash
+docker-compose down
+```
+
+
+## docker-compose
+
+Commands: https://docs.docker.com/compose/reference

@@ -22,6 +22,7 @@ Install to devDependencies: `npm install webpack --save-dev`
 `npm ci` -> when you want to make sure you're doing a clean install of your dependencies [docs](https://docs.npmjs.com/cli/v7/commands/npm-ci)
 
 
+
 ## Init
 
 https://docs.npmjs.com/cli/v7/commands/npm-init
@@ -44,6 +45,25 @@ MAJOR.MINOR.PATCH
   "same-major-and-minor": "~15.7.2" // upgrade to 15.7.X
 }
 ```
+
+
+## Find parent of transitive depencency
+
+`npm ls @typescript-eslint/typescript-estree`
+
+This will print who is using `@typescript-eslint/typescript-estree`:
+```
+MyProject
+└─┬ @react-native-community/eslint-config@3.0.1
+  ├─┬ @typescript-eslint/eslint-plugin@4.28.1
+  │ └─┬ @typescript-eslint/experimental-utils@4.28.1
+  │   └── @typescript-eslint/typescript-estree@4.28.1 deduped
+  └─┬ @typescript-eslint/parser@4.28.1
+    └── @typescript-eslint/typescript-estree@4.28.1
+```
+Here the transitive dependency `@typescript-eslint/typescript-estree` is being imported by the direct dependency `@react-native-community/eslint-config` (which appears in package.json).
+
+[source](https://stackoverflow.com/a/49523073/4034572)
 
 
 ## Global
