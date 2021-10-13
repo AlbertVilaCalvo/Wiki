@@ -164,6 +164,8 @@ https://stackoverflow.com/questions/61536466/pips-requirements-txt-best-practice
 
 [github.com/pypa/pipenv](https://github.com/pypa/pipenv)
 
+Docs: https://pipenv.pypa.io/en/latest
+
 Upgrade pipenv: `pip3 install --user --upgrade pipenv`
 
 ### Commands
@@ -178,6 +180,8 @@ Install all packages: `pipenv install`
 
 Install all packages, including dev dependencies: `pipenv install --dev`
 
+_To avoid having * as version number, when we add a new dependency we need to set the dependency version number from Pipfile.lock to Pipfile. Then run `pipenv lock` which updates the Pipfile.lock _meta sha256._
+
 Install package: `pipenv install requests`
 
 Install package to dev: `pipenv install pytest --dev`
@@ -186,6 +190,8 @@ Uninstall package: `pipenv uninstall requests`
 
 Generate a lockfile: `pipenv lock`
 
+Install all packages specified in Pipfile.lock: `pipenv sync`
+
 Run: `pipenv run python main.py`
 
 Locate the virtualenv: `pipenv --venv`
@@ -193,3 +199,39 @@ Locate the virtualenv: `pipenv --venv`
 Locate the Python interpreter: `pipenv --py`
 
 Show graph of dependencies: `pipenv graph`
+
+### Fix errors
+
+Get "✘ Locking Failed! ResolutionFailure" when doing `pipenv install black --dev`. Fixed it with `pipenv lock --pre --clear`.
+
+From https://stackoverflow.com/questions/51540404/how-do-you-resolve-python-package-dependencies-with-pipenv
+
+
+## Black
+
+https://github.com/psf/black
+
+Docs: https://black.readthedocs.io/en/stable/
+
+`black --help`
+
+`black --version`
+
+### VSCode integration
+
+https://code.visualstudio.com/docs/python/editing#_formatting
+
+At the global settings (⌘,):
+- Disable 'Format On Paste', 'Format On Save' and 'Format On Type'
+- Set 'Format On Save Mode' to 'file'
+- Set 'Default Formatter' to 'None'.
+
+At the project (not global) `.vscode/settings.json` set:
+
+```
+"python.formatting.provider": "black",
+"editor.formatOnSave": true,
+"editor.formatOnSaveMode": "file",
+"editor.formatOnType": true,
+"editor.formatOnPaste": true,
+```
