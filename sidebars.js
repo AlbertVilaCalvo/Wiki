@@ -34,6 +34,7 @@ module.exports = {
   html: [
     'html/misc',
     'html/elements',
+    'html/forms',
     'html/dom-api',
   ],
   misc: [
