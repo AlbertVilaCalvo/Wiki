@@ -25,3 +25,5 @@ docker-compose down
 ## docker-compose
 
 Commands: https://docs.docker.com/compose/reference
+
+Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose

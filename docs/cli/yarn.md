@@ -8,6 +8,8 @@ Si la versió que em surt fent `yarn -v` és la 1.21.1 enlloc de 1.22.11 fer `np
 
 CLI docs: https://classic.yarnpkg.com/en/docs/cli/
 
+Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/yarn
+
 Tip: `yarn run` lists all the executable commands/scripts.
 
 To upgrade yarn itself use npm.

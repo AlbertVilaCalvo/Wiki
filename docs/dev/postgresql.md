@@ -30,6 +30,8 @@ Check the logs:
 
 Create database: `createdb dbname`
 
+Recreate/reset database: `dropdb dbname && createdb dbname`
+
 
 ## psql
 

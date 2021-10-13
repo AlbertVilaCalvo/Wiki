@@ -18,6 +18,9 @@ Character Viewer ([emoji picker](https://support.apple.com/en-au/guide/mac-help/
 
 Show/hide hidden files: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>.</kbd>
 
+What prevents Mac to sleep: `pmset -g assertions`. See https://osxdaily.com/2012/07/11/mac-wont-sleep-heres-how-to-find-out-why-and-fix-it
+
+
 ## kexts
 
 Used by Little Snitch and Razer Synapse.
