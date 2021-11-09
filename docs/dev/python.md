@@ -217,6 +217,14 @@ Docs: https://black.readthedocs.io/en/stable/
 
 `black --version`
 
+### PyCharm integration
+
+https://black.readthedocs.io/en/stable/integrations/editors.html#pycharm-intellij-idea
+
+Requires the [File Watchers](https://plugins.jetbrains.com/plugin/7177-file-watchers) plugin, which is installed by default in PyCharm.
+
+`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with pipenv.
+
 ### VSCode integration
 
 https://code.visualstudio.com/docs/python/editing#_formatting

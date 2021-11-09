@@ -91,3 +91,10 @@ Es pot fer amb Android Studio: Build -> Generate Signed Bundle / APK -> Next -> 
 https://developer.android.com/studio/publish/app-signing#generate-key
 
 https://support.google.com/googleplay/android-developer/answer/9842756?visit_id=637593462727030424-182273336&rd=1#create
+
+
+## Android 12 changed that root launcher activities are no longer finished on the Back press
+
+https://developer.android.com/about/versions/12/behavior-changes-all#back-press
+
+https://twitter.com/TatoKutalia/status/1450543203007057927

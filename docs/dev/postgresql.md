@@ -15,6 +15,13 @@ brew services restart postgres
 brew services list
 ```
 
+With pg_ctl:
+
+```
+pg_ctl -D /usr/local/var/postgres start
+pg_ctl -D /usr/local/var/postgres stop
+```
+
 
 ## Commands
 
@@ -42,6 +49,11 @@ List databases: `\l`
 List tables (relations): `\dt`
 
 Show table schema: `\d tablename`
+
+
+## pg_ctl
+
+Docs: https://www.postgresql.org/docs/14/app-pg-ctl.html
 
 
 ## Upgrade to new version

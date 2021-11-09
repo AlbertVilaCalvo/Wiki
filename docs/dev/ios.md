@@ -6,6 +6,12 @@ title: iOS
 
 `xcrun simctl list devices`
 
+
+## Simulator
+
+Images are located in `~/Library/Developer/CoreSimulator/Devices/81F9EF8A-486B-4F85-8BED-7131C2EF0500/data/Containers/Shared/AppGroup/D97F65BC-4921-486A-B89D-9A6ADA5DFC34`.
+
+
 ## Universal links (verified deep links)
 
 https://developer.apple.com/library/archive/documentation/General/Conceptual/AppSearch/UniversalLinks.html

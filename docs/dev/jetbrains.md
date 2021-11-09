@@ -37,11 +37,13 @@ JavaScript postfix templates: https://www.jetbrains.com/help/webstorm/using-post
 
 ## Shortcuts
 
+Recent locations: Cmd+Shift+E
+
 Navigation shortcuts: https://www.jetbrains.com/webstorm/guide/topics/navigation/
 
 Quick definition: ⌘Y or ⌥space (Note: had to add ⌥space to WebStorm.)
 
-Refactor this: Ctrl+S (WebStorm) or Ctrl+T (Android Studio)
+Refactor this: Ctrl+S (WebStorm) or Ctrl+T (Android Studio, PyCharm)
 
 File structure: ⌘F12
 
@@ -62,6 +64,12 @@ Code completion: basic Ctrl+Sàce, Type-matching: Ctrl+Shift+Space
 Join lines: Ctrl+Shift+J
 
 Find action: Cmd+Shift+A
+
+Code fromatting settings (eg optimize imports): Cmd+Alt+Shift+L (code format is Cmd+Alt+L)
+
+Highlight usages of a symbol within a file: Cmd+Shift+F7
+
+UML diagram, shows inherintance chain (needs to be run with the cursor on a class name)): Shift+Cmd+Alt+U
 
 
 ## React
