@@ -14,6 +14,8 @@ Emulator show touches: `adb shell settings put system show_touches 1`
 
 Emulator hide touches: `adb shell settings put system show_touches 0`
 
+List installed and avaialble versions of SDK, NDK, emulators, build tools etc: `sdkmanager --list`
+
 
 ## Test deep links
 

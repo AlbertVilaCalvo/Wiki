@@ -15,11 +15,15 @@ Python versions are installed in `pyenv root`.
 
 Upgrade it with `brew upgrade pyenv`.
 
-The global version is set in `~/.pyenv/version`. You can use `system`.
+The global version is set in `~/.pyenv/version`. You can use `system` as a value.
 
-Commands: https://github.com/pyenv/pyenv/blob/master/COMMANDS.md
+### pyenv commands
+
+https://github.com/pyenv/pyenv/blob/master/COMMANDS.md
 
 List commands: `pyenv commands`
+
+Set local version (overrides the global version): `pyenv local 3.10.0`
 
 Display current version: `pyenv version`
 
@@ -40,9 +44,13 @@ To avoid surprises and bugs, always use exacte versions (`==`) for all dependenc
 
 Python Packaging User Guide: https://packaging.python.org
 
+Managing Application Dependencies (Python Packaging User Guide): https://packaging.python.org/tutorials/managing-dependencies
+
 ### Tools
 
 [github.com/pypa/pipenv](https://github.com/pypa/pipenv) - Python Development Workflow for Humans (Pipfile.lock)
+
+[github.com/python-poetry/poetry](https://github.com/python-poetry/poetry) - Python dependency management and packaging made easy
 
 [github.com/jazzband/pip-tools](https://github.com/jazzband/pip-tools) - A set of tools to keep your pinned Python dependencies fresh (requirements.in)
 
@@ -102,19 +110,36 @@ Uninstall package: `pip uninstall requests`. Important: this does _not_ remove t
 
 Docs: https://docs.python.org/3/library/venv.html
 
+Integrated into the Python standard library, available since Python 3.3.
+
 Provides isolated Python environments, with project-specific dependencies and Python interpreter. pip installs dependencies systemwide (globally), which means that you can only have 1 version of a library. venv allows 2 projects to use different versions of the same library, and also different Python versions.
 
-Create virtual environment: `python3 -m venv ./venv` or `python3 -m venv ~/.virtualenvs/djangodev`
+Create virtual environment: `python3 -m venv <DIR>`. Eg `python3 -m venv venv` or `python3 -m venv ~/.virtualenvs/djangodev`.
 
 (This creates lots of files and folders - see them with `tree venv`.)
 
-Activate the virtual environment: `source ./venv/bin/activate` or `source ~/.virtualenvs/djangodev/bin/activate`. This needs to be done for each new terminal session.
+Activate the virtual environment: `source venv/bin/activate` or `source ~/.virtualenvs/djangodev/bin/activate`. This needs to be done for each new terminal session.
 
 (After activating, doing `which pip` points to the binary in the venv folder, not the global `/usr/local/bin/pip3`. Same with the Python interpreter: `which python` points to the venv interpreter, not `/usr/bin/python`.)
 
 Leave active venv and go back to the global environment: `deactivate`
 
 To destroy the venv first run `deactivate` (if active) and then delete the folder (eg `rm -rf ./venv`).
+
+
+## virtualenv
+
+Similar than venv but with more features.
+
+Docs: https://virtualenv.pypa.io/en/latest
+
+https://packaging.python.org/key_projects/#virtualenv
+
+Install it using pipx: `pipx install virtualenv`.
+
+Create virtual environment: `python3 -m virtualenv <DIR>`.
+
+Activate the virtual environment: `source <DIR>/bin/activate`.
 
 
 ## requirements.txt
@@ -213,6 +238,10 @@ https://github.com/psf/black
 
 Docs: https://black.readthedocs.io/en/stable/
 
+Installation:
+- With pipenv: `pipenv install black --dev`
+- With venv or virtualenv: `pip install black` (environment needs to be active, otherwise black is installed globally)
+
 `black --help`
 
 `black --version`
@@ -223,7 +252,38 @@ https://black.readthedocs.io/en/stable/integrations/editors.html#pycharm-intelli
 
 Requires the [File Watchers](https://plugins.jetbrains.com/plugin/7177-file-watchers) plugin, which is installed by default in PyCharm.
 
-`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with pipenv.
+`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with pipenv and we've installed black on the environment (`pipenv install black --dev`).
+
+#### Add the External Tool
+
+_This needs to be done only once every._
+
+Preferences -> Tools -> External Tools. Click +.
+
+- Name: Black
+- Description: Code formatter
+- Program: `$PyInterpreterDirectory$/black`
+- Arguments: `"$FilePath$"`
+- Working directory: `$ProjectFileDir$`
+
+#### Create the File Watcher
+
+_This needs to be done for every project._
+
+Preferences -> Tools -> File Watchers. Click +.
+
+- Name: Black
+- File type: Python
+- Scope: Project Files
+- Program: `$PyInterpreterDirectory$/black` (or the output of `which black` if we are on a active venv)
+- Arguments: `"$FilePath$"`
+- Output paths to refresh: `$FilePath$`
+- Working directory: `$ProjectFileDir$`
+
+In Advanced Options:
+- Uncheck "Auto-save edited files to trigger the watcher"
+- Uncheck "Trigger the watcher on external changes"
+- Uncheck "Trigger the watcher regardless of syntax errors"
 
 ### VSCode integration
 
