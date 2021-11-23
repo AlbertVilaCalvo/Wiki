@@ -137,9 +137,7 @@ git add <filename>
 Nota: pel `<filename>` es pot fer servir `*` per seleccionar varis fitxers alhora, i també pot ser una carpeta.
 
 
-## Misc
-
-### Overwrite/reset local branch like remote branch
+## Overwrite/reset local branch like remote branch
 
 ```shell
 git reset --hard @{u}
@@ -151,17 +149,20 @@ git reset --hard origin/mybranch
 ```
 [source1](https://stackoverflow.com/q/1628088/4034572), [source2](https://stackoverflow.com/a/8888015/4034572)
 
-### Remove untracked files
+
+## Remove untracked files
 ```
 git clean -f -d
 ```
 
-### Prune
+
+## Prune
 ```
 git remote prune origin
 ```
 
-### Ensure merge without merge commit with `--ff-only`
+
+## Ensure merge without merge commit with `--ff-only`
 
 From the [docs](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---ff):
 
@@ -184,7 +185,8 @@ git merge --ff-only feature-branch
 
 [--ff-only docs](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---ff-only)
 
-### See commit and code differences between two branches
+
+## See commit and code differences between two branches
 
 ```bash
 # commits
@@ -198,7 +200,8 @@ Note that you can have 3 dots (`...`). And if you've already switched to `featur
 
 [See source](https://stackoverflow.com/q/13965391/4034572)
 
-### Squash all commits on a branch
+
+## Squash all commits on a branch
 ```
 git checkout your-branch
 git reset $(git merge-base master-or-develop your-branch-name)
@@ -207,20 +210,23 @@ This leaves all changes on the branch at the staging area. Then you can `git add
 
 [source](https://stackoverflow.com/a/25357146/4034572)
 
-### Stash with message
+
+## Stash with message
 ```
 git stash push -m "Some message"
 ```
 https://git-scm.com/docs/git-stash
 
-### Always use annotated tags
+
+## Always use annotated tags
 ```
 git tag -a v1.0
 ```
 
 They have extra information like author, date, SHA and message ([more info](https://stackoverflow.com/q/4971746/4034572)).
 
-### Search string on git history
+
+## Search string on git history
 ```
 git log -S something
 git log -p -S something
@@ -228,13 +234,15 @@ git log -p -S something
 
 [source](https://stackoverflow.com/a/4472267/4034572)
 
-### Remove carriage return
+
+## Remove carriage return
 
 If you see `^M` run `sed -i.bak $'s/\r//' filename` (with backup) or `sed -i '' -e $'s/\r//' filename` (no backup).
 
 [source](https://stackoverflow.com/a/21622340/4034572)
 
-### Rename local branch only
+
+## Rename local branch only
 
 Eg rename master to main.
 
@@ -244,7 +252,8 @@ If you are in master: `git branch -m main`. If you are not do `git branch -m mas
 
 Set the default branch name for new repositories: `git config --global init.defaultBranch <name>`
 
-### Rename local _and_ remote branch
+
+## Rename local _and_ remote branch
 
 Note that this assumes that we are on the branch that we want to rename. If we are not do `git branch -m old-name new-name`.
 
@@ -259,7 +268,8 @@ git push origin :old-name new-name
 
 [source and more info](https://stackoverflow.com/a/45561865/4034572)
 
-### Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
+
+## Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
 
 https://news.ycombinator.com/item?id=27643608
 
