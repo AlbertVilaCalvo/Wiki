@@ -44,7 +44,7 @@ brew upgrade --cask
 ```
 brew services start postgresql
 brew services stop postgresql
-brew services restart postgres
+brew services restart postgresql
 brew services list
 ```
 

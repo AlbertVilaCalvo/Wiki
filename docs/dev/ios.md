@@ -4,12 +4,40 @@ title: iOS
 
 ## CLI
 
-`xcrun simctl list devices`
+simctl commands: `xcrun simctl` or `xcrun simctl help`
+
+List simulators: `xcrun simctl list devices`
+
+Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices` to free up disk space: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572
 
 
 ## Simulator
 
 Images are located in `~/Library/Developer/CoreSimulator/Devices/81F9EF8A-486B-4F85-8BED-7131C2EF0500/data/Containers/Shared/AppGroup/D97F65BC-4921-486A-B89D-9A6ADA5DFC34`.
+
+Get a simulator ID: `xcrun simctl list | egrep '(Booted)'`
+
+
+## Test push notifications on the simulator
+
+From https://stackoverflow.com/questions/61855874/how-to-test-pushnotification-in-ios-simulator-xcode
+
+Create a file `pushtest.apns`:
+
+```
+{
+  "Simulator Target Bundle": "<bundle identifier of the app>",
+  "aps": {
+    "alert": "Push Notifications Test",
+    "sound": "default",
+    "badge": 1
+  }
+}
+```
+
+```
+xcrun simctl push <simulator identifier> <bundle identifier of the app> pushtest.apns"
+```
 
 
 ## Universal links (verified deep links)

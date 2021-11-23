@@ -91,13 +91,16 @@ Install package: `pip install requests`
 
 Install specific version of a package: `pip install requests==2.1.3` or `pip install requests>=2,<3`
 
-If we want a version compatible with eg 2.1.3 (2.1.4 or 2.1.5) we can do: `pip install requests~=2.1.3`
+If we want a version compatible with eg 2.1.3 (2.1.4 or 2.1.5) we can do: `pip install requests~=2.1.3`.
+You can also do: `pip install package==2.1.*`
+
+If we want a lower version than X we can do: `pip install "flask<2"`.
 
 Install package from Git repo: `pip install git+https://github.com/user/repo.git@branch` or `pip install git+https://github.com/user/repo.git@commit-hash` or `pip install git+https://github.com/user/repo.git@tag`
 
 List installed packages: `pip list`
 
-Info about installed package: `pip3 show requests`
+Info about installed package (eg show package version): `pip3 show requests`
 
 List outdated packages: `pip list --outdated`
 

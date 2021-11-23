@@ -26,6 +26,11 @@ Install to devDependencies: `yarn add --dev webpack` or `yarn add -D webpack`
 
 Check **outdated** dependencies: `yarn outdated`
 
+Get version of installed package: `yarn list --pattern <package>` or `yarn why <package>`
+
+Why is this package installed? `yarn why <package>`
+
+
 ## Global
 
 List global packages:

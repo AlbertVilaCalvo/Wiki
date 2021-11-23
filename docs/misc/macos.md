@@ -26,3 +26,8 @@ What prevents Mac to sleep: `pmset -g assertions`. See https://osxdaily.com/2012
 Used by Little Snitch and Razer Synapse.
 
 Are located in `/Library/Extensions/`.
+
+
+## Free up disk space
+
+Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572
