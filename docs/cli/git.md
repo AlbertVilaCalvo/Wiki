@@ -244,18 +244,18 @@ If you see `^M` run `sed -i.bak $'s/\r//' filename` (with backup) or `sed -i '' 
 
 ## Rename local branch only
 
-Eg rename master to main.
-
 `git branch (-m | -M) [<oldbranch>] <newbranch>`
 
-If you are in master: `git branch -m main`. If you are not do `git branch -m master main`.
+Eg to rename master to main:
+- If you are in master: `git branch -m main`.
+- If you are not in master `git branch -m master main`.
 
-Set the default branch name for new repositories: `git config --global init.defaultBranch <name>`
+### Set the default branch name for new repositories
+
+`git config --global init.defaultBranch <name>`
 
 
 ## Rename local _and_ remote branch
-
-Note that this assumes that we are on the branch that we want to rename. If we are not do `git branch -m old-name new-name`.
 
 ```bash
 # Rename:
