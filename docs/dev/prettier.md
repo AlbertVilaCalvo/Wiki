@@ -64,7 +64,9 @@ https://prettier.io/docs/en/webstorm.html
 
 https://www.jetbrains.com/help/webstorm/prettier.html
 
-Go to Preferences | Languages and Frameworks | JavaScript | Prettier.
-Check 'On code reformat' and 'On save'. Modify glob pattern to `{**/*,*}.{js,ts,jsx,tsx,css,json}`.
+Go to Preferences | Languages and Frameworks | JavaScript | Prettier:
+- Set 'Prettier package' to `<project-dir>/node_modules/prettier`.
+- Set 'Run for files' to the glob pattern `{**/*,*}.{js,ts,jsx,tsx,css,json}`.
+- Check 'On Reformat Code action' and 'On save'.
 
 Reformat with Prettier: ⌥⇧⌘P

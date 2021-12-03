@@ -6,6 +6,8 @@ https://docs.brew.sh/FAQ
 
 https://docs.brew.sh/Manpage
 
+Search formulas: https://formulae.brew.sh
+
 Upgrade:
 
 ```

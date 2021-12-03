@@ -10,6 +10,8 @@ List emulators running ('List of devices attached'): `adb devices`
 
 Launch emulator: `${ANDROID_HOME}/emulator/emulator -avd Nexus_5X_API_27_-_Google_Play &`
 
+Wipe data of emulator: `emulator -avd Nexus_6_API_28_-_Google_APIs_-_14440_x_2560_560dpi -wipe-data &`
+
 Emulator show touches: `adb shell settings put system show_touches 1`
 
 Emulator hide touches: `adb shell settings put system show_touches 0`

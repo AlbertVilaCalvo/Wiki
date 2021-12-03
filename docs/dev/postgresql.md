@@ -63,3 +63,13 @@ Eg from 13 to 14.
 As explained in `brew info postgresql` you can do `brew postgresql-upgrade-database`.
 
 See https://medium.com/backticks-tildes/resetting-your-postgres-database-f43ba9f1c601
+
+## pgAdmin
+
+At the home, click 'Add New Server', then fill the dialog with this data:
+- General tab
+  - Name: Servidor Local
+- Connection tab
+  - Host name/address: localhost
+  - Port: 5432
+  - Username: albertvilacalvo
