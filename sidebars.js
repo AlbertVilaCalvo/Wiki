@@ -18,6 +18,7 @@ module.exports = {
     'dev/prettier',
     'dev/eslint',
     'dev/git-hooks',
+    'dev/http',
     'dev/jetbrains',
     'dev/android',
     'dev/ios',
