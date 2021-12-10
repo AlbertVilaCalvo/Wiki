@@ -4,13 +4,13 @@ title: macOS
 
 [Mac keyboard shortcuts](https://support.apple.com/en-au/HT201236)
 
-| Name         | Character  | kbd           | Physical key |
-| :----------: | :--------: |:------------: | :----------: |
-| Command      | ⌘          | <kbd>⌘</kbd>  | ⊞ Windows    |
-| Control      | ⌃          | <kbd>⌃</kbd>  | Ctrl         |
-| Shift        | ⇧          | <kbd>⇧</kbd>  | Mayús        |
-| Option / Alt | ⌥          | <kbd>⌥</kbd>  | Alt          |
-| Escape       | ⎋          | <kbd>⎋</kbd>  | Esc          |
+|     Name     | Character |     kbd      | Physical key |
+| :----------: | :-------: | :----------: | :----------: |
+|   Command    |     ⌘     | <kbd>⌘</kbd> |  ⊞ Windows   |
+|   Control    |     ⌃     | <kbd>⌃</kbd> |     Ctrl     |
+|    Shift     |     ⇧     | <kbd>⇧</kbd> |    Mayús     |
+| Option / Alt |     ⌥     | <kbd>⌥</kbd> |     Alt      |
+|    Escape    |     ⎋     | <kbd>⎋</kbd> |     Esc      |
 
 [Glyps](https://apple.stackexchange.com/q/55727/241238)
 
@@ -26,7 +26,7 @@ What prevents Mac to sleep: `pmset -g assertions`. See https://osxdaily.com/2012
 ```
 {
   "^w" = "deleteWordBackward:";
-  "^u" = "deleteWordForward:";
+  "^ñ" = "deleteWordForward:";
   "^j" = "moveWordBackward:";
   "^l" = "moveWordForward:";
 }
@@ -37,10 +37,31 @@ Place this file in `~/Library/KeyBindings/` (create the folder if it doesn't exi
 Note that you need to restart the apps to take effect (eg run `killall Finder` to restart Finder, close and open Firefox etc.).
 
 Examples:
+
 - http://xahlee.info/kbd/osx_keybinding_action_code.html
 - https://gist.github.com/trusktr/1e5e516df4e8032cbc3d
 - https://github.com/ttscoff/KeyBindings
 
+## iTerm2
+
+Go to Preferences -> Profiles tab -> Keys tab -> Key Mappings tab.
+Click the + button.
+
+| Shortcuts    | Description       | Action               | Send      |
+| ------------ | ----------------- | -------------------- | --------- |
+| Alt+← Ctrl+j | Move word left    | Send Escape Sequence | b         |
+| Alt+→ Ctrl+l | Move word right   | Send Escape Sequence | f         |
+| Ctrl+ñ       | Delete word right | Send Hex Codes       | 0x1b 0x64 |
+
+https://stackoverflow.com/questions/6205157/how-to-set-keyboard-shortcuts-to-jump-to-beginning-end-of-line/29403520#29403520
+
+### "send hex code" vs "send escape sequence"
+
+From https://sergeemond.ca/en/articles/iterm-extend-send-text-action
+
+- “send escape sequence” simply sends a “\e” followed by the text as-is
+- “send hex code” scans for one 8-bit code, and sends that
+- “send text” allows for “\e” (escape), “\n” (newline), “\a” (bell), and “\t” (tab), and normal text
 
 ## kexts
 
