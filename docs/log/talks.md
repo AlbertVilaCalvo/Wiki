@@ -6,6 +6,16 @@ Just a list of some of the talks/podcasts I've watched/listened, in reverse cron
 
 ## 2021
 
+[https://developer.mozilla.org/en-US/docs/Web/HTTP](https://www.youtube.com/watch?v=8ZtInClXe1Q)
+
+[Running an SQL Injection Attack - Computerphile](https://www.youtube.com/watch?v=ciNHn38EyRc)
+
+[Chris McCord - The Future of Full-stack (LiveView) - ElixirConf 2021](https://m.youtube.com/watch?v=Of1phFsC4ZI)
+
+[Have Single-Page Apps Ruined the Web? | Transitional Apps with Rich Harris](https://www.youtube.com/watch?v=860d8usGC0o)
+
+[Elixir 1.13 - José Valim - ElixirConf 2021](https://m.youtube.com/watch?v=ydjx2kKHzrM)
+
 [Sebastian Markbage: Minimal API Surface Area | JSConf EU 2014](https://www.youtube.com/watch?v=4anAwXYqLG8)
 
 No abstraction > Wrong abstraction. Fewer abstractions, more repetition. Explicit repetitive code. Only abstract to solve bugs.

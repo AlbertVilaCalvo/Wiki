@@ -8,6 +8,7 @@ Improving IDE performance - https://blog.jetbrains.com/kotlin/2021/06/simple-ste
 Des-habilitar plugins que no faig servir!
 :::
 
+
 ## Preferences
 
 Add line at end of file: Editor -> General -> check 'Ensure every saved line ends with a line break'. Also check 'Remove trailing blank lines at the end of saved files' there too.
@@ -15,6 +16,17 @@ Add line at end of file: Editor -> General -> check 'Ensure every saved line end
 Soft wrap markdown files: Editor -> General marcar 'Soft-wrap these files'. Al input hi ha per defecte `*.md; *.txt; *.rst; *.adoc`;
 
 A WebStorm, Editor -> General -> JavaScript marcar "Start template string interpolation on typing '$'". Amb això si escric '$' a dins de un template string m'afegeix '{}' 👌. Aquí també es pot triar si afegeix '()' al autocompletar una funció (veure [WEB-31404](https://youtrack.jetbrains.com/issue/WEB-31404) i [Added the ability to choose if you want to insert braces on code completion](https://blog.jetbrains.com/webstorm/2021/08/webstorm-2021-2-1/)).
+
+
+## Settings Sync
+
+https://www.jetbrains.com/help/idea/sharing-your-ide-settings.html#IDE_settings_sync
+
+Cal tenir el plugin 'IDE Settings Sync' (instal·lat per defecte).
+
+Llavors fer File -> Manage IDE Settings -> Sync Settings to JetBrains Account. (Si no apareix és perquè ja està activat.)
+
+Ha d'aparèixer la icona del núvol a baix de tot a la dreta.
 
 
 ## Delete Leftover IDE Directories
