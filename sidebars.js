@@ -19,6 +19,7 @@ module.exports = {
     'dev/eslint',
     'dev/git-hooks',
     'dev/http',
+    'dev/rest-api',
     'dev/jetbrains',
     'dev/android',
     'dev/ios',
