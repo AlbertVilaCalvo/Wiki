@@ -53,6 +53,11 @@ module.exports = {
           label: 'Disseny',
           position: 'left',
         },
+        {
+          to: 'corrector',
+          label: 'Corrector',
+          position: 'right',
+        },
         // {
         //   to: 'docs/doc1',
         //   activeBasePath: 'docs',
