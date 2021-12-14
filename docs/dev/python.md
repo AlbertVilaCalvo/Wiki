@@ -7,6 +7,16 @@ title: Python
 Cheatsheet: https://www.pythonsheets.com
 
 
+## Steps to create a Python project
+
+1. Set Python version: `pyenv local 3.10.0`. Check the lastest Python version with `pyenv versions`.
+2. Init Pypenv: `pipenv --python 3.10`. This creates the Pipfile.
+3. Enable the virtual environment: `pipenv shell`.
+4. Set the Python interpreter in PyCharm. At the Preferences, add the new Python interpreter with the location given by `pipenv --venv`.
+5. Setup Black and configure it in PyCharm: [follow instructions](#black). `which flask` should be something like `/Users/albert/.local/share/virtualenvs/project-name--zmW4vHg/bin/black`.
+6. Install libraries, eg: `pipenv install flask`.
+
+
 ## pyenv
 
 https://github.com/pyenv/pyenv
@@ -188,19 +198,20 @@ https://github.com/jazzband/pip-tools
 https://stackoverflow.com/questions/61536466/pips-requirements-txt-best-practice
 
 
-## pipenv
+## Pipenv
 
 [github.com/pypa/pipenv](https://github.com/pypa/pipenv)
 
 Docs: https://pipenv.pypa.io/en/latest
 
-Upgrade pipenv: `pip3 install --user --upgrade pipenv`
+Upgrade Pipenv: `pip3 install --user --upgrade pipenv`
 
 ### Commands
 
 Create a new project: `pipenv --three` or `pipenv --python 3.7`
 
-Activate project's virtualenv: `pipenv shell`. Type 'exit' or 'Ctrl+D' to return
+☢️ Activate project's virtualenv: `pipenv shell`. Type 'exit' or 'Ctrl+D' to return.
+Virtual environments are located in `~/.local/share/virtualenvs`.
 
 (If we do `which python` or `which pip3` outside the environment we get `/usr/bin/python` and `/usr/local/bin/pip3`. Inside we get `/Users/albertvilacalvo/.local/share/virtualenvs/.../bin/...`.)
 
@@ -241,9 +252,15 @@ https://github.com/psf/black
 
 Docs: https://black.readthedocs.io/en/stable/
 
-Installation:
-- With pipenv: `pipenv install black --dev`
-- With venv or virtualenv: `pip install black` (environment needs to be active, otherwise black is installed globally)
+### Installation
+- With Pipenv:
+  - Make sure that the environment is active, ie run `pipenv shell`.
+  - `pipenv install black --dev`.
+  - Then on the Pipfile replace version value '*' with the actual version in the Pipfile (eg "==21.12b0").
+  - Finally run `pipenv lock`. If the error '✘ Locking Failed! ResolutionFailure' happens, run `pipenv lock --pre --clear`.
+- With venv or virtualenv: `pip install black` (environment needs to be active, otherwise black is installed globally).
+
+### Commands
 
 `black --help`
 
@@ -255,7 +272,7 @@ https://black.readthedocs.io/en/stable/integrations/editors.html#pycharm-intelli
 
 Requires the [File Watchers](https://plugins.jetbrains.com/plugin/7177-file-watchers) plugin, which is installed by default in PyCharm.
 
-`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with pipenv and we've installed black on the environment (`pipenv install black --dev`).
+`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with Pipenv and we've installed black on the environment (`pipenv install black --dev`).
 
 #### Add the External Tool
 
@@ -273,7 +290,7 @@ Preferences -> Tools -> External Tools. Click +.
 
 _This needs to be done for every project._
 
-Preferences -> Tools -> File Watchers. Click +.
+Preferences -> Tools -> File Watchers. Click + and select 'custom'.
 
 - Name: Black
 - File type: Python
