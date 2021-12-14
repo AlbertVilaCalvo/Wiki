@@ -53,18 +53,18 @@ module.exports = {
           label: 'Disseny',
           position: 'left',
         },
-        {
-          to: 'docs/doc1',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'right',
-        },
-        {to: 'blog', label: 'Blog', position: 'right'},
-        {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
-          position: 'right',
-        },
+        // {
+        //   to: 'docs/doc1',
+        //   activeBasePath: 'docs',
+        //   label: 'Docs',
+        //   position: 'right',
+        // },
+        // {to: 'blog', label: 'Blog', position: 'right'},
+        // {
+        //   href: 'https://github.com/facebook/docusaurus',
+        //   label: 'GitHub',
+        //   position: 'right',
+        // },
       ],
     },
     footer: {
