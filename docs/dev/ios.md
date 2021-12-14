@@ -8,6 +8,8 @@ simctl commands: `xcrun simctl` or `xcrun simctl help`
 
 List simulators: `xcrun simctl list devices`
 
+Start a simulator: `open -a Simulator --args -CurrentDeviceUIDI <simulator UDID>`
+
 Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices` to free up disk space: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572
 
 

@@ -26,7 +26,7 @@ https://devhints.io/jsdoc
 
 https://developer.mozilla.org/en-US/docs/Web/API/Console/group
 
-```
+```js
 console.group('label')
 console.log(...)
 console.log(...)
@@ -63,7 +63,7 @@ Does not mutate. [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/R
 
 ### Sort (eg by date)
 
-```
+```ts
 export interface Item {
     date: number; // time in millis, eg 1622451442822
 }

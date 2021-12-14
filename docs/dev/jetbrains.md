@@ -18,6 +18,17 @@ Soft wrap markdown files: Editor -> General marcar 'Soft-wrap these files'. Al i
 A WebStorm, Editor -> General -> JavaScript marcar "Start template string interpolation on typing '$'". Amb això si escric '$' a dins de un template string m'afegeix '{}' 👌. Aquí també es pot triar si afegeix '()' al autocompletar una funció (veure [WEB-31404](https://youtrack.jetbrains.com/issue/WEB-31404) i [Added the ability to choose if you want to insert braces on code completion](https://blog.jetbrains.com/webstorm/2021/08/webstorm-2021-2-1/)).
 
 
+## Get rid of annoying dialog 'Add files to Git'
+
+- For ALL new projects: File -> New Projects Setup -> Preferences for New Projects -> Version Control -> Confirmation
+- For the current project: Preferences -> Version Control -> Confirmation
+
+Then set these values:
+- When files are created: 'Do not add'
+- When files are deleted: 'Do not remove'
+
+[source](https://stackoverflow.com/questions/44135615/turn-off-intellij-auto-adding-to-vcs-git)
+
 ## Settings Sync
 
 https://www.jetbrains.com/help/idea/sharing-your-ide-settings.html#IDE_settings_sync
