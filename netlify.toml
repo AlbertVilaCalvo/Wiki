@@ -5,6 +5,9 @@
   command = "yarn build"
   publish = "build"
 
+[build.environment]
+  YARN_VERSION = "1.22.17"
+
 
 # Redirects
 # https://docs.netlify.com/routing/redirects/#syntax-for-the-netlify-configuration-file
