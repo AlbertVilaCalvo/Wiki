@@ -9,6 +9,7 @@ module.exports = {
     'cli/npm',
     'cli/yarn',
     'cli/gradle',
+    'cli/curl',
   ],
   dev: [
     'dev/javascript',
