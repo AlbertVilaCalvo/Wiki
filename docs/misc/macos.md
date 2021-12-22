@@ -72,6 +72,9 @@ Are located in `/Library/Extensions/`.
 
 ## Free up disk space
 
-Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572
-
-JetBrains IDEs, delete old versions: Help -> Delete Leftover IDE Directories…
+- Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572
+- Delete old Xcode archives. Use the Organizer (Window -> Organizer).
+- JetBrains IDEs, delete old versions: Help -> Delete Leftover IDE Directories…
+- Prune unused Docker objects: https://docs.docker.com/config/pruning
+- Anar a ~/Library/Application Support i esborrar programes antics.
+- Esborrar fitxers grans: Sobre aquest Mac -> Emmagatzematge -> Gestionar...

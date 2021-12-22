@@ -20,6 +20,8 @@ https://stackoverflow.com/questions/45016234/what-is-idempotency-in-http-methods
 
 https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP
 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+
 **Idempotent**: can be applied multiple times without changing the result beyond the initial application ([source](https://en.wikipedia.org/wiki/Idempotence)).
 
 **Safe**: it doesn't alter the state of the server, ie performs a read-only operation.
