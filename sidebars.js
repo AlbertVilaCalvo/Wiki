@@ -8,6 +8,7 @@ module.exports = {
     'cli/ohmyzsh',
     'cli/npm',
     'cli/yarn',
+    'cli/nvm',
     'cli/gradle',
     'cli/curl',
   ],
