@@ -4,6 +4,8 @@ title: HTTP
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP
 
+https://github.com/for-GET/http-decision-diagram
+
 ## Status codes
 
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
@@ -32,6 +34,12 @@ https://httpstatuses.com
 | 404         | Not Found             |                                     |
 | 405         | Method Not Allowed    |                                     |
 | 500         | Internal Server Error |                                     |
+
+### 401 Unauthorized vs 403 Forbidden
+
+401: the user is not logged/authenticated. 403: the user is logged/authenticated, but is not authorized to access the requested resource.
+
+https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses
 
 ## Methods
 

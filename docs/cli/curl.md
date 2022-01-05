@@ -40,3 +40,4 @@ curl -H "Content-Type: application/json" -d @data.json http://example.com
   - JSON: `-d '{"key": "value"}'` or `--data '{"key": "value"}'`.
   - application/x-www-form-urlencoded: `-d 'key1=value1&key2=value2'` or `--data 'key1=value1&key2=value2'`.
 - Header: `-H "Content-Type: application/json"` or `--header "Content-Type: application/json"`.
+- Verbose: `-v`. Displays headers, status code and other info.

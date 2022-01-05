@@ -4,7 +4,13 @@ title: Talks
 
 Just a list of some of the talks/podcasts I've watched/listened, in reverse cronological order. (If I don't write them down I forget.) Note that this is a very small fraction of them since I started to write them recently (2021) and I forget to add them.
 
+## 2022
+
+[How Does React Actually Work? React.js Deep Dive #1](https://www.youtube.com/watch?v=7YhdqIR2Yzo)
+
 ## 2021
+
+[React Native Radio 222: The New Architecture with Kevin Gozali from the RN core team](https://player.simplecast.com/e153e8ca-2750-43d1-b252-a8dbd2f1ef3c)
 
 [https://developer.mozilla.org/en-US/docs/Web/HTTP](https://www.youtube.com/watch?v=8ZtInClXe1Q)
 

@@ -74,21 +74,22 @@ git push origin master
 
 https://git-scm.com/docs/git-rebase
 
-```
+```bash
 git rebase -i <commit you want to amend>^
-// or with the alias
+# or with the alias
 grbi <commit you want to amend>^
 ```
 **r or reword** - amend commit message (note that if we are only rewording we don't need to do any of the following commands, just save the new commit message and we are done)
-```
+```bash
 gc! (git commit --amend)
 grbc (git rebase --continue)
 ```
 **e or edit** - modify commit
-```
+```bash
 // edit file(s)...
 gaa (or) ga some/file.txt
 gc! (git commit --amend)
+# it's also possible to do just do gcan!, or gaa and then gcn!
 grbc (git rebase --continue)
 ```
 

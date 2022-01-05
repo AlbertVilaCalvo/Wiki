@@ -233,7 +233,7 @@ Install all packages specified in Pipfile.lock: `pipenv sync`
 
 Run: `pipenv run python main.py`
 
-Locate the virtualenv: `pipenv --venv`
+Locate the virtualenv: `pipenv --venv`. Is something like `/Users/albertvilacalvo/.local/share/virtualenvs/My-App-K-OEJVkt`
 
 Locate the Python interpreter: `pipenv --py`
 
@@ -262,9 +262,13 @@ Docs: https://black.readthedocs.io/en/stable/
 
 ### Commands
 
-`black --help`
+List commands: `black --help`
 
 `black --version`
+
+Check: `black --check <dir>`, eg `black --check .`
+
+Format: `black .`
 
 ### PyCharm integration
 
@@ -276,7 +280,7 @@ Requires the [File Watchers](https://plugins.jetbrains.com/plugin/7177-file-watc
 
 #### Add the External Tool
 
-_This needs to be done only once every._
+_This needs to be done only once ever._
 
 Preferences -> Tools -> External Tools. Click +.
 
@@ -304,6 +308,7 @@ In Advanced Options:
 - Uncheck "Auto-save edited files to trigger the watcher"
 - Uncheck "Trigger the watcher on external changes"
 - Uncheck "Trigger the watcher regardless of syntax errors"
+- Uncheck "Create output file from stdout"
 
 ### VSCode integration
 
