@@ -25,8 +25,8 @@ What prevents Mac to sleep: `pmset -g assertions`. See https://osxdaily.com/2012
 
 ```
 {
-  "^w" = "deleteWordBackward:";
-  "^ñ" = "deleteWordForward:";
+  "^u" = "deleteWordBackward:";
+  "^o" = "deleteWordForward:";
   "^j" = "moveWordBackward:";
   "^l" = "moveWordForward:";
 }
@@ -51,7 +51,8 @@ Click the + button.
 | ------------ | ----------------- | -------------------- | --------- |
 | Alt+← Ctrl+j | Move word left    | Send Escape Sequence | b         |
 | Alt+→ Ctrl+l | Move word right   | Send Escape Sequence | f         |
-| Ctrl+ñ       | Delete word right | Send Hex Codes       | 0x1b 0x64 |
+| Ctrl+u       | Delete word left  | Send Hex Codes       | 0x1b 0x08 (could instead be 0x17, see StackOverflow below)|
+| Ctrl+o       | Delete word right | Send Hex Codes       | 0x1b 0x64 |
 
 https://stackoverflow.com/questions/6205157/how-to-set-keyboard-shortcuts-to-jump-to-beginning-end-of-line/29403520#29403520
 
@@ -72,7 +73,9 @@ Are located in `/Library/Extensions/`.
 
 ## Free up disk space
 
+- [npkill](https://github.com/voidcosmos/npkill). Usage: `npx npkill --directory ~/Programming`.
 - Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572
+- Delete Python venv folders?
 - Delete old Xcode archives. Use the Organizer (Window -> Organizer).
 - JetBrains IDEs, delete old versions: Help -> Delete Leftover IDE Directories…
 - Prune unused Docker objects: https://docs.docker.com/config/pruning

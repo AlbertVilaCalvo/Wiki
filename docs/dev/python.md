@@ -328,3 +328,9 @@ At the project (not global) `.vscode/settings.json` set:
 "editor.formatOnType": true,
 "editor.formatOnPaste": true,
 ```
+
+## pycodestyle
+
+https://github.com/PyCQA/pycodestyle
+
+Check your Python code against some of the style conventions in [PEP 8](http://www.python.org/dev/peps/pep-0008).
