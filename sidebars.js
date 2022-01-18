@@ -26,9 +26,11 @@ module.exports = {
     'dev/jetbrains',
     'dev/android',
     'dev/ios',
-    'dev/docker',
     'dev/python',
     'dev/postgresql',
+  ],
+  devops: [
+    'devops/docker'
   ],
   css: [
     'css/reset',

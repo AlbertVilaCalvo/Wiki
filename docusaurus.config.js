@@ -25,8 +25,14 @@ module.exports = {
         },
         {
           to: 'dev/javascript',
-          activeBasePath: 'dev',
+          activeBaseRegex: 'dev/.+',
           label: 'Dev',
+          position: 'left',
+        },
+        {
+          to: 'devops/docker',
+          activeBasePath: 'devops',
+          label: 'DevOps',
           position: 'left',
         },
         {
