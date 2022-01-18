@@ -42,11 +42,15 @@ Recreate/reset database: `dropdb dbname && createdb dbname`
 
 ## psql
 
+Comand reference: https://www.postgresql.org/docs/current/app-psql.html
+
 Connect to db: `psql dbname`
 
 List databases: `\l`
 
 List tables (relations): `\dt`
+
+List tables and indexes: `\dti`
 
 Show table schema: `\d tablename`
 

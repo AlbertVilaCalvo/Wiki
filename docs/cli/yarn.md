@@ -33,22 +33,12 @@ Why is this package installed? `yarn why <package>`
 
 ## Global
 
-List global packages:
+List global packages: `yarn global list`
 
-`yarn global list`
+Add global package: `yarn global add <package>`
 
-Add global package:
+Upgrade global packages one by one (lists all packages and versions and allows to choose): `yarn global upgrade-interactive --latest`
 
-`yarn global add <package>`
+Upgrade global packages all at once: `yarn global upgrade`
 
-Upgrade global packages one by one (lists all packages and versions and allows to choose):
-
-`yarn global upgrade-interactive --latest`
-
-Upgrade global packages all at once:
-
-`yarn global upgrade`
-
-Remove global package:
-
-`yarn global remove <package>`
+Remove global package: `yarn global remove <package>`

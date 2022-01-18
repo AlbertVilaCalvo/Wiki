@@ -18,6 +18,8 @@ Emulator hide touches: `adb shell settings put system show_touches 0`
 
 List installed and avaialble versions of SDK, NDK, emulators, build tools etc: `sdkmanager --list`
 
+Install apk: `adb install path/to/the/file.apk`
+
 
 ## Test deep links
 

@@ -73,11 +73,14 @@ Are located in `/Library/Extensions/`.
 
 ## Free up disk space
 
-- [npkill](https://github.com/voidcosmos/npkill). Usage: `npx npkill --directory ~/Programming`.
-- Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572
-- Delete Python venv folders?
+- Delete `node_modules` folders with [npkill](https://github.com/voidcosmos/npkill). Usage: `npx npkill --directory ~/Programming`.
+- Delete `build` folders: `find . -type d -name "build" -exec rm -rf {} +`.
+- Delete Python `venv` folders: `find . -type d -name "venv" -exec rm -rf {} +`.
+- Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572.
 - Delete old Xcode archives. Use the Organizer (Window -> Organizer).
 - JetBrains IDEs, delete old versions: Help -> Delete Leftover IDE Directories…
-- Prune unused Docker objects: https://docs.docker.com/config/pruning
-- Anar a ~/Library/Application Support i esborrar programes antics.
+- Docker:
+  - Remove dangling images (images with `<none>` in `docker image ls`): `docker image prune` ([docs](https://docs.docker.com/engine/reference/commandline/image_prune/))
+  - Prune unused Docker objects: https://docs.docker.com/config/pruning
+- Anar a `~/Library/Application Support` i esborrar programes antics.
 - Esborrar fitxers grans: Sobre aquest Mac -> Emmagatzematge -> Gestionar...

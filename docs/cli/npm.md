@@ -9,9 +9,7 @@ package.json docs: https://docs.npmjs.com/cli/v6/configuring-npm/package-json
 
 Tip: `npm run` lists all the executable commands/scripts.
 
-Upgrade npm itself:
-
-`npm install npm@latest -g`
+Upgrade npm itself: `npm install npm@latest -g`
 
 (If this command fails and we then get `zsh: command not found: npm` we can fix it with `brew reinstall node`.)
 
@@ -21,6 +19,7 @@ Install to devDependencies: `npm install webpack --save-dev`
 
 `npm ci` -> when you want to make sure you're doing a clean install of your dependencies [docs](https://docs.npmjs.com/cli/v7/commands/npm-ci)
 
+Find outdated and unused packages: https://github.com/dylang/npm-check
 
 
 ## Init
@@ -70,22 +69,12 @@ Yarn has [`yarn list`](https://classic.yarnpkg.com/en/docs/cli/list).
 
 ## Global
 
-List global pacakges:
+List global pacakges: `npm list -g --depth=0`
 
-`npm list -g --depth=0`
+List outdated global packages: `npm outdated -g`
 
-List outdated global packages:
+Add global package: `npm install -g <package>`
 
-`npm outdated -g`
+Upgrade global package: `npm update -g <package>`
 
-Add global package:
-
-`npm install -g <package>`
-
-Upgrade global package:
-
-`npm update -g <package>`
-
-Remove global package:
-
-`npm uninstall -g <package>`
+Remove global package: `npm uninstall -g <package>`
