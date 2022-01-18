@@ -17,6 +17,7 @@ module.exports = {
     'dev/typescript',
     'dev/react',
     'dev/react-native',
+    'dev/expo',
     'dev/prettier',
     'dev/eslint',
     'dev/git-hooks',
