@@ -31,7 +31,26 @@ module.exports = {
     'dev/postgresql',
   ],
   devops: [
-    'devops/docker'
+    'devops/docker',
+    'devops/kubernetes',
+    {
+      type: 'category',
+      label: 'AWS',
+      link: {
+        type: 'generated-index',
+        title: 'AWS',
+        description: 'Amazon Web Servicess',
+      },
+      collapsed: false,
+      items: [
+        'devops/aws/aws',
+        'devops/aws/cli',
+        'devops/aws/iam',
+        'devops/aws/ec2',
+        'devops/aws/eks',
+        'devops/aws/s3',
+      ],
+    },
   ],
   css: [
     'css/reset',
