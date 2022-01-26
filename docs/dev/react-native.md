@@ -59,6 +59,12 @@ export const isAndroid: boolean = Platform.OS === 'android'
 export const isIOS: boolean = Platform.OS === 'ios'
 ```
 
+
+## Full width
+
+`alignSelf: 'stretch'`
+
+
 ## ScrollView issues
 
 ### Avoid dismiss keyboard on touch

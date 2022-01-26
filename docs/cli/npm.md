@@ -29,6 +29,21 @@ https://docs.npmjs.com/cli/v7/commands/npm-init
 Init without questions: `npm init -y`
 
 
+## Global
+
+List global pacakges: `npm list -g --depth=0`
+
+List outdated global packages: `npm outdated -g`
+
+Add global package: `npm install -g <package>`
+
+Update 1 global package: `npm update -g <package>`
+
+Update all global packages: `npm update -g`
+
+Remove global package: `npm uninstall -g <package>`
+
+
 ## Dependency version
 
 https://docs.npmjs.com/cli/v6/configuring-npm/package-json#dependencies
@@ -65,16 +80,3 @@ Here the transitive dependency `@typescript-eslint/typescript-estree` is being i
 Yarn has [`yarn list`](https://classic.yarnpkg.com/en/docs/cli/list).
 
 [source](https://stackoverflow.com/a/49523073/4034572)
-
-
-## Global
-
-List global pacakges: `npm list -g --depth=0`
-
-List outdated global packages: `npm outdated -g`
-
-Add global package: `npm install -g <package>`
-
-Upgrade global package: `npm update -g <package>`
-
-Remove global package: `npm uninstall -g <package>`
