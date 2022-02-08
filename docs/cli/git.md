@@ -219,7 +219,17 @@ git stash push -m "Some message"
 https://git-scm.com/docs/git-stash
 
 
-## Always use annotated tags
+## Tags
+
+View: `git show 2.4.0`
+
+Delete local tag: `git tag -d 2.4.0`
+
+Delete remote tag: `git push -d origin 2.4.0`
+
+Push all tags: `git push -–tags` or `git push origin --tags`
+
+### Always use annotated tags
 ```
 git tag -a v1.0
 ```

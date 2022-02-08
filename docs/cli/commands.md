@@ -48,10 +48,14 @@ List recent commands in history: `fc -l`
 
 https://github.com/ytdl-org/youtube-dl/
 
-`youtube-dl --write-description --write-auto-sub --sub-lang es URL`
+`youtube-dl --write-description --write-auto-sub --sub-lang es <URL>`
 
-List subtitles: `youtube-dl --list-subs URL`
+List subtitles: `youtube-dl --list-subs <URL>`
 
 Use `--skip-download` if you want to get the subtitles or description only.
 
 Quality: `-f 'bestvideo[height<=480]+bestaudio'`
+
+Download audio: `youtube-dl -x [--audio-quality 0] [--audio-format "flac"] <URL>`
+  - `--audio-quality QUALITY`: 0 is the best, 9 the worst
+  - `--audio-format FORMAT`: "best", "aac", "flac", "mp3", "m4a", "opus", "vorbis", or "wav"; "best" by default

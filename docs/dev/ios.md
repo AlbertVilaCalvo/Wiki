@@ -2,6 +2,12 @@
 title: iOS
 ---
 
+Developer account: https://developer.apple.com/account
+- Register device UDID: https://developer.apple.com/account/resources/devices/list
+
+App Store Connect: https://appstoreconnect.apple.com
+
+
 ## CLI
 
 simctl commands: `xcrun simctl` or `xcrun simctl help`
