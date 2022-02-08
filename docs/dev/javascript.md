@@ -17,6 +17,7 @@ https://jsdoc.app
 
 https://devhints.io/jsdoc
 
+
 ## console
 
 - Use console.log() like a pro: [Hacker News](https://news.ycombinator.com/item?id=26779800) - [Article](https://markodenic.com/use-console-log-like-a-pro/)
@@ -33,20 +34,39 @@ console.log(...)
 console.groupEnd()
 ```
 
-## `delete` operator
+
+## Object
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+### `delete` operator
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
 
 
-## Object.assign
+### `Object.entries()`
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+
+```js
+const user = {
+  name: 'Joe',
+  age: 42
+}
+for (const [key, value] of Object.entries(user)) {
+  console.log(`${key}: ${value}`);
+}
+```
+
+### `Object.assign()`
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 
-Can be used to copy an object changing a property it without modifying it.
+Can be used to copy an object changing a property without modifying it.
 
 Eg to toggle 'complete' of an object in a Redux reducer without modifying it:
 
-`Object.assign({}, todo, {complete: !todo.complete})`
+`const newTodo = Object.assign({}, todo, {complete: !todo.complete})`
 
 This creates a new object {}, merges all the properties of the 'todo' object into this new object, and then overrides the 'complete' property. The original 'todo' object is not modified, so the reducer is pure.
 
@@ -94,25 +114,44 @@ if (index !== -1) {
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-```
-API.fetchUser = function () {
+```js
+Api.fetchUser = function () {
   return new Promise((res, rej) => {
-    setTimeout(function () {
-      res(user);
-    }, 2000);
-  });
-};
+    setTimeout(() => {
+      res(user)
+    }, 2000)
+  })
+}
 ```
 
-Wait until all Promises have resolved:
+### Promise.all() and Promise.allSettled()
 
-```
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
+
+- Promise.all() resolves when (waits until) all promises resolve, and rejects immediately if any promise rejects.
+- Promise.allSettled() resolves when (waits until) all promises have either fulfilled or rejected.
+
+```js
 Promise.all([
-  API.fetchUser(),
-  API.fetchPosts()
+  Api.fetchUser(),
+  Api.fetchPosts()
 ]).then(([user, posts]) => {
-  console.log('User', user)
-  console.log('Posts', posts)
+  console.log('user', user)
+  console.log('posts', posts)
+}).catch(error => {
+  console.log(error)
+})
+```
+
+```js
+Promise.allSettled([
+  Api.fetchUser(),
+  Api.fetchPosts()
+]).then(([userResult, postsResult]) => {
+  console.log('user result', userResult) // {status: "fulfilled", value: {username: 'albert'}},
+  console.log('posts result', postsResult) // {status: "rejected",  reason: Error: some error happened}
 })
 ```
 
@@ -120,6 +159,10 @@ Promise.all([
 ## String
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+:::warning
+[substr()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substr) is deprecated. Use [slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice) instead.
+:::
 
 [startsWith()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith)
 
