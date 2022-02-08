@@ -17,13 +17,15 @@ expo init <appname> -t expo-template-blank-typescript
 
 ## Expo Dev Client
 
+Replaces Expo Go, which contains a fixed collection of native modules and does not allow custom native code.
+
 https://www.npmjs.com/package/expo-dev-client
 
 https://docs.expo.dev/development/introduction
 
-> Development builds of your app are Debug builds containing the `expo-dev-client` package.
+>  Expo Go app is a standard client containing a preset collection of modules. As your project moves toward release, you may find that you need to customize your project, either to reduce your bundle size, to use a module offered by developers in the React Native community, or even to add your own **custom native code**.
 
-Replaces Expo Go, which contains a fixed collection of native modules and does not allow custom native code.
+> Development builds of your app are Debug builds containing the `expo-dev-client` package.
 
 https://blog.expo.dev/introducing-custom-development-clients-5a2c79a9ddf8
 
@@ -37,7 +39,13 @@ https://blog.expo.dev/introducing-eas-395d4809cc6f
 
 https://expo.dev/eas
 
-## EAS Build
+Install the CLI: `npm install -g eas-cli` ([npm is recommended instead of yarn](https://docs.expo.dev/build/setup/#1-install-the-latest-eas-cli))
+
+Login: `eas login`
+
+Check the current user: `eas whoami`
+
+### EAS Build
 
 Replaces `expo build:ios` and `expo build:android` ([classic build](https://docs.expo.dev/classic/building-standalone-apps/)).
 
@@ -49,17 +57,31 @@ https://blog.expo.dev/expo-managed-workflow-in-2021-5b887bbf7dbb
 
 https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10
 
-Install CLI: `npm install -g eas-cli` ([npm is recommended instead of yarn](https://docs.expo.dev/build/setup/#1-install-the-latest-eas-cli))
+`eas build:configure` -> Generates eas.json. Learn more at https://docs.expo.dev/build-reference/build-configuration/
 
-`eas build:configure` -> Generates eas.json
+To install an app to an iPhone, first register the device UDID at https://developer.apple.com/account/resources/devices/list.
+To register any iOS devices you would like to develop on to your ad hoc provisioning profile use `eas device:create`.
 
-`eas build -p android --profile preview`
+Android build:
+- `eas build -p android --profile preview`
+- https://docs.expo.dev/build-reference/android-builds/
 
-## EAS Submit
+iOS build:
+- `eas build -p ios`
+- https://docs.expo.dev/build-reference/ios-builds/
+
+Android and iOS build: `eas build -p all`
+
+Build locally:
+- https://docs.expo.dev/build-reference/local-builds/
+- `eas build --local`
+- "Uses your own hardware to build your apps locally and EAS to manage your app-signing credentials" ([source](https://blog.expo.dev/turtle-goes-out-to-sea-d334db2a6b60))
+
+### EAS Submit
 
 App store submissions.
 
-## EAS Update
+### EAS Update
 
 https://docs.expo.dev/eas-update/introduction
 
