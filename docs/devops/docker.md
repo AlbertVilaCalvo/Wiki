@@ -50,10 +50,24 @@ From https://docs.docker.com/get-started/overview
 
 Multiple instances of the same image can be created.
 
+From https://docs.docker.com/get-started:
+
+> What is a container?
+>
+> A container is a sandboxed process on your machine that is isolated from all other processes on the host machine. You can create, start, stop, move, or delete a container.
+>
+> What is a container image?
+>
+> When running a container, it uses an isolated filesystem. This custom filesystem is provided by a container image. Since the image contains the container’s filesystem, it must contain everything needed to run an application - all dependencies, configuration, scripts, binaries, etc. The image also contains other configuration for the container, such as environment variables, a default command to run, and other metadata.
+
 
 ## Docker Desktop
 
 https://docs.docker.com/desktop
+
+Docker.raw (macOS):
+- https://apple.stackexchange.com/questions/391377/what-is-the-purpose-of-docker-raw-file-on-mac-os-catalina
+- Location of Docker.raw in macOS: ~/Library/Containers/com.docker.docker/Data/vms/0/ - see https://www.freecodecamp.org/news/where-are-docker-images-stored-docker-container-paths-explained/
 
 
 ## CLI
@@ -61,6 +75,8 @@ https://docs.docker.com/desktop
 List commands: `docker help`
 
 Command help: `docker <command> --help`, eg `docker run --help`
+
+`docker info`
 
 Version: `docker version`
 
@@ -76,11 +92,15 @@ https://docs.docker.com/engine/reference/commandline/build
 
 Build an image from a Dockefile: `docker build`
 
-`docker build --tag <tagname> .`
+`docker build --tag <tagname> .` o `docker build -t <tagname> .`
 
 Create a new container form an image: `docker create`
 
 Pull image from registry: `docker pull alpine:latest`
+
+Push image to registry (Docker Hub):
+- If we are logged in Docker Desktop: `docker push <repo-name>:<tag-name>`
+- If we are not logged in Docker Desktop: `docker push <DockerHub-username>/<repo-name>:<tag-name>`
 
 ### `docker run`
 

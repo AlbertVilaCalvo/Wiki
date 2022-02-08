@@ -76,3 +76,35 @@ See https://kubernetes.io/docs/concepts/overview/components/#control-plane-compo
 - kubelet: agent that runs on each node and makes sure that containers are running in a Pod.
 - kube-proxy: https://kubernetes.io/docs/reference/glossary/?all=true#term-kube-proxy
 - Container runtime: software that is responsible for running containers, eg Docker.
+
+## `kubectl`
+
+Allows you to interact with the cluster, eg to get the status of nodes, pods, and services.
+
+Docs: https://kubectl.docs.kubernetes.io
+
+Overview: https://kubernetes.io/docs/reference/kubectl/overview/
+
+Cheatsheet: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+`kubectl version`
+
+`kubectl cluster-info`
+
+`kubectl get nodes`
+
+`kubectl get pods`
+
+List all namespaces and pods: `kubectl get all -A`
+
+Show cluster services: `kubectl describe services`
+
+Verify the deployment: `kubectl get deployments`
+
+Show all events: `kubectl get events -w`
+
+Show component status (deprecated in 1.19): `kubectl get componentstatuses`
+
+Check the rollout status: `kubectl rollout status deployment/simple-flask-deployment`
+
+Get external IP address: `kubectl get services <service-name> -o wide`

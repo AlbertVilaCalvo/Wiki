@@ -41,14 +41,47 @@ Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examp
 
 Create role
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-role.html
-- `aws iam create-role --role-name UdacityFlaskDeployCBKubectlRole --assume-role-policy-document file://trust.json --output text --query 'Role.Arn'`
+- `aws iam create-role --role-name <role-name> --assume-role-policy-document file://trust.json --output text --query 'Role.Arn'`
+
+Example of trust relationship policy document `trust.json`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Principal": {
+              "AWS": "arn:aws:iam::<ACCOUNT_ID>:root"
+          },
+          "Action": "sts:AssumeRole"
+      }
+  ]
+}
+```
 
 Attach a Policy to a IAM role
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-role-policy.html
-- `aws iam put-role-policy --role-name UdacityFlaskDeployCBKubectlRole --policy-name eks-describe --policy-document file://iam-role-policy.json`
+- `aws iam put-role-policy --role-name <role-name> --policy-name <policy-name> --policy-document file://iam-role-policy.json`
+
+Example of policy document `iam-role-policy.json`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement":[{
+      "Effect": "Allow",
+      "Action": ["eks:Describe*", "ssm:GetParameters"],
+      "Resource":"*"
+  }]
+}
+```
 
 Delete role
 - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html
-- First remove the role from instance profile: `aws iam remove-role-from-instance-profile --instance-profile-name instance-profile-name --role-name role-name`
-- Then remove the role: `aws iam delete-role --role-name role-name`
+- First remove the role from instance profile: `aws iam remove-role-from-instance-profile --instance-profile-name <instance-profile-name> --role-name <role-name>`
+- If there's a policy attached to the role, remove it: `aws iam delete-role-policy --role-name <role-name> --policy-name <policy-name>`
+  - Deleting IAM policies: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-delete.html
+  - https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role-policy.html
+- Finally remove the role: `aws iam delete-role --role-name <role-name>`
 - If you get the error "Cannot delete entity, must remove roles from instance profile first" on the console when trying to delete a role, use the CLI instead.
