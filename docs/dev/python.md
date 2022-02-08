@@ -10,10 +10,16 @@ Cheatsheet: https://www.pythonsheets.com
 ## Steps to create a Python project
 
 1. Set Python version: `pyenv local 3.10.0`. Check the lastest Python version with `pyenv versions`.
-2. Init Pypenv: `pipenv --python 3.10`. This creates the Pipfile.
+2. Init Pypenv: `pipenv --python 3.10.2`. This creates the `Pipfile`.
 3. Enable the virtual environment: `pipenv shell`.
-4. Set the Python interpreter in PyCharm. At the Preferences, add the new Python interpreter with the location given by `pipenv --venv`.
-5. Setup Black and configure it in PyCharm: [follow instructions](#black). `which flask` should be something like `/Users/albert/.local/share/virtualenvs/project-name--zmW4vHg/bin/black`.
+4. Set the Python interpreter in PyCharm.
+  - At the Preferences, go to 'Python Interperter' (you can click 'Interpreter Settings...' at the bottom-right).
+  - Open the 'Python Interperter' drop-down and click 'Show All...'.
+  - At the dialog that opens (Python Interpreters), click '+'.
+  - At the dialog that opens (Add Python Interpreter), select 'Existing environment' and set the path to the location of new Python interpreter given by `pipenv --venv` + `/bin/python`.
+  - Close the dialogs and at the drop-down select the new interpreter just addedand, and then click 'OK'.
+5. Install Black and configure it in PyCharm: [follow instructions](#black).
+  - Doing `which black` should be something like `/Users/albert/.local/share/virtualenvs/project-name--zmW4vHg/bin/black`. -> This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
 6. Install libraries, eg: `pipenv install flask`.
 
 
@@ -23,9 +29,11 @@ https://github.com/pyenv/pyenv
 
 Python versions are installed in `pyenv root`.
 
+Installed with Homebrew (see 'Notes Python.odt').
+
 Upgrade it with `brew upgrade pyenv`.
 
-The global version is set in `~/.pyenv/version`. You can use `system` as a value.
+The global Python version is set in `~/.pyenv/version`. We can use `system` as a value.
 
 ### pyenv commands
 
@@ -42,6 +50,11 @@ List versions: `pyenv versions`
 List available versions to install: `pyenv install --list`
 
 Install version: `pyenv install 3.9.7`
+
+_After installing_ a new Python version we can upgrade pip and pipenv, so that we use their latest versions:
+- `pip install --upgrade pip` or `/Users/albert/.pyenv/versions/3.10.2/bin/python3.10 -m pip install --upgrade pip`
+- `pip install --user pipenv`
+- Important: after upgrading pipenv we need to close the current shell and open a new one (see [upgrade pipenv](#upgrade-pipenv))
 
 
 ## Packaging
@@ -96,6 +109,8 @@ Docs: https://pip.pypa.io/en/stable/cli/
 `pip3 --version`
 
 List commands: `pip3 --help`
+
+Upgrade pip itself: `pip install --upgrade pip`
 
 Install package: `pip install requests`
 
@@ -204,11 +219,22 @@ https://stackoverflow.com/questions/61536466/pips-requirements-txt-best-practice
 
 Docs: https://pipenv.pypa.io/en/latest
 
-Upgrade Pipenv: `pip3 install --user --upgrade pipenv`
+Install:
+- Installation with Homebrew is discouraged _because updates to the brewed Python distribution will break Pipenv, and perhaps all virtual environments managed by it. You’ll then need to re-install Pipenv at least_. ([source](https://pipenv.pypa.io/en/latest/#install-pipenv-today))
+- https://pipenv.pypa.io/en/latest/#install-pipenv-today
+- https://pipenv.pypa.io/en/latest/install/
+- `pip(3) install --user pipenv`
+
+### Upgrade pipenv
+
+`pip3 install --user --upgrade pipenv`
+
+Important note after upgrading. If we are using a Python version from pyenv (ie we have a `.python-version` file created with eg `pyenv local 3.10.2`), after upgrading pipenv it's possible that doing `pipenv --version` still shows the old/previous pipenv version. We need to open a new shell (and close the current one) so that it picks up the new pipenv (just doing `source ~/.zshrc` is not enough). Note that we have an 'eval' for pyenv at `~/.zprofile` and another at `~/.zshrc`, which explains this behavior (see https://github.com/pyenv/pyenv#basic-github-checkout).
 
 ### Commands
 
-Create a new project: `pipenv --three` or `pipenv --python 3.7`
+Create a new project: `pipenv --three` or `pipenv --python 3.7` or `pipenv --python 3` or `pipenv --python 3.10.2`.
+Note that even though we may do `pipenv --python 3.10.2`, and it does indeed use 3.10.2 (it says 'Using /Users/albertvilacalvo/.pyenv/versions/3.10.2/bin/python3 (3.10.2) to create virtualenv...'), it writes `python_version = "3.10"` at `Pipfile`, not 3.10.2.
 
 ☢️ Activate project's virtualenv: `pipenv shell`. Type 'exit' or 'Ctrl+D' to return.
 Virtual environments are located in `~/.local/share/virtualenvs`.
@@ -253,12 +279,15 @@ https://github.com/psf/black
 Docs: https://black.readthedocs.io/en/stable/
 
 ### Installation
+
 - With Pipenv:
   - Make sure that the environment is active, ie run `pipenv shell`.
   - `pipenv install black --dev`.
   - Then on the Pipfile replace version value '*' with the actual version in the Pipfile (eg "==21.12b0").
   - Finally run `pipenv lock`. If the error '✘ Locking Failed! ResolutionFailure' happens, run `pipenv lock --pre --clear`.
-- With venv or virtualenv: `pip install black` (environment needs to be active, otherwise black is installed globally).
+- With venv or virtualenv:
+  - Make sure that the environment is active, ie run `source venv/bin/activate`, otherwise black is installed globally.
+  - `pip install black`
 
 ### Commands
 
@@ -276,7 +305,7 @@ https://black.readthedocs.io/en/stable/integrations/editors.html#pycharm-intelli
 
 Requires the [File Watchers](https://plugins.jetbrains.com/plugin/7177-file-watchers) plugin, which is installed by default in PyCharm.
 
-`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with Pipenv and we've installed black on the environment (`pipenv install black --dev`).
+`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with Pipenv and we've installed black on the environment (`pipenv install black --dev`). -> This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
 
 #### Add the External Tool
 
@@ -303,6 +332,7 @@ Preferences -> Tools -> File Watchers. Click + and select 'custom'.
 - Arguments: `"$FilePath$"`
 - Output paths to refresh: `$FilePath$`
 - Working directory: `$ProjectFileDir$`
+- Environment variables: leave it emtpy
 
 In Advanced Options:
 - Uncheck "Auto-save edited files to trigger the watcher"

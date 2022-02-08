@@ -21,6 +21,7 @@ If we install it locally in our project, we can run that version using npx or ya
 ```
 npx tsc
 yarn tsc
+yarn tsc --noEmit
 ```
 
 ## tsconfig.json
