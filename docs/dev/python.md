@@ -110,7 +110,9 @@ Docs: https://pip.pypa.io/en/stable/cli/
 
 List commands: `pip3 --help`
 
-Upgrade pip itself: `pip install --upgrade pip`
+Help of a command: `pip install --help`
+
+Upgrade pip itself: `pip install --upgrade pip` or `pip install -U pip`
 
 Install package: `pip install requests`
 
@@ -146,7 +148,7 @@ Create virtual environment: `python3 -m venv <DIR>`. Eg `python3 -m venv venv` o
 
 (This creates lots of files and folders - see them with `tree venv`.)
 
-Activate the virtual environment: `source venv/bin/activate` or `source ~/.virtualenvs/djangodev/bin/activate`. This needs to be done for each new terminal session.
+Activate the virtual environment: `source venv/bin/activate` or `source ~/.virtualenvs/djangodev/bin/activate`. This needs to be done for each new terminal session. Doing `. venv/bin/activate` alwo works.
 
 (After activating, doing `which pip` points to the binary in the venv folder, not the global `/usr/local/bin/pip3`. Same with the Python interpreter: `which python` points to the venv interpreter, not `/usr/bin/python`.)
 
@@ -225,7 +227,7 @@ Install:
 - https://pipenv.pypa.io/en/latest/install/
 - `pip(3) install --user pipenv`
 
-### Upgrade pipenv
+### Upgrade Pipenv
 
 `pip3 install --user --upgrade pipenv`
 
@@ -241,9 +243,24 @@ Virtual environments are located in `~/.local/share/virtualenvs`.
 
 (If we do `which python` or `which pip3` outside the environment we get `/usr/bin/python` and `/usr/local/bin/pip3`. Inside we get `/Users/albertvilacalvo/.local/share/virtualenvs/.../bin/...`.)
 
-Install all packages: `pipenv install`
+Install the packages in `[packages]` but not in `[dev-packages]`: `pipenv install` -> Can modify Pipfile.lock
 
 Install all packages, including dev dependencies: `pipenv install --dev`
+
+Install all packages specified in Pipfile.lock: `pipenv sync` -> Never modifies Pipfile.lock
+
+Enforce that your Pipfile.lock is up to date: `pipenv install --deploy` -> This will fail a build if the Pipfile.lock is out–of–date, instead of generating a new one ([source](https://pipenv.pypa.io/en/latest/advanced/#using-pipenv-for-deployments))
+
+`pipenv install` vs `pipenv sync`:
+- https://stackoverflow.com/questions/52447791/what-are-the-advantages-of-using-pipenv-sync-over-pipenv-install
+- https://pipenv.pypa.io/en/latest/advanced/#using-pipenv-for-deployments
+- Difference between pipenv sync and pipenv install --deploy: https://github.com/pypa/pipenv/issues/3582
+
+> `pipenv install` will install all dependencies from the Pipfile, and update Pipfile.lock with the versions it used. `pipenv sync` will install the exact versions specified in Pipfile.lock.
+
+> `pipenv install --ignore-pipfile` is nearly equivalent to `pipenv sync`, but `pipenv sync` will never attempt to re-lock your dependencies as it is considered an atomic operation. `pipenv install` by default does attempt to re-lock unless using the `--deploy` flag.
+
+> `pipenv sync` will never try to relock your dependencies (you can regard it as blind to Pipfile) while `pipenv install --deploy` will first check the consistency between Pipfile and Pipfile.lock and abort if they don't match
 
 _To avoid having * as version number, when we add a new dependency we need to set the dependency version number from Pipfile.lock to Pipfile. Then run `pipenv lock` which updates the Pipfile.lock _meta sha256._
 
@@ -254,8 +271,6 @@ Install package to dev: `pipenv install pytest --dev`
 Uninstall package: `pipenv uninstall requests`
 
 Generate a lockfile: `pipenv lock`
-
-Install all packages specified in Pipfile.lock: `pipenv sync`
 
 Run: `pipenv run python main.py`
 

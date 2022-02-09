@@ -32,6 +32,8 @@ Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
 
 `tree somefolder`
 
+To ignore something (eg a folder) use `-I <wild-card-pattern>`. Eg `tree -I node_modules` or `tree -I venv`. There can be multiple -I options.
+
 
 ## fc
 
