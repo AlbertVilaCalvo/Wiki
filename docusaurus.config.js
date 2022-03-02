@@ -44,15 +44,15 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'css/reset',
-          activeBasePath: 'css',
-          label: 'CSS',
-          position: 'left',
-        },
-        {
           to: 'html/misc',
           activeBasePath: 'html',
           label: 'HTML',
+          position: 'left',
+        },
+        {
+          to: 'css/reset',
+          activeBasePath: 'css',
+          label: 'CSS',
           position: 'left',
         },
         {

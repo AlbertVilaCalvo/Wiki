@@ -57,17 +57,17 @@ module.exports = {
     'http/rest-api',
     'http/cors',
   ],
-  css: [
-    'css/reset',
-    'css/flexbox',
-    'css/misc',
-    'css/text'
-  ],
   html: [
     'html/misc',
     'html/elements',
     'html/forms',
     'html/dom-api',
+  ],
+  css: [
+    'css/reset',
+    'css/flexbox',
+    'css/misc',
+    'css/text'
   ],
   misc: [
     'misc/battery',
