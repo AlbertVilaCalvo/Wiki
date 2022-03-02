@@ -36,6 +36,14 @@ module.exports = {
           position: 'left',
         },
         {
+          // Using "to: 'http/http'" results in 404 when clicking the link 'HTTP' on the sidebar,
+          // because it links to the page /http/http, which doesn't exist.
+          to: 'http',
+          activeBasePath: 'http',
+          label: 'HTTP',
+          position: 'left',
+        },
+        {
           to: 'css/reset',
           activeBasePath: 'css',
           label: 'CSS',

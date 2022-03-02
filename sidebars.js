@@ -21,9 +21,6 @@ module.exports = {
     'dev/prettier',
     'dev/eslint',
     'dev/git-hooks',
-    'dev/http',
-    'dev/cors',
-    'dev/rest-api',
     'dev/jetbrains',
     'dev/android',
     'dev/ios',
@@ -54,6 +51,11 @@ module.exports = {
         'devops/aws/codebuild',
       ],
     },
+  ],
+  http: [
+    'http/http',
+    'http/rest-api',
+    'http/cors',
   ],
   css: [
     'css/reset',
