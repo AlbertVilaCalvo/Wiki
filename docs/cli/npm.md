@@ -13,7 +13,13 @@ Upgrade npm itself: `npm install npm@latest -g`
 
 (If this command fails and we then get `zsh: command not found: npm` we can fix it with `brew reinstall node`.)
 
+List all commands: `npm`. List commands with details: `npm -l`.
+
 Install to devDependencies: `npm install webpack --save-dev`
+
+Show package info: `npm info <package>`
+
+Open docs (eg README) in the browser: `npm docs <package>`
 
 `npx` command runs a binary in ./node_modules/.bin/
 
@@ -25,6 +31,8 @@ Find outdated and unused packages: https://github.com/dylang/npm-check
 ## Init
 
 https://docs.npmjs.com/cli/v7/commands/npm-init
+
+Creates `package.json`.
 
 Init without questions: `npm init -y`
 

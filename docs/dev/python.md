@@ -23,6 +23,13 @@ Cheatsheet: https://www.pythonsheets.com
 6. Install libraries, eg: `pipenv install flask`.
 
 
+## `-m` flag
+
+From 'man python': `-m <module-name>` Searches sys.path for the named module and runs the corresponding .py file as a script.
+
+https://stackoverflow.com/questions/50821312/meaning-of-python-m-flag
+
+
 ## pyenv
 
 https://github.com/pyenv/pyenv
@@ -112,7 +119,10 @@ List commands: `pip3 --help`
 
 Help of a command: `pip install --help`
 
-Upgrade pip itself: `pip install --upgrade pip` or `pip install -U pip`
+Upgrade pip itself:
+- From https://pip.pypa.io/en/stable/installation/#upgrading-pip: `python -m pip install --upgrade pip`
+- `pip install --upgrade pip` or `pip install -U pip`
+- Commonly setuptools is upgraded too: `pip install -U pip setuptools`
 
 Install package: `pip install requests`
 

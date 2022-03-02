@@ -63,9 +63,10 @@ Refactors: https://www.jetbrains.com/help/webstorm/refactoring-source-code.html#
 
 JavaScript postfix templates: https://www.jetbrains.com/help/webstorm/using-postfix-templates.html
 
-Warning on outdated dependencies in `package.json`: Preferences | Editor | Inspections | JavaScript & TypeScript | Imports and dependencies -> Modify 'Update package.json dependencies to latest versions' to be 'Weak Warning'.
+Warning on outdated dependencies in `package.json`: Preferences | Editor | Inspections | JavaScript & TypeScript | Imports and dependencies -> Modify 'Update package.json dependencies to latest versions' to be 'Weak Warning'. Important: to have this warning enabled for all projects (not just the current one), make sure that the selected 'Profile' is 'Default (Stored in IDE)', not 'Project Default (Stored in Project)' when changing the value.
 
 Using a Node.js interpreter inside a **Docker** container: https://blog.jetbrains.com/webstorm/2021/11/webstorm-2021-3/#development_with_remote_node_js
+
 
 ## Shortcuts
 

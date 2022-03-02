@@ -67,3 +67,10 @@ npx eslint src/**/*.js
 npx eslint . --ext ts --ext tsx --ext js
 eslint --cache --fix
 ```
+
+
+## WebStorm
+
+To get the red squiggles and warnings we need to enable it!
+
+At Preferences -> Languages & Frameworks -> JavaScript -> Code Quality Tools -> ESLint, set 'Automatic ESLint configuration'.

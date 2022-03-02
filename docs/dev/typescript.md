@@ -60,6 +60,32 @@ Pick ts-ignore if:
 - you honestly don’t have the time to decide which of these options is better.
 
 
+## null or undefined?
+
+https://stackoverflow.com/questions/6604749/what-reason-is-there-to-use-null-instead-of-undefined-in-javascript
+
+https://basarat.gitbook.io/typescript/recap/null-undefined
+
+https://basarat.medium.com/null-vs-undefined-in-typescript-land-dc0c7a5f240a
+
+Douglas Crockford: pick undefined, avoid null - https://www.youtube.com/watch?v=PSGEjv3Tqo0&t=561s
+
+https://github.com/microsoft/TypeScript/issues/9653
+
+https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html
+
+https://dev.to/johannesjo/how-do-you-deal-with-null-vs-undefined-4899
+
+https://github.com/nene/eslint-plugin-no-null
+
+
+## Type guards
+
+https://basarat.gitbook.io/typescript/type-system/typeguard
+
+https://www.typescriptlang.org/docs/handbook/2/narrowing.html
+
+
 ## Utility Types
 
 https://www.typescriptlang.org/docs/handbook/utility-types.html

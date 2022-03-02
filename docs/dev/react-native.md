@@ -73,7 +73,7 @@ Fix it with `<ScrollView keyboardShouldPersistTaps='handled'>`. See [issue #2887
 
 ### Have to click 2 times on a button for the click event to work
 
-Fix it with `<ScrollView keyboardShouldPersistTaps='never'>`. See [issue #4087](https://github.com/facebook/react-native/issues/4087) (Need to tap twice in order to tap on TouchableHighlight when it is within a ScrollView or ListView).
+Fix it with `keyboardShouldPersistTaps={true}` or `keyboardShouldPersistTaps='never'`. See [issue #4087](https://github.com/facebook/react-native/issues/4087) (Need to tap twice in order to tap on TouchableHighlight when it is within a ScrollView or ListView).
 
 
 ## FlatList issues

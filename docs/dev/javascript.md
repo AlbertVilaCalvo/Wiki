@@ -34,6 +34,15 @@ console.log(...)
 console.groupEnd()
 ```
 
+### console.time
+
+```js
+console.time('label')
+// ...
+console.timeLog('label')
+// ...
+console.timeEnd('label')
+```
 
 ## Object
 
@@ -110,6 +119,15 @@ if (index !== -1) {
 ```
 
 
+## Error
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
+
+`Error('message')` and `new Error('message')` is the same.
+
+>  When Error is used like a function -- without `new`, it will return an `Error` object. Therefore, a mere call to `Error` will produce the same output that constructing an `Error` object via the `new` keyword would. [source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error#function_call_or_new_construction)
+
+
 ## Promise
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
@@ -122,6 +140,13 @@ Api.fetchUser = function () {
     }, 2000)
   })
 }
+```
+
+
+### Promise.reject()
+
+```js
+return Promise.reject(Error('reason'))
 ```
 
 ### Promise.all() and Promise.allSettled()
@@ -169,10 +194,42 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 [endsWith()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith)
 
 
+## Regex
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+
+Regex syntax cheatsheet: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet
+
+Name capture groups: https://twitter.com/addyosmani/status/1386031624232456194
+
+In TypeScript use the type `RegExp`.
+
+### `RegExp.prototype.exec()`
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
+
+```js
+const regex = /abcd/ig
+const string = 'something'
+regex.exec(string)
+// returns an array with the matches or null
+```
+
+### `String.prototype.match()`
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+
+```js
+const regex = /abcd/ig
+const string = 'something'
+string.match(regex)
+// returns an array with the matches or null
+```
+
+
 ## Dates
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
-
 
 ### Date format
 
@@ -186,8 +243,3 @@ https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
 new Date(search.date).toLocaleDateString() -> 5/27/2021
 new Date(search.date).toLocaleDateString('es-ES') -> 27/5/2021
 ```
-
-
-## Regex
-
-Name capture groups: https://twitter.com/addyosmani/status/1386031624232456194
