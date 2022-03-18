@@ -130,7 +130,7 @@ module.exports = {
           items: [
             {
               label: 'Personal Website',
-              to: 'https://albert.vc',
+              href: 'https://albert.vc',
             },
             {
               label: 'Blog',
