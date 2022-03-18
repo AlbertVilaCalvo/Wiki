@@ -162,6 +162,8 @@ module.exports = {
           // Please change this to your repo.
           editUrl:
             'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
+          // Having breadcrumbs is pointles since I rarely have nested docs
+          breadcrumbs: false,
         },
         blog: {
           showReadingTime: true,
