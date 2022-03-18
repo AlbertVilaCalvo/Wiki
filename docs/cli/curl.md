@@ -2,7 +2,6 @@
 title: Curl
 ---
 
-
 https://curl.se
 
 https://github.com/curl/curl
@@ -10,7 +9,6 @@ https://github.com/curl/curl
 https://everything.curl.dev
 
 Options are case sensitive, ie `-s` is not the same than `-S`.
-
 
 ## Examples
 
@@ -22,22 +20,35 @@ https://curl.se/docs/manual.html
 
 https://curl.se/docs/httpscripting.html
 
-application/x-www-form-urlencoded POST:
+https://github.com/trimstray/the-book-of-secret-knowledge#tool-curl
+
+### POST application/x-www-form-urlencoded
+
 ```shell
-curl -d 'key1=value1&key2=value2' https://example.com
-curl -d 'title=Some Title&message=The message' https://example.com
+curl -d 'key1=value1&key2=value2' URL
+curl -d 'title=Some Title&message=The message' URL
 ```
 
-JSON POST:
+### POST multipart/form-data
+
 ```shell
-curl -H "Content-Type: application/json" -d '{"key":"val"}' https://example.com
+curl -F key1=value1 URL
+curl -F key1=value1 -F upload=@localfilename URL
 ```
 
-JSON POST, with data read from a file `data.json`:
+See https://stackoverflow.com/questions/19116016/what-is-the-right-way-to-post-multipart-form-data-using-curl
+
+### POST JSON
+
 ```shell
-curl -H "Content-Type: application/json" -d @data.json https://example.com
+curl -H "Content-Type: application/json" -d '{"key":"val"}' URL
 ```
 
+### POST JSON, with data read from a file `data.json`
+
+```shell
+curl -H "Content-Type: application/json" -d @data.json URL
+```
 
 ## Common options
 
@@ -50,3 +61,9 @@ curl -H "Content-Type: application/json" -d @data.json https://example.com
     - JSON: `-d '{"key": "value"}'` or `--data '{"key": "value"}'`. Requires adding `-H "Content-Type: application/json"`.
 - Header: `-H "Content-Type: application/json"` or `--header "Content-Type: application/json"`.
 - Verbose: `-v`. Displays headers, status code and other info.
+
+## Converters
+
+- https://curlconverter.com
+- https://github.com/mholt/curl-to-go
+- https://github.com/incarnate/curl-to-php

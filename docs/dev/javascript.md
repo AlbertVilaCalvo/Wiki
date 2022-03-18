@@ -18,6 +18,24 @@ https://jsdoc.app
 https://devhints.io/jsdoc
 
 
+
+## Print objects
+
+```js
+/**
+ * Prints the object to the console but preserving undefined values.
+ * From https://stackoverflow.com/a/50100175/4034572.
+ */
+export function prettyPrint(object: any): string {
+  return JSON.stringify(
+    object,
+    (k, v) => (v === undefined ? '__undefined' : v),
+    2
+  ).replace(/"__undefined"/g, 'undefined')
+}
+```
+
+
 ## console
 
 - Use console.log() like a pro: [Hacker News](https://news.ycombinator.com/item?id=26779800) - [Article](https://markodenic.com/use-console-log-like-a-pro/)
@@ -127,6 +145,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 >  When Error is used like a function -- without `new`, it will return an `Error` object. Therefore, a mere call to `Error` will produce the same output that constructing an `Error` object via the `new` keyword would. [source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error#function_call_or_new_construction)
 
+Rethrow an error but with a different message: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error#rethrowing_an_error_with_a_cause
 
 ## Promise
 

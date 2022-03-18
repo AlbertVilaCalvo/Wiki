@@ -4,6 +4,7 @@ title: Commands
 
 tldr man pages: https://tldr.sh
 
+https://github.com/trimstray/the-book-of-secret-knowledge#shell-one-liners-toc
 
 What shell is used: `echo $SHELL`
 
@@ -58,8 +59,11 @@ List subtitles: `youtube-dl --list-subs <URL>`
 
 Use `--skip-download` if you want to get the subtitles or description only.
 
-Quality: `-f 'bestvideo[height<=480]+bestaudio'`
+Quality:
+- Options: https://github.com/ytdl-org/youtube-dl/#format-selection
+- `-f 'bestvideo[height<=480]+bestaudio'`
+- `-f worstvideo` o `-f worst`
 
 Download audio: `youtube-dl -x [--audio-quality 0] [--audio-format "flac"] <URL>`
-  - `--audio-quality QUALITY`: 0 is the best, 9 the worst
-  - `--audio-format FORMAT`: "best", "aac", "flac", "mp3", "m4a", "opus", "vorbis", or "wav"; "best" by default
+- `--audio-quality QUALITY`: 0 is the best, 9 the worst
+- `--audio-format FORMAT`: "best", "aac", "flac", "mp3", "m4a", "opus", "vorbis", or "wav"; "best" by default

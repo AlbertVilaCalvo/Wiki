@@ -47,3 +47,7 @@ article can have header, nav, section and footer ([source](https://html.spec.wha
   </footer>
 </article>
 ```
+
+## dialog
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog

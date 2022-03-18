@@ -10,7 +10,7 @@ List emulators running ('List of devices attached'): `adb devices`
 
 Launch emulator: `${ANDROID_HOME}/emulator/emulator -avd Nexus_5X_API_27_-_Google_Play &`
 
-Wipe data of emulator: `emulator -avd Nexus_6_API_28_-_Google_APIs_-_14440_x_2560_560dpi -wipe-data &`
+Wipe emulator data: `emulator -avd Nexus_6_API_28_-_Google_APIs_-_14440_x_2560_560dpi -wipe-data &`
 
 Emulator show touches: `adb shell settings put system show_touches 1`
 
@@ -47,6 +47,8 @@ where `ANDROID_SDK_ROOT` is `/Users/albert/Library/Android/sdk` [source](https:/
 
 ## Get the SHA-1
 
+There is a gradle task: `./gradlew signingReport`. It will use the keystores set on `signingConfigs` in app/build.gradle. To avoid seeing the output for all the tasks, prepend the :app task: `./gradlew :app:signingReport`
+
 - `keytool -list -v -keystore release.keystore` (asks for password)
 - My `~/.android` key: `keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
 - React Native debug key: `keytool -list -v -keystore ./android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android`
@@ -66,7 +68,9 @@ About Android App Bundles: https://developer.android.com/guide/app-bundle
 
 Sign your app: https://developer.android.com/studio/publish/app-signing
 
-Use Play App Signing: https://support.google.com/googleplay/android-developer/answer/9842756?hl=en&visit_id=637593412470116880-1039165729&rd=1
+Use Play App Signing: https://support.google.com/googleplay/android-developer/answer/9842756
+
+Play App Signing : https://play.google.com/console/about/keymanagement
 
 ### Opcions app signing key
 
@@ -74,7 +78,7 @@ Play App Signing utilitza 2 keys: el 'app signing key' i el 'upload key'.
 
 La signing key es pot generar de varies maneres:
 
-1. La genera Google al seu servidor. Nunca se puede perder. Esta es la opción recomendada ahora. Si quieres firmar siempre tienes que pasar por Google Play y luego descargar el apk firmado o usar internal app sharing (un enlace) o beta (Google Play).
+1. La genera Google al seu servidor. Nunca se puede perder. Esta es la opción recomendada ahora. Importante: no se puede descargar. Por tanto, si quieres firmar siempre tienes que pasar por Google Play y luego descargar el apk firmado o usar internal app sharing (un enlace) o beta (Google Play).
 2. La generamos nosotros y la subimos. En este caso la key la podemos guardar (así podemos firmar en local) o no (puesto que Google ya la tiene). Tampoco se puede perder.
 3. La generamos nosotros y no se sube; se firma en local y se sube el apk firmado. Esta opción va a desaparecer puesto que el nuevo formato app bundle requiere que Google tenga la key para generar apk optimizados (por ejemplo solo con la traducción al idioma del dispositivo). Hay el riesgo de que se pierda la key.
 
@@ -96,7 +100,7 @@ Es pot fer amb Android Studio: Build -> Generate Signed Bundle / APK -> Next -> 
 
 https://developer.android.com/studio/publish/app-signing#generate-key
 
-https://support.google.com/googleplay/android-developer/answer/9842756?visit_id=637593462727030424-182273336&rd=1#create
+https://support.google.com/googleplay/android-developer/answer/9842756?rd=1#create
 
 
 ## Android 12 changed that root launcher activities are no longer finished on the Back press

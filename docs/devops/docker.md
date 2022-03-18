@@ -6,6 +6,12 @@ https://www.docker.com
 
 https://hub.docker.com - Pre-built container image registry
 
+https://github.com/veggiemonk/awesome-docker
+
+https://github.com/wsargent/docker-cheat-sheet
+
+Just say no to :latest: https://news.ycombinator.com/item?id=30576443
+
 
 ## What is a container?
 

@@ -29,7 +29,7 @@ Prevent automatically open browser on 'yarn start': `"start": "BROWSER=none reac
 
 Correct:
 
-```
+```js
 import { useState } from 'react'
 import * as React from 'react'
 ```
@@ -43,7 +43,7 @@ Also, the new JSX transform: https://reactjs.org/blog/2020/09/22/introducing-the
 
 ## Inputs
 
-```
+```jsx
 <textarea
   type='text'
   value={text}
@@ -52,7 +52,7 @@ Also, the new JSX transform: https://reactjs.org/blog/2020/09/22/introducing-the
 />
 ```
 
-```
+```jsx
 <input
   type='text'
   value={text}
@@ -60,6 +60,61 @@ Also, the new JSX transform: https://reactjs.org/blog/2020/09/22/introducing-the
   onChange={(e) => setText(e.target.value)}
 />
 ```
+
+
+## Context
+
+https://reactjs.org/docs/hooks-reference.html#usecontext
+
+```tsx
+import * as React from 'react'
+
+type Theme = 'light' | 'dark'
+
+type ThemeContextValue = {
+  theme: Theme
+  setTheme: (theme: Theme) => void
+}
+
+const ThemeContext = React.createContext<ThemeContextValue>({
+  theme: 'light',
+  setTheme: () => {
+    console.warn('Warning: using ThemeContext outside the Provider')
+  },
+})
+// Or we can do something like:
+// const ThemeContext = React.createContext<ThemeContextValue>({} as ThemeContextValue)
+
+export function useThemeContext() {
+  return React.useContext(ThemeContext)
+}
+
+export function ThemeContextProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const [theme, setTheme] = React.useState<Theme>('light')
+
+  return (
+    <ThemeContext.Provider
+      value={{
+        theme,
+        setTheme,
+      }}
+    >
+      {children}
+    </ThemeContext.Provider>
+  )
+}
+```
+
+### Context performance
+
+[Preventing rerenders with React.memo and useContext hook](https://github.com/facebook/react/issues/15156#issuecomment-474590693)
+
+https://thoughtspile.github.io/2021/10/04/react-context-dangers
+
 
 ## Element vs Component
 
@@ -74,7 +129,7 @@ https://stackoverflow.com/questions/33199959/how-to-detect-a-react-component-vs-
 
 Used in FlatList `ListHeaderComponent` - see [source code](https://github.com/facebook/react-native/blob/8eeb01686f70a87ae4c38540283e9f9374f5bb0e/Libraries/Lists/VirtualizedList.js#L904).
 
-```jsx
+```tsx
 interface Props {
   ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
 }
@@ -98,7 +153,7 @@ const element = React.isValidElement(ListHeaderComponent) ? (
 
 ### Examples
 
-```jsx
+```tsx
 <Button Icon={IconAddUser} />
 
 function Button({ Icon }: { Icon: React.ComponentType<any> }) {

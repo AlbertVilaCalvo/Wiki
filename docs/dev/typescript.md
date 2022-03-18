@@ -79,11 +79,60 @@ https://dev.to/johannesjo/how-do-you-deal-with-null-vs-undefined-4899
 https://github.com/nene/eslint-plugin-no-null
 
 
-## Type guards
+Gotcha. If we use `undefined` we don't get an error if we forget to initialize a field in a class constructor,
+but if we use `null` we do:
+```ts
+class User {
+  name: string | null // GOOD - TS2564: Property 'country' has no initializer and is not definitely assigned in the constructor.
+  country: string | undefined // BAD - No error :(
+
+  constructor(name: string | undefined, country: string | null) {
+    // We forgot to initialize the fields here:
+    // this.name = name
+    // this.country = country
+  }
+}
+```
+
+
+## Type guards / type narrowing
 
 https://basarat.gitbook.io/typescript/type-system/typeguard
 
 https://www.typescriptlang.org/docs/handbook/2/narrowing.html
+
+A user-defined type guard is a function whose return type is a _type predicate_.
+
+```ts
+export function isSuccess<T>(arg: 'loading' | Error | T): arg is T {
+  return arg !== 'loading' && !(arg instanceof Error)
+}
+```
+
+
+## `Result<T, E>` type
+
+https://gist.github.com/s-panferov/5269524dcf23dad9a1ef
+
+```ts
+interface Loading {
+  kind: 'loading'
+}
+
+interface Success<T> {
+  kind: 'success'
+  data: T
+}
+
+interface Error<T> {
+  kind: 'error'
+  error: T
+}
+
+type Result<S, E> = Loading | Success<S> | Error<E>
+
+type GetProductResult = Result<Product, 'network-error' | 'product-not-found'>
+```
 
 
 ## Utility Types
@@ -100,7 +149,7 @@ Return type of an async function: https://stackoverflow.com/questions/48011353/h
 https://fettblog.eu/typescript-react-component-patterns
 
 
-```typescript
+```ts
 import * as React from 'react';
 
 /**

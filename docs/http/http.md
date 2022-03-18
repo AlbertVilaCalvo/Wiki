@@ -2,6 +2,8 @@
 title: HTTP
 ---
 
+Port 80 (HTTPS is 443).
+
 https://developer.mozilla.org/en-US/docs/Web/HTTP
 
 https://github.com/for-GET/http-decision-diagram
@@ -13,6 +15,8 @@ https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
 https://httpstatuses.com
+
+npm package: https://github.com/prettymuchbryce/http-status-codes
 
 ### Categories
 

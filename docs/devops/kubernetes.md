@@ -4,6 +4,15 @@ title: Kubernetes
 
 https://kubernetes.io
 
+https://github.com/kelseyhightower/kubernetes-the-hard-way
+
+https://github.com/dennyzhang/cheatsheet-kubernetes-A4
+
+## Validators / linters
+
+https://github.com/stackrox/kube-linter
+
+https://github.com/datreeio/datree
 
 ## What is Kubernetes?
 

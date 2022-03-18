@@ -85,4 +85,5 @@ Are located in `/Library/Extensions/`.
     - IMPORTANT: be careful with `docker image prune -a` because it deletes plenty of stuff, eg it has deleted all images shown by `docker image ls`, not only the ones with `<none>`! It says `WARNING! This will remove all images without at least one container associated to them.`.
   - Pune everything: `docker system prune`. This removes all stopped containers, all networks not used by at least one container, all dangling images and all build cache.
 - Anar a `~/Library/Application Support` i esborrar programes antics.
+- Esborrar la memòria cau de Telegram (pot tenir 1 GB). Es fa a "Ús de l'emmagatzematge"
 - Esborrar fitxers grans: Sobre aquest Mac -> Emmagatzematge -> Gestionar...

@@ -4,16 +4,16 @@ title: hosts
 
 https://github.com/StevenBlack/hosts
 
-`hosts` file is located in `/private/etc`
+The `hosts` file is located in `/private/etc`.
 
-```
+```shell
 cd ~/Informàtica/hosts
 gco -- .
 ggpull
 python3 updateHostsFile.py [--backup]
 ```
 
-```
+```shell
 cd ~/Informàtica/hosts && gco -- . && ggpull && python3 updateHostsFile.py
 ```
 

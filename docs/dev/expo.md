@@ -4,6 +4,8 @@ title: Expo
 
 https://blog.expo.dev
 
+VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo
+
 ## CLI
 
 https://docs.expo.dev/workflow/expo-cli
@@ -13,11 +15,18 @@ https://docs.expo.dev/workflow/expo-cli
 ```bash
 expo init <appname> --yarn
 expo init <appname> -t expo-template-blank-typescript
+expo init --template bare-minimum
 ```
+
+## Shift+i allows you to choose in which simulator to run the app on
+
+Source: https://github.com/expo/expo-cli/issues/2413#issuecomment-969098866
 
 ## Expo Dev Client
 
 Replaces Expo Go, which contains a fixed collection of native modules and does not allow custom native code.
+
+> It’s a React Native library that gives you the same experience as Expo Go, but with your own custom runtime. [source](https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10)
 
 https://www.npmjs.com/package/expo-dev-client
 
@@ -31,13 +40,29 @@ https://blog.expo.dev/introducing-custom-development-clients-5a2c79a9ddf8
 
 > (managed workflow) If you add or change the version of any modules in your project that includes native code or make most changes to your app.json, you’ll need to generate a new custom client to be able to run your app.
 
+## In addition to `expo eject`, now there is also `expo prebuild`
+
+See the 2 images in https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10
+
+> Now to get our managed project into a state where we can build it on EAS Build, we can repurpose the “eject” command to generate and configure the native iOS and Android projects based on the JavaScript app. We call this new command “prebuild”.
+
+Info about prebuild: https://github.com/expo/fyi/blob/main/prebuilding.md
+
+> you might need to use a library that doesn't have a config plugin yet, or maybe you need to write some custom native code yourself. For these cases you'll have to manually modify the `ios` and `android` folders, doing this means you'll no longer be able to safely rerun `expo prebuild`.
+
+Eject moves from manged to bare and it's run once ever.
+
+> `expo prebuild` is very similar to `expo eject`, the core difference being that eject is intended to be run once, and prebuild can be used multiple times. The eject command assumes that your ios and android folders are modified by hand (bare workflow) and will warn you if they might be overwritten, whereas the prebuild command should only be used when your `ios` and `android` folders are completely generated and can be regenerated any time (kinda like the `node_modules` folder).
+
 ## EAS
 
-Expo Application Services
+Expo Application Services. A cloud build service capable of building projects with arbitrary native code.
 
 https://blog.expo.dev/introducing-eas-395d4809cc6f
 
 https://expo.dev/eas
+
+https://blog.expo.dev/expo-application-services-eas-build-and-submit-fc1d1476aa2e
 
 Install the CLI: `npm install -g eas-cli` ([npm is recommended instead of yarn](https://docs.expo.dev/build/setup/#1-install-the-latest-eas-cli))
 
@@ -47,7 +72,7 @@ Check the current user: `eas whoami`
 
 ### EAS Build
 
-Replaces `expo build:ios` and `expo build:android` ([classic build](https://docs.expo.dev/classic/building-standalone-apps/)).
+Replaces `expo build:ios` and `expo build:android` ([classic build](https://docs.expo.dev/classic/building-standalone-apps/), which usea a '[shell app](https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10)').
 
 Docs: https://docs.expo.dev/build/introduction
 
@@ -77,9 +102,22 @@ Build locally:
 - `eas build --local`
 - "Uses your own hardware to build your apps locally and EAS to manage your app-signing credentials" ([source](https://blog.expo.dev/turtle-goes-out-to-sea-d334db2a6b60))
 
+### Signing
+
+https://docs.expo.dev/app-signing/app-credentials/
+
+### Signing Android
+
+https://docs.expo.dev/app-signing/app-credentials/#app-signing-by-google-play
+
+> From the Expo build process's perspective, there is no difference whether an app is signed with an upload certificate or an app signing key. Either way, `eas build` will generate an APK or AAB signed with the keystore currently associated with your application. If you want to generate an upload keystore manually, you can do that the same way you created your original keystore.
+
 ### EAS Submit
 
 App store submissions.
+
+The very first Android build must be uploaded manually to Google Play - see https://docs.expo.dev/submit/android/#manually-uploading-your-app-for-the-first.
+This is not required on App Store (iOS).
 
 ### EAS Update
 
