@@ -30,6 +30,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'app',
+          activeBasePath: 'app',
+          label: 'App',
+          position: 'left',
+        },
+        {
           to: 'devops/docker',
           activeBasePath: 'devops',
           label: 'DevOps',
