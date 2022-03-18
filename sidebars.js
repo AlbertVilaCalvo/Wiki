@@ -15,6 +15,7 @@ module.exports = {
   dev: [
     'dev/javascript',
     'dev/typescript',
+    'dev/node',
     'dev/react',
     'dev/react-native',
     'dev/expo',
