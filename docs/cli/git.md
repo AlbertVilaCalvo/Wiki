@@ -9,7 +9,7 @@ If not pushed yet
 # keep changes
 git reset --soft HEAD^
 
-# discard changes
+# discard changes - IMPORTANT: THIS ALSO DISCARDS ANYTHING NOT STAGED
 git reset --hard HEAD^
 ```
 [source](https://stackoverflow.com/a/6376039/4034572)
@@ -96,6 +96,13 @@ grbc (git rebase --continue)
 ### Rebase until first (root) commit
 
 `git rebase -i --root`
+
+
+## Golden Rule of Rebasing
+
+The golden rule of `git rebase` is to never use it on _public_ branches.
+
+https://www.atlassian.com/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing
 
 
 ## Amend

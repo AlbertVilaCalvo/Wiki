@@ -24,6 +24,10 @@ Images are located in `~/Library/Developer/CoreSimulator/Devices/81F9EF8A-486B-4
 
 Get a simulator ID: `xcrun simctl list | egrep '(Booted)'`
 
+## Info.plist
+
+Keys: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html
+
 ## Certificates
 
 From https://docs.expo.dev/app-signing/app-credentials/#summary

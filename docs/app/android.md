@@ -20,6 +20,8 @@ List installed and avaialble versions of SDK, NDK, emulators, build tools etc: `
 
 Install apk: `adb install path/to/the/file.apk`
 
+Install app bundle aab: https://stackoverflow.com/questions/50419286/install-android-app-bundle-on-device
+
 
 ## Test deep links
 

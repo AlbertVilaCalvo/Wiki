@@ -25,6 +25,17 @@ title: Docusaurus
   - Breadcrumbs in docs (disabled in config.js with presets docs.breadcrumbs)
   - Add arbitrary html elements to the docs sidebar like images, separators etc.
 - [beta 17](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.17) - [twitter](https://twitter.com/docusaurus/status/1499439030336950275)
+- [beta 18](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.18) - [twitter](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.18)
+
+To upgrade do:
+
+```bash
+yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic
+```
+
+Also take a look at the other packages versions:
+- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-preset-classic/package.json
+- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/package.json
 
 ## Code blocks supported languages
 

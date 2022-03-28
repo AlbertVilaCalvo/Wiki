@@ -40,6 +40,7 @@ export function prettyPrint(object: any): string {
 
 - Use console.log() like a pro: [Hacker News](https://news.ycombinator.com/item?id=26779800) - [Article](https://markodenic.com/use-console-log-like-a-pro/)
 - Advanced console.log Tips & Tricks: [Hacker News](https://news.ycombinator.com/item?id=27499335) - [Article](https://medium.com/nmc-techblog/advanced-console-log-tips-tricks-fa3762930bca)
+- Debugging JavaScript: Beyond console.log(): https://suze.dev/blog/debugging-javascript-beyond-console-log/
 
 ### console.group
 
@@ -197,6 +198,38 @@ Promise.allSettled([
   console.log('user result', userResult) // {status: "fulfilled", value: {username: 'albert'}},
   console.log('posts result', postsResult) // {status: "rejected",  reason: Error: some error happened}
 })
+```
+
+### delay / timeout / sleep
+
+```ts
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+function fakeApiCall(): Promise<void> {
+  return delay(2500)
+}
+```
+
+```ts
+function delay(ms: number): () => Promise<void> {
+  return () => new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+function fakeApiCall(): Promise<void> {
+  return Promise.resolve().then(delay(2500))
+}
+```
+
+```ts
+function delay<T>(ms: number): (x: any) => Promise<T> {
+  return (x: T) => new Promise((resolve) => setTimeout(resolve, ms, x))
+}
+
+function fakeApiCall(): Promise<number> {
+  return Promise.resolve(33).then(delay<number>(2500))
+}
 ```
 
 

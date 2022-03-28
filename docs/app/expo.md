@@ -6,6 +6,10 @@ https://blog.expo.dev
 
 VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo
 
+## app.json properties
+
+https://docs.expo.dev/versions/latest/config/app/
+
 ## CLI
 
 https://docs.expo.dev/workflow/expo-cli
@@ -54,6 +58,8 @@ Eject moves from manged to bare and it's run once ever.
 
 > `expo prebuild` is very similar to `expo eject`, the core difference being that eject is intended to be run once, and prebuild can be used multiple times. The eject command assumes that your ios and android folders are modified by hand (bare workflow) and will warn you if they might be overwritten, whereas the prebuild command should only be used when your `ios` and `android` folders are completely generated and can be regenerated any time (kinda like the `node_modules` folder).
 
+More info about prebuild in 'Adding custom native code': https://docs.expo.dev/workflow/customizing/
+
 ## EAS
 
 Expo Application Services. A cloud build service capable of building projects with arbitrary native code.
@@ -69,6 +75,11 @@ Install the CLI: `npm install -g eas-cli` ([npm is recommended instead of yarn](
 Login: `eas login`
 
 Check the current user: `eas whoami`
+
+### eas.json properties
+
+- https://docs.expo.dev/build-reference/eas-json/
+- https://docs.expo.dev/submit/eas-json/
 
 ### EAS Build
 
@@ -97,7 +108,7 @@ iOS build:
 
 Android and iOS build: `eas build -p all`
 
-Build locally:
+Build locally (eg to generate an aab file to upload to Google Play):
 - https://docs.expo.dev/build-reference/local-builds/
 - `eas build --local`
 - "Uses your own hardware to build your apps locally and EAS to manage your app-signing credentials" ([source](https://blog.expo.dev/turtle-goes-out-to-sea-d334db2a6b60))
@@ -119,6 +130,11 @@ App store submissions.
 The very first Android build must be uploaded manually to Google Play - see https://docs.expo.dev/submit/android/#manually-uploading-your-app-for-the-first.
 This is not required on App Store (iOS).
 
+After building with `eas build` we can do `eas submit -p ios` to publish to the App Store.
+There is also the option `--auto-submit`, so we can do both build and submit, eg: `eas build -p ios --profile production --auto-submit`.
+
+To publish to Google Play we need the service account key, which gives API access: https://github.com/expo/fyi/blob/main/creating-google-service-account.md. Note that the API access menu item appears at the main Google Play console page, not the app-specific page.
+
 ### EAS Update
 
 https://docs.expo.dev/eas-update/introduction
@@ -127,7 +143,19 @@ https://blog.expo.dev/eas-update-in-preview-d221b6f91f52
 
 > Deliver small updates of the non-native parts of your app (JS, styling, image assets...) to your users in between build and submit cycles
 
-## Versions
+## Run the production app
+
+See https://docs.expo.dev/workflow/development-mode/. There is also a switch in http://localhost:19002/.
+
+```bash
+expo start --no-dev --minify
+# or if we've done a prebuild
+expo start --no-dev --minify --dev-client
+```
+
+## SDK Versions
+
+https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 
 [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md)
 
@@ -146,3 +174,15 @@ https://github.com/expo/fyi/blob/main/expo-modules-migration.md
 Using Expo modules in a standard React Native app (created with `npx react-native init`): https://docs.expo.dev/bare/installing-expo-modules
 
 For module authors: https://blog.expo.dev/a-peek-into-the-upcoming-sweet-expo-module-api-6de6b9aca492
+
+## Flipper
+
+https://twitter.com/Baconbrix/status/1412921581542658049
+
+https://blog.expo.dev/expo-dev-client-0-8-0-7116c1945253
+
+With plugin:
+- https://www.npmjs.com/package/expo-community-flipper
+- https://github.com/jakobo/expo-community-flipper
+- https://codedrift.com/thunked/developing-react-native-with-expo-and-flipper and https://blog.expo.dev/developing-react-native-with-expo-and-flipper-8c426bdf995a (is the same)
+- Example app: https://github.com/jakobo/expo-cdc-example

@@ -27,6 +27,12 @@ Commands:
 - `.load <filename>` - load file
 - `.save <filename>` - save commands you've run into a file
 
+## Performance
+
+Detecting Node Event Loop Blockers - https://www.ashbyhq.com/blog/engineering/detecting-event-loop-blockers - https://news.ycombinator.com/item?id=30713567
+
+https://nodejs.org/en/docs/guides/dont-block-the-event-loop/
+
 ## Databases
 
 https://blog.logrocket.com/why-you-should-avoid-orms-with-examples-in-node-js-e0baab73fa5/
@@ -38,3 +44,4 @@ ORM
 Query Builder
 
 - https://github.com/knex/knex
+- https://github.com/porsager/postgres

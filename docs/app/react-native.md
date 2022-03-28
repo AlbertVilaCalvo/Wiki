@@ -65,7 +65,30 @@ export const isIOS: boolean = Platform.OS === 'ios'
 `alignSelf: 'stretch'`
 
 
-## ScrollView issues
+## ScrollView
+
+### Full height
+
+```ts
+import * as React from 'react'
+import { ScrollView, ScrollViewProps, StyleSheet } from 'react-native'
+
+export function FullHeightScrollView(
+  props: {
+    children: React.ReactNode
+  } & Omit<ScrollViewProps, 'contentContainerStyle'>
+) {
+  return (
+    <ScrollView contentContainerStyle={styles.grow} {...props}>
+      {props.children}
+    </ScrollView>
+  )
+}
+
+const styles = StyleSheet.create({
+  grow: { flexGrow: 1 },
+})
+```
 
 ### Avoid dismiss keyboard on touch
 
@@ -73,7 +96,13 @@ Fix it with `<ScrollView keyboardShouldPersistTaps='handled'>`. See [issue #2887
 
 ### Have to click 2 times on a button for the click event to work
 
-Fix it with `keyboardShouldPersistTaps={true}` or `keyboardShouldPersistTaps='never'`. See [issue #4087](https://github.com/facebook/react-native/issues/4087) (Need to tap twice in order to tap on TouchableHighlight when it is within a ScrollView or ListView).
+Fix it with `keyboardShouldPersistTaps='always'` or `keyboardShouldPersistTaps='handled'`.
+
+Note that `keyboardShouldPersistTaps={true}` is deprecated. The warning at the console also says "Use `keyboardShouldPersistTaps='always'` instead".
+
+Links:
+- [issue #4087](https://github.com/facebook/react-native/issues/4087) Need to tap twice in order to tap on TouchableHighlight when it is within a ScrollView or ListView.
+- https://stackoverflow.com/questions/57941342/button-cant-be-clicked-while-keyboard-is-visible-react-native/57941568
 
 
 ## FlatList issues
