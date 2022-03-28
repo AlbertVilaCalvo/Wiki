@@ -50,7 +50,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'html/misc',
+          to: 'html',
           activeBasePath: 'html',
           label: 'HTML',
           position: 'left',

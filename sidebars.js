@@ -63,7 +63,7 @@ module.exports = {
     'http/cors',
   ],
   html: [
-    'html/misc',
+    'html/html',
     'html/elements',
     'html/forms',
     'html/dom-api',
