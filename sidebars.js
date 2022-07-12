@@ -107,6 +107,6 @@ module.exports = {
       'docs/create-a-page',
       'docs/create-a-document',
       'docs/markdown-features',
-    ]
+    ],
   },
-};
+}
