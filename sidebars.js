@@ -30,7 +30,8 @@ module.exports = {
     'app/android',
     'app/ios',
     'app/react-native',
-    'app/expo'
+    'app/expo',
+    'app/mobx',
   ],
   devops: [
     'devops/docker',
