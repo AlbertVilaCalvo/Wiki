@@ -96,4 +96,4 @@ Show HN: MobX-Style Observables in Svelte - https://news.ycombinator.com/item?id
 
 MobX 6 - https://news.ycombinator.com/item?id=24648363
 
-imho, 5 with legacy decorators is still the best DX  - https://twitter.com/mweststrate/status/1507379484403679237
+imho, 5 with legacy decorators is still the best DX - https://twitter.com/mweststrate/status/1507379484403679237

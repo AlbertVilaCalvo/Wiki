@@ -2,9 +2,7 @@
 title: Text
 ---
 
-
 https://zellwk.com/blog/rem-vs-em/
-
 
 ## Break word if it doesn't fit in the container
 
@@ -12,6 +10,7 @@ https://zellwk.com/blog/rem-vs-em/
 overflow-wrap: anywhere; /* word-wrap is an alias */
 word-break: break-word;
 ```
+
 Either can work, see https://stackoverflow.com/a/19344395/4034572:
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap

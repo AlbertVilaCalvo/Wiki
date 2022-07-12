@@ -12,7 +12,6 @@ Sorted CSS colors: https://enes.in/sorted-colors/
 
 Color palette generator with machine learning: https://news.ycombinator.com/item?id=30529262 - https://huemint.com
 
-
 ### Convert color with opacity/alpha to color without
 
 https://filosophy.org/code/online-tool-to-lighten-color-without-alpha-channel/

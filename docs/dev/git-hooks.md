@@ -4,7 +4,6 @@ title: Git Hooks
 
 Prettier docs show a few options: https://prettier.io/docs/en/precommit.html
 
-
 ## pre-commit hook
 
 Inspired by https://stackoverflow.com/questions/57591839/how-to-commit-git-hooks and https://prettier.io/docs/en/precommit.html#option-5-shell-script
@@ -67,7 +66,6 @@ print_result "tsc"
 exit 0
 ```
 
-
 ## lint-staged
 
 https://github.com/okonet/lint-staged
@@ -100,7 +98,6 @@ We can [run multiple commands](https://github.com/okonet/lint-staged/#running-mu
   ]
 }
 ```
-
 
 ## Husky
 

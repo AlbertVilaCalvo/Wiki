@@ -8,7 +8,6 @@ Improving IDE performance - https://blog.jetbrains.com/kotlin/2021/06/simple-ste
 Des-habilitar plugins que no faig servir!
 :::
 
-
 ## Preferences
 
 Add line at end of file: Editor -> General -> check 'Ensure every saved line ends with a line break'. Also check 'Remove trailing blank lines at the end of saved files' there too.
@@ -18,6 +17,7 @@ Soft wrap markdown files: Editor -> General marcar 'Soft-wrap these files'. Al i
 A WebStorm, Editor -> General -> JavaScript marcar "Start template string interpolation on typing '$'". Amb això si escric '$' a dins de un template string m'afegeix '{}' 👌. Aquí també es pot triar si afegeix '()' al autocompletar una funció (veure [WEB-31404](https://youtrack.jetbrains.com/issue/WEB-31404) i [Added the ability to choose if you want to insert braces on code completion](https://blog.jetbrains.com/webstorm/2021/08/webstorm-2021-2-1/)).
 
 A WebStorm, Editor -> [Inline Hints](https://www.jetbrains.com/help/webstorm/inlay-hints.html), marcar:
+
 - Parameter names -> JS/TS -> Non-literal arguments
 - Types -> JS/TS -> Non-parenthesised single parameter
 
@@ -27,6 +27,7 @@ A WebStorm, Editor -> [Inline Hints](https://www.jetbrains.com/help/webstorm/inl
 - For the current project: Preferences -> Version Control -> Confirmation
 
 Then set these values:
+
 - When files are created: 'Do not add'
 - When files are deleted: 'Do not remove'
 
@@ -42,7 +43,6 @@ Llavors fer File -> Manage IDE Settings -> Sync Settings to JetBrains Account. (
 
 Ha d'aparèixer la icona del núvol a baix de tot a la dreta.
 
-
 ## Delete Leftover IDE Directories
 
 :::important
@@ -52,7 +52,6 @@ Això s'ha de fer després d'actualitzar l'IDE a una nova versió.
 Eliminar versions antigues: Help -> Delete Leftover IDE Directories…
 
 [Directories used by the IDE to store settings, caches, plugins and logs](https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs)
-
 
 ## Extensions
 
@@ -74,7 +73,6 @@ JavaScript postfix templates: https://www.jetbrains.com/help/webstorm/using-post
 Warning on outdated dependencies in `package.json`: Preferences | Editor | Inspections | JavaScript & TypeScript | Imports and dependencies -> Modify 'Update package.json dependencies to latest versions' to be 'Weak Warning'. Important: to have this warning enabled for all projects (not just the current one), make sure that the selected 'Profile' is 'Default (Stored in IDE)', not 'Project Default (Stored in Project)' when changing the value.
 
 Using a Node.js interpreter inside a **Docker** container: https://blog.jetbrains.com/webstorm/2021/11/webstorm-2021-3/#development_with_remote_node_js
-
 
 ## Shortcuts
 
@@ -111,7 +109,6 @@ Code fromatting settings (eg optimize imports): Cmd+Alt+Shift+L (code format is 
 Highlight usages of a symbol within a file: Cmd+Shift+F7
 
 UML diagram, shows inherintance chain (needs to be run with the cursor on a class name)): Shift+Cmd+Alt+U
-
 
 ## React
 

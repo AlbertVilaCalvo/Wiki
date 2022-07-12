@@ -2,7 +2,6 @@
 title: npm
 ---
 
-
 CLI docs: https://docs.npmjs.com/cli-documentation/
 
 package.json docs: https://docs.npmjs.com/cli/v6/configuring-npm/package-json
@@ -29,7 +28,6 @@ Find outdated and unused packages: https://github.com/dylang/npm-check
 
 https://www.stefanjudis.com/today-i-learned/how-to-override-your-dependencys-dependencies/
 
-
 ## Init
 
 https://docs.npmjs.com/cli/v7/commands/npm-init
@@ -37,7 +35,6 @@ https://docs.npmjs.com/cli/v7/commands/npm-init
 Creates `package.json`.
 
 Init without questions: `npm init -y`
-
 
 ## Global
 
@@ -52,7 +49,6 @@ Update 1 global package: `npm update -g <package>`
 Update all global packages: `npm update -g`
 
 Remove global package: `npm uninstall -g <package>`
-
 
 ## Dependency version
 
@@ -70,12 +66,12 @@ MAJOR.MINOR.PATCH
 }
 ```
 
-
 ## Find parent of transitive depencency
 
 `npm ls @typescript-eslint/typescript-estree`
 
 This will print who is using `@typescript-eslint/typescript-estree`:
+
 ```
 MyProject
 └─┬ @react-native-community/eslint-config@3.0.1
@@ -85,6 +81,7 @@ MyProject
   └─┬ @typescript-eslint/parser@4.28.1
     └── @typescript-eslint/typescript-estree@4.28.1
 ```
+
 Here the transitive dependency `@typescript-eslint/typescript-estree` is being imported by the direct dependency `@react-native-community/eslint-config` (which appears in package.json).
 
 Yarn has [`yarn list`](https://classic.yarnpkg.com/en/docs/cli/list).

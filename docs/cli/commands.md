@@ -14,7 +14,6 @@ List all environment variables: `printenv`. You can also print a specific envar:
 
 Oh-heck, a terminal command for when you forget other terminal commands - https://news.ycombinator.com/item?id=30720834 - https://oh-heck.dev
 
-
 ## find
 
 `find . -type d -name "build"`
@@ -27,18 +26,15 @@ Oh-heck, a terminal command for when you forget other terminal commands - https:
 
 Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
 
-
 ## diff
 
 `diff -qr Carpeta1 Carpeta2`
-
 
 ## tree
 
 `tree somefolder`
 
 To ignore something (eg a folder) use `-I <wild-card-pattern>`. Eg `tree -I node_modules` or `tree -I venv`. There can be multiple -I options.
-
 
 ## fc
 
@@ -49,7 +45,6 @@ To ignore something (eg a folder) use `-I <wild-card-pattern>`. Eg `tree -I node
 https://www.geeksforgeeks.org/fc-command-linux-examples
 
 List recent commands in history: `fc -l`
-
 
 ## youtube-dl
 
@@ -62,11 +57,13 @@ List subtitles: `youtube-dl --list-subs <URL>`
 Use `--skip-download` if you want to get the subtitles or description only.
 
 Quality:
+
 - Options: https://github.com/ytdl-org/youtube-dl/#format-selection
 - `-f 'bestvideo[height<=480]+bestaudio'`
 - `-f worstvideo` o `-f worst`
 
 Download audio: `youtube-dl -x [--audio-quality 0] [--audio-format "flac"] <URL>`
+
 - `--audio-quality QUALITY`: 0 is the best, 9 the worst
 - `--audio-format FORMAT`: "best", "aac", "flac", "mp3", "m4a", "opus", "vorbis", or "wav"; "best" by default
 

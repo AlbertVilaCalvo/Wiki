@@ -2,7 +2,6 @@
 title: Tipografia
 ---
 
-
 ## Weight
 
 https://www.w3.org/TR/css-fonts-3/#font-weight-prop
@@ -18,7 +17,6 @@ https://www.w3.org/TR/css-fonts-3/#propdef-font-weight
 - 700 - Bold
 - 800 - Extra Bold (Ultra Bold)
 - 900 - Black (Heavy)
-
 
 ## Scale
 

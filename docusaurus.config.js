@@ -166,16 +166,14 @@ module.exports = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
+          editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
           // Having breadcrumbs is pointles since I rarely have nested docs
           breadcrumbs: false,
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
+          editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -183,4 +181,4 @@ module.exports = {
       },
     ],
   ],
-};
+}

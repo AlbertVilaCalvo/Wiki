@@ -42,6 +42,7 @@ yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic
 ```
 
 Also take a look at the other packages versions:
+
 - https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-preset-classic/package.json
 - https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/package.json
 

@@ -10,20 +10,17 @@ https://imgur.com/bmfcRQm
 
 https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
-
 ## Cancel async operations done in useEffect
 
 To avoid updating the UI if the component is unmounted.
 
 Using an `unmounted` variable: https://stackoverflow.com/questions/53861916/canceling-an-axios-rest-call-in-react-hooks-useeffects-cleanup-failing
 
-
 ## Create React App
 
 https://create-react-app.dev/docs/advanced-configuration
 
 Prevent automatically open browser on 'yarn start': `"start": "BROWSER=none react-scripts start"`
-
 
 ## Imports
 
@@ -40,27 +37,25 @@ See https://twitter.com/dan_abramov/status/1308739731551858689
 
 Also, the new JSX transform: https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
 
-
 ## Inputs
 
 ```jsx
 <textarea
-  type='text'
+  type="text"
   value={text}
-  placeholder='Type'
+  placeholder="Type"
   onChange={(e) => setText(e.target.value)}
 />
 ```
 
 ```jsx
 <input
-  type='text'
+  type="text"
   value={text}
-  placeholder='New Todo'
+  placeholder="New Todo"
   onChange={(e) => setText(e.target.value)}
 />
 ```
-
 
 ## Context
 
@@ -115,7 +110,6 @@ export function ThemeContextProvider({
 
 https://thoughtspile.github.io/2021/10/04/react-context-dangers
 
-
 ## Element vs Component
 
 - Element: `<SomeComponent />`
@@ -131,7 +125,7 @@ Used in FlatList `ListHeaderComponent` - see [source code](https://github.com/fa
 
 ```tsx
 interface Props {
-  ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
+  ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null
 }
 ```
 

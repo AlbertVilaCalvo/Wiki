@@ -30,7 +30,6 @@ Get version of installed package: `yarn list --pattern <package>` or `yarn why <
 
 Why is this package installed? `yarn why <package>`
 
-
 ## Global
 
 List global packages: `yarn global list`

@@ -20,7 +20,6 @@ Show/hide hidden files: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>.</kbd>
 
 What prevents Mac to sleep: `pmset -g assertions`. See https://osxdaily.com/2012/07/11/mac-wont-sleep-heres-how-to-find-out-why-and-fix-it
 
-
 ## DefaultKeyBinding.dict
 
 ```
@@ -47,12 +46,12 @@ Examples:
 Go to Preferences -> Profiles tab -> Keys tab -> Key Mappings tab.
 Click the + button.
 
-| Shortcuts    | Description       | Action               | Send      |
-| ------------ | ----------------- | -------------------- | --------- |
-| Alt+← Ctrl+j | Move word left    | Send Escape Sequence | b         |
-| Alt+→ Ctrl+l | Move word right   | Send Escape Sequence | f         |
-| Ctrl+u       | Delete word left  | Send Hex Codes       | 0x1b 0x08 (could instead be 0x17, see StackOverflow below)|
-| Ctrl+o       | Delete word right | Send Hex Codes       | 0x1b 0x64 |
+| Shortcuts    | Description       | Action               | Send                                                       |
+| ------------ | ----------------- | -------------------- | ---------------------------------------------------------- |
+| Alt+← Ctrl+j | Move word left    | Send Escape Sequence | b                                                          |
+| Alt+→ Ctrl+l | Move word right   | Send Escape Sequence | f                                                          |
+| Ctrl+u       | Delete word left  | Send Hex Codes       | 0x1b 0x08 (could instead be 0x17, see StackOverflow below) |
+| Ctrl+o       | Delete word right | Send Hex Codes       | 0x1b 0x64                                                  |
 
 https://stackoverflow.com/questions/6205157/how-to-set-keyboard-shortcuts-to-jump-to-beginning-end-of-line/29403520#29403520
 
@@ -70,7 +69,6 @@ Used by Little Snitch and Razer Synapse.
 
 Are located in `/Library/Extensions/`.
 
-
 ## Free up disk space
 
 - Delete `node_modules` folders with [npkill](https://github.com/voidcosmos/npkill). Usage: `npx npkill --directory ~/Programming`.
@@ -83,7 +81,7 @@ Are located in `/Library/Extensions/`.
   - Delete old Xcode archives. Use the Organizer (Window -> Organizer).
 - JetBrains IDEs, delete old versions: Help -> Delete Leftover IDE Directories…
   - JetBrains IDEs are located at `~/Library/Application Support/JetBrains` (`cd ~/Library/Application\ Support/JetBrains`).
-  - Android Studio is located at `~/Library/Application Support/Google`  (`cd ~/Library/Application\ Support/Google`).
+  - Android Studio is located at `~/Library/Application Support/Google` (`cd ~/Library/Application\ Support/Google`).
 - Docker:
   - Docs: Prune unused Docker objects: https://docs.docker.com/config/pruning.
   - Remove dangling images (images with `<none>` in `docker image ls`): `docker image prune` ([docs](https://docs.docker.com/engine/reference/commandline/image_prune/))

@@ -5,6 +5,7 @@ title: Git
 ## Undo last commit
 
 If not pushed yet
+
 ```shell
 # keep changes
 git reset --soft HEAD^
@@ -12,9 +13,11 @@ git reset --soft HEAD^
 # discard changes - IMPORTANT: THIS ALSO DISCARDS ANYTHING NOT STAGED
 git reset --hard HEAD^
 ```
+
 [source](https://stackoverflow.com/a/6376039/4034572)
 
 On a public commit
+
 ```
 git revert HEAD
 ```
@@ -22,12 +25,14 @@ git revert HEAD
 Also see: [git undo: We can do better](https://blog.waleedkhan.name/git-undo/)
 
 ## Merge changes from remote master branch to a feature branch without switching to master
+
 ```shell
 git checkout some-branch
 git fetch origin # gets you up to date with origin by getting all commits on all branches, but named 'origin/branch'
 git merge origin/master # brings all commits in 'origin/master' to whatever branch we are; we could use --ff-only
 git fetch origin master:master # update master if we have a feature branch checked out
 ```
+
 [source-part-1](https://stackoverflow.com/a/20103414/4034572)
 [source-part-2](https://stackoverflow.com/a/17722977/4034572)
 
@@ -62,6 +67,7 @@ git remote add upstream git@github.com:Kotlin/kotlinx.coroutines.git
 ```
 
 ### Incorporating upstream changes
+
 ```shell
 git fetch upstream master
 git log --oneline --graph --decorate --all
@@ -79,12 +85,16 @@ git rebase -i <commit you want to amend>^
 # or with the alias
 grbi <commit you want to amend>^
 ```
+
 **r or reword** - amend commit message (note that if we are only rewording we don't need to do any of the following commands, just save the new commit message and we are done)
+
 ```bash
 gc! (git commit --amend)
 grbc (git rebase --continue)
 ```
+
 **e or edit** - modify commit
+
 ```bash
 // edit file(s)...
 gaa (or) ga some/file.txt
@@ -97,13 +107,11 @@ grbc (git rebase --continue)
 
 `git rebase -i --root`
 
-
 ## Golden Rule of Rebasing
 
 The golden rule of `git rebase` is to never use it on _public_ branches.
 
 https://www.atlassian.com/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing
-
 
 ## Amend
 
@@ -127,48 +135,52 @@ https://git-scm.com/docs/git-commit
 
 https://stackoverflow.com/questions/1459150/how-to-undo-git-commit-amend-done-instead-of-git-commit
 
-
 ## Fix conflict 'both added'
 
 https://stackoverflow.com/questions/9823692/resolving-a-both-added-merge-conflict-in-git
 
 Estic a una branca i faig merge de `dev` a la meva branca. Si vull lo de `dev` faig:
+
 ```
 git checkout --theirs <filename>
 git add <filename>
 ```
+
 I si vull lo de la meva branca:
+
 ```
 git checkout --ours <filename>
 git add <filename>
 ```
-Nota: pel `<filename>` es pot fer servir `*` per seleccionar varis fitxers alhora, i també pot ser una carpeta.
 
+Nota: pel `<filename>` es pot fer servir `*` per seleccionar varis fitxers alhora, i també pot ser una carpeta.
 
 ## Overwrite/reset local branch like remote branch
 
 ```shell
 git reset --hard @{u}
 ```
+
 or
+
 ```shell
 git fetch origin
 git reset --hard origin/mybranch
 ```
+
 [source1](https://stackoverflow.com/q/1628088/4034572), [source2](https://stackoverflow.com/a/8888015/4034572)
 
-
 ## Remove untracked files
+
 ```
 git clean -f -d
 ```
 
-
 ## Prune
+
 ```
 git remote prune origin
 ```
-
 
 ## Ensure merge without merge commit with `--ff-only`
 
@@ -189,10 +201,10 @@ git rebase main
 git checkout main
 git merge --ff-only feature-branch
 ```
+
 [scource](https://stackoverflow.com/a/16358699/4034572)
 
 [--ff-only docs](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---ff-only)
-
 
 ## See commit and code differences between two branches
 
@@ -204,27 +216,29 @@ git diff main..feature-branch
 # files changed
 git diff --name-status main..feature-branch
 ```
+
 Note that you can have 3 dots (`...`). And if you've already switched to `feature-branch` you can use `git log main..`.
 
 [See source](https://stackoverflow.com/q/13965391/4034572)
 
-
 ## Squash all commits on a branch
+
 ```
 git checkout your-branch
 git reset $(git merge-base master-or-develop your-branch-name)
 ```
+
 This leaves all changes on the branch at the staging area. Then you can `git add .` and `git commit`.
 
 [source](https://stackoverflow.com/a/25357146/4034572)
 
-
 ## Stash with message
+
 ```
 git stash push -m "Some message"
 ```
-https://git-scm.com/docs/git-stash
 
+https://git-scm.com/docs/git-stash
 
 ## Tags
 
@@ -237,14 +251,15 @@ Delete remote tag: `git push -d origin 2.4.0`
 Push all tags: `git push -–tags` or `git push origin --tags`
 
 ### Always use annotated tags
+
 ```
 git tag -a v1.0
 ```
 
 They have extra information like author, date, SHA and message ([more info](https://stackoverflow.com/q/4971746/4034572)).
 
-
 ## Search string on git history
+
 ```
 git log -S something
 git log -p -S something
@@ -252,26 +267,24 @@ git log -p -S something
 
 [source](https://stackoverflow.com/a/4472267/4034572)
 
-
 ## Remove carriage return
 
 If you see `^M` run `sed -i.bak $'s/\r//' filename` (with backup) or `sed -i '' -e $'s/\r//' filename` (no backup).
 
 [source](https://stackoverflow.com/a/21622340/4034572)
 
-
 ## Rename local branch only
 
 `git branch (-m | -M) [<oldbranch>] <newbranch>`
 
 Eg to rename master to main:
+
 - If you are in master: `git branch -m main`.
 - If you are not in master `git branch -m master main`.
 
 ### Set the default branch name for new repositories
 
 `git config --global init.defaultBranch <name>`
-
 
 ## Rename local _and_ remote branch
 
@@ -285,7 +298,6 @@ git push origin :old-name new-name
 ```
 
 [source and more info](https://stackoverflow.com/a/45561865/4034572)
-
 
 ## Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
 

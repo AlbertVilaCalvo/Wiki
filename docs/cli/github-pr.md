@@ -8,7 +8,6 @@ https://github.com/susam/gitpr
 
 https://gist.github.com/Chaser324/ce0505fbed06b947d962
 
-
 ## Fork
 
 Create the fork by clicking 'Fork' on the website.
@@ -26,7 +25,6 @@ upstream	https://github.com/AlbertVilaCalvo/react (fetch)
 upstream	https://github.com/AlbertVilaCalvo/react (push)
 ```
 
-
 ## Create the PR
 
 https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork
@@ -34,16 +32,15 @@ https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/cr
 Create a branch and do the work.
 
 (Optional) Before submitting the PR:
+
 - [Update my fork](#update-my-fork) and rebase my branch (`git rebase main`).
 - Squash the commits.
 
 Finally create the PR on the website.
 
-
 ## After the PR is merged
 
 Checkout main/master, [update my fork](#update-my-fork) and delete the branch with `git push --delete origin branch`.
-
 
 ## Update my fork
 

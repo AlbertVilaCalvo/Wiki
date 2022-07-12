@@ -19,6 +19,7 @@ https://freerainbowtables.com
 Even if 2 users use the same password, since the salt is different, the resulting hash will be different. This means that to get the password from the hash we need to generate a rainbow table for each salt.
 
 Salts must be:
+
 - long enough to make impractical to brute force or generate rainbow tables
 - truly random
 

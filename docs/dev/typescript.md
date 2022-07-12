@@ -6,18 +6,19 @@ Docs: https://www.typescriptlang.org/docs
 
 Handbook: https://www.typescriptlang.org/docs/handbook/intro.html
 
-
 ## CLI
 
 Setup: https://www.typescriptlang.org/download
 
 Install locally, don't use a global install:
+
 ```
 npm install typescript --save-dev
 yarn add typescript --dev
 ```
 
 If we install it locally in our project, we can run that version using npx or yarn:
+
 ```
 npx tsc
 yarn tsc
@@ -25,6 +26,7 @@ yarn tsc --noEmit
 ```
 
 ### Run tsc on a specific files:
+
 - https://www.npmjs.com/package/tsc-files
 - Allow tsconfig.json when input files are specified - https://github.com/microsoft/TypeScript/issues/27379
 - https://stackoverflow.com/questions/44676944/how-to-compile-a-specific-file-with-tsc-using-the-paths-compiler-option
@@ -40,7 +42,6 @@ Create tsconfig.json: `npx tsc --init` or `yarn run tsc --init`.
 ### tsconfig.json options to enable
 
 `"noImplicitReturns": true /* Report error when not all code paths in function return a value. */`
-
 
 ## @ts-expect-error
 
@@ -64,7 +65,6 @@ Pick ts-ignore if:
 - you are in the middle of an upgrade between two different versions of TypeScript, and a line of code errors in one version but not another.
 - you honestly don’t have the time to decide which of these options is better.
 
-
 ## null or undefined?
 
 https://stackoverflow.com/questions/6604749/what-reason-is-there-to-use-null-instead-of-undefined-in-javascript
@@ -83,9 +83,9 @@ https://dev.to/johannesjo/how-do-you-deal-with-null-vs-undefined-4899
 
 https://github.com/nene/eslint-plugin-no-null
 
-
 Gotcha. If we use `undefined` we don't get an error if we forget to initialize a field in a class constructor,
 but if we use `null` we do:
+
 ```ts
 class User {
   name: string | null // GOOD - TS2564: Property 'country' has no initializer and is not definitely assigned in the constructor.
@@ -122,7 +122,6 @@ export function isError<T>(arg: 'loading' | T | Error): arg is Error {
 }
 ```
 
-
 ## `Result<T, E>` type
 
 https://gist.github.com/s-panferov/5269524dcf23dad9a1ef
@@ -147,13 +146,11 @@ type Result<S, E> = Loading | Success<S> | Error<E>
 type GetProductResult = Result<Product, 'network-error' | 'product-not-found'>
 ```
 
-
 ## Utility Types
 
 https://www.typescriptlang.org/docs/handbook/utility-types.html
 
 Return type of an async function: https://stackoverflow.com/questions/48011353/how-to-unwrap-type-of-a-promise
-
 
 ## With React
 
@@ -161,17 +158,17 @@ Return type of an async function: https://stackoverflow.com/questions/48011353/h
 
 https://fettblog.eu/typescript-react-component-patterns
 
-
 ```ts
-import * as React from 'react';
+import * as React from 'react'
 
 /**
  * Instead of doing eg `MyText(props: TextProps & {children: React.ReactNode})`
  * you can do `MyText(props: WithChildren<TextProps>)`.
  * Note that the `children` prop is required.
  */
-export type WithChildren<T> = T & {children: React.ReactNode};
+export type WithChildren<T> = T & { children: React.ReactNode }
 ```
+
 [source](https://fettblog.eu/typescript-react-component-patterns/)
 
 [It's already defined on the definitions, but children is optional :/](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/24f1d0c82da2d898acd03fbb3e692eba3c431f82/types/react/index.d.ts#L773)

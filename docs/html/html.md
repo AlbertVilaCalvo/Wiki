@@ -12,7 +12,6 @@ HTML 5.2 (2017) https://www.w3.org/TR/html52
 
 HTML 5.3 (2021) https://www.w3.org/TR/html53
 
-
 ## Omit type='text/javascript' in `<script>` tags
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#attr-type

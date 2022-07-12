@@ -28,7 +28,6 @@ xml - XML and also used for HTML with inline CSS and Javascript
 yaml
 ```
 
-
 [Highlight Bash/shell code in Markdown files](https://stackoverflow.com/q/20303826/4034572)
 
 ### In GitHub

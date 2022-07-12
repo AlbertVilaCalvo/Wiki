@@ -24,7 +24,6 @@ Install apk: `adb install path/to/the/file.apk`
 
 Install app bundle aab: https://stackoverflow.com/questions/50419286/install-android-app-bundle-on-device
 
-
 ## Test deep links
 
 https://developer.android.com/training/app-links/deep-linking#testing-filters
@@ -34,7 +33,6 @@ https://developer.android.com/training/app-links/deep-linking#testing-filters
 If you have multiple emulators then add '-s emulator-name', like this:
 
 `adb -s emulator-5554 shell am start -W -a android.intent.action.VIEW -d "scheme://example.com/some-path" com.example.debug`
-
 
 ## Modify the emulator `hosts` file
 
@@ -48,7 +46,6 @@ Note: you need to use the `${ANDROID_SDK_ROOT}/emulator/emulator`, like this:
 
 where `ANDROID_SDK_ROOT` is `/Users/albert/Library/Android/sdk` [source](https://stackoverflow.com/a/52496987/4034572)
 
-
 ## Get the SHA-1
 
 There is a gradle task: `./gradlew signingReport`. It will use the keystores set on `signingConfigs` in app/build.gradle. To avoid seeing the output for all the tasks, prepend the :app task: `./gradlew :app:signingReport`
@@ -60,7 +57,6 @@ There is a gradle task: `./gradlew signingReport`. It will use the keystores set
 https://stackoverflow.com/questions/15727912/sha-1-fingerprint-of-keystore-certificate
 
 https://developers.google.com/android/guides/client-auth
-
 
 ## App signing
 
@@ -105,7 +101,6 @@ Es pot fer amb Android Studio: Build -> Generate Signed Bundle / APK -> Next -> 
 https://developer.android.com/studio/publish/app-signing#generate-key
 
 https://support.google.com/googleplay/android-developer/answer/9842756?rd=1#create
-
 
 ## Android 12 changed that root launcher activities are no longer finished on the Back press
 

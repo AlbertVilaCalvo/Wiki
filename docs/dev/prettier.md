@@ -32,7 +32,6 @@ Finally edit your `.eslintrc.js` so that it extends 'prettier' - see [ESLint](es
 
 Note that it ignores files located in `node_modules` directory - [docs](https://prettier.io/docs/en/cli.html#--with-node-modules)
 
-
 ## Commands
 
 https://prettier.io/docs/en/cli.html
@@ -40,7 +39,6 @@ https://prettier.io/docs/en/cli.html
 Run: `npx prettier --write .`
 
 Check: `npx prettier --check .`
-
 
 ## Options
 
@@ -65,6 +63,7 @@ https://prettier.io/docs/en/webstorm.html
 https://www.jetbrains.com/help/webstorm/prettier.html
 
 Go to Preferences | Languages and Frameworks | JavaScript | Prettier:
+
 - Set 'Prettier package' to `<project-dir>/node_modules/prettier`.
 - Set 'Run for files' to the glob pattern `{**/*,*}.{js,ts,jsx,tsx,css,json,md}`.
 - Check 'On Reformat Code action' and 'On save'.

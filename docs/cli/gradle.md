@@ -35,12 +35,14 @@ Task help: `./gradlew help --task <task>`
 `./gradlew cleanBuildCache` - [Doesn't work on Android](https://stackoverflow.com/a/43245885/4034572)
 
 Clear Gradle global cache (when clean and 'Invalidate Caches / Restart' don't work):
+
 ```
 ls ~/.gradle/caches/
 rm -rf ~/.gradle/caches/build-cache-*
 ```
 
 Clear local .gradle folders:
+
 ```
 find . -type d -name ".gradle"
 find . -type d -name ".gradle" -exec rm -rf {} +
@@ -69,7 +71,7 @@ https://docs.gradle.org/nightly/userguide/performance.html
 
 About `--profile` on the [docs](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_performance):
 
->  Generates a high-level performance report in the `$buildDir/reports/profile` directory. `--scan` is preferred.
+> Generates a high-level performance report in the `$buildDir/reports/profile` directory. `--scan` is preferred.
 
 You can do `./gradlew --profile` or `./gradlew clean build --profile`. On Android you can do `./gradlew assembleDebug --profile`.
 

@@ -31,7 +31,7 @@ https://github.com/search?q=%22infoPlist%22+extension%3Ajson+path%3A%2F+filename
         "CFBundleAllowMixedLocalizations": true,
         "ITSAppUsesNonExemptEncryption": false
       }
-    },
+    }
   }
 }
 ```
@@ -79,7 +79,7 @@ https://www.npmjs.com/package/expo-dev-client
 
 https://docs.expo.dev/development/introduction
 
->  Expo Go app is a standard client containing a preset collection of modules. As your project moves toward release, you may find that you need to customize your project, either to reduce your bundle size, to use a module offered by developers in the React Native community, or even to add your own **custom native code**.
+> Expo Go app is a standard client containing a preset collection of modules. As your project moves toward release, you may find that you need to customize your project, either to reduce your bundle size, to use a module offered by developers in the React Native community, or even to add your own **custom native code**.
 
 > Development builds of your app are Debug builds containing the `expo-dev-client` package.
 
@@ -88,6 +88,7 @@ https://blog.expo.dev/introducing-custom-development-clients-5a2c79a9ddf8
 > (managed workflow) If you add or change the version of any modules in your project that includes native code or make most changes to your app.json, you’ll need to generate a new custom client to be able to run your app.
 
 More information:
+
 - https://blog.expo.dev/expo-dev-client-0-8-0-7116c1945253
 - https://medium.com/the-exponent-log/javascript-driven-development-with-custom-runtimes-eda87d574c9d
 
@@ -178,16 +179,19 @@ To install an app to an iPhone, first register the device UDID at https://develo
 To register any iOS devices you would like to develop on to your ad hoc provisioning profile use `eas device:create`.
 
 Android build:
+
 - `eas build -p android --profile preview`
 - https://docs.expo.dev/build-reference/android-builds/
 
 iOS build:
+
 - `eas build -p ios`
 - https://docs.expo.dev/build-reference/ios-builds/
 
 Android and iOS build: `eas build -p all`
 
 Build locally (eg to generate an aab file to upload to Google Play):
+
 - https://docs.expo.dev/build-reference/local-builds/
 - `eas build --local`
 - "Uses your own hardware to build your apps locally and EAS to manage your app-signing credentials" ([source](https://blog.expo.dev/turtle-goes-out-to-sea-d334db2a6b60))
@@ -281,6 +285,7 @@ https://twitter.com/Baconbrix/status/1412921581542658049
 https://blog.expo.dev/expo-dev-client-0-8-0-7116c1945253
 
 With plugin:
+
 - https://www.npmjs.com/package/expo-community-flipper
 - https://github.com/jakobo/expo-community-flipper
 - https://codedrift.com/thunked/developing-react-native-with-expo-and-flipper and https://blog.expo.dev/developing-react-native-with-expo-and-flipper-8c426bdf995a (is the same)

@@ -40,7 +40,6 @@ All safe methods are also idempotent, but not all idempotent methods are safe. F
 
 https://httpstat.us
 
-
 ## REST vs RPC
 
 https://cloud.google.com/blog/products/application-development/rest-vs-rpc-what-problems-are-you-trying-to-solve-with-your-apis

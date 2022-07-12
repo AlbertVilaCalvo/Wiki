@@ -2,7 +2,6 @@
 title: React Native
 ---
 
-
 :::important
 Always open `.xcworkspace` not `.xcodeproj`.
 :::
@@ -18,7 +17,7 @@ Start Metro bundler: `npx react-native start`
 
 Reset cache: `npx react-native start --reset-cache`
 
-*Also see* https://github.com/pmadruga/react-native-clean-project
+_Also see_ https://github.com/pmadruga/react-native-clean-project
 
 ### iOS
 
@@ -104,14 +103,13 @@ Fix it with `keyboardShouldPersistTaps='always'` or `keyboardShouldPersistTaps='
 Note that `keyboardShouldPersistTaps={true}` is deprecated. The warning at the console also says "Use `keyboardShouldPersistTaps='always'` instead".
 
 Links:
+
 - [issue #4087](https://github.com/facebook/react-native/issues/4087) Need to tap twice in order to tap on TouchableHighlight when it is within a ScrollView or ListView.
 - https://stackoverflow.com/questions/57941342/button-cant-be-clicked-while-keyboard-is-visible-react-native/57941568
-
 
 ## FlatList issues
 
 Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. See https://github.com/facebook/react-native/issues/26610#issuecomment-539843444
-
 
 ## CI/CD
 
@@ -144,5 +142,6 @@ This requires having the NDK installed (otherwise `:app:extractReleaseNativeSymb
 Symbol files are automatically added to app bundles, but not to apk - [see docs](https://developer.android.com/studio/build/shrink-code#native-crash-support).
 
 Useful links:
+
 - https://stackoverflow.com/questions/63394726/how-to-publish-native-code-symbols-to-google-play-console
 - https://stackoverflow.com/questions/62568757/playstore-error-app-bundle-contains-native-code-and-youve-not-uploaded-debug

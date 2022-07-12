@@ -12,7 +12,6 @@ Never store sensitive information (such as credentials and access keys) in a tem
 
 A stack can be created using the console or the CLI.
 
-
 ## Template sections
 
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html
@@ -51,15 +50,18 @@ Outputs:
 ```
 
 Format version `AWSTemplateFormatVersion`
+
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
 - The only valid value is `2010-09-09`
 
 Description
+
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-description-structure.html
 - String between 0 and 1024 bytes
 - Displayed on the console
 
 Paramters
+
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html
 - Like variables. Used to avoid hardcoding values and make the template reusable
 - Set when the stack is created
@@ -67,25 +69,25 @@ Paramters
 - The `Type` field is required, the rest are optional
 
 Resources
+
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 - Required
 - Properties depend on the resource type
 
 Outputs
+
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
 - Resources that you can reuse in other stacks
 - View them with `aws cloudformation describe-stacks`
 - Use [`ImportValue`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) to get the value exported by another stack
 
 Metadata
-- https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
 
+- https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html
 
 ## Intrinsic functions
 
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
-
-
 
 ## CLI
 

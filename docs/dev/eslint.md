@@ -4,7 +4,6 @@ title: ESLint
 
 https://eslint.org
 
-
 ## Rules and config
 
 https://eslint.org/docs/rules
@@ -14,7 +13,6 @@ https://eslint.org/docs/user-guide/configuring/rules
 Airbnb rules: https://github.com/airbnb/javascript
 
 Turn off all rules that are unnecessary or might conflict with Prettier: https://www.npmjs.com/package/eslint-config-prettier
-
 
 ## `.eslintrc.js`
 
@@ -62,7 +60,6 @@ module.exports = {
 }
 ```
 
-
 ## CLI
 
 https://eslint.org/docs/user-guide/command-line-interface
@@ -72,7 +69,6 @@ npx eslint src/**/*.js
 npx eslint . --ext ts --ext tsx --ext js
 eslint --cache --fix
 ```
-
 
 ## WebStorm
 

@@ -11,11 +11,13 @@ Plugins: https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 Git plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 
 Upgrade:
+
 ```
 omz update
 ```
 
 Apply changes made to zshrc:
+
 ```
 exec zsh
 ```

@@ -40,6 +40,7 @@ Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examp
 `aws iam list-users --profile <profile-name>`
 
 Create role
+
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-role.html
 - `aws iam create-role --role-name <role-name> --assume-role-policy-document file://trust.json --output text --query 'Role.Arn'`
 
@@ -61,6 +62,7 @@ Example of trust relationship policy document `trust.json`:
 ```
 
 Attach a Policy to a IAM role
+
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-role-policy.html
 - `aws iam put-role-policy --role-name <role-name> --policy-name <policy-name> --policy-document file://iam-role-policy.json`
 
@@ -78,6 +80,7 @@ Example of policy document `iam-role-policy.json`:
 ```
 
 Delete role
+
 - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html
 - First remove the role from instance profile: `aws iam remove-role-from-instance-profile --instance-profile-name <instance-profile-name> --role-name <role-name>`
 - If there's a policy attached to the role, remove it: `aws iam delete-role-policy --role-name <role-name> --policy-name <policy-name>`

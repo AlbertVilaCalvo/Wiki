@@ -16,10 +16,10 @@ https://dev.to/lydiahallie/cs-visualized-cors-5b8h
 
 [You don't need that CORS request](https://news.ycombinator.com/item?id=29777145)
 
-
 ## Same-origin policy
 
 Different origin is:
+
 - Different domain: `a.com` and `b.com`
 - Different sub-domain:` example.com` and `api.example.com`
 - Different port:` example.com` and `example.com:3456`

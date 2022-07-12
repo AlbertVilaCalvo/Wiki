@@ -9,6 +9,7 @@ Install: `npm install cypress --save-dev` or `yarn add cypress --dev`
 https://docs.cypress.io/guides/getting-started/installing-cypress
 
 Open:
+
 ```
 ./node_modules/.bin/cypress open
 npx cypress open

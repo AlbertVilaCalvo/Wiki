@@ -17,8 +17,6 @@ https://jsdoc.app
 
 https://devhints.io/jsdoc
 
-
-
 ## Print objects
 
 ```js
@@ -34,7 +32,6 @@ export function prettyPrint(object: any): string {
   ).replace(/"__undefined"/g, 'undefined')
 }
 ```
-
 
 ## console
 
@@ -71,7 +68,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
 
-
 ### `Object.entries()`
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
@@ -79,10 +75,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 ```js
 const user = {
   name: 'Joe',
-  age: 42
+  age: 42,
 }
 for (const [key, value] of Object.entries(user)) {
-  console.log(`${key}: ${value}`);
+  console.log(`${key}: ${value}`)
 }
 ```
 
@@ -98,7 +94,6 @@ Eg to toggle 'complete' of an object in a Redux reducer without modifying it:
 
 This creates a new object {}, merges all the properties of the 'todo' object into this new object, and then overrides the 'complete' property. The original 'todo' object is not modified, so the reducer is pure.
 
-
 ## Array
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
@@ -113,12 +108,12 @@ Does not mutate. [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/R
 
 ```ts
 export interface Item {
-    date: number; // time in millis, eg 1622451442822
+  date: number // time in millis, eg 1622451442822
 }
 
 function sortByDate(a: Item, b: Item): number {
-    return a.date - b.date // oldest first
-    return b.date - a.date // newest first
+  return a.date - b.date // oldest first
+  return b.date - a.date // newest first
 }
 
 items.sort(sortByDate)
@@ -130,7 +125,7 @@ We need the index of the item. If we have the item, use `indexOf`: `items.splice
 
 Otherwise use `findIndex` to find the index:
 
-```
+```js
 const index = items.findIndex((item) => item.id === id)
 if (index !== -1) {
   items.splice(index, 1)
@@ -144,7 +139,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 `Error('message')` and `new Error('message')` is the same.
 
->  When Error is used like a function -- without `new`, it will return an `Error` object. Therefore, a mere call to `Error` will produce the same output that constructing an `Error` object via the `new` keyword would. [source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error#function_call_or_new_construction)
+> When Error is used like a function -- without `new`, it will return an `Error` object. Therefore, a mere call to `Error` will produce the same output that constructing an `Error` object via the `new` keyword would. [source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error#function_call_or_new_construction)
 
 Rethrow an error but with a different message: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error#rethrowing_an_error_with_a_cause
 
@@ -161,7 +156,6 @@ Api.fetchUser = function () {
   })
 }
 ```
-
 
 ### Promise.reject()
 
@@ -232,11 +226,9 @@ function fakeApiCall(): Promise<number> {
 }
 ```
 
-
 ## Abort
 
 https://www.bennadel.com/blog/4200-using-fetch-abortsignal-and-settimeout-to-apply-retry-mechanics-in-javascript.htm
-
 
 ## String
 
@@ -249,7 +241,6 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 [startsWith()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith)
 
 [endsWith()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith)
-
 
 ## Regex
 
@@ -266,7 +257,7 @@ In TypeScript use the type `RegExp`.
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
 
 ```js
-const regex = /abcd/ig
+const regex = /abcd/gi
 const string = 'something'
 regex.exec(string)
 // returns an array with the matches or null
@@ -277,12 +268,11 @@ regex.exec(string)
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
 
 ```js
-const regex = /abcd/ig
+const regex = /abcd/gi
 const string = 'something'
 string.match(regex)
 // returns an array with the matches or null
 ```
-
 
 ## Dates
 
