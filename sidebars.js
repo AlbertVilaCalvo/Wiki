@@ -71,10 +71,11 @@ module.exports = {
   ],
   css: [
     'css/css',
+    'css/selectors',
     'css/reset',
     'css/flexbox',
-    'css/misc',
-    'css/text'
+    'css/text',
+    'css/misc'
   ],
   misc: [
     'misc/battery',
