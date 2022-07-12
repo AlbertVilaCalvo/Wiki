@@ -58,6 +58,7 @@ module.exports = {
         'devops/aws/codebuild',
       ],
     },
+    'devops/heroku',
   ],
   http: [
     'http/http',
