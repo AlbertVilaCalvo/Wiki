@@ -2,6 +2,11 @@
 title: Elements
 ---
 
+## `<head>` elements
+
+https://www.joshwcomeau.com/snippets/html/html-skeleton
+
+
 ## Page structure
 
 https://stackoverflow.com/questions/4781077/html5-best-practices-section-header-aside-article-elements
@@ -12,6 +17,8 @@ https://stackoverflow.com/questions/4781077/html5-best-practices-section-header-
 https://html.spec.whatwg.org/multipage/sections.html#the-nav-element
 
 > Not all groups of links on a page need to be in a nav element — the element is primarily intended for sections that consist of major navigation blocks. In particular, it is common for footers to have a short list of links to various pages of a site, such as the terms of service, the home page, and a copyright page. The footer element alone is sufficient for such cases; while a nav element can be used in such cases, it is usually unnecessary.
+
+https://tdarb.org/blog/hamburger-menu-alternative.html
 
 
 ## article

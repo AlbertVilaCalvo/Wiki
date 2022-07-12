@@ -69,3 +69,5 @@ Quality:
 Download audio: `youtube-dl -x [--audio-quality 0] [--audio-format "flac"] <URL>`
 - `--audio-quality QUALITY`: 0 is the best, 9 the worst
 - `--audio-format FORMAT`: "best", "aac", "flac", "mp3", "m4a", "opus", "vorbis", or "wav"; "best" by default
+
+Also see https://github.com/yt-dlp/yt-dlp

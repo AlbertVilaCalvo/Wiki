@@ -19,6 +19,8 @@ html {
 
 ## Resets
 
+CSS Remedy: https://github.com/jensimmons/cssremedy
+
 A tiny modern CSS reset: https://github.com/jgthms/minireset.css
 
 Normalize - https://github.com/necolas/normalize.css - https://necolas.github.io/normalize.css
