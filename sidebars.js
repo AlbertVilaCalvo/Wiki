@@ -80,6 +80,10 @@ module.exports = {
     'css/text',
     'css/misc'
   ],
+  databases: [
+    'databases/databases',
+    'databases/sql',
+  ],
   misc: [
     'misc/battery',
     'misc/macos',

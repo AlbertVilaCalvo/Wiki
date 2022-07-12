@@ -62,6 +62,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'databases',
+          activeBasePath: 'databases',
+          label: 'DB',
+          position: 'left',
+        },
+        {
           to: 'misc/battery',
           activeBasePath: 'misc',
           label: 'Misc',
