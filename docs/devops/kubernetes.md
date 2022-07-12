@@ -60,6 +60,8 @@ https://www.redhat.com/en/topics/containers/kubernetes-architecture
 - Volume: A directory containing data, accessible to the containers in a Pod.
   - Since pods are ehpemeral, volumes provide a persistent way to store data.
 
+Hierarchy:
+
 - A cluster has many nodes
 - A node has many pods
 - A pod has many containers

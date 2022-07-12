@@ -6,11 +6,9 @@ title: Elements
 
 https://www.joshwcomeau.com/snippets/html/html-skeleton
 
-
 ## Page structure
 
 https://stackoverflow.com/questions/4781077/html5-best-practices-section-header-aside-article-elements
-
 
 ## nav
 
@@ -20,7 +18,6 @@ https://html.spec.whatwg.org/multipage/sections.html#the-nav-element
 
 https://tdarb.org/blog/hamburger-menu-alternative.html
 
-
 ## article
 
 article can have header, nav, section and footer ([source](https://html.spec.whatwg.org/multipage/sections.html#the-nav-element)):
@@ -28,29 +25,32 @@ article can have header, nav, section and footer ([source](https://html.spec.wha
 ```html
 <article>
   <header>
-   <h1>Demos in Exampland</h1>
-   <p>Written by A. N. Other.</p>
+    <h1>Demos in Exampland</h1>
+    <p>Written by A. N. Other.</p>
   </header>
   <nav>
-   <ul>
-    <li><a href="#public">Public demonstrations</a></li>
-    <li><a href="#destroy">Demolitions</a></li>
-    ...more...
-   </ul>
+    <ul>
+      <li><a href="#public">Public demonstrations</a></li>
+      <li><a href="#destroy">Demolitions</a></li>
+      ...more...
+    </ul>
   </nav>
   <div>
-   <section id="public">
-    <h1>Public demonstrations</h1>
-    <p>...more...</p>
-   </section>
-   <section id="destroy">
-    <h1>Demolitions</h1>
-    <p>...more...</p>
-   </section>
-   ...more...
+    <section id="public">
+      <h1>Public demonstrations</h1>
+      <p>...more...</p>
+    </section>
+    <section id="destroy">
+      <h1>Demolitions</h1>
+      <p>...more...</p>
+    </section>
+    ...more...
   </div>
   <footer>
-   <p><a href="?edit">Edit</a> | <a href="?delete">Delete</a> | <a href="?Rename">Rename</a></p>
+    <p>
+      <a href="?edit">Edit</a> | <a href="?delete">Delete</a> |
+      <a href="?Rename">Rename</a>
+    </p>
   </footer>
 </article>
 ```

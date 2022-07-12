@@ -6,29 +6,26 @@ title: Python
 
 Cheatsheet: https://www.pythonsheets.com
 
-
 ## Steps to create a Python project
 
 1. Set Python version: `pyenv local 3.10.0`. Check the lastest Python version with `pyenv versions`.
 2. Init Pypenv: `pipenv --python 3.10.2`. This creates the `Pipfile`.
 3. Enable the virtual environment: `pipenv shell`.
 4. Set the Python interpreter in PyCharm.
-  - At the Preferences, go to 'Python Interperter' (you can click 'Interpreter Settings...' at the bottom-right).
-  - Open the 'Python Interperter' drop-down and click 'Show All...'.
-  - At the dialog that opens (Python Interpreters), click '+'.
-  - At the dialog that opens (Add Python Interpreter), select 'Existing environment' and set the path to the location of new Python interpreter given by `pipenv --venv` + `/bin/python`.
-  - Close the dialogs and at the drop-down select the new interpreter just addedand, and then click 'OK'.
+   - At the Preferences, go to 'Python Interperter' (you can click 'Interpreter Settings...' at the bottom-right).
+   - Open the 'Python Interperter' drop-down and click 'Show All...'.
+   - At the dialog that opens (Python Interpreters), click '+'.
+   - At the dialog that opens (Add Python Interpreter), select 'Existing environment' and set the path to the location of new Python interpreter given by `pipenv --venv` + `/bin/python`.
+   - Close the dialogs and at the drop-down select the new interpreter just addedand, and then click 'OK'.
 5. Install Black and configure it in PyCharm: [follow instructions](#black).
-  - Doing `which black` should be something like `/Users/albert/.local/share/virtualenvs/project-name--zmW4vHg/bin/black`. -> This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
+   - Doing `which black` should be something like `/Users/albert/.local/share/virtualenvs/project-name--zmW4vHg/bin/black`. -> This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
 6. Install libraries, eg: `pipenv install flask`.
-
 
 ## `-m` flag
 
 From 'man python': `-m <module-name>` Searches sys.path for the named module and runs the corresponding .py file as a script.
 
 https://stackoverflow.com/questions/50821312/meaning-of-python-m-flag
-
 
 ## pyenv
 
@@ -59,10 +56,10 @@ List available versions to install: `pyenv install --list`
 Install version: `pyenv install 3.9.7`
 
 _After installing_ a new Python version we can upgrade pip and pipenv, so that we use their latest versions:
+
 - `pip install --upgrade pip` or `/Users/albert/.pyenv/versions/3.10.2/bin/python3.10 -m pip install --upgrade pip`
 - `pip install --user pipenv`
 - Important: after upgrading pipenv we need to close the current shell and open a new one (see [upgrade pipenv](#upgrade-pipenv))
-
 
 ## Packaging
 
@@ -98,7 +95,6 @@ Managing Application Dependencies (Python Packaging User Guide): https://packagi
 
 [python.libhunt.com](https://python.libhunt.com/)
 
-
 ## pip
 
 Python package installer - https://github.com/pypa/pip
@@ -120,6 +116,7 @@ List commands: `pip3 --help`
 Help of a command: `pip install --help`
 
 Upgrade pip itself:
+
 - From https://pip.pypa.io/en/stable/installation/#upgrading-pip: `python -m pip install --upgrade pip`
 - `pip install --upgrade pip` or `pip install -U pip`
 - Commonly setuptools is upgraded too: `pip install -U pip setuptools`
@@ -145,7 +142,6 @@ Upgrade package: `pip install --upgrade requests` or `pip install -U requests`
 
 Uninstall package: `pip uninstall requests`. Important: this does _not_ remove the uninstalled package dependencies! Those will remain :/
 
-
 ## venv
 
 Docs: https://docs.python.org/3/library/venv.html
@@ -166,7 +162,6 @@ Leave active venv and go back to the global environment: `deactivate`
 
 To destroy the venv first run `deactivate` (if active) and then delete the folder (eg `rm -rf ./venv`).
 
-
 ## virtualenv
 
 Similar than venv but with more features.
@@ -180,7 +175,6 @@ Install it using pipx: `pipx install virtualenv`.
 Create virtual environment: `python3 -m virtualenv <DIR>`.
 
 Activate the virtual environment: `source <DIR>/bin/activate`.
-
 
 ## requirements.txt
 
@@ -197,25 +191,31 @@ Install dependencies: `pip install -r requirements.txt` or `pip install -r requi
 Every time we do `pip install somepackage` we need to do `pip freeze > requirements.txt`.
 
 ### Example
+
 ```
 # This is a comment
 requests>=2.20
 flake8>=3.8,<=4.0
 schedule==0.4.2
 ```
+
 See the example in the docs: https://pip.pypa.io/en/stable/cli/pip_install/#example-requirements-file
 
 ### dev dependencies
 
 requirements.txt
+
 ```
 Flask==1.0
 ```
+
 requirements-dev.txt
+
 ```
 -r requirements.txt
 mock==2.0.0
 ```
+
 Example: https://github.com/Yelp/love
 
 ### pip-tools
@@ -224,7 +224,6 @@ https://github.com/jazzband/pip-tools
 
 https://stackoverflow.com/questions/61536466/pips-requirements-txt-best-practice
 
-
 ## Pipenv
 
 [github.com/pypa/pipenv](https://github.com/pypa/pipenv)
@@ -232,6 +231,7 @@ https://stackoverflow.com/questions/61536466/pips-requirements-txt-best-practice
 Docs: https://pipenv.pypa.io/en/latest
 
 Install:
+
 - Installation with Homebrew is discouraged _because updates to the brewed Python distribution will break Pipenv, and perhaps all virtual environments managed by it. You’ll then need to re-install Pipenv at least_. ([source](https://pipenv.pypa.io/en/latest/#install-pipenv-today))
 - https://pipenv.pypa.io/en/latest/#install-pipenv-today
 - https://pipenv.pypa.io/en/latest/install/
@@ -262,6 +262,7 @@ Install all packages specified in Pipfile.lock: `pipenv sync` -> Never modifies 
 Enforce that your Pipfile.lock is up to date: `pipenv install --deploy` -> This will fail a build if the Pipfile.lock is out–of–date, instead of generating a new one ([source](https://pipenv.pypa.io/en/latest/advanced/#using-pipenv-for-deployments))
 
 `pipenv install` vs `pipenv sync`:
+
 - https://stackoverflow.com/questions/52447791/what-are-the-advantages-of-using-pipenv-sync-over-pipenv-install
 - https://pipenv.pypa.io/en/latest/advanced/#using-pipenv-for-deployments
 - Difference between pipenv sync and pipenv install --deploy: https://github.com/pypa/pipenv/issues/3582
@@ -272,7 +273,7 @@ Enforce that your Pipfile.lock is up to date: `pipenv install --deploy` -> This 
 
 > `pipenv sync` will never try to relock your dependencies (you can regard it as blind to Pipfile) while `pipenv install --deploy` will first check the consistency between Pipfile and Pipfile.lock and abort if they don't match
 
-_To avoid having * as version number, when we add a new dependency we need to set the dependency version number from Pipfile.lock to Pipfile. Then run `pipenv lock` which updates the Pipfile.lock _meta sha256._
+_To avoid having '\*' as version number, when we add a new dependency we need to set the dependency version number from Pipfile.lock to Pipfile. Then run `pipenv lock` which updates the Pipfile.lock \_meta sha256._
 
 Install package: `pipenv install requests`
 
@@ -296,7 +297,6 @@ Get "✘ Locking Failed! ResolutionFailure" when doing `pipenv install black --d
 
 From https://stackoverflow.com/questions/51540404/how-do-you-resolve-python-package-dependencies-with-pipenv
 
-
 ## Black
 
 https://github.com/psf/black
@@ -308,7 +308,7 @@ Docs: https://black.readthedocs.io/en/stable/
 - With Pipenv:
   - Make sure that the environment is active, ie run `pipenv shell`.
   - `pipenv install black --dev`.
-  - Then on the Pipfile replace version value '*' with the actual version in the Pipfile (eg "==21.12b0").
+  - Then on the Pipfile replace version value '\*' with the actual version in the Pipfile (eg "==21.12b0").
   - Finally run `pipenv lock`. If the error '✘ Locking Failed! ResolutionFailure' happens, run `pipenv lock --pre --clear`.
 - With venv or virtualenv:
   - Make sure that the environment is active, ie run `source venv/bin/activate`, otherwise black is installed globally.
@@ -360,6 +360,7 @@ Preferences -> Tools -> File Watchers. Click + and select 'custom'.
 - Environment variables: leave it emtpy
 
 In Advanced Options:
+
 - Uncheck "Auto-save edited files to trigger the watcher"
 - Uncheck "Trigger the watcher on external changes"
 - Uncheck "Trigger the watcher regardless of syntax errors"
@@ -370,6 +371,7 @@ In Advanced Options:
 https://code.visualstudio.com/docs/python/editing#_formatting
 
 At the global settings (⌘,):
+
 - Disable 'Format On Paste', 'Format On Save' and 'Format On Type'
 - Set 'Format On Save Mode' to 'file'
 - Set 'Default Formatter' to 'None'.

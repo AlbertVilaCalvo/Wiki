@@ -140,7 +140,7 @@ const element = React.isValidElement(ListHeaderComponent) ? (
   ListHeaderComponent
 ) : (
   <ListHeaderComponent />
-);
+)
 
 <View>{element}</View>
 ```
