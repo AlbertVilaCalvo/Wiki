@@ -56,7 +56,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'css/reset',
+          to: 'css',
           activeBasePath: 'css',
           label: 'CSS',
           position: 'left',
