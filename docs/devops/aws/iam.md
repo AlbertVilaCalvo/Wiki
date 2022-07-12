@@ -50,13 +50,13 @@ Example of trust relationship policy document `trust.json`:
 {
   "Version": "2012-10-17",
   "Statement": [
-      {
-          "Effect": "Allow",
-          "Principal": {
-              "AWS": "arn:aws:iam::<ACCOUNT_ID>:root"
-          },
-          "Action": "sts:AssumeRole"
-      }
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<ACCOUNT_ID>:root"
+      },
+      "Action": "sts:AssumeRole"
+    }
   ]
 }
 ```
@@ -71,11 +71,13 @@ Example of policy document `iam-role-policy.json`:
 ```json
 {
   "Version": "2012-10-17",
-  "Statement":[{
+  "Statement": [
+    {
       "Effect": "Allow",
       "Action": ["eks:Describe*", "ssm:GetParameters"],
-      "Resource":"*"
-  }]
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
