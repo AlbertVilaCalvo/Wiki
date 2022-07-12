@@ -18,6 +18,7 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.
 
 All sections are optional except `Resources`. The order of the sections does not matter.
 
+<!-- prettier-ignore -->
 ```yaml
 AWSTemplateFormatVersion: 2010-09-09
 

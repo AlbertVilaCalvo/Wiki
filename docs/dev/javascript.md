@@ -172,6 +172,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 - Promise.all() resolves when (waits until) all promises resolve, and rejects immediately if any promise rejects.
 - Promise.allSettled() resolves when (waits until) all promises have either fulfilled or rejected.
 
+<!-- prettier-ignore -->
 ```js
 Promise.all([
   Api.fetchUser(),
@@ -184,6 +185,7 @@ Promise.all([
 })
 ```
 
+<!-- prettier-ignore -->
 ```js
 Promise.allSettled([
   Api.fetchUser(),

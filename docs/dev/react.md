@@ -147,6 +147,7 @@ const element = React.isValidElement(ListHeaderComponent) ? (
 
 ### Examples
 
+<!-- prettier-ignore -->
 ```tsx
 <Button Icon={IconAddUser} />
 
