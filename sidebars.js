@@ -24,6 +24,7 @@ module.exports = {
     'dev/jetbrains',
     'dev/python',
     'dev/postgresql',
+    'dev/passwords',
     'dev/jwt',
   ],
   app: [
