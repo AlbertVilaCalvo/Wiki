@@ -13,6 +13,7 @@ module.exports = {
     'cli/curl',
   ],
   dev: [
+    'dev/dev',
     'dev/javascript',
     'dev/typescript',
     'dev/node',

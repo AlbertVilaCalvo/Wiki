@@ -24,7 +24,7 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'dev/javascript',
+          to: 'dev',
           activeBaseRegex: 'dev/.+',
           label: 'Dev',
           position: 'left',
