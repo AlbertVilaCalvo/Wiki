@@ -25,7 +25,15 @@ title: Docusaurus
   - Breadcrumbs in docs (disabled in config.js with presets docs.breadcrumbs)
   - Add arbitrary html elements to the docs sidebar like images, separators etc.
 - [beta 17](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.17) - [twitter](https://twitter.com/docusaurus/status/1499439030336950275)
-- [beta 18](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.18) - [twitter](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.18)
+- [beta 18](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.18) - [twitter](https://twitter.com/docusaurus/status/1507375535114141696)
+- [beta 19](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.19) - [twitter](https://twitter.com/docusaurus/status/1521886747575074819)
+  - Mark a doc or blog post as draft with `draft:true` and it won't show in production builds
+  - Line numbers in code blocks [docs](https://docusaurus.io/docs/markdown-features/code-blocks#line-numbering)
+  - Add a class name to a code block line with a comment [docs](https://docusaurus.io/docs/markdown-features/code-blocks#custom-magic-comments)
+- [beta 20](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.20) - [twitter](https://twitter.com/docusaurus/status/1522273335400357888)
+  - Small release with fixes for beta 19
+- [beta 21](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.21) - [twitter](https://twitter.com/docusaurus/status/1530224861116780545)
+- [beta 22](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.22) - [twitter](https://twitter.com/docusaurus/status/1545438949610512384)
 
 To upgrade do:
 
@@ -36,6 +44,10 @@ yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic
 Also take a look at the other packages versions:
 - https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-preset-classic/package.json
 - https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/package.json
+
+## MDX
+
+A component can be registered globally so that you don't have to import it on every .mdx file. See [docs](https://docusaurus.io/docs/markdown-features/react#mdx-component-scope) and [this tweet](https://twitter.com/docusaurus/status/1529810485280968706).
 
 ## Code blocks supported languages
 

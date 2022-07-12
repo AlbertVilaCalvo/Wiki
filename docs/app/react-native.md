@@ -59,11 +59,14 @@ export const isAndroid: boolean = Platform.OS === 'android'
 export const isIOS: boolean = Platform.OS === 'ios'
 ```
 
+## Libraries
+
+- Logs: https://github.com/onubo/react-native-logs
+- Network requests logger: https://github.com/alexbrazier/react-native-network-logger
 
 ## Full width
 
 `alignSelf: 'stretch'`
-
 
 ## ScrollView
 
@@ -109,6 +112,10 @@ Links:
 
 Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. See https://github.com/facebook/react-native/issues/26610#issuecomment-539843444
 
+
+## CI/CD
+
+https://www.obytes.com/blog/react-native-github-action
 
 ## Debug symbols on Android
 

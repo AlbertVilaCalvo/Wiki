@@ -233,6 +233,11 @@ function fakeApiCall(): Promise<number> {
 ```
 
 
+## Abort
+
+https://www.bennadel.com/blog/4200-using-fetch-abortsignal-and-settimeout-to-apply-retry-mechanics-in-javascript.htm
+
+
 ## String
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
@@ -285,7 +290,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 ### Date format
 
-https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+https://stackoverflow.com/questions/3552461/how-do-i-format-a-date-in-javascript
 
 [Date.prototype.toLocaleDateString() at MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString)
 
@@ -295,3 +300,29 @@ https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
 new Date(search.date).toLocaleDateString() -> 5/27/2021
 new Date(search.date).toLocaleDateString('es-ES') -> 27/5/2021
 ```
+
+### Intl.DateTimeFormat
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
+
+_Important: does not work on React Native Android._ You get the error "Can't find variable: Intl". See solutions at https://stackoverflow.com/questions/56943813/using-intl-properly-in-android-react-native-app.
+
+Example from https://stackoverflow.com/a/3552493/4034572:
+
+```ts
+export function formatDate(dateNumber: number): string {
+  const dateObject = new Date(dateNumber)
+  const year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(
+    dateObject
+  )
+  const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(
+    dateObject
+  )
+  const day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(
+    dateObject
+  )
+  return `${day} ${month} ${year}`
+}
+```
+
+`formatDate(1583495987)` returns `19 Jan 1970`.

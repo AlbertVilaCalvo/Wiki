@@ -24,6 +24,11 @@ yarn tsc
 yarn tsc --noEmit
 ```
 
+### Run tsc on a specific files:
+- https://www.npmjs.com/package/tsc-files
+- Allow tsconfig.json when input files are specified - https://github.com/microsoft/TypeScript/issues/27379
+- https://stackoverflow.com/questions/44676944/how-to-compile-a-specific-file-with-tsc-using-the-paths-compiler-option
+
 ## tsconfig.json
 
 TSConfig Reference: https://www.typescriptlang.org/tsconfig
@@ -104,8 +109,16 @@ https://www.typescriptlang.org/docs/handbook/2/narrowing.html
 A user-defined type guard is a function whose return type is a _type predicate_.
 
 ```ts
-export function isSuccess<T>(arg: 'loading' | Error | T): arg is T {
+export function isLoading<T>(arg: 'loading' | T | Error): arg is 'loading' {
+  return arg === 'loading'
+}
+
+export function isSuccess<T>(arg: 'loading' | T | Error): arg is T {
   return arg !== 'loading' && !(arg instanceof Error)
+}
+
+export function isError<T>(arg: 'loading' | T | Error): arg is Error {
+  return arg instanceof Error
 }
 ```
 
@@ -153,12 +166,12 @@ https://fettblog.eu/typescript-react-component-patterns
 import * as React from 'react';
 
 /**
- * Instead of doing eg `MyText(props: {children: React.ReactNode} & TextProps)`
+ * Instead of doing eg `MyText(props: TextProps & {children: React.ReactNode})`
  * you can do `MyText(props: WithChildren<TextProps>)`.
  * Note that the `children` prop is required.
  */
-type WithChildren<T> = T & {children: React.ReactNode};
+export type WithChildren<T> = T & {children: React.ReactNode};
 ```
 [source](https://fettblog.eu/typescript-react-component-patterns/)
 
-[It's already defined on the definitions!](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/24f1d0c82da2d898acd03fbb3e692eba3c431f82/types/react/index.d.ts#L773)
+[It's already defined on the definitions, but children is optional :/](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/24f1d0c82da2d898acd03fbb3e692eba3c431f82/types/react/index.d.ts#L773)

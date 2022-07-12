@@ -6,6 +6,23 @@ API Reference: https://nodejs.org/api
 
 https://endoflife.date/nodejs
 
+## Libraries
+
+Libraries: https://nodejs.libhunt.com
+
+### HTTP clients
+
+https://github.com/sindresorhus/got#comparison
+
+- https://github.com/sindresorhus/got
+- https://github.com/node-fetch/node-fetch
+
+### Logging
+
+https://betterstack.com/community/guides/logging/nodejs-logging-best-practices
+
+- https://github.com/winstonjs/winston
+
 ## Manage Node versions
 
 https://twitter.com/Netlify/status/1496177878182121472

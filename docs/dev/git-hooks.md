@@ -28,10 +28,22 @@ Example of pre-commit hook that checks Prettier and ESLint:
 ```bash
 #!/bin/sh
 
-# Runs Prettier and ESLint on .ts/.tsx/.js files. Only checks the committed files.
-# Always commits (never aborts, even with errors), and does not modify the files (ie
-# does not do `prettier write`), just checks them.
-# Inspired by https://prettier.io/docs/en/precommit.html#option-5-shell-script
+# Runs Prettier, ESLint and tsc on .ts, .tsx and .js files (not .md nor .json files). Prettier and ESLint only check the
+# committed files, whereas tsc checks all project files, since it's not possible to run tsc on specific files while
+# obeying the tsconfig.json options (see https://github.com/microsoft/TypeScript/issues/27379 and
+# https://www.npmjs.com/package/tsc-files).
+# This hook always commits, even if errors are found. And it does not modify the files (ie it does not do `prettier
+# write`), it only checks if there is any issue and reports it.
+# Inspired by https://prettier.io/docs/en/precommit.html#option-6-shell-script
+
+print_result() {
+  ERROR_CODE=$?
+  if [ $ERROR_CODE -eq 0 ]; then
+    printf "✅ %s Success\n\n" "$1"
+  else
+    printf "❌ %s Failure\n\n" "$1"
+  fi
+}
 
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$/')
 
@@ -41,10 +53,16 @@ printf "📁 Files\n\n%s" "$FILES"
 
 printf "\n\n🔍 Prettier\n\n"
 echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --check
+printf "\n"
+print_result "Prettier"
 
 printf "\n🔍 ESLint\n"
 echo "$FILES" | xargs ./node_modules/.bin/eslint
-printf "ESLint check done\n\n"
+print_result "ESLint"
+
+printf "\n🔍 tsc\n"
+npx tsc --noEmit
+print_result "tsc"
 
 exit 0
 ```

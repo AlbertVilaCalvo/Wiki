@@ -4,6 +4,10 @@ title: App
 
 Apple would be forced to allow sideloading and third-party app stores under new EU law: https://www.theverge.com/2022/3/25/22996248/apple-sideloading-apps-store-third-party-eu-dma-requirement
 
+https://www.appbrain.com/stats
+
+Android app frameworks: https://www.appbrain.com/stats/libraries/tag/app-framework/android-app-frameworks
+
 ## Facebook SDK
 
 How to generate Android Key hashes that you need to set in https://developers.facebook.com/apps/{app_id}/settings/basic/

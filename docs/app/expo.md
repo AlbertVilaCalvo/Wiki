@@ -6,21 +6,64 @@ https://blog.expo.dev
 
 VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo
 
-## app.json properties
+## app.json / app.config.js / app.config.ts
 
-https://docs.expo.dev/versions/latest/config/app/
+Configuration with app.json / app.config.js: https://docs.expo.dev/workflow/configuration/
+
+Properties: https://docs.expo.dev/versions/latest/config/app/
+
+### infoPlist
+
+https://docs.expo.dev/versions/latest/config/app/#infoplist
+
+Info.plist can also be modified with a config plugin: https://docs.expo.dev/guides/config-plugins/#modifying-the-infoplist
+
+Examples:
+https://github.com/search?q=%22infoPlist%22+extension%3Ajson+path%3A%2F+filename%3Aapp.json&type=Code&ref=advsearch&l=&l=
+
+```json
+{
+  "expo": {
+    "ios": {
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": ["comgooglemaps"],
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets.",
+        "CFBundleAllowMixedLocalizations": true,
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+  }
+}
+```
 
 ## CLI
 
 https://docs.expo.dev/workflow/expo-cli
+
+### Use `expo install`instead of `yarn add`/`npm install` because it picks the library versions compatible with the Expo SDK
+
+See https://docs.expo.dev/bare/using-expo-client/#prefer--expo-install--over-
+
+> Prefer `expo install` over `npm install` to add Expo SDK packages
+> This will ensure that you get a version of the package that is compatible with the SDK version in your app. If you use npm install directly instead, you may end up with a newer version of the package that isn't supported in Expo Go yet.
+
+This is also explained at https://reactnavigation.org/docs/getting-started#installing-dependencies-into-an-expo-managed-project
 
 ### Create app
 
 ```bash
 expo init <appname> --yarn
 expo init <appname> -t expo-template-blank-typescript
-expo init --template bare-minimum
+expo init --template bare-minimum # warning: does not add react-navigation!
 ```
+
+See `expo init` options at https://docs.expo.dev/workflow/expo-cli/#expo-init
+
+Note that option `--name` is deprecated, if you use it it says "Use `expo init [name]` instead of `--name [name]`".
+
+Available templates: https://github.com/expo/expo/tree/main/templates
+
+Use TypeScript: https://docs.expo.dev/guides/typescript/
 
 ## Shift+i allows you to choose in which simulator to run the app on
 
@@ -43,6 +86,42 @@ https://docs.expo.dev/development/introduction
 https://blog.expo.dev/introducing-custom-development-clients-5a2c79a9ddf8
 
 > (managed workflow) If you add or change the version of any modules in your project that includes native code or make most changes to your app.json, you’ll need to generate a new custom client to be able to run your app.
+
+More information:
+- https://blog.expo.dev/expo-dev-client-0-8-0-7116c1945253
+- https://medium.com/the-exponent-log/javascript-driven-development-with-custom-runtimes-eda87d574c9d
+
+### expo-dev-client setup
+
+Follow https://docs.expo.dev/development/getting-started/
+
+You need to have `"developmentClient": true` eas.json:
+
+```json
+{
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    }
+  }
+}
+```
+
+This creates a 'Development build', a _Debug build of your project that includes the expo-dev-client_. See https://docs.expo.dev/development/getting-started/ and https://docs.expo.dev/development/build/.
+
+To install run `expo install expo-dev-client`, then `npx pod-install`.
+
+To create a development build do:
+
+```bash
+eas build -p ios --profile development
+eas build -p android --profile development
+```
+
+After the build is created, install it on your device. Afterwards, to run the app do `expo start --dev-client` and click 'i' or 'a', or scan the QR code.
+
+Now _you won't have to wait for the native build process again until you change the underlying native code that powers your app_.
 
 ## In addition to `expo eject`, now there is also `expo prebuild`
 
@@ -89,9 +168,9 @@ Docs: https://docs.expo.dev/build/introduction
 
 expo build’s Final Year: https://blog.expo.dev/turtle-goes-out-to-sea-d334db2a6b60
 
-https://blog.expo.dev/expo-managed-workflow-in-2021-5b887bbf7dbb
+https://blog.expo.dev/expo-managed-workflow-in-2021-5b887bbf7dbb (part 1)
 
-https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10
+https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10 (part 2)
 
 `eas build:configure` -> Generates eas.json. Learn more at https://docs.expo.dev/build-reference/build-configuration/
 
@@ -143,6 +222,12 @@ https://blog.expo.dev/eas-update-in-preview-d221b6f91f52
 
 > Deliver small updates of the non-native parts of your app (JS, styling, image assets...) to your users in between build and submit cycles
 
+https://blog.expo.dev/eas-update-preview-progress-f504a30066fc
+
+> EAS Update also doubles as a workflow efficiency tool, streamlining feedback loops by allowing teams to share previews of their projects during PR review. We love being able to push to GitHub, trigger a GitHub action to publish an update, then see it immediately inside of a development build.
+
+Using Expo OTA Updates in your React Native app - Eric Samelson at @ReactEurope 2020: https://www.youtube.com/watch?v=Si909la3rLk
+
 ## Run the production app
 
 See https://docs.expo.dev/workflow/development-mode/. There is also a switch in http://localhost:19002/.
@@ -152,6 +237,20 @@ expo start --no-dev --minify
 # or if we've done a prebuild
 expo start --no-dev --minify --dev-client
 ```
+
+## Environment variables and configuration
+
+Configuration with app.json / app.config.js: https://docs.expo.dev/workflow/configuration/
+
+Environment variables in Expo: https://docs.expo.dev/guides/environment-variables/
+
+Environment variables and secrets: https://docs.expo.dev/build-reference/variables/
+
+Also see https://docs.expo.dev/build/eas-json/#environment-variables
+
+According to https://docs.expo.dev/build-reference/variables/#can-i-share-environment-variables-defined-in `expo start` does not pick variables defined in eas.json:
+
+> When you define environment variables on build profiles in eas.json, they will not be available for local development when you run `expo start` (and `expo publish`).
 
 ## SDK Versions
 

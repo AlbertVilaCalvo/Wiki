@@ -10,7 +10,9 @@ List emulators running ('List of devices attached'): `adb devices`
 
 Launch emulator: `${ANDROID_HOME}/emulator/emulator -avd Nexus_5X_API_27_-_Google_Play &`
 
-Wipe emulator data: `emulator -avd Nexus_6_API_28_-_Google_APIs_-_14440_x_2560_560dpi -wipe-data &`
+Wipe emulator data with `-wipe-data`, eg: `emulator -avd Nexus_6_API_28_-_Google_APIs_-_14440_x_2560_560dpi -wipe-data &`
+
+Force cold boot emulator with `-no-snapshot-load`, eg: `emulator -avd Pixel_4_API_30_R_-_Google_Play_-_5.7_1080x2280_xxhdpi -no-snapshot-load &`
 
 Emulator show touches: `adb shell settings put system show_touches 1`
 
@@ -110,3 +112,9 @@ https://support.google.com/googleplay/android-developer/answer/9842756?rd=1#crea
 https://developer.android.com/about/versions/12/behavior-changes-all#back-press
 
 https://twitter.com/TatoKutalia/status/1450543203007057927
+
+## Target API level requirements for Google Play apps
+
+Veure correu 'Google Play Developer Program Policy Update' 2022-04-06.
+
+> To provide users with a safe and secure experience, we are expanding on Google Play’s target API level requirements to include existing apps that aren’t updated. Apps that don’t target an API level within two years of the latest major Android version release will not be available on Google Play to new users whose devices run the latest versions of Android. Developers can request a six-month extension if more time for migration is needed. [learn more](https://support.google.com/googleplay/android-developer/answer/11926878)

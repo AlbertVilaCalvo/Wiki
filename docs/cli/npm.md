@@ -15,7 +15,7 @@ Upgrade npm itself: `npm install npm@latest -g`
 
 List all commands: `npm`. List commands with details: `npm -l`.
 
-Install to devDependencies: `npm install webpack --save-dev`
+Install to devDependencies: `npm install --save-dev webpack`
 
 Show package info: `npm info <package>`
 
@@ -26,6 +26,8 @@ Open docs (eg README) in the browser: `npm docs <package>`
 `npm ci` -> when you want to make sure you're doing a clean install of your dependencies [docs](https://docs.npmjs.com/cli/v7/commands/npm-ci)
 
 Find outdated and unused packages: https://github.com/dylang/npm-check
+
+https://www.stefanjudis.com/today-i-learned/how-to-override-your-dependencys-dependencies/
 
 
 ## Init

@@ -24,7 +24,7 @@ https://github.com/prettier/eslint-config-prettier
 
 ### `.eslintrc.js` for React Native
 
-For instructions on how to setup ESLint with React Native see https://www.npmjs.com/package/@react-native-community/eslint-config.
+For instructions on how to setup ESLint with React Native see https://www.npmjs.com/package/@react-native-community/eslint-config. (If using npm instead of yarn do `npm install --save-dev eslint @react-native-community/eslint-config`.)
 
 Note that it does not work with ESLint 8, we need to use version 7 (see https://stackoverflow.com/a/70748782/).
 So in `package.json` we should have something like `"eslint": "^7.32.0"`.
@@ -48,6 +48,11 @@ module.exports = {
     quotes: 'off',
     'no-trailing-spaces': 'off',
     semi: 'off',
+    // babel-preset-expo automatically converts JSX to JS without the need to
+    // import React - see https://github.com/expo/expo/tree/master/packages/babel-preset-expo#jsxruntime
+    // Rules taken from https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint
+    'react/jsx-uses-react': 'off', // Prevent React to be marked as unused
+    'react/react-in-jsx-scope': 'off', // 'React' must be in scope when using JSX
   },
   globals: {
     // Suppress error "'JSX' is not defined" when using JSX.Element as type.
