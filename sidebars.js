@@ -24,7 +24,6 @@ module.exports = {
     'dev/git-hooks',
     'dev/jetbrains',
     'dev/python',
-    'dev/postgresql',
     'dev/passwords',
     'dev/jwt',
   ],
@@ -84,6 +83,7 @@ module.exports = {
   databases: [
     'databases/databases',
     'databases/sql',
+    'databases/postgresql',
   ],
   misc: [
     'misc/battery',
