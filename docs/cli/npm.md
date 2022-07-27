@@ -14,13 +14,15 @@ Upgrade npm itself: `npm install npm@latest -g`
 
 List all commands: `npm`. List commands with details: `npm -l`.
 
-Install to devDependencies: `npm install --save-dev webpack`
+Install to devDependencies: `npm install --save-dev webpack` or `npm i -D webpack`
+
+Uninstall a package: `npm uninstall <package>`
 
 Show package info: `npm info <package>`
 
 Open docs (eg README) in the browser: `npm docs <package>`
 
-`npx` command runs a binary in ./node_modules/.bin/
+`npx` command runs a binary or package. It can be a local package (eg a binary in ./node_modules/.bin/) or fetched remotely. See https://docs.npmjs.com/cli/v8/commands/npx
 
 `npm ci` -> when you want to make sure you're doing a clean install of your dependencies [docs](https://docs.npmjs.com/cli/v7/commands/npm-ci)
 
@@ -65,6 +67,8 @@ MAJOR.MINOR.PATCH
   "same-major-and-minor": "~15.7.2" // upgrade to 15.7.X
 }
 ```
+
+To save exact do: `npm install --save-exact express` or `npm i -E express`
 
 ## Find parent of transitive depencency
 

@@ -13,8 +13,9 @@ Setup: https://www.typescriptlang.org/download
 Install locally, don't use a global install:
 
 ```
-npm install typescript --save-dev
-yarn add typescript --dev
+npm install --save-dev typescript
+npm i -D typescript
+yarn add --dev typescript
 ```
 
 If we install it locally in our project, we can run that version using npx or yarn:

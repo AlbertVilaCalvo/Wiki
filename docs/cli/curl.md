@@ -50,6 +50,12 @@ curl -H "Content-Type: application/json" -d '{"key":"val"}' URL
 curl -H "Content-Type: application/json" -d @data.json URL
 ```
 
+### PUT JSON
+
+```shell
+curl -H "Content-Type: application/json" -X PUT -d '{"key":"val"}' URL
+```
+
 ## Common options
 
 - Verb: `-X POST` or `--request POST`.

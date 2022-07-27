@@ -4,6 +4,8 @@ title: Heroku
 
 Autoscaling for Heroku: https://hirefire.io
 
+The `Procfile` contains the command to start the app.
+
 ## CLI
 
 https://devcenter.heroku.com/articles/heroku-cli-commands
@@ -16,7 +18,7 @@ Login: `heroku login`
 
 Open app in the browser: `heroku open`
 
-Run the app locally: `heroku local`. It uses the `Procfile` to determine what to run.
+Run the app locally: `heroku local`. It uses the `Procfile` to determine what to run. You can also do `heroku local web`
 
 Set git remote 'heroku': `heroku git:remote -a <app-name>`
 
@@ -27,6 +29,10 @@ Run commands on the dyno: `heroku run bash`
 List addons: `heroku addons`
 
 List environment variables (Config Vars): `heroku config`. You can view them in https://dashboard.heroku.com/apps/my-app-name/settings
+
+Set environment variable: `heroku config:set NAME=VALUE`
+
+Get environment variable: `heroku config:get NAME`
 
 ## Logs
 
@@ -86,4 +92,16 @@ Add the Python buildpack: `heroku buildpacks:set heroku/python`
 
 ```
 web: gunicorn app:app
+```
+
+## Node apps
+
+In Express.js, use `process.env.PORT` at `app.listen()`.
+
+With `heroku run node` you have access to the Node REPL, so you can run commands. It has access to the production database.
+
+### Procfile
+
+```
+web: node main.js
 ```

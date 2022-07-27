@@ -20,6 +20,8 @@ https://prettier.io/docs/en/integrating-with-linters.html
 
 https://github.com/prettier/eslint-config-prettier
 
+You can use `eslint --init` to create `.eslintrc.js`. It asks questions.
+
 ### `.eslintrc.js` for React Native
 
 For instructions on how to setup ESLint with React Native see https://www.npmjs.com/package/@react-native-community/eslint-config. (If using npm instead of yarn do `npm install --save-dev eslint @react-native-community/eslint-config`.)

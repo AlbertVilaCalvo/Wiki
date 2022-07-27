@@ -45,6 +45,10 @@ Comand reference: https://www.postgresql.org/docs/current/app-psql.html
 
 Start and connect to a db: `psql dbname`
 
+Connect with a specific user instead of the default: `psql -d dbname -U username`
+
+Print current user: `\conninfo` - see https://stackoverflow.com/questions/39735141/how-to-check-connected-user-on-psql
+
 Connect to a db: `\c dbname` or `\connect dbname`. We can speficy username, host, port etc.
 
 List databases: `\l`

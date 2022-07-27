@@ -8,6 +8,8 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP
 
 https://github.com/for-GET/http-decision-diagram
 
+https://httptoolkit.tech/blog/http-wtf/
+
 ## Status codes
 
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
@@ -15,6 +17,8 @@ https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
 https://httpstatuses.com
+
+https://www.codetinkerer.com/2015/12/04/choosing-an-http-status-code.html
 
 npm package: https://github.com/prettymuchbryce/http-status-codes
 

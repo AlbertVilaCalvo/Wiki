@@ -6,6 +6,8 @@ Just a list of some of the talks/podcasts I've watched/listened, in reverse cron
 
 ## 2022
 
+[Ryan Dahl: Original Node.js presentation](https://www.youtube.com/watch?v=ztspvPYybIY)
+
 [How Does React Actually Work? React.js Deep Dive #1](https://www.youtube.com/watch?v=7YhdqIR2Yzo)
 
 ## 2021

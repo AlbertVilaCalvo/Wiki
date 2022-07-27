@@ -6,6 +6,8 @@ https://docs.brew.sh/FAQ
 
 https://docs.brew.sh/Manpage
 
+Terminology: https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.md#homebrew-terminology
+
 Search formulas: https://formulae.brew.sh
 
 Upgrade:

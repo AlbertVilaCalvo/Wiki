@@ -34,6 +34,7 @@ title: Docusaurus
   - Small release with fixes for beta 19
 - [beta 21](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.21) - [twitter](https://twitter.com/docusaurus/status/1530224861116780545)
 - [beta 22](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.22) - [twitter](https://twitter.com/docusaurus/status/1545438949610512384)
+- [2.0.0-rc.1](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-rc.1) - [twitter](https://twitter.com/docusaurus/status/1547616687117070338)
 
 To upgrade do:
 

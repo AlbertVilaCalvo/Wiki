@@ -45,3 +45,9 @@ https://httpstat.us
 https://cloud.google.com/blog/products/application-development/rest-vs-rpc-what-problems-are-you-trying-to-solve-with-your-apis
 
 > the RPC model makes it very simple and direct for programmers to write a procedure in one program and call it from another. This is one of the characteristics that makes RPC so popular, but it also makes it easy for technology and use-case assumptions to flow easily from one application to the other, thereby coupling the two and making the system brittle.
+
+## Guidelines
+
+- https://github.com/microsoft/api-guidelines
+- https://cloud.google.com/apis/design/
+- https://opensource.zalando.com/restful-api-guidelines/
