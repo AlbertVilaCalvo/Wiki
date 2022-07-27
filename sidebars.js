@@ -84,6 +84,7 @@ module.exports = {
     'databases/databases',
     'databases/sql',
     'databases/postgresql',
+    'databases/mongodb',
   ],
   misc: [
     'misc/battery',
