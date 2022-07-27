@@ -17,6 +17,7 @@ module.exports = {
     'dev/javascript',
     'dev/typescript',
     'dev/node',
+    'dev/express',
     'dev/react',
     'dev/docusaurus',
     'dev/prettier',
