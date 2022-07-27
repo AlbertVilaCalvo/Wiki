@@ -19,6 +19,7 @@ module.exports = {
     'dev/node',
     'dev/express',
     'dev/react',
+    'dev/nextjs',
     'dev/docusaurus',
     'dev/prettier',
     'dev/eslint',
