@@ -20,6 +20,8 @@ https://httpstatuses.com
 
 https://www.codetinkerer.com/2015/12/04/choosing-an-http-status-code.html
 
+https://www.restapitutorial.com/httpstatuscodes.html
+
 npm package: https://github.com/prettymuchbryce/http-status-codes
 
 ### Categories
@@ -32,20 +34,22 @@ npm package: https://github.com/prettymuchbryce/http-status-codes
 
 ### Common codes
 
-| Status Code | Status Message        | Comments                            |
-| ----------- | --------------------- | ----------------------------------- |
-| 200         | OK                    | For GET and POST requests typically |
-| 201         | Created               | For POST requests typically         |
-| 304         | Not Modified          |                                     |
-| 400         | Bad Request           |                                     |
-| 401         | Unauthorized          |                                     |
-| 404         | Not Found             |                                     |
-| 405         | Method Not Allowed    |                                     |
-| 500         | Internal Server Error |                                     |
+| Status Code | Status Message        | Comments                              |
+| ----------- | --------------------- | ------------------------------------- |
+| 200         | OK                    | For GET and POST requests typically   |
+| 201         | Created               | For POST requests typically           |
+| 304         | Not Modified          |                                       |
+| 400         | Bad Request           |                                       |
+| 401         | Unauthorized          | Not properly authenticated            |
+| 403         | Forbidden             | Not authorized to access the resource |
+| 404         | Not Found             |                                       |
+| 405         | Method Not Allowed    |                                       |
+| 500         | Internal Server Error |                                       |
 
 ### 401 Unauthorized vs 403 Forbidden
 
-401: the user is not logged/authenticated. 403: the user is logged/authenticated, but is not authorized to access the requested resource.
+- 401 Unauthorized: the user is not logged/authenticated, that is, has no credentials or wrong credentials (eg the session expired). You may retry the request with new credentials. See https://www.rfc-editor.org/rfc/rfc7235#section-3.1
+- 403 Forbidden: the user is logged/authenticated, but is not authorized to access the requested resource. See https://www.rfc-editor.org/rfc/rfc7231#section-6.5.3
 
 https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses
 

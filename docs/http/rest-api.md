@@ -14,6 +14,29 @@ Limit levels/nesting to maximum `collection/<id>/collection`.
 - Good: `https://example.com/employee/3/tasks`
 - Bad: `https://example.com/company/4/employee/3/tasks`
 
+## Routes
+
+| Verb   | Route             | Action | HTML | Description          | Code                    |
+| ------ | ----------------- | ------ | :--: | -------------------- | ----------------------- |
+| GET    | `/users`          | index  |      | List all users       | 200 OK                  |
+| GET    | `/users/:id`      | show   |      | Get single user      | 200 OK                  |
+| GET    | `/users/new`      | new    |  ✓   | Render create form   | 200 OK                  |
+| POST   | `/users`          | create |      | Create new user      | 201 Created             |
+| GET    | `/users/:id/edit` | edit   |  ✓   | Render edit form     | 200 OK                  |
+| PUT    | `/users/:id`      | update |      | Update user          | 200 OK / 204 No Content |
+| PATCH  | `/users/:id`      | update |      | Update user, partial | 200 OK / 204 No Content |
+| DELETE | `/users/:id`      | delete |      | Delete user          | 200 OK / 204 No Content |
+
+Notes:
+
+- Use 204 No Content if the response has no body, otherwise 200 OK.
+- [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202) can be used if the operation is accepted but action is deferred.
+
+Examples:
+
+- https://hexdocs.pm/phoenix/routing.html#resources
+- https://guides.rubyonrails.org/routing.html#crud-verbs-and-actions
+
 ## Idempotent and Safe
 
 https://stackoverflow.com/questions/45016234/what-is-idempotency-in-http-methods

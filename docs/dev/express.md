@@ -25,9 +25,9 @@ DEBUG=express:* node main
 ```bash
 git init
 touch .gitignore # Add node_modules
-npm init # Creates packages.json. The "main" script should be build/index.js
-npm i express
-npm i -D typescript @types/express ts-node-dev
+npm init # Creates packages.json. The "main" script (entry point) should be build/index.js
+npm i [-E] express
+npm i -D [-E] typescript @types/express ts-node-dev
 npx tsc --init # Creates tsconfig.json
 ```
 
@@ -56,8 +56,7 @@ Add scripts to `package.json`:
 }
 ```
 
-### Examples of TypeScript setup
+### TypeScript setup examples
 
-Midudev: https://www.youtube.com/watch?v=ZpY5KdGQvwI - https://github.com/midudev/express-typescript
-
-Codely: https://www.youtube.com/watch?v=_1hGZygILd0 - https://github.com/CodelyTV/typescript-api-skeleton
+- Midudev: https://www.youtube.com/watch?v=ZpY5KdGQvwI - https://github.com/midudev/express-typescript
+- Codely: https://www.youtube.com/watch?v=_1hGZygILd0 - https://github.com/CodelyTV/typescript-api-skeleton
