@@ -26,9 +26,10 @@ module.exports = {
     'dev/git-hooks',
     'dev/jetbrains',
     'dev/python',
+    'dev/cryptography',
     'dev/passwords',
     'dev/jwt',
-    'dev/cryptography',
+    'dev/functional-programming',
   ],
   app: [
     'app/app',
