@@ -28,6 +28,7 @@ module.exports = {
     'dev/python',
     'dev/passwords',
     'dev/jwt',
+    'dev/cryptography',
   ],
   app: [
     'app/app',
