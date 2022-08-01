@@ -77,6 +77,7 @@ module.exports = {
   css: [
     'css/css',
     'css/selectors',
+    'css/media-queries',
     'css/reset',
     'css/flexbox',
     'css/text',
