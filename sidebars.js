@@ -69,6 +69,7 @@ module.exports = {
   ],
   http: [
     'http/http',
+    'http/https',
     'http/rest-api',
     'http/cors',
   ],
