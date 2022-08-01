@@ -24,3 +24,5 @@ Salts must be:
 - truly random
 
 https://www.youtube.com/watch?v=UOBe3JXQbwo
+
+See 'Salts Will Not Help You': https://codahale.com/how-to-safely-store-a-password/
