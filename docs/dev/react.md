@@ -2,6 +2,8 @@
 title: React
 ---
 
+https://typeofnan.dev/solid-js-feels-like-what-i-always-wanted-react-to-be/
+
 ## Lifecycle
 
 https://twitter.com/dan_abramov/status/981712092611989509
@@ -10,7 +12,13 @@ https://imgur.com/bmfcRQm
 
 https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
-## Cancel async operations done in useEffect
+## Hooks
+
+https://labs.factorialhr.com/posts/hooks-considered-harmful
+
+> Most bugs can be solved by moving hooks away from the components and using primitives as the only dependencies
+
+### Cancel async operations done in useEffect
 
 To avoid updating the UI if the component is unmounted.
 

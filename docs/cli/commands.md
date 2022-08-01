@@ -14,6 +14,16 @@ List all environment variables: `printenv`. You can also print a specific envar:
 
 Oh-heck, a terminal command for when you forget other terminal commands - https://news.ycombinator.com/item?id=30720834 - https://oh-heck.dev
 
+## Terminal shortcuts
+
+- !!: previous command
+- Ctrl + R: Recall
+  - Ctrl + R again to see next match
+  - Return to execute
+  - Ctrl + G to exit without executing
+  - Esc to exit but leaving searched command
+- Ctrl + Z: send to the background
+
 ## find
 
 `find . -type d -name "build"`
