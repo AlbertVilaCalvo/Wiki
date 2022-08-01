@@ -66,6 +66,7 @@ module.exports = {
       ],
     },
     'devops/heroku',
+    'devops/github-actions',
   ],
   http: [
     'http/http',
