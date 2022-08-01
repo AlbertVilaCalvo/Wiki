@@ -70,8 +70,10 @@ module.exports = {
   http: [
     'http/http',
     'http/https',
+    'http/dns',
     'http/rest-api',
     'http/cors',
+    'http/csp',
   ],
   html: [
     'html/html',
