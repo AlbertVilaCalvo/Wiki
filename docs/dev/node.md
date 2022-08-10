@@ -31,7 +31,7 @@ https://twitter.com/Netlify/status/1496177878182121472
 - nvm - https://github.com/nvm-sh/nvm
 - n - https://github.com/tj/n
 - Volta - https://volta.sh
-- asdf - https://asdf-vm.com
+- asdf - https://asdf-vm.com - Ojo veure https://news.ycombinator.com/item?id=30917800 i https://github.com/asdf-vm/asdf/issues/290
 
 ## REPL
 
