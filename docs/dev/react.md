@@ -167,3 +167,13 @@ function Button({ Icon }: { Icon: React.ComponentType<any> }) {
   )
 }
 ```
+
+## UI design libraries
+
+See comparison: https://chakra-ui.com/getting-started/comparison
+
+Chakra UI: https://chakra-ui.com/ - https://github.com/chakra-ui/chakra-ui. Uses Emotion - see https://chakra-ui.com/getting-started/comparison#the-runtime-trade-off-%EF%B8%8F.
+
+Ant Design: https://ant.design/ - https://github.com/ant-design/ant-design/. Uses Less - see https://ant.design/docs/react/use-with-create-react-app#Customize-Theme.
+
+Material UI and Joy UI: https://mui.com/ - https://github.com/mui/material-ui.
