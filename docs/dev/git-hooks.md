@@ -38,9 +38,9 @@ Example of pre-commit hook that checks Prettier and ESLint:
 print_result() {
   ERROR_CODE=$?
   if [ $ERROR_CODE -eq 0 ]; then
-    printf "✅ %s Success\n\n" "$1"
+    printf "\n✅ %s Success\n\n" "$1"
   else
-    printf "❌ %s Failure\n\n" "$1"
+    printf "\n❌ %s Failure\n\n" "$1"
   fi
 }
 
@@ -52,7 +52,6 @@ printf "📁 Files\n\n%s" "$FILES"
 
 printf "\n\n🔍 Prettier\n\n"
 echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --check
-printf "\n"
 print_result "Prettier"
 
 printf "\n🔍 ESLint\n"
