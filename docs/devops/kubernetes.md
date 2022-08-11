@@ -45,7 +45,7 @@ https://www.redhat.com/en/topics/containers/kubernetes-architecture
 - Cluster: a set of worker machines (nodes).
 - Node: a worker machine.
   - Can be virtual or physical.
-  - Each node has a container runtine (eg Docker, containerd, CRI-O).
+  - Each node has a container runtime (eg Docker, containerd, CRI-O).
 - Pod: a set of running containers.
   - https://kubernetes.io/docs/concepts/workloads/pods
   - Is the smallest object in Kubernetes.
@@ -58,7 +58,7 @@ https://www.redhat.com/en/topics/containers/kubernetes-architecture
   - Since pods are ephemeral, services provide a persistent way to communicate with them.
   - Load balances pods.
 - Volume: A directory containing data, accessible to the containers in a Pod.
-  - Since pods are ehpemeral, volumes provide a persistent way to store data.
+  - Since pods are ephemeral, volumes provide a persistent way to store data.
 
 Hierarchy:
 

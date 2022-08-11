@@ -6,6 +6,20 @@ https://mobile.twitter.com/sarahmei/status/1348477224467394560
 
 [Soft deletion probably isn't worth it](https://news.ycombinator.com/item?id=32156009)
 
+Reddit’s database has two tables
+
+- https://news.ycombinator.com/item?id=4468265
+- https://news.ycombinator.com/item?id=32407873
+
+## Normalize to make better relations, denormalize for performance
+
+https://news.ycombinator.com/item?id=32414172
+
+- Prof: "Why do we normalize?"
+- Class, in unison: "To make better relations."
+- Prof: "Why do we denormalize?"
+- Class, in unison: "Performance."
+
 ## Column oriented
 
 https://news.ycombinator.com/item?id=30905662
