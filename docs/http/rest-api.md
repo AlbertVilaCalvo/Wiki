@@ -16,26 +16,59 @@ Limit levels/nesting to maximum `collection/<id>/collection`.
 
 ## Routes
 
-| Verb   | Route             | Action | HTML | Description          | Code                    |
-| ------ | ----------------- | ------ | :--: | -------------------- | ----------------------- |
-| GET    | `/users`          | index  |      | List all users       | 200 OK                  |
-| GET    | `/users/:id`      | show   |      | Get single user      | 200 OK                  |
-| GET    | `/users/new`      | new    |  ✓   | Render create form   | 200 OK                  |
-| POST   | `/users`          | create |      | Create new user      | 201 Created             |
-| GET    | `/users/:id/edit` | edit   |  ✓   | Render edit form     | 200 OK                  |
-| PUT    | `/users/:id`      | update |      | Update user          | 200 OK / 204 No Content |
-| PATCH  | `/users/:id`      | update |      | Update user, partial | 200 OK / 204 No Content |
-| DELETE | `/users/:id`      | delete |      | Delete user          | 200 OK / 204 No Content |
+| Verb   | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code  | Request Body | Response Body                                 |
+| ------ | ----------------- | ------ | :--: | ------------------------------------------ | ---------------------------------------------------------- | ------------- | :----------: | --------------------------------------------- |
+| GET    | `/users`          | index  |      | List all users                             | 200 OK                                                     | 404 Not Found |      ✖       | Resource list                                 |
+| GET    | `/users/:id`      | show   |      | Get single user                            | 200 OK                                                     | 404 Not Found |      ✖       | Resource                                      |
+| GET    | `/users/new`      | new    |  ✓   | Render create form                         | 200 OK                                                     | 404 Not Found |      ✖       | HTML                                          |
+| POST   | `/users`          | create |      | Create new user                            | 201 Created                                                |               |   Resource   | Location header + status - [see below](#post) |
+| GET    | `/users/:id/edit` | edit   |  ✓   | Render edit form                           | 200 OK                                                     | 404 Not Found |      ✖       | HTML                                          |
+| PUT    | `/users/:id`      | update |      | Update user, or create if it doesn't exist | 200 OK or 204 No Content if updated, otherwise 201 Created |               |   Resource   | Optional                                      |
+| PATCH  | `/users/:id`      | update |      | Update user, partial                       | 200 OK or 204 No Content                                   | 404 Not Found |   Resource   | Optional                                      |
+| DELETE | `/users/:id`      | delete |      | Delete user                                | 200 OK or 204 No Content                                   |               |      ✖       | Entity describing status or nothing           |
 
 Notes:
 
 - Use 204 No Content if the response has no body, otherwise 200 OK.
 - [202 Accepted](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202) can be used if the operation is accepted but action is deferred.
 
-Examples:
+### GET
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
+
+Request has no body, response does.
+
+### POST
+
+Response should have "a Location header field that provides an identifier for the primary resource created and a representation that describes the status of the request while referring to the new resource(s)".
+
+Source: https://stackoverflow.com/a/49054482/4034572
+
+Also see: https://stackoverflow.com/questions/1226810/is-http-post-request-allowed-to-send-back-a-response-body
+
+### PUT
+
+PUT creates a resource if it doesn't exist, or updates it if it does (UPSERT).
+
+### PATCH
+
+Return 404 if the resource does not exist.
+
+According to https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#742-patch it should support UPSERT.
+
+### DELETE
+
+https://stackoverflow.com/questions/6439416/status-code-when-deleting-a-resource-using-http-delete-for-the-second-time
+
+https://stackoverflow.com/questions/6581285/is-a-response-body-allowed-for-a-http-delete-request
+
+https://stackoverflow.com/questions/25970523/restful-what-should-a-delete-response-body-contain
+
+### Examples
 
 - https://hexdocs.pm/phoenix/routing.html#resources
 - https://guides.rubyonrails.org/routing.html#crud-verbs-and-actions
+- https://cloud.google.com/apis/design/standard_methods
 
 ## Idempotent and Safe
 
