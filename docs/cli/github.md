@@ -4,6 +4,8 @@ title: GitHub
 
 Trending respositories this week: https://github.com/trending?since=weekly&spoken_language_code=en
 
+Locking down your GitHub-hosted Domains - https://news.ycombinator.com/item?id=32435134
+
 ## Shortcuts
 
 https://docs.github.com/en/get-started/using-github/keyboard-shortcuts

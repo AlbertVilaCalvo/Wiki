@@ -56,7 +56,7 @@ Write `debugger` where you want to stop and then run `node inspect index.js`.
 Then:
 
 - `n` steps to the next line
-- `c` contiunues the execution. Will stop if a `debugger` is found
+- `c` continues the execution. Will stop if a `debugger` is found
 - `repl` allows you to inspect variables with `console.log`
 
 ## Performance
@@ -68,6 +68,10 @@ https://nodejs.org/en/docs/guides/dont-block-the-event-loop/
 ## Databases
 
 https://blog.logrocket.com/why-you-should-avoid-orms-with-examples-in-node-js-e0baab73fa5/
+
+https://contra.com/p/gkOQlbLq-validating-postgre-sql-query-results-using-runtime-checks
+
+https://github.com/gajus/slonik
 
 ORM
 
