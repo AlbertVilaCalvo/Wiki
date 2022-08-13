@@ -16,16 +16,16 @@ Limit levels/nesting to maximum `collection/<id>/collection`.
 
 ## Routes
 
-| Verb   | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code  | Request Body | Response Body                                 |
-| ------ | ----------------- | ------ | :--: | ------------------------------------------ | ---------------------------------------------------------- | ------------- | :----------: | --------------------------------------------- |
-| GET    | `/users`          | index  |      | List all users                             | 200 OK                                                     | 404 Not Found |      ✖       | Resource list                                 |
-| GET    | `/users/:id`      | show   |      | Get single user                            | 200 OK                                                     | 404 Not Found |      ✖       | Resource                                      |
-| GET    | `/users/new`      | new    |  ✓   | Render create form                         | 200 OK                                                     | 404 Not Found |      ✖       | HTML                                          |
-| POST   | `/users`          | create |      | Create new user                            | 201 Created                                                |               |   Resource   | Location header + status - [see below](#post) |
-| GET    | `/users/:id/edit` | edit   |  ✓   | Render edit form                           | 200 OK                                                     | 404 Not Found |      ✖       | HTML                                          |
-| PUT    | `/users/:id`      | update |      | Update user, or create if it doesn't exist | 200 OK or 204 No Content if updated, otherwise 201 Created |               |   Resource   | Optional                                      |
-| PATCH  | `/users/:id`      | update |      | Update user, partial                       | 200 OK or 204 No Content                                   | 404 Not Found |   Resource   | Optional                                      |
-| DELETE | `/users/:id`      | delete |      | Delete user                                | 200 OK or 204 No Content                                   |               |      ✖       | Entity describing status or nothing           |
+| Verb   | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code                                | Request Body | Response Body                                 |
+| ------ | ----------------- | ------ | :--: | ------------------------------------------ | ---------------------------------------------------------- | ------------------------------------------- | :----------: | --------------------------------------------- |
+| GET    | `/users`          | index  |      | List all users                             | 200 OK                                                     | 404 Not Found                               |      ✖       | Resource list                                 |
+| GET    | `/users/:id`      | show   |      | Get single user                            | 200 OK                                                     | 404 Not Found                               |      ✖       | Resource                                      |
+| GET    | `/users/new`      | new    |  ✓   | Render create form                         | 200 OK                                                     | 404 Not Found                               |      ✖       | HTML                                          |
+| POST   | `/users`          | create |      | Create new user                            | 201 Created                                                | 400 Bad Request or 422 Unprocessable Entity |   Resource   | Location header + status - [see below](#post) |
+| GET    | `/users/:id/edit` | edit   |  ✓   | Render edit form                           | 200 OK                                                     | 404 Not Found                               |      ✖       | HTML                                          |
+| PUT    | `/users/:id`      | update |      | Update user, or create if it doesn't exist | 200 OK or 204 No Content if updated, otherwise 201 Created |                                             |   Resource   | Optional                                      |
+| PATCH  | `/users/:id`      | update |      | Update user, partial                       | 200 OK or 204 No Content                                   | 404 Not Found                               |   Resource   | Optional                                      |
+| DELETE | `/users/:id`      | delete |      | Delete user                                | 200 OK or 204 No Content                                   |                                             |      ✖       | Entity describing status or nothing           |
 
 Notes:
 
@@ -45,6 +45,10 @@ Response should have "a Location header field that provides an identifier for th
 Source: https://stackoverflow.com/a/49054482/4034572
 
 Also see: https://stackoverflow.com/questions/1226810/is-http-post-request-allowed-to-send-back-a-response-body
+
+If the request is malformed (eg a missing parameter) you can use either 400 Bad Request or 422 Unprocessable Entity. See:
+- https://stackoverflow.com/questions/16133923/400-vs-422-response-to-post-of-data
+- https://stackoverflow.com/questions/3050518/what-http-status-response-code-should-i-use-if-the-request-is-missing-a-required
 
 ### PUT
 
