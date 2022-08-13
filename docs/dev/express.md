@@ -16,6 +16,34 @@ To see the debug logs run:
 DEBUG=express:* node main
 ```
 
+## Configuration
+
+```ts
+const app = express()
+
+// Optional - we can instead do app.listen(3000).
+// Then we can do app.get("port").
+app.set("port", process.env.PORT || 3000)
+
+// Parse JSON body in (eg POST, PUT and PATCH) requests with 'Content-Type: application/json',
+// and make it available in req.body as JS object.
+app.use(express.json())
+
+// Parse URL encoded body in a <form> submission (Content-Type: application/x-www-form-urlencoded),
+// and make it available in req.body as JS object.
+app.use(express.urlencoded({ extended: true }))
+
+app.use(express.static('public'))
+
+app.listen(app.get('port'), () => {
+  console.log(
+    'Server is running on port %d in %s mode',
+    app.get('port'),
+    app.get('env')
+  )
+})
+```
+
 ## Libraries
 
 - helmet - https://helmetjs.github.io/ - https://github.com/helmetjs/helmet
@@ -55,6 +83,8 @@ Add scripts to `package.json`:
   }
 }
 ```
+
+[See this to setup ESLint.](/dev/eslint#setup)
 
 ### TypeScript setup examples
 
