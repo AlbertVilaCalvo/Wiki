@@ -33,6 +33,7 @@ module.exports = {
     'dev/authorization',
     'dev/passwords',
     'dev/jwt',
+    'dev/oauth',
     'dev/functional-programming',
   ],
   app: [
@@ -52,7 +53,7 @@ module.exports = {
       link: {
         type: 'generated-index',
         title: 'AWS',
-        description: 'Amazon Web Servicess',
+        description: 'Amazon Web Services',
       },
       collapsed: false,
       items: [
