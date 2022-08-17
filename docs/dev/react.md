@@ -4,6 +4,12 @@ title: React
 
 https://typeofnan.dev/solid-js-feels-like-what-i-always-wanted-react-to-be/
 
+React re-renders guide: everything, all at once - https://www.developerway.com/posts/react-re-renders-guide
+
+> Creating components inside render function of another component is an anti-pattern that can be the biggest performance killer.
+
+Avoid declaring components inside of components - https://isamatov.com/react-antipatterns/#declaring-components-inside-of-components
+
 ## Lifecycle
 
 https://twitter.com/dan_abramov/status/981712092611989509

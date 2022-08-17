@@ -4,6 +4,8 @@ title: PostgreSQL
 
 `brew info postgresql`
 
+https://github.com/dhamaniasad/awesome-postgres
+
 ## Start/stop
 
 With Brew:
@@ -41,7 +43,7 @@ Recreate/reset database: `dropdb dbname && createdb dbname`
 
 ## psql
 
-Comand reference: https://www.postgresql.org/docs/current/app-psql.html
+Command reference: https://www.postgresql.org/docs/current/app-psql.html
 
 Start and connect to a db: `psql dbname`
 

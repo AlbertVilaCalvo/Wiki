@@ -47,6 +47,7 @@ Source: https://stackoverflow.com/a/49054482/4034572
 Also see: https://stackoverflow.com/questions/1226810/is-http-post-request-allowed-to-send-back-a-response-body
 
 If the request is malformed (eg a missing parameter) you can use either 400 Bad Request or 422 Unprocessable Entity. See:
+
 - https://stackoverflow.com/questions/16133923/400-vs-422-response-to-post-of-data
 - https://stackoverflow.com/questions/3050518/what-http-status-response-code-should-i-use-if-the-request-is-missing-a-required
 

@@ -4,6 +4,8 @@ title: Cypress
 
 https://docs.cypress.io
 
+Sample app (React): https://github.com/cypress-io/cypress-realworld-app
+
 Install: `npm install cypress --save-dev` or `yarn add cypress --dev`
 
 https://docs.cypress.io/guides/getting-started/installing-cypress
