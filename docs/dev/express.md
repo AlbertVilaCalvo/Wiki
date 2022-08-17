@@ -19,11 +19,13 @@ DEBUG=express:* node main
 ## Configuration
 
 ```ts
+import path from 'path'
+
 const app = express()
 
 // Optional - we can instead do app.listen(3000).
 // Then we can do app.get("port").
-app.set("port", process.env.PORT || 3000)
+app.set('port', process.env.PORT || 3000)
 
 // Parse JSON body in (eg POST, PUT and PATCH) requests with 'Content-Type: application/json',
 // and make it available in req.body as JS object.
@@ -34,6 +36,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, '../public')))
+app.use(
+  express.static(path.join(__dirname, '../public'), { maxAge: 31557600000 })
+)
 
 app.listen(app.get('port'), () => {
   console.log(
@@ -90,3 +96,7 @@ Add scripts to `package.json`:
 
 - Midudev: https://www.youtube.com/watch?v=ZpY5KdGQvwI - https://github.com/midudev/express-typescript
 - Codely: https://www.youtube.com/watch?v=_1hGZygILd0 - https://github.com/CodelyTV/typescript-api-skeleton
+
+## Passport
+
+https://github.com/cypress-io/cypress-realworld-app/blob/develop/backend/auth.ts
