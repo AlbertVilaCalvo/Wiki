@@ -29,6 +29,8 @@ module.exports = {
     'dev/python',
     'dev/go',
     'dev/cryptography',
+    'dev/authentication',
+    'dev/authorization',
     'dev/passwords',
     'dev/jwt',
     'dev/functional-programming',
