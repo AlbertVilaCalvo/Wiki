@@ -71,17 +71,25 @@ https://blog.logrocket.com/why-you-should-avoid-orms-with-examples-in-node-js-e0
 
 https://contra.com/p/gkOQlbLq-validating-postgre-sql-query-results-using-runtime-checks
 
-https://github.com/gajus/slonik
+PostgreSQL client
+
+- https://github.com/brianc/node-postgres - https://node-postgres.com
+- https://github.com/gajus/slonik
+- https://github.com/porsager/postgres
+
+Query Builder
+
+- https://github.com/knex/knex - https://knexjs.org
+  - See Stop using Knex.js: https://gajus.medium.com/stop-using-knex-js-and-earn-30-bf410349856c
 
 ORM
 
 - https://github.com/sequelize/sequelize
 - https://github.com/typeorm/typeorm/
 
-Query Builder
+Generate TypeScript from SQL
 
-- https://github.com/knex/knex - https://knexjs.org
-- https://github.com/porsager/postgres
+- https://github.com/adelsz/pgtyped
 
 ## Sample code repos and starters
 
