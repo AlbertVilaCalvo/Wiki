@@ -2,14 +2,23 @@
 title: JavaScript
 ---
 
-https://doesitmutate.xyz
-
-https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-mutating/
-
 `npx code-complexity . --limit 20 --sort ratio` - https://www.kevinpeters.net/the-fastest-way-to-understand-new-code-bases
 
 In JavaScript `typeof null` is "object".
 
+https://stateofjs.com/en-us/
+
+## Mutation
+
+https://doesitmutate.xyz
+
+https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-mutating/
+
+Immutability isn't free: https://swizec.com/blog/immutability-isnt-free/
+
+> For the inner loop we replaced array spread for each group of slots with an array.push, which mutates an array in-place. Becoming an O(1) operation.
+
+> Instead of creating a new copy of the whole array on every iteration, we push data to the result array in-place. Turning an O(n^2) reduce statement into O(n).
 
 ## JSDoc
 
