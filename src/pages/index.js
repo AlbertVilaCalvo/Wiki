@@ -5,6 +5,7 @@ import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
+import sidebars from './../../sidebars'
 
 const features = [
   {
@@ -83,6 +84,34 @@ export default function Home() {
         </div>
       </header>
       <main>
+        <div className="container">
+          {Object.keys(sidebars)
+            .filter(sidebarName => sidebarName !== "docs")
+            .map((sidebarName) => (
+              <div key={sidebarName}>
+                <h2>{sidebarName}</h2>
+                <div>
+                  {
+                    Array.isArray(sidebars[sidebarName]) &&
+                    sidebars[sidebarName].map((sidebarItem) => (
+                      typeof sidebarItem === "string"
+                        ? <p key={sidebarItem}>{sidebarItem}</p>
+                        : typeof sidebarItem === "object"
+                          ? <div key={sidebarItem.label}>
+                            <p>{sidebarItem.label}</p>
+                            {
+                              sidebarItem.items.map((subItem) => (
+                                <p key={subItem}>{subItem}</p>
+                              ))
+                            }
+                          </div>
+                          : <p>Warning: unexpected item type</p>
+                    ))
+                  }
+                </div>
+              </div>
+            ))}
+        </div>
         {features && features.length > 0 && (
           <section className={styles.features}>
             <div className="container">
