@@ -79,6 +79,7 @@ module.exports = {
     'http/https',
     'http/dns',
     'http/rest-api',
+    'http/graphql',
     'http/cors',
     'http/csp',
   ],
