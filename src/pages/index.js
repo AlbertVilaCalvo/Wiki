@@ -6,6 +6,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './styles.module.css'
 import sidebars from './../../sidebars'
+import { DocLink } from '../components/DocLink'
 
 const features = [
   {
@@ -95,13 +96,13 @@ export default function Home() {
                     Array.isArray(sidebars[sidebarName]) &&
                     sidebars[sidebarName].map((sidebarItem) => (
                       typeof sidebarItem === "string"
-                        ? <p key={sidebarItem}>{sidebarItem}</p>
+                        ? <DocLink key={sidebarItem} to={sidebarItem} />
                         : typeof sidebarItem === "object"
                           ? <div key={sidebarItem.label}>
-                            <p>{sidebarItem.label}</p>
+                            <h3>{sidebarItem.label}</h3>
                             {
                               sidebarItem.items.map((subItem) => (
-                                <p key={subItem}>{subItem}</p>
+                                <DocLink key={subItem} to={subItem} />
                               ))
                             }
                           </div>
