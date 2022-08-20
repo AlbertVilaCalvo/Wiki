@@ -1,6 +1,6 @@
 // API reference: https://v2.docusaurus.io/docs/docusaurus.config.js/
 module.exports = {
-  title: 'Wiki',
+  title: 'Albertpedia',
   tagline: 'Albert Vila Calvo',
   url: 'https://albert.wiki',
   baseUrl: '/',
@@ -147,7 +147,7 @@ module.exports = {
               href: 'https://github.com/AlbertVilaCalvo',
             },
             {
-              label: 'Source',
+              label: 'Source Code',
               href: 'https://github.com/AlbertVilaCalvo/Wiki',
             },
           ],
@@ -181,4 +181,8 @@ module.exports = {
       },
     ],
   ],
+  // Added by me - https://docusaurus.io/docs/api/docusaurus-config#customfields
+  customFields: {
+    description: 'The personal Wiki of Albert Vila Calvo',
+  },
 }
