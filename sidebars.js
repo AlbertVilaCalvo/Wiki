@@ -64,6 +64,7 @@ module.exports = {
         'devops/aws/iam',
         'devops/aws/ec2',
         'devops/aws/eks',
+        'devops/aws/ecs',
         'devops/aws/s3',
         'devops/aws/cloudformation',
         'devops/aws/codepipeline',
