@@ -17,6 +17,7 @@ module.exports = {
     'dev/dev',
     'dev/testing',
     'dev/javascript',
+    'dev/javascript-array',
     'dev/typescript',
     'dev/node',
     'dev/express',

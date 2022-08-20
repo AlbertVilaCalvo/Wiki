@@ -22,18 +22,6 @@ https://jsdoc.app
 
 https://devhints.io/jsdoc
 
-## Mutation
-
-https://doesitmutate.xyz
-
-https://lorenstewart.me/2017/01/22/javascript-array-methods-mutating-vs-non-mutating/
-
-Immutability isn't free: https://swizec.com/blog/immutability-isnt-free/
-
-> For the inner loop we replaced array spread for each group of slots with an array.push, which mutates an array in-place. Becoming an O(1) operation.
-
-> Instead of creating a new copy of the whole array on every iteration, we push data to the result array in-place. Turning an O(n^2) reduce statement into O(n).
-
 ## Print objects
 
 ```js
@@ -110,45 +98,6 @@ Eg to toggle 'complete' of an object in a Redux reducer without modifying it:
 `const newTodo = Object.assign({}, todo, {complete: !todo.complete})`
 
 This creates a new object {}, merges all the properties of the 'todo' object into this new object, and then overrides the 'complete' property. The original 'todo' object is not modified, so the reducer is pure.
-
-## Array
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
-
-### Get first N elements
-
-`items.slice(0, MAX_COUNT)`
-
-Does not mutate. [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
-
-### Sort (eg by date)
-
-```ts
-export interface Item {
-  date: number // time in millis, eg 1622451442822
-}
-
-function sortByDate(a: Item, b: Item): number {
-  return a.date - b.date // oldest first
-  return b.date - a.date // newest first
-}
-
-items.sort(sortByDate)
-```
-
-### Delete an item with `items.splice(index, 1)`
-
-We need the index of the item. If we have the item, use `indexOf`: `items.splice(items.indexOf(item), 1)`.
-
-Otherwise use `findIndex` to find the index:
-
-```js
-const index = items.findIndex((item) => item.id === id)
-if (index !== -1) {
-  items.splice(index, 1)
-}
-```
-
 
 ## Error
 
