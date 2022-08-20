@@ -86,32 +86,34 @@ export default function Home() {
       </header>
       <main>
         <div className="container">
-          {Object.keys(sidebars)
-            .filter(sidebarName => sidebarName !== "docs")
-            .map((sidebarName) => (
-              <div key={sidebarName}>
-                <h2>{sidebarName}</h2>
-                <div>
-                  {
-                    Array.isArray(sidebars[sidebarName]) &&
-                    sidebars[sidebarName].map((sidebarItem) => (
-                      typeof sidebarItem === "string"
-                        ? <DocLink key={sidebarItem} to={sidebarItem} />
-                        : typeof sidebarItem === "object"
-                          ? <div key={sidebarItem.label}>
-                            <h3>{sidebarItem.label}</h3>
-                            {
-                              sidebarItem.items.map((subItem) => (
-                                <DocLink key={subItem} to={subItem} />
-                              ))
-                            }
-                          </div>
-                          : <p>Warning: unexpected item type</p>
-                    ))
-                  }
+          <div className={styles.grid3col}>
+            {Object.keys(sidebars)
+              .filter(sidebarName => sidebarName !== "docs")
+              .map((sidebarName) => (
+                <div key={sidebarName}>
+                  <h2>{sidebarName}</h2>
+                  <div>
+                    {
+                      Array.isArray(sidebars[sidebarName]) &&
+                      sidebars[sidebarName].map((sidebarItem) => (
+                        typeof sidebarItem === "string"
+                          ? <DocLink key={sidebarItem} to={sidebarItem}/>
+                          : typeof sidebarItem === "object"
+                            ? <div key={sidebarItem.label}>
+                              <h3>{sidebarItem.label}</h3>
+                              {
+                                sidebarItem.items.map((subItem) => (
+                                  <DocLink key={subItem} to={subItem}/>
+                                ))
+                              }
+                            </div>
+                            : <p>Warning: unexpected item type</p>
+                      ))
+                    }
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
         {features && features.length > 0 && (
           <section className={styles.features}>

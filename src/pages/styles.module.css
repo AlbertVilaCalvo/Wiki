@@ -35,3 +35,9 @@
   height: 200px;
   width: 200px;
 }
+
+.grid3col {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  row-gap: 40px;
+}
