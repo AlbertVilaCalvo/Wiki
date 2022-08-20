@@ -12,6 +12,16 @@ https://hakibenita.com/sql-for-data-analysis
 
 https://animatesql.com/
 
+## Cheatsheet
+
+https://www.freecodecamp.org/news/basic-sql-commands/
+
+https://www.freecodecamp.org/news/learn-sql-in-10-minutes/ (MySQL)
+
+https://www.dataquest.io/blog/sql-commands/
+
+https://learnsql.com/blog/sql-basics-cheat-sheet/ (PDF)
+
 ## SELECT \*
 
 https://stackoverflow.com/questions/65512/which-is-faster-best-select-or-select-column1-colum2-column3-etc

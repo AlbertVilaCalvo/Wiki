@@ -2,6 +2,8 @@
 title: Authentication
 ---
 
+https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+
 https://www.keycloak.org/
 
 ## Single Page Apps
@@ -13,6 +15,10 @@ How to use an Identity Provider to identify users and provides SSO in your SPA (
 https://povio.com/blog/handling-authentication-in-spa-with-jwt-and-cookies/
 
 https://dev.indooroutdoor.io/authentication-patterns-and-best-practices-for-spas
+
+> - Option 1: Stateful session with cookie
+> - Option 2: Stateless JWT authentication
+> - Option 3: OpenID connect
 
 https://curity.io/resources/learn/spa-best-practices/
 

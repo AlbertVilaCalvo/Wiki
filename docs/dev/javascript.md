@@ -8,6 +8,20 @@ In JavaScript `typeof null` is "object".
 
 https://stateofjs.com/en-us/
 
+## Libraries
+
+### Validation
+
+- https://github.com/hapijs/joi
+- https://github.com/colinhacks/zod
+- https://github.com/jquense/yup
+
+## JSDoc
+
+https://jsdoc.app
+
+https://devhints.io/jsdoc
+
 ## Mutation
 
 https://doesitmutate.xyz
@@ -19,12 +33,6 @@ Immutability isn't free: https://swizec.com/blog/immutability-isnt-free/
 > For the inner loop we replaced array spread for each group of slots with an array.push, which mutates an array in-place. Becoming an O(1) operation.
 
 > Instead of creating a new copy of the whole array on every iteration, we push data to the result array in-place. Turning an O(n^2) reduce statement into O(n).
-
-## JSDoc
-
-https://jsdoc.app
-
-https://devhints.io/jsdoc
 
 ## Print objects
 

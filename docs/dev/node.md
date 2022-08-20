@@ -6,6 +6,8 @@ API Reference: https://nodejs.org/api
 
 https://endoflife.date/nodejs
 
+https://github.com/goldbergyoni/nodebestpractices
+
 ## Libraries
 
 Libraries: https://nodejs.libhunt.com
@@ -23,6 +25,9 @@ https://betterstack.com/community/guides/logging/nodejs-logging-best-practices
 
 - https://github.com/winstonjs/winston
 - https://github.com/expressjs/morgan -> integrates with Express
+- https://github.com/debug-js/debug
+- https://github.com/gajus/roarr
+- https://github.com/pinojs/pino
 
 ## Manage Node versions
 
@@ -73,8 +78,9 @@ https://contra.com/p/gkOQlbLq-validating-postgre-sql-query-results-using-runtime
 
 PostgreSQL client
 
-- https://github.com/brianc/node-postgres - https://node-postgres.com
-- https://github.com/gajus/slonik
+- https://github.com/brianc/node-postgres (pg) - https://node-postgres.com
+- https://github.com/vitaly-t/pg-promise - Adds features to node-postgres
+- https://github.com/gajus/slonik - Built on top of node-postgres
 - https://github.com/porsager/postgres
 
 Query Builder
@@ -86,6 +92,11 @@ ORM
 
 - https://github.com/sequelize/sequelize
 - https://github.com/typeorm/typeorm/
+- https://github.com/mikro-orm/mikro-orm
+
+Data mapper
+
+- https://gitlab.com/dmfay/massive-js
 
 Generate TypeScript from SQL
 
@@ -97,3 +108,12 @@ Generate TypeScript from SQL
 - https://github.com/kriasoft/node-starter-kit - GraphQL, PostgreSQL
 - https://github.com/kriasoft/relay-starter-kit - (Full Stack) GraphQL, PostgreSQL, React, Relay
 - https://github.com/sahat/hackathon-starter
+- https://github.com/danielfsousa/express-rest-boilerplate
+
+## HTTP2
+
+https://github.com/azat-co/practicalnode/blob/master/chapter13/chapter13.md
+
+## Docker
+
+https://github.com/azat-co/practicalnode/blob/master/chapter15/chapter15.md

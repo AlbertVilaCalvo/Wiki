@@ -14,13 +14,19 @@ JWT = JSON Data + Signature [source](https://developer.okta.com/blog/2017/08/17/
 
 JWT are self-contained.
 
-The contained information is public, anyone can read/decode it. Do not store sensitive information into it.
-
-If you can decode JWT, how are they secure? - https://stackoverflow.com/questions/27301557/if-you-can-decode-jwt-how-are-they-secure
-
 Anatomy of a JWT: https://news.ycombinator.com/item?id=30499618 - https://fusionauth.io/learn/expert-advice/tokens/anatomy-of-jwt
 
 Security cheatsheet: https://assets.pentesterlab.com/jwt_security_cheatsheet/jwt_security_cheatsheet.pdf
+
+## Encryption
+
+JWT are signed and can optionally be encrypted too.
+
+Signed tokens can verify the integrity of the claims contained within it, while encrypted tokens hide those claims from other parties. [source](https://jwt.io/introduction)
+
+Unless encrypted, the contained information is public, anyone can read/decode it. Hence, do not store sensitive information into it.
+
+If you can decode JWT, how are they secure? - https://stackoverflow.com/questions/27301557/if-you-can-decode-jwt-how-are-they-secure
 
 ## Stateless
 

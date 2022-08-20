@@ -2,6 +2,12 @@
 title: Passwords
 ---
 
+https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+
+## Length
+
+Min 8, max 64. See https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls
+
 ## Don't use MD5 and SHA-1 for passwords
 
 Use other hash functions that require more compute power (ie which are slower).

@@ -100,3 +100,7 @@ Add scripts to `package.json`:
 ## Passport
 
 https://github.com/cypress-io/cypress-realworld-app/blob/develop/backend/auth.ts
+
+## JWT
+
+https://github.com/azat-co/practicalnode/blob/master/chapter6/chapter6.md

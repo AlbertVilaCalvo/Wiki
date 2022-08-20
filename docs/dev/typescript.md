@@ -44,6 +44,36 @@ Create tsconfig.json: `npx tsc --init` or `yarn run tsc --init`.
 
 `"noImplicitReturns": true /* Report error when not all code paths in function return a value. */`
 
+### Share tsconfig.json
+
+https://stackoverflow.com/questions/37579969/how-to-use-multiple-tsconfig-files-in-vs-code
+
+```
+├── tsconfig-base.json
+├── server/
+│   ├── tsconfig.json
+├── client/
+│   ├── tsconfig.json
+```
+
+```js
+// tsconfig-base.json
+{
+  "compilerOptions": {
+  },
+  "exclude": [],
+  "include": []
+}
+
+// server/tsconfig.json or client/tsconfig.json
+{
+  "extends": "../tsconfig-base.json",
+  "compilerOptions": {
+  },
+  "include": []
+}
+```
+
 ## @ts-expect-error
 
 From https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-ts-expect-error-comments

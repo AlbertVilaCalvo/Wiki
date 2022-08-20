@@ -6,6 +6,8 @@ title: PostgreSQL
 
 https://github.com/dhamaniasad/awesome-postgres
 
+Learn Postgres at the Playground - https://www.crunchydata.com/developers/tutorials - https://news.ycombinator.com/item?id=32498435
+
 ## Start/stop
 
 With Brew:
@@ -39,6 +41,8 @@ Check the logs:
 
 Create database: `createdb dbname`
 
+Delete database: `dropdb dbname`
+
 Recreate/reset database: `dropdb dbname && createdb dbname`
 
 ## psql
@@ -51,9 +55,17 @@ Connect with a specific user instead of the default: `psql -d dbname -U username
 
 Print current user: `\conninfo` - see https://stackoverflow.com/questions/39735141/how-to-check-connected-user-on-psql
 
-Connect to a db: `\c dbname` or `\connect dbname`. We can speficy username, host, port etc.
+List users: `\du`
+
+Quit: `\q`
+
+Connect to a db: `\c dbname` or `\connect dbname`. We can specify username, host, port etc.
+
+Load .sql file: `\i src/database-setup.sql`
 
 List databases: `\l`
+
+List the relations (tables) of your currently connected database: `\d`
 
 List tables (relations): `\dt`
 
