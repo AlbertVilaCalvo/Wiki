@@ -28,6 +28,7 @@ module.exports = {
     'dev/jetbrains',
     'dev/python',
     'dev/go',
+    'dev/php',
     'dev/cryptography',
     'dev/authentication',
     'dev/authorization',
