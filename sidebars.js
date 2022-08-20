@@ -15,6 +15,7 @@ module.exports = {
   ],
   dev: [
     'dev/dev',
+    'dev/testing',
     'dev/javascript',
     'dev/typescript',
     'dev/node',
