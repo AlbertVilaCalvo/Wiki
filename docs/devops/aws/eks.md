@@ -2,7 +2,7 @@
 title: EKS
 ---
 
-Elastic Kubernetes Service
+# EKS - Elastic Kubernetes Service
 
 https://aws.amazon.com/eks/
 
