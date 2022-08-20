@@ -34,6 +34,7 @@ module.exports = {
     'dev/passwords',
     'dev/jwt',
     'dev/oauth',
+    'dev/csrf',
     'dev/functional-programming',
   ],
   app: [
