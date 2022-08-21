@@ -1,5 +1,9 @@
+// @ts-check
+
 // https://docusaurus.io/docs/sidebar
-module.exports = {
+
+/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
+const sidebars = {
   cli: [
     'cli/git',
     'cli/github-pr',
@@ -131,3 +135,5 @@ module.exports = {
     ],
   },
 }
+
+module.exports = sidebars;
