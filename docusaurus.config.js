@@ -1,6 +1,6 @@
 // @ts-check
 
-// API reference: https://v2.docusaurus.io/docs/docusaurus.config.js/
+// API reference: https://docusaurus.io/docs/api/docusaurus-config
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
