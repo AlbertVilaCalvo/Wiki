@@ -2,6 +2,45 @@
 title: Docusaurus
 ---
 
+## Debug
+
+[http://localhost:3000/\_\_docusaurus/debug](http://localhost:3000/__docusaurus/debug)
+
+https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-debug
+
+## Routes
+
+Routes panel: [http://localhost:3000/\_\_docusaurus/debug/routes](http://localhost:3000/__docusaurus/debug/routes)
+
+https://docusaurus.io/docs/advanced/routing
+
+## Upgrade
+
+```bash
+yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic
+```
+
+Also take a look at the other packages versions:
+
+- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-preset-classic/package.json
+- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/package.json
+
+## Styling
+
+Uses Infima: https://infima.dev
+
+https://docusaurus.io/docs/styling-layout
+
+## MDX
+
+A component can be registered globally so that you don't have to import it on every .mdx file. See [docs](https://docusaurus.io/docs/markdown-features/react#mdx-component-scope) and [this tweet](https://twitter.com/docusaurus/status/1529810485280968706).
+
+## Code blocks supported languages
+
+https://github.com/FormidableLabs/prism-react-renderer/blob/master/src/vendor/prism/includeLangs.js
+
+https://docusaurus.io/docs/markdown-features/code-blocks#supported-languages
+
 ## Releases
 
 - beta 4 - [twitter](https://twitter.com/docusaurus/status/1420518567313690627)
@@ -36,24 +75,3 @@ title: Docusaurus
 - [beta 22](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.22) - [twitter](https://twitter.com/docusaurus/status/1545438949610512384)
 - [2.0.0-rc.1](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-rc.1) - [twitter](https://twitter.com/docusaurus/status/1547616687117070338)
 - [2.0.0](https://github.com/facebook/docusaurus/releases/tag/v2.0.0) - [Announcement](https://docusaurus.io/blog/2022/08/01/announcing-docusaurus-2.0) - [twitter](https://twitter.com/docusaurus/status/1554000364432769025) - [HN](https://news.ycombinator.com/item?id=32303052)
-
-To upgrade do:
-
-```bash
-yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic
-```
-
-Also take a look at the other packages versions:
-
-- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-preset-classic/package.json
-- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/package.json
-
-## MDX
-
-A component can be registered globally so that you don't have to import it on every .mdx file. See [docs](https://docusaurus.io/docs/markdown-features/react#mdx-component-scope) and [this tweet](https://twitter.com/docusaurus/status/1529810485280968706).
-
-## Code blocks supported languages
-
-https://github.com/FormidableLabs/prism-react-renderer/blob/master/src/vendor/prism/includeLangs.js
-
-https://docusaurus.io/docs/markdown-features/code-blocks#supported-languages
