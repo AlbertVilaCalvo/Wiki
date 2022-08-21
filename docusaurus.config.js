@@ -214,6 +214,13 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      docs: {
+        // https://docusaurus.io/docs/sidebar#theme-configuration
+        sidebar: {
+          // Show 'Collapse sidebar' button
+          hideable: true,
+        },
+      },
     }),
 
   // Added by me - https://docusaurus.io/docs/api/docusaurus-config#customfields
