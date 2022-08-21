@@ -1,5 +1,9 @@
 // @ts-check
 
+// See available themes at https://github.com/FormidableLabs/prism-react-renderer/tree/master/src/themes
+const lightCodeTheme = require('prism-react-renderer/themes/github')
+const darkCodeTheme = require('prism-react-renderer/themes/palenight')
+
 // API reference: https://docusaurus.io/docs/api/docusaurus-config
 
 /** @type {import('@docusaurus/types').Config} */
@@ -201,6 +205,14 @@ const config = {
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Albert Vila Calvo`,
+      },
+      // https://docusaurus.io/docs/api/themes/configuration#codeblock
+      // If you use the line highlighting Markdown syntax, you might need to
+      // specify a different highlight background color for the dark mode syntax
+      // highlighting theme. See https://docusaurus.io/docs/markdown-features/code-blocks#line-highlighting
+      prism: {
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
       },
     }),
 
