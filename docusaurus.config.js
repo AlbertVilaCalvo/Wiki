@@ -25,6 +25,35 @@ const config = {
     locales: ['en'],
   },
 
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          // Change routes from '/docs/cli/git' to '/cli/git'.
+          // See Docs-only mode https://docusaurus.io/docs/docs-introduction#docs-only-mode
+          routeBasePath: '/',
+          sidebarPath: require.resolve('./sidebars.js'),
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
+          // Having breadcrumbs is pointless since I rarely have nested docs
+          breadcrumbs: false,
+        },
+        blog: {
+          showReadingTime: true,
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      }),
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -174,35 +203,6 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Albert Vila Calvo`,
       },
     }),
-
-  presets: [
-    [
-      '@docusaurus/preset-classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        docs: {
-          // Change routes from '/docs/cli/git' to '/cli/git'.
-          // See Docs-only mode https://docusaurus.io/docs/docs-introduction#docs-only-mode
-          routeBasePath: '/',
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
-          // Having breadcrumbs is pointless since I rarely have nested docs
-          breadcrumbs: false,
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      }),
-    ],
-  ],
 
   // Added by me - https://docusaurus.io/docs/api/docusaurus-config#customfields
   customFields: {
