@@ -86,7 +86,7 @@ For a Node.js project with Prettier answer this to the questions:
 
 - How would you like to use ESLint? -> To check syntax and find problems
 - Which framework does your project use? React, Vue, None of these. -> None of these
-- Where does your code run? -> Node. _Warning: you need to unselect 'Broswer' with space!_
+- Where does your code run? -> Node. _Warning: you need to unselect 'Browser' with space!_
 - The config that you've selected requires the following dependencies: @typescript-eslint/eslint-plugin@latest, @typescript-eslint/parser@latest, eslint@latest. Would you like to install them now? -> Yes
 
 Then it should create the file `.eslintrc.js` and update `package.json` (adding the dependencies to `devDependencies`).

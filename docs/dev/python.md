@@ -8,7 +8,7 @@ Cheatsheet: https://www.pythonsheets.com
 
 ## Steps to create a Python project
 
-1. Set Python version: `pyenv local 3.10.0`. Check the lastest Python version with `pyenv versions`.
+1. Set Python version: `pyenv local 3.10.0`. Check the latest Python version with `pyenv versions`.
 2. Init Pypenv: `pipenv --python 3.10.2`. This creates the `Pipfile`.
 3. Enable the virtual environment: `pipenv shell`.
 4. Set the Python interpreter in PyCharm.
@@ -16,7 +16,7 @@ Cheatsheet: https://www.pythonsheets.com
    - Open the 'Python Interperter' drop-down and click 'Show All...'.
    - At the dialog that opens (Python Interpreters), click '+'.
    - At the dialog that opens (Add Python Interpreter), select 'Existing environment' and set the path to the location of new Python interpreter given by `pipenv --venv` + `/bin/python`.
-   - Close the dialogs and at the drop-down select the new interpreter just addedand, and then click 'OK'.
+   - Close the dialogs and at the drop-down select the new interpreter just added and then click 'OK'.
 5. Install Black and configure it in PyCharm: [follow instructions](#black).
    - Doing `which black` should be something like `/Users/albert/.local/share/virtualenvs/project-name--zmW4vHg/bin/black`. -> This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
 6. Install libraries, eg: `pipenv install flask`.

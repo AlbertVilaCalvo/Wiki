@@ -37,7 +37,7 @@ Form data is stringified and set as the request body.
 - Content-type: application/x-www-form-urlencoded by default, can be controlled by the attribute `enctype`
   - Use multipart/form-data if the form contains `<input>` elements with type=file
 - Request Body: field1=value1&field2=value2
-- Not idempotent, may have side-effects
+- Not idempotent, may have side effects
 - Length not restricted
 - For sensitive data
 - Not saved in browser history

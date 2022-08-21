@@ -61,7 +61,7 @@ Description
 - String between 0 and 1024 bytes
 - Displayed on the console
 
-Paramters
+Parameters
 
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html
 - Like variables. Used to avoid hardcoding values and make the template reusable

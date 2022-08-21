@@ -36,13 +36,13 @@ git fetch origin master:master # update master if we have a feature branch check
 [source-part-1](https://stackoverflow.com/a/20103414/4034572)
 [source-part-2](https://stackoverflow.com/a/17722977/4034572)
 
-## Revert the changes done on a file (or files) in a branch, so that it's content is the same than develop or master
+## Revert the changes done on a file (or files) in a branch, so that it's content is the same as develop or master
 
 `git checkout <branch> -- <filename>`
 
 Eg: `git checkout develop -- buildsystem/versions.gradle`
 
-This leaves in the staging area the changes that bring the file to the same contents than develop. You need to commit then.
+This leaves in the staging area the changes that bring the file to the same contents as develop. You need to commit then.
 
 Note that you can put as many files as you want: `git checkout <branch> -- <filename> ... <filename>`
 
@@ -202,7 +202,7 @@ git checkout main
 git merge --ff-only feature-branch
 ```
 
-[scource](https://stackoverflow.com/a/16358699/4034572)
+[source](https://stackoverflow.com/a/16358699/4034572)
 
 [--ff-only docs](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---ff-only)
 

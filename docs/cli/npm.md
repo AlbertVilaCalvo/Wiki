@@ -70,7 +70,7 @@ MAJOR.MINOR.PATCH
 
 To save exact do: `npm install --save-exact express` or `npm i -E express`
 
-## Find parent of transitive depencency
+## Find parent of transitive dependency
 
 `npm ls @typescript-eslint/typescript-estree`
 

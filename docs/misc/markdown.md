@@ -32,7 +32,7 @@ yaml
 
 ### In GitHub
 
-[Languages Supported by Github Flavored Markdown](https://www.rubycoloredglasses.com/2013/04/languages-supported-by-github-flavored-markdown)
+[Languages Supported by GitHub Flavored Markdown](https://www.rubycoloredglasses.com/2013/04/languages-supported-by-github-flavored-markdown)
 
 https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks#syntax-highlighting
 

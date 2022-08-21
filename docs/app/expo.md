@@ -59,7 +59,7 @@ expo init --template bare-minimum # warning: does not add react-navigation!
 
 See `expo init` options at https://docs.expo.dev/workflow/expo-cli/#expo-init
 
-Note that option `--name` is deprecated, if you use it it says "Use `expo init [name]` instead of `--name [name]`".
+Note that option `--name` is deprecated, if you use it says "Use `expo init [name]` instead of `--name [name]`".
 
 Available templates: https://github.com/expo/expo/tree/main/templates
 
@@ -134,7 +134,7 @@ Info about prebuild: https://github.com/expo/fyi/blob/main/prebuilding.md
 
 > you might need to use a library that doesn't have a config plugin yet, or maybe you need to write some custom native code yourself. For these cases you'll have to manually modify the `ios` and `android` folders, doing this means you'll no longer be able to safely rerun `expo prebuild`.
 
-Eject moves from manged to bare and it's run once ever.
+Eject moves from manged to bare, and it's run once ever.
 
 > `expo prebuild` is very similar to `expo eject`, the core difference being that eject is intended to be run once, and prebuild can be used multiple times. The eject command assumes that your ios and android folders are modified by hand (bare workflow) and will warn you if they might be overwritten, whereas the prebuild command should only be used when your `ios` and `android` folders are completely generated and can be regenerated any time (kinda like the `node_modules` folder).
 
@@ -163,7 +163,7 @@ Check the current user: `eas whoami`
 
 ### EAS Build
 
-Replaces `expo build:ios` and `expo build:android` ([classic build](https://docs.expo.dev/classic/building-standalone-apps/), which usea a '[shell app](https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10)').
+Replaces `expo build:ios` and `expo build:android` ([classic build](https://docs.expo.dev/classic/building-standalone-apps/), which uses a '[shell app](https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10)').
 
 Docs: https://docs.expo.dev/build/introduction
 

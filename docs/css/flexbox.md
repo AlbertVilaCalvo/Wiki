@@ -2,7 +2,7 @@
 title: Flexbox
 ---
 
-The parent (flex container) is responsible of controlling the layout of all its immediate children (flex items), rather than each child controlling its own layout.
+The parent (flex container) is responsible for controlling the layout of all its immediate children (flex items), rather than each child controlling its own layout.
 
 There are 2 axes: the main axis and the cross axis.
 

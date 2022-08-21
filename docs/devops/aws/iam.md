@@ -88,5 +88,5 @@ Delete role
 - If there's a policy attached to the role, remove it: `aws iam delete-role-policy --role-name <role-name> --policy-name <policy-name>`
   - Deleting IAM policies: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-delete.html
   - https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role-policy.html
-- Finally remove the role: `aws iam delete-role --role-name <role-name>`
+- Finally, remove the role: `aws iam delete-role --role-name <role-name>`
 - If you get the error "Cannot delete entity, must remove roles from instance profile first" on the console when trying to delete a role, use the CLI instead.

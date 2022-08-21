@@ -167,7 +167,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
-          // Having breadcrumbs is pointles since I rarely have nested docs
+          // Having breadcrumbs is pointless since I rarely have nested docs
           breadcrumbs: false,
         },
         blog: {

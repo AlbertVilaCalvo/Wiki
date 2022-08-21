@@ -21,7 +21,7 @@ https://dev.to/lydiahallie/cs-visualized-cors-5b8h
 Different origin is:
 
 - Different domain: `a.com` and `b.com`
-- Different sub-domain:` example.com` and `api.example.com`
+- Different subdomain:` example.com` and `api.example.com`
 - Different port:` example.com` and `example.com:3456`
 - Different protocol/scheme: `http://example.com` and `https://example.com`
 
@@ -33,7 +33,7 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-O
 
 What client domains are allowed.
 
-Checks the [`Origin`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) request header and it tells the browser if the requesting origin can access a resource.
+Checks the [`Origin`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) request header, and it tells the browser if the requesting origin can access a resource.
 
 ```
 Access-Control-Allow-Origin: *

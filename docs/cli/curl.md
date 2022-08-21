@@ -8,7 +8,7 @@ https://github.com/curl/curl
 
 https://everything.curl.dev
 
-Options are case sensitive, ie `-s` is not the same than `-S`.
+Options are case-sensitive, ie `-s` is not the same as `-S`.
 
 ## Examples
 

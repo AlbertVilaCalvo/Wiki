@@ -27,7 +27,7 @@ Array.isArray([]) // true
 Array.isArray('a') // false
 ```
 
-## Get first N elements
+## Get the first N elements
 
 `items.slice(0, MAX_COUNT)`
 

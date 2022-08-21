@@ -32,7 +32,7 @@ What are Linux containers? https://www.redhat.com/en/topics/containers
   - Each VM has a complete copy of the operating system (guest OS)
   - Abstraction of physical hardware
 
-Thus, containers are are lightweight and more efficient, and they can boot faster.
+Thus, containers are lightweight and more efficient, and they can boot faster.
 
 **Dockerfile --`docker build`--> Image --`docker run`--> Container**
 
@@ -128,7 +128,7 @@ Stop a running container: `docker stop <container-id>` (get the `<container-id>`
 
 Remove a container: `docker container rm <container-id>`
 
-### Worflow
+### Workflow
 
 On a directory with a Dockerfile run:
 
@@ -214,7 +214,7 @@ ENTRYPOINT ["python", "app.py"]
 
 ## Volumes
 
-Containers are started and stopped as required (ie they have a lifecycle). Volumes provide persistent data storage to containers, independent of it's lifecycle. Volumes can be shared with many containers. They avoid increasing the container size.
+Containers are started and stopped as required (ie they have a lifecycle). Volumes provide persistent data storage to containers, independent of its lifecycle. Volumes can be shared with many containers. They avoid increasing the container size.
 
 ## docker-compose
 

@@ -2,7 +2,7 @@
 title: GitHub
 ---
 
-Trending respositories this week: https://github.com/trending?since=weekly&spoken_language_code=en
+Trending repositories this week: https://github.com/trending?since=weekly&spoken_language_code=en
 
 Locking down your GitHub-hosted Domains - https://news.ycombinator.com/item?id=32435134
 

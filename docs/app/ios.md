@@ -9,7 +9,7 @@ Register device UDID: https://developer.apple.com/account/resources/devices/list
 App Store Connect: https://appstoreconnect.apple.com
 
 How to check or set the minimum iOS supported version: https://stackoverflow.com/questions/29736871/setting-the-minimum-ios-version-in-xcode
-With an ipa file, you can unarchive (it's a zip) you'll get an .app file. Rigth click to the .app file to show it's content. At the Info.plist, check the field `MinimumOSVersion`.
+With an ipa file, you can unarchive (it's a zip) you'll get an .app file. Right click to the .app file to show it's content. At the Info.plist, check the field `MinimumOSVersion`.
 
 DevCleaner for Xcode: https://apps.apple.com/us/app/devcleaner/id1388020431
 

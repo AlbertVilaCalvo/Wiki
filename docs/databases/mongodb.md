@@ -8,7 +8,7 @@ https://www.mongodb.com/
 
 https://github.com/mongodb/homebrew-brew
 
-Follow this instructions: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+Follow these instructions: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
 
 ```
 brew tap mongodb/brew

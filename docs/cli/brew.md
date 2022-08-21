@@ -50,7 +50,7 @@ brew services restart postgresql
 brew services list
 ```
 
-If you un-install the `postgresql` then you can remove its links with `brew services cleanup`. [source](https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3#gistcomment-3443897)
+If you uninstall the `postgresql` then you can remove its links with `brew services cleanup`. [source](https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3#gistcomment-3443897)
 
 All commands:
 

@@ -2,7 +2,7 @@
 title: Talks
 ---
 
-Just a list of some of the talks/podcasts I've watched/listened, in reverse cronological order. (If I don't write them down I forget.) Note that this is a very small fraction of them since I started to write them recently (2021) and I forget to add them.
+Just a list of some talks/podcasts I've watched/listened, in reverse chronological order. (If I don't write them down I forget.) Note that this is a very small fraction of them since I started to write them recently (2021) and I forget to add them.
 
 ## 2022
 

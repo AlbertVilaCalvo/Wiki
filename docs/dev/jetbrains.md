@@ -104,11 +104,11 @@ Join lines: Ctrl+Shift+J
 
 Find action: Cmd+Shift+A
 
-Code fromatting settings (eg optimize imports): Cmd+Alt+Shift+L (code format is Cmd+Alt+L)
+Code formatting settings (eg optimize imports): Cmd+Alt+Shift+L (code format is Cmd+Alt+L)
 
 Highlight usages of a symbol within a file: Cmd+Shift+F7
 
-UML diagram, shows inherintance chain (needs to be run with the cursor on a class name)): Shift+Cmd+Alt+U
+UML diagram, shows inheritance chain (needs to be run with the cursor on a class name)): Shift+Cmd+Alt+U
 
 ## React
 
