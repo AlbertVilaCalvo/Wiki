@@ -189,10 +189,10 @@ const config = {
                 label: 'Personal Website',
                 href: 'https://albert.vc',
               },
-              {
-                label: 'Blog',
-                to: 'blog',
-              },
+              // {
+              //   label: 'Blog',
+              //   to: 'blog',
+              // },
               {
                 label: 'GitHub',
                 href: 'https://github.com/AlbertVilaCalvo',
