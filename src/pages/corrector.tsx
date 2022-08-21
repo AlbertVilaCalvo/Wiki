@@ -2,15 +2,14 @@ import React from 'react'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 
-export default function Corrector() {
+export default function Corrector(): JSX.Element {
   const context = useDocusaurusContext()
-  const { siteConfig = {} } = context
+  const siteConfig = context.siteConfig
 
-  // TODO change title and description, I've copied it from index.js
   return (
     <Layout
       title={`Corrector`}
-      description={siteConfig.customFields.description}
+      description={siteConfig.customFields.description as string}
     >
       <main>
         <div className="container">
