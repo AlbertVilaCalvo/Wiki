@@ -56,15 +56,16 @@ function Feature({ imageUrl, title, description }) {
   )
 }
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const context = useDocusaurusContext()
-  const { siteConfig = {} } = context
+  const siteConfig = context.siteConfig
+
   return (
     <Layout
       // Originally was `Hello from ${siteConfig.title}`
       title={`Welcome to my Wiki`}
       // 'description' will go into a meta tag in <head />
-      description={siteConfig.customFields.description}
+      description={siteConfig.customFields.description as string}
     >
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
