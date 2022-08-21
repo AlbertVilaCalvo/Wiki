@@ -6,7 +6,6 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import styles from './index.module.css'
 import sidebars from '../../sidebars'
-import { DocLink } from '../components/DocLink'
 
 const features = [
   {
@@ -53,6 +52,14 @@ function Feature({ imageUrl, title, description }) {
       <h3>{title}</h3>
       <p>{description}</p>
     </div>
+  )
+}
+
+function DocLink({ to, ...props }: { to: string }) {
+  return (
+    <a href={to} {...props} className={styles.docLink}>
+      {to}
+    </a>
   )
 }
 
