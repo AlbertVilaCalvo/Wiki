@@ -55,6 +55,32 @@ function Feature({ imageUrl, title, description }) {
   )
 }
 
+function HomepageHeader() {
+  const { siteConfig } = useDocusaurusContext()
+  return (
+    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      <div className="container">
+        {/* Originally was {siteConfig.title} */}
+        <h1 className="hero__title">Welcome to my Wiki</h1>
+        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        {/*
+          <div className={styles.buttons}>
+            <Link
+              className={clsx(
+                'button button--outline button--secondary button--lg',
+                styles.getStarted
+              )}
+              to={useBaseUrl('cli/git')}
+            >
+              Get Started
+            </Link>
+          </div>
+          */}
+      </div>
+    </header>
+  )
+}
+
 function DocLink({ to, ...props }: { to: string }) {
   return (
     <a href={to} {...props} className={styles.docLink}>
@@ -74,26 +100,7 @@ export default function Home(): JSX.Element {
       // 'description' will go into a meta tag in <head />
       description={siteConfig.customFields.description as string}
     >
-      <header className={clsx('hero hero--primary', styles.heroBanner)}>
-        <div className="container">
-          {/* Originally was {siteConfig.title} */}
-          <h1 className="hero__title">Welcome to my Wiki</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-          {/*
-          <div className={styles.buttons}>
-            <Link
-              className={clsx(
-                'button button--outline button--secondary button--lg',
-                styles.getStarted
-              )}
-              to={useBaseUrl('cli/git')}
-            >
-              Get Started
-            </Link>
-          </div>
-          */}
-        </div>
-      </header>
+      <HomepageHeader />
       <main>
         <div className="container">
           <div className={styles.grid3col}>
