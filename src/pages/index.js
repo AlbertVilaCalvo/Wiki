@@ -71,6 +71,7 @@ export default function Home() {
           {/* Originally was {siteConfig.title} */}
           <h1 className="hero__title">Welcome to my Wiki</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
+          {/*
           <div className={styles.buttons}>
             <Link
               className={clsx(
@@ -82,6 +83,7 @@ export default function Home() {
               Get Started
             </Link>
           </div>
+          */}
         </div>
       </header>
       <main>
@@ -113,6 +115,7 @@ export default function Home() {
               ))}
           </div>
         </div>
+        {/*
         {features && features.length > 0 && (
           <section className={styles.features}>
             <div className="container">
@@ -124,6 +127,7 @@ export default function Home() {
             </div>
           </section>
         )}
+        */}
       </main>
     </Layout>
   )
