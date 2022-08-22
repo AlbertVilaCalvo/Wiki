@@ -40,6 +40,10 @@ export function prettyPrint(object: any): string {
 
 ## console
 
+Spec: https://console.spec.whatwg.org/
+
+Use %i (integer), %f (float), %s (string) for type conversions: https://twitter.com/addyosmani/status/1535706659128868864
+
 - Use console.log() like a pro: [Hacker News](https://news.ycombinator.com/item?id=26779800) - [Article](https://markodenic.com/use-console-log-like-a-pro/)
 - Advanced console.log Tips & Tricks: [Hacker News](https://news.ycombinator.com/item?id=27499335) - [Article](https://medium.com/nmc-techblog/advanced-console-log-tips-tricks-fa3762930bca)
 - Debugging JavaScript: Beyond console.log(): https://suze.dev/blog/debugging-javascript-beyond-console-log/

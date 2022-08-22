@@ -92,6 +92,7 @@ function DocIndex() {
               <h2>{sidebarName}</h2>
               <div>
                 {Array.isArray(sidebars[sidebarName]) &&
+                  // @ts-ignore
                   sidebars[sidebarName].map((sidebarItem) =>
                     typeof sidebarItem === 'string' ? (
                       <DocLink key={sidebarItem} to={sidebarItem} />

@@ -4,25 +4,39 @@ title: Commands
 
 tldr man pages: https://tldr.sh
 
+The Art of Command Line: https://github.com/jlevy/the-art-of-command-line
+
 https://github.com/trimstray/the-book-of-secret-knowledge#shell-one-liners-toc
-
-What shell is used: `echo $SHELL`
-
-Command history is saved in `~/.zsh_history`.
-
-List all environment variables: `printenv`. You can also print a specific envar: `printenv ANDROID_HOME`. (In Linux you can print many, eg `printenv ANDROID_HOME PATH`, but does not work in macOS.)
 
 Oh-heck, a terminal command for when you forget other terminal commands - https://news.ycombinator.com/item?id=30720834 - https://oh-heck.dev
 
+Command history is saved in `~/.zsh_history`.
+
 ## Terminal shortcuts
 
-- !!: previous command
 - Ctrl + R: Recall
   - Ctrl + R again to see next match
   - Return to execute
   - Ctrl + G to exit without executing
   - Esc to exit but leaving searched command
 - Ctrl + Z: send to the background
+
+## Various commands & tips
+
+- !!: run the previous command
+- What shell is used: `echo $SHELL`
+- List all environment variables: `printenv`. You can also print a specific envar: `printenv ANDROID_HOME`. (In Linux you can print many, eg `printenv ANDROID_HOME PATH`, but does not work in macOS.)
+
+Command-line pro tips: https://twitter.com/addyosmani/status/1264854298799665152
+
+Use curly braces in the command-line to quickly create multiple related files with less typing [source](https://twitter.com/addyosmani/status/1265693572033961984):
+
+```bash
+touch index.{js,css} # creates index.js and index.css
+touch {P,H1,H2}.tsx # creates P.tsx, H1.tsx and H2.tsx
+```
+
+You can also use this with npm: https://twitter.com/nucliweb/status/1096327937308135425
 
 ## find
 

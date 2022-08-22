@@ -221,3 +221,5 @@ Containers are started and stopped as required (ie they have a lifecycle). Volum
 Commands: https://docs.docker.com/compose/reference
 
 Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose
+
+Docker Compose best practices for dev and prod: https://news.ycombinator.com/item?id=32484008 / https://prod.releasehub.com/blog/6-docker-compose-best-practices-for-dev-and-prod
