@@ -117,6 +117,7 @@ const sidebars = {
     'misc/markdown',
   ],
   disseny: [
+    'disseny/ui',
     'disseny/color',
     'disseny/tipografia',
   ],
