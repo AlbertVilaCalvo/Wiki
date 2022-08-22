@@ -89,6 +89,9 @@ const sidebars = {
     'http/cors',
     'http/csp',
   ],
+  web: [
+    'web/chrome-devtools',
+  ],
   html: [
     'html/html',
     'html/elements',

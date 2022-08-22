@@ -101,6 +101,12 @@ const config = {
             position: 'left',
           },
           {
+            to: 'web/chrome-devtools',
+            activeBasePath: 'web',
+            label: 'Web',
+            position: 'left',
+          },
+          {
             to: 'html',
             activeBasePath: 'html',
             label: 'HTML',
