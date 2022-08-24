@@ -12,6 +12,12 @@ https://hakibenita.com/sql-for-data-analysis
 
 https://animatesql.com/
 
+## Reserved words
+
+https://en.wikipedia.org/wiki/SQL_reserved_words
+
+https://stackoverflow.com/questions/695578/creating-table-names-that-are-reserved-words-keywords-in-ms-sql-server
+
 ## Cheatsheet
 
 https://www.freecodecamp.org/news/basic-sql-commands/

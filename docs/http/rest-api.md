@@ -14,7 +14,7 @@ Limit levels/nesting to maximum `collection/<id>/collection`.
 - Good: `https://example.com/employee/3/tasks`
 - Bad: `https://example.com/company/4/employee/3/tasks`
 
-## Routes
+## CRUD Routes
 
 | Verb   | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code                                | Request Body | Response Body                                 |
 | ------ | ----------------- | ------ | :--: | ------------------------------------------ | ---------------------------------------------------------- | ------------------------------------------- | :----------: | --------------------------------------------- |
@@ -112,3 +112,4 @@ https://cloud.google.com/blog/products/application-development/rest-vs-rpc-what-
 - https://github.com/microsoft/api-guidelines
 - https://cloud.google.com/apis/design/
 - https://opensource.zalando.com/restful-api-guidelines/
+- https://github.com/shieldfy/API-Security-Checklist

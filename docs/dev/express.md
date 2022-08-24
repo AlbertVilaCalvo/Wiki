@@ -103,4 +103,12 @@ https://github.com/cypress-io/cypress-realworld-app/blob/develop/backend/auth.ts
 
 ## JWT
 
+https://github.com/auth0/node-jsonwebtoken/
+
+https://github.com/auth0/express-jwt
+
 https://github.com/azat-co/practicalnode/blob/master/chapter6/chapter6.md
+
+Curso de Node.js: Autenticación, Microservicios y Redis - https://platzi.com/cursos/nodejs-microservicios - https://github.com/CodingCarlos/proyecto-backend-node-platzi
+
+Curso de Backend con Node.js: Autenticación con Passport.js y JWT - https://platzi.com/cursos/passport - https://github.com/platzi/curso-nodejs-auth
