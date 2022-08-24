@@ -4,6 +4,8 @@ title: JWT
 
 _JSON Web Token_
 
+RFC 7519 - https://datatracker.ietf.org/doc/html/rfc7519
+
 https://en.wikipedia.org/wiki/JSON_Web_Token
 
 https://jwt.io
@@ -14,19 +16,48 @@ JWT = JSON Data + Signature [source](https://developer.okta.com/blog/2017/08/17/
 
 JWT are self-contained.
 
+What is token-based authentication? https://stackoverflow.com/questions/1592534/what-is-token-based-authentication
+This answer lists some advantages (eg CSRF safe): https://stackoverflow.com/a/27119226/4034572
+
 Anatomy of a JWT: https://news.ycombinator.com/item?id=30499618 - https://fusionauth.io/learn/expert-advice/tokens/anatomy-of-jwt
 
 Security cheatsheet: https://assets.pentesterlab.com/jwt_security_cheatsheet/jwt_security_cheatsheet.pdf
 
+https://github.com/shieldfy/API-Security-Checklist#jwt-json-web-token
+
+> - Use a random complicated key (JWT Secret) to make brute forcing the token very hard.
+> - Don't extract the algorithm from the header. Force the algorithm in the backend (HS256 or RS256).
+> - Make token expiration (TTL, RTTL) as short as possible.
+> - Don't store sensitive data in the JWT payload, it can be decoded [easily](https://jwt.io/#debugger-io).
+> - Avoid storing too much data. JWT is usually shared in headers and they have a size limit.
+
+## Signing
+
+Since anyone can produce a JWT token, the signature is used to verify the authenticity. This way only the server can issue new tokens using the secret.
+
+```
+signature = hash_algorithm(secret, base64urlEncoding(header) + '.' + base64urlEncoding(payload))
+```
+
+> JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA. [source](https://jwt.io/introduction/)
+
 ## Encryption
+
+https://en.wikipedia.org/wiki/JSON_Web_Encryption
+
+RFC 7516 - https://datatracker.ietf.org/doc/html/rfc7516
 
 JWT are signed and can optionally be encrypted too.
 
-Signed tokens can verify the integrity of the claims contained within it, while encrypted tokens hide those claims from other parties. [source](https://jwt.io/introduction)
+> Signed tokens can verify the integrity of the claims contained within it, while encrypted tokens hide those claims from other parties. [source](https://jwt.io/introduction)
 
 Unless encrypted, the contained information is public, anyone can read/decode it. Hence, do not store sensitive information into it.
 
 If you can decode JWT, how are they secure? - https://stackoverflow.com/questions/27301557/if-you-can-decode-jwt-how-are-they-secure
+
+https://github.com/nextauthjs/next-auth#secure-by-default
+
+> When JSON Web Tokens are enabled, they are encrypted by default (JWE) with A256GCM
 
 ## Stateless
 
@@ -38,9 +69,41 @@ https://www.jbspeakr.cc/purpose-jwt-stateless-authentication
 
 `header.payload.signature`
 
-Since anyone can produce a JWT token, the signature is used to verify the authenticity. This way only the server can issue new tokens using the secret.
+### Header
 
-signature = hash_algorithm(secret, base64urlEncoding(header) + '.' base64urlEncoding(payload))
+Which algorithm is used to sign.
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+### Payload
+
+Contains the claims, which can be [Registered](https://www.rfc-editor.org/rfc/rfc7519#section-4.1) (ie [standard fields](https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields)), [Public](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.6) (which should be registered in the [IANA "JSON Web Token Claims" registry](https://www.iana.org/assignments/jwt/jwt.xhtml)) or [Private](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.6).
+
+```json
+{
+  "iat": 1422779638,
+  "role": "admin"
+}
+```
+
+Eg [iat](https://www.rfc-editor.org/rfc/rfc7519#section-4.1.6) is Issued At Time.
+
+### Signature
+
+```
+signature = hash_algorithm(secret, base64urlEncoding(header) + '.' + base64urlEncoding(payload))
+```
+
+### Token
+
+```
+token = base64urlEncoding(header) + '.' + base64urlEncoding(payload) + '.' + base64urlEncoding(signature)
+```
 
 ## Store JWT
 
@@ -82,3 +145,21 @@ Why JWTs Suck as Session Tokens - https://developer.okta.com/blog/2017/08/17/why
 > There are several cases in which JWTs can be useful. If you’re building API services that need to support server-to-server or client-to-server (like a mobile app or single page app (SPA)) communication, using JWTs as your API tokens is a very smart idea.
 
 Ask HN: What's the current sentiment on JWT for stateless auth tokens? - https://news.ycombinator.com/item?id=21783303
+
+## Libraries
+
+https://github.com/topics/jwt
+
+https://jwt.io/libraries
+
+### JavaScript
+
+https://github.com/auth0/node-jsonwebtoken/
+
+https://github.com/auth0/express-jwt - connect/express middleware that validates a JsonWebToken (JWT) and set the req.user with the attributes
+
+https://github.com/auth0/jwt-decode - Decode JWT tokens; useful for browser applications.
+
+https://github.com/panva/jose - JWA, JWS, JWE, JWT, JWK, JWKS with no dependencies.
+
+https://github.com/kjur/jsrsasign
