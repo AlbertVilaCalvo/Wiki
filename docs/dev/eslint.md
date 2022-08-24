@@ -14,6 +14,36 @@ Airbnb rules: https://github.com/airbnb/javascript
 
 Turn off all rules that are unnecessary or might conflict with Prettier: https://www.npmjs.com/package/eslint-config-prettier
 
+## Disable a rule
+
+You can disable a rule on a specific line, a whole file, a block of code or globally. See:
+
+- https://eslint.org/docs/latest/user-guide/configuring/rules
+- https://flaviocopes.com/how-to-disable-eslint-rule/
+
+On a specific line:
+
+```ts
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isNumber(n: any): boolean {}
+```
+
+Globally:
+
+```js title=".eslintrc.js"
+module.exports = {
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+}
+```
+
+Options are ([source](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules)):
+
+- "off" or 0: turn the rule off
+- "warn" or 1: turn the rule on as a warning (doesn’t affect exit code)
+- "error" or 2: turn the rule on as an error (exit code is 1 when triggered)
+
 ## `.eslintrc.js`
 
 https://prettier.io/docs/en/integrating-with-linters.html
