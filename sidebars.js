@@ -32,6 +32,7 @@ const sidebars = {
     'dev/eslint',
     'dev/git-hooks',
     'dev/jetbrains',
+    'dev/vscode',
     'dev/python',
     'dev/go',
     'dev/php',
