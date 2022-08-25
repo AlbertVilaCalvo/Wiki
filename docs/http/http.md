@@ -34,17 +34,23 @@ npm package: https://github.com/prettymuchbryce/http-status-codes
 
 ### Common codes
 
-| Status Code | Status Message        | Comments                              |
-| ----------- | --------------------- | ------------------------------------- |
-| 200         | OK                    | For GET and POST requests typically   |
-| 201         | Created               | For POST requests typically           |
-| 304         | Not Modified          |                                       |
-| 400         | Bad Request           |                                       |
-| 401         | Unauthorized          | Not properly authenticated            |
-| 403         | Forbidden             | Not authorized to access the resource |
-| 404         | Not Found             |                                       |
-| 405         | Method Not Allowed    |                                       |
-| 500         | Internal Server Error |                                       |
+| Status Code | Status Message        | Comments                                                  | Spec                                             |
+| ----------- | --------------------- | --------------------------------------------------------- | ------------------------------------------------ |
+| 200         | OK                    | For GET and POST requests typically                       |                                                  |
+| 201         | Created               | For POST requests typically                               |                                                  |
+| 204         | No Content            | Use it if the response has no body                        | https://httpwg.org/specs/rfc7231.html#status.204 |
+| 304         | Not Modified          | The client (browser) gets the resource from its own cache | https://httpwg.org/specs/rfc7232.html#status.304 |
+| 400         | Bad Request           | Some parameter is missing                                 |                                                  |
+| 401         | Unauthorized          | Not properly authenticated                                |                                                  |
+| 403         | Forbidden             | Not authorized to access the resource                     |                                                  |
+| 404         | Not Found             |                                                           |                                                  |
+| 405         | Method Not Allowed    |                                                           |                                                  |
+| 409         | Conflict              | Username or email already exist                           | https://httpwg.org/specs/rfc7231.html#status.409 |
+| 500         | Internal Server Error |                                                           |                                                  |
+
+Stripe common status codes: https://stripe.com/docs/api/errors
+
+Zalando status codes: https://opensource.zalando.com/restful-api-guidelines/#http-status-codes-and-errors
 
 ### 401 Unauthorized vs 403 Forbidden
 

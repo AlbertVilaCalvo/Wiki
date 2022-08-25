@@ -16,16 +16,16 @@ Limit levels/nesting to maximum `collection/<id>/collection`.
 
 ## CRUD Routes
 
-| Verb   | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code                                | Request Body | Response Body                                 |
-| ------ | ----------------- | ------ | :--: | ------------------------------------------ | ---------------------------------------------------------- | ------------------------------------------- | :----------: | --------------------------------------------- |
-| GET    | `/users`          | index  |      | List all users                             | 200 OK                                                     | 404 Not Found                               |      ✖       | Resource list                                 |
-| GET    | `/users/:id`      | show   |      | Get single user                            | 200 OK                                                     | 404 Not Found                               |      ✖       | Resource                                      |
-| GET    | `/users/new`      | new    |  ✓   | Render create form                         | 200 OK                                                     | 404 Not Found                               |      ✖       | HTML                                          |
-| POST   | `/users`          | create |      | Create new user                            | 201 Created                                                | 400 Bad Request or 422 Unprocessable Entity |   Resource   | Location header + status - [see below](#post) |
-| GET    | `/users/:id/edit` | edit   |  ✓   | Render edit form                           | 200 OK                                                     | 404 Not Found                               |      ✖       | HTML                                          |
-| PUT    | `/users/:id`      | update |      | Update user, or create if it doesn't exist | 200 OK or 204 No Content if updated, otherwise 201 Created |                                             |   Resource   | Optional                                      |
-| PATCH  | `/users/:id`      | update |      | Update user, partial                       | 200 OK or 204 No Content                                   | 404 Not Found                               |   Resource   | Optional                                      |
-| DELETE | `/users/:id`      | delete |      | Delete user                                | 200 OK or 204 No Content                                   |                                             |      ✖       | Entity describing status or nothing           |
+| Verb   | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code                                                                        | Request Body | Response Body                                 |
+| ------ | ----------------- | ------ | :--: | ------------------------------------------ | ---------------------------------------------------------- | ----------------------------------------------------------------------------------- | :----------: | --------------------------------------------- |
+| GET    | `/users`          | index  |      | List all users                             | 200 OK                                                     | 404 Not Found                                                                       |      ✖       | Resource list                                 |
+| GET    | `/users/:id`      | show   |      | Get single user                            | 200 OK                                                     | 404 Not Found                                                                       |      ✖       | Resource                                      |
+| GET    | `/users/new`      | new    |  ✓   | Render create form                         | 200 OK                                                     | 404 Not Found                                                                       |      ✖       | HTML                                          |
+| POST   | `/users`          | create |      | Create new user                            | 201 Created                                                | 400 Bad Request or 422 Unprocessable Entity if malformed, 409 Conflict if duplicate |   Resource   | Location header + status - [see below](#post) |
+| GET    | `/users/:id/edit` | edit   |  ✓   | Render edit form                           | 200 OK                                                     | 404 Not Found                                                                       |      ✖       | HTML                                          |
+| PUT    | `/users/:id`      | update |      | Update user, or create if it doesn't exist | 200 OK or 204 No Content if updated, otherwise 201 Created |                                                                                     |   Resource   | Optional                                      |
+| PATCH  | `/users/:id`      | update |      | Update user, partial                       | 200 OK or 204 No Content                                   | 404 Not Found                                                                       |   Resource   | Optional                                      |
+| DELETE | `/users/:id`      | delete |      | Delete user                                | 200 OK or 204 No Content                                   |                                                                                     |      ✖       | Entity describing status or nothing           |
 
 Notes:
 
@@ -50,6 +50,16 @@ If the request is malformed (eg a missing parameter) you can use either 400 Bad 
 
 - https://stackoverflow.com/questions/16133923/400-vs-422-response-to-post-of-data
 - https://stackoverflow.com/questions/3050518/what-http-status-response-code-should-i-use-if-the-request-is-missing-a-required
+
+### POST if the resource already exists (eg duplicate username or email)
+
+409 Conflict
+
+- HTTP response code for POST when resource already exists - https://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
+- What's a proper response status code to REST POST request when duplicate is found? - https://stackoverflow.com/questions/9414374/whats-a-proper-response-status-code-to-rest-post-request-when-duplicate-is-foun
+- Which HTTP response code for "This email is already registered"? - https://stackoverflow.com/questions/9269040/which-http-response-code-for-this-email-is-already-registered
+- 422 or 409 status code for existing email during signup - https://stackoverflow.com/questions/50946698/422-or-409-status-code-for-existing-email-during-signup
+- HTTP Status Code for username already exists when registering new account - https://stackoverflow.com/questions/26587082/http-status-code-for-username-already-exists-when-registering-new-account
 
 ### PUT
 
