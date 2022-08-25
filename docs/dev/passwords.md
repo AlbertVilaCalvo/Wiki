@@ -32,3 +32,11 @@ Salts must be:
 https://www.youtube.com/watch?v=UOBe3JXQbwo
 
 See 'Salts Will Not Help You': https://codahale.com/how-to-safely-store-a-password/
+
+How to securely hash passwords? - https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords
+
+## bcrypt
+
+Does bcrypt have a maximum password length? - https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length
+
+Password max length with bcrypt, blowfish - https://stackoverflow.com/questions/24751279/password-max-length-with-bcrypt-blowfish

@@ -67,6 +67,8 @@ curl -H "Content-Type: application/json" -X PUT -d '{"key":"val"}' URL
     - JSON: `-d '{"key": "value"}'` or `--data '{"key": "value"}'`. Requires adding `-H "Content-Type: application/json"`.
 - Header: `-H "Content-Type: application/json"` or `--header "Content-Type: application/json"`.
 - Verbose: `-v`. Displays headers, status code and other info.
+- Only headers: `-I` or `--head`. Fetch the response headers only.
+- Silent mode: `-s` or `--silent`. Hides the body.
 
 ## Converters
 

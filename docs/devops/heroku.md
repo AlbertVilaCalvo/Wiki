@@ -2,6 +2,8 @@
 title: Heroku
 ---
 
+Ask HN: Are you leaving Heroku? - https://news.ycombinator.com/item?id=32580597
+
 Autoscaling for Heroku: https://hirefire.io
 
 The `Procfile` contains the command to start the app.
