@@ -11,6 +11,33 @@ Reddit’s database has two tables
 - https://news.ycombinator.com/item?id=4468265
 - https://news.ycombinator.com/item?id=32407873
 
+## Length and data type for common fields
+
+List of standard lengths for database fields - https://stackoverflow.com/questions/20958/list-of-standard-lengths-for-database-fields
+
+Best practices on common person fields (Name, email, address, gender etc...) - https://dba.stackexchange.com/questions/3768/best-practices-on-common-person-fields-name-email-address-gender-etc
+
+Is there a standard implementation of a Users Database? - https://dba.stackexchange.com/questions/3519/is-there-a-standard-implementation-of-a-users-database
+
+### Email
+
+`VARCHAR(254) NOT NULL UNIQUE`
+
+Max length is 254 according to the RFC, but some people recommend a lower max.
+
+- What is the optimal length for an email address in a database? - https://stackoverflow.com/questions/1199190/what-is-the-optimal-length-for-an-email-address-in-a-database
+- EmailAddress field length in database - https://stackoverflow.com/questions/1305327/emailaddress-field-length-in-database
+
+### Password hash
+
+What data type to use for hashed password field and what length? - https://stackoverflow.com/questions/247304/what-data-type-to-use-for-hashed-password-field-and-what-length
+
+For [node.bcrypt.js](https://www.npmjs.com/package/bcrypt): `CHAR(60) NOT NULL`
+
+### Name
+
+- What should be the typical length of user's Full Name in database - https://stackoverflow.com/questions/4297841/what-should-be-the-typical-length-of-users-full-name-in-database
+
 ## Normalize to make better relations, denormalize for performance
 
 https://news.ycombinator.com/item?id=32414172
