@@ -4,6 +4,10 @@ title: Elements
 
 ## `<head>` elements
 
+https://html.spec.whatwg.org/multipage/semantics.html#the-head-element
+
+> The [`title`](https://html.spec.whatwg.org/multipage/semantics.html#the-title-element) element is a required child in most situations, but when a higher-level protocol provides title information, e.g., in the subject line of an email when HTML is used as an email authoring format, the [`title`](https://html.spec.whatwg.org/multipage/semantics.html#the-title-element) element can be omitted.
+
 https://www.joshwcomeau.com/snippets/html/html-skeleton
 
 ## Page structure
@@ -12,15 +16,35 @@ https://stackoverflow.com/questions/4781077/html5-best-practices-section-header-
 
 ## nav
 
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav
+
+http://html5doctor.com/nav-element/
+
 https://html.spec.whatwg.org/multipage/sections.html#the-nav-element
 
-> Not all groups of links on a page need to be in a nav element — the element is primarily intended for sections that consist of major navigation blocks. In particular, it is common for footers to have a short list of links to various pages of a site, such as the terms of service, the home page, and a copyright page. The footer element alone is sufficient for such cases; while a nav element can be used in such cases, it is usually unnecessary.
+> Not all groups of links on a page need to be in a `nav` element — the element is primarily intended for sections that consist of major navigation blocks. In particular, it is common for footers to have a short list of links to various pages of a site, such as the terms of service, the home page, and a copyright page. The `footer` element alone is sufficient for such cases; while a `nav` element can be used in such cases, it is usually unnecessary.
+
+> A `nav` element doesn't have to contain a list, it can contain other kinds of content as well. In this navigation block, links are provided in prose
+
+Can have an `ul` inside:
+
+```html
+ <nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+</nav>
+```
 
 https://tdarb.org/blog/hamburger-menu-alternative.html
 
 ## article
 
-article can have header, nav, section and footer ([source](https://html.spec.whatwg.org/multipage/sections.html#the-nav-element)):
+https://html.spec.whatwg.org/multipage/sections.html#the-article-element
+
+An `article` can have `header`, `nav`, `section` and `footer` ([source](https://html.spec.whatwg.org/multipage/sections.html#the-nav-element)):
 
 ```html
 <article>
@@ -56,5 +80,7 @@ article can have header, nav, section and footer ([source](https://html.spec.wha
 ```
 
 ## dialog
+
+https://html.spec.whatwg.org/multipage/interactive-elements.html#the-dialog-element
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
