@@ -4,6 +4,13 @@ title: Heroku
 
 Ask HN: Are you leaving Heroku? - https://news.ycombinator.com/item?id=32580597
 
+https://blog.heroku.com/next-chapter
+
+> Starting October 26, 2022, we will begin deleting inactive accounts and associated storage for accounts that have been inactive for over a year.
+> Starting November 28, 2022, we plan to stop offering free product plans and plan to start shutting down free dynos and data services.
+
+> (From the email) Starting November 28, 2022, free Heroku Dynos, free Heroku Postgres, and free Heroku Data for Redis will no longer be available
+
 Autoscaling for Heroku: https://hirefire.io
 
 The `Procfile` contains the command to start the app.

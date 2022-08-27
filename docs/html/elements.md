@@ -84,3 +84,7 @@ An `article` can have `header`, `nav`, `section` and `footer` ([source](https://
 https://html.spec.whatwg.org/multipage/interactive-elements.html#the-dialog-element
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
+
+https://developer.chrome.com/blog/what-is-the-top-layer/
+
+> `z-index` has no effect in the top layer.

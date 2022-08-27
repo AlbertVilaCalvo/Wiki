@@ -224,9 +224,20 @@ Name capture groups: https://twitter.com/addyosmani/status/1386031624232456194
 
 In TypeScript use the type `RegExp`.
 
+### `RegExp.prototype.test()`
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test)
+
+```ts
+function isValidEmail(email: string): boolean {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // From https://stackoverflow.com/a/9204568/4034572
+  return regex.test(email)
+}
+```
+
 ### `RegExp.prototype.exec()`
 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec)
 
 ```js
 const regex = /abcd/gi
@@ -237,7 +248,7 @@ regex.exec(string)
 
 ### `String.prototype.match()`
 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match
+[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match)
 
 ```js
 const regex = /abcd/gi
@@ -258,9 +269,9 @@ https://stackoverflow.com/questions/3552461/how-do-i-format-a-date-in-javascript
 
 `toLocaleString` options: https://www.jsman.net/manual/Standard-Global-Objects/Date/toLocaleString
 
-```
-new Date(search.date).toLocaleDateString() -> 5/27/2021
-new Date(search.date).toLocaleDateString('es-ES') -> 27/5/2021
+```js
+new Date(search.date).toLocaleDateString() // 5/27/2021
+new Date(search.date).toLocaleDateString('es-ES') // 27/5/2021
 ```
 
 ### Intl.DateTimeFormat
