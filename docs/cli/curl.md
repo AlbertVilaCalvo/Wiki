@@ -8,7 +8,21 @@ https://github.com/curl/curl
 
 https://everything.curl.dev
 
+## Common options
+
 Options are case-sensitive, ie `-s` is not the same as `-S`.
+
+- Verb: `-X POST` or `--request POST`.
+- Data: `-d` or `--data`.
+  - Uses the `application/x-www-form-urlencoded` mime-type by default.
+  - This flag implies `POST` so `-X`/`--request` is then optional.
+  - Examples:
+    - application/x-www-form-urlencoded: `-d 'key1=value1&key2=value2'` or `--data 'key1=value1&key2=value2'`.
+    - JSON: `-d '{"key": "value"}'` or `--data '{"key": "value"}'`. Requires adding `-H "Content-Type: application/json"`.
+- Header: `-H "Content-Type: application/json"` or `--header "Content-Type: application/json"`.
+- Verbose: `-v`. Displays headers, status code and other info.
+- Only headers: `-I` or `--head`. Fetch the response headers only.
+- Silent mode: `-s` or `--silent`. Hides the body.
 
 ## Examples
 
@@ -56,19 +70,18 @@ curl -H "Content-Type: application/json" -d @data.json URL
 curl -H "Content-Type: application/json" -X PUT -d '{"key":"val"}' URL
 ```
 
-## Common options
+### CORS OPTIONS preflight request
 
-- Verb: `-X POST` or `--request POST`.
-- Data: `-d` or `--data`.
-  - Uses the `application/x-www-form-urlencoded` mime-type by default.
-  - This flag implies `POST` so `-X`/`--request` is then optional.
-  - Examples:
-    - application/x-www-form-urlencoded: `-d 'key1=value1&key2=value2'` or `--data 'key1=value1&key2=value2'`.
-    - JSON: `-d '{"key": "value"}'` or `--data '{"key": "value"}'`. Requires adding `-H "Content-Type: application/json"`.
-- Header: `-H "Content-Type: application/json"` or `--header "Content-Type: application/json"`.
-- Verbose: `-v`. Displays headers, status code and other info.
-- Only headers: `-I` or `--head`. Fetch the response headers only.
-- Silent mode: `-s` or `--silent`. Hides the body.
+_You can get the command of a real request from Chrome DevTools at the Network tab by doing right-click -> Copy -> Copy as cURL_
+
+```shell
+curl http://localhost:5000/api/recipes -v -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: POST" -H "Access-Control-Request-Headers: Content-Type"
+```
+
+See more possibilities at:
+
+- How can you debug a CORS request with cURL?: https://stackoverflow.com/questions/12173990/how-can-you-debug-a-cors-request-with-curl
+- How to Test CORS header: https://stackoverflow.com/questions/51426683/how-to-test-cors-header
 
 ## Converters
 

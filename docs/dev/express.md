@@ -52,7 +52,55 @@ app.listen(app.get('port'), () => {
 
 ## Libraries
 
-- helmet - https://helmetjs.github.io/ - https://github.com/helmetjs/helmet
+- helmet - Help secure Express apps with various HTTP headers - https://helmetjs.github.io/ - https://github.com/helmetjs/helmet
+
+## CORS
+
+Why doesn't adding CORS headers to an OPTIONS route allow browsers to access my API? - https://stackoverflow.com/questions/7067966/why-doesnt-adding-cors-headers-to-an-options-route-allow-browsers-to-access-my
+
+https://github.com/troygoode/node-cors-server
+
+https://enable-cors.org/server_expressjs.html
+
+### Manual
+
+```ts
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
+  next()
+})
+```
+
+### Using the `cors` package
+
+https://github.com/expressjs/cors
+
+If we don't pass any options:
+
+```js
+import cors from 'cors'
+app.use(cors())
+```
+
+It uses the [default configuration](https://github.com/expressjs/cors#configuration-options) which returns:
+
+- Access-Control-Allow-Origin: *
+- Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+- It also sets `Access-Control-Allow-Headers: content-type` if the request has `Access-Control-Request-Headers: content-type`.
+
+So with no options it accepts all origins! However we can specify the allowed origins:
+
+```js
+app.use(
+  cors({
+    origin: ['https://example.com'],
+  })
+)
+```
+
+We can also use a callback for `origin` - see https://github.com/expressjs/cors#configuring-cors-asynchronously
 
 ## TypeScript setup
 
