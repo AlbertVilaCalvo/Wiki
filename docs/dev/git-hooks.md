@@ -22,7 +22,61 @@ cp git-hooks/pre-commit .git/hooks
 
 Every time we update the pre-commit hook we need to run `cp git-hooks/pre-commit .git/hooks`.
 
-Example of pre-commit hook that checks Prettier and ESLint:
+Example of pre-commit hook that runs Prettier, ESLint and tsc:
+
+```bash
+#!/bin/sh
+
+# Runs Prettier on ts/tsx/js/md/css/json files, and ESLint and tsc on ts/tsx/js files.
+# Prettier and ESLint only check the committed files, whereas tsc checks all project files, since it's not possible to
+# run tsc on specific files while obeying the tsconfig.json options (see
+# https://github.com/microsoft/TypeScript/issues/27379 and https://www.npmjs.com/package/tsc-files).
+# This hook always commits, even if errors are found. And it does not modify the files (ie it does not do `prettier
+# write`), it only checks if there is any issue and reports it.
+# Inspired by https://prettier.io/docs/en/precommit.html#option-6-shell-script
+
+get_staged_files() {
+  ALL_FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$|\.md|\.css|\.json/')
+  CODE_FILES=$(echo "$ALL_FILES" | awk '/\.ts$|\.tsx$|\.js$/')
+}
+
+print_title() {
+  printf "\n\n🔍 %s\n\n" "$1"
+}
+
+print_result() {
+  ERROR_CODE=$?
+  if [ $ERROR_CODE -eq 0 ]; then
+    printf "\n✅ %s Success\n\n" "$1"
+  else
+    printf "\n❌ %s Failure\n\n" "$1"
+  fi
+}
+
+get_staged_files
+
+printf "📁 Files\n\n%s" "$ALL_FILES"
+[ -z "$ALL_FILES" ] && exit 0
+
+print_title "Prettier"
+echo "$ALL_FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --check
+print_result "Prettier"
+
+[ -z "$CODE_FILES" ] && exit 0
+
+print_title "ESLint"
+echo "$CODE_FILES" | xargs ./node_modules/.bin/eslint
+print_result "ESLint"
+
+print_title "tsc"
+npx tsc --noEmit
+print_result "tsc"
+
+exit 0
+```
+
+<details>
+  <summary>Old version. Does not format md/css/json files.</summary>
 
 ```bash
 #!/bin/sh
@@ -64,6 +118,8 @@ print_result "tsc"
 
 exit 0
 ```
+
+</details>
 
 ## lint-staged
 
