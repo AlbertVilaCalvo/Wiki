@@ -125,6 +125,12 @@ const config = {
             position: 'left',
           },
           {
+            to: 'auth/authentication',
+            activeBasePath: 'auth',
+            label: 'Auth',
+            position: 'left',
+          },
+          {
             to: 'misc/battery',
             activeBasePath: 'misc',
             label: 'Misc',
