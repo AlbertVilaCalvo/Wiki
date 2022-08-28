@@ -44,6 +44,37 @@ Options are ([source](https://eslint.org/docs/latest/user-guide/configuring/rule
 - "warn" or 1: turn the rule on as a warning (doesn’t affect exit code)
 - "error" or 2: turn the rule on as an error (exit code is 1 when triggered)
 
+## Ignoring files and folders
+
+See all options here: https://eslint.org/docs/latest/user-guide/configuring/ignoring-code
+
+Disable eslint for all files in directory and subdirectories - https://stackoverflow.com/questions/43194302/disable-eslint-for-all-files-in-directory-and-subdirectories
+
+You can have a `.eslintignore` file like `.gitignore`:
+
+```txt title=".eslintignore"
+public/js/bootstrap.min.js
+public/js/jquery.min.js
+```
+
+You can also set `ignorePatterns` in `.eslintrc.js`:
+
+```js title=".eslintrc.js"
+module.exports = {
+  ignorePatterns: ['build/'],
+}
+```
+
+In `package.json` use `eslintIgnore`:
+
+```json title="package.json"
+{
+  "eslintIgnore": ["file.js"]
+}
+```
+
+Note that `node_modules` and dot-files and dot-folders are ignored. See https://eslint.org/docs/latest/user-guide/configuring/ignoring-code#the-eslintignore-file for more details and exceptions.
+
 ## `.eslintrc.js`
 
 https://prettier.io/docs/en/integrating-with-linters.html

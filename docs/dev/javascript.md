@@ -22,6 +22,18 @@ https://jsdoc.app
 
 https://devhints.io/jsdoc
 
+## TC39
+
+https://github.com/tc39
+
+https://tc39.es
+
+ECMAScript Language Specification: https://tc39.es/ecma262/
+
+ECMAScript Proposals: https://github.com/tc39/proposals
+
+https://twitter.com/tc39
+
 ## Print objects
 
 ```js

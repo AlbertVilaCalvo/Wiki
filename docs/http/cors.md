@@ -60,9 +60,9 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests
 
 1. The browser sends a request with the `Origin` header.
 2. The server checks the `Origin` request header responds with either:
-  - (Success) The data + the header `Access-Control-Allow-Origin: *` if requests from all domains are allowed.
-  - (Success) The data + the header `Access-Control-Allow-Origin: http://www.example.com` if requests from the origin specified at the `Origin` header are allowed. The `Access-Control-Allow-Origin` value is the same than the `Origin` header of the request.
-  - An error if cross-origin requests from the specified `Origin` are not allowed.
+   - (Success) The data + the header `Access-Control-Allow-Origin: *` if requests from all domains are allowed.
+   - (Success) The data + the header `Access-Control-Allow-Origin: http://www.example.com` if requests from the origin specified at the `Origin` header are allowed. The `Access-Control-Allow-Origin` value is the same than the `Origin` header of the request.
+   - An error if cross-origin requests from the specified `Origin` are not allowed.
 
 ```
 > Client Request >

@@ -18,6 +18,8 @@ Know which version of a package you are using:
 
 `yarn list @react-native-community/cli`
 
+Upgrade a package (or multiple packages) to latest: `yarn upgrade --latest typescript [anotherpackage]`
+
 Upgrade all packages to latest: `yarn upgrade --latest`
 
 Install to devDependencies: `yarn add --dev webpack` or `yarn add -D webpack`

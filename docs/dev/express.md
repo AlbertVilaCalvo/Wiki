@@ -86,8 +86,8 @@ app.use(cors())
 
 It uses the [default configuration](https://github.com/expressjs/cors#configuration-options) which returns:
 
-- Access-Control-Allow-Origin: *
-- Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE
+- `Access-Control-Allow-Origin: *`
+- `Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE`
 - It also sets `Access-Control-Allow-Headers: content-type` if the request has `Access-Control-Request-Headers: content-type`.
 
 So with no options it accepts all origins! However we can specify the allowed origins:

@@ -29,12 +29,12 @@ https://html.spec.whatwg.org/multipage/sections.html#the-nav-element
 Can have an `ul` inside:
 
 ```html
- <nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/about">About</a></li>
-    </ul>
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
 </nav>
 ```
 
