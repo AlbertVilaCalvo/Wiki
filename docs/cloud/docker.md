@@ -12,7 +12,6 @@ https://github.com/wsargent/docker-cheat-sheet
 
 Just say no to :latest: https://news.ycombinator.com/item?id=30576443
 
-
 ## What is a container?
 
 Container = App Code + Runtime + Libraries/Dependencies + Configuration Files

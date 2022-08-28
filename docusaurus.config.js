@@ -87,9 +87,9 @@ const config = {
             position: 'left',
           },
           {
-            to: 'devops/cloud',
-            activeBasePath: 'devops',
-            label: 'DevOps',
+            to: 'cloud',
+            activeBasePath: 'cloud',
+            label: 'Cloud',
             position: 'left',
           },
           {
