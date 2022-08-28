@@ -54,6 +54,7 @@ const sidebars = {
     'app/mobx',
   ],
   devops: [
+    'devops/cloud',
     'devops/docker',
     'devops/kubernetes',
     {

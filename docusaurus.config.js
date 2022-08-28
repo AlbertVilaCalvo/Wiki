@@ -87,7 +87,7 @@ const config = {
             position: 'left',
           },
           {
-            to: 'devops/docker',
+            to: 'devops/cloud',
             activeBasePath: 'devops',
             label: 'DevOps',
             position: 'left',
