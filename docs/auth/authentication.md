@@ -4,7 +4,50 @@ title: Authentication
 
 https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
 
-https://www.keycloak.org/
+https://www.keycloak.org
+
+https://github.com/teesloane/Auth-Boss
+
+## API Routes
+
+| Action           | Verb   | Route            | HTML | Success Code                                               | Failure Code                                                                                      |            Request Body             | Response Body |
+| ---------------- | ------ | ---------------- | :--: | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | :---------------------------------: | ------------- |
+| Register form    | GET    | `/auth/register` |  ✓   | 200 OK                                                     | 404 Not Found                                                                                     |                  ✖                  | HTML          |
+| Register         | POST   | `/auth/register` |      | 201 Created                                                | 400 Bad Request if missing fields, 409 Conflict if email/username already exist                   | Email, password, name, username etc | Tokens, User  |
+| Login form       | GET    | `/auth/login`    |  ✓   | 200 OK                                                     | 404 Not Found                                                                                     |                  ✖                  | HTML          |
+| Login            | POST   | `/auth/login`    |      | 200 OK                                                     | 400 Bad Request if missing fields, 200 + error if wrong password or email/username not registered |     Email/username and password     | Tokens, User  |
+
+> Signing the user out is a POST submission to prevent malicious links from triggering signing a user out without their consent. [source](https://next-auth.js.org/getting-started/rest-api#post-apiauthsignout)
+
+See CSRF: https://next-auth.js.org/getting-started/rest-api
+
+### Register with an email or username that already exists
+
+409 Conflict
+
+- Which HTTP response code for "This email is already registered"? -https://stackoverflow.com/questions/9269040/which-http-response-code-for-this-email-is-already-registered
+- 422 or 409 status code for existing email during signup - https://stackoverflow.com/questions/50946698/422-or-409-status-code-for-existing-email-during-signup
+- HTTP Status Code for username already exists when registering new account - https://stackoverflow.com/questions/26587082/http-status-code-for-username-already-exists-when-registering-new-account
+
+### Login with wrong credentials
+
+401 Unauthorized doesn't make sense as a response to login request, since it is for a request that lacks or doesn't have correct authentication credentials, and the response "MUST send a WWW-Authenticate header field (Section 4.1) containing at least one challenge applicable to the target resource." ([source](https://www.rfc-editor.org/rfc/rfc7235#section-3.1)).
+
+Return 200 with an error message.
+
+- What's the appropriate HTTP status code to return if a user tries logging in with an incorrect username / password, but correct format? https://stackoverflow.com/questions/32752578/whats-the-appropriate-http-status-code-to-return-if-a-user-tries-logging-in-wit
+- Which HTTP status code to say username or password were incorrect? - https://stackoverflow.com/questions/26093875/which-http-status-code-to-say-username-or-password-were-incorrect
+- Correct HTTP status code for login form? - https://stackoverflow.com/questions/6110672/correct-http-status-code-for-login-form
+- What status code should a REST API return for login requests performed with wrong credentials? - https://stackoverflow.com/questions/45357111/what-status-code-should-a-rest-api-return-for-login-requests-performed-with-wron
+
+Django returns 200:
+
+- Django login with wrong credentials returns 200 not 401 - https://stackoverflow.com/questions/25839434/django-login-with-wrong-credentials-returns-200-not-401
+- Django Rest Framework - Why is a 200 status code returned when trying to login a user using incorrect credentials? - https://stackoverflow.com/questions/32728935/django-rest-framework-why-is-a-200-status-code-returned-when-trying-to-login-a
+
+Wordpress returns 200:
+
+- Return HTTP status code 401 upon failed login - https://core.trac.wordpress.org/ticket/25446
 
 ## Single Page Apps
 
