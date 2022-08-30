@@ -74,6 +74,24 @@ https://stackoverflow.com/questions/37579969/how-to-use-multiple-tsconfig-files-
 }
 ```
 
+### "strict": true
+
+Setting [`strict`](https://www.typescriptlang.org/tsconfig#strict) to `true` in `tsconfig.json` (or using the `tsc` `--strict` flag) enables all this compiler options:
+
+1. [`alwaysStrict`](https://www.typescriptlang.org/tsconfig#alwaysStrict)
+2. [`noImplicitAny`](https://www.typescriptlang.org/tsconfig#noImplicitAny)
+3. [`noImplicitThis`](https://www.typescriptlang.org/tsconfig#noImplicitThis)
+4. [`strictBindCallApply`](https://www.typescriptlang.org/tsconfig#strictBindCallApply)
+5. [`strictFunctionTypes`](https://www.typescriptlang.org/tsconfig#strictFunctionTypes)
+6. [`strictNullChecks`](https://www.typescriptlang.org/tsconfig#strictNullChecks)
+7. [`strictPropertyInitialization`](https://www.typescriptlang.org/tsconfig#strictPropertyInitialization)
+8. [`useUnknownInCatchVariables`](https://www.typescriptlang.org/tsconfig#useUnknownInCatchVariables)
+
+To know which checks are enabled by 'strict' search for 'true if strict' here:
+
+- https://www.typescriptlang.org/tsconfig
+- https://www.typescriptlang.org/docs/handbook/compiler-options.html
+
 ## @ts-expect-error
 
 From https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-ts-expect-error-comments
