@@ -110,6 +110,10 @@ Highlight usages of a symbol within a file: Cmd+Shift+F7
 
 UML diagram, shows inheritance chain (needs to be run with the cursor on a class name)): Shift+Cmd+Alt+U
 
+## Live templates
+
+To export them do: File -> Manage IDE Settings -> Export Settings... At the Export Settings dialog, select 'Live templates (schemes)'. This creates a zip file that contains the settings in xml format (JavaScript.xml, React Native.xml...).
+
 ## React
 
 https://www.jetbrains.com/help/webstorm/react.html

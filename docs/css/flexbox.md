@@ -15,3 +15,7 @@ https://css-tricks.com/snippets/css/a-guide-to-flexbox
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout
 
 https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
+
+## flex-basis
+
+https://every-layout.dev/blog/sidebar-flex-basis-clamp/

@@ -99,13 +99,13 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
 All safe methods are also idempotent, but not all idempotent methods are safe. For example, PUT and DELETE are both idempotent but unsafe.
 
-| Verb   | Description                                                            | Idempotent                                                                            | Safe |
-| ------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---- |
-| GET    | Read                                                                   | Yes                                                                                   | Yes  |
-| POST   | Create                                                                 | No (we create new records every time unless there's some duplicated field validation) | No   |
-| PUT    | Replace existing record entirely (requires sending all fields)         | Yes (we can perform it multiple times, only the first PUT will take effect)           | No   |
-| PATCH  | Partially update existing record (does not require sending all fields) | No (surprising, see why in https://stackoverflow.com/a/39338329/4034572)              | No   |
-| DELETE | Delete                                                                 | Yes (we can delete the same record multiple times)                                    | No   |
+| Verb   | Description                                                                        | Idempotent                                                                            | Safe |
+| ------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---- |
+| GET    | Read                                                                               | Yes                                                                                   | Yes  |
+| POST   | Create                                                                             | No (we create new records every time unless there's some duplicated field validation) | No   |
+| PUT    | Upsert. Replace existing record entirely or create it. Requires sending all fields | Yes (we can perform it multiple times, only the first PUT will take effect)           | No   |
+| PATCH  | Partially update existing record. Does not require sending all fields              | No (surprising, see why in https://stackoverflow.com/a/39338329/4034572)              | No   |
+| DELETE | Delete                                                                             | Yes (we can delete the same record multiple times)                                    | No   |
 
 ## Fake API
 

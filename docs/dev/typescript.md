@@ -199,7 +199,28 @@ type GetProductResult = Result<Product, 'network-error' | 'product-not-found'>
 
 https://www.typescriptlang.org/docs/handbook/utility-types.html
 
+Make fields optional: `Partial<User>`. Example: `Partial<{ email: string; password: string }>` is `{email?: string, password?: string}`
+
 Return type of an async function: https://stackoverflow.com/questions/48011353/how-to-unwrap-type-of-a-promise
+
+## typescript-eslint ban-types
+
+https://typescript-eslint.io/rules/ban-types/
+
+https://github.com/microsoft/TypeScript/issues/21732#issuecomment-886221640
+
+I prefer `{}` over `Record<string, never>` for an empty object because it triggers an error sooner.
+
+```ts
+const a: {} = {}
+a.x // Error TS2339: Property 'x' does not exist on type '{}'.
+
+const b: Record<string, never> = {}
+b.x // It's just 'never' but no error is shown yet :/
+b.x.y // Error TS2339: Property 'bye' does not exist on type 'never'.
+```
+
+To use `{}` suppress the rule with `// eslint-disable-next-line @typescript-eslint/ban-types`.
 
 ## With React
 

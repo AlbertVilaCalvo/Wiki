@@ -54,6 +54,10 @@ app.listen(app.get('port'), () => {
 
 - helmet - Help secure Express apps with various HTTP headers - https://helmetjs.github.io/ - https://github.com/helmetjs/helmet
 
+## Typing the params, request and response with TypeScript
+
+https://www.jonmellman.com/posts/typescript-for-api-contracts - https://github.com/jonmellman/blog-examples/tree/master/typescript-for-api-contracts
+
 ## CORS
 
 Why doesn't adding CORS headers to an OPTIONS route allow browsers to access my API? - https://stackoverflow.com/questions/7067966/why-doesnt-adding-cors-headers-to-an-options-route-allow-browsers-to-access-my
@@ -144,6 +148,22 @@ Add scripts to `package.json`:
 
 - Midudev: https://www.youtube.com/watch?v=ZpY5KdGQvwI - https://github.com/midudev/express-typescript
 - Codely: https://www.youtube.com/watch?v=_1hGZygILd0 - https://github.com/CodelyTV/typescript-api-skeleton
+
+## Extending the `Request` type to add fields to it
+
+Extend Express Request object using Typescript - https://stackoverflow.com/questions/37377731/extend-express-request-object-using-typescript/40762463
+
+Add the following to any `.ts` file:
+
+```ts
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: User
+  }
+}
+```
+
+Alternatively, we can also create a file `types/express/index.d.ts` with the same content, and then set `"typeRoots": ["./types"]` at `tsconfig.json`.
 
 ## Passport
 
