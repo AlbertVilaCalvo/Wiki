@@ -8,6 +8,8 @@ RFC 7519 - https://datatracker.ietf.org/doc/html/rfc7519
 
 https://en.wikipedia.org/wiki/JSON_Web_Token
 
+> This is a stateless authentication mechanism as the user state is never saved in server memory. The server's protected routes will check for a valid JWT in the Authorization header, and if it is present, the user will be allowed to access protected resources. As JWTs are self-contained, all the necessary information is there, reducing the need to query the database multiple times.
+
 https://jwt.io
 
 https://token.dev
@@ -104,6 +106,22 @@ signature = hash_algorithm(secret, base64urlEncoding(header) + '.' + base64urlEn
 ```
 token = base64urlEncoding(header) + '.' + base64urlEncoding(payload) + '.' + base64urlEncoding(signature)
 ```
+
+## `alg=none`
+
+How Many Days Has It Been Since a JWT alg=none Vulnerability? https://www.howmanydayssinceajwtalgnonevuln.com/
+
+From https://en.wikipedia.org/wiki/JSON_Web_Token#Vulnerabilities:
+
+> Security consultant Tim McLean reported vulnerabilities in some JWT libraries that used the `alg` field to incorrectly validate tokens, most commonly by accepting a `alg=none` token. While these vulnerabilities were patched, McLean suggested deprecating the `alg` field altogether to prevent similar implementation confusion.[10] Still, new `alg=none` vulnerabilities are still being found in the wild, with four CVEs filed in the 2018-2021 period having this cause.
+>
+> With proper design, developers can address algorithm vulnerabilities by taking precautions:
+>
+> 1. Never let the JWT header alone drive verification
+> 2. Know the algorithms (avoid depending on the alg field alone)
+> 3. Use an appropriate key size
+
+How I Found An alg=none JWT Vulnerability in the NHS Contact Tracing App - https://www.zofrex.com/blog/2020/10/20/alg-none-jwt-nhs-contact-tracing-app/
 
 ## Store JWT
 
