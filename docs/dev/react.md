@@ -174,6 +174,18 @@ function Button({ Icon }: { Icon: React.ComponentType<any> }) {
 }
 ```
 
+## State management libraries
+
+Technical matrix of some React global state libraries - https://twitter.com/dai_shi/status/1342464894155640833
+
+The new wave of React state management - https://news.ycombinator.com/item?id=31959289 - https://frontendmastery.com/posts/the-new-wave-of-react-state-management/
+
+With Proxy:
+
+- https://github.com/mobxjs/mobx
+- https://github.com/pmndrs/valtio
+  - When I Use Valtio and When I Use Jotai - https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/
+
 ## UI design libraries
 
 See comparison: https://chakra-ui.com/getting-started/comparison

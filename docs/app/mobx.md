@@ -97,3 +97,7 @@ Show HN: MobX-Style Observables in Svelte - https://news.ycombinator.com/item?id
 MobX 6 - https://news.ycombinator.com/item?id=24648363
 
 imho, 5 with legacy decorators is still the best DX - https://twitter.com/mweststrate/status/1507379484403679237
+
+https://news.ycombinator.com/item?id=31960121
+
+> I’d say the two biggest hazards with the reactive/declarative style are **cyclic dependencies** in the data model and remembering history.

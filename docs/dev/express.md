@@ -173,6 +173,8 @@ https://github.com/cypress-io/cypress-realworld-app/blob/develop/backend/auth.ts
 
 https://github.com/auth0/node-jsonwebtoken/
 
+Note that there's no performance difference between the sync and async versions of `jwt.sign` and `jwt.verify` according to https://github.com/auth0/node-jsonwebtoken/issues/566.
+
 https://github.com/auth0/express-jwt
 
 https://github.com/azat-co/practicalnode/blob/master/chapter6/chapter6.md

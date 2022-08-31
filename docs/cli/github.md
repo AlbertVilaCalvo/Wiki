@@ -6,6 +6,8 @@ Trending repositories this week: https://github.com/trending?since=weekly&spoken
 
 Locking down your GitHub-hosted Domains - https://news.ycombinator.com/item?id=32435134
 
+Desktop app: https://desktop.github.com - https://github.com/desktop/desktop
+
 ## Shortcuts
 
 https://docs.github.com/en/get-started/using-github/keyboard-shortcuts
