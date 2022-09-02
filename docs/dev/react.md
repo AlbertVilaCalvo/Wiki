@@ -133,6 +133,8 @@ https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html
 
 https://stackoverflow.com/questions/33199959/how-to-detect-a-react-component-vs-a-react-element
 
+See examples at 'React component as prop: the right way' - https://www.developerway.com/posts/react-component-as-prop-the-right-way
+
 ### `React.isValidElement()`
 
 Used in FlatList `ListHeaderComponent` - see [source code](https://github.com/facebook/react-native/blob/8eeb01686f70a87ae4c38540283e9f9374f5bb0e/Libraries/Lists/VirtualizedList.js#L904).
@@ -159,12 +161,28 @@ const element = React.isValidElement(ListHeaderComponent) ? (
 <View>{element}</View>
 ```
 
-### Examples
+### A component prop must be capitalized
+
+Important: to pass a component as a prop, the prop name must start with a capital letter:
+
+```ts
+// Definition
+type Props = {
+  ComponentProp: React.ComponentType<any>
+}
+function MyComponent({ ComponentProp }: Props) {
+  return <ComponentProp />
+}
+
+// Usage
+<MyComponent ComponentProp={AnotherComponent}>
+```
+
+### Component prop example
 
 <!-- prettier-ignore -->
 ```tsx
-<Button Icon={IconAddUser} />
-
+// Definition
 function Button({ Icon }: { Icon: React.ComponentType<any> }) {
   return (
     <Pressable>
@@ -172,6 +190,9 @@ function Button({ Icon }: { Icon: React.ComponentType<any> }) {
     </Pressable>
   )
 }
+
+// Usage
+<Button Icon={IconAddUser} />
 ```
 
 ## State management libraries
