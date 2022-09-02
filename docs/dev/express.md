@@ -106,6 +106,81 @@ app.use(
 
 We can also use a callback for `origin` - see https://github.com/expressjs/cors#configuring-cors-asynchronously
 
+## Error handling
+
+https://expressjs.com/en/guide/error-handling.html
+
+https://github.com/expressjs/express/blob/master/examples/error/index.js
+
+https://scoutapm.com/blog/express-error-handling
+
+https://strongloop.com/strongblog/async-error-handling-expressjs-es7-promises-generators/
+
+### Custom error handling middleware
+
+https://expressjs.com/en/guide/using-middleware.html#middleware.error-handling
+
+:::danger The 4 arguments must be provided
+
+"Error-handling middleware always takes four arguments. You must provide four arguments to identify it as an error-handling middleware function. Even if you don’t need to use the next object, you must specify it to maintain the signature. Otherwise, the next object will be interpreted as regular middleware and will fail to handle errors." [source](https://expressjs.com/en/guide/using-middleware.html#middleware.error-handling)
+
+:::
+
+```ts
+import { ErrorRequestHandler } from 'express'
+
+/**
+ * Important: this error handler does not get invoked if the error is thrown in
+ * an `async` function or callback unless you wrap the code with a try-catch
+ * and call next(error).
+ */
+// Important: 'next' argument must be provided, even if unused! See why at
+// https://expressjs.com/en/guide/using-middleware.html#middleware.error-handling
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.error('Error handler', err)
+  res.sendStatus(500)
+}
+
+router.use(errorHandler)
+```
+
+:::caution
+
+In Express 4 error handlers are only called from handlers that are synchronous (ie not `async` functions nor callbacks).
+In Express 5 is OK.
+
+:::
+
+```ts
+// Synchronous -> the error handler works :)
+// The server does not crash. There's a response sent to the client (500 Internal Server Error).
+router.get('/sync', (req, res) => {
+  const a = {}
+  // @ts-ignore
+  a.thiswill.createacrash // TypeError: Cannot read properties of undefined (reading 'createacrash')
+})
+
+// Asynchronous -> the error handler does NOT work :/
+// The server crashes and it stops. There's no response sent to the client.
+router.get('/async', async (req, res) => {
+  const a = {}
+  // @ts-ignore
+  a.thiswill.createacrash
+})
+router.get('/callback', (req, res) => {
+  setTimeout(() => {
+    const a = {}
+    // @ts-ignore
+    a.thiswill.createacrash
+  }, 100)
+})
+```
+
+In asynchronous handlers we must catch the errors in a try-catch and then call `next(error)` if we want our error handling middleware to be called.
+
+Alternatively we can use https://www.npmjs.com/package/express-async-handler.
+
 ## TypeScript setup
 
 ```bash
