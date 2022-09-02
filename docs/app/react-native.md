@@ -111,6 +111,13 @@ Links:
 
 Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. See https://github.com/facebook/react-native/issues/26610#issuecomment-539843444
 
+## New Architecture
+
+Samples:
+
+- Apps: https://github.com/react-native-community/RNNewArchitectureApp
+- Libraries: https://github.com/react-native-community/RNNewArchitectureLibraries
+
 ## CI/CD
 
 https://www.obytes.com/blog/react-native-github-action

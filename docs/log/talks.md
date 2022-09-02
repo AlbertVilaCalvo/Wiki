@@ -6,6 +6,8 @@ Just a list of some talks/podcasts I've watched/listened, in reverse chronologic
 
 ## 2022
 
+[Bringing the New React Native Architecture to the OSS community - Fall Edition](https://www.react-native.eu/talks/nicola-corti-bringing-the-new-react-native-architecture-to-the-oss-community-fall-edition)
+
 [Ryan Dahl: Original Node.js presentation](https://www.youtube.com/watch?v=ztspvPYybIY)
 
 [How Does React Actually Work? React.js Deep Dive #1](https://www.youtube.com/watch?v=7YhdqIR2Yzo)

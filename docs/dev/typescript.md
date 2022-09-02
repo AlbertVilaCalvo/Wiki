@@ -237,6 +237,9 @@ import * as React from 'react'
  * Note that the `children` prop is required.
  */
 export type WithChildren<T> = T & { children: React.ReactNode }
+
+// If you get the error "TS2322: Type 'ReactNode' is not assignable to type 'Element'." then do:
+export type WithChildren<T> = T & { children: JSX.Element }
 ```
 
 [source](https://fettblog.eu/typescript-react-component-patterns/)
