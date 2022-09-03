@@ -16,8 +16,25 @@ https://docusaurus.io/docs/advanced/routing
 
 ## Upgrade
 
+This is the message shown at the terminal when you do `yarn start`:
+
 ```bash
-yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic
+yarn run v1.22.19
+$ BROWSER=none docusaurus start
+   ╭───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+   │                                                                                                                       │
+   │                                            Update available 2.0.1 → 2.1.0                                             │
+   │                                                                                                                       │
+   │                   To upgrade Docusaurus packages with the latest version, run the following command:                  │
+   │     `yarn upgrade @docusaurus/core@latest @docusaurus/preset-classic@latest @docusaurus/module-type-aliases@latest`   │
+   │                                                                                                                       │
+   ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+You can also do:
+
+```bash
+yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic @docusaurus/module-type-aliases
 ```
 
 Also take a look at the other packages versions:
@@ -75,3 +92,6 @@ https://docusaurus.io/docs/markdown-features/code-blocks#supported-languages
 - [beta 22](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.22) - [twitter](https://twitter.com/docusaurus/status/1545438949610512384)
 - [2.0.0-rc.1](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-rc.1) - [twitter](https://twitter.com/docusaurus/status/1547616687117070338)
 - [2.0.0](https://github.com/facebook/docusaurus/releases/tag/v2.0.0) - [Announcement](https://docusaurus.io/blog/2022/08/01/announcing-docusaurus-2.0) - [twitter](https://twitter.com/docusaurus/status/1554000364432769025) - [HN](https://news.ycombinator.com/item?id=32303052)
+- [2.1.0](https://github.com/facebook/docusaurus/releases/tag/v2.1.0) - [Announcement](https://docusaurus.io/blog/2022/09/01/docusaurus-2.1) - [twitter](https://twitter.com/docusaurus/status/1565691803688370176)
+  - Allows to override hardcoded `<meta>`
+  - Simple use `<DocCardList/>`, which can now be used in any document. `DocCardList` "will display all the sidebar items of the parent category of the current document" [source](https://docusaurus.io/docs/sidebar/items#embedding-generated-index-in-doc-page)
