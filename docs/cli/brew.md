@@ -29,6 +29,8 @@ List installed: `brew list`
 
 Doctor: `brew doctor` <-- check from time to time!
 
+List top-level formulas (ie formulas that no other formulas depend on): `brew leaves`. At `man brew` says it "List installed formulae that are not dependencies of another installed formula."
+
 ## Cask
 
 List of commands: https://github.com/Homebrew/homebrew-cask/blob/master/USAGE.md

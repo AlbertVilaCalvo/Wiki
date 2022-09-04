@@ -10,6 +10,10 @@ React re-renders guide: everything, all at once - https://www.developerway.com/p
 
 Avoid declaring components inside of components - https://isamatov.com/react-antipatterns/#declaring-components-inside-of-components
 
+A Visual Guide to React Rendering - It Always Re-renders - https://alexsidorenko.com/blog/react-render-always-rerenders/
+
+When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecallback
+
 ## Lifecycle
 
 https://twitter.com/dan_abramov/status/981712092611989509
