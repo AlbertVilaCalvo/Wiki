@@ -223,6 +223,8 @@ Note that you can have 3 dots (`...`). And if you've already switched to `featur
 
 ## Squash all commits on a branch
 
+Can be used to split a big pull request into various PR by creating several commits.
+
 ```
 git checkout your-branch
 git reset $(git merge-base master-or-develop your-branch-name)
@@ -286,7 +288,7 @@ Eg to rename master to main:
 
 `git config --global init.defaultBranch <name>`
 
-## Rename local _and_ remote branch
+## Rename local and remote branch
 
 ```bash
 # Rename:
@@ -304,3 +306,73 @@ git push origin :old-name new-name
 https://news.ycombinator.com/item?id=27643608
 
 https://akrabat.com/ignoring-revisions-with-git-blame/
+
+## Config
+
+`git config` REFERENCE - https://git-scm.com/docs/git-config
+
+Customizing Git - Git Configuration - https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration
+
+Git Commands - Setup and Config - https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Setup-and-Config
+
+There are 3 type of settings:
+
+|                                     | Location         | `git config` option |
+| ----------------------------------- | ---------------- | ------------------- |
+| System-wide (applies to every user) | `/etc/gitconfig` | `--system`          |
+| User-specific                       | `~/.gitconfig`   | `--global`          |
+| Repo-specific                       | `.git/config`    | `--local`           |
+
+Show global config:
+
+```bash
+git config --list
+git config -l
+less ~/.gitconfig
+bat ~/.gitconfig
+```
+
+```bash title="~/.gitconfig"
+[core]
+        editor = emacs -nw
+[user]
+        name = Albert Vila Calvo
+        email = my@email.com
+[init]
+        defaultBranch = main
+```
+
+### First time setup
+
+Getting Started - First-Time Git Setup - https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
+
+```bash
+git config --global user.name "Albert Vila Calvo"
+git config --global user.email my@email.com
+git config --global core.editor "emacs -nw"
+git config --global init.defaultBranch main
+```
+
+### Change email on a specific repo only
+
+Useful if you are using your personal computer for work or vice versa.
+
+```bash
+git config --local user.email my@email.com
+```
+
+## Change colors
+
+All the things that can be customized are listed at https://git-scm.com/docs/git-config. Search for eg "color.diff".
+
+Accepted color values: https://git-scm.com/docs/git-config#Documentation/git-config.txt-color
+
+You can give it numbers, from 0 to 255, using the ANSI 256-color mode.
+Tip: test the color with `echo $(git config --get-color "" "120 bold reverse") color test $(git config --get-color "" reset)` ([source](https://stackoverflow.com/questions/21539607/git-color-ui-support-for-256-colors#comment34541387_22674150)).
+
+"diff" settings - https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffltslotgt
+
+```bash
+[color "diff"]
+    meta = blue
+```
