@@ -2,6 +2,8 @@
 title: Git
 ---
 
+Source code mirror: https://github.com/git/git
+
 ## Undo last commit
 
 If not pushed yet
@@ -370,9 +372,25 @@ Accepted color values: https://git-scm.com/docs/git-config#Documentation/git-con
 You can give it numbers, from 0 to 255, using the ANSI 256-color mode.
 Tip: test the color with `echo $(git config --get-color "" "120 bold reverse") color test $(git config --get-color "" reset)` ([source](https://stackoverflow.com/questions/21539607/git-color-ui-support-for-256-colors#comment34541387_22674150)).
 
-"diff" settings - https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffltslotgt
+Default color values: https://shallowsky.com/blog/programming/gitcolors.html
+
+### diff
+
+Available slots:
+
+- https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffltslotgt
+- https://github.com/git/git/blob/79f2338b3746d23454308648b2491e5beba4beff/diff.c#L88-L109
 
 ```bash
 [color "diff"]
     meta = blue
 ```
+
+## Diff customization
+
+- https://github.com/so-fancy/diff-so-fancy
+- https://github.com/dandavison/delta
+- https://github.com/Wilfred/difftastic
+  - `GIT_EXTERNAL_DIFF=difft git diff`
+  - `GIT_EXTERNAL_DIFF=difft git log -p --ext-diff`
+  - `GIT_EXTERNAL_DIFF=difft git show --ext-diff`
