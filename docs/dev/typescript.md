@@ -148,6 +148,100 @@ class User {
 }
 ```
 
+## Classes
+
+### Arrow function property vs method
+
+From https://www.typescriptlang.org/docs/handbook/2/classes.html#arrow-functions
+
+```ts
+class MyClass {
+  name = 'MyClass'
+  getName = () => {
+    return this.name
+  }
+}
+```
+
+> This will use more memory, because each class instance will have its own copy of each function defined this way
+
+Also see https://stackoverflow.com/questions/51464318/arrow-function-vs-class-methods-memory-footprint
+
+### Exclude methods from classes
+
+https://stackoverflow.com/questions/55479658/how-to-create-a-type-excluding-instance-methods-from-a-class-in-typescript
+
+https://stackoverflow.com/questions/59272031/how-to-define-typescript-partial-type-to-accept-only-properties
+
+```ts
+class Folder {
+  name: string
+  isPublic: boolean
+
+  constructor(name: string, isPublic: boolean) {
+    this.name = name
+    this.isPublic = isPublic
+  }
+
+  // There are 3 ways to add an instance "method"
+
+  // Method - folder.isPrivate()
+  isPrivate(): boolean {
+    return !this.isPublic
+  }
+
+  // Field - folder.isPrivate()
+  isPrivate = () => {
+    return !this.isPublic
+  }
+  // We can specify the type:
+  isPrivate: () => boolean = () => {
+    return !this.isPublic
+  }
+
+  // Getter - folder.isPrivate
+  get isPrivate(): boolean {
+    return !this.isPublic
+  }
+}
+
+// All 3 options trigger this error:
+// TS2741: Property 'isPrivate' is missing in type '{ name: string; isPublic: false; }' but
+//   required in type 'Folder'.
+const folder: Folder = {
+  name: 'Documents',
+  isPublic: false,
+}
+
+// We can exclude the methods with:
+type ExcludeFunctionProperties<T> = Omit<
+  T,
+  { [K in keyof T]-?: T[K] extends Function ? K : never }[keyof T]
+>
+
+// The resulting type is {name: string, isPublic: boolean} if `isPrivate` is defined
+// with a method or field, but will be {name: string, isPublic: boolean, isPrivate: boolean}
+// if defined with the getter (so don't use getters!).
+type FolderNoFunc = ExcludeFunctionProperties<Folder>
+
+// No error "Property 'isPrivate' is missing..." here :)
+const folderNoFunc: FolderNoFunc = {
+  name: 'Documents',
+  isPublic: false,
+}
+
+// TS2339: Property 'isPrivate' does not exist on type 'FolderNoFunc'.
+folderNoFunc.isPrivate()
+
+// We can use a Folder where it expects a FolderNoFunc, since a Folder has more properties:
+function printFolderNoFunc(folderNoFunc: FolderNoFunc) {}
+printFolderNoFunc(folder) // OK :)
+// But we can't use FolderNoFunc where it expects Folder, we get the error:
+// TS2345: Argument of type 'FolderNoFunc' is not assignable to parameter of type 'Folder'.
+//   Property 'isPrivate' is missing in type 'FolderNoFunc' but required in type 'Folder'.
+function printFolder(folder: Folder) {}
+printFolder(folderNoFunc) // Error :(
+```
 
 ## Type guards / type narrowing
 
