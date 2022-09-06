@@ -62,6 +62,9 @@ export const isIOS: boolean = Platform.OS === 'ios'
 
 - Logs: https://github.com/onubo/react-native-logs
 - Network requests logger: https://github.com/alexbrazier/react-native-network-logger
+- Performance
+  - https://github.com/oblador/react-native-performance
+  - Flipper plugin to show a graph of the React Native performance monitor: https://github.com/bamlab/react-native-flipper-performance-monitor - See it in action at https://www.youtube.com/watch?v=uLicTDG5hSs at 3:50
 
 ## Full width
 

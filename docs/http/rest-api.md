@@ -79,7 +79,7 @@ https://stackoverflow.com/questions/6581285/is-a-response-body-allowed-for-a-htt
 
 https://stackoverflow.com/questions/25970523/restful-what-should-a-delete-response-body-contain
 
-### Examples
+### CRUD Examples
 
 - https://hexdocs.pm/phoenix/routing.html#resources
 - https://guides.rubyonrails.org/routing.html#crud-verbs-and-actions
@@ -123,3 +123,8 @@ https://cloud.google.com/blog/products/application-development/rest-vs-rpc-what-
 - https://cloud.google.com/apis/design/
 - https://opensource.zalando.com/restful-api-guidelines/
 - https://github.com/shieldfy/API-Security-Checklist
+
+## Examples
+
+- Jira - https://docs.atlassian.com/software/jira/docs/api/REST/9.2.0/
+- Stripe - https://stripe.com/docs/api
