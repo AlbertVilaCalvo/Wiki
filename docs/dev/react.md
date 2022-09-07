@@ -186,8 +186,19 @@ function MyComponent({ ComponentProp }: Props) {
 
 <!-- prettier-ignore -->
 ```tsx
-// Definition
-function Button({ Icon }: { Icon: React.ComponentType<any> }) {
+// The component that we pass as prop.
+type IconProps = {
+  color: string
+}
+function SettingsIcon(props: IconProps) {
+  // ...
+}
+
+// The component that takes another component as a prop.
+// Notice that we set IconProps as the generic type of React.ComponentType!
+// By doing this there will be errors if we pass the wrong component :)
+// If we instead do React.ComponentType<any> there won't :(
+function Button({ Icon }: { Icon: React.ComponentType<IconProps> /* <- important! */ }) {
   return (
     <Pressable>
       <Icon />
@@ -196,7 +207,7 @@ function Button({ Icon }: { Icon: React.ComponentType<any> }) {
 }
 
 // Usage
-<Button Icon={IconAddUser} />
+<Button Icon={SettingsIcon} />
 ```
 
 ## State management libraries
