@@ -220,3 +220,37 @@ Chakra UI: https://chakra-ui.com/ - https://github.com/chakra-ui/chakra-ui. Uses
 Ant Design: https://ant.design/ - https://github.com/ant-design/ant-design/. Uses Less - see https://ant.design/docs/react/use-with-create-react-app#Customize-Theme.
 
 Material UI and Joy UI: https://mui.com/ - https://github.com/mui/material-ui.
+
+## TypeScript
+
+[React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup)
+
+See examples at https://fettblog.eu/typescript-react-component-patterns
+
+### Children
+
+```ts title=Children.tsx
+import * as React from 'react'
+
+/**
+ * Instead of doing eg `MyText(props: TextProps & {children: React.ReactNode})`
+ * you can do `MyText(props: RequiredChildren<TextProps>)`.
+ */
+export type RequiredChildren<Props> = Props & { children: React.ReactNode }
+
+/**
+ * Instead of doing eg `MyText(props: TextProps & {children?: React.ReactNode})`
+ * you can do `MyText(props: OptionalChildren<TextProps>)`.
+ */
+export type OptionalChildren<Props> = Props & { children?: React.ReactNode }
+```
+
+If you get the error _TS2322: Type 'ReactNode' is not assignable to type 'Element'_ change `React.ReactNode` to `JSX.Element`:
+
+```ts
+export type WithChildren<T> = T & { children: JSX.Element }
+```
+
+[source](https://fettblog.eu/typescript-react-component-patterns/#withchildren-helper-type)
+
+Note that this [already exists on `@types/react`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/24f1d0c82da2d898acd03fbb3e692eba3c431f82/types/react/index.d.ts#L773), but children is optional.

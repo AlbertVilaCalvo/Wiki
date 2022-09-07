@@ -315,27 +315,3 @@ b.x.y // Error TS2339: Property 'bye' does not exist on type 'never'.
 ```
 
 To use `{}` suppress the rule with `// eslint-disable-next-line @typescript-eslint/ban-types`.
-
-## With React
-
-[React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup)
-
-https://fettblog.eu/typescript-react-component-patterns
-
-```ts
-import * as React from 'react'
-
-/**
- * Instead of doing eg `MyText(props: TextProps & {children: React.ReactNode})`
- * you can do `MyText(props: WithChildren<TextProps>)`.
- * Note that the `children` prop is required.
- */
-export type WithChildren<T> = T & { children: React.ReactNode }
-
-// If you get the error "TS2322: Type 'ReactNode' is not assignable to type 'Element'." then do:
-export type WithChildren<T> = T & { children: JSX.Element }
-```
-
-[source](https://fettblog.eu/typescript-react-component-patterns/)
-
-[It's already defined on the definitions, but children is optional :/](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/24f1d0c82da2d898acd03fbb3e692eba3c431f82/types/react/index.d.ts#L773)
