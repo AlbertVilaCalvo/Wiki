@@ -88,3 +88,5 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
 https://developer.chrome.com/blog/what-is-the-top-layer/
 
 > `z-index` has no effect in the top layer.
+
+If we have a `<form>` is inside a `<dialog>` we can use `method='dialog'` ([source](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-method)).

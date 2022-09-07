@@ -6,11 +6,17 @@ https://html.spec.whatwg.org/multipage/forms.html#forms
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form
 
+https://developer.mozilla.org/en-US/docs/Learn/Forms
+
 https://www.w3schools.com/tags/ref_httpmethods.asp
 
 https://stackoverflow.com/questions/504947/when-should-i-use-get-or-post-method-whats-the-difference-between-them
 
 https://stackoverflow.com/questions/3477333/what-is-the-difference-between-post-and-get
+
+An HTML `<form>` only supports GET and POST methods, whereas Fetch supports GET, POST, PUT, DELETE, HEAD and OPTIONS ([source](https://fetch.spec.whatwg.org/#methods)).
+
+Note that if the form is inside a `<dialog>` we can use `method='dialog'` ([source](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-method)).
 
 ## GET
 
