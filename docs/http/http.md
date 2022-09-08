@@ -69,6 +69,30 @@ https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
 
 https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
 
+## Idempotent and Safe
+
+https://stackoverflow.com/questions/45016234/what-is-idempotency-in-http-methods
+
+https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Safe_methods
+
+**Idempotent**: can be applied multiple times without changing the result beyond the initial application ([source](https://en.wikipedia.org/wiki/Idempotence)).
+
+**Safe**: it doesn't alter the state of the server, ie performs a read-only operation.
+
+All safe methods are also idempotent, but not all idempotent methods are safe. For example, PUT and DELETE are both idempotent but unsafe.
+
+| Method | Description                                                                        | Idempotent                                                                            | Safe |
+| ------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---- |
+| GET    | Read                                                                               | Yes                                                                                   | Yes  |
+| POST   | Create                                                                             | No (we create new records every time unless there's some duplicated field validation) | No   |
+| PUT    | Upsert. Replace existing record entirely or create it. Requires sending all fields | Yes (we can perform it multiple times, only the first PUT will take effect)           | No   |
+| PATCH  | Partially update existing record. Does not require sending all fields              | No (surprising, see why in https://stackoverflow.com/a/39338329/4034572)              | No   |
+| DELETE | Delete                                                                             | Yes (we can delete the same record multiple times)                                    | No   |
+
 ## Content-Type header
 
 The media type.
