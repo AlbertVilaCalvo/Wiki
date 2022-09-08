@@ -2,6 +2,59 @@
 title: Docusaurus
 ---
 
+## Doc front matter fields
+
+https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter
+
+## Sidebar
+
+https://docusaurus.io/docs/sidebar
+
+https://docusaurus.io/docs/sidebar/items
+
+```js
+const sidebars = {
+  http: [
+    'http/http',
+    'http/https',
+    'http/cors',
+    'http/csp',
+    // There are 2 equivalent ways to make the sidebar label different than the front matter 'title'.
+    // 1) At the doc front matter set 'sidebar_label'.
+    // 2) Do this:
+    {
+      type: 'doc',
+      id: 'http/headers',
+      label: 'Headers',
+    },
+    // We can have external links:
+    {
+      type: 'link',
+      label: 'RFC 7231',
+      href: 'https://httpwg.org/specs/rfc7231.html',
+    },
+  ],
+}
+```
+
+### Sidebar category shorthand syntax
+
+https://docusaurus.io/docs/sidebar/items#category-shorthand
+
+```js
+const sidebars = {
+  docs: {
+    Docusaurus: ['docs/doc1', 'docs/doc2', 'docs/doc3'],
+    Features: ['docs/mdx'],
+    'Docusaurus Tutorial': [
+      'docs/create-a-page',
+      'docs/create-a-document',
+      'docs/markdown-features',
+    ],
+  },
+}
+```
+
 ## Debug
 
 [http://localhost:3000/\_\_docusaurus/debug](http://localhost:3000/__docusaurus/debug)
