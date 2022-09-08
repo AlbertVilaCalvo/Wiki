@@ -103,14 +103,6 @@ All safe methods are also idempotent, but not all idempotent methods are safe. F
 | PATCH  | Partially update existing record. Does not require sending all fields              | No (surprising, see why in https://stackoverflow.com/a/39338329/4034572)              | No   |
 | DELETE | Delete                                                                             | Yes (we can delete the same record multiple times)                                    | No   |
 
-## Content-Type header
-
-The media type.
-
-https://stackoverflow.com/questions/23714383/what-are-all-the-possible-values-for-http-content-type-header
-
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
-
 ## URI
 
 `scheme://user:password@host.com:8080/path/file?querykey=queryvalue#fragment`
