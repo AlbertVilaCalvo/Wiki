@@ -4,6 +4,8 @@ title: HTTP
 
 Port 80 (HTTPS is 443).
 
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+
 https://developer.mozilla.org/en-US/docs/Web/HTTP
 
 https://github.com/for-GET/http-decision-diagram
@@ -34,19 +36,19 @@ npm package: https://github.com/prettymuchbryce/http-status-codes
 
 ### Common codes
 
-| Status Code | Status Message        | Comments                                                  | Spec                                             |
-| ----------- | --------------------- | --------------------------------------------------------- | ------------------------------------------------ |
-| 200         | OK                    | For GET and POST requests typically                       |                                                  |
-| 201         | Created               | For POST requests typically                               |                                                  |
-| 204         | No Content            | Use it if the response has no body                        | https://httpwg.org/specs/rfc7231.html#status.204 |
-| 304         | Not Modified          | The client (browser) gets the resource from its own cache | https://httpwg.org/specs/rfc7232.html#status.304 |
-| 400         | Bad Request           | Some parameter is missing                                 |                                                  |
-| 401         | Unauthorized          | Not properly authenticated                                |                                                  |
-| 403         | Forbidden             | Not authorized to access the resource                     |                                                  |
-| 404         | Not Found             |                                                           |                                                  |
-| 405         | Method Not Allowed    |                                                           |                                                  |
-| 409         | Conflict              | Username or email already exist                           | https://httpwg.org/specs/rfc7231.html#status.409 |
-| 500         | Internal Server Error |                                                           |                                                  |
+| Status Code | Status Message        | Comments                                                  | Spec                                                         |
+| :---------: | --------------------- | --------------------------------------------------------- | ------------------------------------------------------------ |
+|     200     | OK                    | For GET and POST requests typically                       | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.200) |
+|     201     | Created               | For POST requests typically                               | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.201) |
+|     204     | No Content            | Use it if the response has no body                        | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.204) |
+|     304     | Not Modified          | The client (browser) gets the resource from its own cache | [RFC 7232](https://httpwg.org/specs/rfc7232.html#status.304) |
+|     400     | Bad Request           | Some parameter is missing                                 | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.400) |
+|     401     | Unauthorized          | Not properly authenticated                                |                                                              |
+|     403     | Forbidden             | Not authorized to access the resource                     | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.403) |
+|     404     | Not Found             |                                                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.404) |
+|     405     | Method Not Allowed    |                                                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.405) |
+|     409     | Conflict              | Username or email already exist                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.409) |
+|     500     | Internal Server Error |                                                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.500) |
 
 Stripe common status codes: https://stripe.com/docs/api/errors
 
