@@ -36,19 +36,19 @@ npm package: https://github.com/prettymuchbryce/http-status-codes
 
 ### Common codes
 
-| Status Code | Status Message        | Comments                                                  | Spec                                                         |
-| :---------: | --------------------- | --------------------------------------------------------- | ------------------------------------------------------------ |
-|     200     | OK                    | For GET and POST requests typically                       | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.200) |
-|     201     | Created               | For POST requests typically                               | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.201) |
-|     204     | No Content            | Use it if the response has no body                        | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.204) |
-|     304     | Not Modified          | The client (browser) gets the resource from its own cache | [RFC 7232](https://httpwg.org/specs/rfc7232.html#status.304) |
-|     400     | Bad Request           | Some parameter is missing                                 | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.400) |
-|     401     | Unauthorized          | Not properly authenticated                                |                                                              |
-|     403     | Forbidden             | Not authorized to access the resource                     | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.403) |
-|     404     | Not Found             |                                                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.404) |
-|     405     | Method Not Allowed    |                                                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.405) |
-|     409     | Conflict              | Username or email already exist                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.409) |
-|     500     | Internal Server Error |                                                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.500) |
+| Status Code | Status Message        | Comments                                                      | Spec                                                         |
+| :---------: | --------------------- | ------------------------------------------------------------- | ------------------------------------------------------------ |
+|     200     | OK                    | For GET and POST requests typically                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.200) |
+|     201     | Created               | For POST and PUT requests typically                           | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.201) |
+|     204     | No Content            | Use it if the response has no body. For PUT, PATCH and DELETE | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.204) |
+|     304     | Not Modified          | The client (browser) gets the resource from its own cache     | [RFC 7232](https://httpwg.org/specs/rfc7232.html#status.304) |
+|     400     | Bad Request           | Some parameter is missing                                     | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.400) |
+|     401     | Unauthorized          | Not properly authenticated                                    |                                                              |
+|     403     | Forbidden             | Not authorized to access the resource                         | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.403) |
+|     404     | Not Found             |                                                               | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.404) |
+|     405     | Method Not Allowed    |                                                               | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.405) |
+|     409     | Conflict              | Username or email already exists                              | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.409) |
+|     500     | Internal Server Error |                                                               | [RFC 7231](https://httpwg.org/specs/rfc7231.html#status.500) |
 
 Stripe common status codes: https://stripe.com/docs/api/errors
 
@@ -98,10 +98,10 @@ All safe methods are also idempotent, but not all idempotent methods are safe. F
 | Method | Description                                                                        | Idempotent                                                                            | Safe |
 | ------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---- |
 | GET    | Read                                                                               | Yes                                                                                   | Yes  |
-| POST   | Create                                                                             | No (we create new records every time unless there's some duplicated field validation) | No   |
-| PUT    | Upsert. Replace existing record entirely or create it. Requires sending all fields | Yes (we can perform it multiple times, only the first PUT will take effect)           | No   |
-| PATCH  | Partially update existing record. Does not require sending all fields              | No (surprising, see why in https://stackoverflow.com/a/39338329/4034572)              | No   |
-| DELETE | Delete                                                                             | Yes (we can delete the same record multiple times)                                    | No   |
+| POST   | Create                                                                             | No - we create new records every time unless there's some duplicated field validation | No   |
+| PUT    | Upsert. Replace existing record entirely or create it. Requires sending all fields | Yes - we can perform it multiple times, only the first PUT will take effect           | No   |
+| PATCH  | Partially update existing record. Does not require sending all fields              | No - surprising, see why at https://stackoverflow.com/a/39338329/4034572              | No   |
+| DELETE | Delete                                                                             | Yes - we can delete the same record multiple times                                    | No   |
 
 ## URI
 

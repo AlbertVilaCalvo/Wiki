@@ -16,7 +16,7 @@ Limit levels/nesting to maximum `collection/<id>/collection`.
 
 ## CRUD Routes
 
-| Verb   | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code                                                                        | Request Body | Response Body                                 |
+| Method | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code                                                                        | Request Body | Response Body                                 |
 | ------ | ----------------- | ------ | :--: | ------------------------------------------ | ---------------------------------------------------------- | ----------------------------------------------------------------------------------- | :----------: | --------------------------------------------- |
 | GET    | `/users`          | index  |      | List all users                             | 200 OK                                                     | 404 Not Found                                                                       |      ✖       | Resource list                                 |
 | GET    | `/users/:id`      | show   |      | Get single user                            | 200 OK                                                     | 404 Not Found                                                                       |      ✖       | Resource                                      |

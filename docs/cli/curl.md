@@ -12,7 +12,7 @@ https://everything.curl.dev
 
 Options are case-sensitive, ie `-s` is not the same as `-S`.
 
-- Verb: `-X POST` or `--request POST`.
+- Method: `-X POST` or `--request POST`.
 - Data: `-d` or `--data`.
   - Uses the `application/x-www-form-urlencoded` mime-type by default.
   - This flag implies `POST` so `-X`/`--request` is then optional.
