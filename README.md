@@ -1,8 +1,10 @@
-# albert.wiki
+# [albert.wiki](https://albert.wiki) - My personal Wiki
+
+My software development knowledge base.
 
 ## Develop
 
-Run `yarn start`, then open http://localhost:3000/.
+Install the packages with `yarn install`, then run `yarn start` and open http://localhost:3000/.
 
 ## Run ESLint manually
 
@@ -10,8 +12,8 @@ Run `yarn start`, then open http://localhost:3000/.
 npx eslint . --ext ts --ext tsx --ext js
 ```
 
-## Git pre-commit hook to run Prettier, ESLint and TypeScript checks on every commit
+## Git pre-commit hook to run Prettier, ESLint and TypeScript
 
-To run Prettier and ESLint on every commit, run `cp pre-commit .git/hooks`.
+To run Prettier, ESLint and TypeScript checks on every commit, run `cp pre-commit .git/hooks`.
 
 Note that the checks do not abort the commit, they only inform you of any issues found.
