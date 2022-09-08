@@ -10,16 +10,26 @@ https://github.com/teesloane/Auth-Boss
 
 ## API Routes
 
-| Action           | Verb   | Route            | HTML | Success Code                                               | Failure Code                                                                                      |            Request Body             | Response Body |
-| ---------------- | ------ | ---------------- | :--: | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | :---------------------------------: | ------------- |
-| Register form    | GET    | `/auth/register` |  ✓   | 200 OK                                                     | 404 Not Found                                                                                     |                  ✖                  | HTML          |
-| Register         | POST   | `/auth/register` |      | 201 Created                                                | 400 Bad Request if missing fields, 409 Conflict if email/username already exist                   | Email, password, name, username etc | Tokens, User  |
-| Login form       | GET    | `/auth/login`    |  ✓   | 200 OK                                                     | 404 Not Found                                                                                     |                  ✖                  | HTML          |
-| Login            | POST   | `/auth/login`    |      | 200 OK                                                     | 400 Bad Request if missing fields, 200 + error if wrong password or email/username not registered |     Email/username and password     | Tokens, User  |
-
-> Signing the user out is a POST submission to prevent malicious links from triggering signing a user out without their consent. [source](https://next-auth.js.org/getting-started/rest-api#post-apiauthsignout)
+| Action           | Method | Route                   | HTML | Auth Token | Success Code             | Failure Code                                                                                      |                          Request Body                          | Response Body |
+| ---------------- | ------ | ----------------------- | :--: | :--------: | ------------------------ | ------------------------------------------------------------------------------------------------- | :------------------------------------------------------------: | ------------- |
+| Register form    | GET    | `/register`             |  ✓   |            | 200 OK                   | 404 Not Found                                                                                     |                               ✖                                | HTML          |
+| Register         | POST   | `/auth/register`        |      |            | 201 Created              | 400 Bad Request if missing fields, 409 Conflict if email/username already exist                   |              Email, password, name, username etc               | Tokens, User  |
+| Login form       | GET    | `/login`                |  ✓   |            | 200 OK                   | 404 Not Found                                                                                     |                               ✖                                | HTML          |
+| Login            | POST   | `/auth/login`           |      |            | 200 OK                   | 400 Bad Request if missing fields, 200 + error if wrong password or email/username not registered |                  Email/username and password                   | Tokens, User  |
+| Logout           | POST   | `/auth/logout`          |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized                                                                                  |                               ✖                                | Optional      |
+| Recover password | POST   | `/auth/reset-password`  |      |    ✓\*     | 200 OK or 204 No Content | 401 Unauthorized                                                                                  |                          New password                          | Optional      |
+| Change password  | POST   | `/auth/change-password` |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized, 400 Bad Request if missing field, 200 + error if wrong password                 | Current and new password, optionally new password confirmation | Optional      |
+| Delete account   | POST   | `/auth/delete-account`  |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized                                                                                  |                        Current password                        | Optional      |
+| Get my user      | GET    | `/account/profile`      |      |     ✓      | 200 OK                   | 401 Unauthorized                                                                                  |                               ✖                                | User          |
+| Update my user   | PATCH  | `/account/profile`      |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized, 400 Bad Request if missing field                                                |                          User fields                           | Optional      |
 
 See CSRF: https://next-auth.js.org/getting-started/rest-api
+
+### Logout use POST not GET
+
+Logout: GET or POST? - https://stackoverflow.com/questions/3521290/logout-get-or-post
+
+> Signing the user out is a POST submission to prevent malicious links from triggering signing a user out without their consent. [source](https://next-auth.js.org/getting-started/rest-api#post-apiauthsignout)
 
 ### Register with an email or username that already exists
 
