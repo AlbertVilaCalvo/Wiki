@@ -12,6 +12,8 @@ Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/yarn
 
 Tip: `yarn run` lists all the executable commands/scripts.
 
+npm vs yarn: https://classic.yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison
+
 To upgrade yarn itself use npm.
 
 Know which version of a package you are using: `yarn list @react-native-community/cli`

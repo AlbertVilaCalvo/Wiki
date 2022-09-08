@@ -12,9 +12,12 @@ https://stateofjs.com/en-us/
 
 ### Validation
 
-- https://github.com/hapijs/joi
-- https://github.com/colinhacks/zod
+- https://github.com/validatorjs/validator.js - Can be used with Express with https://github.com/express-validator/express-validator
+- https://github.com/hapijs/joi - Can be used with Express with https://github.com/arb/celebrate
 - https://github.com/jquense/yup
+- https://github.com/colinhacks/zod
+- https://github.com/typestack/class-validator
+- https://github.com/gcanti/io-ts
 
 ## JSDoc
 

@@ -52,6 +52,10 @@ app.listen(app.get('port'), () => {
 
 ## Libraries
 
+https://expressjs.com/en/resources/middleware.html
+
+https://expressjs.com/en/resources/utils.html
+
 - helmet - Help secure Express apps with various HTTP headers - https://helmetjs.github.io/ - https://github.com/helmetjs/helmet
 
 ## Typing the params, request and response with TypeScript

@@ -6,6 +6,12 @@ Just a list of some talks/podcasts I've watched/listened, in reverse chronologic
 
 ## 2022
 
+[Take Data Validation Seriously by Paul Milham, WildWorks](https://www.youtube.com/watch?v=bfqCQFD9L6k)
+
+> No validation, no data
+
+[WWC22 - Qwik + Partytown: How to remove 99% of JavaScript from main thread](https://www.youtube.com/watch?v=0dC11DMR3fU&t=154s)
+
 [Bringing the New React Native Architecture to the OSS community - Fall Edition](https://www.react-native.eu/talks/nicola-corti-bringing-the-new-react-native-architecture-to-the-oss-community-fall-edition)
 
 [Ryan Dahl: Original Node.js presentation](https://www.youtube.com/watch?v=ztspvPYybIY)

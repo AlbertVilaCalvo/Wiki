@@ -8,6 +8,8 @@ package.json docs: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
 
 Tip: `npm run` lists all the executable commands/scripts.
 
+npm vs yarn: https://classic.yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison
+
 Upgrade npm itself: `npm install npm@latest -g`
 
 (If this command fails and we then get `zsh: command not found: npm` we can fix it with `brew reinstall node`.)
@@ -23,6 +25,8 @@ Uninstall a package: `npm uninstall <package>`
 Show package info: `npm info <package>`
 
 Open docs (eg README) in the browser: `npm docs <package>`
+
+To pass arguments to a script you need to add `--` ([see `npm run` docs](https://docs.npmjs.com/cli/v8/commands/npm-run-script)). Eg if we have the script `"test": "jest"` and we want to run Jest in watch mode, we need to do `npm test -- --watch`. Note: in this case doing `npx jest --watch` also works.
 
 `npx` command runs a binary or package. It can be a local package (eg a binary in ./node_modules/.bin/) or fetched remotely. See https://docs.npmjs.com/cli/v8/commands/npx
 
