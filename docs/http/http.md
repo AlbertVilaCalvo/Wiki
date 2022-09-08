@@ -69,6 +69,16 @@ https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
 
 https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
 
+| Method | Request has body | Successful response has body |
+| ------ | :--------------: | :--------------------------: |
+| GET    |        ❌        |              ✅              |
+| POST   |        ✅        |              ✅              |
+| PUT    |        ✅        |             May              |
+| PATCH  |        ✅        |              ✅              |
+| DELETE |       May        |             May              |
+
+Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods. Also see the table at https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
+
 ## Idempotent and Safe
 
 https://stackoverflow.com/questions/45016234/what-is-idempotency-in-http-methods
