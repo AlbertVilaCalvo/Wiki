@@ -28,6 +28,12 @@ On a specific line:
 export function isNumber(n: any): boolean {}
 ```
 
+In an entire file, put a comment at the top:
+
+```ts
+/* eslint-disable @typescript-eslint/no-empty-function */
+```
+
 Globally:
 
 ```js title=".eslintrc.js"
@@ -157,3 +163,11 @@ Then it should create the file `.eslintrc.js` and update `package.json` (adding 
 To get the red squiggles and warnings we need to enable it!
 
 At Preferences -> Languages & Frameworks -> JavaScript -> Code Quality Tools -> ESLint, set 'Automatic ESLint configuration'.
+
+## Plugins
+
+Imports:
+
+- Rules that help validate proper imports - https://github.com/import-js/eslint-plugin-import
+  - It requires this extra plugin for TypeScript: https://github.com/import-js/eslint-import-resolver-typescript
+- Easy autofixable import sorting - https://github.com/lydell/eslint-plugin-simple-import-sort

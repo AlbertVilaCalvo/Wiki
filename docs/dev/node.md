@@ -19,6 +19,10 @@ https://github.com/sindresorhus/got#comparison
 - https://github.com/sindresorhus/got
 - https://github.com/node-fetch/node-fetch
 
+### HTTP testing
+
+- https://github.com/nock/nock - HTTP server mocking and expectations library for Node.js
+
 ### Logging
 
 https://betterstack.com/community/guides/logging/nodejs-logging-best-practices

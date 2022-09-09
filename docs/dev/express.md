@@ -58,6 +58,11 @@ https://expressjs.com/en/resources/utils.html
 
 - helmet - Help secure Express apps with various HTTP headers - https://helmetjs.github.io/ - https://github.com/helmetjs/helmet
 
+### Testing
+
+- https://github.com/visionmedia/supertest - Super-agent driven library for testing node.js HTTP servers using a fluent API
+- https://github.com/howardabrams/node-mocks-http - Mock 'http' objects for testing Express routing functions
+
 ## Typing the params, request and response with TypeScript
 
 https://www.jonmellman.com/posts/typescript-for-api-contracts - https://github.com/jonmellman/blog-examples/tree/master/typescript-for-api-contracts
