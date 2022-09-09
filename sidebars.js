@@ -42,6 +42,7 @@ const sidebars = {
     'javascript/modules',
     'javascript/typescript',
     'javascript/eslint',
+    'javascript/jest',
   ],
   app: [
     'app/app',
