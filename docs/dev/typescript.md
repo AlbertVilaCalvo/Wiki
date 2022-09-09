@@ -148,6 +148,50 @@ class User {
 }
 ```
 
+## Excess property checking
+
+For object literals.
+
+https://www.typescriptlang.org/docs/handbook/interfaces.html#excess-property-checks
+
+```ts
+type User = {
+  id: number
+  name: string
+}
+
+const user: User = {
+  id: 1,
+  name: 'Anna',
+  password: 'abcd', // <- error
+}
+// TS2322: Type '{ id: number; name: string; password: string; }' is not assignable to type 'User'.
+// Object literal may only specify known properties, and 'password' does not exist in type 'User'.
+
+function printUser(user: User) {
+  alert(user.name)
+}
+
+printUser({
+  id: 1,
+  name: 'Anna',
+  password: 'abcd', // <- Same error as above
+})
+
+// Note that it doesn't work if we define an intermediate variable:
+const data = {
+  id: 1,
+  name: 'Anna',
+  password: 'abcd',
+}
+const user: User = data // No error here
+```
+
+Can be disabled:
+
+- At `tsconfig.json` with `suppressExcessPropertyErrors` - https://www.typescriptlang.org/tsconfig#suppressExcessPropertyErrors
+- At `tsc` with `--suppressExcessPropertyErrors` - https://www.typescriptlang.org/docs/handbook/compiler-options.html
+
 ## Classes
 
 ### Arrow function property vs method
