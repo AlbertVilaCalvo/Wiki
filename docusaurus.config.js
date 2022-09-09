@@ -81,6 +81,12 @@ const config = {
             position: 'left',
           },
           {
+            to: 'javascript',
+            activeBasePath: 'js',
+            label: 'JS',
+            position: 'left',
+          },
+          {
             to: 'app',
             activeBasePath: 'app',
             label: 'App',
