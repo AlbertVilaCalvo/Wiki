@@ -39,6 +39,7 @@ const sidebars = {
   js: [
     'javascript/javascript',
     'javascript/array',
+    'javascript/modules',
     'javascript/typescript',
     'javascript/eslint',
   ],
