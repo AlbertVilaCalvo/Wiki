@@ -6,6 +6,18 @@ title: Docusaurus
 
 https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter
 
+## Link to another doc
+
+```md
+[ESLint](javascript/eslint.md#setup)
+[ESLint](/javascript/eslint.md#setup)
+[ESLint](/javascript/eslint#setup)
+```
+
+All options produce the same link.
+
+Important: when using the first option you need to add `.md`, otherwise you get `/dev/javascript/eslint#setup` instead of `/javascript/eslint#setup`.
+
 ## Sidebar
 
 https://docusaurus.io/docs/sidebar

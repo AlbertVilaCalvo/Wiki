@@ -226,7 +226,7 @@ Add scripts to `package.json`:
 }
 ```
 
-[See this to setup ESLint.](/dev/eslint#setup)
+[See this to setup ESLint.](/javascript/eslint#setup)
 
 ### TypeScript setup examples
 
