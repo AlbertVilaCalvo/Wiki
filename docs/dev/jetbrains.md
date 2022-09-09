@@ -98,9 +98,11 @@ Search everything: Shift+Shift
 
 Go to last edit location: Cmd+Shift+Backspace
 
-Code completion: basic Ctrl+Sàce, Type-matching: Ctrl+Shift+Space
+Code completion: basic Ctrl+Space, Type-matching: Ctrl+Shift+Space
 
 Join lines: Ctrl+Shift+J
+
+Add line before current line: Cmd+Alt+Return [source](https://stackoverflow.com/questions/2909547/intellij-new-line-on-current-line-shortcut)
 
 Find action: Cmd+Shift+A
 
@@ -109,6 +111,22 @@ Code formatting settings (eg optimize imports): Cmd+Alt+Shift+L (code format is 
 Highlight usages of a symbol within a file: Cmd+Shift+F7
 
 UML diagram, shows inheritance chain (needs to be run with the cursor on a class name)): Shift+Cmd+Alt+U
+
+## Multiple cursors
+
+https://www.jetbrains.com/webstorm/guide/tips/multi-cursor/
+
+https://www.jetbrains.com/help/webstorm/multicursor.html
+
+- With keyboard:
+  - Press ⌥ twice, and then without releasing it, press up or down arrow keys.
+  - Enable the column selection mode (press ⇧ ⌘ 8) and then press ⇧ ↑/⇧ ↓.
+- With mouse:
+  - Press and hold the Alt key, then click at the next location of the caret
+  - Press the middle button, hold and drag the caret
+  - Shift+Alt+click, hold and drag the caret
+
+Add carets to the end of each line in the selected block: ⌥ ⇧ G
 
 ## Live templates
 
