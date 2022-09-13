@@ -27,7 +27,7 @@ import { sayHello } from './sayHello'
 sayHello()
 ```
 
-You can also have a single export:
+You can also have a single, grouped export:
 
 ```ts
 function sayHello() {

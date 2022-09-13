@@ -4,6 +4,8 @@ title: Git
 
 Source code mirror: https://github.com/git/git
 
+[Set upstream](https://git-scm.com/docs/git-push#Documentation/git-push.txt--u): `git push -u origin main`
+
 ## Undo last commit
 
 If not pushed yet

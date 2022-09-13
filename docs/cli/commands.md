@@ -70,6 +70,10 @@ https://www.geeksforgeeks.org/fc-command-linux-examples
 
 List recent commands in history: `fc -l`
 
+## lsof
+
+If we are running a server at (eg) port 3000 we can do `lsof -i :3000` and it will print information about the process that started the server. Doing `lsof -t -i :5000` gives the process id. Hence, to kill the process you can do `kill -9 $(lsof -t -i :3000)`.
+
 ## youtube-dl
 
 https://github.com/ytdl-org/youtube-dl/

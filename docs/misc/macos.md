@@ -26,6 +26,12 @@ Show/hide hidden files: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>.</kbd>
 
 All my macOS keyboard shortcuts - https://www.jamieonkeys.dev/posts/keyboard-shortcuts - https://news.ycombinator.com/item?id=30876934
 
+### Add sleep shortcut
+
+https://apple.stackexchange.com/a/431149/241238
+
+Preferències -> Teclat -> Dreceres de l'app, afegir 2 dreceres noves amb nom 'Sleep' i 'Repòs' a <kbd>Shift</kbd><kbd>Alt</kbd><kbd>Q</kbd>. Haig de veure el shortcut ⌥⇧Q al menu del sistema.
+
 ## DefaultKeyBinding.dict
 
 ```
