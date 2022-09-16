@@ -249,6 +249,14 @@ declare module 'express-serve-static-core' {
 
 Alternatively, we can also create a file `types/express/index.d.ts` with the same content, and then set `"typeRoots": ["./types"]` at `tsconfig.json`.
 
+## Service layer
+
+- Project structure for an Express REST API when there is no "standard way" - https://www.coreycleary.me/project-structure-for-an-express-rest-api-when-there-is-no-standard-way/
+- Why you should isolate Express from the rest of your Node application - https://www.coreycleary.me/why-you-should-isolate-express-from-the-rest-of-your-node-application/
+- How does one unit test routes with Express? - https://stackoverflow.com/a/25106553/4034572
+  - I've come to the conclusion that the only way to really unit test express applications is to maintain a lot of separation between the request handlers and your core logic.
+  - Thus, your application logic should be in separate modules that can be required and unit tested, and have minimal dependence on the Express Request and Response classes as such.
+
 ## Passport
 
 https://github.com/cypress-io/cypress-realworld-app/blob/develop/backend/auth.ts
