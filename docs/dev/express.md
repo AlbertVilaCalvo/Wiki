@@ -63,10 +63,6 @@ https://expressjs.com/en/resources/utils.html
 - https://github.com/visionmedia/supertest - Super-agent driven library for testing node.js HTTP servers using a fluent API
 - https://github.com/howardabrams/node-mocks-http - Mock 'http' objects for testing Express routing functions
 
-## Typing the params, request and response with TypeScript
-
-https://www.jonmellman.com/posts/typescript-for-api-contracts - https://github.com/jonmellman/blog-examples/tree/master/typescript-for-api-contracts
-
 ## CORS
 
 Why doesn't adding CORS headers to an OPTIONS route allow browsers to access my API? - https://stackoverflow.com/questions/7067966/why-doesnt-adding-cors-headers-to-an-options-route-allow-browsers-to-access-my
@@ -190,7 +186,9 @@ In asynchronous handlers we must catch the errors in a try-catch and then call `
 
 Alternatively we can use https://www.npmjs.com/package/express-async-handler.
 
-## TypeScript setup
+## TypeScript
+
+### New project setup with TypeScript
 
 ```bash
 git init
@@ -228,12 +226,12 @@ Add scripts to `package.json`:
 
 [See this to setup ESLint.](/javascript/eslint#setup)
 
-### TypeScript setup examples
+### TypeScript project setup examples
 
 - Midudev: https://www.youtube.com/watch?v=ZpY5KdGQvwI - https://github.com/midudev/express-typescript
 - Codely: https://www.youtube.com/watch?v=_1hGZygILd0 - https://github.com/CodelyTV/typescript-api-skeleton
 
-## Extending the `Request` type to add fields to it
+### Extending the `Request` type to add fields to it
 
 Extend Express Request object using Typescript - https://stackoverflow.com/questions/37377731/extend-express-request-object-using-typescript/40762463
 
@@ -248,6 +246,18 @@ declare module 'express-serve-static-core' {
 ```
 
 Alternatively, we can also create a file `types/express/index.d.ts` with the same content, and then set `"typeRoots": ["./types"]` at `tsconfig.json`.
+
+### Typing the params, request and response
+
+https://www.jonmellman.com/posts/typescript-for-api-contracts - https://github.com/jonmellman/blog-examples/tree/master/typescript-for-api-contracts
+
+```ts
+const updateUserEmail: RequestHandler<
+  { userId: string }, // Params
+  { user: User } | { error: string }, // Response Body
+  { email: string } // Request Body
+> = async (req, res) => {}
+```
 
 ## Service layer
 
