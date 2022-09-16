@@ -149,3 +149,7 @@ expect(myMock.mock.calls[0][1]).toBe('b')
 ## Parametrized tests
 
 https://jestjs.io/blog/2018/05/29/jest-23-blazing-fast-delightful-testing#jest-each
+
+[`test.each(table)(name, fn, timeout)`](https://jestjs.io/docs/api#testeachtablename-fn-timeout)
+
+[`.each` TypeScript Usage](https://jestjs.io/docs/api#each)

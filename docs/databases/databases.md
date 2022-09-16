@@ -49,6 +49,10 @@ https://news.ycombinator.com/item?id=32414172
 - Prof: "Why do we denormalize?"
 - Class, in unison: "Performance."
 
+## Database types
+
+https://www.prisma.io/dataguide/intro/comparing-database-types
+
 ## Column oriented
 
 https://news.ycombinator.com/item?id=30905662
@@ -66,3 +70,7 @@ https://code.jsoftware.com/wiki/Jd/Overview
 > Row oriented is slavishly tied to the design ideas of filing cabinets and manila folders. Column oriented embraces computers.
 >
 > A table column is a mapped file.
+
+## Migration
+
+https://www.rainforestqa.com/blog/2014-06-27-zero-downtime-database-migrations

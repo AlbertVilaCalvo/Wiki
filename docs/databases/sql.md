@@ -33,3 +33,7 @@ https://learnsql.com/blog/sql-basics-cheat-sheet/ (PDF)
 https://stackoverflow.com/questions/65512/which-is-faster-best-select-or-select-column1-colum2-column3-etc
 
 https://tanelpoder.com/posts/reasons-why-select-star-is-bad-for-sql-performance/
+
+## Schema design
+
+https://www.mikealche.com/software-development/a-humble-guide-to-database-schema-design

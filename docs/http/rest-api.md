@@ -63,6 +63,8 @@ If the request is malformed (eg a missing parameter) you can use either 400 Bad 
 
 ### PUT
 
+_POST to a collection, PUT to a resource_ [source](https://stackoverflow.com/a/12943705/4034572)
+
 PUT creates a resource if it doesn't exist, or updates it if it does (UPSERT).
 
 ### PATCH

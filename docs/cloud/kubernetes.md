@@ -8,6 +8,8 @@ https://github.com/kelseyhightower/kubernetes-the-hard-way
 
 https://github.com/dennyzhang/cheatsheet-kubernetes-A4
 
+OWASP Kubernetes Top 10 - https://github.com/OWASP/www-project-kubernetes-top-ten
+
 ## Validators / linters
 
 https://github.com/stackrox/kube-linter

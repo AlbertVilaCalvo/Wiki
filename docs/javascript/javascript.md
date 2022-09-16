@@ -12,11 +12,16 @@ https://stateofjs.com/en-us/
 
 ### Validation
 
-- https://github.com/validatorjs/validator.js - Can be used with Express with https://github.com/express-validator/express-validator
-- https://github.com/hapijs/joi - Can be used with Express with https://github.com/arb/celebrate
+See comparison here: https://github.com/colinhacks/zod#comparison
+
+- https://github.com/validatorjs/validator.js
+  - Express middleware: https://github.com/express-validator/express-validator
+    - https://medium.com/dataseries/introduction-to-request-body-validation-in-express-apps-with-express-validator-7b9725ca780d
+- https://github.com/hapijs/joi
+  - Express middleware: https://github.com/arb/celebrate
 - https://github.com/jquense/yup
 - https://github.com/colinhacks/zod
-- https://github.com/typestack/class-validator
+- https://github.com/typestack/class-validator (uses decorators)
 - https://github.com/gcanti/io-ts
 
 ## JSDoc

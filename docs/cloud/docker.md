@@ -12,6 +12,12 @@ https://github.com/wsargent/docker-cheat-sheet
 
 Just say no to :latest: https://news.ycombinator.com/item?id=30576443
 
+## Best practices
+
+https://nickjanetakis.com/blog/best-practices-around-production-ready-web-apps-with-docker-compose
+
+https://testdriven.io/blog/docker-best-practices/
+
 ## What is a container?
 
 Container = App Code + Runtime + Libraries/Dependencies + Configuration Files
