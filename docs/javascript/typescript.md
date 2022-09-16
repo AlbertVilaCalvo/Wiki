@@ -192,6 +192,40 @@ Can be disabled:
 - At `tsconfig.json` with `suppressExcessPropertyErrors` - https://www.typescriptlang.org/tsconfig#suppressExcessPropertyErrors
 - At `tsc` with `--suppressExcessPropertyErrors` - https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
+## Make `switch` exhaustive
+
+```ts
+/**
+ * Use it to ensure that a switch is exhaustive.
+ * From https://stackoverflow.com/questions/39419170/how-do-i-check-that-a-switch-block-is-exhaustive-in-typescript
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function assertUnreachable(switchParameter: never): never {
+  throw Error('Unreachable code violation')
+}
+```
+
+Usage:
+
+```ts
+type Char = 'A' | 'B' | 'C'
+
+function doSomething(char: Char): void {
+  switch (char) {
+    case 'A':
+      break
+    case 'B':
+      break
+    // case 'C' is missing
+    default:
+      // TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+      assertUnreachable(char)
+  }
+}
+```
+
+Here there are some ideas: https://basarat.gitbook.io/typescript/type-system/discriminated-unions
+
 ## Classes
 
 ### Arrow function property vs method
@@ -309,6 +343,29 @@ export function isError<T>(arg: 'loading' | T | Error): arg is Error {
 }
 ```
 
+## Assertion functions
+
+https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions
+
+https://www.lucaspaganini.com/academy/assertion-functions-typescript-narrowing-5
+
+```ts
+export function assertUser(user: User | undefined): asserts user is User {
+  if (!user) {
+    throw new Error('User is undefined')
+  }
+}
+
+function doSomething(user: User | undefined) {
+  user.name // TS2532: Object is possibly 'undefined'.
+  const u: User = user // TS2322: Type 'User | undefined' is not assignable to type 'User'.
+  assertUser(user)
+  // user is now just User, not User | undefined
+  user.name // No error
+  const u: User = user // No error
+}
+```
+
 ## `Result<T, E>` type
 
 https://gist.github.com/s-panferov/5269524dcf23dad9a1ef
@@ -332,6 +389,10 @@ type Result<S, E> = Loading | Success<S> | Error<E>
 
 type GetProductResult = Result<Product, 'network-error' | 'product-not-found'>
 ```
+
+## `const` assertions
+
+https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions
 
 ## Utility Types
 
