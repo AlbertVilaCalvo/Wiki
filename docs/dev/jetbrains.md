@@ -130,6 +130,8 @@ Add carets to the end of each line in the selected block: ⌥ ⇧ G
 
 ## Live templates
 
+Show all live templates shorctut: Cmd+J
+
 To export them do: File -> Manage IDE Settings -> Export Settings... At the Export Settings dialog, select 'Live templates (schemes)'. This creates a zip file that contains the settings in xml format (JavaScript.xml, React Native.xml...).
 
 ## React

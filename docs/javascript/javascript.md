@@ -137,6 +137,8 @@ Rethrow an error but with a different message: https://developer.mozilla.org/en-
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
+https://devdocs.io/javascript-promise/
+
 ```js
 Api.fetchUser = function () {
   return new Promise((res, rej) => {
@@ -239,6 +241,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 
 Regex syntax cheatsheet: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet
+
+https://devdocs.io/javascript-regexp/
 
 Name capture groups: https://twitter.com/addyosmani/status/1386031624232456194
 

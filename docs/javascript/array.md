@@ -7,6 +7,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 Methods: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#instance_methods
 
+https://devdocs.io/javascript-array/
+
 ## Mutation
 
 https://doesitmutate.xyz
