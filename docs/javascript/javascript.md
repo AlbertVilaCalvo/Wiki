@@ -220,9 +220,61 @@ function fakeApiCall(): Promise<number> {
 }
 ```
 
-## Abort
+### `try-catch` only 'catches' errors if you `await`
+
+```js
+function doSomething() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject('setTimeout error')
+    }, 2000)
+  })
+}
+
+async function main() {
+  try {
+    doSomething() // <- Missing 'await' here!
+  } catch (error) {
+    console.error('try-catch worked :) - error:', error)
+  }
+}
+
+main().then(() => {
+  console.log('Done!')
+})
+```
+
+Running it with `node index.js` will give:
+
+```
+Done!
+node:internal/process/promises:288
+            triggerUncaughtException(err, true /* fromPromise */);
+            ^
+
+[UnhandledPromiseRejection: This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). The promise rejected with the reason "setTimeout error".] {
+  code: 'ERR_UNHANDLED_REJECTION'
+}
+```
+
+The `try-catch` does not have any effect (ie it does not catch the error) and the program crashes due to `UnhandledPromiseRejection`. Also, "Done!" is printed immediately since we don't wait for `doSomething()` to finish.
+
+If you add `await` before `doSomething()` it works correctly:
+
+```
+try-catch worked :) - error: setTimeout error
+Done!
+```
+
+It waits 2 seconds before printing "try-catch worked :) - error: setTimeout error" and then immediately after "Done!".
+
+## AbortController
+
+https://developer.mozilla.org/en-US/docs/Web/API/AbortController
 
 https://www.bennadel.com/blog/4200-using-fetch-abortsignal-and-settimeout-to-apply-retry-mechanics-in-javascript.htm
+
+https://stackoverflow.com/a/65805464/4034572
 
 ## String
 
