@@ -34,6 +34,7 @@ const sidebars = {
     'dev/php',
     'dev/cryptography',
     'dev/csrf',
+    'dev/email',
     'dev/functional-programming',
   ],
   js: [
