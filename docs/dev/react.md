@@ -218,9 +218,12 @@ The new wave of React state management - https://news.ycombinator.com/item?id=31
 
 With Proxy:
 
-- https://github.com/mobxjs/mobx
-- https://github.com/pmndrs/valtio
+- MobX: https://github.com/mobxjs/mobx
+- Valtio: https://github.com/pmndrs/valtio
   - When I Use Valtio and When I Use Jotai - https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/
+- Legend-State: https://github.com/LegendApp/legend-state
+  - See https://legendapp.com/dev/state/fast/
+  - > Legend-State uses Proxy, which is how it exposes the observable functions (get/set/listen etc...) on anything within state. But it differs from other Proxy-based systems by not touching the underlying data all. Each proxy node represents a path within the object tree, and to get the value of any node it traverses the raw data to that path and returns the value. So every node within the state object stores minimal metadata, and never has to modify or clone the underlying data, which keeps object creation to a minimum and memory usage down.
 
 ## UI design libraries
 

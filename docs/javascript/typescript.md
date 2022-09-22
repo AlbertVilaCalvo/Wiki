@@ -400,6 +400,8 @@ https://www.typescriptlang.org/docs/handbook/utility-types.html
 
 Make fields optional: `Partial<User>`. Example: `Partial<{ email: string; password: string }>` is `{email?: string, password?: string}`
 
+Make fields required: `Required<SomeType>`. Is the opposite of `Partial`.
+
 Return type of an async function: https://stackoverflow.com/questions/48011353/how-to-unwrap-type-of-a-promise
 
 ## typescript-eslint ban-types

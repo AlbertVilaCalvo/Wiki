@@ -10,6 +10,8 @@ Tip: `npm run` lists all the executable commands/scripts.
 
 npm vs yarn: https://classic.yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison
 
+Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html
+
 Upgrade npm itself: `npm install npm@latest -g`
 
 (If this command fails and we then get `zsh: command not found: npm` we can fix it with `brew reinstall node`.)

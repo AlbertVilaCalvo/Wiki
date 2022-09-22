@@ -33,6 +33,18 @@ https://betterstack.com/community/guides/logging/nodejs-logging-best-practices
 - https://github.com/gajus/roarr
 - https://github.com/pinojs/pino
 
+### Email
+
+- https://github.com/nodemailer/nodemailer
+- https://github.com/forwardemail/email-templates
+- https://github.com/eladnava/mailgen
+- https://github.com/eleith/emailjs
+
+### Environment variables
+
+- https://github.com/motdotla/dotenv
+- https://github.com/KATT/envsafe
+
 ## Manage Node versions
 
 https://twitter.com/Netlify/status/1496177878182121472
@@ -79,6 +91,8 @@ https://nodejs.org/en/docs/guides/dont-block-the-event-loop/
 https://blog.logrocket.com/why-you-should-avoid-orms-with-examples-in-node-js-e0baab73fa5/
 
 https://contra.com/p/gkOQlbLq-validating-postgre-sql-query-results-using-runtime-checks
+
+ESLint plugin: https://safeql.dev
 
 PostgreSQL client
 
