@@ -65,19 +65,26 @@ https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-ht
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
-https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
+RFC 9110 HTTP Semantics https://www.rfc-editor.org/rfc/rfc9110.html#name-methods - (old) https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
 
 https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
 
-| Method | Request has body | Successful response has body |
-| ------ | :--------------: | :--------------------------: |
-| GET    |        ❌        |              ✅              |
-| POST   |        ✅        |              ✅              |
-| PUT    |        ✅        |             May              |
-| PATCH  |        ✅        |              ✅              |
-| DELETE |       May        |             May              |
+| Method |  Request has body   | Successful response has body |
+| ------ | :-----------------: | :--------------------------: |
+| GET    |         ❌          |              ✅              |
+| POST   |         ✅          |              ✅              |
+| PUT    |         ✅          |             May              |
+| PATCH  |         ✅          |              ✅              |
+| DELETE | May, but is ignored |             May              |
 
 Source: https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods. Also see the table at https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
+
+### Body in GET and DELETE requests should be ignored
+
+- HTTP GET with request body - https://stackoverflow.com/questions/978061/http-get-with-request-body
+- Is an entity body allowed for an HTTP DELETE request? - https://stackoverflow.com/questions/299628/is-an-entity-body-allowed-for-an-http-delete-request
+- RESTful Alternatives to DELETE Request Body - https://stackoverflow.com/questions/14323716/restful-alternatives-to-delete-request-body
+- Payloads of HTTP Request Methods - https://stackoverflow.com/questions/5905916/payloads-of-http-request-methods
 
 ## Idempotent and Safe
 
