@@ -75,10 +75,22 @@ git remote add upstream git@github.com:Kotlin/kotlinx.coroutines.git
 ```shell
 git fetch upstream master
 git log --oneline --graph --decorate --all
-git checkout master`
+git checkout master
 git merge upstream/master
 git push origin master
 ```
+
+## Rebase
+
+Squash, Merge, or Rebase? https://matt-rickard.com/squash-merge-or-rebase
+
+Rebase Considered Harmful: https://www.fossil-scm.org/home/doc/trunk/www/rebaseharm.md - See [discussion on HN](https://news.ycombinator.com/item?id=32808229)
+
+### Golden Rule of Rebasing
+
+> The golden rule of `git rebase` is to never use it on _public_ branches.
+
+https://www.atlassian.com/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing
 
 ## Rebase interactive
 
@@ -110,12 +122,6 @@ grbc (git rebase --continue)
 ### Rebase until first (root) commit
 
 `git rebase -i --root`
-
-## Golden Rule of Rebasing
-
-The golden rule of `git rebase` is to never use it on _public_ branches.
-
-https://www.atlassian.com/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing
 
 ## Amend
 
