@@ -104,8 +104,10 @@ const sidebars = {
     'css/css',
     'css/selectors',
     'css/media-queries',
+    'css/container-queries',
     'css/reset',
     'css/flexbox',
+    'css/grid',
     'css/text',
     'css/misc'
   ],
