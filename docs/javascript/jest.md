@@ -146,6 +146,38 @@ expect(myMock.mock.calls[0][0]).toBe('a')
 expect(myMock.mock.calls[0][1]).toBe('b')
 ```
 
+### Mock a single function of a module, while the other ones use the real implementation
+
+There are various ways.
+
+One way is to use `jest.mock` and [`jest.requireActual`](https://jestjs.io/docs/jest-object#jestrequireactualmodulename) as explained at https://jestjs.io/docs/mock-functions#mocking-partials.
+
+The other is to use [`spyOn`](https://jestjs.io/docs/jest-object#jestspyonobject-methodname):
+
+```ts
+import * as Token from './token'
+
+describe('My function', () => {
+  test('should...', async () => {
+    const generateTokenSpy = jest
+      .spyOn(Token, 'generateToken')
+      .mockImplementation(() => 'some-token')
+
+    // ...
+
+    // Optionally we can restore the original (non-mocked) implementation of the
+    // function 'generateToken' if we don't want to mock it on the other tests.
+    generateTokenSpy.mockRestore()
+  }
+})
+```
+
+See more here:
+
+- How To Mock Only One Function From A Module In Jest - https://www.chakshunyu.com/blog/how-to-mock-only-one-function-from-a-module-in-jest/
+- Jest: How to mock one specific method of a class - https://stackoverflow.com/questions/50091438/jest-how-to-mock-one-specific-method-of-a-class
+- Mock only one function from module but leave rest with original functionality - https://stackoverflow.com/questions/59312671/mock-only-one-function-from-module-but-leave-rest-with-original-functionality
+
 ## Parametrized tests
 
 https://jestjs.io/blog/2018/05/29/jest-23-blazing-fast-delightful-testing#jest-each
