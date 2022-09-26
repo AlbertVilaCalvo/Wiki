@@ -28,10 +28,11 @@ https://github.com/sindresorhus/got#comparison
 https://betterstack.com/community/guides/logging/nodejs-logging-best-practices
 
 - https://github.com/winstonjs/winston
-- https://github.com/expressjs/morgan -> integrates with Express
 - https://github.com/debug-js/debug
+- https://github.com/pinojs/pino -> use it on Express with https://github.com/pinojs/pino-http (see https://github.com/pinojs/pino/blob/master/docs/web.md#pino-with-express)
+- https://github.com/klaussinani/signale
+- https://github.com/expressjs/morgan -> request logger middleware that integrates with Express
 - https://github.com/gajus/roarr
-- https://github.com/pinojs/pino
 
 ### Email
 
@@ -123,6 +124,7 @@ Generate TypeScript from SQL
 ## Sample code repos and starters
 
 - https://github.com/hagopj13/node-express-boilerplate - REST, MongoDB
+- https://github.com/ljlm0402/typescript-express-starter - Express, TypeScript, pg, TypeORM, GraphQL, Docker
 - https://github.com/kriasoft/node-starter-kit - GraphQL, PostgreSQL
 - https://github.com/kriasoft/relay-starter-kit - (Full Stack) GraphQL, PostgreSQL, React, Relay
 - https://github.com/sahat/hackathon-starter

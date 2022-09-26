@@ -210,6 +210,11 @@ function Button({ Icon }: { Icon: React.ComponentType<IconProps> /* <- important
 <Button Icon={SettingsIcon} />
 ```
 
+## Libraries
+
+- https://github.com/shuding/tilg - A magical React Hook that helps you debug components
+- Why did you render: https://github.com/welldone-software/why-did-you-render
+
 ## State management libraries
 
 Technical matrix of some React global state libraries - https://twitter.com/dai_shi/status/1342464894155640833
