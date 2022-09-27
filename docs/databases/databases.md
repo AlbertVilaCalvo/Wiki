@@ -42,7 +42,7 @@ For [node.bcrypt.js](https://www.npmjs.com/package/bcrypt): `CHAR(60) NOT NULL`
 
 ## Normalize to make better relations, denormalize for performance
 
-https://news.ycombinator.com/item?id=32414172
+From https://news.ycombinator.com/item?id=32414172
 
 - Prof: "Why do we normalize?"
 - Class, in unison: "To make better relations."
@@ -52,6 +52,13 @@ https://news.ycombinator.com/item?id=32414172
 ## Database types
 
 https://www.prisma.io/dataguide/intro/comparing-database-types
+
+From https://danpalmer.me/2022-09-10-write-your-own-task-queue/ - https://news.ycombinator.com/item?id=32799058
+
+- Postgres can bring strong consistency and options for idempotency control.
+- Redis can bring speed and simplicity.
+- RabbitMQ can bring complex queue topologies and behaviours, with strong consistency and scalability.
+- Kafka can bring performance benefits for large scale high performance systems.
 
 ## Column oriented
 
