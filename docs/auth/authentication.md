@@ -8,20 +8,26 @@ https://www.keycloak.org
 
 https://github.com/teesloane/Auth-Boss
 
+https://www.manning.com/books/api-security-in-action
+
 ## API Routes
 
-| Action           | Method | Route                   | HTML | Auth Token | Success Code             | Failure Code                                                                                      |                          Request Body                          | Response Body |
-| ---------------- | ------ | ----------------------- | :--: | :--------: | ------------------------ | ------------------------------------------------------------------------------------------------- | :------------------------------------------------------------: | ------------- |
-| Register form    | GET    | `/register`             |  ✓   |            | 200 OK                   | 404 Not Found                                                                                     |                               ✖                                | HTML          |
-| Register         | POST   | `/auth/register`        |      |            | 201 Created              | 400 Bad Request if missing fields, 409 Conflict if email/username already exist                   |              Email, password, name, username etc               | Tokens, User  |
-| Login form       | GET    | `/login`                |  ✓   |            | 200 OK                   | 404 Not Found                                                                                     |                               ✖                                | HTML          |
-| Login            | POST   | `/auth/login`           |      |            | 200 OK                   | 400 Bad Request if missing fields, 200 + error if wrong password or email/username not registered |                  Email/username and password                   | Tokens, User  |
-| Logout           | POST   | `/auth/logout`          |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized                                                                                  |                               ✖                                | Optional      |
-| Recover password | POST   | `/auth/reset-password`  |      |    ✓\*     | 200 OK or 204 No Content | 401 Unauthorized                                                                                  |                          New password                          | Optional      |
-| Change password  | POST   | `/auth/change-password` |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized, 400 Bad Request if missing field, 200 + error if wrong password                 | Current and new password, optionally new password confirmation | Optional      |
-| Delete account   | POST   | `/auth/delete-account`  |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized                                                                                  |                        Current password                        | Optional      |
-| Get my user      | GET    | `/account/profile`      |      |     ✓      | 200 OK                   | 401 Unauthorized                                                                                  |                               ✖                                | User          |
-| Update my user   | PATCH  | `/account/profile`      |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized, 400 Bad Request if missing field                                                |                          User fields                           | Optional      |
+| Action                               | Method    | Route                            | HTML | Auth Token | Success Code             | Failure Code                                                                                      |                      Request Body                       | Response Body |
+| ------------------------------------ | --------- | -------------------------------- | :--: | :--------: | ------------------------ | ------------------------------------------------------------------------------------------------- | :-----------------------------------------------------: | ------------- |
+| Register form                        | GET       | `/register`                      |  ✓   |            | 200 OK                   | 404 Not Found                                                                                     |                            ✖                            | HTML          |
+| Register                             | POST      | `/auth/register`                 |      |            | 201 Created              | 400 Bad Request if missing fields, 409 Conflict if email/username already exist                   |           Email, password, name, username etc           | Tokens, User  |
+| Login form                           | GET       | `/login`                         |  ✓   |            | 200 OK                   | 404 Not Found                                                                                     |                            ✖                            | HTML          |
+| Login                                | POST      | `/auth/login`                    |      |            | 200 OK                   | 400 Bad Request if missing fields, 200 + error if wrong password or email/username not registered |                Email/username + password                | Tokens, User  |
+| Logout                               | POST      | `/auth/logout`                   |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized                                                                                  |                            -                            | Optional      |
+| Verify email page                    | GET       | `/verify-email?token=${token}`   |  ✓   |            | 200 OK                   | 404 Not Found                                                                                     |                            ✖                            | Optional      |
+| Verify email                         | POST      | `/auth/verify-email`             |      |            | 200 OK or 204 No Content | 200 with error message if token expired                                                           |             Token from the URL query string             | Optional      |
+| Recover password, send email to user | POST      | `/auth/password-reset/send`      |      |            | 200 OK or 204 No Content |                                                                                                   |                          Email                          | Optional      |
+| Recover password form (email link)   | GET       | `/password-reset?token=${token}` |  ✓   |            | 200 OK or 204 No Content |                                                                                                   |                            ✖                            | HTML          |
+| Recover password form submission     | POST      | `/auth/password-reset`           |      |            | 200 OK or 204 No Content |                                                                                                   |     Token from the URL query string + new password      | Optional      |
+| Change password                      | PUT       | `/auth/change-password`          |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized, 400 Bad Request if missing field, 200 + error if wrong password                 | Current + new password, optionally new password confirm | Optional      |
+| Delete account                       | POST      | `/auth/delete-account`           |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized                                                                                  |                    Current password                     | Optional      |
+| Get my user                          | GET       | `/account/profile`               |      |     ✓      | 200 OK                   | 401 Unauthorized                                                                                  |                            ✖                            | User          |
+| Update my user                       | PUT/PATCH | `/account/profile`               |      |     ✓      | 200 OK or 204 No Content | 401 Unauthorized, 400 Bad Request if missing field                                                |                       User fields                       | Optional      |
 
 See CSRF: https://next-auth.js.org/getting-started/rest-api
 
@@ -33,6 +39,8 @@ Logout: GET or POST? - https://stackoverflow.com/questions/3521290/logout-get-or
 
 ### Register with an email or username that already exists
 
+Error messages: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#account-creation
+
 409 Conflict
 
 - Which HTTP response code for "This email is already registered"? -https://stackoverflow.com/questions/9269040/which-http-response-code-for-this-email-is-already-registered
@@ -40,6 +48,8 @@ Logout: GET or POST? - https://stackoverflow.com/questions/3521290/logout-get-or
 - HTTP Status Code for username already exists when registering new account - https://stackoverflow.com/questions/26587082/http-status-code-for-username-already-exists-when-registering-new-account
 
 ### Login with wrong credentials
+
+Error messages: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#login
 
 401 Unauthorized doesn't make sense as a response to login request, since it is for a request that lacks or doesn't have correct authentication credentials, and the response "MUST send a WWW-Authenticate header field (Section 4.1) containing at least one challenge applicable to the target resource." ([source](https://www.rfc-editor.org/rfc/rfc7235#section-3.1)).
 
@@ -58,6 +68,36 @@ Django returns 200:
 Wordpress returns 200:
 
 - Return HTTP status code 401 upon failed login - https://core.trac.wordpress.org/ticket/25446
+
+### Recover/Reset password
+
+https://stackoverflow.com/questions/3077229/restful-password-reset
+
+> PUT requests should be idempotent (i.e. repeated requests should not affect the outcome)
+
+Password recovery messages: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#password-recovery
+
+## Verify email flow
+
+- https://stackoverflow.com/a/39093058/4034572
+- https://stackoverflow.com/a/3237506/4034572
+- https://stackoverflow.com/a/14128171/4034572
+
+UX:
+
+- Best way to handle new user registration when email verification is required - https://ux.stackexchange.com/questions/109958/best-way-to-handle-new-user-registration-when-email-verification-is-required
+  - > the best rule is to allow them to do and see anything that doesn't strictly require email verification -- e.g., view community content, make and edit a profile, etc.
+- Limiting access before email address is confirmed - https://ux.stackexchange.com/questions/29145/limiting-access-before-email-address-is-confirmed
+  - > immediately send the email, but allow them to access non-critical areas of the site in the meantime.
+  - > Dead accounts are usually not much of a cost to a service, whereas ensuring that you maximise volume of signups is usually quite important.
+
+When changing an email:
+
+- Is a "Confirm Email" input good practice when user changes email address? - https://stackoverflow.com/questions/4880/is-a-confirm-email-input-good-practice-when-user-changes-email-address
+  - > I've seen plenty of people type their email address wrong and I've also looked through user databases full of invalid email address.
+  - > I tend to have it send a verification code to the email address specified (and only ask for it once), and not change the email address until the user has entered the code I sent them.
+- What is the suggested best practice for changing a user's email address? - https://security.stackexchange.com/questions/234060/what-is-the-suggested-best-practice-for-changing-a-users-email-address
+  - > You will receive a confirmation email to the new address you provide. This will assure you typed in the e-mail correctly
 
 ## Single Page Apps
 
