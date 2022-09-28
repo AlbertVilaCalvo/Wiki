@@ -38,8 +38,10 @@ https://betterstack.com/community/guides/logging/nodejs-logging-best-practices
 
 - https://github.com/nodemailer/nodemailer
 - https://github.com/forwardemail/email-templates
+  - This project uses it: https://github.com/Saas-Starter-Kit/SAAS-Starter-Kit-Pro/tree/main/server/emails / https://github.com/Saas-Starter-Kit/SAAS-Starter-Kit-Pro/blob/cdec5491b8ed52313cedb07ecfbc7657966689f2/server/src/Config/email.js
 - https://github.com/eladnava/mailgen
 - https://github.com/eleith/emailjs
+- Convert HTML to text: https://github.com/EthanRBrown/web-development-with-node-and-express-2e/blob/99c116fb90f2e08c9f231e52d167ad6097df444a/ch11/04-rendering-html-email.js#L63 The project uses Handlebars for HTML emails and it uses [html-to-formatted-text](https://www.npmjs.com/package/html-to-formatted-text) to get the text version of the email
 
 ### Environment variables
 

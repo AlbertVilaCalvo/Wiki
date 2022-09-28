@@ -40,6 +40,11 @@ https://github.com/search?q=%22infoPlist%22+extension%3Ajson+path%3A%2F+filename
 
 https://docs.expo.dev/workflow/expo-cli
 
+The New Expo CLI - https://blog.expo.dev/the-new-expo-cli-f4250d8e3421
+
+- A new “Local Expo CLI” replaces the “Global Expo CLI”
+- In the new Local Expo CLI, `expo eject` is no longer available, it’s been fully replaced by `npx expo prebuild`
+
 ### Use `expo install`instead of `yarn add`/`npm install` because it picks the library versions compatible with the Expo SDK
 
 See https://docs.expo.dev/bare/using-expo-client/#prefer--expo-install--over-

@@ -2,6 +2,8 @@
 title: Email
 ---
 
+Regex to validate email: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
+
 Email explained from first principles - https://explained-from-first-principles.com/email/
 
 Falsehoods programmers believe about email - https://beesbuzz.biz/code/439-Falsehoods-programmers-believe-about-email - https://news.ycombinator.com/item?id=32671959

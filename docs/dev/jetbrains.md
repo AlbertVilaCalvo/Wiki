@@ -64,6 +64,11 @@ Guide: https://www.jetbrains.com/webstorm/guide/
 
 Tips & Tricks: https://blog.jetbrains.com/webstorm/category/tips-tricks/
 
+Database plugin:
+
+- How to Get Support for Database Tools and SQL Inside WebStorm - https://blog.jetbrains.com/webstorm/2020/09/support-for-database-tools-and-sql-inside-webstorm
+- Database Tools and SQL for WebStorm - https://plugins.jetbrains.com/plugin/10925-database-tools-and-sql-for-webstorm
+
 ESLint setup: https://www.jetbrains.com/help/webstorm/eslint.html
 
 Refactors: https://www.jetbrains.com/help/webstorm/refactoring-source-code.html#ws_supported_refactorings
