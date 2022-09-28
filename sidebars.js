@@ -33,7 +33,6 @@ const sidebars = {
     'dev/go',
     'dev/php',
     'dev/cryptography',
-    'dev/csrf',
     'dev/email',
     'dev/functional-programming',
   ],
@@ -94,6 +93,7 @@ const sidebars = {
   ],
   web: [
     'web/chrome-devtools',
+    'web/csrf',
   ],
   html: [
     'html/html',
