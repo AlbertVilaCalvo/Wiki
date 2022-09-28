@@ -102,13 +102,25 @@ https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Safe_methods
 
 All safe methods are also idempotent, but not all idempotent methods are safe. For example, PUT and DELETE are both idempotent but unsafe.
 
+Rule: **never change state with a GET**. See [GET Don't Let Users Confirm Via HTTP GET](https://www.artima.com/weblogs/viewpost.jsp?thread=152805). It can have bad consequences: https://stackoverflow.com/questions/50365264/users-browser-seems-to-trigger-requests-multiple-times-a-day
+
+> GET, HEAD, OPTIONS and TRACE methods are defined as safe, meaning they are only intended for retrieving data. This makes them idempotent as well since multiple, identical requests will behave the same [source](https://stackoverflow.com/a/50368772/4034572)
+
 | Method | Description                                                                        | Idempotent                                                                            | Safe |
 | ------ | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---- |
 | GET    | Read                                                                               | Yes                                                                                   | Yes  |
 | POST   | Create                                                                             | No - we create new records every time unless there's some duplicated field validation | No   |
 | PUT    | Upsert. Replace existing record entirely or create it. Requires sending all fields | Yes - we can perform it multiple times, only the first PUT will take effect           | No   |
-| PATCH  | Partially update existing record. Does not require sending all fields              | No - surprising, see why at https://stackoverflow.com/a/39338329/4034572              | No   |
+| PATCH  | Partially update existing record. Does not require sending all fields              | No - surprising, see why below                                                        | No   |
 | DELETE | Delete                                                                             | Yes - we can delete the same record multiple times                                    | No   |
+
+### Why PATCH is not idempotent
+
+See https://stackoverflow.com/a/39338329/4034572
+
+From https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
+
+> A `PATCH` is not necessarily idempotent, although it can be. Contrast this with `PUT`; which is always idempotent. The word "idempotent" means that any number of repeated, identical requests will leave the resource in the same state. For example if an auto-incrementing counter field is an integral part of the resource, then a `PUT` will naturally overwrite it (since it overwrites everything), but not necessarily so for `PATCH`.
 
 ## URI
 
