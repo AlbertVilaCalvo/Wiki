@@ -85,6 +85,7 @@ const sidebars = {
     'http/http',
     'http/https',
     'http/headers',
+    'http/cookies',
     'http/dns',
     'http/rest-api',
     'http/graphql',
