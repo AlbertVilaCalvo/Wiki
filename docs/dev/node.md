@@ -125,13 +125,34 @@ Generate TypeScript from SQL
 
 ## Sample code repos and starters
 
-- https://github.com/hagopj13/node-express-boilerplate - REST, MongoDB
-- https://github.com/ljlm0402/typescript-express-starter - Express, TypeScript, pg, TypeORM, GraphQL, Docker
-- https://github.com/kriasoft/node-starter-kit - GraphQL, PostgreSQL
-- https://github.com/kriasoft/relay-starter-kit - (Full Stack) GraphQL, PostgreSQL, React, Relay
-- https://github.com/sahat/hackathon-starter
+- https://github.com/hagopj13/node-express-boilerplate
+  - REST, MongoDB, Docker, JWT (in Authorization header, not in cookie), reset password, verify email, testing with Jest, supertest and node-mocks-http
+- https://github.com/ljlm0402/typescript-express-starter
+  - Express, TypeScript, pg, TypeORM, GraphQL, Docker
+- https://github.com/kriasoft/node-starter-kit
+  - Node.js / GraphQL project template pre-configured with TypeScript, PostgreSQL, login flow, transactional emails, unit tests, CI/CD workflow.
+  - GraphQL, PostgreSQL, JWT stored in cookie
+- https://github.com/kriasoft/relay-starter-kit
+  - Monorepo template (seed project) pre-configured with GraphQL API, PostgreSQL, React, Relay, Material UI.
+  - (Full Stack) Terraform, SPA with React, GraphQL, Relay, PostgreSQL (Google Cloud SQL, Knex), session cookie
 - https://github.com/danielfsousa/express-rest-boilerplate
-- https://github.com/guardian/gateway - React, Redis, Cypress, Jest, [Rate limit](https://github.com/guardian/gateway/tree/main/src/server/lib/rate-limit)
+  - Docker
+- https://github.com/guardian/gateway
+  - React, Redis, Cypress, Jest, [Rate limit](https://github.com/guardian/gateway/tree/main/src/server/lib/rate-limit)
+- https://github.com/async-labs/builderbook - https://builderbook.org/
+  - Open source web application to learn JS stack: React, Material-UI, Next.js, Node.js, Express.js, Mongoose, MongoDB database.
+  - AWS Cloudfront
+- https://github.com/diegohaz/rest
+  - REST API generator with Node.js, Express and Mongoose
+  - Password reset,
+- https://github.com/ljlm0402/typescript-express-starter
+  - Quick and Easy TypeScript Express Starter
+  - Docker, auth with JWT in cookie (see the 'default' template), GraphQL, TypeORM, Sequelize
+- https://github.com/tanem/express-bookshelf-realworld-example-app
+  - Docker
+- https://github.com/sahat/hackathon-starter
+  - A boilerplate for Node.js web applications
+  - Not really good, very basic. MongoDB
 
 ## HTTP2
 
