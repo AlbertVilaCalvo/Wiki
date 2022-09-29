@@ -2,11 +2,20 @@
 title: GitHub
 ---
 
-Trending repositories this week: https://github.com/trending?since=weekly&spoken_language_code=en
-
 Locking down your GitHub-hosted Domains - https://news.ycombinator.com/item?id=32435134
 
 Desktop app: https://desktop.github.com - https://github.com/desktop/desktop
+
+## Trending
+
+Trending repositories this week: https://github.com/trending?since=weekly&spoken_language_code=en
+
+Alternatives (from https://news.ycombinator.com/item?id=32681319):
+
+- https://github.com/explore
+- https://ossinsight.io/
+- https://trends.vercel.app/
+- https://github.com/vitalets/github-trending-repos (they use https://github.com/trending/ according to https://news.ycombinator.com/item?id=32687015)
 
 ## Shortcuts
 
