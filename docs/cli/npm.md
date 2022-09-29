@@ -2,15 +2,20 @@
 title: npm
 ---
 
-CLI docs: https://docs.npmjs.com/cli-documentation/
-
 package.json docs: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
 
-Tip: `npm run` lists all the executable commands/scripts.
-
-npm vs yarn: https://classic.yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison
-
 Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html
+
+## CLI
+
+CLI docs: https://docs.npmjs.com/cli-documentation/
+
+npm <-> yarn:
+
+- https://classic.yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison
+- https://devhints.io/yarn
+
+Tip: `npm run` lists all the executable commands/scripts.
 
 Upgrade npm itself: `npm install npm@latest -g`
 
@@ -38,13 +43,13 @@ Find outdated and unused packages: https://github.com/dylang/npm-check
 
 https://www.stefanjudis.com/today-i-learned/how-to-override-your-dependencys-dependencies/
 
-## Update a package
+### Update a package
 
-Just use `npm i [-D] [-E] somepackage@latest` because using [`npm update`](https://docs.npmjs.com/cli/v8/commands/npm-update) doesn't update `package.json`:
+Just use `npm i [-D] [-E] somepackage@latest` (eg `npm i -D -E typescript@latest`) because using [`npm update`](https://docs.npmjs.com/cli/v8/commands/npm-update) doesn't update `package.json`:
 
 > Note that by default `npm update` will not update the semver values of direct dependencies in your project `package.json`, if you want to also update values in `package.json` you can run: `npm update --save` (or add the `save=true` option to a [configuration file](https://docs.npmjs.com/cli/v8/configuring-npm/npmrc) to make that the default behavior).
 
-## Init
+### Init
 
 https://docs.npmjs.com/cli/v8/commands/npm-init
 
@@ -52,7 +57,7 @@ Creates `package.json`.
 
 Init without questions: `npm init -y`
 
-## Global
+### Global
 
 List global pacakges: `npm list -g --depth=0`
 
@@ -65,6 +70,24 @@ Update 1 global package: `npm update -g <package>`
 Update all global packages: `npm update -g`
 
 Remove global package: `npm uninstall -g <package>`
+
+## `dependencies` vs `devDependencies`
+
+Putting packages in `dependencies` or `devDependencies` matters on Node.js and libraries, but not when creating a bundle (eg with Create React App).
+
+How do I decide whether @types/\* goes into `dependencies` or `devDependencies`? - https://stackoverflow.com/questions/45176661/how-do-i-decide-whether-types-goes-into-dependencies-or-devdependencies
+
+create-react-app install devDepencies in dependencies section - https://stackoverflow.com/questions/44868453/create-react-app-install-devdepencies-in-dependencies-section
+
+Consider moving react-scripts to devDependencies in the generated package - https://github.com/facebook/create-react-app/issues/4342
+
+> I don't think npm's advice is very relevant here. It is primarily concerning Node apps. CRA doesn't give you a Node app. From that perspective, all dependencies (including React) are "dev" dependencies because they're only necessary for the build: once you build the app, it has no deps at all.
+
+Everything goes into dependencies? - https://github.com/facebook/create-react-app/issues/6180
+
+> The distinction is meaningful for Node apps because they actually are deployed as runtime. So you might not want to deploy development dependencies.
+>
+> In case of CRA, the end result is a static bundle. So in a sense all dependencies are "development dependencies", even React or libraries you use. They're used only at the build time.
 
 ## Dependency version
 
