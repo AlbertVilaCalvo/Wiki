@@ -47,6 +47,8 @@ Is considered same-origin if only the path differs. Different origin (ie cross-o
 - Different port:` example.com` and `example.com:3456`
 - Different protocol/scheme: `http://example.com` and `https://example.com`
 
+See https://web.dev/same-site-same-origin/#origin
+
 ## Flows
 
 See which conditions dictate if a request is simple or preflighted here:
