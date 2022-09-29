@@ -132,6 +132,14 @@ SameSite default behavior change to Lax by Chrome in 2020:
 - https://blog.chromium.org/2019/10/developers-get-ready-for-new.html
 - https://blog.chromium.org/2020/02/samesite-cookie-changes-in-february.html
 
+## Size limit
+
+4 kB
+
+What is the maximum size of a web browser's cookie's key? - https://stackoverflow.com/questions/640938/what-is-the-maximum-size-of-a-web-browsers-cookies-key
+
+What are the current cookie limits in modern browsers? - https://stackoverflow.com/questions/5381526/what-are-the-current-cookie-limits-in-modern-browsers
+
 ## `Sec-Fetch-Site` request header
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site
