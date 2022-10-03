@@ -11,3 +11,5 @@ https://www.oddbird.net/2021/04/05/containerqueries/
 https://css-tricks.com/next-gen-css-container/
 
 https://github.com/sturobson/Awesome-Container-Queries
+
+@container and :has(): two powerful new responsive APIs landing in Chromium 105 - https://developer.chrome.com/blog/has-with-cq-m105/

@@ -38,6 +38,10 @@ There are other ways to do this: https://stackoverflow.com/questions/5065766/css
 
 https://blog.jim-nielsen.com/2022/unlocked-possibilities-of-has-selector/
 
+https://developer.chrome.com/blog/has-m105/
+
+You can do `:not(:has(...))`.
+
 ## Pseudo-elements (`::before`, `p::first-line`)
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements

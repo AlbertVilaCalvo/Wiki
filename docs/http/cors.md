@@ -206,3 +206,5 @@ At the browser console:
 ## Security
 
 https://portswigger.net/web-security/cors
+
+https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#cross-origin-resource-sharing

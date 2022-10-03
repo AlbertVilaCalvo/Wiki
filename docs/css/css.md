@@ -16,7 +16,7 @@ https://wattenberger.com/blog/css-cascade
 
 !important: https://twitter.com/stevenpemberton/status/1505839184287870981
 
-## ul
+## ul lists
 
 Remove bullets:
 
@@ -27,3 +27,5 @@ ul {
 ```
 
 See [list-style-type on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type) for other nice options.
+
+Creative list styling - https://web.dev/creative-list-styling/

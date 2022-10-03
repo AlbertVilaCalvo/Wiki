@@ -43,6 +43,19 @@ https://betterstack.com/community/guides/logging/nodejs-logging-best-practices
 - https://github.com/eleith/emailjs
 - Convert HTML to text: https://github.com/EthanRBrown/web-development-with-node-and-express-2e/blob/99c116fb90f2e08c9f231e52d167ad6097df444a/ch11/04-rendering-html-email.js#L63 The project uses Handlebars for HTML emails and it uses [html-to-formatted-text](https://www.npmjs.com/package/html-to-formatted-text) to get the text version of the email
 
+### Rate limit
+
+- https://github.com/animir/node-rate-limiter-flexible
+- https://github.com/nfriedly/express-rate-limit
+- https://github.com/tj/node-ratelimiter
+
+See https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/security/login-rate-limit.md
+
+With Redis:
+
+- https://github.com/guardian/gateway/tree/main/src/server/lib/rate-limit
+- https://github.dev/lesterfernandez/react-live-messenger/blob/master/packages/server/controllers/express/rateLimiter.js
+
 ### Environment variables
 
 - https://github.com/motdotla/dotenv
