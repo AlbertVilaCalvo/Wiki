@@ -123,7 +123,11 @@ From https://en.wikipedia.org/wiki/JSON_Web_Token#Vulnerabilities:
 
 How I Found An alg=none JWT Vulnerability in the NHS Contact Tracing App - https://www.zofrex.com/blog/2020/10/20/alg-none-jwt-nhs-contact-tracing-app/
 
-## Store JWT
+## Store JWT on the client
+
+Also see [Authentication#SPA](/auth/authentication#single-page-apps).
+
+If we store it on `localStorage` we are open to XSS. (Using `sessionStorage` doesn't make sense since it's cleared when the tab is closed.)
 
 Where to store JWT in browser? How to protect against CSRF? - https://stackoverflow.com/questions/27067251/where-to-store-jwt-in-browser-how-to-protect-against-csrf
 
@@ -163,6 +167,28 @@ Why JWTs Suck as Session Tokens - https://developer.okta.com/blog/2017/08/17/why
 > There are several cases in which JWTs can be useful. If you’re building API services that need to support server-to-server or client-to-server (like a mobile app or single page app (SPA)) communication, using JWTs as your API tokens is a very smart idea.
 
 Ask HN: What's the current sentiment on JWT for stateless auth tokens? - https://news.ycombinator.com/item?id=21783303
+
+Why you should not use JWT - https://news.ycombinator.com/item?id=33019960 - https://apibakery.com/blog/tech/no-jwt/
+
+> Major advantage of JWT compared to bearer tokens (or indeed, session authentication) is that they don't require looking up the token. If you have a **distributed system**, each node in the system can verify JWT correctness for itself and immediately use the data - no need to look up the random string in the database to figure out who it is.
+>
+> That's great if you've got a true **microservices** architecture. Your auth service can check user credentials (email and password, or using a 3rd-party auth provider), issue a JWT and call it a day. Other microservices can independently verify the correctness of the token and have the user information immediately, without the need to check in with the auth service. This shaves precious time off of every request handling and lowers the load on your auth service. What's not to like?
+
+Regarding the refresh token:
+
+> you've just reintroduced a bearer token, because that's exactly what the refresh token is. Looking at JWTs from that perspective, you've introduced a client-side cache of user identity (the JWT) and added a bunch of complexity (involving the creation, verification, and token refresh) for the hope of optimizing part of the work you used to do on the server (checking user identity using a bearer token). Was it worth it?
+
+JWT vs. Opaque Tokens - https://news.ycombinator.com/item?id=33018135 - https://zitadel.com/blog/jwt-vs-opaque-tokens
+
+> users can get a token from your authorization server and use it in another without those servers needing to consult a central service.
+
+> a self-contained token that is issued is not easy to revoke, but there are a few ways to work around this. For example, you can add an `exp` claim which signifies an expiration date for the token. Or you can use the `jti` claim to assign a valid identifier. Using the identifiers, you can create blacklists to block certain token identifiers.
+
+> In contrast, opaque tokens are stored on the server. So you can change their contents at will. If a user is banned or deleted, or if any other action is taken that would invalidate their token, you can instantly revoke the token that is residing in your storage. There is no window to use an invalid token.
+>
+> For this reason, JWT tokens are a bad choice for storing long-lasting authorization and session data. Because of the necessity to include an expiration date with your tokens, you can't really issue them for too long. And if you want to end a session, you can't really make the token invalid.
+
+> there are some situations where the self-sufficient nature of JWTs shine. For example, if your system is highly **distributed**, querying the authorization server for the token details of opaque tokens may create additional internal traffic to the server, increase overall latency, and create a bottleneck for the system.
 
 ## Libraries
 

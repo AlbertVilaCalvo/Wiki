@@ -130,6 +130,8 @@ Link format:
 
 ## Single Page Apps
 
+Single-page application OAuth login using authorization code grant with JWTs and refresh tokens - https://fusionauth.io/learn/expert-advice/authentication/spa/oauth-authorization-code-grant-jwts-refresh-tokens-cookies
+
 Part 1: How to store an access token in your SPA - https://jcbaey.com/authentication-in-spa-reactjs-and-vuejs-the-right-way/
 
 How to use an Identity Provider to identify users and provides SSO in your SPA (ODIC, OAuth2 concepts) - https://jcbaey.com/oauth2-oidc-best-practices-in-spa/
