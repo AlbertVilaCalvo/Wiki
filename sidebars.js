@@ -94,6 +94,7 @@ const sidebars = {
   ],
   web: [
     'web/chrome-devtools',
+    'web/xss',
     'web/csrf',
   ],
   html: [
