@@ -23,6 +23,20 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/console_account-alias.html#Find
 
 `aws sts get-caller-identity`
 
+## Don't use the root user
+
+> We don't recommend generating access keys for your root user, because they allow full access to all your resources for all AWS services [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials)
+
+> We strongly recommend that you do not use the root user for your everyday tasks. Safeguard your root user credentials and use them to perform the tasks that only the root user can perform. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+
+## Create IAM admin user
+
+> We recommend that you not use the root level credentials for anything other than initial setup of the account and the creation of the IAM user account with administrator permissions attached via policy [source](https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam)
+
+Creating your first IAM admin user and user group - https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html
+
+IAM -> Users -> click 'Add users' button.
+
 ## Policy
 
 JSON file. Permissions assigned to a user, group or role.
@@ -32,6 +46,8 @@ Console: https://console.aws.amazon.com/iamv2/home?#/policies
 Simulator: https://policysim.aws.amazon.com
 
 Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
+
+AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
 
 ## CLI
 
