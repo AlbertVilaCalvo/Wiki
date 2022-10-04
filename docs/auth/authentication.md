@@ -118,6 +118,12 @@ When changing an email:
 - What is the suggested best practice for changing a user's email address? - https://security.stackexchange.com/questions/234060/what-is-the-suggested-best-practice-for-changing-a-users-email-address
   - > You will receive a confirmation email to the new address you provide. This will assure you typed in the e-mail correctly
 
+Examples:
+
+- https://acloud.guru
+  - Link: https://acloudguru.auth0.com/u/email-verification?ticket=wsr9SznW4H4UtWc9xEZgZRZO6aHm7PCV#
+  - Text: Thank you for signing up for your new account! To complete your account setup, please verify abcd@gmail.com is your email by clicking the following link. This link is valid for the next 7 days
+
 ## Passwordless authentication via email
 
 What Medium and Vercel do.

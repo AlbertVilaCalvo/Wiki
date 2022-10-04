@@ -6,6 +6,8 @@ https://news.ycombinator.com/item?id=30512512 - https://lexoral.com/blog/you-don
 
 https://maintainablecss.com/
 
+58 bytes of CSS to look great nearly everywhere - https://gist.github.com/JoeyBurzynski/617fb6201335779f8424ad9528b72c41
+
 ## Cascade
 
 https://css-tricks.com/dont-fight-the-cascade-control-it/

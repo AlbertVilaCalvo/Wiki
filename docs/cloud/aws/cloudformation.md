@@ -6,11 +6,16 @@ https://aws.amazon.com/cloudformation/
 
 Docs: https://docs.aws.amazon.com/cloudformation/index.html
 
-Sample templates: https://aws.amazon.com/cloudformation/resources/templates/
+https://github.com/donnemartin/awesome-aws#cloudformation
 
 Never store sensitive information (such as credentials and access keys) in a template file.
 
 A stack can be created using the console or the CLI.
+
+## Sample templates
+
+- https://aws.amazon.com/cloudformation/resources/templates
+- https://github.com/widdix/aws-cf-templates
 
 ## Template sections
 
