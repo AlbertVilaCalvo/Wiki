@@ -99,6 +99,12 @@ const config = {
             position: 'left',
           },
           {
+            to: 'aws',
+            activeBasePath: 'aws',
+            label: 'AWS',
+            position: 'left',
+          },
+          {
             // Using "to: 'http/http'" results in 404 when clicking the link 'HTTP' on the sidebar,
             // because it links to the page /http/http, which doesn't exist.
             to: 'http',
