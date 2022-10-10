@@ -4,6 +4,8 @@ title: CLI
 
 https://aws.amazon.com/cli
 
+https://github.com/aws/aws-cli
+
 Reference: https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html
 
 V1 reference: https://docs.aws.amazon.com/cli/latest/reference

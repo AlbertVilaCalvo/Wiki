@@ -4,6 +4,8 @@ title: Heroku
 
 Ask HN: Are you leaving Heroku? - https://news.ycombinator.com/item?id=32580597
 
+Ask HN: So you moved off Heroku, where did you go? - https://news.ycombinator.com/item?id=33077118
+
 https://blog.heroku.com/next-chapter
 
 > Starting October 26, 2022, we will begin deleting inactive accounts and associated storage for accounts that have been inactive for over a year.

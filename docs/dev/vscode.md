@@ -14,6 +14,8 @@ Word wrap: Alt+Z (⌥+Z). [source](https://stackoverflow.com/questions/31025502/
 
 Explorer: avoid automatically revealing a file in the when we open it: Features -> Explorer -> Auto Reveal false.
 
+Remove 'U'/'M' from the file tab: Workbench -> Editor -> Decorations: Badges, uncheck it.
+
 ## Extensions
 
 Code Spell Checker: https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker

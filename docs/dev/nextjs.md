@@ -14,6 +14,8 @@ https://remix.run/blog/remix-vs-next
 
 Aquí diu coses interessants: https://dev.to/alex_barashkov/comparing-gatsby-and-nextjs-for-website-development-13b7
 
+Cheapest way to deploy a React app using NextJS SSR on AWS? - https://stackoverflow.com/questions/61433306/cheapest-way-to-deploy-a-react-app-using-nextjs-ssr-on-aws
+
 ## Site examples and repos
 
 - A Beautiful Bejamas Blog Template with Next.js on Netlify: https://www.netlify.com/blog/a-beautiful-bejamas-blog-template-with-next.js-on-netlify - https://github.com/netlify-templates/nextjs-blog-theme - https://bejamas-nextjs-blog.netlify.app/
@@ -27,6 +29,7 @@ Aquí diu coses interessants: https://dev.to/alex_barashkov/comparing-gatsby-and
   - I use MongoDB as my database, to store stuff like the # of likes each post has.
 - https://github.com/rauchg/blog - https://rauchg.com/
 - https://github.com/ixartz/Next-js-Boilerplate
+- https://github.com/github/docs
 
 ## MDX
 

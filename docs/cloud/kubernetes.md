@@ -8,7 +8,15 @@ https://github.com/kelseyhightower/kubernetes-the-hard-way
 
 https://github.com/dennyzhang/cheatsheet-kubernetes-A4
 
+https://github.com/ramitsurana/awesome-kubernetes
+
 OWASP Kubernetes Top 10 - https://github.com/OWASP/www-project-kubernetes-top-ten
+
+Deploy a Production Ready Kubernetes Cluster - https://github.com/kubernetes-sigs/kubespray
+
+https://github.com/MichaelCade/90DaysOfDevOps#kubernetes
+
+https://github.com/bregman-arie/devops-exercises/blob/master/topics/kubernetes/README.md
 
 ## Validators / linters
 

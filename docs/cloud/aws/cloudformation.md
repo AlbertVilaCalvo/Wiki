@@ -16,6 +16,7 @@ A stack can be created using the console or the CLI.
 
 - https://aws.amazon.com/cloudformation/resources/templates
 - https://github.com/widdix/aws-cf-templates
+- Static site S3 CloudFront - https://github.com/aws-samples/amazon-cloudfront-secure-static-site
 
 ## Template sections
 
