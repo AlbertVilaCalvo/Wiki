@@ -24,7 +24,7 @@ https://docusaurus.io/docs/sidebar
 
 https://docusaurus.io/docs/sidebar/items
 
-```js
+```js title=sidebars.js
 const sidebars = {
   http: [
     'http/http',
@@ -45,6 +45,37 @@ const sidebars = {
       label: 'RFC 7231',
       href: 'https://httpwg.org/specs/rfc7231.html',
     },
+  ],
+}
+```
+
+### Sidebar category with generated index
+
+The generated index route will be `/category/aws`, and the page is accessible by clicking the dropdown.
+
+```js
+const sidebars = {
+  cloud: [
+    'cloud/cloud',
+    'cloud/kubernetes',
+    'cloud/terraform',
+    {
+      type: 'category',
+      label: 'AWS',
+      link: {
+        type: 'generated-index',
+        title: 'AWS',
+        description: 'Amazon Web Services',
+      },
+      collapsed: false,
+      items: [
+        'cloud/aws/aws', // Actual link to this page will be '/cloud/aws'
+        'cloud/aws/iam',
+        'cloud/aws/ec2',
+        'cloud/aws/s3',
+      ],
+    },
+    'cloud/heroku',
   ],
 }
 ```
