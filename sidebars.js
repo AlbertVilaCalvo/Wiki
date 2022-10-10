@@ -56,6 +56,7 @@ const sidebars = {
     'cloud/cloud',
     'cloud/docker',
     'cloud/kubernetes',
+    'cloud/terraform',
     {
       type: 'category',
       label: 'AWS',
@@ -73,6 +74,7 @@ const sidebars = {
         'cloud/aws/eks',
         'cloud/aws/ecs',
         'cloud/aws/s3',
+        'cloud/aws/route53',
         'cloud/aws/cloudformation',
         'cloud/aws/codepipeline',
         'cloud/aws/codebuild',
