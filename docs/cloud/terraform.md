@@ -2,7 +2,9 @@
 title: Terraform
 ---
 
-[https://www.terraform.io/](www.terraform.io)
+[www.terraform.io](https://www.terraform.io/)
+
+https://developer.hashicorp.com/terraform (new) - https://learn.hashicorp.com/terraform (old)
 
 https://github.com/topics/terraform
 
