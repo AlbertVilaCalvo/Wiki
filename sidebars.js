@@ -133,6 +133,7 @@ const sidebars = {
     'misc/battery',
     'misc/macos',
     'misc/hosts',
+    'misc/youtube-dl',
     'misc/markdown',
   ],
   disseny: [
