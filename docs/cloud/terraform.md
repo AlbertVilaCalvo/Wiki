@@ -18,5 +18,8 @@ https://github.com/MichaelCade/90DaysOfDevOps#learn-infrastructure-as-code
 
 ## Examples
 
+- https://github.com/AJarombek/global-aws-infrastructure
+- https://github.com/AJarombek/jarombek-com-infrastructure
+- https://github.com/AJarombek/saints-xctf-infrastructure
 - Terraform module for building and deploying Next.js apps to AWS. Supports SSR (Lambda), Static (S3) and API (Lambda) pages. - https://github.com/milliHQ/terraform-aws-next-js
 - https://github.com/bregman-arie/devops-exercises/search?q=terraform

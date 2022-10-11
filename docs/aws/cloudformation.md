@@ -12,11 +12,15 @@ Never store sensitive information (such as credentials and access keys) in a tem
 
 A stack can be created using the console or the CLI.
 
+## CLI
+
+CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
+
 ## Sample templates
 
 - https://aws.amazon.com/cloudformation/resources/templates
 - https://github.com/widdix/aws-cf-templates
-- Static site S3 CloudFront - https://github.com/aws-samples/amazon-cloudfront-secure-static-site
+- Static site S3 CloudFront - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/getting-started-secure-static-website-cloudformation-template.html - https://github.com/aws-samples/amazon-cloudfront-secure-static-site
 
 ## Template sections
 

@@ -27,3 +27,4 @@ baseUrl: Add `"baseUrl": "http://localhost:8080"` to cypress.json. It will be us
 - Sample app (React): https://github.com/cypress-io/cypress-realworld-app
 - https://github.com/guardian/gateway/tree/main/cypress
 - https://github.com/guardian/dotcom-rendering/tree/main/dotcom-rendering/cypress
+- https://github.com/AJarombek/saints-xctf-web/tree/master/cypress
