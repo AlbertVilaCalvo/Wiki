@@ -12,7 +12,11 @@ https://github.com/ramitsurana/awesome-kubernetes
 
 OWASP Kubernetes Top 10 - https://github.com/OWASP/www-project-kubernetes-top-ten
 
-Deploy a Production Ready Kubernetes Cluster - https://github.com/kubernetes-sigs/kubespray
+https://github.com/kubernetes-sigs
+
+Deploy a Production Ready Kubernetes Cluster - https://github.com/kubernetes-sigs/kubespray - https://kubespray.io
+
+Local Kubernetes Development - https://github.com/GoogleContainerTools/skaffold - https://skaffold.dev
 
 https://github.com/MichaelCade/90DaysOfDevOps#kubernetes
 
@@ -129,3 +133,7 @@ Show component status (deprecated in 1.19): `kubectl get componentstatuses`
 Check the rollout status: `kubectl rollout status deployment/simple-flask-deployment`
 
 Get external IP address: `kubectl get services <service-name> -o wide`
+
+## Terraform
+
+https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594

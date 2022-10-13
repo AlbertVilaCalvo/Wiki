@@ -14,6 +14,13 @@ V1 reference: https://docs.aws.amazon.com/cli/latest/reference
 
 > do not use the AWS account root user access keys for any task where it's not required. Instead, [create a new administrator IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) with access keys for yourself [source](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
 
+## Best practices for managing AWS access keys
+
+https://docs.aws.amazon.com/accounts/latest/reference/credentials-access-keys-best-practices.html
+
+- Remove (or don't generate) an account access key
+- Use temporary security credentials (IAM roles) instead of long-term access keys
+
 ## Configuration
 
 `~/.aws/credentials` and `~/.aws/config`

@@ -8,6 +8,10 @@ Docs: https://docs.aws.amazon.com/cloudformation/index.html
 
 https://github.com/donnemartin/awesome-aws#cloudformation
 
+Validate Infrastructure-as-code (IaC) or infrastructure/service compositions such as CloudFormation Templates, CloudFormation ChangeSets, Terraform JSON configuration files, Kubernetes configurations - https://github.com/aws-cloudformation/cloudformation-guard
+
+https://github.com/Sceptre/sceptre - https://docs.sceptre-project.org
+
 Never store sensitive information (such as credentials and access keys) in a template file.
 
 A stack can be created using the console or the CLI.
