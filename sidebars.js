@@ -73,6 +73,7 @@ const sidebars = {
     'aws/cloudformation',
     'aws/codepipeline',
     'aws/codebuild',
+    'aws/well-architected-framework',
   ],
   http: [
     'http/http',
