@@ -35,6 +35,7 @@ const sidebars = {
     'dev/cryptography',
     'dev/email',
     'dev/functional-programming',
+    'dev/wordpress',
   ],
   js: [
     'javascript/javascript',
