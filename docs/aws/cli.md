@@ -2,6 +2,10 @@
 title: CLI
 ---
 
+:::important
+If installed with Brew, the "examples" directory is at `/usr/local/share/awscli/examples`.
+:::
+
 https://aws.amazon.com/cli
 
 https://github.com/aws/aws-cli

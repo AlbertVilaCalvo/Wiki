@@ -2,6 +2,8 @@
 title: Elements
 ---
 
+Cool HTML elements nobody uses - https://news.ycombinator.com/item?id=33068563 - https://tapajyoti-bose.medium.com/7-cool-html-elements-nobody-uses-436598d85668
+
 ## `<head>` elements
 
 https://html.spec.whatwg.org/multipage/semantics.html#the-head-element

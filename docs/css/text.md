@@ -20,3 +20,5 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/word-break
 https://stackoverflow.com/questions/13790170/p-when-text-exceeds-width-continue-in-new-line
 
 https://www.w3.org/TR/css-text-3/#propdef-word-wrap
+
+Modern Fluid Typography Using CSS Clamp - https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp

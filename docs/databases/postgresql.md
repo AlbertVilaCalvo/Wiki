@@ -8,6 +8,8 @@ https://github.com/dhamaniasad/awesome-postgres
 
 Learn Postgres at the Playground - https://www.crunchydata.com/developers/tutorials - https://news.ycombinator.com/item?id=32498435
 
+Postgres WASM - https://news.ycombinator.com/item?id=33067962
+
 ## Reserved words
 
 https://www.postgresql.org/docs/current/sql-keywords-appendix.html

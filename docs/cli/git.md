@@ -92,6 +92,10 @@ Rebase Considered Harmful: https://www.fossil-scm.org/home/doc/trunk/www/rebaseh
 
 https://www.atlassian.com/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing
 
+### `--update-refs`
+
+https://github.blog/2022-10-03-highlights-from-git-2-38/#rebase-dependent-branches-with-update-refs - https://news.ycombinator.com/item?id=33071275
+
 ## Rebase interactive
 
 https://git-scm.com/docs/git-rebase

@@ -196,3 +196,5 @@ How can I use permissions boundaries to limit the scope of IAM users and roles, 
 How can I resolve access denied issues caused by permissions boundaries? - https://aws.amazon.com/premiumsupport/knowledge-center/iam-access-denied-permissions-boundary/
 
 Prevent privilege escalation with AWS IAM permission boundaries - https://iaasacademy.com/aws-how-to-guides/aws-iam-permissions-boundaries-help-to-prevent-privilege-escalations - https://www.youtube.com/watch?v=LZdfxS2DnFw
+
+AWS Permission Boundaries for Dummies - https://news.ycombinator.com/item?id=33192295
