@@ -22,6 +22,8 @@ Cloudsplaining is an AWS IAM Security Assessment tool that identifies violations
 
 A tool for quickly evaluating IAM permissions in AWS - https://github.com/nccgroup/PMapper
 
+Refining permissions in AWS using last accessed information - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html
+
 ## Concepts
 
 - User: an individual, system, or application requiring access to AWS services.
@@ -29,11 +31,32 @@ A tool for quickly evaluating IAM permissions in AWS - https://github.com/nccgro
 - Role: set of permissions.
 - Policy: JSON file. Permissions assigned to a user, group or role.
 
+### Role
+
+From https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam
+
+- Is an AWS identity with permissions that determine what can and can't do.
+- Can be assigned a policy for permissions.
+- Users, applications and services can assume roles.
+- Does not have long term credentials/passwords/access keys. Instead, if a user is assigned a role, access keys are created dynamically and provided to the user temporarily.
+- Can be used to delegate access to users, applications or services that don't normally have access to your AWS resources.
+- A user who assumes a role temporarily gives up his other own permissions and instead takes on the permissions of the role.
+- Eg we can give an EC2 instance a IAM role to temporarily access a S3 bucket using an instance profile.
+- Roles remove the need to modify a user's policy each time a change is required.
+
 https://stackoverflow.com/questions/46199680/difference-between-iam-role-and-iam-user-in-aws
 
 https://classroom.udacity.com/nanodegrees/nd0044/parts/8fc72c65-158a-429d-a08f-f25b8b66e99f/modules/769586dd-1c0b-4155-af83-853bc9fa7fdc/lessons/e21110af-9970-4f3c-b1ad-c8cc4f27df39/concepts/ee39a09f-e9c3-48db-93c7-d773f07bb6aa
 
 > We recommend using IAM roles for human users and workloads that access your AWS resources so that they use temporary credentials (instead of IAM users) [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#enable-mfa-for-privileged-users)
+
+## A company with several departments that manage AWS
+
+https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam
+
+1. Create an IAM group for each department.
+2. Create a policy and assign it to the group.
+3. Create IAM users for each person on each department and add them to their respective groups.
 
 ## Finding your AWS account ID
 
@@ -91,6 +114,8 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user_
 
 At the navigation bar, click your name and then 'Security credentials'. At the section 'Access keys (access key ID and secret access key)' there should not be any item.
 
+Note that at the top of the [IAM dashboard](https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/home) there is a 'Security recommendations' section that tells you if the Root user has MFA and access keys.
+
 ### Root user email
 
 From https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/
@@ -109,7 +134,23 @@ Enable MFA on the AWS account root user - https://docs.aws.amazon.com/IAM/latest
 
 Creating your first IAM admin user and user group - https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html
 
-IAM -> Users -> click 'Add users' button.
+- Sign in to the console as Root user.
+- Click your name at the top navbar -> Account. At the section 'IAM User and Role Access to Billing Information' click 'Edit' and enable 'Activate IAM Access'.
+- Go to the IAM console -> Users and click 'Add users'.
+- On the 'Set user details' page do:
+  - Set 'User name' to 'Administrator'.
+  - Check 'Password - AWS Management Console access'.
+  - Set a password at 'Custom password'.
+  - Uncheck 'User must create a new password at next sign-in'.
+  - Click 'Next: Permissions'.
+- On the 'Set permissions' page do:
+  - Click 'Add user to group' and then 'Create group'.
+  - Set 'Group name' to 'Administrators'.
+  - Check the policy 'AdministratorAccess'.
+  - Click 'Create group'.
+  - Click the 'Next: Tags' button.
+- On the 'Add tags (optional)' page optionally add [tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html).
+- Click 'Next: Review' and then 'Create user'.
 
 ## Enforce MFA to users
 
@@ -126,6 +167,22 @@ Simulator: https://policysim.aws.amazon.com
 Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
 
 AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
+
+```json
+{
+  "Sid": "AllowManageOwnSSHPublicKeys", // Who/what is authorized
+  "Effect": "Allow", // Or "Deny"
+  "Action": [
+    // Which task(s) are allowed
+    "iam:GetSSHPublicKey",
+    "iam:ListSSHPublicKeys"
+  ],
+  "Condition": {
+    // Which condition(s) need to be met for authorization
+  },
+  "Resource": "arn:aws:iam::*:user/${aws:username}" // Resources to which authorized tasks are performed
+}
+```
 
 ## CLI
 
