@@ -12,8 +12,6 @@ https://github.com/topics/iam
 
 Security best practices in IAM - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 
-Using multi-factor authentication (MFA) in AWS - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html
-
 IAM Access Analyzer - https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html - See some use cases at [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html).
 
 A vault for securely storing and accessing AWS credentials in development environments - https://github.com/99designs/aws-vault
@@ -64,6 +62,14 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/console_account-alias.html#Find
 
 `aws sts get-caller-identity`
 
+`aws sts get-caller-identity --query Account --output text`
+
+## Multi-factor authentication
+
+Supported MFA methods/devices - https://aws.amazon.com/iam/features/mfa/
+
+Using multi-factor authentication (MFA) in AWS - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html
+
 ## Root user
 
 Has complete access to all AWS services and resources, including billing information. Is the most privileged user.
@@ -81,6 +87,27 @@ Best practices to protect your account's root user - https://docs.aws.amazon.com
 > - Perform those tasks that can be performed by **only** the root user. For the complete list of these tasks, see [Tasks that require root user credentials](https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html).
 
 https://securingthe.cloud/2020/how-to-secure-aws-account-root-user-best-practices
+
+You can transfer the root account - see https://aws.amazon.com/premiumsupport/knowledge-center/transfer-aws-account/
+
+### Resetting a lost or forgotten root user password
+
+The root user has an associated email address that can be used to reset (ie change) the password, even it you have enabled MFA. Note that you can change the password, but MFA will still be required to login after changing the password, if it was enabled.
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys_retrieve.html#reset-root-password
+
+Steps:
+
+- Choose 'Root user' and set the email at the field 'Root user email address'.
+- Click 'Forgot password?'.
+- At the email you'll receive, click the reset password link.
+- At the page that opens, set the new password at the fields 'New password' and 'Confirm new password'. Click 'Reset password'.
+- You'll receive an email saying 'Your Amazon Web Services Password Has Been Updated'.
+- A new password is set. Now you need to log in. If MFA was enabled, it will be required when logging in with the new password.
+
+Note that this process was done with MFA enabled, and after changing the password MFA was still there.
+
+If you loose access to the MFA you need to have access to the email _and_ the primary contact **phone** as explained at [Recovering a root user MFA device](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_lost-or-broken.html#root-mfa-lost-or-broken). See steps at https://www.howtoforge.com/how-to-recover-aws-account-access-if-the-mfa-device-is-lost/
 
 ### Root user monitoring
 
@@ -126,7 +153,12 @@ From https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-
 
 > It's a best practice to enable multi-factor authentication (MFA) on the root account to secure your AWS resources. [source](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
 
-Enable MFA on the AWS account root user - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user_manage_mfa
+- Enable MFA on the AWS account root user - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user_manage_mfa
+- Enable a **virtual** MFA device for your AWS account root user (console) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable_virtual.html#enable-virt-mfa-for-root
+  - > Make a secure backup of the QR code or secret configuration key, or make sure that you enable multiple virtual MFA devices for your account.
+- Enable a **hardware** MFA device for the AWS account root user (console) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable_physical.html#enable-hw-mfa-for-root
+
+Recovering a root user MFA device - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_lost-or-broken.html#root-mfa-lost-or-broken - See steps at https://www.howtoforge.com/how-to-recover-aws-account-access-if-the-mfa-device-is-lost/
 
 ## Create first IAM admin user
 
