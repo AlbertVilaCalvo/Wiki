@@ -26,6 +26,14 @@ https://www.101daysofdevops.com/courses/100-days-of-aws/
 
 AWS’s Egregious Egress - https://blog.cloudflare.com/aws-egregious-egress/
 
+Architecture - https://aws.amazon.com/architecture/
+
+Serverless Patterns Collection - https://serverlessland.com/patterns
+
+## Multiple accounts
+
+Transitioning to multiple AWS accounts (Prescriptive Guidance) - https://docs.aws.amazon.com/prescriptive-guidance/latest/transitioning-to-multiple-aws-accounts/welcome.html
+
 You should have lots of AWS accounts - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
 
 ## Security
@@ -47,3 +55,11 @@ https://calculator.s3.amazonaws.com/index.html
 AWS Billing and Cost Management Documentation - https://docs.aws.amazon.com/account-billing/index.html
 
 Cloud cost estimates for Terraform in pull requests - https://github.com/infracost/infracost - https://www.infracost.io
+
+How do I make sure I don't incur charges when I'm using the AWS Free Tier? https://aws.amazon.com/premiumsupport/knowledge-center/free-tier-charges/
+
+### Enable IAM access to billing
+
+IAM tutorial: Delegate access to the billing console - https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_billing.html
+
+Overview of managing access permissions - https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/control-access-billing.html

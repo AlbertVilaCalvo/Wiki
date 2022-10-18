@@ -4,7 +4,11 @@ title: Commands
 
 tldr man pages: https://tldr.sh
 
+Bash Reference Manual: https://www.gnu.org/software/bash/manual/html_node/index.html
+
 The Art of Command Line: https://github.com/jlevy/the-art-of-command-line
+
+zsh is the default shell in macOS since Catalina (10.15, released October 2019) - see https://support.apple.com/kb/HT208050
 
 https://github.com/trimstray/the-book-of-secret-knowledge#shell-one-liners-toc
 
@@ -37,6 +41,14 @@ touch {P,H1,H2}.tsx # creates P.tsx, H1.tsx and H2.tsx
 ```
 
 You can also use this with npm: https://twitter.com/nucliweb/status/1096327937308135425
+
+## Command substitution
+
+https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html
+
+```shell
+AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+```
 
 ## find
 
