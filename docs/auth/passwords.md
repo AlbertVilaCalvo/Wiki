@@ -4,6 +4,10 @@ title: Passwords
 
 https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 
+Password Strength Testing Tool - https://bitwarden.com/password-strength
+
+Password Generator - https://bitwarden.com/password-generator
+
 ## Length
 
 Min 8, max 64. See https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls
@@ -40,3 +44,19 @@ How to securely hash passwords? - https://security.stackexchange.com/questions/2
 Does bcrypt have a maximum password length? - https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length
 
 Password max length with bcrypt, blowfish - https://stackoverflow.com/questions/24751279/password-max-length-with-bcrypt-blowfish
+
+## TOTP
+
+Time-Based One-Time Password Algorithm
+
+RFC 6238 - https://datatracker.ietf.org/doc/html/rfc6238
+
+FIDO2 security key providers - https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-passwordless#fido2-security-key-providers
+
+## Passwordless
+
+_Password-based security is an oxymoron_ - https://venturebeat.com/security/google-passkeys-chrome-android/
+
+https://developer.apple.com/passkeys
+
+https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-passwordless
