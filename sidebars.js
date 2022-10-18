@@ -72,6 +72,7 @@ const sidebars = {
     'aws/cloudfront',
     'aws/route53',
     'aws/cloudformation',
+    'aws/cloud-development-kit',
     'aws/codepipeline',
     'aws/codebuild',
     'aws/well-architected-framework',
