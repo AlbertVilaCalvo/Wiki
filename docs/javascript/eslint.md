@@ -81,6 +81,34 @@ In `package.json` use `eslintIgnore`:
 
 Note that `node_modules` and dot-files and dot-folders are ignored. See https://eslint.org/docs/latest/user-guide/configuring/ignoring-code#the-eslintignore-file for more details and exceptions.
 
+## CLI
+
+https://eslint.org/docs/user-guide/command-line-interface
+
+```
+npx eslint src/**/*.js
+npx eslint . --ext ts --ext tsx --ext js
+eslint --cache --fix
+```
+
+## Setup
+
+https://eslint.org/docs/latest/user-guide/getting-started
+
+```
+npm init @eslint/config
+```
+
+(Note: in the past you used `eslint --init`.)
+
+For a **Node.js** project with **Prettier** answer this to the following questions:
+
+- How would you like to use ESLint? -> To check syntax and find problems
+- Which framework does your project use? React, Vue, None of these. -> None of these
+- Where does your code run? -> Node. _Warning: you need to unselect 'Browser' with space!_
+
+Finally, it will say something like _"The config that you've selected requires the following dependencies: @typescript-eslint/eslint-plugin@latest, @typescript-eslint/parser@latest, eslint@latest. Would you like to install them now?"_. If you answer 'Yes' it creates the file `.eslintrc.js` and updates `package.json` (adding the dependencies to `devDependencies`).
+
 ## `.eslintrc.js`
 
 https://prettier.io/docs/en/integrating-with-linters.html
@@ -88,6 +116,19 @@ https://prettier.io/docs/en/integrating-with-linters.html
 https://github.com/prettier/eslint-config-prettier
 
 You can use `npm init @eslint/config` to create `.eslintrc.js`. It asks questions. See [setup](#setup) below.
+
+### `.eslintrc.js` for Node.js
+
+You must have `node: true` otherwise you get the error "'process' is not defined" - see [this](https://stackoverflow.com/q/50894000/4034572) and [this](https://youtu.be/sIhm4YOMK6Q?t=1722).
+
+```js
+module.exports = {
+  env: {
+    es2021: true,
+    node: true,
+  },
+}
+```
 
 ### `.eslintrc.js` for React Native
 
@@ -128,35 +169,6 @@ module.exports = {
   },
 }
 ```
-
-## CLI
-
-https://eslint.org/docs/user-guide/command-line-interface
-
-```
-npx eslint src/**/*.js
-npx eslint . --ext ts --ext tsx --ext js
-eslint --cache --fix
-```
-
-## Setup
-
-https://eslint.org/docs/latest/user-guide/getting-started
-
-```
-npm init @eslint/config
-```
-
-(Note: in the past you used `eslint --init`.)
-
-For a Node.js project with Prettier answer this to the questions:
-
-- How would you like to use ESLint? -> To check syntax and find problems
-- Which framework does your project use? React, Vue, None of these. -> None of these
-- Where does your code run? -> Node. _Warning: you need to unselect 'Browser' with space!_
-- The config that you've selected requires the following dependencies: @typescript-eslint/eslint-plugin@latest, @typescript-eslint/parser@latest, eslint@latest. Would you like to install them now? -> Yes
-
-Then it should create the file `.eslintrc.js` and update `package.json` (adding the dependencies to `devDependencies`).
 
 ## WebStorm
 
