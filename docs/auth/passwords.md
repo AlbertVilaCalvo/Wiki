@@ -6,7 +6,10 @@ https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 
 Password Strength Testing Tool - https://bitwarden.com/password-strength
 
-Password Generator - https://bitwarden.com/password-generator
+Password Generators
+
+- https://bitwarden.com/password-generator
+- https://1password.com/password-generator
 
 ## Length
 

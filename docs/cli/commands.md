@@ -8,6 +8,10 @@ Bash Reference Manual: https://www.gnu.org/software/bash/manual/html_node/index.
 
 The Art of Command Line: https://github.com/jlevy/the-art-of-command-line
 
+Pure bash snippets: https://github.com/dylanaraps/pure-bash-bible
+
+Reusable Bash functions: https://github.com/gruntwork-io/bash-commons
+
 zsh is the default shell in macOS since Catalina (10.15, released October 2019) - see https://support.apple.com/kb/HT208050
 
 https://github.com/trimstray/the-book-of-secret-knowledge#shell-one-liners-toc

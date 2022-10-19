@@ -12,6 +12,8 @@ Validate Infrastructure-as-code (IaC) or infrastructure/service compositions suc
 
 https://github.com/Sceptre/sceptre - https://docs.sceptre-project.org
 
+Linter: https://github.com/aws-cloudformation/cfn-lint
+
 Never store sensitive information (such as credentials and access keys) in a template file.
 
 A stack can be created using the console or the CLI.

@@ -30,6 +30,8 @@ Architecture - https://aws.amazon.com/architecture/
 
 Serverless Patterns Collection - https://serverlessland.com/patterns
 
+Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
+
 ## Multiple accounts
 
 Transitioning to multiple AWS accounts (Prescriptive Guidance) - https://docs.aws.amazon.com/prescriptive-guidance/latest/transitioning-to-multiple-aws-accounts/welcome.html
