@@ -8,6 +8,10 @@ https://endoflife.date/nodejs
 
 https://github.com/goldbergyoni/nodebestpractices
 
+:::tip
+Use the watch mode with `node --watch` (added in [v18.11.0](https://nodejs.org/en/blog/release/v18.11.0/)). For example do `node --watch index.js`.
+:::
+
 ## Libraries
 
 Libraries: https://nodejs.libhunt.com
@@ -75,6 +79,8 @@ https://twitter.com/Netlify/status/1496177878182121472
 https://nodejs.dev/learn/how-to-use-the-nodejs-repl
 
 Use `node` to start it. To exit, type `.exit`, or press Ctrl+C twice, or press Ctrl+D once.
+
+You can watch files without [nodemon](https://github.com/remy/nodemon) with `--watch`, eg `node --watch index.js`.
 
 Commands:
 
