@@ -10,7 +10,21 @@ https://github.com/topics/terraform
 
 https://github.com/topics/terraform-module
 
-https://github.com/GoogleCloudPlatform/terraformer
+## Tools
+
+Generate terraform files from existing infrastructure (reverse Terraform) - https://github.com/GoogleCloudPlatform/terraformer
+
+Wrapper for Terraform that provides extra tools for working with multiple Terraform modules - https://github.com/gruntwork-io/terragrunt
+
+Go library that makes it easier to write automated tests - https://github.com/gruntwork-io/terratest
+
+Collection of useful Terraform utilities - https://github.com/gruntwork-io/terraform-aws-utilities
+
+Detect compliance and security violations - https://github.com/tenable/terrascan - https://runterrascan.io
+
+Linter - https://github.com/terraform-linters/tflint - https://github.com/terraform-linters/tflint-ruleset-aws
+
+## Learn / Best practices
 
 Terraform Best Practices for AWS users - https://github.com/ozbillwang/terraform-best-practices
 
