@@ -62,6 +62,7 @@ function HomepageHeader() {
       <div className="container">
         {/* Originally was {siteConfig.title} */}
         <h1 className="hero__title">Welcome to my Wiki</h1>
+        <p className="hero__title">👋</p>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         {/*
           <div className={styles.buttons}>
