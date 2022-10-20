@@ -85,7 +85,7 @@ function HomepageHeader() {
 function DocIndex() {
   return (
     <div className="container">
-      <div className={styles.grid3col}>
+      <div className={styles.docGridHome}>
         {Object.keys(sidebars)
           .filter((sidebarName) => sidebarName !== 'docs')
           .map((sidebarName) => (
