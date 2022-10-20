@@ -41,8 +41,8 @@ diff pre-commit .git/hooks/pre-commit > /dev/null
 if [[ $? == 1 ]]
 then
   echo "Error: pre-commit and .git/hooks/pre-commit have different content."
-  echo "Aborting commit."
-  echo "Run 'cp pre-commit .git/hooks' to fix this."
+  echo "Commit aborted."
+  echo "To fix this run: cp pre-commit .git/hooks"
   exit 1
 fi
 
