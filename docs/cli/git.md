@@ -6,6 +6,8 @@ Source code mirror: https://github.com/git/git
 
 [Set upstream](https://git-scm.com/docs/git-push#Documentation/git-push.txt--u): `git push -u origin main`
 
+Ask HN: Apps that are built with Git as the back end? - https://news.ycombinator.com/item?id=33261862
+
 ## Undo last commit
 
 If not pushed yet

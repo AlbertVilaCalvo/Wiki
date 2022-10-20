@@ -49,13 +49,23 @@ Just use `npm i [-D] [-E] somepackage@latest` (eg `npm i -D -E typescript@latest
 
 > Note that by default `npm update` will not update the semver values of direct dependencies in your project `package.json`, if you want to also update values in `package.json` you can run: `npm update --save` (or add the `save=true` option to a [configuration file](https://docs.npmjs.com/cli/v8/configuring-npm/npmrc) to make that the default behavior).
 
-### Init
+### Init `npm init`
 
 https://docs.npmjs.com/cli/v8/commands/npm-init
 
 Creates `package.json`.
 
 Init without questions: `npm init -y`
+
+### Get rid of 'x packages are looking for funding'
+
+```bash
+npm config set fund false
+# check the value, it should be false now
+npm config get fund
+```
+
+https://docs.npmjs.com/cli/v8/commands/npm-install#fund
 
 ### Global
 

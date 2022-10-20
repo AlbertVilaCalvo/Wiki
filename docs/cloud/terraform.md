@@ -22,6 +22,8 @@ Collection of useful Terraform utilities - https://github.com/gruntwork-io/terra
 
 Detect compliance and security violations - https://github.com/tenable/terrascan - https://runterrascan.io
 
+Security scanner for your Terraform code - https://github.com/aquasecurity/tfsec - https://github.com/actions/starter-workflows/blob/main/code-scanning/tfsec.yml
+
 Linter - https://github.com/terraform-linters/tflint - https://github.com/terraform-linters/tflint-ruleset-aws
 
 ## Learn / Best practices
