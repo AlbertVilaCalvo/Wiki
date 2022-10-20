@@ -36,7 +36,7 @@ Example of pre-commit hook that runs Prettier, ESLint and tsc:
 # Inspired by https://prettier.io/docs/en/precommit.html#option-6-shell-script
 
 get_staged_files() {
-  ALL_FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$|\.md|\.css|\.json/')
+  ALL_FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$|\.md|\.yml|\.yaml|\.css|\.json/')
   CODE_FILES=$(echo "$ALL_FILES" | awk '/\.ts$|\.tsx$|\.js$/')
 }
 
