@@ -13,6 +13,8 @@ https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 
 https://hacks.mozilla.org/2015/08/es6-in-depth-modules/
 
+How to write CommonJS exports that can be name-imported from ESM - https://2ality.com/2022/10/commonjs-named-exports.html
+
 ## Named
 
 ```ts
@@ -144,6 +146,12 @@ https://javascript.info/import-export#re-export
 ## Dynamic import
 
 https://github.com/tc39/proposal-dynamic-import
+
+## Import maps
+
+https://github.com/WICG/import-maps
+
+https://www.honeybadger.io/blog/import-maps
 
 ## Import assertions
 

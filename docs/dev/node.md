@@ -8,6 +8,8 @@ https://endoflife.date/nodejs
 
 https://github.com/goldbergyoni/nodebestpractices
 
+Shell scripting with Node.js (Axel Rauschmayer) - https://exploringjs.com/nodejs-shell-scripting
+
 :::tip
 Use the watch mode with `node --watch` (added in [v18.11.0](https://nodejs.org/en/blog/release/v18.11.0/)). For example do `node --watch index.js`.
 :::
@@ -103,6 +105,8 @@ Then:
 - `repl` allows you to inspect variables with `console.log`
 
 ## Performance
+
+Clinic.js - Performance profiling suite - https://clinicjs.org - https://github.com/clinicjs/node-clinic
 
 Detecting Node Event Loop Blockers - https://www.ashbyhq.com/blog/engineering/detecting-event-loop-blockers - https://news.ycombinator.com/item?id=30713567
 

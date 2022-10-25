@@ -62,4 +62,8 @@ _Password-based security is an oxymoron_ - https://venturebeat.com/security/goog
 
 https://developer.apple.com/passkeys
 
+About the security of passkeys - https://support.apple.com/en-us/HT213305
+
+Passkeys were introduced in Safari 16.0 (Sept 2022) - https://webkit.org/blog/13152/webkit-features-in-safari-16-0/
+
 https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-passwordless

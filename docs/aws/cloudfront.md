@@ -6,6 +6,8 @@ https://aws.amazon.com/cloudfront
 
 > CloudFront is not just a CDN. It's also an SSL offloader, Host: header rewriter, path prepender, geolocator, georestrictor, secure content gateway, http to https redirector, error page customizer, root page substituter, web application firewall, origin header injector, dynamic content gzipper, path-based multi-origin http request router, viewer platform identifier, DDoS mitigator, zone apex alias target... so don't get too hung up on "CDN" or on the fact that you're stacking one service in front of another -- CloudFront was designed, in large part, to complement S3. They each specialize in certain facets of storage and delivery. [source](https://stackoverflow.com/questions/35614734/supporting-https-url-redirection-with-a-single-cloudfront-distribution)
 
+7 things wrong with CloudFront - https://twitter.com/matthieunapoli/status/1546071002064592897
+
 ## CLI
 
 CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudfront/index.html
