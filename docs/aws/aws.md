@@ -38,6 +38,13 @@ Transitioning to multiple AWS accounts (Prescriptive Guidance) - https://docs.aw
 
 You should have lots of AWS accounts - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
 
+> Create six AWS accounts (logs, security, shared, dev, stage, and prod) - From https://www.gruntwork.io/reference-architecture
+
+- Logs: AWS Config, CloudTrail
+- Security: IAM Roles, Users, Gropus, MFA
+- Shared: shared Docker images, shared AMIs, CI/CD (Jenkins/CircleCI...)
+- Dev/Stage/Prod: CloudFront, S3, Route53, VPC, ECS, EKS, RDS, Redis, Lambda, SQS, Kinesis, IaC Pipeline, CloudWatch, GuardDuty...
+
 ## Security
 
 List of open source tools for AWS security: defensive, offensive, auditing, DFIR, etc. - https://github.com/toniblyx/my-arsenal-of-aws-security-tools
