@@ -42,22 +42,6 @@ ECMAScript Proposals: https://github.com/tc39/proposals
 
 https://twitter.com/tc39
 
-## Print objects
-
-```js
-/**
- * Prints the object to the console but preserving undefined values.
- * From https://stackoverflow.com/a/50100175/4034572.
- */
-export function prettyPrint(object: any): string {
-  return JSON.stringify(
-    object,
-    (k, v) => (v === undefined ? '__undefined' : v),
-    2
-  ).replace(/"__undefined"/g, 'undefined')
-}
-```
-
 ## console
 
 Spec: https://console.spec.whatwg.org/
@@ -87,6 +71,25 @@ console.time('label')
 console.timeLog('label')
 // ...
 console.timeEnd('label')
+```
+
+### Print objects to the console preserving undefined
+
+This is for React Native.
+
+```ts
+/**
+ * Use it to print objects to the console preserving undefined values.
+ * Usage: `console.log('User', prettyPrint(user))`.
+ * From https://stackoverflow.com/a/50100175/4034572.
+ */
+export function prettyPrint(object: any): string {
+  return JSON.stringify(
+    object,
+    (k, v) => (v === undefined ? '__undefined' : v),
+    2
+  ).replace(/"__undefined"/g, 'undefined')
+}
 ```
 
 ## Object
