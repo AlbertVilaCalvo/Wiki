@@ -85,11 +85,28 @@ Note that `node_modules` and dot-files and dot-folders are ignored. See https://
 
 https://eslint.org/docs/user-guide/command-line-interface
 
-```
+```bash
+# local install in node_modules
 npx eslint src/**/*.js
+npx eslint './**/*.{js,jsx,ts,tsx}'
+npx eslint 'src/**/*.{js,jsx,ts,tsx}'
 npx eslint . --ext ts --ext tsx --ext js
+
+# global install
 eslint --cache --fix
 ```
+
+On a npm `package.json` script we don't need the `npx` prefix:
+
+```json title=package.json
+{
+  "scripts": {
+    "eslint": "eslint 'src/**/*.{js,jsx,ts,tsx}'"
+  }
+}
+```
+
+You can verify that a npm script correctly runs the local ESLint (instead of a global install) by adding a script that runs `which eslint`. Running this script will print `/project-path/node_modules/.bin/eslint`.
 
 ## Setup
 
