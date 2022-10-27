@@ -291,7 +291,13 @@ If you see `^M` run `sed -i.bak $'s/\r//' filename` (with backup) or `sed -i '' 
 
 [source](https://stackoverflow.com/a/21622340/4034572)
 
-## Rename local branch only
+## Branch name
+
+### Set the default branch name for new repositories
+
+`git config --global init.defaultBranch <name>`
+
+### Rename local branch only
 
 `git branch (-m | -M) [<oldbranch>] <newbranch>`
 
@@ -300,11 +306,7 @@ Eg to rename master to main:
 - If you are in master: `git branch -m main`.
 - If you are not in master `git branch -m master main`.
 
-### Set the default branch name for new repositories
-
-`git config --global init.defaultBranch <name>`
-
-## Rename local and remote branch
+### Rename local and remote branch
 
 ```bash
 # Rename:
@@ -316,6 +318,17 @@ git push origin :old-name new-name
 ```
 
 [source and more info](https://stackoverflow.com/a/45561865/4034572)
+
+#### Fix error
+
+When doing `git push origin :master main` sometimes we get this error:
+
+```
+ ! [remote rejected] master (refusing to delete the current branch: refs/heads/master)
+error: failed to push some refs to 'github.com:AlbertVilaCalvo/JavaScript-Udacity-Memory-Game.git'
+```
+
+This happens when eg we are renaming the branch `master` to `main` on a GitHub/Bitbucket repository that has `master` set as the default branch. To fix this, go to the GitHub website -> navigate to the repository -> Settings tab -> Branches, and change the 'Default branch'. After doing this, try again and it will work. (On Bitbucket, to change the default branch go to the repository -> Repository settings -> Repository details tab, expand the ADVANCED section and change 'Main branch'.)
 
 ## Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
 
