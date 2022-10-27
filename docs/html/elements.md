@@ -14,6 +14,10 @@ https://www.joshwcomeau.com/snippets/html/html-skeleton
 
 HTML Head Elements Cheat Sheet: https://kapeli.com/cheat_sheets/HTML_Head_Elements.docset/Contents/Resources/Documents/index
 
+## `<img>`
+
+`alt` is required - see https://html.spec.whatwg.org/multipage/images.html#alt
+
 ## Page structure
 
 https://stackoverflow.com/questions/4781077/html5-best-practices-section-header-aside-article-elements

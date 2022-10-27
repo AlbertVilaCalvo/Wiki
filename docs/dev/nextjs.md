@@ -4,6 +4,8 @@ title: NextJS
 
 https://github.com/unicodeveloper/awesome-nextjs
 
+Official examples: https://github.com/vercel/next.js/tree/canary/examples
+
 Curs interessant: https://react2025.com/
 
 Blog posts i altres recursos: https://reactresources.com/topics/nextjs

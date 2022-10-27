@@ -93,7 +93,11 @@ File structure: ⌘F12
 
 Select in...: Alt+F1
 
-Show usages: Alt+Cmd+F7
+Usages:
+
+- Show usages: Alt+Cmd+F7
+- Highlight usages of a symbol within a file: Cmd+Shift+F7
+- Next highlighted usage: Cmd+Alt+E
 
 Switcher / switch between recent files: Ctrl+Tab
 
@@ -112,8 +116,6 @@ Add line before current line: Cmd+Alt+Return [source](https://stackoverflow.com/
 Find action: Cmd+Shift+A
 
 Code formatting settings (eg optimize imports): Cmd+Alt+Shift+L (code format is Cmd+Alt+L)
-
-Highlight usages of a symbol within a file: Cmd+Shift+F7
 
 UML diagram, shows inheritance chain (needs to be run with the cursor on a class name)): Shift+Cmd+Alt+U
 
