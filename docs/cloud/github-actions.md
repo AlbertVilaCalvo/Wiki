@@ -6,6 +6,10 @@ title: GitHub Actions
 Use the [YAML extension for VSCode](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) to have autocomplete and validation.
 :::
 
+:::caution
+Always specify the action version, eg `actions/checkout@v3` instead of `actions/checkout`, otherwise the pipeline can suddenly break with a new release of the action. [Rationale](https://youtu.be/sIhm4YOMK6Q?t=2819)
+:::
+
 Docs: https://docs.github.com/en/actions
 
 Marketplace: https://github.com/marketplace?type=actions
@@ -24,7 +28,7 @@ Roadmap: https://github.com/orgs/github/projects/4247/views/1?filterQuery=label%
 
 ## Learn
 
-Midudev - GitHub Actions TUTORIAL Desde Cero - Integración continua (CI/CD) - https://www.youtube.com/watch?v=sIhm4YOMK6Q&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=62
+Midudev - GitHub Actions TUTORIAL Desde Cero - Integración continua (CI/CD) - https://www.youtube.com/watch?v=sIhm4YOMK6Q&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=62 - Repository: https://github.com/midudev/pokedex-for-ci/blob/main/.github/workflows/pipeline.yml
 
 How to build a CI/CD pipeline with GitHub Actions in four simple steps: https://github.blog/2022-02-02-build-ci-cd-pipeline-github-actions-four-steps/
 
@@ -48,6 +52,10 @@ Repo: https://github.com/actions
 Official starter workflows: https://github.com/actions/starter-workflows
 
 https://docs.github.com/en/actions/examples
+
+### Interesting workflows
+
+- https://github.com/SUI-Components/sui-components/tree/master/.github/workflows
 
 ### Node.js
 

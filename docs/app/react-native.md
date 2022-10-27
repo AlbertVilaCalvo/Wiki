@@ -25,7 +25,7 @@ _Also see_ https://github.com/pmadruga/react-native-clean-project
 
 Run instructions for iOS: `npx react-native run-ios` or open ios/YourAppName.xcworkspace in Xcode (or run "xed -b ios") and then hit the run button.
 
-Run on a specific iOS simulator: `npx react-native run-ios --simulator "iPhone XS Max"`.
+Run on a specific iOS simulator: `npx react-native run-ios --simulator "iPhone XS Max"`. (Use `xcrun simctl list devices` to list the simulators.)
 
 Run Release configuration: `npx react-native run-ios --configuration Release` (default configuration is 'Debug').
 
@@ -37,7 +37,7 @@ Run instructions for Android: `npx react-native run-android`. You may have an An
 
 Run on a specific Android emulator: `npx react-native run-android --deviceId emulator-5554`. You can get the emulator id with `adb devices`.
 
-Launch Android emulator: `${ANDROID_HOME}/emulator/emulator -avd Galaxy_Nexus_API_22_5.1_xhdpi_-_Google_APIs &`. Use `emulator -list-avds` to list the existing emulators.
+Launch Android emulator: `${ANDROID_HOME}/emulator/emulator -avd Galaxy_Nexus_API_22_5.1_xhdpi_-_Google_APIs &`. (Use `emulator -list-avds` to list the existing emulators.)
 
 Run Release variant: `npx react-native run-android --variant=release`
 
