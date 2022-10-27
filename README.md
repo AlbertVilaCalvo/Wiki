@@ -9,7 +9,7 @@ Install the packages with `yarn install`, then run `yarn start` and open http://
 ## Run ESLint manually
 
 ```
-npx eslint . --ext ts --ext tsx --ext js
+npm run eslint
 ```
 
 ## Git pre-commit hook to run Prettier, ESLint and TypeScript
