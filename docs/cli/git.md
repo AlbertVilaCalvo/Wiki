@@ -330,6 +330,24 @@ error: failed to push some refs to 'github.com:AlbertVilaCalvo/JavaScript-Udacit
 
 This happens when eg we are renaming the branch `master` to `main` on a GitHub/Bitbucket repository that has `master` set as the default branch. To fix this, go to the GitHub website -> navigate to the repository -> Settings tab -> Branches, and change the 'Default branch'. After doing this, try again and it will work. (On Bitbucket, to change the default branch go to the repository -> Repository settings -> Repository details tab, expand the ADVANCED section and change 'Main branch'.)
 
+## Merge 2 git repositories
+
+From https://stackoverflow.com/a/10548919/4034572
+
+Merge `project-A` into `project-B`.
+
+```
+cd /path/to/project-B
+git fetch /path/to/project-A main
+git merge --allow-unrelated-histories FETCH_HEAD
+```
+
+Be careful with conflicts! Eg if both projects have a README.md, it's better to re-name one of them first (do commit), otherwise you'll have to deal with conflicts.
+
+To put `project-A` into a **subfolder** of `project-B` in a simple way, before running the commands above, first create a folder inside `project-B`, move all the files there, and then commit. Afterwards run the commands above.
+
+`--allow-unrelated-histories` documentation: https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---allow-unrelated-histories
+
 ## Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
 
 https://news.ycombinator.com/item?id=27643608
