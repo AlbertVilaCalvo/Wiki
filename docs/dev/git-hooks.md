@@ -38,7 +38,7 @@ Example of pre-commit hook that runs Prettier, ESLint and tsc:
 # Validate that pre-commit and .git/hooks/pre-commit have the same content.
 # If content is not the same, do not commit.
 diff pre-commit .git/hooks/pre-commit > /dev/null
-if [[ $? == 1 ]]
+if [ $? = 1 ]
 then
   echo "Error: pre-commit and .git/hooks/pre-commit have different content."
   echo "Commit aborted."
