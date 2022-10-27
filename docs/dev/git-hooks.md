@@ -27,7 +27,7 @@ Example of pre-commit hook that runs Prettier, ESLint and tsc:
 ```bash
 #!/bin/sh
 
-# Runs Prettier on ts/tsx/js/md/yml/yaml/css/json files, and ESLint and tsc on ts/tsx/js files.
+# Runs Prettier on ts/tsx/js/jsx/md/yml/yaml/css/json files, and ESLint and tsc on ts/tsx/js/jsx files.
 # Prettier and ESLint only check the committed files, whereas tsc checks all project files, since it's not possible to
 # run tsc on specific files while obeying the tsconfig.json options (see
 # https://github.com/microsoft/TypeScript/issues/27379 and https://www.npmjs.com/package/tsc-files).
@@ -47,8 +47,8 @@ then
 fi
 
 get_staged_files() {
-  ALL_FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$|\.md|\.yml|\.yaml|\.css|\.json/')
-  CODE_FILES=$(echo "$ALL_FILES" | awk '/\.ts$|\.tsx$|\.js$/')
+  ALL_FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$|\.jsx$|\.md$|\.yml$|\.yaml$|\.css$|\.json$/')
+  CODE_FILES=$(echo "$ALL_FILES" | awk '/\.ts$|\.tsx$|\.js$|\.jsx$/')
 }
 
 print_title() {
