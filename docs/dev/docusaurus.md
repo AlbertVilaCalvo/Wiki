@@ -191,3 +191,6 @@ https://docusaurus.io/docs/markdown-features/code-blocks#supported-languages
 - [2.1.0](https://github.com/facebook/docusaurus/releases/tag/v2.1.0) - [Announcement](https://docusaurus.io/blog/2022/09/01/docusaurus-2.1) - [twitter](https://twitter.com/docusaurus/status/1565691803688370176)
   - Allows to override hardcoded `<meta>`
   - Simple use `<DocCardList/>`, which can now be used in any document. `DocCardList` "will display all the sidebar items of the parent category of the current document" [source](https://docusaurus.io/docs/sidebar/items#embedding-generated-index-in-doc-page)
+- [2.2.0](https://github.com/facebook/docusaurus/releases/tag/v2.2.0) - [Announcement](https://docusaurus.io/blog/releases/2.2) - [twitter](https://twitter.com/docusaurus/status/1586347397667495936)
+  - Mermaid diagrams [docs](https://docusaurus.io/docs/markdown-features/diagrams)
+  - `headTags` allow to add arbitrary HTML `<head>` tags to all pages of your site [docs](https://docusaurus.io/docs/api/docusaurus-config#headTags)
