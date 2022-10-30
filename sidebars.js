@@ -110,6 +110,7 @@ const sidebars = {
     'css/flexbox',
     'css/grid',
     'css/text',
+    'css/fonts',
     'css/misc'
   ],
   databases: [
