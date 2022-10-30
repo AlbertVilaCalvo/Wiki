@@ -2,7 +2,7 @@
 title: Yarn
 ---
 
-:::important
+:::info
 Si la versió que em surt fent `yarn -v` és la 1.21.1 enlloc de 1.22.11 fer `npm install --global yarn`. Això passa després de fer `yarn global upgrade-interactive --latest`.
 :::
 

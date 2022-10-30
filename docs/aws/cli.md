@@ -2,7 +2,7 @@
 title: CLI
 ---
 
-:::important
+:::info
 If installed with Brew, the "examples" directory is at `/usr/local/share/awscli/examples`.
 :::
 

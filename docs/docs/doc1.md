@@ -171,6 +171,18 @@ This line is also a separate paragraph, but... This line is only separated by a 
 
 ## Admonitions
 
+Syntax:
+
+```
+:::note
+
+This is a note
+
+:::
+```
+
+Available designs:
+
 :::note
 
 This is a note
@@ -183,9 +195,9 @@ This is a tip
 
 :::
 
-:::important
+:::info
 
-This is important
+This is info ('important' also works)
 
 :::
 
@@ -195,8 +207,24 @@ This is a caution
 
 :::
 
-:::warning
+:::danger
 
-This is a warning
+This is danger ('warning' also works)
+
+:::
+
+Note that you can change the title:
+
+```
+:::tip Awesome tip
+
+Use this awesome feature
+
+:::
+```
+
+:::tip Awesome tip
+
+Use this awesome feature
 
 :::

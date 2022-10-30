@@ -63,7 +63,7 @@ _After installing_ a new Python version we can upgrade pip and pipenv, so that w
 
 ## Packaging
 
-:::important
+:::info
 Best practice: pin package versions!
 
 To avoid surprises and bugs, always use exacte versions (`==`) for all dependencies, including transitive/secondary dependencies.

@@ -67,7 +67,7 @@ You can find the commands in `/usr/local/Homebrew/Library/Taps/homebrew/homebrew
 
 ## yarn issues
 
-:::important
+:::info
 
 This should not be necessary anymore since I've unistalled yarn from Brew and installed it with npm (`npm install --global yarn`) as [recommend at the docs](https://classic.yarnpkg.com/en/docs/install#mac-stable) ("It is recommended to install Yarn through the npm package manager").
 

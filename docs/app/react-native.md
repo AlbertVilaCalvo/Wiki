@@ -2,7 +2,7 @@
 title: React Native
 ---
 
-:::important
+:::info Important
 Always open `.xcworkspace` not `.xcodeproj`.
 :::
 

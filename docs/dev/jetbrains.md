@@ -2,7 +2,7 @@
 title: JetBrains
 ---
 
-:::important
+:::info
 Improving IDE performance - https://blog.jetbrains.com/kotlin/2021/06/simple-steps-for-improving-your-ide-performance
 
 Des-habilitar plugins que no faig servir!
@@ -45,7 +45,7 @@ Ha d'aparèixer la icona del núvol a baix de tot a la dreta.
 
 ## Delete Leftover IDE Directories
 
-:::important
+:::info
 Això s'ha de fer després d'actualitzar l'IDE a una nova versió.
 :::
 
