@@ -123,6 +123,9 @@ Examples:
 - https://acloud.guru
   - Link: https://acloudguru.auth0.com/u/email-verification?ticket=wsr9SznW4H4UtWc9xEZgZRZO6aHm7PCV#
   - Text: Thank you for signing up for your new account! To complete your account setup, please verify abcd@gmail.com is your email by clicking the following link. This link is valid for the next 7 days
+- Monica CRM
+  - Link: https://app.monicahq.com/email/verify/33418/5b17c69ac6fbf8b48d2971eb36660c918be330d6?expires=1667157634&signature=570844048cb502bb8206ab1bde884a204992cf37760f743fa676e12a260614d1
+  - Text: Para validar tu email haz click en el botón de abajo
 
 ## Passwordless authentication via email
 

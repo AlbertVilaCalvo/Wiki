@@ -6,6 +6,8 @@ https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors
 
 https://blog.jim-nielsen.com/2022/previous-sibling-selector/
 
+CSS Dinner selectors game - https://flukeout.github.io/
+
 ## Pseudo-classes (`:checked`, `:valid`, `:hover`, `:has`, `:not`, `:first-child`, `:nth-child`...)
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes

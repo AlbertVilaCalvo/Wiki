@@ -13,6 +13,8 @@ Falsehoods programmers believe about time:
 
 Someday aliens will land and all will be fine until we explain our calendar - https://news.ycombinator.com/item?id=32975173 - https://twitter.com/foone/status/1572260363764400129
 
+GNU coretutils doc - https://www.gnu.org/software/coreutils/manual/html_node/Date-input-formats.html
+
 https://time.is/Unix_time
 
 ## Time zones
