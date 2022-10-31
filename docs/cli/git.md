@@ -4,9 +4,31 @@ title: Git
 
 Source code mirror: https://github.com/git/git
 
-[Set upstream](https://git-scm.com/docs/git-push#Documentation/git-push.txt--u): `git push -u origin main`
-
 Ask HN: Apps that are built with Git as the back end? - https://news.ycombinator.com/item?id=33261862
+
+## Upstream branch
+
+_Important: 'upstream' is about branches, not repositories_ - [see this](https://stackoverflow.com/questions/17122245/what-is-a-git-upstream#comment24775853_17122257).
+
+Documentation of `git push -u`: https://git-scm.com/docs/git-push#Documentation/git-push.txt--u
+
+```
+git push -u origin main
+git push --set-upstream origin main
+```
+
+To avoid having to do this we can set `autoSetupRemote` to true:
+
+```bash
+# Set value
+git config --global push.autoSetupRemote true
+git config --global --add --bool push.autoSetupRemote true
+
+# Get value
+git config --global push.autoSetupRemote
+```
+
+See https://twitter.com/JI/status/1546948817462800384 and https://stackoverflow.com/a/72401899/4034572.
 
 ## Undo last commit
 
