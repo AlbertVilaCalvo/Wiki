@@ -2,6 +2,8 @@
 title: HTML
 ---
 
+https://htmlreference.io
+
 ## Spec
 
 One-page https://html.spec.whatwg.org

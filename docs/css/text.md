@@ -2,6 +2,8 @@
 title: Text
 ---
 
+https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text
+
 https://zellwk.com/blog/rem-vs-em/
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow

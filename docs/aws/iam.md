@@ -160,11 +160,16 @@ From https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-
 
 Recovering a root user MFA device - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_lost-or-broken.html#root-mfa-lost-or-broken - See steps at https://www.howtoforge.com/how-to-recover-aws-account-access-if-the-mfa-device-is-lost/
 
-## Create first IAM admin user
+## Create the first IAM admin user
 
 > We recommend that you not use the root level credentials for anything other than initial setup of the account and the creation of the IAM user account with administrator permissions attached via policy [source](https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam)
 
-Creating your first IAM admin user and user group - https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html
+There are 2 guides/tutorials that explain how to set up the admin user:
+
+- Tutorial: Secure Your AWS Account - https://aws.amazon.com/getting-started/guides/setup-environment/module-two/
+- Creating your first IAM admin user and user group - https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html -> This is the tutorial I've followed, see the steps above
+
+Steps:
 
 - Sign in to the console as Root user.
 - Click your name at the top navbar -> Account. At the section 'IAM User and Role Access to Billing Information' click 'Edit' and enable 'Activate IAM Access'.

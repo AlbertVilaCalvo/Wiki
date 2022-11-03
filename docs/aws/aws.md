@@ -8,6 +8,14 @@ Documentation: https://docs.aws.amazon.com/index.html
 
 re:Post - https://www.repost.aws
 
+Whitepapers & Guides - https://aws.amazon.com/whitepapers
+
+Ramp-Up Guides (guides to learning the AWS Cloud) - https://aws.amazon.com/training/ramp-up-guides
+
+Architecture examples and diagrams - https://aws.amazon.com/architecture
+
+Back to Basics video series: https://aws.amazon.com/es/architecture/back-to-basics
+
 Open guide: https://github.com/open-guides/og-aws
 
 DevOps exercises: https://github.com/bregman-arie/devops-exercises/blob/master/topics/aws/README.md
@@ -24,9 +32,7 @@ https://github.com/donnemartin/awesome-aws
 
 https://www.101daysofdevops.com/courses/100-days-of-aws/
 
-AWS’s Egregious Egress - https://blog.cloudflare.com/aws-egregious-egress/
-
-Architecture - https://aws.amazon.com/architecture/
+AWS’s Egregious Egress - https://blog.cloudflare.com/aws-egregious-egress
 
 Serverless Patterns Collection - https://serverlessland.com/patterns
 
