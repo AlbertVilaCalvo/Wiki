@@ -42,6 +42,18 @@ ECMAScript Proposals: https://github.com/tc39/proposals
 
 https://twitter.com/tc39
 
+## `==` vs `===` and `!=` vs `!==`
+
+https://stackoverflow.com/a/55822553/4034572
+
+```js
+null == undefined // true
+null === undefined // false
+
+null != undefined // false
+null !== undefined // true
+```
+
 ## console
 
 Spec: https://console.spec.whatwg.org/
