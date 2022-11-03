@@ -26,7 +26,55 @@ GitHub hosted runners preinstalled software: https://docs.github.com/en/actions/
 
 Roadmap: https://github.com/orgs/github/projects/4247/views/1?filterQuery=label%3Aactions
 
+## Concepts
+
+```yaml
+name: Print CI environment variable
+on: [push]
+jobs:
+  echo_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "$CI"
+```
+
+From [Understanding GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions).
+
+Event - `on`
+
+> GitHub Actions goes beyond just DevOps and lets you run workflows when other events happen in your repository. For example, you can run a workflow to automatically add the appropriate labels whenever someone creates a new issue in your repository.
+
+> An event is a specific activity in a repository that triggers a workflow run. For example, activity can originate from GitHub when someone creates a pull request, opens an issue, or pushes a commit to a repository. You can also trigger a workflow run on a schedule, by [posting to a REST API](https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event), or manually.
+
+> For a complete list of events that can be used to trigger workflows, see [Events that trigger workflows](https://docs.github.com/en/actions/reference/events-that-trigger-workflows).
+
+Workflow
+
+> Your workflow contains one or more _jobs_ which can run in sequential order or in parallel. Each job will run inside its own virtual machine _runner_, or inside a container, and has one or more _steps_.
+
+Job - `jobs` -> `steps` -> `run`/`uses`
+
+> A job is a set of _steps_ in a workflow that execute on the same runner. Each step is either a shell script that will be executed (`run`), or an _action_ that will be run (`uses`). Steps are executed in order and are dependent on each other. Since each step is executed on the same runner, you can share data from one step to another. For example, you can have a step that builds your application followed by a step that tests the application that was built.
+
+> You can configure a job's dependencies with other jobs; by default, jobs have no dependencies and run in parallel with each other. When a job takes a dependency on another job, it will wait for the dependent job to complete before it can run.
+
+Action - `uses`
+
+> An _action_ is a custom application for the GitHub Actions platform that performs a complex but frequently repeated task. Use an action to help reduce the amount of repetitive code that you write in your workflow files. An action can pull your git repository from GitHub, set up the correct toolchain for your build environment, or set up the authentication to your cloud provider.
+
+> You can write your own actions, or you can find actions to use in your workflows in the GitHub Marketplace.
+> For more information, see "[Creating actions](https://docs.github.com/en/actions/creating-actions)."
+
+Runner - `runs-on`
+
+> A runner is a server that runs your workflows when they're triggered. Each runner can run a single job at a time. Each workflow run executes in a fresh, newly-provisioned virtual machine.
+
+> GitHub provides Ubuntu Linux, Microsoft Windows, and macOS runners to run your workflows. If you need a different operating system or require a specific hardware configuration, you can [host your own runners](https://docs.github.com/en/actions/hosting-your-own-runners).
+
 ## Learn
+
+Examples: https://docs.github.com/en/actions/examples
 
 Midudev - GitHub Actions TUTORIAL Desde Cero - Integración continua (CI/CD) - https://www.youtube.com/watch?v=sIhm4YOMK6Q&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=62 - Repository: https://github.com/midudev/pokedex-for-ci/blob/main/.github/workflows/pipeline.yml
 
@@ -60,6 +108,7 @@ https://docs.github.com/en/actions/examples
 ### Node.js
 
 - Node.js official starter: https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
+  - Note that it uses `continue-on-error: true`
 - Node.js with Webpack official starter: https://github.com/actions/starter-workflows/blob/main/ci/webpack.yml
 
 ### ESLint actions
@@ -143,6 +192,15 @@ Docs (search for `working-directory`):
 
 - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 - Default values: https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
+
+## Re-use actions
+
+Reusing workflows - https://docs.github.com/en/actions/using-workflows/reusing-workflows
+
+Creating a composite action - https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+
+- Overview: https://stackoverflow.com/questions/59757355/reuse-portion-of-github-action-across-jobs - https://cardinalby.github.io/blog/post/github-actions/dry-reusing-code-in-github-actions
+- https://stackoverflow.com/questions/65242830/in-a-github-actions-workflow-is-there-a-way-to-have-multiple-jobs-reuse-the-sam
 
 ## Badge
 
