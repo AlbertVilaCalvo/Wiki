@@ -25,6 +25,8 @@ List all commands: `npm`. List commands with details: `npm -l`.
 
 Install to devDependencies: `npm install --save-dev webpack` or `npm i -D webpack`
 
+Suppress output like '204 packages are looking for funding' or '8 high severity vulnerabilities': `npm i --no-audit --no-fund --no-optional`
+
 List all outdated packages: `npm outdated`
 
 Uninstall a package: `npm uninstall <package>`
@@ -37,7 +39,18 @@ To pass arguments to a script you need to add `--` ([see `npm run` docs](https:/
 
 `npx` command runs a binary or package. It can be a local package (eg a binary in ./node_modules/.bin/) or fetched remotely. See https://docs.npmjs.com/cli/v8/commands/npx
 
-`npm ci` -> when you want to make sure you're doing a clean install of your dependencies [docs](https://docs.npmjs.com/cli/v8/commands/npm-ci)
+`npm ci` (clean install)
+
+- Docs: https://docs.npmjs.com/cli/v8/commands/npm-ci
+- Use it when you want to make sure you're doing a clean install of your dependencies
+- It's deterministic - it always creates the same `node_modules` or it throws an error
+- Uses the exact package versions listed in `package-lock.json`. In contrast, `npm install` can install different versions of a package if you use version ranges (`^` or `~`) in `package.json`
+- More info:
+  - https://stackoverflow.com/questions/52499617/what-is-the-difference-between-npm-install-and-npm-ci
+  - https://stackoverflow.com/questions/44297803/what-is-the-role-of-the-package-lock-json
+  - https://medium.com/helpshift-engineering/package-lock-json-the-complete-guide-2ae40175ebdd
+  - https://docs.npmjs.com/cli/v8/configuring-npm/package-lock-json
+    - > Describe a single representation of a dependency tree such that teammates, deployments, and continuous integration are guaranteed to install exactly the same dependencies
 
 Find outdated and unused packages: https://github.com/dylang/npm-check
 
@@ -103,7 +116,7 @@ Everything goes into dependencies? - https://github.com/facebook/create-react-ap
 
 https://docs.npmjs.com/cli/v8/configuring-npm/package-json#dependencies
 
-https://semver.npmjs.com
+semver calculator: https://semver.npmjs.com
 
 MAJOR.MINOR.PATCH
 
@@ -114,6 +127,8 @@ MAJOR.MINOR.PATCH
   "same-major-and-minor": "~15.7.2" // upgrade to 15.7.X
 }
 ```
+
+There are more operators you can use in addition to `^` and `~`, like `>=1.2.3`, `<1.2.3 || >=4.5.6`, `1.0.0 - 1.2.0`. See https://semver.npmjs.com and https://medium.com/helpshift-engineering/package-lock-json-the-complete-guide-2ae40175ebdd
 
 To save exact do: `npm install --save-exact express` or `npm i -E express`
 
