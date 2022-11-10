@@ -181,11 +181,11 @@ const config = {
             items: [
               {
                 label: 'Style Guide',
-                to: 'docs/doc1/',
+                to: 'docs/doc1',
               },
               {
-                label: 'Second Doc',
-                to: 'docs/doc2/',
+                label: 'Markdown Features',
+                to: 'docs/markdown-features',
               },
             ],
           },
