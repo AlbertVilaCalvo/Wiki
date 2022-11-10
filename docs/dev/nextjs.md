@@ -32,6 +32,7 @@ Cheapest way to deploy a React app using NextJS SSR on AWS? - https://stackoverf
 - https://github.com/rauchg/blog - https://rauchg.com/
 - https://github.com/ixartz/Next-js-Boilerplate
 - https://github.com/github/docs
+- https://github.com/shadcn/taxonomy - app built using the new router, server components and everything new in Next.js 13
 
 ## MDX
 

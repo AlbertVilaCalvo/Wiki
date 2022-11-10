@@ -42,9 +42,9 @@ Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
 
 Transitioning to multiple AWS accounts (Prescriptive Guidance) - https://docs.aws.amazon.com/prescriptive-guidance/latest/transitioning-to-multiple-aws-accounts/welcome.html
 
-You should have lots of AWS accounts - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
+You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
 
-> Create six AWS accounts (logs, security, shared, dev, stage, and prod) - From https://www.gruntwork.io/reference-architecture
+Create six AWS accounts (logs, security, shared, dev, stage, and prod) - https://www.gruntwork.io/reference-architecture
 
 - Logs: AWS Config, CloudTrail
 - Security: IAM Roles, Users, Gropus, MFA

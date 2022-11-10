@@ -22,6 +22,11 @@ HTML Head Elements Cheat Sheet: https://kapeli.com/cheat_sheets/HTML_Head_Elemen
 
 https://stackoverflow.com/questions/4781077/html5-best-practices-section-header-aside-article-elements
 
+See:
+
+- Semantic HTML: https://web.dev/learn/html/semantic-html/
+- Headings and sections: https://web.dev/learn/html/headings-and-sections/
+
 ## nav
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav

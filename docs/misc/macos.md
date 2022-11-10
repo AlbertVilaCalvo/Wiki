@@ -30,7 +30,7 @@ All my macOS keyboard shortcuts - https://www.jamieonkeys.dev/posts/keyboard-sho
 
 https://apple.stackexchange.com/a/431149/241238
 
-Preferències -> Teclat -> Dreceres de l'app, afegir 2 dreceres noves amb nom 'Sleep' i 'Repòs' a <kbd>Shift</kbd><kbd>Alt</kbd><kbd>Q</kbd>. Haig de veure el shortcut ⌥⇧Q al menu del sistema.
+Monterey: Preferències -> Teclat -> pestanya Dreceres -> Dreceres de l'app. Ventura: Configuració -> Teclat -> Dreceres de teclat... -> Dreceres de l'app. Afegir 2 dreceres noves amb nom 'Sleep' i 'Repòs' a <kbd>Shift</kbd><kbd>Alt</kbd><kbd>Q</kbd>. Haig de veure el shortcut ⌥⇧Q al menu del sistema.
 
 ## DefaultKeyBinding.dict
 
@@ -54,6 +54,14 @@ Examples:
 - https://github.com/ttscoff/KeyBindings
 
 ## iTerm2
+
+:::note
+
+I've already added these shortcuts in the past. Thus, to have them in a new iTerm2 installation, I don't have to add them manually again, I can simply import either the profile .json file or the .itermkeymap file.
+
+Note that the .json profile contains all the shortcuts of the .itermkeymap file, so if we import the profile we don't have to import the .itermkeymap afterwards.
+
+:::
 
 Go to Preferences -> Profiles tab -> Keys tab -> Key Mappings tab.
 Click the + button.

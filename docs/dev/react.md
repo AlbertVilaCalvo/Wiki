@@ -184,6 +184,8 @@ function MyComponent({ ComponentProp }: Props) {
 <MyComponent ComponentProp={AnotherComponent}>
 ```
 
+Note that you can capitalize it to make it an element: https://queen.raae.codes/emails/2022-10-10-semantic-react
+
 ### Component prop example
 
 <!-- prettier-ignore -->
@@ -211,6 +213,10 @@ function Button({ Icon }: { Icon: React.ComponentType<IconProps> /* <- important
 // Usage
 <Button Icon={SettingsIcon} />
 ```
+
+### Dynamically render different HTML elements
+
+https://queen.raae.codes/emails/2022-10-10-semantic-react
 
 ## Libraries
 

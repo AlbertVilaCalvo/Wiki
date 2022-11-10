@@ -67,12 +67,13 @@ With Redis:
 - https://github.com/motdotla/dotenv
 - https://github.com/KATT/envsafe
 
-## Manage Node versions
+## Version managers
 
 https://twitter.com/Netlify/status/1496177878182121472
 
-- nvm - https://github.com/nvm-sh/nvm
+- nvm - https://github.com/nvm-sh/nvm - There's a ZSH plugin: https://github.com/lukechilds/zsh-nvm
 - n - https://github.com/tj/n
+- Fast Node Manager - https://github.com/Schniz/fnm
 - Volta - https://volta.sh
 - asdf - https://asdf-vm.com - Ojo veure https://news.ycombinator.com/item?id=30917800 i https://github.com/asdf-vm/asdf/issues/290
 
