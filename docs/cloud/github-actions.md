@@ -137,7 +137,25 @@ https://github.com/marketplace?type=actions&query=terraform+
 - HashiCorp - Setup Terraform: https://github.com/marketplace/actions/hashicorp-setup-terraform
 - Official starter: https://github.com/actions/starter-workflows/blob/main/deployments/terraform.yml
 
-## Run a single job
+## OpenID Connect
+
+Use it to authenticate to cloud services (like AWS) without storing long-lived secrets (like access key ID and secret access key) in GitHub.
+
+About security hardening with OpenID Connect - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
+
+> using hardcoded secrets requires you to create credentials in the cloud provider and then duplicate them in GitHub as a secret.
+
+> With OIDC, your cloud provider issues a short-lived access token that is only valid for a single job, and then automatically expires.
+
+Configuring OpenID Connect in Amazon Web Services - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services
+
+See the examples at https://github.com/aws-actions/configure-aws-credentials/tree/master/examples. In particular see the workflow https://github.com/aws-actions/configure-aws-credentials/blob/master/examples/cfn-deploy-example/.github/workflows/deploy.yml
+
+Creating OpenID Connect (OIDC) identity providers - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
+
+Creating a role for a third-party Identity Provider (federation) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html
+
+## Run a single job at a time
 
 https://docs.github.com/en/actions/using-jobs/using-concurrency
 
