@@ -43,6 +43,7 @@ Comprehensive Guide to Terraform series by Yevgeniy Brikman
 3. [How to manage Terraform state](https://blog.gruntwork.io/how-to-manage-terraform-state-28f5697e68fa)
 4. [How to create reusable infrastructure with Terraform modules](https://blog.gruntwork.io/how-to-create-reusable-infrastructure-with-terraform-modules-25526d65f73d)
 5. [Terraform tips & tricks: loops, if-statements, and gotchas](https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9)
+6. [How to use Terraform as a team](https://blog.gruntwork.io/how-to-use-terraform-as-a-team-251bc1104973)
 
 ## Examples
 
@@ -51,3 +52,18 @@ Comprehensive Guide to Terraform series by Yevgeniy Brikman
 - https://github.com/AJarombek/saints-xctf-infrastructure
 - Terraform module for building and deploying Next.js apps to AWS. Supports SSR (Lambda), Static (S3) and API (Lambda) pages. - https://github.com/milliHQ/terraform-aws-next-js
 - https://github.com/bregman-arie/devops-exercises/search?q=terraform
+
+## Multiple AWS accounts
+
+You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
+
+AWS Control Tower Account Factory for Terraform:
+
+- https://registry.terraform.io/modules/aws-ia/control_tower_account_factory/aws/latest
+- Provision accounts with AWS Control Tower Account Factory for Terraform - https://docs.aws.amazon.com/controltower/latest/userguide/taf-account-provisioning.html
+
+## CDK for Terraform
+
+https://www.terraform.io/cdktf
+
+Terraforming with TypeScript - https://radar.com/blog/terraforming-with-typescript

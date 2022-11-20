@@ -2,6 +2,12 @@
 title: GitHub
 ---
 
+Code search:
+
+- https://cs.github.com - New!
+- https://github.com/search
+- https://github.com/search/advanced
+
 Locking down your GitHub-hosted Domains - https://news.ycombinator.com/item?id=32435134
 
 Desktop app: https://desktop.github.com - https://github.com/desktop/desktop

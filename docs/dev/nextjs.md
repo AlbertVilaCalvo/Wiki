@@ -18,6 +18,8 @@ Aquí diu coses interessants: https://dev.to/alex_barashkov/comparing-gatsby-and
 
 Cheapest way to deploy a React app using NextJS SSR on AWS? - https://stackoverflow.com/questions/61433306/cheapest-way-to-deploy-a-react-app-using-nextjs-ssr-on-aws
 
+Next.js 12 -> Next.js 13: https://twitter.com/lydiahallie/status/1591120215189749760
+
 ## Site examples and repos
 
 - A Beautiful Bejamas Blog Template with Next.js on Netlify: https://www.netlify.com/blog/a-beautiful-bejamas-blog-template-with-next.js-on-netlify - https://github.com/netlify-templates/nextjs-blog-theme - https://bejamas-nextjs-blog.netlify.app/
@@ -33,6 +35,7 @@ Cheapest way to deploy a React app using NextJS SSR on AWS? - https://stackoverf
 - https://github.com/ixartz/Next-js-Boilerplate
 - https://github.com/github/docs
 - https://github.com/shadcn/taxonomy - app built using the new router, server components and everything new in Next.js 13
+- Similar to a Docusaurus site - https://github.com/GeekyAnts/nativebase-docs - https://docs.nativebase.io
 
 ## MDX
 

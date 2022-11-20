@@ -369,7 +369,7 @@ new Date(search.date).toLocaleDateString('es-ES') // 27/5/2021
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
 
-_Important: does not work on React Native Android._ You get the error "Can't find variable: Intl". See solutions at https://stackoverflow.com/questions/56943813/using-intl-properly-in-android-react-native-app.
+_Important: does not work on React Native Android._ You get the error "Can't find variable: Intl". See solutions at https://stackoverflow.com/questions/56943813/using-intl-properly-in-android-react-native-app. _Update November 2022: Hermes does support Intl, see https://hermesengine.dev/docs/intl. Hermes is the default since 0.70 - see https://reactnative.dev/blog/2022/09/05/version-070#hermes-as-default-engine and https://reactnative.dev/blog/2022/07/08/hermes-as-the-default. On Expo, since SDK 47 - see https://blog.expo.dev/expo-sdk-47-a0f6f5c038af._
 
 Example from https://stackoverflow.com/a/3552493/4034572:
 

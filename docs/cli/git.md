@@ -420,6 +420,7 @@ git config --global user.name "Albert Vila Calvo"
 git config --global user.email my@email.com
 git config --global core.editor "emacs -nw"
 git config --global init.defaultBranch main
+git config --global push.autoSetupRemote true
 ```
 
 ### Change email on a specific repo only

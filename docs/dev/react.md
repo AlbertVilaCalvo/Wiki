@@ -24,6 +24,12 @@ https://imgur.com/bmfcRQm
 
 https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
+## && gotchas
+
+https://reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator
+
+https://medium.com/geekculture/stop-using-for-conditional-rendering-in-react-a0f7b96200f8
+
 ## Hooks
 
 https://labs.factorialhr.com/posts/hooks-considered-harmful

@@ -29,6 +29,8 @@ Suppress output like '204 packages are looking for funding' or '8 high severity 
 
 List all outdated packages: `npm outdated`
 
+Also see: https://github.com/raineorshine/npm-check-updates - `npx npm-check-updates`
+
 Uninstall a package: `npm uninstall <package>`
 
 Show package info: `npm info <package>`

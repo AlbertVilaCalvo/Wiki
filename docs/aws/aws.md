@@ -40,6 +40,14 @@ Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
 
 ## Multiple accounts
 
+Control Tower: https://aws.amazon.com/controltower
+
+AWS Control Tower vs Terraform - https://www.reddit.com/r/aws/comments/yv1tx4/aws_control_tower_vs_terraform/
+
+AWS Organizations: https://aws.amazon.com/organizations
+
+https://www.leapp.cloud - https://github.com/Noovolari/leapp
+
 Transitioning to multiple AWS accounts (Prescriptive Guidance) - https://docs.aws.amazon.com/prescriptive-guidance/latest/transitioning-to-multiple-aws-accounts/welcome.html
 
 You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
