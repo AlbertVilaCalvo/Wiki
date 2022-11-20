@@ -7,6 +7,51 @@ Always open `.xcworkspace` not `.xcodeproj`.
 :::
 
 
+## Development environment setup
+
+To develop with Expo we only need watchman, Xcode, the Command Line Tools and Android Studio. To develop normal React Native apps we need Ruby, Cocoapods etc.
+
+Installing a Java JDK and setting `$JAVA_HOME` is only necessary if we want to re-use the same daemon between Android Studio and the terminal.
+
+_Important: this instructions are not complete yet, it's for Expo development, and they need to be expanded to work on normal React Native apps._
+
+Resources:
+
+- https://reactnative.dev/docs/environment-setup
+- iOS: https://docs.expo.dev/workflow/ios-simulator
+- Android: https://docs.expo.dev/workflow/android-studio-emulator
+- https://developer.android.com/studio/command-line/variables#envar -> Important: "ANDROID_SDK_ROOT, which also points to the SDK installation directory, is deprecated"
+
+### Common
+
+On macOS and Linus (not Windows), install watchman. On macOS run `brew install watchman`. See https://facebook.github.io/watchman/docs/install.html for more about how to install it.
+
+If developing with Expo, install the CLI: `npm install --global expo-cli`. This is how I have it installed on my MBP 2016.
+
+### iOS
+
+You need Xcode to have simulators and open Xcode projects. Install it with the App Store either by [clicking this link](https://apps.apple.com/us/app/xcode/id497799835) or searching 'xcode' on the Store.
+
+Install the Command Line Tools. At Xcode, go to Settings -> Locations and select a version at the 'Command Line Tools' dropdown.
+
+### Android
+
+You need Android Studio to have emulators, adb etc. Install it by downloading it from https://developer.android.com/studio. Make sure to pick the right CPU architecture (Intel/ARM) since there are 2 download buttons.
+
+You need to have the environment variable `$ANDROID_HOME` set, pointing to the sdk location (usually `~/Library/Android/sdk`). You also need to have `$ANDROID_HOME/emulator` and `$ANDROID_HOME/platform-tools` on your `$PATH` in order to have access to `adb` and `emulator` from the command line.
+
+Add following to the `.zshrc`:
+
+```bash title=".zshrc"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+path+=("$ANDROID_HOME/emulator")
+path+=("$ANDROID_HOME/platform-tools")
+```
+
+You can check if the environment variable is set with `echo $ANDROID_HOME` (just `$ANDROID_HOME` prints nothing, even if the envar set).
+
+And you can check that `adb` and `emulator` are on the `$PATH` with `which adb` and `which emulator`.
+
 ## CLI
 
 https://github.com/react-native-community/cli

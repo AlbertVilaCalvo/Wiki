@@ -113,3 +113,11 @@ https://twitter.com/TatoKutalia/status/1450543203007057927
 Veure correu 'Google Play Developer Program Policy Update' 2022-04-06.
 
 > To provide users with a safe and secure experience, we are expanding on Google Play’s target API level requirements to include existing apps that aren’t updated. Apps that don’t target an API level within two years of the latest major Android version release will not be available on Google Play to new users whose devices run the latest versions of Android. Developers can request a six-month extension if more time for migration is needed. [learn more](https://support.google.com/googleplay/android-developer/answer/11926878)
+
+## `$ANDROID_SDK_ROOT` is deprecated
+
+From https://developer.android.com/studio/command-line/variables#envar:
+
+> `ANDROID_SDK_ROOT`, which also points to the SDK installation directory, is deprecated. If you continue to use it, Android Studio and the Android Gradle plugin will check that the old and new variables are consistent.
+
+Use `$ANDROID_HOME` from now on.
