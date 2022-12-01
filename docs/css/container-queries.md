@@ -2,6 +2,8 @@
 title: Container queries
 ---
 
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries
+
 Spec: W3C CSS Containment Module Level 3: https://drafts.csswg.org/css-contain-3/
 
 Demo: https://lab.ishadeed.com/container-queries - https://ishadeed.com/article/container-queries-are-finally-here/

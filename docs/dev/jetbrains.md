@@ -37,6 +37,8 @@ Then set these values:
 
 https://www.jetbrains.com/help/idea/sharing-your-ide-settings.html#IDE_settings_sync
 
+_Canvis novembre 2022 (WebStorm 2022.3)_. Ara està a Preferences -> Settings Sync. Veure https://blog.jetbrains.com/webstorm/2022/10/webstorm-2022-3-eap-3/#New_Settings_Sync_solution. I a https://www.jetbrains.com/webstorm/whatsnew/ pel WebStorm 2022.3 diu 'we are discontinuing support for the old IDE Settings Sync plugin'.
+
 Cal tenir el plugin 'IDE Settings Sync' (instal·lat per defecte).
 
 Llavors fer File -> Manage IDE Settings -> Sync Settings to JetBrains Account. (Si no apareix és perquè ja està activat.)

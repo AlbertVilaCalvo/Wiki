@@ -23,6 +23,7 @@ See comparison here: https://github.com/colinhacks/zod#comparison
 - https://github.com/colinhacks/zod
 - https://github.com/typestack/class-validator (uses decorators)
 - https://github.com/gcanti/io-ts
+- https://github.com/sinclairzx81/typebox - For JSON request and responses
 
 ## JSDoc
 

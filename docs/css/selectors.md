@@ -8,6 +8,18 @@ https://blog.jim-nielsen.com/2022/previous-sibling-selector/
 
 CSS Dinner selectors game - https://flukeout.github.io/
 
+## `@supports() selector()`
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/@supports
+
+https://stackoverflow.com/questions/35000865/css-supports-pseudo-element
+
+Note that we also have `CSS.supports()` for JavaScript: https://developer.mozilla.org/en-US/docs/Web/API/CSS/supports
+
+```js
+CSS.supports('display: flex') // true
+```
+
 ## Pseudo-classes (`:checked`, `:valid`, `:hover`, `:has`, `:not`, `:first-child`, `:nth-child`...)
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes

@@ -88,6 +88,15 @@ RESTful password reset - https://stackoverflow.com/questions/3077229/restful-pas
 
 > PUT requests should be idempotent (i.e. repeated requests should not affect the outcome)
 
+Examples:
+
+- Heroku:
+  - At the login page https://id.heroku.com/login clicking the link 'Forgot your password?' sends you to https://id.heroku.com/account/password/reset
+  - This page has a title 'Reset Password', a form with 1 input to enter your email and the button is 'Reset Password'
+  - After submitting the form, it disappears and its replaced with the message "Check your inbox for the next steps. If you don't receive an email, and it's not in your spam folder this could mean you signed up with a different address."
+  - You receive an email "Reset your Heroku password" with a link https://id.heroku.com/account/password/reset/280a6f2f2bff0a585772887122c390cb and the text "Someone (hopefully you) has requested a password reset for your Heroku account. Follow the link below to set a new password:Someone (hopefully you) has requested a password reset for your Heroku account. Follow the link below to set a new password: (link) If you don't wish to reset your password, disregard this email and no action will be taken."
+  - Clicking the link does a **redirect** to https://id.heroku.com/account/password/reset/edit. This page has a form with 2 input fields, 'New password' and 'Confirm new password', and the button is 'Save Password'. After setting the new password you are sent to the login page, where you can login.
+
 ### Change password
 
 Validate/Change Password via REST API - https://stackoverflow.com/questions/8231430/validate-change-password-via-rest-api
@@ -126,6 +135,9 @@ Examples:
 - Monica CRM
   - Link: https://app.monicahq.com/email/verify/33418/5b17c69ac6fbf8b48d2971eb36660c918be330d6?expires=1667157634&signature=570844048cb502bb8206ab1bde884a204992cf37760f743fa676e12a260614d1
   - Text: Para validar tu email haz click en el botón de abajo
+- Figma
+  - Link: https://www.figma.com/email/validate/stv2-1176440661f457cde51092fa2ccf1e94355cd2d9860f1ef14d293654456-b4c807a6648a785b517ed467-1669029713
+  - Text: Verify your email address. To start using Figma, just click the verify email button below:
 
 ## Passwordless authentication via email
 

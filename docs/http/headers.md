@@ -7,6 +7,12 @@ https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
 
+## Check headers security
+
+https://observatory.mozilla.org
+
+https://pentest-tools.com/website-vulnerability-scanning/website-scanner
+
 ## Content-Type
 
 The media type.

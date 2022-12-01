@@ -15,3 +15,7 @@ Create WordPress themes with beautiful OOP code and the Twig Template Engine - h
 https://github.com/grrr-amsterdam/wordpress-scaffold
 
 https://github.com/grrr-amsterdam/simply-static-deploy
+
+## Security
+
+Scanner: https://pentest-tools.com/cms-vulnerability-scanning/wordpress-scanner-online-wpscan
