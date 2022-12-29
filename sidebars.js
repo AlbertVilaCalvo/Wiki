@@ -25,6 +25,7 @@ const sidebars = {
     'dev/react',
     'dev/nextjs',
     'dev/docusaurus',
+    'dev/strapi',
     'dev/prettier',
     'dev/git-hooks',
     'dev/jetbrains',
@@ -142,6 +143,7 @@ const sidebars = {
     'disseny/ui',
     'disseny/color',
     'disseny/tipografia',
+    'disseny/animations',
   ],
   log: [
     'log/talks',
