@@ -110,9 +110,17 @@ https://twitter.com/TatoKutalia/status/1450543203007057927
 
 ## Target API level requirements for Google Play apps
 
-Veure correu 'Google Play Developer Program Policy Update' 2022-04-06.
+- Meet Google Play's target API level requirement - https://developer.android.com/google/play/requirements/target-sdk
+- Google Play's Target API Level Policy - https://support.google.com/googleplay/android-developer/answer/11917020
+- Target API level requirements for Google Play apps - https://support.google.com/googleplay/android-developer/answer/11926878
+
+Email 2022-04-06 'Google Play Developer Program Policy Update':
 
 > To provide users with a safe and secure experience, we are expanding on Google Play’s target API level requirements to include existing apps that aren’t updated. Apps that don’t target an API level within two years of the latest major Android version release will not be available on Google Play to new users whose devices run the latest versions of Android. Developers can request a six-month extension if more time for migration is needed. [learn more](https://support.google.com/googleplay/android-developer/answer/11926878)
+
+Email 2022-12-15 'Target API Level policy changes and deadline extension':
+
+> We’re also extending the deadline to give you more time to adjust to these changes. Now, apps that target API level 29 or below will start experiencing reduced distribution starting **Jan 31, 2023** instead of Nov 1, 2022. If you need more time to update your app, you can request an extension to keep your app discoverable to all users until May 1, 2023.
 
 ## `$ANDROID_SDK_ROOT` is deprecated
 

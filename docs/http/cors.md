@@ -43,8 +43,8 @@ https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
 Is considered same-origin if only the path differs. Different origin (ie cross-origin) is:
 
 - Different domain: `a.com` and `b.com`
-- Different subdomain:` example.com` and `api.example.com`
-- Different port:` example.com` and `example.com:3456`
+- Different subdomain: `example.com` and `api.example.com`
+- Different port: `example.com` and `example.com:3456`
 - Different protocol/scheme: `http://example.com` and `https://example.com`
 
 See https://web.dev/same-site-same-origin/#origin

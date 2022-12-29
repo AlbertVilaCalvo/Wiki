@@ -23,7 +23,11 @@ See comparison here: https://github.com/colinhacks/zod#comparison
 - https://github.com/colinhacks/zod
 - https://github.com/typestack/class-validator (uses decorators)
 - https://github.com/gcanti/io-ts
-- https://github.com/sinclairzx81/typebox - For JSON request and responses
+
+JSON (eg JSON request and responses):
+
+- https://github.com/sinclairzx81/typebox
+- https://github.com/ajv-validator/ajv
 
 ## JSDoc
 
@@ -148,6 +152,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 > When Error is used like a function -- without `new`, it will return an `Error` object. Therefore, a mere call to `Error` will produce the same output that constructing an `Error` object via the `new` keyword would. [source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error#function_call_or_new_construction)
 
 Rethrow an error but with a different message: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Error#rethrowing_an_error_with_a_cause
+
+Handle errors in a simple, stable, consistent way: https://github.com/ehmicky/modern-errors
 
 ## Promise
 

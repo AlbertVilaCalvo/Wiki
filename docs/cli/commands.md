@@ -12,6 +12,8 @@ Pure bash snippets: https://github.com/dylanaraps/pure-bash-bible
 
 Reusable Bash functions: https://github.com/gruntwork-io/bash-commons
 
+Bash Guide: https://mywiki.wooledge.org/BashGuide - New version: https://guide.bash.academy - https://github.com/lhunath/guide.bash.academy
+
 zsh is the default shell in macOS since Catalina (10.15, released October 2019) - see https://support.apple.com/kb/HT208050
 
 https://github.com/trimstray/the-book-of-secret-knowledge#shell-one-liners-toc

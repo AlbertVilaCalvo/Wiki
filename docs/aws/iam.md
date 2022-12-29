@@ -92,6 +92,10 @@ https://securingthe.cloud/2020/how-to-secure-aws-account-root-user-best-practice
 
 You can transfer the root account - see https://aws.amazon.com/premiumsupport/knowledge-center/transfer-aws-account/
 
+If you're the owner account, what's the point of using iam instead of root? - https://www.reddit.com/r/aws/comments/yu7b1w/if_youre_the_owner_account_whats_the_point_of/
+
+> Never use Root, only use it to create an IAM admin, that's it. Root can close the account, subscribe to Enterprise Support (costing you $$$$) and delete anything (even if it's denied by an IAM policy)
+
 ### Resetting a lost or forgotten root user password
 
 The root user has an associated email address that can be used to reset (ie change) the password, even it you have enabled MFA. Note that you can change the password, but MFA will still be required to login after changing the password, if it was enabled.

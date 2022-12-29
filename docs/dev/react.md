@@ -287,3 +287,7 @@ export type WithChildren<T> = T & { children: JSX.Element }
 [source](https://fettblog.eu/typescript-react-component-patterns/#withchildren-helper-type)
 
 Note that this [already exists on `@types/react`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/24f1d0c82da2d898acd03fbb3e692eba3c431f82/types/react/index.d.ts#L773), but children is optional.
+
+## Portals
+
+https://marvinh.dev/blog/portals-considered-harmful/

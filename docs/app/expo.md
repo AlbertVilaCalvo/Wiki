@@ -283,6 +283,12 @@ Using Expo modules in a standard React Native app (created with `npx react-nativ
 
 For module authors: https://blog.expo.dev/a-peek-into-the-upcoming-sweet-expo-module-api-6de6b9aca492
 
+## Expo (Native) Modules API
+
+https://docs.expo.dev/modules/overview/
+
+https://twitter.com/tsapeta/status/1590353202402115584
+
 ## Flipper
 
 https://twitter.com/Baconbrix/status/1412921581542658049

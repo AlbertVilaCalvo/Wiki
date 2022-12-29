@@ -154,6 +154,10 @@ https://github.com/FormidableLabs/prism-react-renderer/blob/master/src/vendor/pr
 
 https://docusaurus.io/docs/markdown-features/code-blocks#supported-languages
 
+## Server components
+
+https://twitter.com/sebastienlorber/status/1598615824927002624
+
 ## Releases
 
 - beta 4 - [twitter](https://twitter.com/docusaurus/status/1420518567313690627)

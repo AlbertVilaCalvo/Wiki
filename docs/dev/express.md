@@ -226,6 +226,8 @@ Add scripts to `package.json`:
 
 [See this to setup ESLint.](/javascript/eslint#setup)
 
+How to Setup Node.js with TypeScript in 2023 - https://www.youtube.com/watch?v=H91aqUHn8sE
+
 ### TypeScript project setup examples
 
 - Midudev: https://www.youtube.com/watch?v=ZpY5KdGQvwI - https://github.com/midudev/express-typescript

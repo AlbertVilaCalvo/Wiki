@@ -61,6 +61,10 @@ git merge origin/master # brings all commits in 'origin/master' to whatever bran
 git fetch origin master:master # update master if we have a feature branch checked out
 ```
 
+```shell
+git fetch origin && git merge origin/main && git fetch origin main:main
+```
+
 [source-part-1](https://stackoverflow.com/a/20103414/4034572)
 [source-part-2](https://stackoverflow.com/a/17722977/4034572)
 

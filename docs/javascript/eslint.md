@@ -110,13 +110,32 @@ You can verify that a npm script correctly runs the local ESLint (instead of a g
 
 ## Setup
 
-https://eslint.org/docs/latest/user-guide/getting-started
+Docs - Getting Started with ESLint: https://eslint.org/docs/latest/user-guide/getting-started
+
+See https://github.com/eslint/create-config for all info about `@eslint/config`.
 
 ```
 npm init @eslint/config
 ```
 
 (Note: in the past you used `eslint --init`.)
+
+Optionally, you can specify a [shareable config](https://eslint.org/docs/latest/developer-guide/shareable-configs) with `--config`:
+
+```shell
+npm init @eslint/config --config semistandard # npm <= 6
+npm init @eslint/config -- --config semistandard # npm >= 7
+```
+
+You can pass an array of configs too - [see docs](https://github.com/eslint/create-config). A shareable config is set on the `.eslintrc.js` `extends` field. Some configurations are:
+
+- https://github.com/standard/eslint-config-standard
+- https://github.com/standard/eslint-config-semistandard
+- https://github.com/standard/semistandard
+- https://www.npmjs.com/package/eslint-config-airbnb
+- https://github.com/prettier/eslint-config-prettier
+
+Search npm for more shareable configs: https://www.npmjs.com/search?ranking=popularity&q=eslint-config
 
 For a **Node.js** project with **Prettier** answer this to the following questions:
 

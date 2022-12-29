@@ -394,6 +394,18 @@ type GetProductResult = Result<Product, 'network-error' | 'product-not-found'>
 
 https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions
 
+## `satisfies`
+
+Announcement: https://devblogs.microsoft.com/typescript/announcing-typescript-4-9-rc/#the-satisfies-operator
+
+Issue proposing this: https://github.com/microsoft/TypeScript/issues/47920
+
+Pull request: https://github.com/microsoft/TypeScript/pull/46827
+
+Improvement example in Next.js: https://twitter.com/leeerob/status/1563540593003106306
+
+How TypeScript 4.9 `satisfies` Your Prisma Workflows: https://www.prisma.io/blog/satisfies-operator-ur8ys8ccq7zb
+
 ## Utility Types
 
 https://www.typescriptlang.org/docs/handbook/utility-types.html

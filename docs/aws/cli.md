@@ -16,6 +16,24 @@ V1 reference: https://docs.aws.amazon.com/cli/latest/reference
 
 Use `--dry-run` to check if you have the required permissions.
 
+## Command structure
+
+https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-commandstructure.html
+
+`aws <command> <subcommand> [options and parameters]`. Eg `aws s3 ls`.
+
+:::tip
+In shell scripts, you can also `wait` for a command to finish. See https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-commandstructure.html#cli-usage-commandstructure-wait
+:::
+
+## Auto-completion
+
+Use tab to auto-complete commands, parameters and options - see how to use it at https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html#cli-command-completion-about
+
+It uses the tool `aws_completer`. Check it's location with `which aws_completer` (I got `/usr/local/bin/aws_completer`).
+
+If the CLI is installed with Brew, auto-completion should work with no extra configuration. To verify that it works write `aws s` and press tab. You should get a list of commands like 's3 s3api s3control...'. If it doesn't work, you need to configure it - see how at https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html#cli-command-completion-linux. It seems that you need to add `complete -C '/usr/local/bin/aws_completer' aws` to `.zshrc`. The book 'AWS for System Administrators' also explains this (page 9).
+
 ## Don't use the root user
 
 > do not use the AWS account root user access keys for any task where it's not required. Instead, [create a new administrator IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) with access keys for yourself [source](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
@@ -29,7 +47,21 @@ https://docs.aws.amazon.com/accounts/latest/reference/credentials-access-keys-be
 
 ## Configuration
 
-`~/.aws/credentials` and `~/.aws/config`
+`~/.aws/credentials`
+
+```
+[default]
+aws_access_key_id = XXX
+aws_secret_access_key = YYY
+```
+
+`~/.aws/config`
+
+```
+[default]
+region = eu-west-3
+output = json
+```
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 
@@ -73,3 +105,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html#cli-usage
 Use `--query <key>` to select. See https://jmespath.org/tutorial.html for how to query.
 
 Use `--output text/json/yaml/yaml-stream` to change the output format.
+
+## ModuleNotFoundError: No module named 'docutils'
+
+To fix it run `brew reinstall docutils`. Solution from https://github.com/aws/aws-cli/issues/7479.

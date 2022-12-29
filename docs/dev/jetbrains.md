@@ -16,6 +16,8 @@ Soft wrap markdown files: Editor -> General marcar 'Soft-wrap these files'. Al i
 
 A WebStorm, Editor -> General -> JavaScript marcar "Start template string interpolation on typing '$'". Amb això si escric '$' a dins de un template string m'afegeix '{}' 👌. Aquí també es pot triar si afegeix '()' al autocompletar una funció (veure [WEB-31404](https://youtrack.jetbrains.com/issue/WEB-31404) i [Added the ability to choose if you want to insert braces on code completion](https://blog.jetbrains.com/webstorm/2021/08/webstorm-2021-2-1/)).
 
+Editor -> General -> Editor Tabs -> Closing Policy -> Tab limit: default is 10, change it to something like 15, otherwise it closes the tabs you are working on too quickly when exploring other files.
+
 A WebStorm, Editor -> [Inline Hints](https://www.jetbrains.com/help/webstorm/inlay-hints.html), marcar:
 
 - Parameter names -> JS/TS -> Non-literal arguments

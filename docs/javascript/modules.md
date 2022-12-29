@@ -15,6 +15,8 @@ https://hacks.mozilla.org/2015/08/es6-in-depth-modules/
 
 How to write CommonJS exports that can be name-imported from ESM - https://2ality.com/2022/10/commonjs-named-exports.html
 
+VSCode snipped for import: https://2ality.com/2017/08/typing-import-statements.html#a-code-snippet-for-faster-entry
+
 ## Named
 
 ```ts

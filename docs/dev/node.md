@@ -4,7 +4,10 @@ title: Node
 
 API Reference: https://nodejs.org/api
 
-https://endoflife.date/nodejs
+End of life/release schedule:
+
+- https://github.com/nodejs/Release/#release-schedule
+- https://endoflife.date/nodejs
 
 https://github.com/goldbergyoni/nodebestpractices
 
@@ -13,6 +16,8 @@ Shell scripting with Node.js (Axel Rauschmayer) - https://exploringjs.com/nodejs
 :::tip
 Use the watch mode with `node --watch` (added in [v18.11.0](https://nodejs.org/en/blog/release/v18.11.0/)). For example do `node --watch index.js`.
 :::
+
+Node.js testing - https://github.com/testjavascript/nodejs-integration-tests-best-practices
 
 ## Libraries
 

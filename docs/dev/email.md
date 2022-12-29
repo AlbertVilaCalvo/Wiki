@@ -12,6 +12,8 @@ Why don’t we do email verification in reverse? - https://news.ycombinator.com/
 
 https://useplaintext.email/
 
+Dots don't matter in Gmail addresses - https://support.google.com/mail/answer/7436150
+
 Transactional email:
 
 - Automated.
