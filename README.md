@@ -4,7 +4,7 @@ My software development knowledge base.
 
 ## Develop
 
-Install the packages with `yarn install`, then run `yarn start` and open http://localhost:3000/.
+Install the packages with `npm install`, then run `npm start` and open http://localhost:3000/.
 
 ## Run ESLint manually
 
