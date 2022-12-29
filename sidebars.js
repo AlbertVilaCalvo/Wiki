@@ -121,6 +121,8 @@ const sidebars = {
     'databases/sql',
     'databases/postgresql',
     'databases/mongodb',
+    'databases/redis',
+    'databases/dynamodb',
   ],
   auth: [
     'auth/authentication',
