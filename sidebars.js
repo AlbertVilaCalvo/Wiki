@@ -77,6 +77,8 @@ const sidebars = {
     'aws/codepipeline',
     'aws/codebuild',
     'aws/well-architected-framework',
+    'aws/sns',
+    'aws/sqs',
   ],
   http: [
     'http/http',
