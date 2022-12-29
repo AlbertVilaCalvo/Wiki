@@ -71,6 +71,7 @@ const sidebars = {
     'aws/ec2',
     'aws/eks',
     'aws/ecs',
+    'aws/lambda',
     'aws/s3',
     'aws/cloudfront',
     'aws/route53',
