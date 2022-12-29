@@ -206,6 +206,16 @@ module.exports = {
 }
 ```
 
+## New config
+
+Docs - https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new
+
+`.eslintrc*` is replaced with `eslint.config.js`.
+
+- https://eslint.org/blog/2022/08/new-config-system-part-1/
+- https://eslint.org/blog/2022/08/new-config-system-part-2/
+- https://eslint.org/blog/2022/08/new-config-system-part-3/
+
 ## WebStorm
 
 To get the red squiggles and warnings we need to enable it!
