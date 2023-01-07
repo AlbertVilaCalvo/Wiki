@@ -24,6 +24,7 @@ const sidebars = {
     'dev/express',
     'dev/react',
     'dev/nextjs',
+    'dev/astro',
     'dev/docusaurus',
     'dev/strapi',
     'dev/prettier',
