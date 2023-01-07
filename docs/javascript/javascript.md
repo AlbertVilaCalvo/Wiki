@@ -49,6 +49,12 @@ https://twitter.com/tc39
 
 ## `==` vs `===` and `!=` vs `!==`
 
+:::info
+There is also [`Object.is()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) that _"does no type conversion and no special handling for NaN, -0, and +0 (giving it the same behavior as === except on those special numeric values)"_ [source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
+:::
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+
 https://stackoverflow.com/a/55822553/4034572
 
 ```js

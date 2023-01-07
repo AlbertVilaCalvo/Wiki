@@ -74,6 +74,8 @@ With Redis:
 
 ## Version managers
 
+Which tools/services support `.node-version` file: https://github.com/shadowspawn/node-version-usage
+
 https://twitter.com/Netlify/status/1496177878182121472
 
 - nvm - https://github.com/nvm-sh/nvm - There's a ZSH plugin: https://github.com/lukechilds/zsh-nvm
