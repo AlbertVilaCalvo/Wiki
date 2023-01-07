@@ -97,6 +97,7 @@ const sidebars = {
     'http/csp',
   ],
   web: [
+    'web/accessibility',
     'web/chrome-devtools',
     'web/xss',
     'web/csrf',
