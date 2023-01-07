@@ -63,7 +63,8 @@ const sidebars = {
     'cloud/terraform',
     'cloud/heroku',
     'cloud/github-actions',
-    'cloud/system-design'
+    'cloud/system-design',
+    'cloud/service-discovery'
   ],
   aws: [
     'aws/aws',
