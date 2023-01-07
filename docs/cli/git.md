@@ -88,6 +88,26 @@ Show the changes from line 135 to 140:
 
 [source](https://stackoverflow.com/a/19757493/4034572)
 
+## `git show`
+
+https://git-scm.com/docs/git-show
+
+```bash
+git show
+git show HEAD~1
+git show @~1 # @ is the most recent commit
+git show -2 # Last 2 commits, both
+git show --summary # Do not show file changes, only header info
+git show 2.4.0 # A tag
+git show branch:file # Eg 'git show main:README.md'
+```
+
+## Referencing previous commits
+
+https://stackoverflow.com/questions/16062358/referring-to-the-previous-next-commit-in-git
+
+https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#Ancestry-References
+
 ## GitHub pull request
 
 https://gist.github.com/Chaser324/ce0505fbed06b947d962
