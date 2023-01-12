@@ -149,6 +149,24 @@ Eg to toggle 'complete' of an object in a Redux reducer without modifying it:
 
 This creates a new object {}, merges all the properties of the 'todo' object into this new object, and then overrides the 'complete' property. The original 'todo' object is not modified, so the reducer is pure.
 
+### Conditionally add field
+
+https://stackoverflow.com/questions/11704267/in-javascript-how-to-conditionally-add-a-member-to-an-object
+
+```js
+const user = { name: 'Pere' }
+if (condition) {
+  user.age = 42
+}
+```
+
+```js
+const user = {
+  name: 'Pere',
+  ...(condition && { age: 42 })
+}
+```
+
 ## Error
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
