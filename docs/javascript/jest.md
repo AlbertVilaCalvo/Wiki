@@ -25,14 +25,24 @@ npx jest
 # Watch mode
 npx jest --watch
 
-# File
+# File name
 npx jest AuthController
+# We can have a path too
+npx jest auth/AuthController
 
 # Directory
 npx jest src/auth
 
-# Git changed/uncommitted files
+# Test name - see https://jestjs.io/docs/cli#--testnamepatternregex
+npx jest -t=^GET /products
+npx jest --testNamePattern=^GET /products
+
+# Git changed/uncommitted files - see https://jestjs.io/docs/cli#--onlychanged
 npx jest -o
+npx jest --onlyChanged
+
+# Print code coverage - see https://jestjs.io/docs/cli#--coverageboolean
+npx jest --coverage
 ```
 
 ## Setup
@@ -65,6 +75,12 @@ https://stackoverflow.com/questions/62442797/jest-folder-structure
 https://medium.com/@jeff_long/organizing-tests-in-jest-17fc431ff850
 
 ## Code coverage
+
+https://jestjs.io/docs/cli#--coverageboolean
+
+```
+npx jest --coverage
+```
 
 https://www.valentinog.com/blog/jest-coverage/
 
