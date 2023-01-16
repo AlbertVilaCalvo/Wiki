@@ -14,6 +14,10 @@ Limit levels/nesting to maximum `collection/<id>/collection`.
 - Good: `https://example.com/employee/3/tasks`
 - Bad: `https://example.com/company/4/employee/3/tasks`
 
+## Response formats
+
+- https://jsonapi.org - A specification for building APIs in JSON
+
 ## CRUD Routes
 
 | Method | Route             | Action | HTML | Description                                | Success Code                                               | Failure Code                                                                        | Request Body | Response Body                                 |

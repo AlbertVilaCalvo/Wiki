@@ -24,7 +24,13 @@ https://imgur.com/bmfcRQm
 
 https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
-## && gotchas
+## `&&` gotchas
+
+```jsx
+{condition && <SomeComponent />}
+```
+
+If the condition evaluates to `true` or `false` then `&&` is fine, but you can have trouble with falsy values like 0 or `undefined` (eg a `<div>0</div>` being rendered).
 
 https://reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator
 
