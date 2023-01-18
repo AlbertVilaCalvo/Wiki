@@ -45,6 +45,12 @@ Comprehensive Guide to Terraform series by Yevgeniy Brikman
 5. [Terraform tips & tricks: loops, if-statements, and gotchas](https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9)
 6. [How to use Terraform as a team](https://blog.gruntwork.io/how-to-use-terraform-as-a-team-251bc1104973)
 
+How to manage multiple environments with Terraform (Yevgeniy Brikman) - https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-32c7bc5d692
+
+1. [Using workspaces](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-workspaces-98680d89a03e)
+2. [Using branches](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-branches-875d1a2ee647)
+3. [Using ](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-terragrunt-2c3e32fc60a8)
+
 ## Examples
 
 - https://github.com/AJarombek/global-aws-infrastructure
