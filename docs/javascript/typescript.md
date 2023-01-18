@@ -23,8 +23,28 @@ If we install it locally in our project, we can run that version using npx or ya
 ```
 npx tsc
 yarn tsc
+```
+
+### `--noEmit`
+
+Use [`--noEmit`](https://www.typescriptlang.org/tsconfig/#noEmit) to only typecheck, without outputting JS files:
+
+```
+npx tsc --noEmit
 yarn tsc --noEmit
 ```
+
+It's common to have a 'typecheck' script on `package.json`:
+
+```json title="package.json
+{
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+  },
+}
+```
+
+Run it with `npm run typecheck`.
 
 ### Run tsc on a specific files:
 
