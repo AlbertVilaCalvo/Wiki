@@ -197,6 +197,8 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 https://devdocs.io/javascript-promise/
 
+The gotcha of unhandled promise rejections - https://jakearchibald.com/2023/unhandled-rejections
+
 ```js
 Api.fetchUser = function () {
   return new Promise((res, rej) => {
@@ -246,6 +248,8 @@ Promise.allSettled([
 })
 ```
 
+How to implement `Promise.all()`, `Promise.allSettled()` etc: https://javascript.plainenglish.io/i-lost-a-job-opportunity-just-because-of-promise-all-be396f6efe87
+
 ### delay / timeout / sleep
 
 ```ts
@@ -256,6 +260,38 @@ function delay(ms: number): Promise<void> {
 function fakeApiCall(): Promise<void> {
   return delay(2500)
 }
+
+function delayedApiCall(): Promise<Something> {
+  return delay(2500).then(Api.getSomething())
+}
+
+// To test errors do
+function delayedError(): Promise<void> {
+  return delay(2500).then(() => {
+    throw new Error('Boom')
+  })
+}
+
+// To test 2 errors and then a success do
+let failures = 0
+function delayedError(): Promise<void> {
+  return delay(2500).then(() => {
+    failures++
+    if (failures < 3) {
+      throw new Error('Boom')
+    }
+  })
+}
+
+// We can use it on button clicks
+;<Button
+  onPress={async () => {
+    await delay(2500)
+    login()
+  }}
+>
+  Login
+</Button>
 ```
 
 ```ts
