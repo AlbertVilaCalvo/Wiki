@@ -95,18 +95,20 @@ https://git-scm.com/docs/git-show
 ```bash
 git show
 git show HEAD~1
+git show HEAD@{5} # Use 'git reflog' to see the reflog
 git show @~1 # @ is the most recent commit
 git show -2 # Last 2 commits, both
 git show --summary # Do not show file changes, only header info
 git show 2.4.0 # A tag
 git show branch:file # Eg 'git show main:README.md'
+git show main@{yesterday}
 ```
 
 ## Referencing previous commits
 
 https://stackoverflow.com/questions/16062358/referring-to-the-previous-next-commit-in-git
 
-https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection#Ancestry-References
+https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection
 
 ## GitHub pull request
 
@@ -127,6 +129,14 @@ git checkout master
 git merge upstream/master
 git push origin master
 ```
+
+## error: pathspec 'some-remote-branch' did not match any file(s) known to git
+
+When trying to checkout a remote branch (eg when reviewing a pull request), sometimes we get the error "error: pathspec 'some-remote-branch' did not match any file(s) known to git".
+
+To fix it run `git fetch --all`.
+
+More info: https://stackoverflow.com/questions/30800454/error-pathspec-test-branch-did-not-match-any-files-known-to-git
 
 ## Rebase
 
@@ -296,13 +306,26 @@ This leaves all changes on the branch at the staging area. Then you can `git add
 
 [source](https://stackoverflow.com/a/25357146/4034572)
 
-## Stash with message
+## Stash
+
+https://git-scm.com/docs/git-stash
+
+### Stash with message
 
 ```
 git stash push -m "Some message"
 ```
 
-https://git-scm.com/docs/git-stash
+### Stash only staged changes
+
+https://git-scm.com/docs/git-stash#Documentation/git-stash.txt---staged
+
+```
+git stash push --staged
+git stash push -S
+git stash save --staged
+git stash save -S
+```
 
 ## Tags
 
