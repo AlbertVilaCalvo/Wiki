@@ -23,6 +23,9 @@ A WebStorm, Editor -> [Inline Hints](https://www.jetbrains.com/help/webstorm/inl
 - Parameter names -> JS/TS -> Non-literal arguments
 - Types -> JS/TS -> Non-parenthesised single parameter
 
+Memory heap. Sometimes you get the warning "The IDE is running low on memory and this might affect performance. Please consider increasing the available heap.".
+The setting is at Help -> Change Memory Settings. See doc [Increase the memory heap of the IDE](https://www.jetbrains.com/help/idea/increasing-memory-heap.html).
+
 ## Get rid of annoying dialog 'Add files to Git'
 
 - For ALL new projects: File -> New Projects Setup -> Preferences for New Projects -> Version Control -> Confirmation

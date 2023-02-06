@@ -15,6 +15,10 @@ Reddit’s database has two tables
 - https://news.ycombinator.com/item?id=4468265
 - https://news.ycombinator.com/item?id=32407873
 
+## Admins
+
+- https://www.adminer.org
+
 ## Length and data type for common fields
 
 List of standard lengths for database fields - https://stackoverflow.com/questions/20958/list-of-standard-lengths-for-database-fields

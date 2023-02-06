@@ -119,6 +119,12 @@ expect('cat dog').toBe('cat dog') // Success
 
 ## Mocking
 
+:::info
+
+Set [`clearMocks: true`](https://jestjs.io/docs/configuration/#clearmocks-boolean) at `jest.config.js/ts` to "automatically clear mock calls, instances, contexts and results before every test".
+
+:::
+
 https://jestjs.io/docs/mock-functions
 
 https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
@@ -127,6 +133,8 @@ How to change mock implementation for a single test with Jest? - https://thewebd
 
 Mocking a database: https://stackoverflow.com/questions/68825658/mock-database-jest-using-ts-jest-utils
 
+jest.clearAllMocks vs jest.resetAllMocks vs jest.restoreAllMocks explained - https://dev.to/edwinwong90/jestclearallmocks-vs-jestresetallmocks-vs-jestrestoreallmocks-explained-5aal
+
 Example:
 
 ```ts
@@ -134,6 +142,8 @@ Example:
 export async function getUserById(userId: number): Promise<User> {
   // database.query('SELECT ...')
 }
+
+// ---
 
 // UserController.test.ts
 import { getUserById } from './UserDatabase'

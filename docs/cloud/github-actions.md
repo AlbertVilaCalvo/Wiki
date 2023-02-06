@@ -16,6 +16,8 @@ Marketplace: https://github.com/marketplace?type=actions
 
 Features: https://github.com/features/actions
 
+Changelog: https://github.blog/changelog/label/githubactions/
+
 https://github.com/topics/github-actions
 
 https://github.com/sdras/awesome-actions
@@ -83,6 +85,18 @@ How to build a CI/CD pipeline with GitHub Actions in four simple steps: https://
 7 advanced workflow automation features with GitHub Actions: https://github.blog/2021-11-18-7-advanced-workflow-automation-features-with-github-actions/
 
 GitHub Actions Pitfalls - https://news.ycombinator.com/item?id=32970198
+
+## Secret vs variable
+
+https://github.blog/changelog/2023-01-10-github-actions-support-for-configuration-variables-in-workflows/
+
+- `secrets` context: https://docs.github.com/en/actions/learn-github-actions/contexts#secrets-context
+- `vars` context: https://docs.github.com/en/actions/learn-github-actions/contexts#vars-context
+
+```
+${{ secrets.API_TOKEN }}
+${{ vars.USERNAME }}
+```
 
 ## Commonly used actions
 

@@ -83,6 +83,12 @@ From https://sergeemond.ca/en/articles/iterm-extend-send-text-action
 - “send hex code” scans for one 8-bit code, and sends that
 - “send text” allows for “\e” (escape), “\n” (newline), “\a” (bell), and “\t” (tab), and normal text
 
+### Shortcuts and tricks
+
+- Undo close: when you close a session tab by accident, you can restore it with Edit -> Undo or Cmd+Z.
+  - Important: adjust the timeout in Settings -> Profiles -> Session, at "Undo can revive a session that has been closed for up to X seconds". Default value is 5 seconds. Should be changed to about 25 seconds.
+- Hold Cmd+Option to select text with the mouse doing a rectangle
+
 ## kexts
 
 Used by Little Snitch and Razer Synapse.

@@ -75,6 +75,18 @@ Use %i (integer), %f (float), %s (string) for type conversions: https://twitter.
 - Advanced console.log Tips & Tricks: [Hacker News](https://news.ycombinator.com/item?id=27499335) - [Article](https://medium.com/nmc-techblog/advanced-console-log-tips-tricks-fa3762930bca)
 - Debugging JavaScript: Beyond console.log(): https://suze.dev/blog/debugging-javascript-beyond-console-log/
 
+### CSS style
+
+```js
+console.log(
+  '%cSome Text',
+  'color: red; font-size: 30px; background-color: yellow;'
+)
+```
+
+- How do I create formatted javascript console log messages? - https://stackoverflow.com/questions/22155879/how-do-i-create-formatted-javascript-console-log-messages
+- Console.log with CSS Style - https://dev.to/annlin/consolelog-with-css-style-1mmp
+
 ### console.group
 
 https://developer.mozilla.org/en-US/docs/Web/API/Console/group
@@ -163,7 +175,7 @@ if (condition) {
 ```js
 const user = {
   name: 'Pere',
-  ...(condition && { age: 42 })
+  ...(condition && { age: 42 }),
 }
 ```
 

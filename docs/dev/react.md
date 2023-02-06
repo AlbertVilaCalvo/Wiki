@@ -27,7 +27,9 @@ https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 ## `&&` gotchas
 
 ```jsx
-{condition && <SomeComponent />}
+{
+  condition && <SomeComponent />
+}
 ```
 
 If the condition evaluates to `true` or `false` then `&&` is fine, but you can have trouble with falsy values like 0 or `undefined` (eg a `<div>0</div>` being rendered).
