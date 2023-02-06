@@ -38,14 +38,22 @@ https://github.com/search?q=%22infoPlist%22+extension%3Ajson+path%3A%2F+filename
 
 ## CLI
 
-https://docs.expo.dev/workflow/expo-cli
+New local CLI for SDK >= 46: https://docs.expo.dev/workflow/expo-cli
 
-The New Expo CLI - https://blog.expo.dev/the-new-expo-cli-f4250d8e3421
+Old, deprecated, global CLI for SDK < 46: https://docs.expo.dev/archived/expo-cli
+
+### Local CLI (introduced in SDK 46)
+
+[SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) (released August 2022) removes the global npm install `expo-cli`.
+
+The New Expo CLI (2022-08) - https://blog.expo.dev/the-new-expo-cli-f4250d8e3421
 
 - A new “Local Expo CLI” replaces the “Global Expo CLI”
 - In the new Local Expo CLI, `expo eject` is no longer available, it’s been fully replaced by `npx expo prebuild`
 
-### Use `expo install`instead of `yarn add`/`npm install` because it picks the library versions compatible with the Expo SDK
+Beta: Local Expo CLI (2022-04) - https://blog.expo.dev/new-versioned-expo-cli-cf6e10632656
+
+### Use `expo install` instead of `yarn add`/`npm install` because it picks the library versions compatible with the Expo SDK
 
 See https://docs.expo.dev/bare/using-expo-client/#prefer--expo-install--over-
 
@@ -267,10 +275,11 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 
 [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md)
 
+- [SDK 47](https://blog.expo.dev/expo-sdk-47-a0f6f5c038af) - 2022-11
+- [SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) - 2022-08
+- [SDK 45](https://blog.expo.dev/expo-sdk-45-f4e332954a68) - 2022-05
 - [SDK 44](https://blog.expo.dev/expo-sdk-44-4c4b8306584a) - 2021-12 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4400--2021-12-03)
-
 - [SDK 43](https://blog.expo.dev/expo-sdk-43-aa9b3c7d5541) - 2021-10 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4300--2021-10-01) - Replaces Unimodules with Expo modules
-
 - [SDK 42](https://blog.expo.dev/expo-sdk-42-579aee2348b6) - 2021-07 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4200--2021-06-16)
 
 ## Unimodules -> Expo modules
