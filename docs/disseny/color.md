@@ -14,6 +14,8 @@ Color palette generator with machine learning: https://news.ycombinator.com/item
 
 Pastel, a command-line tool to generate, analyze, convert and manipulate colors: https://github.com/sharkdp/pastel
 
+Coloring for Colorblindness: https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40
+
 ### Convert color with opacity/alpha to color without
 
 https://filosophy.org/code/online-tool-to-lighten-color-without-alpha-channel/

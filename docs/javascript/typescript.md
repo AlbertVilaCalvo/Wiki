@@ -430,11 +430,16 @@ How TypeScript 4.9 `satisfies` Your Prisma Workflows: https://www.prisma.io/blog
 
 https://www.typescriptlang.org/docs/handbook/utility-types.html
 
+Implementation: https://github.com/microsoft/TypeScript/blob/df6b9e57542b3c5c68cee0e340d1c82207e41dbc/lib/lib.es5.d.ts#L1550-L1659
+
 Make fields optional: `Partial<User>`. Example: `Partial<{ email: string; password: string }>` is `{email?: string, password?: string}`
 
 Make fields required: `Required<SomeType>`. Is the opposite of `Partial`.
 
 Return type of an async function: https://stackoverflow.com/questions/48011353/how-to-unwrap-type-of-a-promise
+
+Get function argument type: `Parameters`. See https://stackoverflow.com/questions/51851677/how-to-get-argument-types-from-function-in-typescript.
+Useful to avoid exporting a type (eg if we only need it in tests).
 
 ## typescript-eslint ban-types
 

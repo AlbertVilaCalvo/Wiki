@@ -10,6 +10,10 @@ Write tests. Not too many. Mostly integration. - https://twitter.com/rauchg/stat
 
 The more your tests resemble the way your software is used, the more confidence they can give you. - https://twitter.com/kentcdodds/status/977018512689455106
 
+Coverage is not strongly correlated with test suite effectiveness, by Laura Inozemtseva and Reid Holmes - https://www.cs.ubc.ca/~rtholmes/papers/icse_2014_inozemtseva.pdf
+
+Effective developer testing, by Maurício Aniche - https://docs.google.com/presentation/d/1MVmcp-I8FtVyN0cZ-qzWaKPt6iXtXykRemrFvBvyDPs/edit#slide=id.p
+
 ## Mocks
 
 https://blog.cleancoder.com/uncle-bob/2014/05/14/TheLittleMocker.html

@@ -219,6 +219,12 @@ RUN pip install flask
 ENTRYPOINT ["python", "app.py"]
 ```
 
+## `FROM scratch`
+
+No-op.
+
+https://hub.docker.com/_/scratch
+
 ## Volumes
 
 Containers are started and stopped as required (ie they have a lifecycle). Volumes provide persistent data storage to containers, independent of its lifecycle. Volumes can be shared with many containers. They avoid increasing the container size.
