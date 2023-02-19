@@ -14,6 +14,40 @@ Command cheatsheet: https://github.com/LeCoupa/awesome-cheatsheets/blob/master/d
 
 https://university.redis.com
 
+## Top 5 uses of Redis
+
+https://www.youtube.com/watch?v=a4yX7RUgTxI
+
+https://www.linkedin.com/posts/alexxubyte_systemdesign-coding-interviewtips-activity-7032024069294149632-NT1a
+
+- String
+  - Session
+  - Cache
+  - Distributed Lock
+- Int
+  - Counter
+  - Rate Limiter
+  - Global ID
+- Hash
+  - Shopping Cart
+- Bitmap
+  - User Retention
+- List
+  - Message Queue
+- ZSet
+  - Rank/Leaderboard
+
+> Redis may be one of the most overrated system in modern software architecture.
+> Its usefulness may more limited than many people think.
+> First is about caching, people should use memcached instead, because:
+>
+> - Redis has external fragmentation, meaning it can theoretically use much more than RAM set by its 'maxmemory'. In the containerized environment it is quite easy for the Redis instances to be killed by the OOM Killer. If you turn on active defrag it will affect the performance of the main core.
+> - It is single threaded, that little core can easily be saturated under load: https://about.gitlab.com/blog/2022/11/28/how-we-diagnosed-and-resolved-redis-latency-spikes/
+>   It is weird that a caching systems should protect db against load itself became crumble under high load.
+> - If you turned on Redis persistence, because of 'fork' it can double the RAM usage because of Copy On Write. To safely avoid this condition you cannot realistically give Redis more than Half of your system RAM, a very wasteful limitation.
+>
+> Memcached is designed for caching, so it doesn't have these RAM problems. Even plain old relational databases doesn't have, too.
+
 ## Installation
 
 On macOS, use `brew install redis` as explained in https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/.
