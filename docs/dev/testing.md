@@ -25,3 +25,7 @@ https://blog.cleancoder.com/uncle-bob/2014/05/10/WhenToMock.html
 Prefer Fakes Over Mocks - https://tyrrrz.me/blog/fakes-over-mocks
 
 > Tests that rely on mocks are inherently coupled to the implementation of the system and are fragile as the result.
+
+## BDD
+
+https://lizkeogh.com/2019/08/27/scenarios-using-custom-dsls

@@ -48,6 +48,8 @@ History: https://cloud.google.com/blog/products/containers-kubernetes/from-googl
 - Load balancing
 - Container health checks and management
 
+https://jessitron.com/2022/10/02/why-we-use-kubernetes
+
 ## Concepts and components
 
 https://kubernetes.io/docs/concepts/overview/components

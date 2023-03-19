@@ -22,6 +22,8 @@ A tool for quickly evaluating IAM permissions in AWS - https://github.com/nccgro
 
 Refining permissions in AWS using last accessed information - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html
 
+AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
+
 ## Concepts
 
 - User: an individual, system, or application requiring access to AWS services.

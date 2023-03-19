@@ -6,6 +6,8 @@ https://steampipe.io - https://github.com/turbot/steampipe - Use SQL to instantl
 
 How they DevOps? - https://github.com/bregman-arie/howtheydevops
 
+https://sprkl.dev/18-quick-tips-to-improve-developer-productivity
+
 ## Diagrams
 
 https://diagrams.mingrammer.com

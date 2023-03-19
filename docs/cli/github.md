@@ -2,6 +2,8 @@
 title: GitHub
 ---
 
+Command palette (Command+K): https://docs.github.com/en/get-started/using-github/github-command-palette
+
 Code search:
 
 - https://cs.github.com - New!

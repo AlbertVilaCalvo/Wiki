@@ -19,3 +19,9 @@ https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
 ## flex-basis
 
 https://every-layout.dev/blog/sidebar-flex-basis-clamp/
+
+## gap
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/gap
+
+https://css-tricks.com/minding-the-gap

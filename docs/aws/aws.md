@@ -61,6 +61,8 @@ Create six AWS accounts (logs, security, shared, dev, stage, and prod) - https:/
 
 ## Security
 
+AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
+
 List of open source tools for AWS security: defensive, offensive, auditing, DFIR, etc. - https://github.com/toniblyx/my-arsenal-of-aws-security-tools
 
 AWS security tool to perform security best practices assessments, audits, etc - https://github.com/prowler-cloud/prowler - https://prowler.pro

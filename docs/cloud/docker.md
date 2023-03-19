@@ -30,6 +30,10 @@ What is a container? https://www.docker.com/resources/what-container
 
 What are Linux containers? https://www.redhat.com/en/topics/containers
 
+Why we have containers - https://jessitron.com/2022/08/07/why-we-have-containers
+
+> Containers let us write code (a Dockerfile) to describe the computer an app needs to run on. Choose an operating system, install any runtimes and libraries needed, and populate the file system. This reduces many of the app’s expectations to one: a container runtime.
+
 ## Containers vs virtual machines
 
 - Containers

@@ -55,6 +55,16 @@ Examples:
 
 ## iTerm2
 
+https://iterm2.com
+
+### Color schemes
+
+https://iterm2colorschemes.com - https://github.com/mbadolato/iTerm2-Color-Schemes
+
+Changed in Settings -> Profiles -> Colors, at the dropdown 'Color presets...'. Tip: duplicate the current profile to make tests.
+
+### Shortcuts
+
 :::note
 
 I've already added these shortcuts in the past. Thus, to have them in a new iTerm2 installation, I don't have to add them manually again, I can simply import either the profile .json file or the .itermkeymap file.

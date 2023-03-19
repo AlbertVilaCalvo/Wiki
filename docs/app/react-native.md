@@ -6,6 +6,7 @@ title: React Native
 Always open `.xcworkspace` not `.xcodeproj`.
 :::
 
+Bundle visualizer: https://github.com/IjzerenHein/react-native-bundle-visualizer
 
 ## Development environment setup
 
