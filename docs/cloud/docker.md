@@ -223,6 +223,10 @@ RUN pip install flask
 ENTRYPOINT ["python", "app.py"]
 ```
 
+## `ARG` vs `ENV`
+
+https://stackoverflow.com/questions/39597925/how-do-i-set-environment-variables-during-the-build-in-docker
+
 ## `FROM scratch`
 
 No-op.

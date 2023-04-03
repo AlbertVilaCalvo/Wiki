@@ -209,6 +209,12 @@ Build locally (eg to generate an aab file to upload to Google Play):
 - `eas build --local`
 - "Uses your own hardware to build your apps locally and EAS to manage your app-signing credentials" ([source](https://blog.expo.dev/turtle-goes-out-to-sea-d334db2a6b60))
 
+Download a simulator build from EAS servers and run it directly on your emulator/simulator in a snap:
+
+- `eas build:run`
+- `eas build:run -p ios` - https://docs.expo.dev/build-reference/simulators/#installing-build-on-the-simulator
+- `eas build:run -p android` - https://docs.expo.dev/build-reference/apk/#emulator-virtual-device
+
 ### Signing
 
 https://docs.expo.dev/app-signing/app-credentials/
@@ -275,6 +281,7 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 
 [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md)
 
+- [SDK 48](https://blog.expo.dev/expo-sdk-48-ccb8302e231) - 2023-02
 - [SDK 47](https://blog.expo.dev/expo-sdk-47-a0f6f5c038af) - 2022-11
 - [SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) - 2022-08
 - [SDK 45](https://blog.expo.dev/expo-sdk-45-f4e332954a68) - 2022-05

@@ -14,7 +14,9 @@ Command cheatsheet: https://github.com/LeCoupa/awesome-cheatsheets/blob/master/d
 
 https://university.redis.com
 
-## Top 5 uses of Redis
+## Usages/patterns
+
+### Top 5 uses of Redis
 
 https://www.youtube.com/watch?v=a4yX7RUgTxI
 
@@ -36,6 +38,13 @@ https://www.linkedin.com/posts/alexxubyte_systemdesign-coding-interviewtips-acti
   - Message Queue
 - ZSet
   - Rank/Leaderboard
+
+### Interesting articles on the docs
+
+- Redis patterns example by building a Twitter clone: authentication with a cookie: https://redis.io/docs/manual/patterns/twitter-clone/#authentication
+- Use Redis for client-side caching: https://redis.io/docs/manual/client-side-caching
+
+## VS memcached
 
 > Redis may be one of the most overrated system in modern software architecture.
 > Its usefulness may more limited than many people think.
@@ -71,7 +80,13 @@ https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/#star
 
 https://redis.io/docs/manual/cli
 
-Connect:
+### Connect
+
+https://www.digitalocean.com/community/cheatsheets/how-to-connect-to-a-redis-database
+
+Connect to a local instance: `redis-cli`
+
+Connect to a remote instance:
 
 ```bash
 redis-cli -h <host> -p <port> -a <password>
@@ -79,9 +94,11 @@ redis-cli -h <host> -p <port> -a <password>
 
 Default address is 127.0.0.1 and default port is 6379, so doing `redis-cli` is like doing `redis-cli -h 127.0.0.1 -p 6379`.
 
-To authenticate, you can alternatively provide the password using the envar `REDISCLI_AUTH`. You can also connect first, and then run the command `AUTH <password>` to authenticate.
+To authenticate, you can alternatively provide the password using the envar `REDISCLI_AUTH`. You can also connect without specifying the password (ie `redis-cli -h <host> -p <port>`), but you won't be able to add, change or query data until you run the command `AUTH <password>` to authenticate - [source](redis-cli -h <host> -p <port>).
 
-Use [`PING`](https://redis.io/commands/ping/) to test the connection.
+Test the connection: [`PING`](https://redis.io/commands/ping/)
+
+### Keys
 
 Get all keys:
 
