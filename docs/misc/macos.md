@@ -32,6 +32,16 @@ https://apple.stackexchange.com/a/431149/241238
 
 Monterey: Preferències -> Teclat -> pestanya Dreceres -> Dreceres de l'app. Ventura: Configuració -> Teclat -> Dreceres de teclat... -> Dreceres de l'app. Afegir 2 dreceres noves amb nom 'Sleep' i 'Repòs' a <kbd>Shift</kbd><kbd>Alt</kbd><kbd>Q</kbd>. Haig de veure el shortcut ⌥⇧Q al menu del sistema.
 
+### Prevent ⌘+i to open the Mail app on Chrome
+
+https://apple.stackexchange.com/questions/108060/how-to-prevent-command-i-command-shift-i-from-opening-mac-mail-when-in-browser
+
+Ventura: Configuració -> Teclat -> Dreceres de teclat... -> Dreceres de l'app. Clicar '+'. Al menú que s'obre seleccionar:
+
+- App: Google Chrome.
+- Títol de menú: ha de ser exactament "Envia l'enllaç per correu electrònic". És el que diu a Chrome -> Fitxer -> Comparteix.
+- Drecera de teclat: qualsevol cosa, per exemple ⌃⌥⇧⌘E.
+
 ## DefaultKeyBinding.dict
 
 ```
