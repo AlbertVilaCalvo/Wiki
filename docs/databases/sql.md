@@ -12,6 +12,14 @@ https://hakibenita.com/sql-for-data-analysis
 
 https://animatesql.com/
 
+Components of the SQL language [source](from https://www.linkedin.com/posts/alexxubyte_systemdesign-coding-interviewtips-activity-7046145129413255168-VvqB/):
+
+- DDL: data definition language, such as CREATE, ALTER, DROP
+- DQL: data query language, such as SELECT
+- DML: data manipulation language, such as INSERT, UPDATE, DELETE
+- DCL: data control language, such as GRANT, REVOKE
+- TCL: transaction control language, such as COMMIT, ROLLBACK
+
 ## Reserved words
 
 https://en.wikipedia.org/wiki/SQL_reserved_words
