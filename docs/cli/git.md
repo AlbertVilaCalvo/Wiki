@@ -6,6 +6,14 @@ Source code mirror: https://github.com/git/git
 
 Ask HN: Apps that are built with Git as the back end? - https://news.ycombinator.com/item?id=33261862
 
+## Branch models
+
+Trunk Based Development - https://trunkbaseddevelopment.com
+
+git-flow - https://nvie.com/posts/a-successful-git-branching-model
+
+GitHub flow - https://docs.github.com/en/get-started/quickstart/github-flow
+
 ## Upstream branch
 
 _Important: 'upstream' is about branches, not repositories_ - [see this](https://stackoverflow.com/questions/17122245/what-is-a-git-upstream#comment24775853_17122257).
@@ -32,7 +40,7 @@ See https://twitter.com/JI/status/1546948817462800384 and https://stackoverflow.
 
 ## Undo last commit
 
-If not pushed yet
+If not pushed yet:
 
 ```shell
 # keep changes
@@ -44,13 +52,42 @@ git reset --hard HEAD^
 
 [source](https://stackoverflow.com/a/6376039/4034572)
 
-On a public commit
+On a public commit:
 
 ```
 git revert HEAD
 ```
 
 Also see: [git undo: We can do better](https://blog.waleedkhan.name/git-undo/)
+
+## Undo merge (eg if we commit on the `main` branch by mistake)
+
+If not pushed yet:
+
+```shell
+# IMPORTANT: THIS ALSO DISCARDS ANYTHING NOT STAGED
+git reset --hard HEAD^
+```
+
+https://stackoverflow.com/questions/5623162/undo-last-commit-merge
+
+If pushed:
+
+https://www.git-tower.com/learn/git/faq/undo-git-merge/
+
+https://stackoverflow.com/questions/12534312/revert-a-merge-after-being-pushed
+
+## Revert the changes done on a file (or files) in a branch, so that it's content is the same as develop or master
+
+`git checkout <branch> -- <filename>`
+
+Eg: `git checkout develop -- buildsystem/versions.gradle`
+
+This leaves in the staging area the changes that bring the file to the same contents as develop. You need to commit then.
+
+Note that you can put as many files as you want: `git checkout <branch> -- <filename> ... <filename>`
+
+[source1](https://stackoverflow.com/q/215718/4034572) [source2](https://stackoverflow.com/q/1817766/4034572)
 
 ## Merge changes from remote master branch to a feature branch without switching to master
 
@@ -67,18 +104,6 @@ git fetch origin && git merge origin/main && git fetch origin main:main
 
 [source-part-1](https://stackoverflow.com/a/20103414/4034572)
 [source-part-2](https://stackoverflow.com/a/17722977/4034572)
-
-## Revert the changes done on a file (or files) in a branch, so that it's content is the same as develop or master
-
-`git checkout <branch> -- <filename>`
-
-Eg: `git checkout develop -- buildsystem/versions.gradle`
-
-This leaves in the staging area the changes that bring the file to the same contents as develop. You need to commit then.
-
-Note that you can put as many files as you want: `git checkout <branch> -- <filename> ... <filename>`
-
-[source1](https://stackoverflow.com/q/215718/4034572) [source2](https://stackoverflow.com/q/1817766/4034572)
 
 ## View file line history/changes
 
@@ -416,6 +441,11 @@ Be careful with conflicts! Eg if both projects have a README.md, it's better to 
 To put `project-A` into a **subfolder** of `project-B` in a simple way, before running the commands above, first create a folder inside `project-B`, move all the files there, and then commit. Afterwards run the commands above.
 
 `--allow-unrelated-histories` documentation: https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---allow-unrelated-histories
+
+More info:
+
+- https://medium.com/@checko/merging-two-git-repositories-into-one-preserving-the-git-history-4e20d3fafa4e
+- https://blog.jdriven.com/2021/04/how-to-merge-multiple-git-repositories/
 
 ## Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
 
