@@ -78,11 +78,13 @@ https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/#star
 
 ## CLI `redis-cli`
 
-https://redis.io/docs/manual/cli
+https://redis.io/docs/ui/cli/
 
 ### Connect
 
 https://www.digitalocean.com/community/cheatsheets/how-to-connect-to-a-redis-database
+
+https://docs.redis.com/latest/rs/references/cli-utilities/redis-cli/
 
 Connect to a local instance: `redis-cli`
 
@@ -94,7 +96,7 @@ redis-cli -h <host> -p <port> -a <password>
 
 Default address is 127.0.0.1 and default port is 6379, so doing `redis-cli` is like doing `redis-cli -h 127.0.0.1 -p 6379`.
 
-To authenticate, you can alternatively provide the password using the envar `REDISCLI_AUTH`. You can also connect without specifying the password (ie `redis-cli -h <host> -p <port>`), but you won't be able to add, change or query data until you run the command `AUTH <password>` to authenticate - [source](redis-cli -h <host> -p <port>).
+To authenticate, you can alternatively provide the password using the envar `REDISCLI_AUTH`. You can also connect without specifying the password (ie `redis-cli -h <host> -p <port>`), but you won't be able to add, change or query data until you run the command `AUTH <password>` to authenticate.
 
 Test the connection: [`PING`](https://redis.io/commands/ping/)
 
