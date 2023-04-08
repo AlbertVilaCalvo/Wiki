@@ -26,6 +26,7 @@ See:
 
 - Semantic HTML: https://web.dev/learn/html/semantic-html/
 - Headings and sections: https://web.dev/learn/html/headings-and-sections/
+- Semantic HTML tags: https://www.dofactory.com/html/semantics
 
 ## nav
 

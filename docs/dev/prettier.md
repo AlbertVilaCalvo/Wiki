@@ -14,6 +14,7 @@ https://prettier.io/docs/en/install.html
 
 ```shell
 npm install --save-dev --save-exact prettier
+npm i -D -E prettier
 // or
 yarn add --dev --exact prettier
 
