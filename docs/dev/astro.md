@@ -4,7 +4,7 @@ title: Astro
 
 https://astro.build
 
-Integrations: https://astro.build/integrations
+Integrations directory: https://astro.build/integrations, integrations guide: https://docs.astro.build/en/guides/integrations-guide
 
 VSCode official extension: https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode
 
@@ -123,6 +123,29 @@ https://docs.astro.build/en/core-concepts/layouts/#markdownmdx-layouts
 
 You can add a special `layout: ../../layouts/MarkdownPostLayout.astro` property to the front matter of a markdown file. Then you can access the markdown file front matter properties in the `MarkdownPostLayout.astro` layout file with `const { frontmatter } = Astro.props` - [see docs](https://docs.astro.build/en/guides/markdown-content/#frontmatter-layout).
 
+## Routes
+
+https://docs.astro.build/en/core-concepts/routing/
+
+`pages/tags.astro` and `pages/tags/index.astro` both generate the route `/tags`, see https://docs.astro.build/en/core-concepts/routing/#static-routes
+
+### Dynamic page routes with `[xyz].astro` and `getStaticPaths`
+
+https://docs.astro.build/en/core-concepts/routing/#dynamic-routes
+
+https://docs.astro.build/en/reference/api-reference/#getstaticpaths
+
+If a page uses dynamic params in the filename, the component will need to export a `getStaticPaths` function.
+
+https://docs.astro.build/en/tutorial/5-astro-api/2/
+
+`getStaticPaths` **returns an array of page routes**, and all of the pages at those routes will use the same HTML template defined in the `[xyz].astro` file.
+
+`getStaticPaths` should always return a list of objects containing `params` (the name of a page route generated dynamically) and optionally any `props` (data that you want to pass to those pages).
+
+- If you need information to construct the page routes, write it inside `getStaticPaths`, eg with `Astro.glob()`.
+- To receive information in the HTML template of a page route, write it outside `getStaticPaths`, eg with `Astro.params` and `Astro.props`.
+
 ## CLI
 
 Reference: https://docs.astro.build/en/reference/cli-reference
@@ -139,6 +162,8 @@ npm create astro@latest -- --template <example-name>
 npm create astro@latest -- --template <github-username>/<github-repo>
 npm create astro@latest -- --template <github-username>/<github-repo>#<branch>
 ```
+
+Add an [integration](https://astro.build/integrations) (eg [Preact](https://docs.astro.build/en/guides/integrations-guide/preact/)): `npx astro add preact`. See the [Integrations guide](https://docs.astro.build/en/guides/integrations-guide/).
 
 ## Prettier
 
@@ -212,6 +237,36 @@ From https://jasonformat.com/islands-architectures:
 ### Persistent islands
 
 https://github.com/withastro/rfcs/discussions/307 - https://www.maxiferreira.com/blog/astro-turbo-persistent-islands/
+
+### `client:` directive
+
+https://docs.astro.build/en/reference/directives-reference/#client-directives
+
+Controls how [UI Framework components](https://docs.astro.build/en/core-concepts/framework-components/) are hydrated on the page.
+
+- `<ReactComponent />` -> Sends HTML and CSS to the browser. Will be a static element.
+- `<ReactComponent client:load />` -> Sends HTML, CSS and **JavaScript** to the browser. This is an **hydrated** component. Will have interactivity.
+
+:::caution
+If we hydrate a (eg) React component with `client:` we load the whole React framework! See this article: https://spacejelly.dev/posts/how-to-use-astro-to-build-react-apps-without-javascript
+:::
+
+:::tip
+You can add interactivity with `<script>` tags too - see [example](https://docs.astro.build/en/tutorial/6-islands/2/) and [docs](https://docs.astro.build/en/guides/client-side-scripts/)
+:::
+
+### `client:` directive on UI framework components vs `<script>` tags on Astro components
+
+Both allow you to add interactive UI elements. Differences:
+
+[`client:`](https://docs.astro.build/en/reference/directives-reference/#client-directives) directive on UI framework components:
+
+- Is required on UI framework components to create interactive elements. (If not present they are static.)
+- Allows you to reuse code in other UI frameworks.
+
+[`<script>`](https://docs.astro.build/en/guides/client-side-scripts/) tag on Astro components:
+
+- Allows to add interactivity without any JavaScript framework.
 
 ## SSR
 
