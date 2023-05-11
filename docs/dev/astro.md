@@ -117,11 +117,41 @@ const textColor = 'blue'
 
 The front matter uses YAML (instead of JavaScript like in `.astro` files).
 
+A `.md` file inside the `/pages` directory will generate a page.
+
 ### Markdown layouts
 
 https://docs.astro.build/en/core-concepts/layouts/#markdownmdx-layouts
 
 You can add a special `layout: ../../layouts/MarkdownPostLayout.astro` property to the front matter of a markdown file. Then you can access the markdown file front matter properties in the `MarkdownPostLayout.astro` layout file with `const { frontmatter } = Astro.props` - [see docs](https://docs.astro.build/en/guides/markdown-content/#frontmatter-layout).
+
+## Content Collections
+
+Type-safety for Markdown and MDX content.
+
+https://docs.astro.build/en/guides/content-collections
+
+https://astro.build/blog/astro-2
+
+https://astro.build/blog/introducing-content-collections
+
+Sample code that uses content collections:
+
+- Blog: https://astro.new/blog
+- Docs: https://astro.new/docs
+- Portfolio: https://astro.new/portfolio
+- [Migration of the blog](https://docs.astro.build/en/guides/content-collections/#migrating-from-file-based-routing) of the [tutorial](https://docs.astro.build/en/tutorial/0-introduction/): https://github.com/withastro/blog-tutorial-demo/tree/content-collections
+
+Use [`astro sync`](https://docs.astro.build/en/reference/cli-reference/#astro-sync) to manually update the `.astro` directory. Note that `astro dev` and `astro build` update it automatically.
+
+```ts title="content/config.ts"
+export const collections = {
+  //  collectionName: collection
+  newsletter: newsletterCollection,
+}
+```
+
+The `render` function gives you 3 things: `const { Content, remarkPluginFrontmatter, headings } = await post.render()`
 
 ## Routes
 
@@ -197,6 +227,12 @@ From https://github.com/withastro/astro/tree/main/packages/astro/tsconfigs
 
 `stricttest.json` is the most strict config.
 
+### Typechecking
+
+`astro start` and `astro build` commands will transpile the code with esbuild, but will not run any type checking. To check TypeScript errors add a script in `package.json` [source](https://docs.astro.build/en/guides/typescript/#type-checking):
+
+`"check": "astro check && tsc --noEmit"`
+
 ## Templates, starters and example repos
 
 Official example projects: https://astro.new. Each of these templates is meant to show a common pattern or use case.
@@ -212,7 +248,7 @@ You can create a new project based on a GitHub repository’s main branch with `
 - https://github.com/Charca/astro-blog-template - https://astro-blog-template.netlify.app
 - https://github.com/midudev/miduconf-website
 - https://github.com/stackblitz/ilovecodeflow.com
-- https://github.com/joshfinnie/joshfinnie.com - https://www.joshfinnie.com/blog/my-switch-from-gatsby-to-astro
+- https://github.com/joshfinnie/joshfinnie.com - https://www.joshfinnie.com/blog/my-switch-from-gatsby-to-astro - Also see https://rodneylab.com/getting-started-astro where there are some tips at the end (how to import node packages and absolute imports or aliases)
 
 ## Releases
 
@@ -222,7 +258,7 @@ You can create a new project based on a GitHub repository’s main branch with `
 - 2.1 - https://astro.build/blog/astro-210
   - Built-in image optimization
   - Markdoc
-  - `astro check --watch`. Spawns a long-running process that listens for file changes and reruns diagnostics on changed files. Run this in parallel with your dev server with by adding a script to your package.json: `"dev": "astro check --watch & astro dev"`
+  - `astro check --watch`. Spawns a long-running process that listens for file changes and reruns diagnostics on changed files. Run this in parallel with your dev server with by adding a script to your package.json: `"dev": "astro check --watch & astro dev"`. It allows you to type check your Astro files alongside your dev process for instant feedback [source](https://twitter.com/matthewcp/status/1633536618341740546?t=YHLW3waGlJY2Jn9LOkeIIA).
 
 ## Islands architecture
 
@@ -268,7 +304,26 @@ Both allow you to add interactive UI elements. Differences:
 
 - Allows to add interactivity without any JavaScript framework.
 
+## CSS
+
+https://docs.astro.build/en/guides/styling
+
+### `is:inline`
+
+https://docs.astro.build/en/reference/directives-reference/#isinline
+
+> tells Astro to leave the `<script>` or `<style>` tag as-is in the final output HTML. The contents will not be processed, optimized, or bundled.
+
+https://github.com/withastro/astro/issues/6388
+
+## meta tags
+
+- https://github.com/joshfinnie/joshfinnie.com/blob/main/src/components/BaseHead.astro
+- https://github.com/withastro/astro/blob/main/examples/blog/src/components/BaseHead.astro
+
 ## SSR
+
+https://docs.astro.build/en/guides/server-side-rendering/
 
 https://astro.build/blog/experimental-server-side-rendering/
 
@@ -283,11 +338,16 @@ https://docs.netlify.com/integrations/frameworks/#astro
 
 https://docs.netlify.com/integrations/frameworks/astro/
 
-How to integrate commonly used features within Netlify for Astro: https://github.com/netlify-templates/astro-toolbox
+Quickstart template:
 
-Template: https://github.com/netlify-templates/astro-quickstart
+- https://github.com/netlify-templates/astro-quickstart
+- https://www.netlify.com/blog/deploy-your-astro-project-fast/
+
+(Nice) How to integrate commonly used features within Netlify for Astro: https://github.com/netlify-templates/astro-toolbox
 
 Blog posts: https://www.netlify.com/blog/tags/astro/
+
+How to deploy an Astro site: https://www.netlify.com/blog/how-to-deploy-astro/
 
 ### Netlify SSR
 
