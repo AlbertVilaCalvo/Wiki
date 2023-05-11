@@ -36,6 +36,21 @@ Array.isArray('a') // false
 
 Does not mutate. [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
 
+## Remove duplicate values from array / get unique values from array
+
+- https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
+- https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
+
+```ts
+const uniq = [...new Set(array)]
+```
+
+In https://docs.astro.build/en/tutorial/5-astro-api/2/ they use this to get all tags from an array of blog posts (where each post can have multiple tags):
+
+```ts
+const uniqueTags = [...new Set(posts.map((post) => post.tags).flat())]
+```
+
 ## Sort (eg by date)
 
 _Mutates_

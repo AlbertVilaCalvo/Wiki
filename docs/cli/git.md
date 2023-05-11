@@ -6,6 +6,8 @@ Source code mirror: https://github.com/git/git
 
 Ask HN: Apps that are built with Git as the back end? - https://news.ycombinator.com/item?id=33261862
 
+https://github.com/github/git-sizer. Compute various size metrics for a Git repository, flagging those that might cause problems. This tools is referenced in https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github.
+
 ## Branch models
 
 Trunk Based Development - https://trunkbaseddevelopment.com
@@ -85,7 +87,11 @@ Eg: `git checkout develop -- buildsystem/versions.gradle`
 
 This leaves in the staging area the changes that bring the file to the same contents as develop. You need to commit then.
 
-Note that you can put as many files as you want: `git checkout <branch> -- <filename> ... <filename>`
+Note that you can put as many files as you want: `git checkout <branch> -- <filename> ... <filename>`.
+
+You can also specify an entire folder: `git checkout main -- config/sync`.
+
+And you can specify a file extension in a folder: `git checkout main -- seed_data/*.json`
 
 [source1](https://stackoverflow.com/q/215718/4034572) [source2](https://stackoverflow.com/q/1817766/4034572)
 
@@ -424,6 +430,25 @@ error: failed to push some refs to 'github.com:AlbertVilaCalvo/JavaScript-Udacit
 
 This happens when eg we are renaming the branch `master` to `main` on a GitHub/Bitbucket repository that has `master` set as the default branch. To fix this, go to the GitHub website -> navigate to the repository -> Settings tab -> Branches, and change the 'Default branch'. After doing this, try again and it will work. (On Bitbucket, to change the default branch go to the repository -> Repository settings -> Repository details tab, expand the ADVANCED section and change 'Main branch'.)
 
+## Prevent commiting on main/master branch by mistake
+
+Add this `.git/hooks/pre-commit`.
+
+```bash
+#!/bin/sh
+
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch" = "main" ]; then
+  echo "You can't commit directly to main branch"
+  exit 1
+fi
+```
+
+Then make it executable with `chmod +x .git/hooks/pre-commit`.
+
+From https://stackoverflow.com/questions/40462111/prevent-commits-in-master-branch and https://stackoverflow.com/questions/17293938/prevent-commits-in-a-local-branch.
+
 ## Merge 2 git repositories
 
 From https://stackoverflow.com/a/10548919/4034572
@@ -434,6 +459,15 @@ Merge `project-A` into `project-B`.
 cd /path/to/project-B
 git fetch /path/to/project-A main
 git merge --allow-unrelated-histories FETCH_HEAD
+```
+
+```
+Seguint aquest post: https://stackoverflow.com/a/10548919/4034572
+
+Commands:
+git remote add backblaze ../Backblaze_exclusion_rule
+git fetch backblaze --tags
+git merge --allow-unrelated-histories backblaze/main
 ```
 
 Be careful with conflicts! Eg if both projects have a README.md, it's better to re-name one of them first (do commit), otherwise you'll have to deal with conflicts.
@@ -539,3 +573,17 @@ Available slots:
   - `GIT_EXTERNAL_DIFF=difft git diff`
   - `GIT_EXTERNAL_DIFF=difft git log -p --ext-diff`
   - `GIT_EXTERNAL_DIFF=difft git show --ext-diff`
+
+## Commit message format
+
+Conventional Commits: https://www.conventionalcommits.org
+
+Semantic Commit Messages: https://sparkbox.com/foundry/semantic_commit_messages
+
+https://github.com/conventional-changelog/commitlint
+
+Extra info:
+
+- https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/
+- https://stackoverflow.com/questions/26944762/when-to-use-chore-as-type-of-commit-message
+- https://karma-runner.github.io/6.3/dev/git-commit-msg.html

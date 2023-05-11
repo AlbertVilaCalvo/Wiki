@@ -2,7 +2,21 @@
 title: Git Hooks
 ---
 
+Customizing Git - Git Hooks: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
+
 Prettier docs show a few options: https://prettier.io/docs/en/precommit.html
+
+## Apply a git hook to all repositories
+
+https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath
+
+```
+git config --global core.hooksPath ~/githooks
+```
+
+https://stackoverflow.com/questions/2293498/applying-a-git-post-commit-hook-to-all-current-and-future-repositories
+
+https://stackoverflow.com/questions/1977610/change-default-git-hooks
 
 ## pre-commit hook
 

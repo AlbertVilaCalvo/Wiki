@@ -8,6 +8,8 @@ https://blog.jim-nielsen.com/2022/previous-sibling-selector/
 
 CSS Dinner selectors game - https://flukeout.github.io/
 
+Summary: https://www.w3schools.com/cssref/css_selectors.php
+
 ## `@supports() selector()`
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/@supports
@@ -25,6 +27,10 @@ CSS.supports('display: flex') // true
 https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
 
 > Pseudo-classes can be used to style an element based on its _state_.
+
+## :not()
+
+https://developer.mozilla.org/en-US/blog/css-not-pseudo-multiple-selectors/
 
 ## All but first/last with `:not`
 
