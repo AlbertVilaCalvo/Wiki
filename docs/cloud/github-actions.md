@@ -26,6 +26,8 @@ Run your GitHub Actions locally - https://github.com/nektos/act
 
 GitHub hosted runners preinstalled software: https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#preinstalled-software
 
+Terraform module for scalable GitHub action runners on AWS - https://github.com/philips-labs/terraform-aws-github-runner
+
 Roadmap: https://github.com/orgs/github/projects/4247/views/1?filterQuery=label%3Aactions
 
 ## Concepts
@@ -98,14 +100,7 @@ ${{ secrets.API_TOKEN }}
 ${{ vars.USERNAME }}
 ```
 
-## Commonly used actions
-
-Marketplace most starred/installed actions: https://github.com/marketplace?category=&query=sort%3Apopularity-desc&type=actions&verification=
-
-- Checkout: https://github.com/marketplace/actions/checkout
-- Setup Node.js environment: https://github.com/marketplace/actions/setup-node-js-environment
-
-## Sample and available actions
+## Workflow examples and actions list
 
 Marketplace: https://github.com/marketplace?type=actions
 
@@ -114,6 +109,19 @@ Repo: https://github.com/actions
 Official starter workflows: https://github.com/actions/starter-workflows
 
 https://docs.github.com/en/actions/examples
+
+Awesome Actions (curated list): https://github.com/sdras/awesome-actions
+
+## Commonly used actions
+
+Marketplace most starred/installed actions: https://github.com/marketplace?category=&query=sort%3Apopularity-desc&type=actions&verification=
+
+- Checkout: https://github.com/marketplace/actions/checkout
+- Setup Node.js environment: https://github.com/marketplace/actions/setup-node-js-environment
+
+### Useful actions
+
+- [paths-filter](https://github.com/dorny/paths-filter): Conditionally run actions based on files modified by PR, feature branch or pushed commits
 
 ### Interesting workflows
 

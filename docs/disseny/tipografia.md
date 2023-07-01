@@ -2,6 +2,10 @@
 title: Tipografia
 ---
 
+Trenquem mites: les majúscules i l’accentuació - https://traduint.wordpress.com/2016/08/24/trenquem-mites-les-majuscules-si-que-saccentuen/
+
+> Les majúscules han de seguir les mateixes normes d’accentuació que les minúscules
+
 ## Weight
 
 https://www.w3.org/TR/css-fonts-3/#font-weight-prop

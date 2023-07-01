@@ -16,7 +16,13 @@ Pastel, a command-line tool to generate, analyze, convert and manipulate colors:
 
 Coloring for Colorblindness: https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40
 
-### Convert color with opacity/alpha to color without
+## Palettes
+
+https://meta.stackexchange.com/questions/390761/colors-update-a-more-detailed-look
+
+https://stackoverflow.design/product/base/colors/
+
+## Convert color with opacity/alpha to color without
 
 https://filosophy.org/code/online-tool-to-lighten-color-without-alpha-channel/
 

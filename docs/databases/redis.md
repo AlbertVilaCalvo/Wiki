@@ -14,6 +14,8 @@ Command cheatsheet: https://github.com/LeCoupa/awesome-cheatsheets/blob/master/d
 
 https://university.redis.com
 
+GUI: https://getmedis.com
+
 ## Usages/patterns
 
 ### Top 5 uses of Redis
@@ -41,8 +43,11 @@ https://www.linkedin.com/posts/alexxubyte_systemdesign-coding-interviewtips-acti
 
 ### Interesting articles on the docs
 
-- Redis patterns example by building a Twitter clone: authentication with a cookie: https://redis.io/docs/manual/patterns/twitter-clone/#authentication
-- Use Redis for client-side caching: https://redis.io/docs/manual/client-side-caching
+Redis patterns example by building a Twitter clone: authentication with a cookie: https://redis.io/docs/manual/patterns/twitter-clone/#authentication
+
+> Remember that we are only able to access data in a direct way, without secondary indexes. It's not possible to tell Redis to return the key that holds a specific value. This is also our strength. This new paradigm is forcing us to organize data so that everything is accessible by primary key, speaking in relational DB terms.
+
+Use Redis for client-side caching: https://redis.io/docs/manual/client-side-caching
 
 ## VS memcached
 
@@ -114,3 +119,9 @@ See discussion at https://stackoverflow.com/questions/5252099/redis-command-to-g
 Get type of key: [`TYPE <key>`](https://redis.io/commands/type/). It returns 'none' when the key does not exist.
 
 Delete a key: [`DEL key1 key2 ...`](https://redis.io/commands/del/).
+
+## Data types
+
+https://redis.io/docs/manual/patterns/twitter-clone/
+
+> Hashes are the ideal data structure to represent objects. For example we use Hashes in order to represent Users and Updates in our Twitter clone.

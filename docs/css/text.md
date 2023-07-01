@@ -28,3 +28,9 @@ https://www.w3.org/TR/css-text-3/#propdef-word-wrap
 Wrapping and breaking text - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Text/Wrapping_Text
 
 Modern Fluid Typography Using CSS Clamp - https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp
+
+## `text-wrap: balance`
+
+https://developer.chrome.com/blog/css-text-wrap-balance/
+
+https://twitter.com/argyleink/status/1642907157002862592

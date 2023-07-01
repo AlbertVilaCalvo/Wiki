@@ -259,6 +259,14 @@ You can create a new project based on a GitHub repository’s main branch with `
   - Built-in image optimization
   - Markdoc
   - `astro check --watch`. Spawns a long-running process that listens for file changes and reruns diagnostics on changed files. Run this in parallel with your dev server with by adding a script to your package.json: `"dev": "astro check --watch & astro dev"`. It allows you to type check your Astro files alongside your dev process for instant feedback [source](https://twitter.com/matthewcp/status/1633536618341740546?t=YHLW3waGlJY2Jn9LOkeIIA).
+- 2.2 - https://astro.build/blog/astro-220
+- 2.4 - https://astro.build/blog/astro-240
+  - `scopedStyleStrategy`. Switch on a high-specificity strategy using class-based selector to guarantee that component styles will always override global styles.
+  - CSS inlining (experimental).
+- 2.5 - https://astro.build/blog/astro-250
+  - New data collection type (JSON and YAML instead of md) and `reference()`s (eg markdown blog posts can reference authors written in JSON).
+  - HTML minification with `compressHTML: true`.
+  - `Polymorphic` type for components like `<Link>` that can render as either `<a> `or `<button>` depending on the props passed to it.
 
 ## Islands architecture
 

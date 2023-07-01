@@ -219,3 +219,17 @@ https://jestjs.io/blog/2018/05/29/jest-23-blazing-fast-delightful-testing#jest-e
 [`test.each(table)(name, fn, timeout)`](https://jestjs.io/docs/api#testeachtablename-fn-timeout)
 
 [`.each` TypeScript Usage](https://jestjs.io/docs/api#each)
+
+In addition to `test.each` you can also use `it.each`:
+
+```ts
+describe('some function', () => {
+  it.each`
+    category
+    ${Category.X}
+    ${Category.Y}
+  `('if category is $category it should...', async ({ category }) => {
+    expect(something).toEqual(category)
+  })
+})
+```

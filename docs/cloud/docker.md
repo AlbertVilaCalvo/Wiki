@@ -14,6 +14,15 @@ https://github.com/LeCoupa/awesome-cheatsheets/blob/master/tools/docker.sh
 
 Just say no to :latest: https://news.ycombinator.com/item?id=30576443
 
+Dockerfile linter - https://github.com/hadolint/hadolint
+
+Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See Thoughworks Technology Radar 27:
+
+> is becoming a popular open alternative to Docker Desktop. It provisions the Docker container
+> run time in a Lima VM, configures the Docker CLI on macOS and handles port-forwarding and
+> volume mounts. Colima uses containerd as its run time, which is also the run time on most managed
+> Platform - improving the important dev-prod parity.
+
 ## Best practices
 
 https://nickjanetakis.com/blog/best-practices-around-production-ready-web-apps-with-docker-compose

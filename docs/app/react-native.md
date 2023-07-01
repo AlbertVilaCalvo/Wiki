@@ -8,6 +8,8 @@ Always open `.xcworkspace` not `.xcodeproj`.
 
 Bundle visualizer: https://github.com/IjzerenHein/react-native-bundle-visualizer
 
+Clean Project: https://github.com/pmadruga/react-native-clean-project
+
 ## Development environment setup
 
 To develop with Expo we only need watchman, Xcode, the Command Line Tools and Android Studio. To develop normal React Native apps we need Ruby, Cocoapods etc.

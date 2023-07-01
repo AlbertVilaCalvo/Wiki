@@ -587,3 +587,13 @@ Extra info:
 - https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/
 - https://stackoverflow.com/questions/26944762/when-to-use-chore-as-type-of-commit-message
 - https://karma-runner.github.io/6.3/dev/git-commit-msg.html
+
+## Shell script execution permissions
+
+Make a shell script executable when you pull a repository.
+
+https://stackoverflow.com/questions/40978921/how-to-add-chmod-permissions-to-file-in-git
+
+Note: after running `git update-index --chmod=+x path/to/file`, then you need to commit.
+
+After making the file executable, when doing `git ls-files --stage` it should have 100755.

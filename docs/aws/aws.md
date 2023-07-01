@@ -38,6 +38,8 @@ Serverless Patterns Collection - https://serverlessland.com/patterns
 
 Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
 
+Infracost - https://www.infracost.io/
+
 ## Multiple accounts
 
 Control Tower: https://aws.amazon.com/controltower

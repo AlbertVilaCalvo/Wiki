@@ -27,6 +27,8 @@ Install to devDependencies: `npm install --save-dev webpack` or `npm i -D webpac
 
 Suppress output like '204 packages are looking for funding' or '8 high severity vulnerabilities': `npm i --no-audit --no-fund --no-optional`
 
+List packages: `npm list` or `npm list --depth=0`
+
 List all outdated packages: `npm outdated`
 
 Also see: https://github.com/raineorshine/npm-check-updates - `npx npm-check-updates`

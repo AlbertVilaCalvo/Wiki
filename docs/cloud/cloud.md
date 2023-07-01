@@ -8,6 +8,10 @@ How they DevOps? - https://github.com/bregman-arie/howtheydevops
 
 https://sprkl.dev/18-quick-tips-to-improve-developer-productivity
 
+Reflections on 10,000 Hours of DevOps - https://matt-rickard.com/reflections-on-10-000-hours-of-devops
+
+> The value of a CI/CD Pipeline is inversely proportional to how long the pipeline takes to run.
+
 ## Diagrams
 
 https://diagrams.mingrammer.com

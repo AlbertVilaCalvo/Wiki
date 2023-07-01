@@ -16,6 +16,8 @@ Limit levels/nesting to maximum `collection/<id>/collection`.
 
 ## Response formats
 
+Linter: https://github.com/stoplightio/spectral
+
 - https://jsonapi.org - A specification for building APIs in JSON
 
 ## CRUD Routes

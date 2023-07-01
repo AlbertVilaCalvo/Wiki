@@ -10,6 +10,14 @@ Learn Postgres at the Playground - https://www.crunchydata.com/developers/tutori
 
 Postgres WASM - https://news.ycombinator.com/item?id=33067962
 
+Storage engine for modern hardware - https://github.com/orioledb/orioledb/ - From Thoughworks Technology Radar 27:
+
+> OrioleDB is a new storage engine for PostgreSQL. Our teams use PostgreSQL a lot, but its
+> storage engine was originally designed for hard drives. Although there are several options to tune
+> for modern hardware, it can be difficult and cumbersome to achieve optimal results. OrioleDB
+> addresses these challenges by implementing a cloud-native storage engine with explicit support
+> for solid-state drives (SSDs) and nonvolatile random-access memory (NVRAM)...
+
 ## Reserved words
 
 https://www.postgresql.org/docs/current/sql-keywords-appendix.html
