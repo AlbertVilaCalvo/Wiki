@@ -168,6 +168,10 @@ class User {
 }
 ```
 
+## Show full expanded type
+
+https://stackoverflow.com/questions/57683303/how-can-i-see-the-full-expanded-contract-of-a-typescript-type
+
 ## Excess property checking
 
 For object literals.
@@ -363,6 +367,57 @@ export function isError<T>(arg: 'loading' | T | Error): arg is Error {
 }
 ```
 
+## Type narrowing in `filter` with type predicates
+
+https://www.alexhughes.dev/blog/typed-filter
+
+https://www.skovy.dev/blog/typescript-filter-array-with-type-guard
+
+https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
+
+https://stackoverflow.com/questions/58882530/typescript-filter-array-of-conditional-types-and-have-proper-return-type
+
+Say that we have a type `User` with optional email:
+
+```ts
+type User = {
+  name: string
+  email?: string
+}
+```
+
+To filter an array of users to get only the ones that have email we can do:
+
+```ts
+type UserWithEmail = User & { email: string }
+
+function hasEmail(user: User): user is UserWithEmail {
+  return !!user.email
+}
+
+const emails: string[] = users
+  .filter(hasEmail)
+  .map((user: UserWithEmail) => user.email)
+```
+
+We can also do it inline without writing `hasEmail`:
+
+```ts
+const emails: string[] = users
+  .filter((user: User): user is UserWithEmail => !!user.email)
+  .map((user: UserWithEmail) => user.email)
+```
+
+Another example using `typeof`:
+
+```ts
+const emails: string[] = users
+  .map((user) => user.email)
+  .filter(
+    (email: string | undefined): email is string => typeof email === 'string'
+  )
+```
+
 ## Assertion functions
 
 https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions
@@ -432,9 +487,35 @@ https://www.typescriptlang.org/docs/handbook/utility-types.html
 
 Implementation: https://github.com/microsoft/TypeScript/blob/df6b9e57542b3c5c68cee0e340d1c82207e41dbc/lib/lib.es5.d.ts#L1550-L1659
 
-Make fields optional: `Partial<User>`. Example: `Partial<{ email: string; password: string }>` is `{email?: string, password?: string}`
+A library with extra types: https://github.com/ts-essentials/ts-essentials
 
-Make fields required: `Required<SomeType>`. Is the opposite of `Partial`.
+Make _all_ fields optional: `Partial<User>`. Example: `Partial<{ email: string; password: string }>` is `{email?: string, password?: string}`.
+
+Make _all_ fields required: `Required<User>`. Is the opposite of `Partial`.
+
+Make _some_ fields optional:
+
+```ts
+/**
+ * Like the built-in [Partial](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype) utility,
+ * but it allows you to make just some of the fields optional, not all.
+ * From https://stackoverflow.com/a/61108377/4034572.
+ */
+export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
+```
+
+Make _some_ fields required:
+
+```ts
+/**
+ * Like the built-in [Required](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype) utility,
+ * but it allows you to make just some of the fields required, not all.
+ * From https://stackoverflow.com/a/72075415/4034572.
+ */
+export type RequiredField<T, K extends keyof T> = T & Required<Pick<T, K>>
+```
+
+See alternative implementation in https://stackoverflow.com/questions/69327990/how-can-i-make-one-property-non-optional-in-a-typescript-type
 
 Return type of an async function: https://stackoverflow.com/questions/48011353/how-to-unwrap-type-of-a-promise
 
