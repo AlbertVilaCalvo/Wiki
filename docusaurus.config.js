@@ -75,7 +75,7 @@ const config = {
             position: 'left',
           },
           {
-            to: 'dev',
+            to: 'dev/tools-and-resources',
             activeBaseRegex: 'dev/.+',
             label: 'Dev',
             position: 'left',

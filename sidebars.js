@@ -18,7 +18,7 @@ const sidebars = {
     'cli/curl',
   ],
   dev: [
-    'dev/dev',
+    'dev/tools-and-resources',
     'dev/testing',
     'dev/node',
     'dev/express',
