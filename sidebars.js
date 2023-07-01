@@ -39,6 +39,7 @@ const sidebars = {
     'dev/date-time',
     'dev/functional-programming',
     'dev/wordpress',
+    'dev/nx',
   ],
   js: [
     'javascript/javascript',
@@ -65,7 +66,8 @@ const sidebars = {
     'cloud/heroku',
     'cloud/github-actions',
     'cloud/system-design',
-    'cloud/service-discovery'
+    'cloud/service-discovery',
+    'cloud/observability',
   ],
   aws: [
     'aws/aws',
@@ -112,6 +114,7 @@ const sidebars = {
   css: [
     'css/css',
     'css/selectors',
+    'css/units',
     'css/media-queries',
     'css/container-queries',
     'css/reset',
@@ -120,7 +123,8 @@ const sidebars = {
     'css/grid',
     'css/text',
     'css/fonts',
-    'css/misc'
+    'css/animations',
+    'css/misc',
   ],
   databases: [
     'databases/databases',
@@ -149,6 +153,8 @@ const sidebars = {
     'disseny/color',
     'disseny/tipografia',
     'disseny/animations',
+    'disseny/social-media',
+    'disseny/image-formats',
   ],
   log: [
     'log/talks',
