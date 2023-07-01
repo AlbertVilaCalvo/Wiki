@@ -59,6 +59,40 @@ Promise.allSettled([
 
 How to implement `Promise.all()`, `Promise.allSettled()` etc: https://javascript.plainenglish.io/i-lost-a-job-opportunity-just-because-of-promise-all-be396f6efe87
 
+### Filter `Promise.allSettled` results
+
+````ts
+/**
+ * Use it to convert a result of `Promise.allSettled` to the type `PromiseFulfilledResult`.
+ * Usage:
+ * ```
+ * const results = await Promise.allSettled(promises)
+ * results.filter(isFulfilled).map(result => result.value)
+ * ```
+ * From https://stackoverflow.com/a/73913774/4034572.
+ */
+export function isFulfilled<T>(
+  result: PromiseSettledResult<T>
+): result is PromiseFulfilledResult<T> {
+  return result.status === 'fulfilled'
+}
+
+/**
+ * Use it to convert a result of `Promise.allSettled` to the type `PromiseRejectedResult`.
+ * Usage:
+ * ```
+ * const results = await Promise.allSettled(promises)
+ * results.filter(isRejected).map(result => result.reason)
+ * ```
+ * From https://stackoverflow.com/a/73913774/4034572.
+ */
+export function isRejected<T>(
+  result: PromiseSettledResult<T>
+): result is PromiseRejectedResult {
+  return result.status === 'rejected'
+}
+````
+
 ## delay / timeout / sleep
 
 ```ts
