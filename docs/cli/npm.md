@@ -55,6 +55,7 @@ To pass arguments to a script you need to add `--` ([see `npm run` docs](https:/
   - https://medium.com/helpshift-engineering/package-lock-json-the-complete-guide-2ae40175ebdd
   - https://docs.npmjs.com/cli/v8/configuring-npm/package-lock-json
     - > Describe a single representation of a dependency tree such that teammates, deployments, and continuous integration are guaranteed to install exactly the same dependencies
+  - https://stackoverflow.com/questions/45022048/why-does-npm-install-rewrite-package-lock-json/53594050#53594050
 
 Find outdated and unused packages: https://github.com/dylang/npm-check
 
@@ -136,6 +137,16 @@ There are more operators you can use in addition to `^` and `~`, like `>=1.2.3`,
 
 To save exact do: `npm install --save-exact express` or `npm i -E express`
 
+## Exact or range versions?
+
+https://www.reddit.com/r/javascript/comments/ira5gz/askjs_do_you_use_exact_or_range_versions_for_your/
+
+Force exact package versions with [`.npmrc`]:
+
+```bash title=".npmrc"
+save-exact=true
+```
+
 ## Find parent of transitive dependency
 
 `npm ls @typescript-eslint/typescript-estree`
@@ -157,3 +168,9 @@ Here the transitive dependency `@typescript-eslint/typescript-estree` is being i
 Yarn has [`yarn list`](https://classic.yarnpkg.com/en/docs/cli/list).
 
 [source](https://stackoverflow.com/a/49523073/4034572)
+
+## .npmrc
+
+https://docs.npmjs.com/cli/v9/configuring-npm/npmrc
+
+Options: https://docs.npmjs.com/cli/v9/using-npm/config

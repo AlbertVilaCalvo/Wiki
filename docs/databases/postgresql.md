@@ -63,6 +63,11 @@ Delete database: `dropdb dbname`
 
 Recreate/reset database: `dropdb dbname && createdb dbname`
 
+Copy database:
+
+- https://stackoverflow.com/questions/876522/creating-a-copy-of-a-database-in-postgresql
+- https://stackoverflow.com/questions/808735/postgresql-how-to-create-a-copy-of-a-database-or-schema
+
 ## psql
 
 Command reference: https://www.postgresql.org/docs/current/app-psql.html

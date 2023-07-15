@@ -71,6 +71,8 @@ AWS security tool to perform security best practices assessments, audits, etc - 
 
 Analyze your Amazon Web Services (AWS) environments - https://github.com/duo-labs/cloudmapper
 
+flAWS challenge (discover AWS-specific vulnerabilities) - http://flaws.cloud
+
 ## Pricing
 
 https://aws.amazon.com/pricing
@@ -84,6 +86,8 @@ AWS Billing and Cost Management Documentation - https://docs.aws.amazon.com/acco
 Cloud cost estimates for Terraform in pull requests - https://github.com/infracost/infracost - https://www.infracost.io
 
 How do I make sure I don't incur charges when I'm using the AWS Free Tier? https://aws.amazon.com/premiumsupport/knowledge-center/free-tier-charges/
+
+https://www.lastweekinaws.com/blog/the-key-to-unlock-the-aws-billing-puzzle-is-architecture/ (taken from https://danielcompton.net/penny-wise-cloud-foolish)
 
 ### Enable IAM access to billing
 

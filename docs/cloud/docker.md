@@ -191,8 +191,10 @@ https://docs.docker.com/config/pruning
 
 Remove dangling images (images with `<none>` in `docker image ls`):
 
-- `docker image prune` - https://docs.docker.com/engine/reference/commandline/image_prune/
+- `docker image prune [-a]` - https://docs.docker.com/engine/reference/commandline/image_prune/
 - `docker images -q --filter "dangling=true" | xargs docker rmi` - from https://dockerlabs.collabnix.com/beginners/components/container-vs-image.html
+
+https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
 
 ## Dockerfile
 

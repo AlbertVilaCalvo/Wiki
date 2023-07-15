@@ -22,6 +22,8 @@ Oh-heck, a terminal command for when you forget other terminal commands - https:
 
 Command history is saved in `~/.zsh_history`.
 
+Advanced macOS Command-Line Tools - https://saurabhs.org/advanced-macos-commands
+
 ## Terminal shortcuts
 
 - Ctrl + R: Recall

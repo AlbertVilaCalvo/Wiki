@@ -12,6 +12,8 @@ title: macOS
 
 [Glyps](https://apple.stackexchange.com/q/55727/241238)
 
+Advanced macOS Command-Line Tools - https://saurabhs.org/advanced-macos-commands
+
 What prevents Mac to sleep: `pmset -g assertions`. See https://osxdaily.com/2012/07/11/mac-wont-sleep-heres-how-to-find-out-why-and-fix-it
 
 ## Keyboard Shortcuts

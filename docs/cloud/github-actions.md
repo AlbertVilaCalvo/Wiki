@@ -122,6 +122,7 @@ Marketplace most starred/installed actions: https://github.com/marketplace?categ
 ### Useful actions
 
 - [paths-filter](https://github.com/dorny/paths-filter): Conditionally run actions based on files modified by PR, feature branch or pushed commits
+- [Secrets Sync Action](https://github.com/marketplace/actions/secrets-sync-action): Define and rotate secrets in a single repository and have them synced to all other repositories in the Github organization or beyond
 
 ### Interesting workflows
 
