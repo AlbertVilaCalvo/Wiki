@@ -195,6 +195,15 @@ npm create astro@latest -- --template <github-username>/<github-repo>#<branch>
 
 Add an [integration](https://astro.build/integrations) (eg [Preact](https://docs.astro.build/en/guides/integrations-guide/preact/)): `npx astro add preact`. See the [Integrations guide](https://docs.astro.build/en/guides/integrations-guide/).
 
+Upgrade astro:
+
+`npm install astro@latest`
+
+```sh
+npm i -E astro@latest && \
+npm i -D -E prettier@latest prettier-plugin-astro@latest
+```
+
 ## Prettier
 
 https://docs.astro.build/en/editor-setup/#prettier
@@ -256,7 +265,7 @@ You can create a new project based on a GitHub repository’s main branch with `
   - Content Collections: https://astro.build/blog/introducing-content-collections
   - Hybrid Rendering, that is static (SSG) and server (SSR), mixing static and dynamic content
 - 2.1 - https://astro.build/blog/astro-210
-  - Built-in image optimization
+  - Built-in image optimization. Also see https://astro.build/blog/images/
   - Markdoc
   - `astro check --watch`. Spawns a long-running process that listens for file changes and reruns diagnostics on changed files. Run this in parallel with your dev server with by adding a script to your package.json: `"dev": "astro check --watch & astro dev"`. It allows you to type check your Astro files alongside your dev process for instant feedback [source](https://twitter.com/matthewcp/status/1633536618341740546?t=YHLW3waGlJY2Jn9LOkeIIA).
 - 2.2 - https://astro.build/blog/astro-220
@@ -267,6 +276,10 @@ You can create a new project based on a GitHub repository’s main branch with `
   - New data collection type (JSON and YAML instead of md) and `reference()`s (eg markdown blog posts can reference authors written in JSON).
   - HTML minification with `compressHTML: true`.
   - `Polymorphic` type for components like `<Link>` that can render as either `<a> `or `<button>` depending on the props passed to it.
+- 2.6 - https://astro.build/blog/astro-260
+  - Stable features: Middleware, Hybrid SSR output mode, Custom client directives
+  - CSS inlining is also now stable, see https://github.com/withastro/roadmap/blob/main/proposals/0036-inline-stylesheets.md and https://docs.astro.build/en/reference/configuration-reference/#buildinlinestylesheets
+  - Redirects
 
 ## Islands architecture
 
@@ -328,6 +341,27 @@ https://github.com/withastro/astro/issues/6388
 
 - https://github.com/joshfinnie/joshfinnie.com/blob/main/src/components/BaseHead.astro
 - https://github.com/withastro/astro/blob/main/examples/blog/src/components/BaseHead.astro
+
+## Images
+
+### Old
+
+Images: https://docs.astro.build/en/guides/images/
+
+https://www.npmjs.com/package/@astrojs/image
+
+https://docs.astro.build/en/guides/integrations-guide/image/
+
+### New (assets)
+
+RFC: https://github.com/withastro/roadmap/blob/main/proposals/0030-core-image-story.md
+
+Assets (Experimental) - https://docs.astro.build/en/guides/assets/
+
+Image service API: https://docs.astro.build/en/reference/image-service-reference/
+
+- 2023-03 https://astro.build/blog/astro-210/
+- 2023-06 https://astro.build/blog/images/
 
 ## SSR
 
