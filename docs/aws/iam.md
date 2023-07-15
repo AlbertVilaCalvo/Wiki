@@ -87,7 +87,6 @@ Best practices to protect your account's root user - https://docs.aws.amazon.com
 > We strongly recommend that you use the root user only for two things:
 >
 > - Create the first administrator user in AWS Identity and Access Management (IAM). For details about how to do this, see [Creating your first IAM user and group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html) in the _IAM User Guide_.
->
 > - Perform those tasks that can be performed by **only** the root user. For the complete list of these tasks, see [Tasks that require root user credentials](https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html).
 
 https://securingthe.cloud/2020/how-to-secure-aws-account-root-user-best-practices
