@@ -61,6 +61,17 @@ Find outdated and unused packages: https://github.com/dylang/npm-check
 
 https://www.stefanjudis.com/today-i-learned/how-to-override-your-dependencys-dependencies/
 
+### `--force` vs `--legacy-peer-deps`
+
+Important: use `--force`, not `--legacy-peer-deps`.
+
+https://stackoverflow.com/questions/66020820/npm-when-to-use-force-and-legacy-peer-deps
+
+> `--force` still pins many dependency versions which is stricter.
+
+> `--legacy-peer-deps` ignores peer dependencies entirely, which can screw up your dependency resolution.
+> `--force` on the other hand simply sets a different peer dependency version for conflicting dependencies.
+
 ### Update a package
 
 Just use `npm i [-D] [-E] somepackage@latest` (eg `npm i -D -E typescript@latest`) because using [`npm update`](https://docs.npmjs.com/cli/v8/commands/npm-update) doesn't update `package.json`:
