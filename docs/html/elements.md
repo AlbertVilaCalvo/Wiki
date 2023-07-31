@@ -4,6 +4,18 @@ title: Elements
 
 Cool HTML elements nobody uses - https://news.ycombinator.com/item?id=33068563 - https://tapajyoti-bose.medium.com/7-cool-html-elements-nobody-uses-436598d85668
 
+## Void elements don't need trailing slash (`/>`)
+
+We can write `<meta charset="UTF-8">` instead of `<meta charset="UTF-8" />`.
+
+https://stackoverflow.com/questions/7366344/do-we-still-need-forward-slashes-when-closing-void-elements-in-html5
+
+Unfortunately Prettier does revert them, see https://github.com/prettier/prettier/issues/5246
+
+The W3C Validator does not recommend trailing slash:
+
+> Trailing slash on void elements [has no effect](https://github.com/validator/validator/wiki/Markup-%C2%BB-Void-elements#trailing-slashes-in-void-element-start-tags-do-not-mark-the-start-tags-as-self-closing) and [interacts badly with unquoted attribute values](https://github.com/validator/validator/wiki/Markup-%C2%BB-Void-elements#trailing-slashes-directly-preceded-by-unquoted-attribute-values).
+
 ## `<head>` elements
 
 https://html.spec.whatwg.org/multipage/semantics.html#the-head-element

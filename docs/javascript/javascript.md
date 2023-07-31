@@ -161,6 +161,14 @@ Eg to toggle 'complete' of an object in a Redux reducer without modifying it:
 
 This creates a new object {}, merges all the properties of the 'todo' object into this new object, and then overrides the 'complete' property. The original 'todo' object is not modified, so the reducer is pure.
 
+## `structuredClone`
+
+https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
+
+Note that it also works with arrays.
+
+See https://www.linkedin.com/feed/update/urn:li:activity:7086378041525825536/
+
 ### Conditionally add field
 
 https://stackoverflow.com/questions/11704267/in-javascript-how-to-conditionally-add-a-member-to-an-object

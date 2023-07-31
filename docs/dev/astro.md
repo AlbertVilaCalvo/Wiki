@@ -280,6 +280,8 @@ You can create a new project based on a GitHub repository’s main branch with `
   - Stable features: Middleware, Hybrid SSR output mode, Custom client directives
   - CSS inlining is also now stable, see https://github.com/withastro/roadmap/blob/main/proposals/0036-inline-stylesheets.md and https://docs.astro.build/en/reference/configuration-reference/#buildinlinestylesheets
   - Redirects
+- 2.9 - https://astro.build/blog/astro-290
+  - View transitions
 
 ## Islands architecture
 
