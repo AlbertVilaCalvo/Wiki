@@ -100,6 +100,7 @@ const sidebars = {
     'http/csp',
   ],
   web: [
+    'web/images',
     'web/accessibility',
     'web/chrome-devtools',
     'web/xss',

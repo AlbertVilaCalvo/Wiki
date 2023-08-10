@@ -113,7 +113,7 @@ const config = {
             position: 'left',
           },
           {
-            to: 'web/chrome-devtools',
+            to: 'web/images',
             activeBasePath: 'web',
             label: 'Web',
             position: 'left',
