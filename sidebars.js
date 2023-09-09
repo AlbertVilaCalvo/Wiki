@@ -9,6 +9,7 @@ const sidebars = {
     'cli/github-pr',
     'cli/github',
     'cli/commands',
+    'cli/filesystem-permissions-acl',
     'cli/brew',
     'cli/ohmyzsh',
     'cli/npm',
@@ -126,6 +127,8 @@ const sidebars = {
     'css/fonts',
     'css/animations',
     'css/misc',
+    'css/divider',
+    'css/gradient',
   ],
   databases: [
     'databases/databases',
@@ -156,6 +159,7 @@ const sidebars = {
     'disseny/animations',
     'disseny/social-media',
     'disseny/image-formats',
+    'disseny/gimp',
   ],
   log: [
     'log/talks',
