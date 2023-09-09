@@ -55,3 +55,9 @@ Form data is stringified and set as the request body.
 When a form is submitted the client navigates to a new URL, sending the data, then it waits for the server response, and finally the browser (client) page refreshes. The request is synchronous and the server dictates how the view updates.
 
 In contrast, when we do an AJAX request, we don’t have to navigate anywhere, and the client does not have to refresh. The request is asynchronous and the client dictates how the view updates.
+
+## `<selectmenu>` (instead of `<select>`)
+
+_Still a draft!_
+
+Can be customized, see https://web.dev/state-of-css-2022/#customizing-select-elements

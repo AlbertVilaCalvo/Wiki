@@ -54,6 +54,8 @@ https://developer.chrome.com/docs/devtools/network/
 
 Holding the shift key while hovering over a request will highlight the initiator in green and dependencies in red. https://twitter.com/guaca/status/1544967782206431234
 
+Override the content of Fetch/XHR responses: https://twitter.com/addyosmani/status/1691833832817967315 - https://developer.chrome.com/blog/new-in-devtools-117/#xhr-fetch
+
 ### Filters
 
 https://developer.chrome.com/docs/devtools/network/reference/#filter-by-property

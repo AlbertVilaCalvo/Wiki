@@ -28,6 +28,16 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
 
 > Pseudo-classes can be used to style an element based on its _state_.
 
+## :nth-of-type()
+
+Select the 2nd `<p>` inside the `.section-main-info`.
+
+```css
+.section-main-info p:nth-of-type(2) {
+  margin: 0;
+}
+```
+
 ## :not()
 
 https://developer.mozilla.org/en-US/blog/css-not-pseudo-multiple-selectors/

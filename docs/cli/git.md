@@ -40,6 +40,20 @@ git config --global push.autoSetupRemote
 
 See https://twitter.com/JI/status/1546948817462800384 and https://stackoverflow.com/a/72401899/4034572.
 
+## Clone a single branch only
+
+This can be used for exampe to build a Docker container on some specific branch, in order to avoid fetching all the other -unnecessary- branches.
+
+```shell
+git clone git@github.com:SomeOrg/some-repository.git --branch branch_name --single-branch <local-folder>
+```
+
+https://stackoverflow.com/questions/1778088/how-do-i-clone-a-single-branch-in-git
+
+https://stackoverflow.com/questions/1911109/how-do-i-clone-a-specific-git-branch
+
+`--[no-]single-branch` docs: https://www.git-scm.com/docs/git-clone#Documentation/git-clone.txt---no-single-branch
+
 ## Undo last commit
 
 If not pushed yet:

@@ -53,6 +53,8 @@ How to manage multiple environments with Terraform (Yevgeniy Brikman) - https://
 2. [Using branches](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-branches-875d1a2ee647)
 3. [Using ](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-terragrunt-2c3e32fc60a8)
 
+https://medium.com/@itsnarayan/optimizing-aws-infrastructure-leveraging-terraform-for-low-coupling-and-high-cohesion-a5ae6049ab1e
+
 ## Examples
 
 - https://github.com/AJarombek/global-aws-infrastructure

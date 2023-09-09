@@ -21,3 +21,7 @@ Why APCA as a New Contrast Method? - https://github.com/Myndex/SAPC-APCA/blob/ma
 > WCAG 2.x contrast and 1.4.3 and the related understandings and guidelines were born in an era before smart phones and iPads, when displays were mostly CRT type and websites used core web fonts. But that was a decade and a half ago. Today the contrast guidelines are in need of a complete overhaul due to the massive changes in computer display technology, web content, CSS functionality, and advances in vision science since 2005/2008, when WCAG 2.x was first introduced.
 
 Veure https://github.com/w3c/wcag/issues/695 per més detalls.
+
+## ARIA
+
+"image" can be used as a synonym for "img" role - [source](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/116#accessibility_aria)
