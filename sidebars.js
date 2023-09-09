@@ -164,6 +164,9 @@ const sidebars = {
     'disseny/image-formats',
     'disseny/gimp',
   ],
+  ux: [
+    'ux/ux',
+  ],
   log: [
     'log/talks',
     'log/articles',

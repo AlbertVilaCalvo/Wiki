@@ -155,6 +155,12 @@ const config = {
             position: 'left',
           },
           {
+            to: 'ux',
+            activeBasePath: 'uxs',
+            label: 'UX',
+            position: 'left',
+          },
+          {
             to: 'corrector',
             label: 'Corrector',
             position: 'right',
