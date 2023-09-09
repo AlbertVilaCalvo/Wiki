@@ -69,6 +69,7 @@ const sidebars = {
     'cloud/system-design',
     'cloud/service-discovery',
     'cloud/observability',
+    'cloud/gcp',
   ],
   aws: [
     'aws/aws',
@@ -106,6 +107,7 @@ const sidebars = {
     'web/chrome-devtools',
     'web/xss',
     'web/csrf',
+    'web/view-transitions',
   ],
   html: [
     'html/html',
@@ -117,6 +119,7 @@ const sidebars = {
     'css/css',
     'css/selectors',
     'css/units',
+    'css/custom-properties',
     'css/media-queries',
     'css/container-queries',
     'css/reset',
