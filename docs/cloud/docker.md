@@ -29,11 +29,15 @@ https://nickjanetakis.com/blog/best-practices-around-production-ready-web-apps-w
 
 https://testdriven.io/blog/docker-best-practices/
 
+## Advantages
+
+Containers provide consistency between environments (eg local development machine vs production cloud). They fix "It works on my machine" problems.
+
+Avoid issues due to different programming language or database versions. Avoid having to install and configure specific development environments per project. On your local machine, each project's environment is isolated.
+
 ## What is a container?
 
 Container = App Code + Runtime + Libraries/Dependencies + Configuration Files
-
-Containers provide consistency between environments (eg local development machine vs production cloud). They fix "It works on my machine" problems.
 
 What is a container? https://www.docker.com/resources/what-container
 
@@ -53,6 +57,10 @@ Why we have containers - https://jessitron.com/2022/08/07/why-we-have-containers
   - Abstraction of physical hardware
 
 Thus, containers are lightweight and more efficient, and they can boot faster.
+
+You can run multiple containers in parallel, whereas to run multiple virtual machines in parallel you need a beefy host machine.
+
+Also containers are easy to share amongst team members, and easy to modify and replicate the modifications amongst team members, whereas when a virtual machine is used at the same time it's difficult to share changes done by one person to the rest of the team.
 
 **Dockerfile --`docker build`--> Image --`docker run`--> Container**
 
@@ -159,7 +167,9 @@ On a directory with a Dockerfile run:
 - Stop image: `docker container stop <container-id>` and `docker container rm <container-id>`
 - Delete image: get the id with `docker image ls` and remove it with `docker image rm <image-id>`
 
-Start:
+docker-compose up, down, stop start difference - https://stackoverflow.com/questions/46428420/docker-compose-up-down-stop-start-difference
+
+Start - [up](https://docs.docker.com/engine/reference/commandline/compose_up/):
 
 ```bash
 docker-compose -f docker-compose.yml up
@@ -171,13 +181,35 @@ Or:
 docker-compose up -d
 ```
 
-Connect to a container:
+Connect to a container (use `docker ps` to get the name or id):
 
 ```bash
-docker exec -ti sense_app bash
+docker exec -it <container-id> /bin/sh
+docker exec -it <container-name> /bin/sh
 ```
 
-Shut down:
+This also works sometimes:
+
+```bash
+docker exec -it <container-id> bash
+docker exec -it <container-name> bash
+```
+
+To exit run `exit`.
+
+Stop services - [stop](https://docs.docker.com/engine/reference/commandline/compose_stop/):
+
+```bash
+docker-compose stop
+```
+
+Shut down - [`down`](https://docs.docker.com/engine/reference/commandline/compose_down/):
+
+:::danger Can delete volumes
+
+Stops containers and removes containers, networks, volumes, and images created by `up`.
+
+:::
 
 ```bash
 docker-compose down
