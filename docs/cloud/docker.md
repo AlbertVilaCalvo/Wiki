@@ -10,6 +10,8 @@ https://github.com/veggiemonk/awesome-docker
 
 https://github.com/wsargent/docker-cheat-sheet
 
+https://docs.docker.com/get-started/docker_cheatsheet.pdf
+
 https://github.com/LeCoupa/awesome-cheatsheets/blob/master/tools/docker.sh
 
 Just say no to :latest: https://news.ycombinator.com/item?id=30576443
@@ -23,6 +25,16 @@ Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See T
 > volume mounts. Colima uses containerd as its run time, which is also the run time on most managed
 > Platform - improving the important dev-prod parity.
 
+## Tools
+
+https://github.com/wagoodman/dive
+
+https://github.com/GoogleContainerTools/container-diff
+
+## Learn
+
+How to Get Started with Docker - https://www.youtube.com/watch?v=iqqDU2crIEQ
+
 ## Best practices
 
 https://nickjanetakis.com/blog/best-practices-around-production-ready-web-apps-with-docker-compose
@@ -35,9 +47,25 @@ Containers provide consistency between environments (eg local development machin
 
 Avoid issues due to different programming language or database versions. Avoid having to install and configure specific development environments per project. On your local machine, each project's environment is isolated.
 
+You can run different versions of the same app locally side-by-side, each with a different MySQL version for example with.
+
+No need to install an OS (eg Linux/Windows), thus no need to patch/upgrade it when there are security vulnerabilities.
+
+When you want to deploy new code you simply create a new image and deploy it; no need to individually configure/patch/update each server's app.
+
+Can be easily replicated, ie deploy multiple copies.
+
+Containers are ephemeral, short-lived. If they die we just replace them.
+
+Phases:
+
+1. Build Image (package the app)
+2. Ship Image (to the cloud runtimes or local machine)
+3. Run Image (execute the app)
+
 ## What is a container?
 
-Container = App Code + Runtime + Libraries/Dependencies + Configuration Files
+Container = App Code + Runtime + Libraries/Dependencies/Binaries + Configuration Files
 
 What is a container? https://www.docker.com/resources/what-container
 
@@ -62,7 +90,7 @@ You can run multiple containers in parallel, whereas to run multiple virtual mac
 
 Also containers are easy to share amongst team members, and easy to modify and replicate the modifications amongst team members, whereas when a virtual machine is used at the same time it's difficult to share changes done by one person to the rest of the team.
 
-**Dockerfile --`docker build`--> Image --`docker run`--> Container**
+Each VM needs to have an OS installed, and when there are security vulnerabilities we need to upgrade/patch the OS.
 
 ## Container engine/runtime
 
@@ -92,14 +120,35 @@ From https://docs.docker.com/get-started:
 >
 > When running a container, it uses an isolated filesystem. This custom filesystem is provided by a container image. Since the image contains the container’s filesystem, it must contain everything needed to run an application - all dependencies, configuration, scripts, binaries, etc. The image also contains other configuration for the container, such as environment variables, a default command to run, and other metadata.
 
-## Docker Desktop
+From https://docs.docker.com/get-started/docker_cheatsheet.pdf
 
-https://docs.docker.com/desktop
+> Images are a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+>
+> A container is a runtime instance of a docker image. A container will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.
 
-Docker.raw (macOS):
+## Flow
 
-- https://apple.stackexchange.com/questions/391377/what-is-the-purpose-of-docker-raw-file-on-mac-os-catalina
-- Location of Docker.raw in macOS: ~/Library/Containers/com.docker.docker/Data/vms/0/ - see https://www.freecodecamp.org/news/where-are-docker-images-stored-docker-container-paths-explained/
+:::tip Flow
+**Dockerfile ——`docker build`——> Image ——`docker run`——> Container**
+:::
+
+| Image        | Container | Process |
+| ------------ | --------- | ------- |
+| create →     |           |         |
+|              | start →   |         |
+|              |           | execute |
+|              | stop ←    |         |
+| remove ←     |           |         |
+|              | run →→←   |         |
+| run -rm →→←← |           |         |
+
+[source](https://stackoverflow.com/a/61554030/4034572)
+
+`run` vs `start`: https://stackoverflow.com/questions/34782678/difference-between-running-and-starting-a-docker-container
+
+> run = create + start
+
+> You can create N clones of the same image.
 
 ## CLI
 
@@ -107,38 +156,40 @@ List commands: `docker help`
 
 Command help: `docker <command> --help`, eg `docker run --help`
 
-`docker info`
+Display system-wide information: `docker info`
 
 Version: `docker version`
 
-List images: `docker image ls`
+### Images
 
-Stop image: `docker image stop <image-id>`
+[Build](https://docs.docker.com/engine/reference/commandline/build) an image from a `Dockerfile`: `docker build --tag <tagname> .` or `docker build -t <tagname> .`
 
-Remove image: `docker image rm <image-id>`
+[List](https://docs.docker.com/engine/reference/commandline/images/) images: `docker images` or `docker image ls`
 
-### `docker build`
+[Remove](https://docs.docker.com/engine/reference/commandline/image_rm/) image: `docker image rm <image-id>` or `docker rmi <image-id>`
 
-https://docs.docker.com/engine/reference/commandline/build
+[Prune](https://docs.docker.com/engine/reference/commandline/image_prune/) (remove) all unused images: `docker image prune [-a]`
 
-Build an image from a Dockefile: `docker build`
+### Hub
 
-`docker build --tag <tagname> .` o `docker build -t <tagname> .`
+[Pull](https://docs.docker.com/engine/reference/commandline/pull/) image from registry: `docker pull alpine:latest`
 
-Create a new container form an image: `docker create`
-
-Pull image from registry: `docker pull alpine:latest`
-
-Push image to registry (Docker Hub):
+[Push](https://docs.docker.com/engine/reference/commandline/push/) image to registry (Docker Hub):
 
 - If we are logged in Docker Desktop: `docker push <repo-name>:<tag-name>`
 - If we are not logged in Docker Desktop: `docker push <DockerHub-username>/<repo-name>:<tag-name>`
 
-### `docker run`
+### Containers
+
+[Create](https://docs.docker.com/engine/reference/commandline/create/) a new container form an image: `docker create`
+
+#### `docker run` = create + start
 
 https://docs.docker.com/engine/reference/commandline/run
 
-Run a container: `docker run -d <image>`
+> Create and run a new container from an image
+
+Run a container: `docker run <image>` or `docker run -d <image>`
 
 `docker run` options:
 
@@ -148,37 +199,40 @@ Run a container: `docker run -d <image>`
 - `-p`/`--publish`: publish a container's port to the host, eg `-p 5433:5432` or `-p 80:8080`
 - `-rm`: automatically remove the container when it exits
 
-List running containers: `docker ps`
+[List](https://docs.docker.com/engine/reference/commandline/ps/) running containers: `docker ps`
 
 List all containers: `docker ps --all` or `docker ps -a`
 
-Stop a running container: `docker stop <container-id>` (get the `<container-id>` with `docker ps`)
+[Start](https://docs.docker.com/engine/reference/commandline/start/) a container: `docker start <container-id>` or `docker start <container-name>`
 
-Remove a container: `docker container rm <container-id>`
+[Stop](https://docs.docker.com/engine/reference/commandline/stop/) a running container: `docker stop <container-id>` or `docker stop <container-name>` (get the id/name with `docker ps`)
 
-### Workflow
+[Remove](https://docs.docker.com/engine/reference/commandline/rm/) a container: `docker rm <container-id>` or `docker container rm <container-id>`
 
-On a directory with a Dockerfile run:
+Open a shell inside a running container: `docker exec -it <container_name> sh`
+
+Display container [logs](https://docs.docker.com/engine/reference/commandline/logs/): `docker logs -f <container_name>` or `docker container logs -f <container_name>`
+
+### Dockerfile workflow
+
+On a directory with a `Dockerfile` run:
 
 - Build: `docker build --tag <imagename> .`
-- Doing `docker images` (or `docker image ls`) should show the image
-- Run: `docker run <imagename> -rm`
-- Doing `docker ps` (if running) or `docker ps -a` (if stopped) should show the container and it's ID
-- Stop image: `docker container stop <container-id>` and `docker container rm <container-id>`
-- Delete image: get the id with `docker image ls` and remove it with `docker image rm <image-id>`
+- Doing `docker images` (or `docker image ls`) should show the image now
+- Run: `docker run <image-name> [-rm]`
+- Doing `docker ps` (if running) or `docker ps -a` (if stopped) should show the container and it's ID, name etc.
+- Stop container: `docker container stop <container-id>` and `docker container rm <container-id>`
+- Delete image: `docker image rm <image-id>` (get the id with `docker images` or `docker image ls`)
+
+### docker-compose workflow
 
 docker-compose up, down, stop start difference - https://stackoverflow.com/questions/46428420/docker-compose-up-down-stop-start-difference
 
-Start - [up](https://docs.docker.com/engine/reference/commandline/compose_up/):
-
-```bash
-docker-compose -f docker-compose.yml up
-```
-
-Or:
+Start with [up](https://docs.docker.com/engine/reference/commandline/compose_up/):
 
 ```bash
 docker-compose up -d
+docker-compose -f docker-compose.yml up
 ```
 
 Connect to a container (use `docker ps` to get the name or id):
@@ -197,13 +251,13 @@ docker exec -it <container-name> bash
 
 To exit run `exit`.
 
-Stop services - [stop](https://docs.docker.com/engine/reference/commandline/compose_stop/):
+[Stop](https://docs.docker.com/engine/reference/commandline/compose_stop/) services:
 
 ```bash
 docker-compose stop
 ```
 
-Shut down - [`down`](https://docs.docker.com/engine/reference/commandline/compose_down/):
+Shut [down](https://docs.docker.com/engine/reference/commandline/compose_down/):
 
 :::danger Can delete volumes
 
@@ -230,7 +284,7 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 
 ## Dockerfile
 
-Set of instructions to create a container image.
+Set of instructions (list of commands) to create a container image.
 
 > A `Dockerfile` is a text document that contains all the commands a user could call on the command line to assemble an image.
 
@@ -249,12 +303,43 @@ Best practices:
 - https://docs.docker.com/develop/develop-images/dockerfile_best-practices
 - https://github.com/hexops/dockerfile
 
-```dockerfile
+### Node.js Dockerfile
+
+[source](https://www.youtube.com/watch?v=iqqDU2crIEQ)
+
+```shell
+# Base image form hub.docker.com. A verified image that has Node.js, npm and yarn installed
+FROM node:12.16.3
+
+# Create the 'code' directory and use is as working directory, ie all following commands
+# run in this directory
+WORKDIR /code
+
+# Set an environment variable. Will be accessible to any process running inside the image
+ENV PORT 80
+
+COPY package.json /code/package.json
+
+RUN npm install
+
+# Copy everything in our current local directory and we put it inside the image's 'code' directory
+# Use the a .dockerignore file to exclude files and directories:
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+COPY . /code
+
+# Command run when the container starts
+CMD [ "node", "src/server.js" ]
+```
+
+### Python Dockerfile
+
+```shell
 # Base image
 FROM python:3.10
 
 # Copy everything in the current dir to the 'app' dir of the filesystem of the container
 COPY . /app
+
 # Directory in which the next commands are run
 WORKDIR /app
 
@@ -262,9 +347,24 @@ WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install flask
 
+# Set an environment variable
+ENV FLASK_ENV=production
+
 # App/executable that will run when the container is run from the image
 ENTRYPOINT ["python", "app.py"]
 ```
+
+## `COPY` vs `ADD`
+
+https://stackoverflow.com/questions/24958140/what-is-the-difference-between-the-copy-and-add-commands-in-a-dockerfile
+
+https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy
+
+> `COPY` is preferred. . That’s because it’s more transparent than `ADD`. `COPY` only supports the basic copying of local files into the container, while `ADD` has some features (like local-only tar extraction and remote URL support) that are not immediately obvious. Consequently, the best use for `ADD` is local tar file auto-extraction into the image, as in `ADD rootfs.tar.xz /`.
+
+https://docs.docker.com/engine/reference/builder/#add
+
+https://docs.docker.com/engine/reference/builder/#copy
 
 ## `ARG` vs `ENV`
 
@@ -284,6 +384,17 @@ Containers are started and stopped as required (ie they have a lifecycle). Volum
 
 Commands: https://docs.docker.com/compose/reference
 
+Samples: https://github.com/docker/awesome-compose
+
 Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose
 
 Docker Compose best practices for dev and prod: https://news.ycombinator.com/item?id=32484008 / https://prod.releasehub.com/blog/6-docker-compose-best-practices-for-dev-and-prod
+
+## Docker Desktop
+
+https://docs.docker.com/desktop
+
+Docker.raw (macOS):
+
+- https://apple.stackexchange.com/questions/391377/what-is-the-purpose-of-docker-raw-file-on-mac-os-catalina
+- Location of Docker.raw in macOS: ~/Library/Containers/com.docker.docker/Data/vms/0/ - see https://www.freecodecamp.org/news/where-are-docker-images-stored-docker-container-paths-explained/
