@@ -112,7 +112,20 @@ https://docusaurus.io/docs/advanced/routing
 
 ## Upgrade
 
-This is the message shown at the terminal when you do `yarn start`:
+This is the message shown at the terminal when you do `npm start`:
+
+```bash
+   ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+   │                                                                                                                │
+   │                                         Update available 2.2.0 → 2.4.1                                         │
+   │                                                                                                                │
+   │                To upgrade Docusaurus packages with the latest version, run the following command:              │
+   │     `npm i @docusaurus/core@latest @docusaurus/preset-classic@latest @docusaurus/module-type-aliases@latest`   │
+   │                                                                                                                │
+   ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+_OLD_ This is the message shown at the terminal when you do `yarn start`:
 
 ```bash
 yarn run v1.22.19
@@ -198,3 +211,8 @@ https://twitter.com/sebastienlorber/status/1598615824927002624
 - [2.2.0](https://github.com/facebook/docusaurus/releases/tag/v2.2.0) - [Announcement](https://docusaurus.io/blog/releases/2.2) - [twitter](https://twitter.com/docusaurus/status/1586347397667495936)
   - Mermaid diagrams [docs](https://docusaurus.io/docs/markdown-features/diagrams)
   - `headTags` allow to add arbitrary HTML `<head>` tags to all pages of your site [docs](https://docusaurus.io/docs/api/docusaurus-config#headTags)
+- [2.3.0](https://github.com/facebook/docusaurus/releases/tag/v2.3.0) - [Announcement](https://docusaurus.io/blog/releases/2.3) - [twitter](https://twitter.com/docusaurus/status/1619019393756794900)
+  - Nested alerts (admonitions)
+- [2.4.0](https://github.com/facebook/docusaurus/releases/tag/v2.4.0) - [Announcement](https://docusaurus.io/blog/releases/2.4) - [twitter](https://twitter.com/docusaurus/status/1639279650974187521)
+  - Sidebar item of type category or link can have description
+  - Use query string `?docusaurus-theme=dark` or `?docusaurus-theme=light` to force mode
