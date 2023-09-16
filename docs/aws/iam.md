@@ -52,6 +52,21 @@ https://classroom.udacity.com/nanodegrees/nd0044/parts/8fc72c65-158a-429d-a08f-f
 
 > A role is an identity in AWS that doesn't have its own credentials (as a user does) [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
 
+### Role vs Policy
+
+https://www.strongdm.com/blog/aws-iam-roles-vs-policies
+
+> A role is a type of IAM identity that can be authenticated and authorized to utilize an AWS resource, whereas a policy defines the permissions of the IAM identity.
+
+https://www.learnaws.org/2022/03/03/iam-roles-policies/
+
+https://repost.aws/questions/QUnIdoElwIRvWhJHjucPVkzg/what-are-the-key-differences-between-iam-roles-and-iam-policies
+
+> An role is very similar to a user, in that it is an identity with permission policies that determine what the identity can and cannot do in AWS. However, a role does not have any credentials (password or access keys) associated with it.
+> Policies determine what actions a user, role, or member of a user group can perform, on which AWS resources, and under what conditions.
+
+> You attach IAM policies (which contain a set of permissions) to an IAM Role. Therefore, a single IAM roles can have multiple IAM policies in it. Lastly, a user can "assume" an IAM Role, meaning it will inherit automatically the policy or policies attached to that Role.
+
 ## A company with several departments that manage AWS
 
 https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam

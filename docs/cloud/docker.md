@@ -8,12 +8,6 @@ https://hub.docker.com - Pre-built container image registry
 
 https://github.com/veggiemonk/awesome-docker
 
-https://github.com/wsargent/docker-cheat-sheet
-
-https://docs.docker.com/get-started/docker_cheatsheet.pdf
-
-https://github.com/LeCoupa/awesome-cheatsheets/blob/master/tools/docker.sh
-
 Just say no to :latest: https://news.ycombinator.com/item?id=30576443
 
 Dockerfile linter - https://github.com/hadolint/hadolint
@@ -24,6 +18,13 @@ Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See T
 > run time in a Lima VM, configures the Docker CLI on macOS and handles port-forwarding and
 > volume mounts. Colima uses containerd as its run time, which is also the run time on most managed
 > Platform - improving the important dev-prod parity.
+
+## Cheatsheets
+
+- https://github.com/wsargent/docker-cheat-sheet
+- https://docs.docker.com/get-started/docker_cheatsheet.pdf
+- https://github.com/LeCoupa/awesome-cheatsheets/blob/master/tools/docker.sh
+- https://dockerlabs.collabnix.com/docker/cheatsheet/
 
 ## Tools
 
@@ -172,6 +173,8 @@ Version: `docker version`
 
 ### Hub
 
+[See this tutorial](https://www.youtube.com/watch?v=iqqDU2crIEQ)
+
 [Pull](https://docs.docker.com/engine/reference/commandline/pull/) image from registry: `docker pull alpine:latest`
 
 [Push](https://docs.docker.com/engine/reference/commandline/push/) image to registry (Docker Hub):
@@ -218,15 +221,16 @@ Display container [logs](https://docs.docker.com/engine/reference/commandline/lo
 On a directory with a `Dockerfile` run:
 
 - Build: `docker build --tag <imagename> .`
-- Doing `docker images` (or `docker image ls`) should show the image now
+  - Doing `docker images` (or `docker image ls`) should show the image now
 - Run: `docker run <image-name> [-rm]`
-- Doing `docker ps` (if running) or `docker ps -a` (if stopped) should show the container and it's ID, name etc.
+  - Doing `docker ps` (if running) or `docker ps -a` (if stopped) should show the container and it's ID, name etc.
 - Stop container: `docker container stop <container-id>` and `docker container rm <container-id>`
+  - Afterwards use `docker start <container-id>` or `docker start <container-name>` to start it again
 - Delete image: `docker image rm <image-id>` (get the id with `docker images` or `docker image ls`)
 
 ### docker-compose workflow
 
-docker-compose up, down, stop start difference - https://stackoverflow.com/questions/46428420/docker-compose-up-down-stop-start-difference
+docker-compose up, down, stop and start difference - https://stackoverflow.com/questions/46428420/docker-compose-up-down-stop-start-difference
 
 Start with [up](https://docs.docker.com/engine/reference/commandline/compose_up/):
 
@@ -354,7 +358,7 @@ ENV FLASK_ENV=production
 ENTRYPOINT ["python", "app.py"]
 ```
 
-## `COPY` vs `ADD`
+### `COPY` vs `ADD`
 
 https://stackoverflow.com/questions/24958140/what-is-the-difference-between-the-copy-and-add-commands-in-a-dockerfile
 
@@ -366,11 +370,11 @@ https://docs.docker.com/engine/reference/builder/#add
 
 https://docs.docker.com/engine/reference/builder/#copy
 
-## `ARG` vs `ENV`
+### `ARG` vs `ENV`
 
 https://stackoverflow.com/questions/39597925/how-do-i-set-environment-variables-during-the-build-in-docker
 
-## `FROM scratch`
+### `FROM scratch`
 
 No-op.
 
@@ -385,6 +389,8 @@ Containers are started and stopped as required (ie they have a lifecycle). Volum
 Commands: https://docs.docker.com/compose/reference
 
 Samples: https://github.com/docker/awesome-compose
+
+Cheatsheet: https://collabnix.com/docker-compose-cheatsheet
 
 Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose
 
