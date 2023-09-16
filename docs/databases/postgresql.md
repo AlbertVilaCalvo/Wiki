@@ -6,6 +6,8 @@ title: PostgreSQL
 
 https://github.com/dhamaniasad/awesome-postgres
 
+https://www.pgadmin.org
+
 Learn Postgres at the Playground - https://www.crunchydata.com/developers/tutorials - https://news.ycombinator.com/item?id=32498435
 
 Postgres WASM - https://news.ycombinator.com/item?id=33067962

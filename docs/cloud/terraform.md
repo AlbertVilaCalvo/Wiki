@@ -10,6 +10,8 @@ https://github.com/topics/terraform
 
 https://github.com/topics/terraform-module
 
+Cheatsheet: https://cheat-sheets.nicwortel.nl/terraform-cheat-sheet.pdf
+
 ## Tools
 
 Generate terraform files from existing infrastructure (reverse Terraform) - https://github.com/GoogleCloudPlatform/terraformer

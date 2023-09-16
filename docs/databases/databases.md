@@ -20,6 +20,16 @@ Reddit’s database has two tables
 ## Admins
 
 - https://www.adminer.org
+- https://dbeaver.io
+- https://tableplus.com
+
+Postgres:
+
+- https://www.pgadmin.org
+
+MySQL:
+
+- https://www.mysql.com/products/workbench
 
 ## Length and data type for common fields
 
