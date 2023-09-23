@@ -39,6 +39,8 @@ Best practices on common person fields (Name, email, address, gender etc...) - h
 
 Is there a standard implementation of a Users Database? - https://dba.stackexchange.com/questions/3519/is-there-a-standard-implementation-of-a-users-database
 
+https://www.singlestore.com/blog/engineers-guide-building-database-for-data-intensive-applications/
+
 ### Email
 
 `VARCHAR(254) NOT NULL UNIQUE`

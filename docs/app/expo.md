@@ -38,7 +38,7 @@ https://github.com/search?q=%22infoPlist%22+extension%3Ajson+path%3A%2F+filename
 
 ## CLI
 
-New local CLI for SDK >= 46: https://docs.expo.dev/workflow/expo-cli
+New local CLI for SDK >= 46: https://docs.expo.dev/more/expo-cli
 
 Old, deprecated, global CLI for SDK < 46: https://docs.expo.dev/archived/expo-cli
 
@@ -77,6 +77,25 @@ Note that option `--name` is deprecated, if you use it says "Use `expo init [nam
 Available templates: https://github.com/expo/expo/tree/main/templates
 
 Use TypeScript: https://docs.expo.dev/guides/typescript/
+
+### Validate package versions compatibility and install compatible versions
+
+```shell
+npx expo install --check # Check which installed packages need to be updated
+npx expo install --fix # Automatically update any invalid package versions
+```
+
+You can check/fix specific packages, eg `npx expo install expo-camera --check`.
+
+Eg doing `npx expo install --check` will output:
+
+```
+Some dependencies are incompatible with the installed expo version:
+  @react-native-community/slider@4.4.3 - expected version: 4.4.2
+Your project may not work correctly until you install the correct versions of the packages.
+Install individual packages by running npx expo install @react-native-community/slider@4.4.2
+✔ Fix dependencies? (Y/n)
+```
 
 ## Shift+i allows you to choose in which simulator to run the app on
 

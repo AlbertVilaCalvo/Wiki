@@ -365,7 +365,7 @@ git stash push -m "Some message"
 
 https://git-scm.com/docs/git-stash#Documentation/git-stash.txt---staged
 
-```
+```shell
 git stash push --staged
 git stash push -S
 git stash save --staged
@@ -380,11 +380,13 @@ Delete local tag: `git tag -d 2.4.0`
 
 Delete remote tag: `git push -d origin 2.4.0`
 
-Push all tags: `git push -–tags` or `git push origin --tags`
+Push single tag: `git push origin <tag_name>`
+
+Push _all_ tags (warning: should not be used generally, [see why in this comment](https://stackoverflow.com/questions/5195859/how-do-you-push-a-tag-to-a-remote-repository-using-git#comment40809114_5195913)): `git push -–tags` or `git push origin --tags`
 
 ### Always use annotated tags
 
-```
+```shell
 git tag -a v1.0
 ```
 
@@ -392,12 +394,20 @@ They have extra information like author, date, SHA and message ([more info](http
 
 ## Search string on git history
 
-```
+```shell
 git log -S something
 git log -p -S something
 ```
 
 [source](https://stackoverflow.com/a/4472267/4034572)
+
+## Search by commit message
+
+```shell
+git log --all --grep='Something'
+```
+
+[source](https://stackoverflow.com/a/7124949/4034572)
 
 ## Remove carriage return
 
@@ -469,16 +479,15 @@ From https://stackoverflow.com/a/10548919/4034572
 
 Merge `project-A` into `project-B`.
 
-```
+```shell
 cd /path/to/project-B
 git fetch /path/to/project-A main
 git merge --allow-unrelated-histories FETCH_HEAD
 ```
 
-```
-Seguint aquest post: https://stackoverflow.com/a/10548919/4034572
+Seguint aquest post: https://stackoverflow.com/a/10548919/4034572. Commands:
 
-Commands:
+```shell
 git remote add backblaze ../Backblaze_exclusion_rule
 git fetch backblaze --tags
 git merge --allow-unrelated-histories backblaze/main

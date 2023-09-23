@@ -22,6 +22,8 @@ https://dev.to/lydiahallie/cs-visualized-cors-5b8h
 
 > Routing https://api.foobarbaz.app to https://foobarbaz.app/api and moving over the JavaScript clients using the api. subdomain will cut your network traffic in half.
 
+Cache your CORS - https://news.ycombinator.com/item?id=32907234
+
 What is the motivation behind the introduction of preflight CORS requests? - https://stackoverflow.com/questions/15381105/what-is-the-motivation-behind-the-introduction-of-preflight-cors-requests
 
 https://enable-cors.org

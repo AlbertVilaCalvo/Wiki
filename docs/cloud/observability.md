@@ -8,6 +8,8 @@ https://www.dynatrace.com
 
 https://opentelemetry.io
 
+https://github.com/thanos-io/thanos
+
 ## Definition
 
 https://opentelemetry.io/docs/concepts/observability-primer/#what-is-observability

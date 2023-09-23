@@ -70,6 +70,14 @@ curl -H "Content-Type: application/json" -d @data.json URL
 curl -H "Content-Type: application/json" -X PUT -d '{"key":"val"}' URL
 ```
 
+### Print only response headers
+
+```shell
+curl -s -I URL
+```
+
+See https://stackoverflow.com/questions/10060098/getting-only-response-header-from-http-post-using-curl
+
 ### CORS OPTIONS preflight request
 
 _You can get the command of a real request from Chrome DevTools at the Network tab by doing right-click -> Copy -> Copy as cURL_

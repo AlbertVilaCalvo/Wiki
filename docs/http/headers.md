@@ -20,3 +20,7 @@ The media type.
 https://stackoverflow.com/questions/23714383/what-are-all-the-possible-values-for-http-content-type-header
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
+
+## Cache-Control
+
+https://www.keycdn.com/blog/http-cache-headers
