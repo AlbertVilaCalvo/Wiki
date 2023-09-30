@@ -282,6 +282,13 @@ You can create a new project based on a GitHub repository’s main branch with `
   - Redirects
 - 2.9 - https://astro.build/blog/astro-290
   - View transitions
+- 2.10 - https://astro.build/blog/astro-2100/
+  - Persistent UI in View Transitions
+- 3.0 - https://astro.build/blog/astro-3/ - https://github.com/withastro/astro/releases/tag/astro%403.0.0
+  - Upgrade guide: https://docs.astro.build/en/guides/upgrade-to/v3/
+  - View transitions
+  - Image Optimization (stable)
+  - Optimized Build Output (HTML Minification, Component IDs and CSS Inlining)
 
 ## Islands architecture
 
@@ -364,6 +371,14 @@ Image service API: https://docs.astro.build/en/reference/image-service-reference
 
 - 2023-03 https://astro.build/blog/astro-210/
 - 2023-06 https://astro.build/blog/images/
+
+## View Transitions
+
+https://developer.chrome.com/blog/astro-view-transitions/
+
+https://astro.build/blog/astro-3/
+
+https://github.com/Charca/view-transitions-live
 
 ## SSR
 

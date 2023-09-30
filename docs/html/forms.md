@@ -61,3 +61,7 @@ In contrast, when we do an AJAX request, we don’t have to navigate anywhere, a
 _Still a draft!_
 
 Can be customized, see https://web.dev/state-of-css-2022/#customizing-select-elements
+
+## `<search>` (new)
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search
