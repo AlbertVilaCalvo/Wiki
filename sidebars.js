@@ -103,6 +103,7 @@ const sidebars = {
   ],
   web: [
     'web/images',
+    'web/performance',
     'web/accessibility',
     'web/chrome-devtools',
     'web/xss',
