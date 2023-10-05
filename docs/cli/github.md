@@ -16,7 +16,22 @@ Desktop app: https://desktop.github.com - https://github.com/desktop/desktop
 
 View raw commit/patch: add `.patch` to the commit URL, eg https://github.com/AlbertVilaCalvo/Android-Udacity-Popular-Movies/commit/5c1218db157fc6ce5dfd9c9e98f0522c67241963.patch
 
-## Multiple SSH keys (for different GitHub accounts) on the same computer
+## SSH
+
+Doing `ssh -T git@github.com` should say:
+
+> Hi AlbertVilaCalvo! You've successfully authenticated, but GitHub does not provide shell access.
+
+Doing `cat ~/.ssh/config` should show:
+
+```shell
+Host *.github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/github_personal
+```
+
+### Multiple SSH keys (for different GitHub accounts) on the same computer
 
 Eg if we have a work GitHub account and want to commit on a personal repository on the work computer.
 
