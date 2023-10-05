@@ -16,6 +16,28 @@ Desktop app: https://desktop.github.com - https://github.com/desktop/desktop
 
 View raw commit/patch: add `.patch` to the commit URL, eg https://github.com/AlbertVilaCalvo/Android-Udacity-Popular-Movies/commit/5c1218db157fc6ce5dfd9c9e98f0522c67241963.patch
 
+## Multiple SSH keys (for different GitHub accounts) on the same computer
+
+Eg if we have a work GitHub account and want to commit on a personal repository on the work computer.
+
+Resources followed:
+
+- https://www.freecodecamp.org/news/manage-multiple-github-accounts-the-ssh-way-2dadc30ccaca
+- https://stackoverflow.com/questions/3225862/multiple-github-accounts-ssh-config
+- https://stackoverflow.com/questions/29023532/how-do-i-use-multiple-ssh-keys-on-github
+
+Here I assume that I already have the SSH setup for the work GitHub account.
+
+Note that this approach does not use add multiple entries to the `.ssh/config` file. It's for specific repositories. It has the advantage that you don't need to change how you `git clone` a repository.
+
+Create the new SSH key for the personal account: `ssh-keygen -t rsa -C "mypersonalemail@gmail.com" -f github_personal`
+
+Copy `github_personal.pub` with `pbcopy < github_personal.pub` and add it at the GitHub website at https://github.com/settings/keys.
+
+Add the SSH to keychain permanently with `ssh-add github_personal`. You'll need to type the passphrase. It will say "Identity added: github_personal (mypersonalemail@gmail.com)"
+
+Clone the personal repository you want to contribute to, and configure it to use the personal SSH key: `git config core.sshCommand 'ssh -i ~/.ssh/github_personal'`. I took this from https://stackoverflow.com/a/50746763/4034572
+
 ## Hide personal email address
 
 :::tip
