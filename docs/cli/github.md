@@ -63,7 +63,7 @@ Check "Block command line pushes that expose my email" in https://github.com/set
 
 To change the email _for a particular repository_ (not globally), go to https://github.com/settings/emails, copy the GitHub-provided `noreply` email address and then do:
 
-```bash
+```shell
 git config user.email "{ID}+{username}@users.noreply.github.com "
 ```
 

@@ -29,7 +29,7 @@ git push --set-upstream origin main
 
 To avoid having to do this we can set `autoSetupRemote` to true:
 
-```bash
+```shell
 # Set value
 git config --global push.autoSetupRemote true
 git config --global --add --bool push.autoSetupRemote true
@@ -145,7 +145,7 @@ https://stackoverflow.com/questions/11950037/view-git-history-for-folder
 
 https://git-scm.com/docs/git-show
 
-```bash
+```shell
 git show
 git show HEAD~1
 git show HEAD@{5} # Use 'git reflog' to see the reflog
@@ -211,7 +211,7 @@ https://github.blog/2022-10-03-highlights-from-git-2-38/#rebase-dependent-branch
 
 https://git-scm.com/docs/git-rebase
 
-```bash
+```shell
 git rebase -i <commit you want to amend>^
 # or with the alias
 grbi <commit you want to amend>^
@@ -219,14 +219,14 @@ grbi <commit you want to amend>^
 
 **r or reword** - amend commit message (note that if we are only rewording we don't need to do any of the following commands, just save the new commit message and we are done)
 
-```bash
+```shell
 gc! (git commit --amend)
 grbc (git rebase --continue)
 ```
 
 **e or edit** - modify commit
 
-```bash
+```shell
 // edit file(s)...
 gaa (or) ga some/file.txt
 gc! (git commit --amend)
@@ -333,7 +333,7 @@ git merge --ff-only feature-branch
 
 ## See commit and code differences between two branches
 
-```bash
+```shell
 # commits
 git log main..feature-branch
 # code
@@ -352,7 +352,7 @@ Note that you can have 3 dots (`...`). And if you've already switched to `featur
 
 Can be used to split a big pull request into various PR by creating several commits.
 
-```
+```shell
 git checkout your-branch
 git reset $(git merge-base master-or-develop your-branch-name)
 ```
@@ -442,7 +442,7 @@ Eg to rename master to main:
 
 ### Rename local and remote branch
 
-```bash
+```shell
 # Rename:
 git branch -m new-name # if we are on the branch
 git branch -m old-name new-name # if we are not
@@ -468,7 +468,7 @@ This happens when eg we are renaming the branch `master` to `main` on a GitHub/B
 
 Add this `.git/hooks/pre-commit`.
 
-```bash
+```shell
 #!/bin/sh
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -538,14 +538,14 @@ There are 3 type of settings:
 
 Show global config:
 
-```bash
+```shell
 git config --list
 git config -l
 less ~/.gitconfig
 bat ~/.gitconfig
 ```
 
-```bash title="~/.gitconfig"
+```shell title="~/.gitconfig"
 [core]
         editor = emacs -nw
 [user]
@@ -559,7 +559,7 @@ bat ~/.gitconfig
 
 Getting Started - First-Time Git Setup - https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
 
-```bash
+```shell
 git config --global user.name "Albert Vila Calvo"
 git config --global user.email my@email.com
 git config --global core.editor "emacs -nw"
@@ -571,7 +571,7 @@ git config --global push.autoSetupRemote true
 
 Useful if you are using your personal computer for work or vice versa.
 
-```bash
+```shell
 git config --local user.email my@email.com
 ```
 
@@ -593,7 +593,7 @@ Available slots:
 - https://git-scm.com/docs/git-config#Documentation/git-config.txt-colordiffltslotgt
 - https://github.com/git/git/blob/79f2338b3746d23454308648b2491e5beba4beff/diff.c#L88-L109
 
-```bash
+```shell
 [color "diff"]
     meta = blue
 ```

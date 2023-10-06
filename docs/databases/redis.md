@@ -95,7 +95,7 @@ Connect to a local instance: `redis-cli`
 
 Connect to a remote instance:
 
-```bash
+```shell
 redis-cli -h <host> -p <port> -a <password>
 ```
 

@@ -190,7 +190,7 @@ Alternatively we can use https://www.npmjs.com/package/express-async-handler.
 
 ### New project setup with TypeScript
 
-```bash
+```shell
 git init
 touch .gitignore # Add node_modules
 npm init # Creates packages.json. The "main" script (entry point) should be build/index.js

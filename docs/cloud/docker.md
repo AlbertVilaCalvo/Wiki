@@ -234,21 +234,21 @@ docker-compose up, down, stop and start difference - https://stackoverflow.com/q
 
 Start with [up](https://docs.docker.com/engine/reference/commandline/compose_up/):
 
-```bash
+```shell
 docker-compose up -d
 docker-compose -f docker-compose.yml up
 ```
 
 Connect to a container (use `docker ps` to get the name or id):
 
-```bash
+```shell
 docker exec -it <container-id> /bin/sh
 docker exec -it <container-name> /bin/sh
 ```
 
 This also works sometimes:
 
-```bash
+```shell
 docker exec -it <container-id> bash
 docker exec -it <container-name> bash
 ```
@@ -257,7 +257,7 @@ To exit run `exit`.
 
 [Stop](https://docs.docker.com/engine/reference/commandline/compose_stop/) services:
 
-```bash
+```shell
 docker-compose stop
 ```
 
@@ -269,7 +269,7 @@ Stops containers and removes containers, networks, volumes, and images created b
 
 :::
 
-```bash
+```shell
 docker-compose down
 ```
 

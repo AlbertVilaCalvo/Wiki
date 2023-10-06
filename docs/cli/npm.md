@@ -88,7 +88,7 @@ Init without questions: `npm init -y`
 
 ### Get rid of 'x packages are looking for funding'
 
-```bash
+```shell
 npm config set fund false
 # check the value, it should be false now
 npm config get fund
@@ -154,7 +154,7 @@ https://www.reddit.com/r/javascript/comments/ira5gz/askjs_do_you_use_exact_or_ra
 
 Force exact package versions with [`.npmrc`]:
 
-```bash title=".npmrc"
+```shell title=".npmrc"
 save-exact=true
 ```
 
