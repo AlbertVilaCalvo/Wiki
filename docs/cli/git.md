@@ -22,7 +22,7 @@ _Important: 'upstream' is about branches, not repositories_ - [see this](https:/
 
 Documentation of `git push -u`: https://git-scm.com/docs/git-push#Documentation/git-push.txt--u
 
-```
+```shell
 git push -u origin main
 git push --set-upstream origin main
 ```
@@ -70,7 +70,7 @@ git reset --hard HEAD^
 
 On a public commit:
 
-```
+```shell
 git revert HEAD
 ```
 
@@ -273,7 +273,7 @@ git add <filename>
 
 I si vull lo de la meva branca:
 
-```
+```shell
 git checkout --ours <filename>
 git add <filename>
 ```
@@ -297,13 +297,13 @@ git reset --hard origin/mybranch
 
 ## Remove untracked files
 
-```
+```shell
 git clean -f -d
 ```
 
 ## Prune
 
-```
+```shell
 git remote prune origin
 ```
 
@@ -317,7 +317,7 @@ From the [docs](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt--
 >
 > With `--ff-only`, resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.
 
-```
+```shell
 git checkout -b feature-branch
 
 # make some commits
@@ -367,7 +367,7 @@ https://git-scm.com/docs/git-stash
 
 ### Stash with message
 
-```
+```shell
 git stash push -m "Some message"
 ```
 
