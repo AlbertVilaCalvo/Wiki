@@ -330,6 +330,8 @@ git merge --ff-only feature-branch
 git log main..feature-branch
 # code
 git diff main..feature-branch
+# code for specific file, if we are on the feature-branch
+git diff main.. path/to/file.ts
 # files changed
 git diff --name-status main..feature-branch
 ```
