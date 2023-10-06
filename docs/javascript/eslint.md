@@ -85,7 +85,7 @@ Note that `node_modules` and dot-files and dot-folders are ignored. See https://
 
 https://eslint.org/docs/user-guide/command-line-interface
 
-```bash
+```shell
 # local install in node_modules
 npx eslint src/**/*.js
 npx eslint './**/*.{js,jsx,ts,tsx}'

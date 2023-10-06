@@ -64,7 +64,7 @@ This is also explained at https://reactnavigation.org/docs/getting-started#insta
 
 ### Create app
 
-```bash
+```shell
 expo init <appname> --yarn
 expo init <appname> -t expo-template-blank-typescript
 expo init --template bare-minimum # warning: does not add react-navigation!
@@ -147,7 +147,7 @@ To install run `expo install expo-dev-client`, then `npx pod-install`.
 
 To create a development build do:
 
-```bash
+```shell
 eas build -p ios --profile development
 eas build -p android --profile development
 ```
@@ -274,7 +274,7 @@ Using Expo OTA Updates in your React Native app - Eric Samelson at @ReactEurope 
 
 See https://docs.expo.dev/workflow/development-mode/. There is also a switch in http://localhost:19002/.
 
-```bash
+```shell
 expo start --no-dev --minify
 # or if we've done a prebuild
 expo start --no-dev --minify --dev-client

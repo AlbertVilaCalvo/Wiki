@@ -26,7 +26,7 @@ This setup allows to have the pre-commit hook on version control.
 
 Setup:
 
-```bash
+```shell
 mkdir git-hooks
 echo "#\!/bin/sh" > git-hooks/pre-commit
 # Fill the file git-hooks/pre-commit with some validation code
@@ -38,7 +38,7 @@ Every time we update the pre-commit hook we need to run `cp git-hooks/pre-commit
 
 Example of pre-commit hook that runs Prettier, ESLint and tsc:
 
-```bash
+```shell
 #!/bin/sh
 
 # Runs Prettier on ts/tsx/js/jsx/md/yml/yaml/css/json files, and ESLint and tsc on ts/tsx/js/jsx files.
@@ -103,7 +103,7 @@ exit 0
 <details>
   <summary>Old version. Does not format md/css/json files.</summary>
 
-```bash
+```shell
 #!/bin/sh
 
 # Runs Prettier, ESLint and tsc on .ts, .tsx and .js files (not .md nor .json files). Prettier and ESLint only check the
@@ -152,7 +152,7 @@ https://github.com/okonet/lint-staged
 
 `.husky/pre-commit` is always the same:
 
-```bash
+```shell
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
@@ -194,7 +194,7 @@ Add scripts at `package.json`:
 
 Then in `.husky/pre-commit` we can have:
 
-```bash
+```shell
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 

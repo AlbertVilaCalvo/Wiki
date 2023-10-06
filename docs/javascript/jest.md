@@ -18,7 +18,7 @@ From https://create-react-app.dev/docs/running-tests:
 
 https://jestjs.io/docs/cli
 
-```bash
+```shell
 # Run all tests once
 npx jest
 
@@ -47,7 +47,7 @@ npx jest --coverage
 
 ## Setup
 
-```bash
+```shell
 npm i -E -D jest
 npx jest --init # creates jest.config.ts
 ```
@@ -60,7 +60,7 @@ https://kulshekhar.github.io/ts-jest/
 
 To do the setup follow https://kulshekhar.github.io/ts-jest/docs/getting-started/installation
 
-```bash
+```shell
 npm i -D -E jest @types/jest ts-jest
 ```
 

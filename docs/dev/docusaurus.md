@@ -114,7 +114,7 @@ https://docusaurus.io/docs/advanced/routing
 
 This is the message shown at the terminal when you do `npm start`:
 
-```bash
+```shell
    ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
    │                                                                                                                │
    │                                         Update available 2.2.0 → 2.4.1                                         │
@@ -127,7 +127,7 @@ This is the message shown at the terminal when you do `npm start`:
 
 _OLD_ This is the message shown at the terminal when you do `yarn start`:
 
-```bash
+```shell
 yarn run v1.22.19
 $ BROWSER=none docusaurus start
    ╭───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
@@ -142,7 +142,7 @@ $ BROWSER=none docusaurus start
 
 You can also do:
 
-```bash
+```shell
 yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic @docusaurus/module-type-aliases
 ```
 

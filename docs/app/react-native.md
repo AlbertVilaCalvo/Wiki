@@ -45,7 +45,7 @@ You need to have the environment variable `$ANDROID_HOME` set, pointing to the s
 
 Add following to the `.zshrc`:
 
-```bash title=".zshrc"
+```shell title=".zshrc"
 export ANDROID_HOME=$HOME/Library/Android/sdk
 path+=("$ANDROID_HOME/emulator")
 path+=("$ANDROID_HOME/platform-tools")

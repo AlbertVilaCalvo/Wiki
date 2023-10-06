@@ -35,7 +35,7 @@ Advanced macOS Command-Line Tools - https://saurabhs.org/advanced-macos-commands
 
 ## Various commands & tips
 
-```bash
+```shell
 # set environment variable
 NODE_ENV=production
 
@@ -51,7 +51,7 @@ Command-line pro tips: https://twitter.com/addyosmani/status/1264854298799665152
 
 Use curly braces in the command-line to quickly create multiple related files with less typing [source](https://twitter.com/addyosmani/status/1265693572033961984):
 
-```bash
+```shell
 touch index.{js,css} # creates index.js and index.css
 touch {P,H1,H2}.tsx # creates P.tsx, H1.tsx and H2.tsx
 ```
