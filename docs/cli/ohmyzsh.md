@@ -10,14 +10,20 @@ Plugins: https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 
 Git plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 
-Upgrade:
+## Upgrade
 
 ```
 omz update
 ```
 
-Apply changes made to zshrc:
+## Apply changes made to `.zshrc``
+
+:::caution
+Don't run `source ~/.zshrc`! See [How do I reload the zshrc file?](https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-reload-the-zshrc-file)
+:::
 
 ```
-exec zsh
+omz reload
 ```
+
+Note that `omz reload` just runs `exec zsh` under the hood - [source](https://github.com/ohmyzsh/ohmyzsh/wiki/Cheatsheet).
