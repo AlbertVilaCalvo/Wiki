@@ -125,7 +125,13 @@ git fetch origin && git merge origin/main && git fetch origin main:main
 [source-part-1](https://stackoverflow.com/a/20103414/4034572)
 [source-part-2](https://stackoverflow.com/a/17722977/4034572)
 
-## View file line history/changes
+## `git log`
+
+Docs: https://git-scm.com/docs/git-log
+
+Viewing the Commit History: https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
+
+### View file line history/changes
 
 Show the changes from line 135 to 140:
 
@@ -133,13 +139,36 @@ Show the changes from line 135 to 140:
 
 [source](https://stackoverflow.com/a/19757493/4034572)
 
-## View log (commits) for files on a specific folder
+### View log (commits) for a file or folder
 
 ```shell
+# file
+git log package.json
+git log -- package.json
+
+# folder
+git log path/to/folder
 git log -- path/to/folder
 ```
 
 https://stackoverflow.com/questions/11950037/view-git-history-for-folder
+
+### Search string on git history
+
+```shell
+git log -S something
+git log -p -S something
+```
+
+[source](https://stackoverflow.com/a/4472267/4034572)
+
+### Search by commit message
+
+```shell
+git log --all --grep='Something'
+```
+
+[source](https://stackoverflow.com/a/7124949/4034572)
 
 ## `git show`
 
@@ -401,23 +430,6 @@ git tag -a v1.0
 ```
 
 They have extra information like author, date, SHA and message ([more info](https://stackoverflow.com/q/4971746/4034572)).
-
-## Search string on git history
-
-```shell
-git log -S something
-git log -p -S something
-```
-
-[source](https://stackoverflow.com/a/4472267/4034572)
-
-## Search by commit message
-
-```shell
-git log --all --grep='Something'
-```
-
-[source](https://stackoverflow.com/a/7124949/4034572)
 
 ## Remove carriage return
 
