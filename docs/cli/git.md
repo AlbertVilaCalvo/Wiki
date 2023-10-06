@@ -133,6 +133,14 @@ Show the changes from line 135 to 140:
 
 [source](https://stackoverflow.com/a/19757493/4034572)
 
+## View log (commits) for files on a specific folder
+
+```shell
+git log -- path/to/folder
+```
+
+https://stackoverflow.com/questions/11950037/view-git-history-for-folder
+
 ## `git show`
 
 https://git-scm.com/docs/git-show
