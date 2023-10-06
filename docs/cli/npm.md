@@ -152,11 +152,14 @@ To save exact do: `npm install --save-exact express` or `npm i -E express`
 
 https://www.reddit.com/r/javascript/comments/ira5gz/askjs_do_you_use_exact_or_range_versions_for_your/
 
-Force exact package versions with [`.npmrc`]:
+:::tip
+Force exact package versions with a [`.npmrc`](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc) file:
 
 ```shell title=".npmrc"
 save-exact=true
 ```
+
+:::
 
 ## Find parent of transitive dependency
 
