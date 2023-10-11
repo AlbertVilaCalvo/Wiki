@@ -38,12 +38,14 @@ Also see https://ericportis.com/posts/2014/separated/
 
 ### Examples
 
+<!-- prettier-ignore -->
 ```html
 <img src="elva-fairy-800w.jpg"
   srcset="elva-fairy-480w.jpg 480w,
           elva-fairy-800w.jpg 800w"
   sizes="(max-width: 600px) 480px,
-         800px">
+         800px"
+/>
 ```
 
 [docs](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) - [source](https://github.com/mdn/learning-area/blob/main/html/multimedia-and-embedding/responsive-images/responsive.html) - [live site](https://mdn.github.io/learning-area/html/multimedia-and-embedding/responsive-images/responsive.html)
@@ -64,20 +66,24 @@ When you resize above 520 it loads the 1600px:
 />
 ```
 
+<!-- prettier-ignore -->
 ```html
 <img src="flower-large.jpg"
   srcset="flower-small.jpg 480w,
           flower-large.jpg 1080w"
-  sizes="50vw">
+  sizes="50vw"
+/>
 ```
 
 Density descriptors: https://web.dev/codelab-density-descriptors/
 
+<!-- prettier-ignore -->
 ```html
 <img src="flower.jpg"
   srcset="flower-1x.jpg 1x,
           flower-2x.jpg 2x,
-          flower-3x.jpg 3x">
+          flower-3x.jpg 3x"
+/>
 ```
 
 Easy to understand article: https://css-tricks.com/a-guide-to-the-responsive-images-syntax-in-html
@@ -86,12 +92,14 @@ https://observablehq.com/@eeeps/w-descriptors-and-sizes-under-the-hood
 
 Multiple slot widths: https://web.dev/codelab-specifying-multiple-slot-widths/
 
+<!-- prettier-ignore -->
 ```html
 <img src="flower.jpg"
   srcset="flower-small.jpg 480w,
           flower-large.jpg 800w"
   sizes="(max-width: 480px) 100vw,
-         (max-width: 1024px) 50vw, 800px">
+         (max-width: 1024px) 50vw, 800px"
+/>
 ```
 
 ## Image Magick

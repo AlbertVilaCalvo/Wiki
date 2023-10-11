@@ -268,14 +268,14 @@ It can be saved locally on the same repository, see [Example: Using an action in
 This is the local action:
 
 ```yml title="./.github/actions/lighthouse/action.yml"
-ame: "Lighthouse"
-description: "Run Lighthouse"
+name: 'Lighthouse'
+description: 'Run Lighthouse'
 inputs:
   some_parameter:
     description: 'The description'
     required: true
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Run Lighthouse
       uses: treosh/lighthouse-ci-action@v10
@@ -288,6 +288,7 @@ runs:
 
 And this is how you call it:
 
+<!-- prettier-ignore -->
 ```yml title="./.github/workflows/some-workflow.yml"
   lighthouse:
     name: Feature Environment Lighthouse
@@ -320,6 +321,7 @@ https://stackoverflow.com/questions/59191913/how-do-i-get-the-output-of-a-specif
 
 https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
 
+<!-- prettier-ignore -->
 ```yml
       - name: Set color
         id: color-selector
@@ -332,6 +334,7 @@ https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-
 
 Use `printf` instead of `echo` to deal with new lines [source](https://stackoverflow.com/questions/8467424/echo-newline-in-bash-prints-literal-n):
 
+<!-- prettier-ignore -->
 ```yml
   lighthouse:
     name: Lighthouse
@@ -393,11 +396,11 @@ steps:
   - name: Set the value
     id: step_one
     run: |
-        echo "FOO=$(git status)" >> $GITHUB_ENV
+      echo "FOO=$(git status)" >> $GITHUB_ENV
   - name: Use the value
     id: step_two
     run: |
-        echo "${{ env.FOO }}"
+      echo "${{ env.FOO }}"
 ```
 
 ## Artifacts
@@ -408,6 +411,7 @@ https://github.com/actions/download-artifact
 
 https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
 
+<!-- prettier-ignore -->
 ```yml
   build:
     name: Build
