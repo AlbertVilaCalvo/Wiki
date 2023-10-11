@@ -87,6 +87,8 @@ Managing Application Dependencies (Python Packaging User Guide): https://packagi
 
 [github.com/pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
 
+[github.com/astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter, written in Rust
+
 ### Search pacakges
 
 [pypi.org](https://pypi.org)
