@@ -12,6 +12,8 @@ Always specify the action version, eg `actions/checkout@v3` instead of `actions/
 
 Docs: https://docs.github.com/en/actions
 
+TODO Guide to learn: https://resources.github.com/learn/pathways/automation/. Has 3 levels: essentials, intermediate and advanced
+
 Marketplace: https://github.com/marketplace?type=actions
 
 Features: https://github.com/features/actions
@@ -118,6 +120,7 @@ Marketplace most starred/installed actions: https://github.com/marketplace?categ
 
 - Checkout: https://github.com/marketplace/actions/checkout
 - Setup Node.js environment: https://github.com/marketplace/actions/setup-node-js-environment
+- Upload artifact: https://github.com/actions/upload-artifact
 
 ### Useful actions
 
@@ -234,14 +237,269 @@ Docs (search for `working-directory`):
 - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 - Default values: https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
 
-## Re-use actions
+## Create custom actions and reuse workflows
 
 Reusing workflows - https://docs.github.com/en/actions/using-workflows/reusing-workflows
 
+About custom actions - https://docs.github.com/en/actions/creating-actions/about-custom-actions
+
+GitHub Actions: reusable workflows is generally available - https://github.blog/2021-11-29-github-actions-reusable-workflows-is-generally-available/
+
+You can call a workflow on the same repository with [`uses`](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_iduses.
+
+Overview: https://stackoverflow.com/questions/59757355/reuse-portion-of-github-action-across-jobs
+
+https://cardinalby.github.io/blog/post/github-actions/dry-reusing-code-in-github-actions
+
+https://stackoverflow.com/questions/65242830/in-a-github-actions-workflow-is-there-a-way-to-have-multiple-jobs-reuse-the-sam
+
+https://michaelcurrin.github.io/dev-cheatsheets/cheatsheets/ci-cd/github-actions/reusable-workflows.html
+
+### Composite actions
+
+> A composite action allows you to combine multiple workflow steps within one action. For example, you can use this feature to bundle together multiple run commands into an action, and then have a workflow that executes the bundled commands as a single step using that action. [source](https://docs.github.com/en/actions/creating-actions/about-custom-actions#composite-actions)
+
 Creating a composite action - https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
 
-- Overview: https://stackoverflow.com/questions/59757355/reuse-portion-of-github-action-across-jobs - https://cardinalby.github.io/blog/post/github-actions/dry-reusing-code-in-github-actions
-- https://stackoverflow.com/questions/65242830/in-a-github-actions-workflow-is-there-a-way-to-have-multiple-jobs-reuse-the-sam
+GitHub Actions: Reduce duplication with action composition - https://github.blog/changelog/2021-08-25-github-actions-reduce-duplication-with-action-composition/
+
+It can be saved locally on the same repository, see [Example: Using an action in the same repository as the workflow](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-an-action-in-the-same-repository-as-the-workflow). The file name must be `action.yml`, eg `github/actions/lighthouse/action.yml`.
+
+This is the local action:
+
+```yml title="./.github/actions/lighthouse/action.yml"
+ame: "Lighthouse"
+description: "Run Lighthouse"
+inputs:
+  some_parameter:
+    description: 'The description'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Run Lighthouse
+      uses: treosh/lighthouse-ci-action@v10
+    - name: Publish results
+      uses: actions/github-script@v6
+      with:
+        script: |
+        # ...
+```
+
+And this is how you call it:
+
+```yml title="./.github/workflows/some-workflow.yml"
+  lighthouse:
+    name: Feature Environment Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+      - name: Lighthouse
+        uses: ./.github/actions/lighthouse
+        with:
+          some_parameter: "some_value"
+```
+
+## Setting output parameters with `$GITHUB_OUTPUT`
+
+_This can be done for steps and for jobs._
+
+Note that there is also `GITHUB_STATE`.
+
+### For steps
+
+https://michaelcurrin.github.io/dev-cheatsheets/cheatsheets/ci-cd/github-actions/persist.html
+
+https://stackoverflow.com/questions/59191913/how-do-i-get-the-output-of-a-specific-step-in-github-actions
+
+https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
+
+```yml
+      - name: Set color
+        id: color-selector
+        run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+      - name: Get color
+        env:
+          SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
+        run: echo "The selected color is $SELECTED_COLOR"
+```
+
+Use `printf` instead of `echo` to deal with new lines [source](https://stackoverflow.com/questions/8467424/echo-newline-in-bash-prints-literal-n):
+
+```yml
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # ...
+      - name: Lighthouse
+        id: lighthouse
+        run: |
+          npm install -g @lhci/cli@0.12.x --no-fund
+          LHCI=$(lhci autorun --collect.staticDistDir=web-build)
+          printf "$LHCI"
+          LIGHTHOUSE_REPORT_URL=$(printf "$LHCI" | grep 'Open the report at' | awk '{print $NF}')
+          printf "$LIGHTHOUSE_REPORT_URL"
+          echo "LIGHTHOUSE_REPORT_URL=$LIGHTHOUSE_REPORT_URL" >> $GITHUB_OUTPUT
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - name: Comment Lighthouse report URL on pull-request
+        uses: actions/github-script@v6
+        env:
+          LIGHTHOUSE_REPORT_URL: ${{ steps.lighthouse.outputs.LIGHTHOUSE_REPORT_URL }}
+        with:
+          script: |
+            const { LIGHTHOUSE_REPORT_URL } = process.env
+            console.log(`Lighthouse report URL: ${LIGHTHOUSE_REPORT_URL}`)
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `Check the [Lighthouse report](${LIGHTHOUSE_REPORT_URL})`
+            })
+```
+
+### For jobs
+
+https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+
+## Setting environment variables with `$GITHUB_ENV`
+
+https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
+
+```yml
+steps:
+  - name: Set the value
+    id: step_one
+    run: |
+      echo "action_state=yellow" >> "$GITHUB_ENV"
+  - name: Use the value
+    id: step_two
+    run: |
+      printf '%s\n' "$action_state" # This will output 'yellow'
+```
+
+From https://stackoverflow.com/a/66358561/4034572
+
+```yml
+steps:
+  - name: Set the value
+    id: step_one
+    run: |
+        echo "FOO=$(git status)" >> $GITHUB_ENV
+  - name: Use the value
+    id: step_two
+    run: |
+        echo "${{ env.FOO }}"
+```
+
+## Artifacts
+
+https://github.com/actions/upload-artifact
+
+https://github.com/actions/download-artifact
+
+https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+
+```yml
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Build
+        run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend
+          path: |
+            backend/src/build
+            !backend/src/build/**/*.md
+          retention-days: 5
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      # ...
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: backend
+          path: backend/src/build
+```
+
+## Comment on a pull request
+
+From https://github.com/actions/github-script/blob/main/.github/workflows/pull-request-test.yml
+
+```yml
+name: Pull Request Test
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  pull-request-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          script: |
+            // Get the existing comments.
+            const {data: comments} = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.number,
+            })
+
+            // Find any comment already made by the bot.
+            const botComment = comments.find(comment => comment.user.id === 41898282)
+            const commentBody = "Hello from actions/github-script! (${{ github.sha }})"
+
+            if (context.payload.pull_request.head.repo.full_name !== 'actions/github-script') {
+              console.log('Not attempting to write comment on PR from fork');
+            } else {
+              if (botComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: botComment.id,
+                  body: commentBody
+                })
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.payload.number,
+                  body: commentBody
+                })
+              }
+            }
+```
+
+https://stackoverflow.com/questions/58066966/commenting-a-pull-request-in-a-github-action
+
+https://dev.to/zirkelc/trigger-github-workflow-for-comment-on-pull-request-45l2
+
+## JavaScript
+
+https://github.com/actions/github-script
 
 ## Badge
 
