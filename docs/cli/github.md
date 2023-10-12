@@ -45,13 +45,15 @@ Here I assume that I already have the SSH setup for the work GitHub account.
 
 Note that this approach does not use add multiple entries to the `.ssh/config` file. It's for specific repositories. It has the advantage that you don't need to change how you `git clone` a repository.
 
-Create the new SSH key for the personal account: `ssh-keygen -t rsa -C "mypersonalemail@gmail.com" -f github_personal`
+Create the new SSH key for the personal account: `ssh-keygen -t rsa -C "mypersonal@email.com" -f github_personal`
 
 Copy `github_personal.pub` with `pbcopy < github_personal.pub` and add it at the GitHub website at https://github.com/settings/keys.
 
 Add the SSH to keychain permanently with `ssh-add github_personal`. You'll need to type the passphrase. It will say "Identity added: github_personal (mypersonalemail@gmail.com)"
 
 Clone the personal repository you want to contribute to, and configure it to use the personal SSH key: `git config core.sshCommand 'ssh -i ~/.ssh/github_personal'`. I took this from https://stackoverflow.com/a/50746763/4034572
+
+Important: don't forget to set the personal email on that repository, otherwise the work account will appear as a contributor on the personal repository: `git config --local user.email mypersonal@email.com`
 
 ## Hide personal email address
 
