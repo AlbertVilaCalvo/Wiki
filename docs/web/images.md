@@ -108,10 +108,18 @@ https://imagemagick.org
 
 CLI docs: https://imagemagick.org/script/command-line-processing.php
 
-```bash
+ImageMagick Examples -- Resize or Scaling (General Techniques): https://imagemagick.org/Usage/resize/
+
+```shell
 convert cartell.jpg -resize 50% cartell-garrinada-50.jpg
 convert foto.jpg -resize 1080 foto-1080.jpg
 convert foto.jpg -resize 1080x1920 foto-1080x1920.jpg
+```
+
+Make Instagram portrait 4:5. Eg if we have a DIN-A4 image and we want to add some black borders at the sides so that the image is not cropped at the top and bottom.
+
+```shell
+convert image.jpeg -gravity center -background black -resize 1080x1350 -extent 1080x1350 image-instagram.jpeg
 ```
 
 ## Avoid layout shift
