@@ -30,6 +30,7 @@ const sidebars = {
     'dev/strapi',
     'dev/prettier',
     'dev/git-hooks',
+    'dev/postman',
     'dev/jetbrains',
     'dev/vscode',
     'dev/python',
