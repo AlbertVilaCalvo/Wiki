@@ -65,3 +65,9 @@ Can be customized, see https://web.dev/state-of-css-2022/#customizing-select-ele
 ## `<search>` (new)
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search
+
+## `::placeholder`
+
+To style the placeholder text of an `<input>` or `<textarea>`.
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/::placeholder
