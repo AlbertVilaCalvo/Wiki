@@ -139,6 +139,7 @@ const sidebars = {
     'databases/databases',
     'databases/sql',
     'databases/postgresql',
+    'databases/mysql',
     'databases/mongodb',
     'databases/redis',
     'databases/dynamodb',
