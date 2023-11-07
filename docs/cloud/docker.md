@@ -19,6 +19,8 @@ Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See T
 > volume mounts. Colima uses containerd as its run time, which is also the run time on most managed
 > Platform - improving the important dev-prod parity.
 
+https://github.com/jesseduffield/lazydocker
+
 ## Cheatsheets
 
 - https://github.com/wsargent/docker-cheat-sheet
