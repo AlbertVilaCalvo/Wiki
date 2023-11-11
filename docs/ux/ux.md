@@ -4,6 +4,8 @@ title: UX
 
 ## Speed
 
+Over 50% of users abandon a website if it takes longer than 3 seconds to load. // 53% of visits are likely to be abandoned if pages take longer than 3 seconds to load. Source: https://www.thinkwithgoogle.com/intl/en-154/marketing-strategies/app-and-mobile/need-mobile-speed-how-mobile-latency-impacts-publisher-revenue/
+
 From https://docs.astro.build/en/concepts/why-astro/#fast-by-default
 
 - Every 100ms faster → 1% more conversions (Mobify, earning +$380,000/yr) - https://web.dev/why-speed-matters/

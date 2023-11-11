@@ -382,6 +382,12 @@ No-op.
 
 https://hub.docker.com/_/scratch
 
+## Multi-stage builds
+
+https://docs.docker.com/build/building/multi-stage/
+
+Example: https://github.com/victorgrubio/blog-projects/blob/main/react-nginx-dockerization/frontend/Dockerfile - https://mentorcruise.com/blog/how-to-dockerize-a-react-app-and-deploy-it-easily/
+
 ## Volumes
 
 Containers are started and stopped as required (ie they have a lifecycle). Volumes provide persistent data storage to containers, independent of its lifecycle. Volumes can be shared with many containers. They avoid increasing the container size.

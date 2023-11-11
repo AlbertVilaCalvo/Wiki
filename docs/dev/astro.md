@@ -10,6 +10,8 @@ VSCode official extension: https://marketplace.visualstudio.com/items?itemName=a
 
 Roadmap: https://github.com/orgs/withastro/projects/11/
 
+Templates: https://vercel.com/templates?framework=astro
+
 https://twitter.com/t3dotgg/status/1437195415439360003
 
 > Rebuilt my (next.js) blog using @astrodotbuild out of curiosity...holy shit the difference in bundle size.
@@ -17,6 +19,10 @@ https://twitter.com/t3dotgg/status/1437195415439360003
 > "All posts": 570kb -> 100kb (85kb was images)
 
 Astro is an Multi-Page Application framework, not a Single-Page Application framework - [see docs](https://docs.astro.build/en/concepts/mpa-vs-spa/)
+
+TODO check: https://github.com/astro-community/AstroCompress
+
+TODO mirar: https://github.com/onwidget/astrowind
 
 ## Front matter
 
@@ -187,6 +193,8 @@ Create a project: `npm create astro@latest`
 ```shell
 # https://github.com/withastro/astro/tree/main/examples
 npm create astro@latest -- --template <example-name>
+# Eg to use the 'Empty' run:
+npm create astro@latest -- --template minimal
 
 # https://github.com/search?o=desc&q=astro+starter&s=stars&type=Repositories
 npm create astro@latest -- --template <github-username>/<github-repo>
@@ -214,7 +222,7 @@ Prettier plugin: https://github.com/withastro/prettier-plugin-astro
 
 Setup:
 
-```
+```sh
 npm i -D -E prettier prettier-plugin-astro
 ```
 
@@ -289,6 +297,9 @@ You can create a new project based on a GitHub repository’s main branch with `
   - View transitions
   - Image Optimization (stable)
   - Optimized Build Output (HTML Minification, Component IDs and CSS Inlining)
+- 3.2 - https://astro.build/blog/astro-320
+- 3.3 - https://astro.build/blog/astro-330 - https://github.com/withastro/astro/releases/tag/astro%403.3.0
+  - New `<Picture />` component
 
 ## Islands architecture
 
