@@ -137,5 +137,5 @@ Are located in `/Library/Extensions/`.
   - Pune everything: `docker system prune`. This removes all stopped containers, all networks not used by at least one container, all dangling images and all build cache.
 - Anar a `~/Library/Application Support` i esborrar programes antics.
 - Esborrar fitxers grans: Sobre aquest Mac -> Emmagatzematge -> Gestionar...
-- Telegram: esborrar la memòria cau (pot tenir 1 GB). Es fa a "Ús de l'emmagatzematge"
+- Telegram: esborrar la memòria cau (pot tenir 1 GB). Es fa a Configuració -> Dades i emmagatzematge -> Ús de l'emmagatzematge
 - Firefox: esborrar dades del lloc (pot ser 3 GB). Anar a Preferències -> Privadesa i seguretat -> Gestiona les dades... S'ordenen per mida. Cal apretar Delete a cada Lloc i després 'Desa els canvis' (sinó no esborra). Esborrar les que fa més d'un any que es van fer servir ('Darrer ús').
