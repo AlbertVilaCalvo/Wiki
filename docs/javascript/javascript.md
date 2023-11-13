@@ -161,7 +161,7 @@ Eg to toggle 'complete' of an object in a Redux reducer without modifying it:
 
 This creates a new object {}, merges all the properties of the 'todo' object into this new object, and then overrides the 'complete' property. The original 'todo' object is not modified, so the reducer is pure.
 
-## `structuredClone`
+### `structuredClone`
 
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 
