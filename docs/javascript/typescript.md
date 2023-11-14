@@ -216,6 +216,18 @@ Can be disabled:
 - At `tsconfig.json` with `suppressExcessPropertyErrors` - https://www.typescriptlang.org/tsconfig#suppressExcessPropertyErrors
 - At `tsc` with `--suppressExcessPropertyErrors` - https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
+## Definite assignment assertion operator `!`
+
+Tell TypeScript that we'll assign a value to a field after declaring it, to avoid dealing with the error.
+
+https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#definite-assignment-assertions
+
+https://www.typescriptlang.org/docs/handbook/2/classes.html#--strictpropertyinitialization
+
+https://refine.dev/blog/typescript-classes/#typing-fields-in-typescript
+
+Useful in classes since we are required to set each field on the constructor. See https://stackoverflow.com/a/63549228/4034572
+
 ## Make `switch` exhaustive
 
 ```ts
