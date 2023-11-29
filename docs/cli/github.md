@@ -51,7 +51,9 @@ Copy `github_personal.pub` with `pbcopy < github_personal.pub` and add it at the
 
 Add the SSH to keychain permanently with `ssh-add github_personal`. You'll need to type the passphrase. It will say "Identity added: github_personal (mypersonalemail@gmail.com)"
 
-Clone the personal repository you want to contribute to, and configure it to use the personal SSH key: `git config core.sshCommand 'ssh -i ~/.ssh/github_personal'`. I took this from https://stackoverflow.com/a/50746763/4034572
+Clone the personal repository you want to contribute to. If you get the error "Please make sure you have the correct access rights and the repository exists", clone the repo with a specific SSH key with `GIT_SSH_COMMAND="ssh -i ~/.ssh/github_personal" git clone git@github.com:AlbertVilaCalvo/zshrc.git`. [source](https://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use)
+
+Once the repo is cloned, configure it to use the personal SSH key: `git config core.sshCommand 'ssh -i ~/.ssh/github_personal'`. I took this from https://stackoverflow.com/a/50746763/4034572
 
 Important: don't forget to set the personal email on that repository, otherwise the work account will appear as a contributor on the personal repository: `git config --local user.email mypersonal@email.com`
 
