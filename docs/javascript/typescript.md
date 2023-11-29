@@ -6,6 +6,12 @@ Docs: https://www.typescriptlang.org/docs
 
 Handbook: https://www.typescriptlang.org/docs/handbook/intro.html
 
+:::tip
+
+Enable incremental compilation with `"incremental": true` (at the `compilerOptions` of `tsconfig.json`). See https://www.typescriptlang.org/tsconfig#incremental. You can also set `"tsBuildInfoFile": "./tsconfig.tsbuildinfo"` to control the file name.
+
+:::
+
 ## CLI
 
 Setup: https://www.typescriptlang.org/download
@@ -45,6 +51,28 @@ It's common to have a 'typecheck' script on `package.json`:
 ```
 
 Run it with `npm run typecheck`.
+
+### `--generateTrace` to understand why compilation is slow
+
+https://github.com/microsoft/typescript-analyze-trace
+
+https://github.com/microsoft/TypeScript/wiki/Performance-Tracing
+
+https://github.com/microsoft/TypeScript/wiki/Performance#performance-tracing
+
+Install the package globally with `npm install -g @typescript/analyze-trace`.
+
+```shell
+npx tsc --noEmit --generateTrace trace
+# If you have enabled incremental compilation (with "incremental": true, which
+# generates the tsconfig.tsbuildinfo file) do this
+npx tsc --noEmit --generateTrace trace --incremental false
+# There's also the `--extendedDiagnostics` option too.
+npx tsc --noEmit --generateTrace trace --incremental false --extendedDiagnostics
+
+# Then analyze the trace to get the hot spots
+npx analyze-trace trace
+```
 
 ### Run tsc on a specific files:
 
