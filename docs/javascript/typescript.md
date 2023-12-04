@@ -200,6 +200,22 @@ class User {
 
 https://stackoverflow.com/questions/57683303/how-can-i-see-the-full-expanded-contract-of-a-typescript-type
 
+## `import type`
+
+From https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax
+
+> The `type` modifier on imports and exports helps with these situations a bit. We can make it explicit whether an import or export is only being used for type analysis, and can be dropped entirely in JavaScript files by using the `type` modifier.
+
+See this comment: https://github.com/microsoft/TypeScript/issues/39861#issuecomment-668131921
+
+If you don’t have a specific need for type-only imports, you could consider them a stylistic choice. My personal suggestion for how to consider that stylistic choice is
+
+- Best style: do not use `import type`. This style choice eliminates meaningless distinctions and reduces cognitive load, giving you more time and resources to think about things that matter.
+- Second-best style: enable `"importsNotUsedAsValues": "error"` in your tsconfig, then use `import type` only where the errors force you to.
+- Worst style: use `import type` as much as possible, separating values and types from the same module into separate import statements. There is simply no reason to do this, and since there are currently no tools that would enforce this style, it would fall on you to analyze and separate your declarations manually, wasting your valuable coding time.
+
+Note that the config flag [`importsNotUsedAsValues`](https://www.typescriptlang.org/tsconfig#importsNotUsedAsValues) is deprecated in TypeScript 5.5 in favor of [`verbatimModuleSyntax`](https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax).
+
 ## Excess property checking
 
 For object literals.
