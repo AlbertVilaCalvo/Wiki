@@ -12,6 +12,8 @@ https://github.com/for-GET/http-decision-diagram
 
 https://httptoolkit.tech/blog/http-wtf/
 
+HTTP/1 to HTTP/2 to HTTP/3 - https://www.youtube.com/watch?v=a-sBfyiXysI
+
 ## Status codes
 
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes

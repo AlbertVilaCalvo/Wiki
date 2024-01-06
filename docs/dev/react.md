@@ -56,6 +56,12 @@ https://create-react-app.dev/docs/advanced-configuration
 
 Prevent automatically open browser on 'yarn start': `"start": "BROWSER=none react-scripts start"`
 
+### Deprecated
+
+https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
+
+https://github.com/facebook/create-react-app/issues/13072
+
 ## Imports
 
 Correct:
@@ -261,6 +267,12 @@ Chakra UI: https://chakra-ui.com/ - https://github.com/chakra-ui/chakra-ui. Uses
 Ant Design: https://ant.design/ - https://github.com/ant-design/ant-design/. Uses Less - see https://ant.design/docs/react/use-with-create-react-app#Customize-Theme.
 
 Material UI and Joy UI: https://mui.com/ - https://github.com/mui/material-ui.
+
+### Headless
+
+https://martinfowler.com/articles/headless-component.html
+
+_A component that doesn’t have a UI, but has the functionality._ - https://blog.logrocket.com/the-complete-guide-to-building-headless-interface-components-in-react/
 
 ## TypeScript
 

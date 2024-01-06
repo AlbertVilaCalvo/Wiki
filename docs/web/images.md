@@ -102,6 +102,25 @@ Multiple slot widths: https://web.dev/codelab-specifying-multiple-slot-widths/
 />
 ```
 
+## Multiple formats (JPEG, WEBP and AVIF)
+
+Important: order matters. The browser will load the first one it supports.
+
+From https://github.com/nucliweb/image-optimization-workshop/tree/image-optim-next-gen
+
+```html
+<picture>
+  <source type="image/avif" srcset="images/news/news-detail-header.avif" />
+  <source type="image/webp" srcset="images/news/news-detail-header.webp" />
+  <source type="image/jpeg" srcset="images/news/news-detail-header.jpeg" />
+  <img
+    src="images/news/news-detail-header.jpg"
+    class="img-fluid news-detail-image"
+    alt="fine dining experience"
+  />
+</picture>
+```
+
 ## Image Magick
 
 https://imagemagick.org

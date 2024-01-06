@@ -71,3 +71,15 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search
 To style the placeholder text of an `<input>` or `<textarea>`.
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/::placeholder
+
+## `<hr>` dividers in `<select>` elements
+
+https://developer.chrome.com/blog/hr-in-select/
+
+https://developer.chrome.com/blog/css-wrapped-2023#hrselect
+
+## `:user-valid` and `:user-invalid` instead of `:valid` and `:invalid`
+
+https://developer.chrome.com/blog/css-wrapped-2023#user-states
+
+> A form control that is required and empty will match `:invalid` even if a user has not started interacting with the page. The same control will not match `:user-invalid` until the user has changed the input and left it in an invalid state.

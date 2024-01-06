@@ -6,6 +6,8 @@ title: JavaScript
 
 In JavaScript `typeof null` is "object".
 
+Deep JS - https://exploringjs.com/deep-js/
+
 https://stateofjs.com/en-us/
 
 ## Libraries

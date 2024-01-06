@@ -10,6 +10,8 @@ https://opentelemetry.io
 
 https://github.com/thanos-io/thanos
 
+https://fluentbit.io
+
 ## Definition
 
 https://opentelemetry.io/docs/concepts/observability-primer/#what-is-observability

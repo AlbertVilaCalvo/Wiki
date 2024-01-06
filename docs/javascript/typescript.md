@@ -425,11 +425,11 @@ export function isError<T>(arg: 'loading' | T | Error): arg is Error {
 
 ## Type narrowing in `filter` with type predicates
 
-https://www.alexhughes.dev/blog/typed-filter
+https://www.alexhughes.dev/blog/typed-filter → How to remove undefined values from an array
 
 https://www.skovy.dev/blog/typescript-filter-array-with-type-guard
 
-https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
+https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates → Shows usages with `find` too, not just `filter`
 
 https://stackoverflow.com/questions/58882530/typescript-filter-array-of-conditional-types-and-have-proper-return-type
 
@@ -472,6 +472,14 @@ const emails: string[] = users
   .filter(
     (email: string | undefined): email is string => typeof email === 'string'
   )
+```
+
+We can also get rid of null/undefined values from an array:
+
+```ts
+const maybeUsers: Array<User | null> = [{ name: 'John', email: 'a@b.c' }, null]
+
+const users: User[] = maybeUsers.filter((user): user is User => !!user)
 ```
 
 ## Assertion functions
