@@ -4,7 +4,7 @@ title: npm
 
 package.json docs: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
 
-Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html -> Outdated! New link is https://exploringjs.com/nodejs-shell-scripting/ch_package-scripts.html, so it's a chapter of the book [Shell scripting with Node.js](https://exploringjs.com/nodejs-shell-scripting/index.html)
+Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html → Outdated! New link is https://exploringjs.com/nodejs-shell-scripting/ch_package-scripts.html, so it's a chapter of the book [Shell scripting with Node.js](https://exploringjs.com/nodejs-shell-scripting/index.html)
 
 ## CLI
 

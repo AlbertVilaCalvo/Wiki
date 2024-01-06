@@ -10,21 +10,21 @@ Des-habilitar plugins que no faig servir!
 
 ## Preferences
 
-Add line at end of file: Editor -> General -> check 'Ensure every saved line ends with a line break'. Also check 'Remove trailing blank lines at the end of saved files' there too.
+Add line at end of file: Editor → General → check 'Ensure every saved line ends with a line break'. Also check 'Remove trailing blank lines at the end of saved files' there too.
 
-Soft wrap markdown files: Editor -> General marcar 'Soft-wrap these files'. Al input hi ha per defecte `*.md; *.txt; *.rst; *.adoc`;
+Soft wrap markdown files: Editor → General marcar 'Soft-wrap these files'. Al input hi ha per defecte `*.md; *.txt; *.rst; *.adoc`;
 
-A WebStorm, Editor -> General -> JavaScript marcar "Start template string interpolation on typing '$'". Amb això si escric '$' a dins de un template string m'afegeix '{}' 👌. Aquí també es pot triar si afegeix '()' al autocompletar una funció (veure [WEB-31404](https://youtrack.jetbrains.com/issue/WEB-31404) i [Added the ability to choose if you want to insert braces on code completion](https://blog.jetbrains.com/webstorm/2021/08/webstorm-2021-2-1/)).
+A WebStorm, Editor → General → JavaScript marcar "Start template string interpolation on typing '$'". Amb això si escric '$' a dins de un template string m'afegeix '{}' 👌. Aquí també es pot triar si afegeix '()' al autocompletar una funció (veure [WEB-31404](https://youtrack.jetbrains.com/issue/WEB-31404) i [Added the ability to choose if you want to insert braces on code completion](https://blog.jetbrains.com/webstorm/2021/08/webstorm-2021-2-1/)).
 
-Editor -> General -> Editor Tabs -> Closing Policy -> Tab limit: default is 10, change it to something like 15, otherwise it closes the tabs you are working on too quickly when exploring other files.
+Editor → General → Editor Tabs → Closing Policy → Tab limit: default is 10, change it to something like 15, otherwise it closes the tabs you are working on too quickly when exploring other files.
 
-A WebStorm, Editor -> [Inline Hints](https://www.jetbrains.com/help/webstorm/inlay-hints.html), marcar:
+A WebStorm, Editor → [Inline Hints](https://www.jetbrains.com/help/webstorm/inlay-hints.html), marcar:
 
-- Parameter names -> JS/TS -> Non-literal arguments
-- Types -> JS/TS -> Non-parenthesised single parameter
+- Parameter names → JS/TS → Non-literal arguments
+- Types → JS/TS → Non-parenthesised single parameter
 
 Memory heap. Sometimes you get the warning "The IDE is running low on memory and this might affect performance. Please consider increasing the available heap.".
-The setting is at Help -> Change Memory Settings. See doc [Increase the memory heap of the IDE](https://www.jetbrains.com/help/idea/increasing-memory-heap.html).
+The setting is at Help → Change Memory Settings. See doc [Increase the memory heap of the IDE](https://www.jetbrains.com/help/idea/increasing-memory-heap.html).
 
 ## Fill paragraph
 
@@ -33,8 +33,8 @@ https://blog.jetbrains.com/webstorm/2023/03/webstorm-2023-1/#new_fill_paragraph_
 
 ## Get rid of annoying dialog 'Add files to Git'
 
-- For ALL new projects: File -> New Projects Setup -> Preferences for New Projects -> Version Control -> Confirmation
-- For the current project: Preferences -> Version Control -> Confirmation
+- For ALL new projects: File → New Projects Setup → Preferences for New Projects → Version Control → Confirmation
+- For the current project: Preferences → Version Control → Confirmation
 
 Then set these values:
 
@@ -47,11 +47,11 @@ Then set these values:
 
 https://www.jetbrains.com/help/idea/sharing-your-ide-settings.html#IDE_settings_sync
 
-_Canvis novembre 2022 (WebStorm 2022.3)_. Ara està a Preferences -> Settings Sync. Veure https://blog.jetbrains.com/webstorm/2022/10/webstorm-2022-3-eap-3/#New_Settings_Sync_solution. I a https://www.jetbrains.com/webstorm/whatsnew/ pel WebStorm 2022.3 diu 'we are discontinuing support for the old IDE Settings Sync plugin'.
+_Canvis novembre 2022 (WebStorm 2022.3)_. Ara està a Preferences → Settings Sync. Veure https://blog.jetbrains.com/webstorm/2022/10/webstorm-2022-3-eap-3/#New_Settings_Sync_solution. I a https://www.jetbrains.com/webstorm/whatsnew/ pel WebStorm 2022.3 diu 'we are discontinuing support for the old IDE Settings Sync plugin'.
 
 Cal tenir el plugin 'IDE Settings Sync' (instal·lat per defecte).
 
-Llavors fer File -> Manage IDE Settings -> Sync Settings to JetBrains Account. (Si no apareix és perquè ja està activat.)
+Llavors fer File → Manage IDE Settings → Sync Settings to JetBrains Account. (Si no apareix és perquè ja està activat.)
 
 Ha d'aparèixer la icona del núvol a baix de tot a la dreta.
 
@@ -61,7 +61,7 @@ Ha d'aparèixer la icona del núvol a baix de tot a la dreta.
 Això s'ha de fer després d'actualitzar l'IDE a una nova versió.
 :::
 
-Eliminar versions antigues: Help -> Delete Leftover IDE Directories…
+Eliminar versions antigues: Help → Delete Leftover IDE Directories…
 
 [Directories used by the IDE to store settings, caches, plugins and logs](https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs)
 
@@ -87,7 +87,7 @@ Refactors: https://www.jetbrains.com/help/webstorm/refactoring-source-code.html#
 
 JavaScript postfix templates: https://www.jetbrains.com/help/webstorm/using-postfix-templates.html
 
-Warning on outdated dependencies in `package.json`: Preferences | Editor | Inspections | JavaScript & TypeScript | Imports and dependencies -> Modify 'Update package.json dependencies to latest versions' to be 'Weak Warning'. Important: to have this warning enabled for all projects (not just the current one), make sure that the selected 'Profile' is 'Default (Stored in IDE)', not 'Project Default (Stored in Project)' when changing the value.
+Warning on outdated dependencies in `package.json`: Preferences | Editor | Inspections | JavaScript & TypeScript | Imports and dependencies → Modify 'Update package.json dependencies to latest versions' to be 'Weak Warning'. Important: to have this warning enabled for all projects (not just the current one), make sure that the selected 'Profile' is 'Default (Stored in IDE)', not 'Project Default (Stored in Project)' when changing the value.
 
 Using a Node.js interpreter inside a **Docker** container: https://blog.jetbrains.com/webstorm/2021/11/webstorm-2021-3/#development_with_remote_node_js
 
@@ -151,7 +151,7 @@ Add carets to the end of each line in the selected block: ⌥ ⇧ G
 
 Show all live templates shorctut: Cmd+J
 
-To export them do: File -> Manage IDE Settings -> Export Settings... At the Export Settings dialog, select 'Live templates (schemes)'. This creates a zip file that contains the settings in xml format (JavaScript.xml, React Native.xml...).
+To export them do: File → Manage IDE Settings → Export Settings... At the Export Settings dialog, select 'Live templates (schemes)'. This creates a zip file that contains the settings in xml format (JavaScript.xml, React Native.xml...).
 
 ## React
 

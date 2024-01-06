@@ -98,7 +98,7 @@ You may generate an upload key in one of the following ways:
 
 #### Generate upload key
 
-Es pot fer amb Android Studio: Build -> Generate Signed Bundle / APK -> Next -> Create new...
+Es pot fer amb Android Studio: Build → Generate Signed Bundle / APK → Next → Create new...
 
 https://developer.android.com/studio/publish/app-signing#generate-key
 

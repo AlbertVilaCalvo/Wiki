@@ -158,7 +158,7 @@ In Express 5 is OK.
 :::
 
 ```ts
-// Synchronous -> the error handler works :)
+// Synchronous → the error handler works :)
 // The server does not crash. There's a response sent to the client (500 Internal Server Error).
 router.get('/sync', (req, res) => {
   const a = {}
@@ -166,7 +166,7 @@ router.get('/sync', (req, res) => {
   a.thiswill.createacrash // TypeError: Cannot read properties of undefined (reading 'createacrash')
 })
 
-// Asynchronous -> the error handler does NOT work :/
+// Asynchronous → the error handler does NOT work :/
 // The server crashes and it stops. There's no response sent to the client.
 router.get('/async', async (req, res) => {
   const a = {}

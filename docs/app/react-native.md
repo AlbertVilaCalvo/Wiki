@@ -23,7 +23,7 @@ Resources:
 - https://reactnative.dev/docs/environment-setup
 - iOS: https://docs.expo.dev/workflow/ios-simulator
 - Android: https://docs.expo.dev/workflow/android-studio-emulator
-- https://developer.android.com/studio/command-line/variables#envar -> Important: "ANDROID_SDK_ROOT, which also points to the SDK installation directory, is deprecated"
+- https://developer.android.com/studio/command-line/variables#envar → Important: "ANDROID_SDK_ROOT, which also points to the SDK installation directory, is deprecated"
 
 ### Common
 
@@ -35,7 +35,7 @@ If developing with Expo, install the CLI: `npm install --global expo-cli`. This 
 
 You need Xcode to have simulators and open Xcode projects. Install it with the App Store either by [clicking this link](https://apps.apple.com/us/app/xcode/id497799835) or searching 'xcode' on the Store.
 
-Install the Command Line Tools. At Xcode, go to Settings -> Locations and select a version at the 'Command Line Tools' dropdown.
+Install the Command Line Tools. At Xcode, go to Settings → Locations and select a version at the 'Command Line Tools' dropdown.
 
 ### Android
 

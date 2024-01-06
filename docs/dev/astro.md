@@ -15,8 +15,8 @@ Templates: https://vercel.com/templates?framework=astro
 https://twitter.com/t3dotgg/status/1437195415439360003
 
 > Rebuilt my (next.js) blog using @astrodotbuild out of curiosity...holy shit the difference in bundle size.
-> Home route: 138kb -> 7.6kb
-> "All posts": 570kb -> 100kb (85kb was images)
+> Home route: 138kb → 7.6kb
+> "All posts": 570kb → 100kb (85kb was images)
 
 Astro is an Multi-Page Application framework, not a Single-Page Application framework - [see docs](https://docs.astro.build/en/concepts/mpa-vs-spa/)
 
@@ -228,7 +228,7 @@ npm i -D -E prettier prettier-plugin-astro
 
 As explained in https://github.com/withastro/prettier-plugin-astro/#using-in-vs-code, to use the plugin on VSCode you need to install the [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) and then add `"prettier.documentSelectors": ["**/*.astro"]` to `settings.json`.
 
-On WebStorm, on Preferences -> Languages & Frameworks -> JavaScript -> Prettier include 'astro' and 'mjs' too, eg: `{**/*,*}.{js,ts,jsx,tsx,mjs,vue,astro,css,json,md,yml,yaml}`.
+On WebStorm, on Preferences → Languages & Frameworks → JavaScript → Prettier include 'astro' and 'mjs' too, eg: `{**/*,*}.{js,ts,jsx,tsx,mjs,vue,astro,css,json,md,yml,yaml}`.
 
 Get VSCode, eslint & prettier working with Astro - https://patheticgeek.dev/blog/astro-prettier-eslint-vscode
 
@@ -321,8 +321,8 @@ https://docs.astro.build/en/reference/directives-reference/#client-directives
 
 Controls how [UI Framework components](https://docs.astro.build/en/core-concepts/framework-components/) are hydrated on the page.
 
-- `<ReactComponent />` -> Sends HTML and CSS to the browser. Will be a static element.
-- `<ReactComponent client:load />` -> Sends HTML, CSS and **JavaScript** to the browser. This is an **hydrated** component. Will have interactivity.
+- `<ReactComponent />` → Sends HTML and CSS to the browser. Will be a static element.
+- `<ReactComponent client:load />` → Sends HTML, CSS and **JavaScript** to the browser. This is an **hydrated** component. Will have interactivity.
 
 :::caution
 If we hydrate a (eg) React component with `client:` we load the whole React framework! See this article: https://spacejelly.dev/posts/how-to-use-astro-to-build-react-apps-without-javascript

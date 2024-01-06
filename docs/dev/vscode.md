@@ -14,9 +14,9 @@ Word wrap: Alt+Z (⌥+Z). [source](https://stackoverflow.com/questions/31025502/
 
 Open `settings.json` file: Cmd+Shift+P and pick 'Open User Settings (JSON)' [source](https://stackoverflow.com/questions/65908987/how-can-i-open-visual-studio-codes-settings-json-file)
 
-Explorer: avoid automatically revealing a file in the when we open it: Features -> Explorer -> Auto Reveal false.
+Explorer: avoid automatically revealing a file in the when we open it: Features → Explorer → Auto Reveal false.
 
-Remove 'U'/'M' from the file tab: Workbench -> Editor -> Decorations: Badges, uncheck it.
+Remove 'U'/'M' from the file tab: Workbench → Editor → Decorations: Badges, uncheck it.
 
 ## Extensions
 

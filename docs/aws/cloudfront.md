@@ -136,7 +136,7 @@ function handler(event) {
   }
   var host = request.headers.host.value
   if (host.startsWith('www.')) {
-    var apexHost = host.slice(4) // 'www.example.com' -> 'example.com'
+    var apexHost = host.slice(4) // 'www.example.com' → 'example.com'
     var newUrl = `https://${apexHost}${request.uri}`
     var response = {
       statusCode: 301,
@@ -153,7 +153,7 @@ function handler(event) {
 
 Steps:
 
-- Go to the CloudFront console -> Functions. Click 'Create function'.
+- Go to the CloudFront console → Functions. Click 'Create function'.
 - Set Name to redirect-www-to-apex and Description to "Redirect www.example.com to example.com". Click 'Create function'.
 - Paste the function code at the 'Build' tab.
 - You can optionally test the function at the console or with the command `aws cloudfront test-function --if-match <ETag> --name redirect-www-to-apex --event-object fileb://<path>/with-www.json`. To get the ETag, use `aws cloudfront describe-function --name redirect-www-to-apex [--stage DEVELOPMENT/LIVE]`.

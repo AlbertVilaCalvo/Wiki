@@ -59,7 +59,7 @@ Workflow
 
 > Your workflow contains one or more _jobs_ which can run in sequential order or in parallel. Each job will run inside its own virtual machine _runner_, or inside a container, and has one or more _steps_.
 
-Job - `jobs` -> `steps` -> `run`/`uses`
+Job - `jobs` → `steps` → `run`/`uses`
 
 > A job is a set of _steps_ in a workflow that execute on the same runner. Each step is either a shell script that will be executed (`run`), or an _action_ that will be run (`uses`). Steps are executed in order and are dependent on each other. Since each step is executed on the same runner, you can share data from one step to another. For example, you can have a step that builds your application followed by a step that tests the application that was built.
 

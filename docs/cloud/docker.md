@@ -279,7 +279,7 @@ docker-compose down
 
 https://docs.docker.com/config/pruning
 
-`docker system prune` -> prune everything except volumes
+`docker system prune` → prune everything except volumes
 
 Remove dangling images (images with `<none>` in `docker image ls`):
 

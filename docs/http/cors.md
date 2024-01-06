@@ -153,9 +153,9 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-O
 
 What client domains are allowed by the server.
 
-- `Access-Control-Allow-Origin: *` -> Requests from all domains allowed. Only for public APIs that can be accessed from any site.
-- `Access-Control-Allow-Origin: https://client-origin.com` -> This domain is allowed. _"Only a single origin can be specified. If the server supports clients from multiple origins, it must return the origin for the specific client making the request."_ [source](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin#directives)
-- `Access-Control-Allow-Origin: null` -> [Should not be used](https://w3c.github.io/webappsec-cors-for-developers/#avoid-returning-access-control-allow-origin-null).
+- `Access-Control-Allow-Origin: *` → Requests from all domains allowed. Only for public APIs that can be accessed from any site.
+- `Access-Control-Allow-Origin: https://client-origin.com` → This domain is allowed. _"Only a single origin can be specified. If the server supports clients from multiple origins, it must return the origin for the specific client making the request."_ [source](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin#directives)
+- `Access-Control-Allow-Origin: null` → [Should not be used](https://w3c.github.io/webappsec-cors-for-developers/#avoid-returning-access-control-allow-origin-null).
 
 ### Access-Control-Allow-Methods response header
 

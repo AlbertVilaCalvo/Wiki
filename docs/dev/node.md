@@ -40,9 +40,9 @@ https://betterstack.com/community/guides/logging/nodejs-logging-best-practices
 
 - https://github.com/winstonjs/winston
 - https://github.com/debug-js/debug
-- https://github.com/pinojs/pino -> use it on Express with https://github.com/pinojs/pino-http (see https://github.com/pinojs/pino/blob/master/docs/web.md#pino-with-express)
+- https://github.com/pinojs/pino → use it on Express with https://github.com/pinojs/pino-http (see https://github.com/pinojs/pino/blob/master/docs/web.md#pino-with-express)
 - https://github.com/klaussinani/signale
-- https://github.com/expressjs/morgan -> request logger middleware that integrates with Express
+- https://github.com/expressjs/morgan → request logger middleware that integrates with Express
 - https://github.com/gajus/roarr
 
 ### Email
