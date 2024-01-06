@@ -28,6 +28,16 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
 
 > Pseudo-classes can be used to style an element based on its _state_.
 
+https://web.dev/learn/css/pseudo-classes
+
+## :nth-child()
+
+https://developer.chrome.com/docs/css-ui/css-nth-child-of-s
+
+An+B microsyntax: https://www.w3.org/TR/css-syntax-3/#anb-microsyntax
+
+https://web.dev/learn/css/pseudo-classes#nth-child_and_nth-of-type
+
 ## :nth-of-type()
 
 Select the 2nd `<p>` inside the `.section-main-info`.
@@ -71,6 +81,8 @@ https://blog.jim-nielsen.com/2022/unlocked-possibilities-of-has-selector/
 https://developer.chrome.com/blog/has-m105/
 
 You can do `:not(:has(...))`.
+
+https://developer.chrome.com/blog/css-wrapped-2023#has
 
 ## Pseudo-elements (`::before`, `p::first-line`)
 

@@ -19,3 +19,5 @@ https://github.com/sturobson/Awesome-Container-Queries
 Text size scales with the container: https://twitter.com/wesbos/status/1614016671043276815
 
 Quick Start Guide: https://www.oddbird.net/2021/04/05/containerqueries/
+
+https://web.dev/blog/cq-stable

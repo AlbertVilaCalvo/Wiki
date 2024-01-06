@@ -6,7 +6,10 @@ https://developer.chrome.com/docs/devtools/
 
 DevTools Tips: https://www.youtube.com/playlist?list=PLNYkxOF6rcIAcezfL8q0rjt13ufKseL5X
 
-What's New in DevTools: https://www.youtube.com/playlist?list=PLNYkxOF6rcIBDSojZWBv4QJNoT4GNYzQD
+What's New in DevTools:
+
+- https://developer.chrome.com/docs/devtools/news
+- https://www.youtube.com/playlist?list=PLNYkxOF6rcIBDSojZWBv4QJNoT4GNYzQD
 
 ## Console tab
 

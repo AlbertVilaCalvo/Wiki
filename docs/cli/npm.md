@@ -183,6 +183,10 @@ Yarn has [`yarn list`](https://classic.yarnpkg.com/en/docs/cli/list).
 
 [source](https://stackoverflow.com/a/49523073/4034572)
 
+## package-lock.json
+
+Never delete it: https://tkdodo.eu/blog/solving-conflicts-in-package-lock-json _If you delete package-lock.json now from any one of your projects and run `npm install` again, it will most certainly look completely different._
+
 ## .npmrc
 
 https://docs.npmjs.com/cli/v9/configuring-npm/npmrc
