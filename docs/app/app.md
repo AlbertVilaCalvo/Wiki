@@ -21,7 +21,7 @@ Information sources:
 
 First you need to get the SHA-1. You can get it in different ways:
 
-- On Google Play. On the left side menu go to Setup -> App integrity, then select the tab 'App signing'
+- On Google Play. On the left side menu go to Setup → App integrity, then select the tab 'App signing'
 - From the apk itself with `keytool -list -printcert -jarfile <my-apk-file.apk>`
 
 Once you have the SHA-1 you need to convert it to base64. There are various ways:

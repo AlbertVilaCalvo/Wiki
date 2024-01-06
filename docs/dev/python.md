@@ -18,7 +18,7 @@ Cheatsheet: https://www.pythonsheets.com
    - At the dialog that opens (Add Python Interpreter), select 'Existing environment' and set the path to the location of new Python interpreter given by `pipenv --venv` + `/bin/python`.
    - Close the dialogs and at the drop-down select the new interpreter just added and then click 'OK'.
 5. Install Black and configure it in PyCharm: [follow instructions](#black).
-   - Doing `which black` should be something like `/Users/albert/.local/share/virtualenvs/project-name--zmW4vHg/bin/black`. -> This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
+   - Doing `which black` should be something like `/Users/albert/.local/share/virtualenvs/project-name--zmW4vHg/bin/black`. → This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
 6. Install libraries, eg: `pipenv install flask`.
 
 ## `-m` flag
@@ -255,13 +255,13 @@ Virtual environments are located in `~/.local/share/virtualenvs`.
 
 (If we do `which python` or `which pip3` outside the environment we get `/usr/bin/python` and `/usr/local/bin/pip3`. Inside we get `/Users/albertvilacalvo/.local/share/virtualenvs/.../bin/...`.)
 
-Install the packages in `[packages]` but not in `[dev-packages]`: `pipenv install` -> Can modify Pipfile.lock
+Install the packages in `[packages]` but not in `[dev-packages]`: `pipenv install` → Can modify Pipfile.lock
 
 Install all packages, including dev dependencies: `pipenv install --dev`
 
-Install all packages specified in Pipfile.lock: `pipenv sync` -> Never modifies Pipfile.lock
+Install all packages specified in Pipfile.lock: `pipenv sync` → Never modifies Pipfile.lock
 
-Enforce that your Pipfile.lock is up to date: `pipenv install --deploy` -> This will fail a build if the Pipfile.lock is out–of–date, instead of generating a new one ([source](https://pipenv.pypa.io/en/latest/advanced/#using-pipenv-for-deployments))
+Enforce that your Pipfile.lock is up to date: `pipenv install --deploy` → This will fail a build if the Pipfile.lock is out–of–date, instead of generating a new one ([source](https://pipenv.pypa.io/en/latest/advanced/#using-pipenv-for-deployments))
 
 `pipenv install` vs `pipenv sync`:
 
@@ -332,13 +332,13 @@ https://black.readthedocs.io/en/stable/integrations/editors.html#pycharm-intelli
 
 Requires the [File Watchers](https://plugins.jetbrains.com/plugin/7177-file-watchers) plugin, which is installed by default in PyCharm.
 
-`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with Pipenv and we've installed black on the environment (`pipenv install black --dev`). -> This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
+`which black` should be something like `/Users/albertvilacalvo/.local/share/virtualenvs/todo-app-quaXzdRU/bin/black` if we are on an active virtual environment created with Pipenv and we've installed black on the environment (`pipenv install black --dev`). → This is not true now, it prints `/Users/albertvilacalvo/.pyenv/shims/black`.
 
 #### Add the External Tool
 
 _This needs to be done only once ever._
 
-Preferences -> Tools -> External Tools. Click +.
+Preferences → Tools → External Tools. Click +.
 
 - Name: Black
 - Description: Code formatter
@@ -350,7 +350,7 @@ Preferences -> Tools -> External Tools. Click +.
 
 _This needs to be done for every project._
 
-Preferences -> Tools -> File Watchers. Click + and select 'custom'.
+Preferences → Tools → File Watchers. Click + and select 'custom'.
 
 - Name: Black
 - File type: Python

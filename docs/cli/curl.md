@@ -80,7 +80,7 @@ See https://stackoverflow.com/questions/10060098/getting-only-response-header-fr
 
 ### CORS OPTIONS preflight request
 
-_You can get the command of a real request from Chrome DevTools at the Network tab by doing right-click -> Copy -> Copy as cURL_
+_You can get the command of a real request from Chrome DevTools at the Network tab by doing right-click → Copy → Copy as cURL_
 
 ```shell
 curl http://localhost:5000/api/recipes -v -X OPTIONS -H "Origin: http://example.com" -H "Access-Control-Request-Method: POST" -H "Access-Control-Request-Headers: Content-Type"

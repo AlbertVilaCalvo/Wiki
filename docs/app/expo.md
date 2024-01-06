@@ -205,7 +205,7 @@ https://blog.expo.dev/expo-managed-workflow-in-2021-5b887bbf7dbb (part 1)
 
 https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10 (part 2)
 
-`eas build:configure` -> Generates eas.json. Learn more at https://docs.expo.dev/build-reference/build-configuration/
+`eas build:configure` → Generates eas.json. Learn more at https://docs.expo.dev/build-reference/build-configuration/
 
 To install an app to an iPhone, first register the device UDID at https://developer.apple.com/account/resources/devices/list.
 To register any iOS devices you would like to develop on to your ad hoc provisioning profile use `eas device:create`.
@@ -308,7 +308,7 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 - [SDK 43](https://blog.expo.dev/expo-sdk-43-aa9b3c7d5541) - 2021-10 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4300--2021-10-01) - Replaces Unimodules with Expo modules
 - [SDK 42](https://blog.expo.dev/expo-sdk-42-579aee2348b6) - 2021-07 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4200--2021-06-16)
 
-## Unimodules -> Expo modules
+## Unimodules → Expo modules
 
 https://blog.expo.dev/whats-new-in-expo-modules-infrastructure-7a7cdda81ebc
 

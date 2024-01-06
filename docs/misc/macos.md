@@ -32,16 +32,16 @@ All my macOS keyboard shortcuts - https://www.jamieonkeys.dev/posts/keyboard-sho
 
 https://apple.stackexchange.com/a/431149/241238
 
-Monterey: Preferències -> Teclat -> pestanya Dreceres -> Dreceres de l'app. Ventura: Configuració -> Teclat -> Dreceres de teclat... -> Dreceres de l'app. Afegir 2 dreceres noves amb nom 'Sleep' i 'Repòs' a <kbd>Shift</kbd><kbd>Alt</kbd><kbd>Q</kbd>. Haig de veure el shortcut ⌥⇧Q al menu del sistema.
+Monterey: Preferències → Teclat → pestanya Dreceres → Dreceres de l'app. Ventura: Configuració → Teclat → Dreceres de teclat... → Dreceres de l'app. Afegir 2 dreceres noves amb nom 'Sleep' i 'Repòs' a <kbd>Shift</kbd><kbd>Alt</kbd><kbd>Q</kbd>. Haig de veure el shortcut ⌥⇧Q al menu del sistema.
 
 ### Prevent ⌘+i to open the Mail app on Chrome
 
 https://apple.stackexchange.com/questions/108060/how-to-prevent-command-i-command-shift-i-from-opening-mac-mail-when-in-browser
 
-Ventura: Configuració -> Teclat -> Dreceres de teclat... -> Dreceres de l'app. Clicar '+'. Al menú que s'obre seleccionar:
+Ventura: Configuració → Teclat → Dreceres de teclat... → Dreceres de l'app. Clicar '+'. Al menú que s'obre seleccionar:
 
 - App: Google Chrome.
-- Títol de menú: ha de ser exactament "Envia l'enllaç per correu electrònic". És el que diu a Chrome -> Fitxer -> Comparteix.
+- Títol de menú: ha de ser exactament "Envia l'enllaç per correu electrònic". És el que diu a Chrome → Fitxer → Comparteix.
 - Drecera de teclat: qualsevol cosa, per exemple ⌃⌥⇧⌘E.
 
 ## DefaultKeyBinding.dict
@@ -73,7 +73,7 @@ https://iterm2.com
 
 https://iterm2colorschemes.com - https://github.com/mbadolato/iTerm2-Color-Schemes
 
-Changed in Settings -> Profiles -> Colors, at the dropdown 'Color presets...'. Tip: duplicate the current profile to make tests.
+Changed in Settings → Profiles → Colors, at the dropdown 'Color presets...'. Tip: duplicate the current profile to make tests.
 
 ### Shortcuts
 
@@ -85,7 +85,7 @@ Note that the .json profile contains all the shortcuts of the .itermkeymap file,
 
 :::
 
-Go to Preferences -> Profiles tab -> Keys tab -> Key Mappings tab.
+Go to Preferences → Profiles tab → Keys tab → Key Mappings tab.
 Click the + button.
 
 | Shortcuts    | Description       | Action               | Send                                                       |
@@ -107,8 +107,8 @@ From https://sergeemond.ca/en/articles/iterm-extend-send-text-action
 
 ### Shortcuts and tricks
 
-- Undo close: when you close a session tab by accident, you can restore it with Edit -> Undo or Cmd+Z.
-  - Important: adjust the timeout in Settings -> Profiles -> Session, at "Undo can revive a session that has been closed for up to X seconds". Default value is 5 seconds. Should be changed to about 25 seconds.
+- Undo close: when you close a session tab by accident, you can restore it with Edit → Undo or Cmd+Z.
+  - Important: adjust the timeout in Settings → Profiles → Session, at "Undo can revive a session that has been closed for up to X seconds". Default value is 5 seconds. Should be changed to about 25 seconds.
 - Hold Cmd+Option to select text with the mouse doing a rectangle
 
 ## kexts
@@ -125,9 +125,9 @@ Are located in `/Library/Extensions/`.
 - Xcode
   - Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572.
   - Delete Xcode caches with 'DevCleaner for Xcode' - https://apps.apple.com/us/app/devcleaner/id1388020431.
-  - Delete Xcode caches with Storage app (Sobre aquest Mac -> Emmagatzematge -> Gestionar... i seleccionar Desenvolupador al menú de l'esquerra) - https://stackoverflow.com/a/69623427/4034572
-  - Delete old Xcode archives. Use the Organizer (Window -> Organizer).
-- JetBrains IDEs, delete old versions: Help -> Delete Leftover IDE Directories…
+  - Delete Xcode caches with Storage app (Sobre aquest Mac → Emmagatzematge → Gestionar... i seleccionar Desenvolupador al menú de l'esquerra) - https://stackoverflow.com/a/69623427/4034572
+  - Delete old Xcode archives. Use the Organizer (Window → Organizer).
+- JetBrains IDEs, delete old versions: Help → Delete Leftover IDE Directories…
   - JetBrains IDEs are located at `~/Library/Application Support/JetBrains` (`cd ~/Library/Application\ Support/JetBrains`).
   - Android Studio is located at `~/Library/Application Support/Google` (`cd ~/Library/Application\ Support/Google`).
 - Docker:
@@ -136,6 +136,6 @@ Are located in `/Library/Extensions/`.
     - IMPORTANT: be careful with `docker image prune -a` because it deletes plenty of stuff, eg it has deleted all images shown by `docker image ls`, not only the ones with `<none>`! It says `WARNING! This will remove all images without at least one container associated to them.`.
   - Pune everything: `docker system prune`. This removes all stopped containers, all networks not used by at least one container, all dangling images and all build cache.
 - Anar a `~/Library/Application Support` i esborrar programes antics.
-- Esborrar fitxers grans: Sobre aquest Mac -> Emmagatzematge -> Gestionar...
-- Telegram: esborrar la memòria cau (pot tenir 1 GB). Es fa a Configuració -> Dades i emmagatzematge -> Ús de l'emmagatzematge
-- Firefox: esborrar dades del lloc (pot ser 3 GB). Anar a Preferències -> Privadesa i seguretat -> Gestiona les dades... S'ordenen per mida. Cal apretar Delete a cada Lloc i després 'Desa els canvis' (sinó no esborra). Esborrar les que fa més d'un any que es van fer servir ('Darrer ús').
+- Esborrar fitxers grans: Sobre aquest Mac → Emmagatzematge → Gestionar...
+- Telegram: esborrar la memòria cau (pot tenir 1 GB). Es fa a Configuració → Dades i emmagatzematge → Ús de l'emmagatzematge
+- Firefox: esborrar dades del lloc (pot ser 3 GB). Anar a Preferències → Privadesa i seguretat → Gestiona les dades... S'ordenen per mida. Cal apretar Delete a cada Lloc i després 'Desa els canvis' (sinó no esborra). Esborrar les que fa més d'un any que es van fer servir ('Darrer ús').

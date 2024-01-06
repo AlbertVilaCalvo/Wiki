@@ -18,7 +18,7 @@ Aquí diu coses interessants: https://dev.to/alex_barashkov/comparing-gatsby-and
 
 Cheapest way to deploy a React app using NextJS SSR on AWS? - https://stackoverflow.com/questions/61433306/cheapest-way-to-deploy-a-react-app-using-nextjs-ssr-on-aws
 
-Next.js 12 -> Next.js 13: https://twitter.com/lydiahallie/status/1591120215189749760
+Next.js 12 → Next.js 13: https://twitter.com/lydiahallie/status/1591120215189749760
 
 ## Site examples and repos
 

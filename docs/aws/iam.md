@@ -189,13 +189,13 @@ Recovering a root user MFA device - https://docs.aws.amazon.com/IAM/latest/UserG
 There are 2 guides/tutorials that explain how to set up the admin user:
 
 - Tutorial: Secure Your AWS Account - https://aws.amazon.com/getting-started/guides/setup-environment/module-two/
-- Creating your first IAM admin user and user group - https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html -> This is the tutorial I've followed, see the steps above
+- Creating your first IAM admin user and user group - https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html → This is the tutorial I've followed, see the steps above
 
 Steps:
 
 - Sign in to the console as Root user.
-- Click your name at the top navbar -> Account. At the section 'IAM User and Role Access to Billing Information' click 'Edit' and enable 'Activate IAM Access'.
-- Go to the IAM console -> Users and click 'Add users'.
+- Click your name at the top navbar → Account. At the section 'IAM User and Role Access to Billing Information' click 'Edit' and enable 'Activate IAM Access'.
+- Go to the IAM console → Users and click 'Add users'.
 - On the 'Set user details' page do:
   - Set 'User name' to 'Administrator'.
   - Check 'Password - AWS Management Console access'.

@@ -9,7 +9,7 @@ Methods: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Globa
 
 https://devdocs.io/javascript-array/
 
-https://github.com/tc39/proposal-change-array-by-copy -> Adds `toReversed()`, `toSorted(compareFn)`, `toSpliced(start, deleteCount, ...items)` and `with(index, value)`.
+https://github.com/tc39/proposal-change-array-by-copy → Adds `toReversed()`, `toSorted(compareFn)`, `toSpliced(start, deleteCount, ...items)` and `with(index, value)`.
 
 ## Mutation
 

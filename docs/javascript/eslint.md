@@ -139,9 +139,9 @@ Search npm for more shareable configs: https://www.npmjs.com/search?ranking=popu
 
 For a **Node.js** project with **Prettier** answer this to the following questions:
 
-- How would you like to use ESLint? -> To check syntax and find problems
-- Which framework does your project use? React, Vue, None of these. -> None of these
-- Where does your code run? -> Node. _Warning: you need to unselect 'Browser' with space!_
+- How would you like to use ESLint? → To check syntax and find problems
+- Which framework does your project use? React, Vue, None of these. → None of these
+- Where does your code run? → Node. _Warning: you need to unselect 'Browser' with space!_
 
 Finally, it will say something like _"The config that you've selected requires the following dependencies: @typescript-eslint/eslint-plugin@latest, @typescript-eslint/parser@latest, eslint@latest. Would you like to install them now?"_. If you answer 'Yes' it creates the file `.eslintrc.js` and updates `package.json` (adding the dependencies to `devDependencies`).
 
@@ -220,7 +220,7 @@ Docs - https://eslint.org/docs/latest/user-guide/configuring/configuration-files
 
 To get the red squiggles and warnings we need to enable it!
 
-At Preferences -> Languages & Frameworks -> JavaScript -> Code Quality Tools -> ESLint, set 'Automatic ESLint configuration'.
+At Preferences → Languages & Frameworks → JavaScript → Code Quality Tools → ESLint, set 'Automatic ESLint configuration'.
 
 ## Plugins
 

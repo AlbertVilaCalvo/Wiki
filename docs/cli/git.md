@@ -474,7 +474,7 @@ When doing `git push origin :master main` sometimes we get this error:
 error: failed to push some refs to 'github.com:AlbertVilaCalvo/JavaScript-Udacity-Memory-Game.git'
 ```
 
-This happens when eg we are renaming the branch `master` to `main` on a GitHub/Bitbucket repository that has `master` set as the default branch. To fix this, go to the GitHub website -> navigate to the repository -> Settings tab -> Branches, and change the 'Default branch'. After doing this, try again and it will work. (On Bitbucket, to change the default branch go to the repository -> Repository settings -> Repository details tab, expand the ADVANCED section and change 'Main branch'.)
+This happens when eg we are renaming the branch `master` to `main` on a GitHub/Bitbucket repository that has `master` set as the default branch. To fix this, go to the GitHub website → navigate to the repository → Settings tab → Branches, and change the 'Default branch'. After doing this, try again and it will work. (On Bitbucket, to change the default branch go to the repository → Repository settings → Repository details tab, expand the ADVANCED section and change 'Main branch'.)
 
 ## Prevent commiting on main/master branch by mistake
 

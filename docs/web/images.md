@@ -24,7 +24,7 @@ https://web.dev/serve-images-with-correct-dimensions/
 
 ### Not specifying `sizes` means `sizes="100vw"`
 
-_Responsive Images: If you’re just changing resolutions, use srcset_. Suggests not to use `sizes`, just `srcset`, but assumes that the image will be 100% width (ie `sizes="100vw"`): https://css-tricks.com/responsive-images-youre-just-changing-resolutions-use-srcset/ -> If you try it out, by switching between different devices in the browser developer tools responsive mode, this is the simplest solution and the one that gives the best result, without thinking. For phones it picks the right size. And for laptops it picks the largest, even if the image is displayed with max-width, but it doesn't matter much since it's a device that probably has a good Internet connection.
+_Responsive Images: If you’re just changing resolutions, use srcset_. Suggests not to use `sizes`, just `srcset`, but assumes that the image will be 100% width (ie `sizes="100vw"`): https://css-tricks.com/responsive-images-youre-just-changing-resolutions-use-srcset/ → If you try it out, by switching between different devices in the browser developer tools responsive mode, this is the simplest solution and the one that gives the best result, without thinking. For phones it picks the right size. And for laptops it picks the largest, even if the image is displayed with max-width, but it doesn't matter much since it's a device that probably has a good Internet connection.
 
 ```html
 sizes="(min-width: 800px) 50vw, 100vw"
