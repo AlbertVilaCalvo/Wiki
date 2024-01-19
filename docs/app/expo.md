@@ -300,13 +300,13 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 
 [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md)
 
-- [SDK 48](https://blog.expo.dev/expo-sdk-48-ccb8302e231) - 2023-02
-- [SDK 47](https://blog.expo.dev/expo-sdk-47-a0f6f5c038af) - 2022-11
-- [SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) - 2022-08
-- [SDK 45](https://blog.expo.dev/expo-sdk-45-f4e332954a68) - 2022-05
-- [SDK 44](https://blog.expo.dev/expo-sdk-44-4c4b8306584a) - 2021-12 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4400--2021-12-03)
-- [SDK 43](https://blog.expo.dev/expo-sdk-43-aa9b3c7d5541) - 2021-10 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4300--2021-10-01) - Replaces Unimodules with Expo modules
 - [SDK 42](https://blog.expo.dev/expo-sdk-42-579aee2348b6) - 2021-07 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4200--2021-06-16)
+- [SDK 43](https://blog.expo.dev/expo-sdk-43-aa9b3c7d5541) - 2021-10 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4300--2021-10-01) - Replaces Unimodules with Expo modules
+- [SDK 44](https://blog.expo.dev/expo-sdk-44-4c4b8306584a) - 2021-12 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4400--2021-12-03)
+- [SDK 45](https://blog.expo.dev/expo-sdk-45-f4e332954a68) - 2022-05
+- [SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) - 2022-08
+- [SDK 47](https://blog.expo.dev/expo-sdk-47-a0f6f5c038af) - 2022-11
+- [SDK 48](https://blog.expo.dev/expo-sdk-48-ccb8302e231) - 2023-02
 
 ## Unimodules → Expo modules
 
