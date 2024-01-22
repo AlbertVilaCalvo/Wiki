@@ -28,6 +28,8 @@ Security scanner for your Terraform code - https://github.com/aquasecurity/tfsec
 
 Linter - https://github.com/terraform-linters/tflint - https://github.com/terraform-linters/tflint-ruleset-aws
 
+Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
+
 ## Learn / Best practices
 
 Terraform Best Practices for AWS users - https://github.com/ozbillwang/terraform-best-practices

@@ -28,6 +28,8 @@ https://github.com/stackrox/kube-linter
 
 https://github.com/datreeio/datree
 
+Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
+
 ## What is Kubernetes?
 
 https://kubernetes.io/docs/concepts/overview/what-is-kubernetes

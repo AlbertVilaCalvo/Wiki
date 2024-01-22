@@ -10,6 +10,8 @@ https://github.com/donnemartin/awesome-aws#cloudformation
 
 Validate Infrastructure-as-code (IaC) or infrastructure/service compositions such as CloudFormation Templates, CloudFormation ChangeSets, Terraform JSON configuration files, Kubernetes configurations - https://github.com/aws-cloudformation/cloudformation-guard
 
+Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
+
 https://github.com/Sceptre/sceptre - https://docs.sceptre-project.org
 
 Linter: https://github.com/aws-cloudformation/cfn-lint
