@@ -10,7 +10,10 @@ https://github.com/veggiemonk/awesome-docker
 
 Just say no to :latest: https://news.ycombinator.com/item?id=30576443
 
-Dockerfile linter - https://github.com/hadolint/hadolint
+Dockerfile linters:
+
+- https://github.com/hadolint/hadolint
+- https://www.checkov.io - https://github.com/bridgecrewio/checkov
 
 Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See Thoughworks Technology Radar 27:
 
