@@ -2,7 +2,10 @@
 title: Expo
 ---
 
-https://blog.expo.dev
+Blog:
+
+- https://expo.dev/changelog
+- https://blog.expo.dev
 
 VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo
 
@@ -38,6 +41,8 @@ https://github.com/search?q=%22infoPlist%22+extension%3Ajson+path%3A%2F+filename
 
 ## CLI
 
+List commands: `npx expo --help`
+
 New local CLI for SDK >= 46: https://docs.expo.dev/more/expo-cli
 
 Old, deprecated, global CLI for SDK < 46: https://docs.expo.dev/archived/expo-cli
@@ -64,6 +69,20 @@ This is also explained at https://reactnavigation.org/docs/getting-started#insta
 
 ### Create app
 
+See https://docs.expo.dev/get-started/create-a-project/
+
+```shell
+npx create-expo-app my-app
+npx create-expo-app --template expo-template-blank-typescript
+```
+
+Available templates: https://github.com/expo/expo/tree/main/templates
+
+Use TypeScript: https://docs.expo.dev/guides/typescript/
+
+<details>
+  <summary>Old, using `expo init`</summary>
+
 ```shell
 expo init <appname> --yarn
 expo init <appname> -t expo-template-blank-typescript
@@ -74,9 +93,7 @@ See `expo init` options at https://docs.expo.dev/workflow/expo-cli/#expo-init
 
 Note that option `--name` is deprecated, if you use it says "Use `expo init [name]` instead of `--name [name]`".
 
-Available templates: https://github.com/expo/expo/tree/main/templates
-
-Use TypeScript: https://docs.expo.dev/guides/typescript/
+</details>
 
 ### Validate package versions compatibility and install compatible versions
 
@@ -103,7 +120,7 @@ Source: https://github.com/expo/expo-cli/issues/2413#issuecomment-969098866
 
 ## Expo Dev Client
 
-Replaces Expo Go, which contains a fixed collection of native modules and does not allow custom native code.
+Replaces [Expo Go](https://docs.expo.dev/get-started/expo-go/), which contains a fixed collection of native modules and does not allow custom native code.
 
 > It’s a React Native library that gives you the same experience as Expo Go, but with your own custom runtime. [source](https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10)
 
@@ -294,7 +311,7 @@ According to https://docs.expo.dev/build-reference/variables/#can-i-share-enviro
 
 > When you define environment variables on build profiles in eas.json, they will not be available for local development when you run `expo start` (and `expo publish`).
 
-## SDK Versions
+## SDK Versions/Releases
 
 https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 
@@ -307,6 +324,7 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 - [SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) - 2022-08
 - [SDK 47](https://blog.expo.dev/expo-sdk-47-a0f6f5c038af) - 2022-11
 - [SDK 48](https://blog.expo.dev/expo-sdk-48-ccb8302e231) - 2023-02
+- [SDK 50](https://blog.expo.dev/expo-sdk-50-afb524038906) - 2024-01 - https://expo.dev/changelog/2024/01-18-sdk-50 -
 
 ## Unimodules → Expo modules
 
