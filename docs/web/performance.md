@@ -6,6 +6,8 @@ https://web.dev/preload-scanner/
 
 https://web.dev/reduce-javascript-payloads-with-code-splitting/ → Dynamic imports
 
+https://developer.mozilla.org/en-US/docs/Web/API/Performance_API
+
 ## `<link rel="preconnect" href="https://example.com" />`
 
 https://web.dev/preconnect-and-dns-prefetch/
