@@ -66,6 +66,8 @@ Can be customized, see https://web.dev/state-of-css-2022/#customizing-select-ele
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search
 
+https://html.spec.whatwg.org/multipage/grouping-content.html#the-search-element
+
 ## `::placeholder`
 
 To style the placeholder text of an `<input>` or `<textarea>`.

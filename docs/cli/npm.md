@@ -57,9 +57,13 @@ To pass arguments to a script you need to add `--` ([see `npm run` docs](https:/
     - > Describe a single representation of a dependency tree such that teammates, deployments, and continuous integration are guaranteed to install exactly the same dependencies
   - https://stackoverflow.com/questions/45022048/why-does-npm-install-rewrite-package-lock-json/53594050#53594050
 
-Find outdated and unused packages: https://github.com/dylang/npm-check
-
 https://www.stefanjudis.com/today-i-learned/how-to-override-your-dependencys-dependencies/
+
+### Find unused packages
+
+https://github.com/dylang/npm-check
+
+https://github.com/depcheck/depcheck - Usage: `npx depcheck`
 
 ### `--force` vs `--legacy-peer-deps`
 
