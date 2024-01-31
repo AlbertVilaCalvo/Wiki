@@ -9,6 +9,22 @@ Blog:
 
 VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo
 
+## Keyboard shortcuts
+
+After doing `npx expo start`, you can use the keys (`r`, `i`, `a`...) listed table at https://docs.expo.dev/more/expo-cli/#develop
+
+## Show developer menu
+
+https://docs.expo.dev/debugging/tools/#developer-menu
+
+- Android device or emulator
+  - Press Cmd/Ctrl + M
+  - Shake your device ????
+  - Run `adb shell input keyevent 82` or `adb shell input keyevent KEYCODE_MENU` ???
+- iOS simulator
+  - Cmd + D
+  - Cmd + Ctrl + Z (shake your device)
+
 ## app.json / app.config.js / app.config.ts
 
 Configuration with app.json / app.config.js: https://docs.expo.dev/workflow/configuration/
@@ -41,13 +57,25 @@ https://github.com/search?q=%22infoPlist%22+extension%3Ajson+path%3A%2F+filename
 
 ## CLI
 
-List commands: `npx expo --help`
+Docs: https://docs.expo.dev/more/expo-cli
 
-New local CLI for SDK >= 46: https://docs.expo.dev/more/expo-cli
+List commands: `npx expo --help` or `npx expo -h`
 
-Old, deprecated, global CLI for SDK < 46: https://docs.expo.dev/archived/expo-cli
+### Highlights
+
+From https://docs.expo.dev/more/expo-cli/#highlights
+
+- [Start a server](https://docs.expo.dev/more/expo-cli#develop) for developing your app: `npx expo start`.
+- [Generate the native Android and iOS directories](https://docs.expo.dev/more/expo-cli#prebuild) for your project: `npx expo prebuild`.
+- [Build and run](https://docs.expo.dev/more/expo-cli#compiling) the native apps locally: `npx expo run:ios` and `npx expo run:android`.
+  - Important: `expo run` also generates the native projects!
+- [Install and update packages](https://docs.expo.dev/more/expo-cli#install) that work with the version of react-native in your project: `npx expo install package-name`.
+- `npx expo` can be used with `npx react-native` simultaneously.
 
 ### Local CLI (introduced in SDK 46)
+
+- New local CLI for SDK >= 46: https://docs.expo.dev/more/expo-cli
+- Old, deprecated, global CLI for SDK < 46: https://docs.expo.dev/archived/expo-cli
 
 [SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) (released August 2022) removes the global npm install `expo-cli`.
 
@@ -67,7 +95,7 @@ See https://docs.expo.dev/bare/using-expo-client/#prefer--expo-install--over-
 
 This is also explained at https://reactnavigation.org/docs/getting-started#installing-dependencies-into-an-expo-managed-project
 
-### Create app
+### Create new app/project
 
 See https://docs.expo.dev/get-started/create-a-project/
 
@@ -118,19 +146,25 @@ Install individual packages by running npx expo install @react-native-community/
 
 Source: https://github.com/expo/expo-cli/issues/2413#issuecomment-969098866
 
-## Expo Dev Client
+## Expo Dev Client / Development builds / Custom Development Clients
+
+Docs: https://docs.expo.dev/develop/development-builds/introduction
 
 Replaces [Expo Go](https://docs.expo.dev/get-started/expo-go/), which contains a fixed collection of native modules and does not allow custom native code.
 
+> Expo Go is not recommended for building production-quality apps — use [development builds](https://docs.expo.dev/develop/development-builds/introduction) instead. [source](https://docs.expo.dev/get-started/expo-go/)
+
 > It’s a React Native library that gives you the same experience as Expo Go, but with your own custom runtime. [source](https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10)
+
+What's an Expo Development Build? - https://www.youtube.com/watch?v=Iw8FAUftJFU
 
 https://www.npmjs.com/package/expo-dev-client
 
-https://docs.expo.dev/development/introduction
+https://docs.expo.dev/development/introduction (old, redirects to https://docs.expo.dev/develop/development-builds/introduction/)
 
 > Expo Go app is a standard client containing a preset collection of modules. As your project moves toward release, you may find that you need to customize your project, either to reduce your bundle size, to use a module offered by developers in the React Native community, or even to add your own **custom native code**.
 
-> Development builds of your app are Debug builds containing the `expo-dev-client` package.
+> You can think of a development build as your fully customizable version of Expo Go.
 
 https://blog.expo.dev/introducing-custom-development-clients-5a2c79a9ddf8
 
@@ -141,13 +175,38 @@ More information:
 - https://blog.expo.dev/expo-dev-client-0-8-0-7116c1945253
 - https://medium.com/the-exponent-log/javascript-driven-development-with-custom-runtimes-eda87d574c9d
 
-### expo-dev-client setup
+### Type of builds
 
-Follow https://docs.expo.dev/development/getting-started/
+From https://docs.expo.dev/develop/development-builds/introduction/
 
-You need to have `"developmentClient": true` eas.json:
+> A **development build** of your app is a Debug build that contains the `expo-dev-client` package. As a **production** build is for the general public, and a **preview** build lets your team test your next release, a **development** build lets developers iterate as quickly as possible. It comes with extensible development tools to develop and test your project.
 
-```json
+https://docs.expo.dev/build/eas-json/#development-builds
+
+> These builds include developer tools, and they are never submitted to an app store.
+
+- Development
+  - https://docs.expo.dev/build/eas-json/#development-builds
+  - For development
+  - Includes developer tools
+  - Never submitted to an app store
+- Preview
+  - https://docs.expo.dev/build/eas-json/#preview-builds
+  - For internal testing
+  - Doesn't include developer tools
+  - They are either not signed for distribution on stores (ad hoc or enterprise provisioning on iOS), or are packaged in a way that is not optimal for store deployment (Android APK is best for preview, AAB is best for stores)
+- Production
+  - https://docs.expo.dev/build/eas-json/#production-builds
+  - For the general public
+  - Submitted to the store
+
+### expo-dev-client setup / create a development build
+
+Follow https://docs.expo.dev/develop/development-builds/create-a-build/ (old URL: https://docs.expo.dev/development/getting-started/)
+
+You need to have `"developmentClient": true` on `eas.json`:
+
+```json title="eas.json"
 {
   "build": {
     "development": {
@@ -172,6 +231,23 @@ eas build -p android --profile development
 After the build is created, install it on your device. Afterwards, to run the app do `expo start --dev-client` and click 'i' or 'a', or scan the QR code.
 
 Now _you won't have to wait for the native build process again until you change the underlying native code that powers your app_.
+
+### Config Plugins
+
+https://docs.expo.dev/config-plugins/introduction/
+
+When you add a native library (`npx expo install expo-camera`), you'll also add a plugin at the `app.json` / `app.config.js` / `app.config.ts` file:
+
+```js title="app.config.json"
+{
+  plugins: [
+    'expo-camera', // https://docs.expo.dev/versions/latest/sdk/camera/
+    'expo-build-properties', // https://docs.expo.dev/versions/latest/sdk/build-properties/
+    'react-native-health', // From https://www.youtube.com/watch?v=Iw8FAUftJFU&t=182s
+    './config-plugins/my-xyz-plugin',
+  ]
+}
+```
 
 ## In addition to `expo eject`, now there is also `expo prebuild`
 
