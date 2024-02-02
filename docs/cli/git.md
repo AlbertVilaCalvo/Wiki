@@ -406,6 +406,16 @@ https://git-scm.com/docs/git-stash
 git stash push -m "Some message"
 ```
 
+### Stash single file
+
+```shell
+git stash -- path/filename.txt
+git stash -- path/filename1.txt path/filename2.txt
+git stash -m "Some message" -- path/filename.txt
+```
+
+[source](https://stackoverflow.com/questions/5506339/how-can-i-git-stash-a-specific-file)
+
 ### Stash only staged changes
 
 https://git-scm.com/docs/git-stash#Documentation/git-stash.txt---staged
