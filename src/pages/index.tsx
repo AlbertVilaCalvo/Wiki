@@ -92,22 +92,38 @@ function DocIndex() {
             <div key={sidebarName}>
               <h2>{sidebarName}</h2>
               <div>
-                {Array.isArray(sidebars[sidebarName]) &&
+                {Array.isArray(sidebars[sidebarName]) ? (
                   // @ts-ignore
                   sidebars[sidebarName].map((sidebarItem) =>
                     typeof sidebarItem === 'string' ? (
                       <DocLink key={sidebarItem} to={sidebarItem} />
-                    ) : typeof sidebarItem === 'object' ? (
+                    ) : typeof sidebarItem === 'object' &&
+                      sidebarItem.type === 'category' ? (
+                      // https://docusaurus.io/docs/sidebar/items#generated-index-page
                       <div key={sidebarItem.label}>
                         <h3>{sidebarItem.label}</h3>
-                        {sidebarItem.items.map((subItem) => (
+                        {sidebarItem.items.map((subItem: string) => (
                           <DocLink key={subItem} to={subItem} />
                         ))}
+                      </div>
+                    ) : typeof sidebarItem === 'object' &&
+                      sidebarItem.type === undefined ? (
+                      // https://docusaurus.io/docs/sidebar/items#category-shorthand
+                      <div key={Object.keys(sidebarItem)[0]}>
+                        <h3>{Object.keys(sidebarItem)[0]}</h3>
+                        {sidebarItem[Object.keys(sidebarItem)[0]].map(
+                          (subItem: string) => (
+                            <DocLink key={subItem} to={subItem} />
+                          )
+                        )}
                       </div>
                     ) : (
                       <p>Warning: unexpected item type</p>
                     )
-                  )}
+                  )
+                ) : (
+                  <p>{`Warning sidebars[${sidebars[sidebarName]}] is not an array`}</p>
+                )}
               </div>
             </div>
           ))}
