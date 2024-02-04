@@ -71,6 +71,8 @@ const sidebars = {
     'cloud/service-discovery',
     'cloud/observability',
     'cloud/gcp',
+    'cloud/kafka',
+    'cloud/argocd',
   ],
   aws: [
     'aws/aws',
