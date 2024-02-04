@@ -90,6 +90,28 @@ const sidebars = {
     'aws/well-architected-framework',
     'aws/sns',
     'aws/sqs',
+    // https://docusaurus.io/docs/sidebar/items#category-shorthand
+    {
+      Certifications: [
+        'aws/certifications/cloud-practitioner'
+      ]
+    },
+    // Alternatively, we could have a Generated index page:
+    // https://docusaurus.io/docs/sidebar/items#generated-index-page
+    // {
+    //   type: 'category',
+    //   label: 'Certifications',
+    //   collapsed: false,
+    //   link: {
+    //     type: 'generated-index',
+    //     title: 'AWS Certifications',
+    //     // description: 'Some description',
+    //     slug: '/aws/certifications',
+    //     // keywords: ['aws'],
+    //     // image: '/img/logo.svg',
+    //   },
+    //   items: ['aws/certifications/cloud-practitioner'],
+    // },
   ],
   http: [
     'http/http',

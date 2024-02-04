@@ -44,6 +44,8 @@ const config = {
           editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
           // Having breadcrumbs is pointless since I rarely have nested docs
           breadcrumbs: false,
+          // https://docusaurus.io/docs/sidebar/items#expanded-categories-by-default
+          sidebarCollapsed: false,
         },
         blog: {
           showReadingTime: true,
