@@ -195,21 +195,22 @@ Steps:
 
 - Sign in to the console as Root user.
 - Click your name at the top navbar → Account. At the section 'IAM User and Role Access to Billing Information' click 'Edit' and enable 'Activate IAM Access'.
-- Go to the IAM console → Users and click 'Add users'.
+- Go to the IAM console → Users and click 'Create user'.
 - On the 'Set user details' page do:
   - Set 'User name' to 'Administrator'.
-  - Check 'Password - AWS Management Console access'.
-  - Set a password at 'Custom password'.
-  - Uncheck 'User must create a new password at next sign-in'.
-  - Click 'Next: Permissions'.
+  - Check 'Provide user access to the AWS Management Console'.
+  - Select 'I want to create an IAM user'.
+  - Set a password at 'Custom password' and save it.
+  - Uncheck 'Users must create a new password at next sign-in'.
+  - Click 'Next'.
 - On the 'Set permissions' page do:
   - Click 'Add user to group' and then 'Create group'.
   - Set 'Group name' to 'Administrators'.
   - Check the policy 'AdministratorAccess'.
   - Click 'Create group'.
-  - Click the 'Next: Tags' button.
-- On the 'Add tags (optional)' page optionally add [tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html).
-- Click 'Next: Review' and then 'Create user'.
+  - Click 'Next'.
+- On the 'Review and create' page optionally add [tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html).
+  - Click 'Create user'.
 
 ## Enforce MFA to users
 
