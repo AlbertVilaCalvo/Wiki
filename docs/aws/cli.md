@@ -67,7 +67,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 
 `aws configure help`
 
-`aws configure` is the fastest way to set up your AWS CLI installation
+`aws configure` is the fastest way to set up your AWS CLI installation.
 
 `aws sts get-caller-identity` → Returns details about the IAM user or role whose credentials are used to call the operation - [source](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html). You can do `aws sts get-caller-identity --query Account --output text` to get only the account ID.
 
@@ -97,6 +97,26 @@ aws_access_key_id=
 aws_secret_access_key=
 # aws_session_token=
 ```
+
+### Create Access keys using the web console
+
+- Go to the IAM console → Users and select your Admin user (_not the root user_).
+- Click the 'Security credentials' tab.
+- Scroll down to 'Access keys'.
+- Click 'Create access key'.
+- Select 'Command Line Interface (CLI)'.
+- Check 'I understand the above recommendation and want to proceed to create an access key'.
+- Click 'Next'.
+- On the 'Set description tag' set a tag like 'MBP2016'.
+- Click 'Create access key'.
+
+Once the access key is shown on the 'Retrieve access keys' page, on the terminal run `aws configure`.
+
+- Paste the 'Access Key ID' and then the 'Secret Access Key' from the website.
+- Set 'Default region name' to `us-east-1`, `eu-west-3` or else.
+- Leave 'Default output format' to 'json'.
+
+Doing `aws s3 ls` should give a response (will be empty if there are no buckets, but no credentials error will appear).
 
 ## Filtering AWS CLI output
 
