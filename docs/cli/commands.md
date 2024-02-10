@@ -4,6 +4,8 @@ title: Commands
 
 tldr man pages: https://tldr.sh
 
+https://en.wikipedia.org/wiki/List_of_POSIX_commands
+
 Bash Reference Manual: https://www.gnu.org/software/bash/manual/html_node/index.html
 
 The Art of Command Line: https://github.com/jlevy/the-art-of-command-line
@@ -65,6 +67,81 @@ https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html
 ```shell
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 ```
+
+## Aliases
+
+On your `.zshrc` or `.bash_profile` put:
+
+```shell
+alias l='ls -la'
+```
+
+## cd
+
+```shell
+cd # Go to user's home (~). You can also do 'cd ~'
+cd - # Go to the previous directory
+cd / # Go to the root directory
+cd ~username # Go to the user's root directory
+```
+
+## cp
+
+```shell
+cp -r dir1 dir2 # Recursively
+```
+
+## mv
+
+```shell
+mv file.txt dir
+```
+
+## rm
+
+```shell
+rm -r dir # Recursive is required to delete a directory
+```
+
+## mkdir / rmdir
+
+```shell
+mkdir -p dir1/dir2/dir3 # With -p if dir1 and dir2 don't exist, it creates them
+rmdir -p dir1/dir2/dir3 # With -p it removes dir1 and dir2 too
+```
+
+## touch
+
+Either updates the access or modification date of a file, or creates an empty file if it doesn't exist.
+
+Useful to create locks, eg to avoid multiple editing or access. See https://unix.stackexchange.com/questions/109003/what-are-the-legitimate-uses-of-the-touch-command
+
+## echo
+
+```shell
+echo "Java home is $JAVA_HOME"
+echo "something" >> file.txt # Appends
+echo "something" > file.txt # OVERWRITES ALL FILE CONTENT
+echo -n "abc" # Do not add a newline (at the end)
+```
+
+## cat
+
+Backup some file before modifying it, just in case:
+
+```shell
+cat file.txt > file-backup.txt # Equivalent to 'cp file.txt file-backup.txt'
+```
+
+## less
+
+If the file is big is better use `less` not `cat`.
+
+```shell
+less file.txt
+```
+
+Use `/Whatever` for searching.
 
 ## find
 
