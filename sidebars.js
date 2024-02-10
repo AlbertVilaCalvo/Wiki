@@ -76,6 +76,7 @@ const sidebars = {
   ],
   aws: [
     'aws/aws',
+    'aws/billing-pricing',
     'aws/cli',
     'aws/iam',
     'aws/ec2',
