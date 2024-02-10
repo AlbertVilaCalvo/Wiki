@@ -106,15 +106,15 @@ Since we are not going to use the root account, we need to grant access to the b
 
 Navigate to the 'Account page' (either at the top right drop-down or by searching 'Account'). Scroll down to 'IAM user and role access to Billing information', click 'Edit', check 'Activate IAM Access' and click 'Update'.
 
-### PDF invoices delivery by email
+### Enable PDF invoices delivery by email
 
 Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 'Billing Preferences' (at the left menu). Enable 'PDF invoices delivery by email'.
 
-### Free tier alerts
+### Enable Free tier alerts
 
 Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 'Billing Preferences' (at the left menu) and enable 'AWS Free Tier alerts'.
 
-### Budget and billing alarm
+### Create Budget and billing alarm/alert
 
 Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 'Billing Preferences' (at the left menu) and enable 'Receive CloudWatch billing alerts'.
 
