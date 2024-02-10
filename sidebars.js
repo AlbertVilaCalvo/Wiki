@@ -184,6 +184,7 @@ const sidebars = {
     'misc/hosts',
     'misc/youtube-dl',
     'misc/markdown',
+    'misc/wikis',
   ],
   disseny: [
     'disseny/ui',
