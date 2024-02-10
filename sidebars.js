@@ -130,6 +130,7 @@ const sidebars = {
   ],
   web: [
     'web/images',
+    'web/cloudinary',
     'web/favicon',
     'web/performance',
     'web/accessibility',
