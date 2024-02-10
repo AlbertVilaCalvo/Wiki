@@ -39,7 +39,15 @@ https://github.com/GoogleContainerTools/container-diff
 
 ## Learn
 
+https://docs.docker.com/get-started/resources
+
 How to Get Started with Docker - https://www.youtube.com/watch?v=iqqDU2crIEQ
+
+https://labs.play-with-docker.com
+
+https://leanpub.com/erase-una-vez-docker
+
+https://www.amazon.com/Getting-Started-Docker-Nigel-Poulton/dp/1916585302/
 
 ## Best practices
 
