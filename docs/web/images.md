@@ -6,6 +6,10 @@ https://screensiz.es
 
 TODO download and try: https://github.com/ImageOptim/ImageOptim
 
+See resources: https://github.com/nucliweb/image-optimization-workshop#resources
+
+Best practices for web images: https://github.com/nucliweb/image-element
+
 ## Responsive images (`srcset` and `sizes`)
 
 This contains many correct examples: https://ausi.github.io/respimagelint/docs.html
