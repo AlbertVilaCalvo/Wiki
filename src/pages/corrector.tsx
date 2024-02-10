@@ -14,7 +14,12 @@ export default function Corrector(): JSX.Element {
       <main>
         <div className="container">
           <h1 className="hero__title">Corrector</h1>
-          <textarea style={{ width: '100%', height: '58vh' }} />
+          <a href="https://www.softcatala.org/corrector/">
+            Corrector de Softcatalà
+          </a>
+          <textarea
+            style={{ marginTop: '20px', width: '100%', height: '58vh' }}
+          />
         </div>
       </main>
     </Layout>
