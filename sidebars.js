@@ -129,6 +129,7 @@ const sidebars = {
   ],
   web: [
     'web/images',
+    'web/favicon',
     'web/performance',
     'web/accessibility',
     'web/chrome-devtools',
