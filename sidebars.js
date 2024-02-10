@@ -70,9 +70,10 @@ const sidebars = {
     'cloud/system-design',
     'cloud/service-discovery',
     'cloud/observability',
-    'cloud/gcp',
+    'cloud/grpc',
     'cloud/kafka',
     'cloud/argocd',
+    'cloud/gcp',
   ],
   aws: [
     'aws/aws',
