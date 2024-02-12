@@ -33,6 +33,10 @@ Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 
 
 Afterwards, navigate to 'Budgets' (at the left menu) and click 'Create a budget'. Choose 'Monthly cost budget'. Set the budget name, the 'budgeted amount ($)' and the 'Email recipients'. Finally click 'Create budget'.
 
+:::tip
+Is better to create multiple alarms, like $10, $15, $20…
+:::
+
 ## Pricing
 
 https://aws.amazon.com/pricing

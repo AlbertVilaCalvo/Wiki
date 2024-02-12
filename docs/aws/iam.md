@@ -175,12 +175,25 @@ From https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-
 
 > It's a best practice to enable multi-factor authentication (MFA) on the root account to secure your AWS resources. [source](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
 
+How to:
+
+- At the top right menu, go to 'Security credentials'. You'll see a warning 'You don't have MFA assigned'. Click 'Assign MFA'.
+- Alternatively, go to the IAM Dashboard and you'll see a warning 'Add MFA for root user' (and 'Add MFA for yourself' if you are not root) on the 'Security recommendations' box. Click 'Add MFA'.
+
+Documentation:
+
 - Enable MFA on the AWS account root user - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user_manage_mfa
 - Enable a **virtual** MFA device for your AWS account root user (console) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable_virtual.html#enable-virt-mfa-for-root
   - > Make a secure backup of the QR code or secret configuration key, or make sure that you enable multiple virtual MFA devices for your account.
 - Enable a **hardware** MFA device for the AWS account root user (console) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable_physical.html#enable-hw-mfa-for-root
 
 Recovering a root user MFA device - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_lost-or-broken.html#root-mfa-lost-or-broken - See steps at https://www.howtoforge.com/how-to-recover-aws-account-access-if-the-mfa-device-is-lost/
+
+### Add MFA to _other_ users
+
+(This works for yourself too if you are not the root user, since it doesn't appear on the list.)
+
+Go to the IAM Dashboard → Users and select a user. Click the 'Security credentials' tab and do 'Assign MFA device'.
 
 ## Create the first IAM admin user
 
