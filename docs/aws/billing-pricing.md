@@ -2,6 +2,8 @@
 title: Billing & Pricing
 ---
 
+Billing dashboard (old page): https://console.aws.amazon.com/billing/home
+
 ## Billing
 
 :::info Important
@@ -27,7 +29,7 @@ Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 
 
 Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 'Billing Preferences' (at the left menu) and enable 'AWS Free Tier alerts'.
 
-### Create Budget and billing alarm/alert
+### Create Budget and enable CloudWatch billing alarm/alert
 
 Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 'Billing Preferences' (at the left menu) and enable 'Receive CloudWatch billing alerts'.
 
