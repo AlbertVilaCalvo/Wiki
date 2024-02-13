@@ -2,8 +2,6 @@
 title: AWS
 ---
 
-Billing dashboard: https://console.aws.amazon.com/billing/home#/
-
 Documentation: https://docs.aws.amazon.com/index.html
 
 re:Post - https://www.repost.aws
@@ -39,6 +37,17 @@ Serverless Patterns Collection - https://serverlessland.com/patterns
 Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
 
 Infracost - https://www.infracost.io/
+
+## Things to do when you create an AWS account
+
+With the root user.
+
+- Enable MFA for the root user [link](/aws/iam#root-user-multi-factor-authentication-mfa)
+- Enable IAM access to billing (so that non-root users can have access to billing) [link](/aws/billing-pricing#enable-iam-access-to-billing)
+- Enable free tier alerts [link](/aws/billing-pricing#enable-free-tier-alerts)
+- Enable CloudWatch billing alerts and create one or more budgets [link](/aws/billing-pricing#create-budget-and-enable-cloudwatch-billing-alarmalert)
+- Create the first IAM admin user [link](/aws/iam#create-the-first-iam-admin-user)
+- Enforce MFA to users [link](/aws/iam#enforce-mfa-to-users)
 
 ## Multiple accounts
 
