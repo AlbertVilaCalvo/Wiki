@@ -7,7 +7,7 @@ Blog:
 - https://expo.dev/changelog
 - https://blog.expo.dev
 
-VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo
+VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo-tools
 
 ## Keyboard shortcuts
 
@@ -23,13 +23,25 @@ https://docs.expo.dev/debugging/tools/#developer-menu
   - Run `adb shell input keyevent 82` or `adb shell input keyevent KEYCODE_MENU` ???
 - iOS simulator
   - Cmd + D
-  - Cmd + Ctrl + Z (shake your device)
+  - Cmd + Ctrl + Z (shake your device). You can also do Device → Shake
 
 ## app.json / app.config.js / app.config.ts
 
 Configuration with app.json / app.config.js: https://docs.expo.dev/workflow/configuration/
 
 Properties: https://docs.expo.dev/versions/latest/config/app/
+
+View the resulting `app.config.ts` configuration:
+
+```shell
+npx expo config
+npx expo config --full
+npx expo config --type public
+npx expo config --type prebuild
+npx expo config --type introspect
+```
+
+See the docs for more info on config types: https://docs.expo.dev/more/expo-cli/#config
 
 ### infoPlist
 
@@ -68,7 +80,7 @@ From https://docs.expo.dev/more/expo-cli/#highlights
 - [Start a server](https://docs.expo.dev/more/expo-cli#develop) for developing your app: `npx expo start`.
 - [Generate the native Android and iOS directories](https://docs.expo.dev/more/expo-cli#prebuild) for your project: `npx expo prebuild`.
 - [Build and run](https://docs.expo.dev/more/expo-cli#compiling) the native apps locally: `npx expo run:ios` and `npx expo run:android`.
-  - Important: `expo run` also generates the native projects!
+  - Important: `expo run` also generates the native projects if they don't exist yet: _if your project does not have an `ios` directory in the root of your project, then `npx expo run:ios` will first run `npx expo prebuild -p ios` before compiling your app_
 - [Install and update packages](https://docs.expo.dev/more/expo-cli#install) that work with the version of react-native in your project: `npx expo install package-name`.
 - `npx expo` can be used with `npx react-native` simultaneously.
 
@@ -154,6 +166,8 @@ Replaces [Expo Go](https://docs.expo.dev/get-started/expo-go/), which contains a
 
 > Expo Go is not recommended for building production-quality apps — use [development builds](https://docs.expo.dev/develop/development-builds/introduction) instead. [source](https://docs.expo.dev/get-started/expo-go/)
 
+> When your project requires **custom native code, a config plugin, a custom runtime version, or a reduced bundle size** of the app, you can transition from using Expo Go to developing a development build. [source](https://docs.expo.dev/develop/development-builds/introduction/)
+
 > It’s a React Native library that gives you the same experience as Expo Go, but with your own custom runtime. [source](https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10)
 
 What's an Expo Development Build? - https://www.youtube.com/watch?v=Iw8FAUftJFU
@@ -199,6 +213,7 @@ https://docs.expo.dev/build/eas-json/#development-builds
   - https://docs.expo.dev/build/eas-json/#production-builds
   - For the general public
   - Submitted to the store
+  - Production builds must be installed through their respective app stores. They cannot be installed directly on your Android Emulator or device, or iOS Simulator or device. The only exception to this is if you explicitly set `"buildType": "apk"` for Android on your build profile. However, it is recommended to use **aab** when submitting to stores, and this is the default configuration. [source](https://docs.expo.dev/deploy/build-project/#production-builds-using-eas)
 
 ### expo-dev-client setup / create a development build
 
@@ -238,7 +253,7 @@ https://docs.expo.dev/config-plugins/introduction/
 
 When you add a native library (`npx expo install expo-camera`), you'll also add a plugin at the `app.json` / `app.config.js` / `app.config.ts` file:
 
-```js title="app.config.json"
+```ts title="app.config.ts"
 {
   plugins: [
     'expo-camera', // https://docs.expo.dev/versions/latest/sdk/camera/
@@ -273,6 +288,8 @@ https://blog.expo.dev/introducing-eas-395d4809cc6f
 
 https://expo.dev/eas
 
+https://docs.expo.dev/eas
+
 https://blog.expo.dev/expo-application-services-eas-build-and-submit-fc1d1476aa2e
 
 Install the CLI: `npm install -g eas-cli` ([npm is recommended instead of yarn](https://docs.expo.dev/build/setup/#1-install-the-latest-eas-cli))
@@ -281,10 +298,12 @@ Login: `eas login`
 
 Check the current user: `eas whoami`
 
-### eas.json properties
+### `eas.json`
 
-- https://docs.expo.dev/build-reference/eas-json/
-- https://docs.expo.dev/submit/eas-json/
+Properties:
+
+- https://docs.expo.dev/eas/json
+- https://docs.expo.dev/submit/eas-json
 
 ### EAS Build
 
@@ -327,9 +346,17 @@ Download a simulator build from EAS servers and run it directly on your emulator
 - `eas build:run -p ios` - https://docs.expo.dev/build-reference/simulators/#installing-build-on-the-simulator
 - `eas build:run -p android` - https://docs.expo.dev/build-reference/apk/#emulator-virtual-device
 
+:::tip
+Attach a message to distinguish builds with `eas build --platform ios --message "JIRA-XYZ PR #650"`
+
+_You can attach a message to the build by passing `--message` to the build command. The message will appear on the website. It comes in handy when you want to leave a note with the purpose of the build for your team._ [source](https://docs.expo.dev/deploy/build-project/#create-a-production-build)
+:::
+
 ### Signing
 
 https://docs.expo.dev/app-signing/app-credentials/
+
+Use `eas credentials` to manage (create, download, delete) Android keystores, iOS distribution certificates etc.
 
 ### Signing Android
 
@@ -362,6 +389,10 @@ https://blog.expo.dev/eas-update-preview-progress-f504a30066fc
 > EAS Update also doubles as a workflow efficiency tool, streamlining feedback loops by allowing teams to share previews of their projects during PR review. We love being able to push to GitHub, trigger a GitHub action to publish an update, then see it immediately inside of a development build.
 
 Using Expo OTA Updates in your React Native app - Eric Samelson at @ReactEurope 2020: https://www.youtube.com/watch?v=Si909la3rLk
+
+Gotcha from https://docs.expo.dev/eas-update/environment-variables/
+
+> When you run `eas update`, any `.env` files present will be evaluated when your JavaScript is bundled. Any `EXPO_PUBLIC` variables in your application code will be replaced inline with the corresponding values from your `.env` files that are present on the machine from which the update is published, whether that is your local machine or your CI/ CD server.
 
 ## Run the production app
 
@@ -400,7 +431,9 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 - [SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) - 2022-08
 - [SDK 47](https://blog.expo.dev/expo-sdk-47-a0f6f5c038af) - 2022-11
 - [SDK 48](https://blog.expo.dev/expo-sdk-48-ccb8302e231) - 2023-02
-- [SDK 50](https://blog.expo.dev/expo-sdk-50-afb524038906) - 2024-01 - https://expo.dev/changelog/2024/01-18-sdk-50 -
+- [SDK 49](https://blog.expo.dev/expo-sdk-49-c6d398cdf740) - 2023-07
+  - Network debugging in the JS debugger. See https://blog.expo.dev/three-ways-to-use-network-debugging-75fa6118fac6 for more
+- [SDK 50](https://blog.expo.dev/expo-sdk-50-afb524038906) - 2024-01 - https://expo.dev/changelog/2024/01-18-sdk-50 - Highlights https://www.youtube.com/watch?v=cKFSVUo3AnI
 
 ## Unimodules → Expo modules
 
