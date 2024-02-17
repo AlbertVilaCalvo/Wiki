@@ -4,6 +4,8 @@ title: Android
 
 Google Play SDK Index: https://play.google.com/sdks/categories/ads. For more info see https://developer.android.com/distribute/sdk-index and the [announcement](https://android-developers.googleblog.com/2022/05/new-google-play-sdk-index.html).
 
+Debugging in Android Studio - https://medium.com/androiddevelopers/debugging-in-android-studio-dfbbf8a8d03c
+
 ## CLI
 
 List emulators: `emulator -list-avds`
