@@ -10,7 +10,7 @@ FAQs: https://aws.amazon.com/iam/faqs/
 
 https://github.com/topics/iam
 
-Security best practices in IAM - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+**Security best practices in IAM** - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 
 IAM Access Analyzer - https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html - See some use cases at [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html).
 
@@ -228,6 +228,10 @@ There are 2 guides/tutorials that explain how to set up the admin user:
 ## Enforce MFA to users
 
 Prevent users to perform actions unless they've set up MFA with a policy - https://www.youtube.com/watch?v=cP_IbgnK8yk - https://github.com/iaasacademy/aws-how-to-guide/tree/main/Enable%20IAM%20Users%20to%20setup%20MFA - https://iaasacademy.com/aws-how-to-guides/enable-iam-users-to-manage-their-mfa-settings-aws-how-to-guide/
+
+## Password policy
+
+Go to IAM → Account settings and on the Password policy box click the 'Edit' button.
 
 ## Policy
 
