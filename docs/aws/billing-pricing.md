@@ -59,3 +59,5 @@ Cloud cost estimates for Terraform in pull requests - https://github.com/infraco
 https://www.lastweekinaws.com/blog/the-key-to-unlock-the-aws-billing-puzzle-is-architecture/ (taken from https://danielcompton.net/penny-wise-cloud-foolish)
 
 https://www.economize.cloud
+
+Infracost - https://www.infracost.io

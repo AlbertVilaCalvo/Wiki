@@ -40,6 +40,8 @@ If the CLI is installed with Brew, auto-completion should work with no extra con
 
 ## Best practices for managing AWS access keys
 
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#securing_access-keys
+
 https://docs.aws.amazon.com/accounts/latest/reference/credentials-access-keys-best-practices.html
 
 - Remove (or don't generate) an account access key

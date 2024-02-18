@@ -16,7 +16,7 @@ Back to Basics video series: https://aws.amazon.com/es/architecture/back-to-basi
 
 Open guide: https://github.com/open-guides/og-aws
 
-DevOps exercises: https://github.com/bregman-arie/devops-exercises/blob/master/topics/aws/README.md
+DevOps exercises: https://github.com/bregman-arie/devops-exercises/blob/master/topics/aws/README.md -> Some solutions include Terraform and Pulumi
 
 https://github.com/topics/aws
 
@@ -30,13 +30,13 @@ https://github.com/donnemartin/awesome-aws
 
 https://www.101daysofdevops.com/courses/100-days-of-aws/
 
+Local Stack - https://www.localstack.cloud - https://github.com/localstack/localstack
+
 AWS’s Egregious Egress - https://blog.cloudflare.com/aws-egregious-egress
 
 Serverless Patterns Collection - https://serverlessland.com/patterns
 
 Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
-
-Infracost - https://www.infracost.io/
 
 ## Things to do when you create an AWS account
 
