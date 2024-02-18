@@ -31,7 +31,7 @@ https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html
 - Choose the instance type (t2.nano, t2.micro...)
 - Choose a [key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) if you plan to connect to the instance using SSH
   - You can create a new one of type 'RSA', file format `.pem` and name like `us-east-kp`
-- On the 'Network settings' click 'Edit'
+- On the 'Network settings'
   - VPC: select one or just use the default
   - Subnet: No preference
   - Auto-assign public IP: Enable
@@ -44,6 +44,11 @@ https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html
       - (This will open port 22 for SSH access)
     - If we have one:
       - Check 'Select exiting security group' and select it
+- Advanced details (optional)
+  - IAM instance profile: attach any IAM Role for accessing services like S3
+  - Metadata accessible: Enabled
+  - Metadata version: V1 and V2 or V2
+  - Set 'User data'
 - Click 'Launch instance'
 
 To terminate the instance, at the Instances pages open the 'Instance state' drop-down and click 'Terminate instance'.
@@ -102,6 +107,41 @@ Enables access to/from the internet.
 ## Security group
 
 A virtual firewall that controls incoming and outgoing (inbound and outbound) traffic.
+
+## Metadata
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
+
+Information about the instance, stored locally.
+
+The IP address 169.254.169.254 is the address of Instance Metadata Service that runs locally on the same computer. It's a [link-local address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#link-local-addresses). It can be accessed only from the instance.
+
+To [get the instance metadata](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html) run:
+
+```shell
+# V1
+curl http://169.254.169.254/
+curl http://169.254.169.254/latest/meta-data
+curl http://169.254.169.254/latest/meta-data/instance-id
+
+# V2
+# Get token
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+# or
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+# Use token
+curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/placement/availability-zone
+```
+
+## User Data
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html
+
+Code scripts that run when the instance starts, to customize the instance.
+
+Limited to 16 kB.
+
+Accessible at the metadata.
 
 ## Amazon Linux
 

@@ -101,6 +101,8 @@ mv file.txt dir
 
 ```shell
 rm -r dir # Recursive is required to delete a directory
+rm -r * # Remove all files in current directory, except hidden files
+rm -r * .* # Remove all files in current directory, including hidden files
 ```
 
 ## mkdir / rmdir

@@ -67,6 +67,7 @@ Go to Preferences | Languages and Frameworks | JavaScript | Prettier:
 
 - Set 'Prettier package' to `<project-dir>/node_modules/prettier`.
 - Set 'Run for files' to the glob pattern `{**/*,*}.{js,ts,jsx,tsx,css,json,md,yml,yaml}`.
+  - Since WebStorm 2023.3 `{**/*,*}.{js,ts}` can be simplified to `**/*.{js,ts}` [source](https://youtrack.jetbrains.com/issue/WEB-63021)
 - Check 'On Reformat Code action' and 'On save'.
 
 Reformat with Prettier: ⌥⇧⌘P

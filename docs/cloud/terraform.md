@@ -36,6 +36,8 @@ Terraform Best Practices for AWS users - https://github.com/ozbillwang/terraform
 
 https://github.com/bregman-arie/devops-exercises/blob/master/topics/terraform/README.md
 
+- Also in https://github.com/bregman-arie/devops-exercises/blob/master/topics/aws/README.md some solutions include Terraform
+
 https://github.com/MichaelCade/90DaysOfDevOps#learn-infrastructure-as-code
 
 https://medium.com/devops-mojo/terraform-best-practices-top-best-practices-for-terraform-configuration-style-formatting-structure-66b8d938f00c
