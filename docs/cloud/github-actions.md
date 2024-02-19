@@ -181,6 +181,39 @@ Creating OpenID Connect (OIDC) identity providers - https://docs.aws.amazon.com/
 
 Creating a role for a third-party Identity Provider (federation) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html
 
+## Manually triggered workflow
+
+You need the on [`workflow_dispatch`](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch) event, see https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow
+
+Note that the workflow needs to be merged on a main branch, otherwise you won't see it on the Actions page: _This event will only trigger a workflow run if the workflow file is on the default branch._ [source](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch)
+
+Example of a drop down:
+
+```yml
+name: Native Apps Build
+
+defaults:
+  run:
+    working-directory: apps/patient
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'iOS and/or Android'
+        required: true
+        type: choice
+        default: 'ios'
+        options:
+          - ios
+          - android
+          - ios-and-android
+
+jobs:
+```
+
+`type` can be `string`, `choice`, `boolean` and `environment` - see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_dispatchinputs
+
 ## Run a single job at a time
 
 https://docs.github.com/en/actions/using-jobs/using-concurrency
