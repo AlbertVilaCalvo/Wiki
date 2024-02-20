@@ -18,6 +18,8 @@ https://github.com/grrr-amsterdam/simply-static-deploy
 
 Automattic acquires Frontity - https://thenewstack.io/frontity-and-the-future-of-wordpress-as-a-dev-platform - - https://frontity.org/blog/frontity-is-joining-automattic - https://frontity.org - https://github.com/frontity/frontity
 
+https://github.com/house-of-giants/hog-scaffold - from https://dev.to/magnificode/why-everyone-hates-wordpress-1ljd
+
 ## Security
 
 Scanner: https://pentest-tools.com/cms-vulnerability-scanning/wordpress-scanner-online-wpscan

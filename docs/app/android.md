@@ -112,6 +112,12 @@ https://developer.android.com/about/versions/12/behavior-changes-all#back-press
 
 https://twitter.com/TatoKutalia/status/1450543203007057927
 
+## SDK API levels
+
+https://apilevels.com
+
+https://developer.android.com/tools/releases/platforms
+
 ## Target API level requirements for Google Play apps
 
 - Meet Google Play's target API level requirement - https://developer.android.com/google/play/requirements/target-sdk
