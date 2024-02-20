@@ -59,10 +59,12 @@ https://stackoverflow.com/questions/1911109/how-do-i-clone-a-specific-git-branch
 If not pushed yet:
 
 ```shell
-# keep changes
+# Keep changes
 git reset --soft HEAD^
 
-# discard changes - IMPORTANT: THIS ALSO DISCARDS ANYTHING NOT STAGED
+# Discard changes
+# WARNING: THIS ALSO DISCARDS ANY CHANGES ON TRACKED FILES!
+# TO AVOID LOOSING CHANGES DO 'git stash push' BEFORE
 git reset --hard HEAD^
 ```
 
@@ -81,7 +83,8 @@ Also see: [git undo: We can do better](https://blog.waleedkhan.name/git-undo/)
 If not pushed yet:
 
 ```shell
-# IMPORTANT: THIS ALSO DISCARDS ANYTHING NOT STAGED
+# WARNING: THIS ALSO DISCARDS ANY CHANGES ON TRACKED FILES!
+# TO AVOID LOOSING CHANGES DO 'git stash push' BEFORE
 git reset --hard HEAD^
 ```
 
@@ -204,7 +207,7 @@ https://gist.github.com/Chaser324/ce0505fbed06b947d962
 
 http://blog.davidecoppola.com/2016/11/howto-contribute-to-open-source-project-on-github/
 
-```
+```shell
 git remote add upstream git@github.com:Kotlin/kotlinx.coroutines.git
 ```
 
@@ -301,7 +304,7 @@ https://stackoverflow.com/questions/9823692/resolving-a-both-added-merge-conflic
 
 Estic a una branca i faig merge de `dev` a la meva branca. Si vull lo de `dev` faig:
 
-```
+```shell
 git checkout --theirs <filename>
 git add <filename>
 ```
@@ -316,6 +319,11 @@ git add <filename>
 Nota: pel `<filename>` es pot fer servir `*` per seleccionar varis fitxers alhora, i també pot ser una carpeta.
 
 ## Overwrite/reset local branch like remote branch
+
+:::danger
+This will discard any changes on tracked files!
+To avoid loosing changes do `git stash push` before.
+:::
 
 ```shell
 git reset --hard @{u}
