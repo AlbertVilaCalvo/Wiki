@@ -12,6 +12,10 @@ Clean Project: https://github.com/pmadruga/react-native-clean-project
 
 ## Development environment setup
 
+:::tip
+Use `npx react-native doctor` to check if you have everything properly setup [docs](https://github.com/react-native-community/cli/blob/main/packages/cli-doctor/README.md#doctor)
+:::
+
 To develop with Expo we only need watchman, Xcode, the Command Line Tools and Android Studio. To develop normal React Native apps we need Ruby, Cocoapods etc.
 
 Installing a Java JDK and setting `$JAVA_HOME` is only necessary if we want to re-use the same daemon between Android Studio and the terminal.
@@ -51,37 +55,72 @@ path+=("$ANDROID_HOME/emulator")
 path+=("$ANDROID_HOME/platform-tools")
 ```
 
-You can check if the environment variable is set with `echo $ANDROID_HOME` (just `$ANDROID_HOME` prints nothing, even if the envar set).
-
-And you can check that `adb` and `emulator` are on the `$PATH` with `which adb` and `which emulator`.
+Check if the environment variable is set with `echo $ANDROID_HOME`. And check that `adb` and `emulator` are on the `$PATH` with `which adb` and `which emulator`.
 
 ## CLI
 
 https://github.com/react-native-community/cli
 
-Commands: https://github.com/react-native-community/cli/blob/master/docs/commands.md
+Commands: https://github.com/react-native-community/cli/blob/main/docs/commands.md
 
-Start Metro bundler: `npx react-native start`
+Create app: `npx react-native@latest init MyApp`. Note that there's no need to pass `--template react-native-template-typescript` since [version 0.71](https://reactnative.dev/blog/2023/01/03/typescript-first). The [TypeScript template](https://github.com/react-native-community/react-native-template-typescript/) is deprecated.
 
-Reset cache: `npx react-native start --reset-cache`
+Check environment setup: `npx react-native doctor`
 
-_Also see_ https://github.com/pmadruga/react-native-clean-project
+### Start dev server
 
-### iOS
+[`start` docs](https://github.com/facebook/react-native/tree/main/packages/community-cli-plugin#start)
 
-[`run-ios` docs](https://github.com/react-native-community/cli/blob/master/docs/commands.md#run-ios)
+```shell
+npx react-native start
+```
 
-Run instructions for iOS: `npx react-native run-ios` or open ios/YourAppName.xcworkspace in Xcode (or run "xed -b ios") and then hit the run button.
+```shell
+npx react-native start --reset-cache
+```
+
+_To clean the cache also see_ https://github.com/pmadruga/react-native-clean-project
+
+### Run iOS
+
+[`run-ios` docs](https://github.com/react-native-community/cli/blob/main/packages/cli-platform-ios/README.md#run-ios)
+
+```shell
+npx react-native run-ios
+```
+
+```
+Run instructions for iOS:
+  • cd "/Users/albert/Desktop/MemoryGame/ios"
+
+  • Install Cocoapods
+    • bundle install # you need to run this only once in your project.
+    • bundle exec pod install
+    • cd ..
+
+  • npx react-native run-ios
+  - or -
+  • Open MemoryGame/ios/MemoryGame.xcodeproj in Xcode or run "xed -b ios"
+  • Hit the Run button
+```
 
 Run on a specific iOS simulator: `npx react-native run-ios --simulator "iPhone XS Max"`. (Use `xcrun simctl list devices` to list the simulators.)
 
 Run Release configuration: `npx react-native run-ios --configuration Release` (default configuration is 'Debug').
 
-### Android
+### Run Android
 
-[`run-android` docs](https://github.com/react-native-community/cli/blob/master/docs/commands.md#run-android)
+[`run-android` docs](https://github.com/react-native-community/cli/blob/main/packages/cli-platform-android/README.md#run-android)
 
-Run instructions for Android: `npx react-native run-android`. You may have an Android emulator running or a device connected.
+```shell
+npx react-native run-android
+```
+
+```
+Run instructions for Android:
+  • Have an Android emulator running (quickest way to get started), or a device connected.
+  • cd "/Users/albert/Desktop/MemoryGame" && npx react-native run-android
+```
 
 Run on a specific Android emulator: `npx react-native run-android --deviceId emulator-5554`. You can get the emulator id with `adb devices`.
 
@@ -165,7 +204,7 @@ Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. 
 ## Releases
 
 - [0.71 2023/01](https://reactnative.dev/blog/2023/01/12/version-071)
-  - TypeScript by default on new projects
+  - [TypeScript by default](https://reactnative.dev/blog/2023/01/03/typescript-first) on new projects -> **Important: they recommend removing the `@types/react-native` from `package.json`**
   - Flexbox gap
   - Web-inspired props for accessibility, styles, and events (src, alt, aria-label...)
 
