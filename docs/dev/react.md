@@ -274,6 +274,8 @@ https://martinfowler.com/articles/headless-component.html
 
 _A component that doesn’t have a UI, but has the functionality._ - https://blog.logrocket.com/the-complete-guide-to-building-headless-interface-components-in-react/
 
+https://headlessui.com
+
 ## TypeScript
 
 [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup)

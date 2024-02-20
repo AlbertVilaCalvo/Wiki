@@ -33,6 +33,8 @@ https://github.com/shieldfy/API-Security-Checklist#jwt-json-web-token
 > - Don't store sensitive data in the JWT payload, it can be decoded [easily](https://jwt.io/#debugger-io).
 > - Avoid storing too much data. JWT is usually shared in headers and they have a size limit.
 
+https://www.manning.com/liveproject/fixing-vulnerabilities - Part of https://www.manning.com/liveprojectseries/json-web-token-ser
+
 ## Signing
 
 Since anyone can produce a JWT token, the signature is used to verify the authenticity. This way only the server can issue new tokens using the secret.
