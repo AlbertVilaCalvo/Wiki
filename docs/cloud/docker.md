@@ -415,6 +415,35 @@ Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-
 
 Docker Compose best practices for dev and prod: https://news.ycombinator.com/item?id=32484008 / https://prod.releasehub.com/blog/6-docker-compose-best-practices-for-dev-and-prod
 
+Example from https://www.youtube.com/watch?v=iqqDU2crIEQ
+
+```yml
+version: '2'
+
+services:
+  web:
+    build:
+      context:
+      dockerfile: Dockerfile
+    container_name: web
+    ports:
+      - '8080:80'
+
+  db:
+    image: mongo:3.6.1
+    container_name: db
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    ports:
+      - 27017:27017
+    command: mongod
+
+volumes:
+  mongodb:
+  mongodb_config:
+```
+
 ## Docker Desktop
 
 https://docs.docker.com/desktop

@@ -219,6 +219,8 @@ Samples:
 
 https://www.obytes.com/blog/react-native-github-action
 
+Switch between project build variants (staging, production, etc) in React Native — https://medium.com/@phen0menon/switch-between-project-build-variants-staging-production-etc-in-react-native-part-1-84b087aef790
+
 ## Debug symbols on Android
 
 Docs: https://developer.android.com/studio/build/shrink-code#native-crash-support
