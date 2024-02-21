@@ -180,3 +180,37 @@ List recent commands in history: `fc -l`
 ## lsof
 
 If we are running a server at (eg) port 3000 we can do `lsof -i :3000` and it will print information about the process that started the server. Doing `lsof -t -i :5000` gives the process id. Hence, to kill the process you can do `kill -9 $(lsof -t -i :3000)`.
+
+## sed
+
+On macOS, don't bother to try to use the built-in `sed`, since you get the error _'sed: 1: "eas.json": invalid command code e'_ all the time. Use GNU sed instead, as [advised here](https://stackoverflow.com/a/60562182/4034572). Install it with `brew install gnu-sed`. Then use `gsed` instead of `sed`, or alias it with `alias sed='gsed'`, or add it to the path with `PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"`.
+
+https://www.gnu.org/software/sed
+
+Manual: https://www.gnu.org/software/sed/manual/sed.html
+
+Replace value in file:
+
+```shell
+sed -i "s/THE_VALUE/some_value/" file.txt
+sed -i "s/THE_VALUE/$SOME_VAR/" file.txt
+```
+
+`s` means substitute. See [The `s` Command](https://www.gnu.org/software/sed/manual/sed.html#The-_0022s_0022-Command) for more options.
+
+Beware that if the interpolated value contains a `/` (eg a URL or a path) it will fail with:
+
+```
+sed: -e expression #1, char 19: unknown option to `s'
+```
+
+See:
+
+- https://stackoverflow.com/questions/9366816/sed-fails-with-unknown-option-to-s-error
+- https://stackoverflow.com/questions/24705650/sed-unknown-option-to-s-in-bash-script
+
+Since **you can use any delimiter**, to fix it do for example:
+
+```shell
+sed -i "s|THE_VALUE|$SOME_VAR|" file.txt
+```
