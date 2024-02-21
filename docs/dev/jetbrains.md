@@ -91,6 +91,16 @@ Warning on outdated dependencies in `package.json`: Preferences | Editor | Inspe
 
 Using a Node.js interpreter inside a **Docker** container: https://blog.jetbrains.com/webstorm/2021/11/webstorm-2021-3/#development_with_remote_node_js
 
+## Debug Node.js apps
+
+Create a run configuration with these values:
+
+- Node interpreter: should point to a `bin/node` folder in your system, like `~/Library/Caches/fnm_multishells/897342394_789347892348/bin/node`
+- Node parameters: `--require ts-node/register`
+- Working directory: `~/Programming/Projects/Apps/MyApp`
+- JavaScript file: `dist/src/app.js`
+- Before launch: if you need to build before (eg TypeScript), add a task by clicking the '+' button, then select 'Run npm script'. On the window that opens, select the package, set Command to 'run' and Scripts to your build script (eg 'build').
+
 ## Shortcuts
 
 Recent locations: Cmd+Shift+E

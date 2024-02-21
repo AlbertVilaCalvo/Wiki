@@ -6,6 +6,8 @@ Google Play SDK Index: https://play.google.com/sdks/categories/ads. For more inf
 
 Debugging in Android Studio - https://medium.com/androiddevelopers/debugging-in-android-studio-dfbbf8a8d03c
 
+Unzip apk - https://apktool.org - https://github.com/iBotPeaches/Apktool - Install: `brew install apktool` - Use: `apktool d myapp.apk`
+
 ## CLI
 
 List emulators: `emulator -list-avds`

@@ -9,6 +9,10 @@ Blog:
 
 VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo-tools
 
+:::tip
+Run `npx expo-doctor@latest` to validate various things like dependency
+:::
+
 ## Keyboard shortcuts
 
 After doing `npx expo start`, you can use the keys (`r`, `i`, `a`...) listed table at https://docs.expo.dev/more/expo-cli/#develop
@@ -136,6 +140,10 @@ Note that option `--name` is deprecated, if you use it says "Use `expo init [nam
 </details>
 
 ### Validate package versions compatibility and install compatible versions
+
+_Important: you can also use `npx expo-doctor@latest` which runs many other checks._
+
+Docs: https://docs.expo.dev/more/expo-cli/#install
 
 ```shell
 npx expo install --check # Check which installed packages need to be updated
@@ -351,6 +359,22 @@ Attach a message to distinguish builds with `eas build --platform ios --message 
 
 _You can attach a message to the build by passing `--message` to the build command. The message will appear on the website. It comes in handy when you want to leave a note with the purpose of the build for your team._ [source](https://docs.expo.dev/deploy/build-project/#create-a-production-build)
 :::
+
+### Troubleshoot EAS builds
+
+If you get an error when doing `eas build` see this: https://docs.expo.dev/build-reference/local-builds/#use-local-builds-for-debugging
+
+It's helpful to run the build locally with `--local`, and to use `EAS_LOCAL_BUILD_SKIP_CLEANUP=1` to see the generated `android` and `ios` folders which _disables cleaning up the working directory after the build process is finished_:
+
+```shell
+EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build --platform android --profile testing --local
+```
+
+It will output the folder at the end, even if the build fails:
+
+> Skipping cleanup, /var/folders/wz/fw48m6mx50b_hy2w3kj4lvl40000gn/T/eas-build-local-nodejs/9f6700b0-e08a-45c9-a906-a9260b118f43 won't be removed.
+
+Also see https://github.com/expo/eas-build/blob/main/DEVELOPMENT.md
 
 ### Signing
 
