@@ -33,6 +33,7 @@ const sidebars = {
     'dev/postman',
     'dev/jetbrains',
     'dev/vscode',
+    'dev/emacs',
     'dev/python',
     'dev/go',
     'dev/php',
