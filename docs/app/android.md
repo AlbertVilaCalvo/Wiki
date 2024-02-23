@@ -30,6 +30,8 @@ Install apk: `adb install path/to/the/file.apk`
 
 Install app bundle aab: https://stackoverflow.com/questions/50419286/install-android-app-bundle-on-device
 
+View logs: `adb logcat --pid=$(adb shell pidof -s com.example.myapp) -v color`. [See logcat docs](https://developer.android.com/tools/logcat) for more options. (Note that the app needs to be running on the phone or emulator, otherwise `pidof` will return nothing.)
+
 ## Test deep links
 
 https://developer.android.com/training/app-links/deep-linking#testing-filters
