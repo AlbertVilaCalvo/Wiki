@@ -666,3 +666,11 @@ https://stackoverflow.com/questions/40978921/how-to-add-chmod-permissions-to-fil
 Note: after running `git update-index --chmod=+x path/to/file`, then you need to commit.
 
 After making the file executable, when doing `git ls-files --stage` it should have 100755.
+
+## `.gitignore`
+
+https://github.com/github/gitignore - A collection of useful .gitignore templates
+
+https://git-scm.com/docs/gitignore
+
+To match a directory only (but not files) add a slash at the end, eg `build/`. _If there is a separator at the end of the pattern then the pattern will only match directories, otherwise the pattern can match both files and directories_ ([source](https://git-scm.com/docs/gitignore#_pattern_format)). You can also do `/build` if the directory is at the same level of the `.gitignore`, see https://github.com/github/gitignore/blob/main/Elixir.gitignore
