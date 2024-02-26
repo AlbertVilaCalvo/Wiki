@@ -14,6 +14,13 @@ https://mobx.js.org/getting-started
 
 mobx-react-lite - _lighter version of mobx-react which supports React functional components only and as such makes the library slightly faster and smaller_ - https://github.com/mobxjs/mobx/tree/main/packages/mobx-react-lite
 
+https://michel.codes/blogs/ui-as-an-afterthought
+
+> Initially, design your state, stores, processes as if you were building a CLI, not a web app.
+> Nothing beats the simplicity of invoking your business processes directly as a set of functions.
+> Most components will be dumb
+> At this point you might also understand why I am not a fan of the things that mix back-end interaction directly into the UI. Such as the react-apollo bindings as means to interact with graphQL. Back-end interaction like submitting mutations or fetching data is the responsibility of my domain stores. Not the UI layer. React-Apollo so far feels to me as a shortcut that too easily leads to a tightly coupled setup.
+
 ## Concepts & API
 
 > Anything that can be derived from the application state, should be derived. Automatically.
