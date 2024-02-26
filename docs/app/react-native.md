@@ -128,6 +128,25 @@ Launch Android emulator: `${ANDROID_HOME}/emulator/emulator -avd Galaxy_Nexus_AP
 
 Run Release variant: `npx react-native run-android --variant=release`
 
+## View logs
+
+To view the **JavaScript** logs do:
+
+```shell
+npx react-native log-android
+npx react-native log-ios
+```
+
+To view the **native Android** logs do:
+
+```shell
+adb logcat --pid=$(adb shell pidof -s com.example.myapp) -v color
+```
+
+[See logcat docs](https://developer.android.com/tools/logcat) for more options. (Note that the app needs to be running on the phone or emulator, otherwise `pidof` will return nothing.)
+
+To view the **native iOS** use the Console app as [explained in this video](https://www.youtube.com/watch?v=LvCci4Bwmpc) (at 2nd half) and here: https://docs.expo.dev/debugging/runtime-issues/#crash-reports-using-console-app
+
 ## Show developer menu
 
 - Android
@@ -147,7 +166,9 @@ export const isIOS: boolean = Platform.OS === 'ios'
 
 ## Libraries
 
-- Logs: https://github.com/onubo/react-native-logs
+https://reactnative.directory
+
+- Logs: https://github.com/mowispace/react-native-logs (previously was https://github.com/onubo/react-native-logs)
 - Network requests logger: https://github.com/alexbrazier/react-native-network-logger
 - Performance
   - https://github.com/oblador/react-native-performance

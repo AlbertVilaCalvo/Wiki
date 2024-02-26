@@ -33,6 +33,13 @@ Get a simulator ID: `xcrun simctl list | egrep '(Booted)'`
 
 Keys: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html
 
+## Xcode shortcuts
+
+- Build: ⌘ + B
+- Run: ⌘ + R
+- Clean: ⌘ + ⇧ + K
+- Stop: ⌘ + .
+
 ## Certificates
 
 From https://docs.expo.dev/app-signing/app-credentials/#summary
