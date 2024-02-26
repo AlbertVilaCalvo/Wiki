@@ -10,6 +10,12 @@ Unzip apk - https://apktool.org - https://github.com/iBotPeaches/Apktool - Insta
 
 ## CLI
 
+Docs:
+
+- All tools: https://developer.android.com/tools
+- `adb`: https://developer.android.com/tools/adb
+- `emulator`: https://developer.android.com/studio/run/emulator-commandline
+
 List emulators: `emulator -list-avds`
 
 List emulators running ('List of devices attached'): `adb devices`
