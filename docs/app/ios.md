@@ -37,7 +37,7 @@ Keys: https://developer.apple.com/library/archive/documentation/General/Referenc
 
 - Build: ⌘ + B
 - Run: ⌘ + R
-- Clean: ⌘ + ⇧ + K
+- Clean Build Folder: ⌘ + ⇧ + K
 - Stop: ⌘ + .
 
 ## Certificates

@@ -145,6 +145,22 @@ Make Instagram portrait 4:5. Eg if we have a DIN-A4 image and we want to add som
 convert image.jpeg -gravity center -background black -resize 1080x1350 -extent 1080x1350 image-instagram.jpeg
 ```
 
+## sips
+
+Comes installed in macOS.
+
+From https://saurabhs.org/advanced-macos-commands:
+
+`sips -z <height> <width> <image>` resizes the specified image, ignoring the previous aspect ratio.
+
+`sips -Z <size> <image>` resizes the largest side of the specified image, preserving the aspect ratio.
+
+`sips -c <height> <width> <image>` crops the specified image to the given dimensions (relative to the center of the original image).
+
+`sips -r <degrees> <image>` rotates the image by the specified degrees.
+
+By default, `sips` will destructively overwrite the input image. Use the `-o` flag to specify a different output file path (which must have the same file extension as the input image).
+
 ## Avoid layout shift
 
 Avoiding `<img>` layout shifts: aspect-ratio vs width & height attributes - https://jakearchibald.com/2022/img-aspect-ratio

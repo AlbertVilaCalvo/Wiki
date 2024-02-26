@@ -159,7 +159,12 @@ Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
 
 ## diff
 
-`diff -qr Carpeta1 Carpeta2`
+```shell
+diff -qr Dir1 Dir2
+
+# Exclude directories
+diff -qr Dir1 Dir2 --exclude=.git --exclude=node_modules
+```
 
 ## tree
 

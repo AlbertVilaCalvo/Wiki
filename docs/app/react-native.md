@@ -63,7 +63,7 @@ https://github.com/react-native-community/cli
 
 Commands: https://github.com/react-native-community/cli/blob/main/docs/commands.md
 
-Create app: `npx react-native@latest init MyApp`. Note that there's no need to pass `--template react-native-template-typescript` since [version 0.71](https://reactnative.dev/blog/2023/01/03/typescript-first). The [TypeScript template](https://github.com/react-native-community/react-native-template-typescript/) is deprecated.
+Create app: `npx react-native@latest init MyApp`. Note that there's no need to pass `--template react-native-template-typescript` since [version 0.71](https://reactnative.dev/blog/2023/01/12/version-071). See [First-class Support for TypeScript](https://reactnative.dev/blog/2023/01/03/typescript-first) for more details. The template https://github.com/react-native-community/react-native-template-typescript is deprecated. The new one lives in https://github.com/facebook/react-native/tree/main/packages/react-native/template.
 
 Check environment setup: `npx react-native doctor`
 
@@ -103,6 +103,8 @@ Run instructions for iOS:
   • Open MemoryGame/ios/MemoryGame.xcodeproj in Xcode or run "xed -b ios"
   • Hit the Run button
 ```
+
+Tip: if `bundle exec pod install` fails (CocoaPods could not find compatible versions for pod "FlipperKit/FKPortForwarding") then try `pod install --repo-update` and then again `bundle exec pod install`. [source](https://stackoverflow.com/a/77713078/4034572)
 
 Run on a specific iOS simulator: `npx react-native run-ios --simulator "iPhone XS Max"`. (Use `xcrun simctl list devices` to list the simulators.)
 
