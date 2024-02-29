@@ -10,6 +10,8 @@ Bundle visualizer: https://github.com/IjzerenHein/react-native-bundle-visualizer
 
 Clean Project: https://github.com/pmadruga/react-native-clean-project
 
+Rename app, package name or bundle id: https://github.com/junedomingo/react-native-rename
+
 ## Development environment setup
 
 :::tip
