@@ -13,6 +13,8 @@ With an ipa file, you can unarchive (it's a zip) you'll get an .app file. Right 
 
 DevCleaner for Xcode: https://apps.apple.com/us/app/devcleaner/id1388020431
 
+Change bundle id: https://github.com/junedomingo/react-native-rename
+
 ## CLI
 
 simctl commands: `xcrun simctl` or `xcrun simctl help`

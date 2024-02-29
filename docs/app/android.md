@@ -8,6 +8,8 @@ Debugging in Android Studio - https://medium.com/androiddevelopers/debugging-in-
 
 Unzip apk - https://apktool.org - https://github.com/iBotPeaches/Apktool - Install: `brew install apktool` - Use: `apktool d myapp.apk`
 
+Change package name (application id) - https://github.com/junedomingo/react-native-rename
+
 ## CLI
 
 Docs:
