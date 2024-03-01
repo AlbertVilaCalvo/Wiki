@@ -6,13 +6,55 @@ Google Play SDK Index: https://play.google.com/sdks/categories/ads. For more inf
 
 Debugging in Android Studio - https://medium.com/androiddevelopers/debugging-in-android-studio-dfbbf8a8d03c
 
+Change package name (application id) - https://github.com/junedomingo/react-native-rename
+
+## Icon
+
+https://developer.android.com/studio/write/create-app-icons
+
+For a simple icon use the [Image Asset Studio](https://developer.android.com/studio/write/create-app-icons#access) To open it, right-click the res folder and select New → Image Asset.
+
+IconKitchen icon generator (by Roman Nurik) does something similar than the Image Asset Studio - https://icon.kitchen
+
 ## Inspect apk
 
 APK Analyzer - https://developer.android.com/studio/debug/apk-analyzer
 
 Apktool - https://apktool.org - https://github.com/iBotPeaches/Apktool - Install: `brew install apktool` - Use: `apktool d myapp.apk`
 
-Change package name (application id) - https://github.com/junedomingo/react-native-rename
+## Environment variables
+
+https://developer.android.com/tools
+
+https://developer.android.com/tools/variables
+
+They recommend:
+
+- `ANDROID_HOME/tools` → `emulator`
+- `ANDROID_HOME/tools/bin` → `avdmanager`, `apkanalyzer`
+- `ANDROID_HOME/platform-tools` → `adb`
+
+```zsh
+export ANDROID_HOME=$HOME/Library/Android/sdk
+path+=("$ANDROID_HOME/emulator")
+path+=("$ANDROID_HOME/platform-tools")
+```
+
+### `JAVA_HOME`
+
+From https://runningcode.github.io/gradle-doctor/ - Ensure `JAVA_HOME` is set and matches IDE's `JAVA_HOME`
+
+```zsh
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+```
+
+With this, doing `java --version` should say "openjdk 17.0.7 2023-04-18".
+
+### `ANDROID_SDK_ROOT` is deprecated, use `ANDROID_HOME`
+
+From https://developer.android.com/studio/command-line/variables#envar
+
+> `ANDROID_SDK_ROOT`, which also points to the SDK installation directory, is deprecated. If you continue to use it, Android Studio and the Android Gradle plugin will check that the old and new variables are consistent.
 
 ## CLI
 
@@ -147,11 +189,3 @@ Email 2022-04-06 'Google Play Developer Program Policy Update':
 Email 2022-12-15 'Target API Level policy changes and deadline extension':
 
 > We’re also extending the deadline to give you more time to adjust to these changes. Now, apps that target API level 29 or below will start experiencing reduced distribution starting **Jan 31, 2023** instead of Nov 1, 2022. If you need more time to update your app, you can request an extension to keep your app discoverable to all users until May 1, 2023.
-
-## `$ANDROID_SDK_ROOT` is deprecated
-
-From https://developer.android.com/studio/command-line/variables#envar:
-
-> `ANDROID_SDK_ROOT`, which also points to the SDK installation directory, is deprecated. If you continue to use it, Android Studio and the Android Gradle plugin will check that the old and new variables are consistent.
-
-Use `$ANDROID_HOME` from now on.
