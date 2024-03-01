@@ -6,7 +6,11 @@ Google Play SDK Index: https://play.google.com/sdks/categories/ads. For more inf
 
 Debugging in Android Studio - https://medium.com/androiddevelopers/debugging-in-android-studio-dfbbf8a8d03c
 
-Unzip apk - https://apktool.org - https://github.com/iBotPeaches/Apktool - Install: `brew install apktool` - Use: `apktool d myapp.apk`
+## Inspect apk
+
+APK Analyzer - https://developer.android.com/studio/debug/apk-analyzer
+
+Apktool - https://apktool.org - https://github.com/iBotPeaches/Apktool - Install: `brew install apktool` - Use: `apktool d myapp.apk`
 
 Change package name (application id) - https://github.com/junedomingo/react-native-rename
 

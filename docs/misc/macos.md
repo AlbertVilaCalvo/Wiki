@@ -75,6 +75,10 @@ https://iterm2colorschemes.com - https://github.com/mbadolato/iTerm2-Color-Schem
 
 Changed in Settings → Profiles → Colors, at the dropdown 'Color presets...'. Tip: duplicate the current profile to make tests.
 
+### Finder integration (New iTerm Window here)
+
+Click the 'iTerm2' menu bar item (at the top left) and then do Services → Services Settings... This opens the 'Configuració del Sistema' → Teclat → Dreceres de teclat... Once there, on 'Arxius i carpetes' check 'New iTerm Window here'.
+
 ### Shortcuts
 
 :::note

@@ -82,7 +82,7 @@ List commands: `npx expo --help` or `npx expo -h`
 From https://docs.expo.dev/more/expo-cli/#highlights
 
 - [Start a server](https://docs.expo.dev/more/expo-cli#develop) for developing your app: `npx expo start`.
-- [Generate the native Android and iOS directories](https://docs.expo.dev/more/expo-cli#prebuild) for your project: `npx expo prebuild`.
+- [Generate the native Android and iOS directories](https://docs.expo.dev/more/expo-cli#prebuild) for your project: `npx expo prebuild`. See the [Prebuild documentation](https://docs.expo.dev/workflow/prebuild) for more. Tip: use [`--clean`](https://docs.expo.dev/workflow/prebuild/#clean) to delete any existing native directories before generating.
 - [Build and run](https://docs.expo.dev/more/expo-cli#compiling) the native apps locally: `npx expo run:ios` and `npx expo run:android`.
   - Important: `expo run` also generates the native projects if they don't exist yet: _if your project does not have an `ios` directory in the root of your project, then `npx expo run:ios` will first run `npx expo prebuild -p ios` before compiling your app_
 - [Install and update packages](https://docs.expo.dev/more/expo-cli#install) that work with the version of react-native in your project: `npx expo install package-name`.
