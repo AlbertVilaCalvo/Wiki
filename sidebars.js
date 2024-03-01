@@ -10,6 +10,7 @@ const sidebars = {
     'cli/github',
     'cli/commands',
     'cli/shell-scripts',
+    'cli/tools',
     'cli/filesystem-permissions-acl',
     'cli/brew',
     'cli/ohmyzsh',

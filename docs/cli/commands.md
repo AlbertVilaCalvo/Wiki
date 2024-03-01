@@ -151,6 +151,8 @@ Use `/Whatever` for searching.
 
 Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
 
+See user-friendly alternative `fd` - https://github.com/sharkdp/fd
+
 ## diff
 
 ```shell
