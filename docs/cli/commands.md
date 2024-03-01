@@ -199,6 +199,22 @@ sed -i "s/THE_VALUE/$SOME_VAR/" file.txt
 
 `s` means substitute. See [The `s` Command](https://www.gnu.org/software/sed/manual/sed.html#The-_0022s_0022-Command) for more options.
 
+Another example. If we have:
+
+```ts
+const a = {
+  version: '0.0.1',
+}
+```
+
+We can do:
+
+```shell
+sed -i "s|version: '.*'|version: '$VERSION'|" file.ts
+```
+
+### sed: -e expression #1, char 19: unknown option to `s'
+
 Beware that if the interpolated value contains a `/` (eg a URL or a path) it will fail with:
 
 ```

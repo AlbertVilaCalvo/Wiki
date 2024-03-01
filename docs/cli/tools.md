@@ -11,3 +11,9 @@ https://github.com/trimstray/the-book-of-secret-knowledge#cli-tools-toc
 bat (`cat` clone) - https://github.com/sharkdp/bat
 
 View log files - https://github.com/Textualize/toolong
+
+## Disk usage
+
+https://github.com/Byron/dua-cli
+
+https://github.com/dundee/gdu
