@@ -2,7 +2,9 @@
 title: GitHub
 ---
 
-Command palette (Command+K): https://docs.github.com/en/get-started/using-github/github-command-palette
+Status - ttps://www.githubstatus.com
+
+Command palette (Command+K) - https://docs.github.com/en/get-started/using-github/github-command-palette
 
 Code search:
 
