@@ -4,6 +4,8 @@ title: Well-Architected Framework
 
 https://aws.amazon.com/architecture/well-architected
 
+https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html
+
 https://www.wellarchitectedlabs.com - https://github.com/awslabs/aws-well-architected-labs
 
 https://aws.amazon.com/well-architected-tool

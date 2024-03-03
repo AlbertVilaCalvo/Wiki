@@ -106,7 +106,19 @@ Run instructions for iOS:
   • Hit the Run button
 ```
 
+```shell
+cd ios && bundle exec pod install && cd ..
+```
+
 Tip: if `bundle exec pod install` fails (CocoaPods could not find compatible versions for pod "FlipperKit/FKPortForwarding") then try `pod install --repo-update` and then again `bundle exec pod install`. [source](https://stackoverflow.com/a/77713078/4034572)
+
+You can also try ([source](https://stackoverflow.com/a/76158455/4034572)):
+
+```shell
+pod deintegrate
+pod repo update
+pod install
+```
 
 Run on a specific iOS simulator: `npx react-native run-ios --simulator "iPhone XS Max"`. (Use `xcrun simctl list devices` to list the simulators.)
 
