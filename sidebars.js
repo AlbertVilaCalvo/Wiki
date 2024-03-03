@@ -83,6 +83,7 @@ const sidebars = {
     'aws/billing-pricing',
     'aws/cli',
     'aws/iam',
+    'aws/root-user',
     'aws/vpc',
     'aws/ec2',
     'aws/eks',
