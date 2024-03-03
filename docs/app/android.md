@@ -164,6 +164,8 @@ https://developer.android.com/studio/publish/app-signing#generate-key
 
 https://support.google.com/googleplay/android-developer/answer/9842756?rd=1#create
 
+Note that both passwords need to be the same, see https://developer.android.com/studio/known-issues#ki-key-keystore-warning
+
 ## Android 12 changed that root launcher activities are no longer finished on the Back press
 
 https://developer.android.com/about/versions/12/behavior-changes-all#back-press

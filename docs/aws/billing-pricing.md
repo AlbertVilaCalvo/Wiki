@@ -47,6 +47,8 @@ https://calculator.aws
 
 https://calculator.s3.amazonaws.com/index.html
 
+Cost Explorer - https://aws.amazon.com/aws-cost-management/aws-cost-explorer/
+
 AWS Billing and Cost Management Documentation - https://docs.aws.amazon.com/account-billing/index.html
 
 Free tier:
