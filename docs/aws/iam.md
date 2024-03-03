@@ -24,7 +24,7 @@ Refining permissions in AWS using last accessed information - https://docs.aws.a
 
 AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
 
-## Concepts
+## Summary
 
 - User: an individual, system, or application requiring access to AWS services.
 - Group: collection of users. A user can be in many groups.
@@ -32,7 +32,30 @@ AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in y
 - Policy: JSON file. Permissions assigned to a user, group or role.
 - Principal: user, account, service, or other entity that is allowed or denied access to a resource.
 
-### Role
+## User
+
+By default users have no permissions, thus they can't do anything. You give them permissions using groups and policies.
+
+Each user has a username (Account name), used to log in.
+
+Authentication:
+
+- Web console: username and password + (optionally) MFA.
+- CLI & API: access key ID and secret access key. You can also have MFA too.
+  - Only a user can have access keys (not a group, role or policy).
+  - Best practice: use roles for applications that run on EC2 instances or lambda functions. See [Require workloads to use temporary credentials with IAM roles to access AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-workloads-use-roles)
+
+## Group
+
+A collection of users.
+
+A way of organizing users and applying permissions to them through a policy.
+
+## Role
+
+A way to delegate permissions. Is an identity. Roles are assumed by users, applications and services.
+
+When you assume a role you loose any other permissions. Eg if you are an admin but you assume a role, you loose the admin permissions. Thus, the permissions assigned to a role need to include everything required to complete the task.
 
 From https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam
 
@@ -53,17 +76,17 @@ https://classroom.udacity.com/nanodegrees/nd0044/parts/8fc72c65-158a-429d-a08f-f
 
 > A role is an identity in AWS that doesn't have its own credentials (as a user does) [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
 
-### Policy
+### `sts:AssumeRole`
+
+https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html
+
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/assume-role.html
+
+https://stackoverflow.com/questions/63241009/aws-sts-assume-role-in-one-command
+
+## Policy
 
 JSON file. Permissions assigned to a user, group or role.
-
-Console: https://console.aws.amazon.com/iamv2/home?#/policies
-
-Simulator: https://policysim.aws.amazon.com
-
-Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
-
-AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
 
 ```json
 {
@@ -78,6 +101,65 @@ AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policie
     // Which condition(s) need to be met for authorization
   },
   "Resource": "arn:aws:iam::*:user/${aws:username}" // Resources to which authorized tasks are performed
+}
+```
+
+Console: https://console.aws.amazon.com/iamv2/home?#/policies
+
+Simulator: https://policysim.aws.amazon.com
+
+AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
+
+### Allow and Deny
+
+By default all permissions are denied. Thus, nothing is allowed unless there's an explicit Allow.
+
+Deny overrides any Allow.
+
+### Examples
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
+
+AdministratorAccess:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Allows all actions on all resources.
+
+### Identity-based vs resource-based policy
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html
+
+Identity-based policy: applied to users, groups and roles.
+
+Resource-based policy: applied to a resource like an S3 bucket or a SQS queue. Not all resources support resource-based policies, see the table at https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
+
+Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-allow-full-access-to-a-bucket-and-all-its-objects)):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Id": "BucketPolicy",
+  "Statement": [
+    {
+      "Sid": "AllAccess",
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"],
+      "Principal": "*"
+    }
+  ]
 }
 ```
 
@@ -96,7 +178,7 @@ https://repost.aws/questions/QUnIdoElwIRvWhJHjucPVkzg/what-are-the-key-differenc
 
 > You attach IAM policies (which contain a set of permissions) to an IAM Role. Therefore, a single IAM roles can have multiple IAM policies in it. Lastly, a user can "assume" an IAM Role, meaning it will inherit automatically the policy or policies attached to that Role.
 
-### Principal
+## Principal
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
 
