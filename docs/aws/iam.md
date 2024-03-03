@@ -52,6 +52,34 @@ https://classroom.udacity.com/nanodegrees/nd0044/parts/8fc72c65-158a-429d-a08f-f
 
 > A role is an identity in AWS that doesn't have its own credentials (as a user does) [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
 
+### Policy
+
+JSON file. Permissions assigned to a user, group or role.
+
+Console: https://console.aws.amazon.com/iamv2/home?#/policies
+
+Simulator: https://policysim.aws.amazon.com
+
+Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
+
+AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
+
+```json
+{
+  "Sid": "AllowManageOwnSSHPublicKeys", // Who/what is authorized
+  "Effect": "Allow", // Or "Deny"
+  "Action": [
+    // Which task(s) are allowed
+    "iam:GetSSHPublicKey",
+    "iam:ListSSHPublicKeys"
+  ],
+  "Condition": {
+    // Which condition(s) need to be met for authorization
+  },
+  "Resource": "arn:aws:iam::*:user/${aws:username}" // Resources to which authorized tasks are performed
+}
+```
+
 ### Role vs Policy
 
 https://www.strongdm.com/blog/aws-iam-roles-vs-policies
@@ -89,9 +117,21 @@ Supported MFA methods/devices - https://aws.amazon.com/iam/features/mfa/
 
 Using multi-factor authentication (MFA) in AWS - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html
 
+### Add MFA to _other_ users
+
+(This works for yourself too if you are not the root user, since it doesn't appear on the list.)
+
+Go to the IAM Dashboard → Users and select a user. Click the 'Security credentials' tab and do 'Assign MFA device'.
+
+### Enforce MFA to users
+
+Prevent users to perform actions unless they've set up MFA with a policy - https://www.youtube.com/watch?v=cP_IbgnK8yk - https://github.com/iaasacademy/aws-how-to-guide/tree/main/Enable%20IAM%20Users%20to%20setup%20MFA - https://iaasacademy.com/aws-how-to-guides/enable-iam-users-to-manage-their-mfa-settings-aws-how-to-guide/
+
 ## Root user
 
 Has complete access to all AWS services and resources, including billing information. Is the most privileged user.
+
+Logs in using the email.
 
 AWS account root user - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html
 
@@ -189,12 +229,6 @@ Documentation:
 
 Recovering a root user MFA device - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_lost-or-broken.html#root-mfa-lost-or-broken - See steps at https://www.howtoforge.com/how-to-recover-aws-account-access-if-the-mfa-device-is-lost/
 
-### Add MFA to _other_ users
-
-(This works for yourself too if you are not the root user, since it doesn't appear on the list.)
-
-Go to the IAM Dashboard → Users and select a user. Click the 'Security credentials' tab and do 'Assign MFA device'.
-
 ## Create the first IAM admin user
 
 > We recommend that you not use the root level credentials for anything other than initial setup of the account and the creation of the IAM user account with administrator permissions attached via policy [source](https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam)
@@ -225,41 +259,13 @@ There are 2 guides/tutorials that explain how to set up the admin user:
 - On the 'Review and create' page optionally add [tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html).
   - Click 'Create user'.
 
-## Enforce MFA to users
-
-Prevent users to perform actions unless they've set up MFA with a policy - https://www.youtube.com/watch?v=cP_IbgnK8yk - https://github.com/iaasacademy/aws-how-to-guide/tree/main/Enable%20IAM%20Users%20to%20setup%20MFA - https://iaasacademy.com/aws-how-to-guides/enable-iam-users-to-manage-their-mfa-settings-aws-how-to-guide/
+:::info Important
+Don't forget to enable MFA for the admin user
+:::
 
 ## Password policy
 
 Go to IAM → Account settings and on the Password policy box click the 'Edit' button.
-
-## Policy
-
-JSON file. Permissions assigned to a user, group or role.
-
-Console: https://console.aws.amazon.com/iamv2/home?#/policies
-
-Simulator: https://policysim.aws.amazon.com
-
-Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
-
-AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
-
-```json
-{
-  "Sid": "AllowManageOwnSSHPublicKeys", // Who/what is authorized
-  "Effect": "Allow", // Or "Deny"
-  "Action": [
-    // Which task(s) are allowed
-    "iam:GetSSHPublicKey",
-    "iam:ListSSHPublicKeys"
-  ],
-  "Condition": {
-    // Which condition(s) need to be met for authorization
-  },
-  "Resource": "arn:aws:iam::*:user/${aws:username}" // Resources to which authorized tasks are performed
-}
-```
 
 ## CLI
 
