@@ -16,6 +16,11 @@ V1 reference: https://docs.aws.amazon.com/cli/latest/reference
 
 Use `--dry-run` to check if you have the required permissions.
 
+:::tip
+Use [CloudShell](https://aws.amazon.com/cloudshell/) which is automatically configured with your credentials.
+[This video shows many things you can do on it](https://www.youtube.com/watch?v=fz4rbjRaiQM)
+:::
+
 ## Command structure
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-commandstructure.html
@@ -47,60 +52,7 @@ https://docs.aws.amazon.com/accounts/latest/reference/credentials-access-keys-be
 - Remove (or don't generate) an account access key
 - Use temporary security credentials (IAM roles) instead of long-term access keys
 
-## Configuration
-
-`~/.aws/credentials`
-
-```
-[default]
-aws_access_key_id = XXX
-aws_secret_access_key = YYY
-```
-
-`~/.aws/config`
-
-```
-[default]
-region = eu-west-3
-output = json
-```
-
-https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
-
-`aws configure help`
-
-`aws configure` is the fastest way to set up your AWS CLI installation.
-
-`aws sts get-caller-identity` → Returns details about the IAM user or role whose credentials are used to call the operation - [source](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html). You can do `aws sts get-caller-identity --query Account --output text` to get only the account ID.
-
-`aws configure list-profiles`
-
-`aws configure list`
-
-`aws configure list --profile <profile-name>`
-
-Configure: `aws configure --profile <profile-name>` → Asks for AWS Access Key ID, AWS Secret Access Key, Default region name and Default output format.
-
-Set value: `aws configure set <varname> <value> [--profile profile-name]`, eg `aws configure set region us-east-1 --profile default`
-
-`~/.aws/config` example:
-
-```
-[default]
-region=us-west-2
-output=json
-```
-
-`~/.aws/credentials` example:
-
-```
-[default]
-aws_access_key_id=
-aws_secret_access_key=
-# aws_session_token=
-```
-
-### Create Access keys using the web console
+## Create Access keys using the web console
 
 - Go to the IAM console → Users and select your Admin user (_not the root user_).
 - Click the 'Security credentials' tab.
@@ -119,6 +71,52 @@ Once the access key is shown on the 'Retrieve access keys' page, on the terminal
 - Leave 'Default output format' to 'json'.
 
 Doing `aws s3 ls` should give a response (will be empty if there are no buckets, but no credentials error will appear).
+
+## Access keys configuration
+
+`~/.aws/credentials`
+
+```
+[default]
+aws_access_key_id = XYZ
+aws_secret_access_key = ABC
+```
+
+`~/.aws/config`
+
+```
+[default]
+region = eu-west-3
+output = json
+```
+
+Comments are written with `#`.
+
+https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
+
+`aws configure help`
+
+`aws configure` is the fastest way to set up your AWS CLI installation. It will ask for the 'Access Key ID' and the 'Secret Access Key'.
+
+`aws sts get-caller-identity` → Returns details about the IAM user or role whose credentials are used to call the operation - [source](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html). You can do `aws sts get-caller-identity --query Account --output text` to get only the account ID.
+
+`aws configure list-profiles`
+
+`aws configure list`
+
+`aws configure list --profile <profile-name>`
+
+Configure: `aws configure --profile <profile-name>` → Asks for AWS Access Key ID, AWS Secret Access Key, Default region name and Default output format.
+
+Set value: `aws configure set <varname> <value> [--profile profile-name]`, eg `aws configure set region us-east-1 --profile default`
+
+### Multiple accounts
+
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
+
+https://stackoverflow.com/questions/593334/how-to-use-multiple-aws-accounts-from-the-command-line
+
+Important: on the `config` file we need to add "profile" (`[profile user1]`), but not on `credentials`.
 
 ## Filtering AWS CLI output
 
