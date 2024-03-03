@@ -30,6 +30,7 @@ AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in y
 - Group: collection of users. A user can be in many groups.
 - Role: set of permissions.
 - Policy: JSON file. Permissions assigned to a user, group or role.
+- Principal: user, account, service, or other entity that is allowed or denied access to a resource.
 
 ### Role
 
@@ -94,6 +95,25 @@ https://repost.aws/questions/QUnIdoElwIRvWhJHjucPVkzg/what-are-the-key-differenc
 > Policies determine what actions a user, role, or member of a user group can perform, on which AWS resources, and under what conditions.
 
 > You attach IAM policies (which contain a set of permissions) to an IAM Role. Therefore, a single IAM roles can have multiple IAM policies in it. Lastly, a user can "assume" an IAM Role, meaning it will inherit automatically the policy or policies attached to that Role.
+
+### Principal
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
+
+A Principal is a user, account, service, or other entity that is allowed or denied access to a resource [source](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-bucket-user-policy-specifying-principal-intro.html)
+
+It can be a ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html)):
+
+- AWS account and root user
+- IAM role
+- Role session
+- IAM user
+- Federated user session (Google, Facebook etc)
+- AWS service (ie an application)
+
+Note that a Group is not a principal since:
+
+> You cannot identify a user group as a principal in a policy (such as a resource-based policy) because **groups relate to permissions, not authentication, and principals are authenticated IAM entities** [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying)
 
 ## A company with several departments that manage AWS
 
