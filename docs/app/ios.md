@@ -35,6 +35,24 @@ Get a simulator ID: `xcrun simctl list | egrep '(Booted)'`
 
 Keys: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html
 
+## Version
+
+|                               | Android                          | iOS                                                                                                                                                                                                                |
+| ----------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Public (visible on the store) | `versionName` - A string ("1.0") | [`CFBundleShortVersionString`](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring) aka **version** or marketing version                                |
+| Private                       | `versionCode` - An int (1)       | [`CFBundleVersion`](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion) aka **build number** - Can be a single digit (1, 2, 3...) or "1.2.3", or even "1.2.3.540" |
+
+Similar to Android's `versionCode`, the build number also needs to increase, although you can have the same build number for two different versions.
+
+If you upload a build to the App Store with a build number that already exists for that version, you get this error:
+
+> ERROR ITMS-90189: "Redundant Binary Upload. You've already uploaded a build with build number '1' for version number '1.0'. Make sure you increment the build string before you upload your app to App Store Connect. Learn more in Xcode Help (http://help.apple.com/xcode/mac/current/#/devba7f53ad4)."
+
+See what values to set here:
+
+- https://stackoverflow.com/questions/25680604/error-itms-9000-redundant-binary-upload-there-already-exists-a-binary-upload
+- https://stackoverflow.com/questions/6851660/version-vs-build-in-xcode/6965086
+
 ## Xcode shortcuts
 
 - Build: ⌘ + B
