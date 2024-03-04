@@ -2,13 +2,15 @@
 title: npm
 ---
 
-package.json docs: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
+`package.json` docs: https://docs.npmjs.com/cli/v10/configuring-npm/package-json
 
 Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html → Outdated! New link is https://exploringjs.com/nodejs-shell-scripting/ch_package-scripts.html, so it's a chapter of the book [Shell scripting with Node.js](https://exploringjs.com/nodejs-shell-scripting/index.html)
 
 ## CLI
 
-CLI docs: https://docs.npmjs.com/cli-documentation/
+CLI docs: https://docs.npmjs.com/cli-documentation
+
+**Options**: https://docs.npmjs.com/cli/v10/using-npm/config
 
 npm <-> yarn:
 
@@ -23,10 +25,6 @@ Upgrade npm itself: `npm install npm@latest -g`
 
 List all commands: `npm`. List commands with details: `npm -l`.
 
-Install to devDependencies: `npm install --save-dev webpack` or `npm i -D webpack`
-
-Suppress output like '204 packages are looking for funding' or '8 high severity vulnerabilities': `npm i --no-audit --no-fund --no-optional`
-
 List packages: `npm list` or `npm list --depth=0`
 
 List all outdated packages: `npm outdated`
@@ -39,11 +37,34 @@ Show package info: `npm info <package>`
 
 Open docs (eg README) in the browser: `npm docs <package>`
 
-To pass arguments to a script you need to add `--` ([see `npm run` docs](https://docs.npmjs.com/cli/v8/commands/npm-run-script)). Eg if we have the script `"test": "jest"` and we want to run Jest in watch mode, we need to do `npm test -- --watch`. Note: in this case doing `npx jest --watch` also works.
+To pass arguments to a script you need to add `--` ([see `npm run` docs](https://docs.npmjs.com/cli/v10/commands/npm-run-script)). Eg if we have the script `"test": "jest"` and we want to run Jest in watch mode, we need to do `npm test -- --watch`. Note: in this case doing `npx jest --watch` also works.
 
-`npx` command runs a binary or package. It can be a local package (eg a binary in ./node_modules/.bin/) or fetched remotely. See https://docs.npmjs.com/cli/v8/commands/npx
+`npx` command runs a binary or package. It can be a local package (eg a binary in ./node_modules/.bin/) or fetched remotely. See https://docs.npmjs.com/cli/v10/commands/npx
 
-`npm ci` (clean install)
+### Install
+
+Install to devDependencies: `npm i -D webpack` or `npm install --save-dev webpack`
+
+Exact version: `npm i -E express` or `npm install --save-exact express`
+
+Suppress output like '204 packages are looking for funding' and '8 high severity vulnerabilities': `npm i --no-audit --no-fund`
+
+Install only "dependencies" but not "devDependencies" packages: `npm i --omit=dev`. [See `omit` docs](https://docs.npmjs.com/cli/v10/using-npm/config#omit). Note that "If the resulting omit list includes 'dev', then the `NODE_ENV` environment variable will be set to 'production' for all lifecycle scripts"
+
+### `npm i --force` vs `--legacy-peer-deps`
+
+Important: use `--force`, not `--legacy-peer-deps`.
+
+https://stackoverflow.com/questions/66020820/npm-when-to-use-force-and-legacy-peer-deps
+
+> `--force` still pins many dependency versions which is stricter.
+
+> `--legacy-peer-deps` ignores peer dependencies entirely, which can screw up your dependency resolution.
+> `--force` on the other hand simply sets a different peer dependency version for conflicting dependencies.
+
+### `npm ci` (clean install)
+
+Better use `npm ci --no-audit --no-fund`
 
 - Docs: https://docs.npmjs.com/cli/v8/commands/npm-ci
 - Use it when you want to make sure you're doing a clean install of your dependencies
@@ -59,23 +80,6 @@ To pass arguments to a script you need to add `--` ([see `npm run` docs](https:/
 
 https://www.stefanjudis.com/today-i-learned/how-to-override-your-dependencys-dependencies/
 
-### Find unused packages
-
-https://github.com/dylang/npm-check
-
-https://github.com/depcheck/depcheck - Usage: `npx depcheck`
-
-### `--force` vs `--legacy-peer-deps`
-
-Important: use `--force`, not `--legacy-peer-deps`.
-
-https://stackoverflow.com/questions/66020820/npm-when-to-use-force-and-legacy-peer-deps
-
-> `--force` still pins many dependency versions which is stricter.
-
-> `--legacy-peer-deps` ignores peer dependencies entirely, which can screw up your dependency resolution.
-> `--force` on the other hand simply sets a different peer dependency version for conflicting dependencies.
-
 ### Update a package
 
 Just use `npm i [-D] [-E] somepackage@latest` (eg `npm i -D -E typescript@latest`) because using [`npm update`](https://docs.npmjs.com/cli/v8/commands/npm-update) doesn't update `package.json`:
@@ -84,21 +88,11 @@ Just use `npm i [-D] [-E] somepackage@latest` (eg `npm i -D -E typescript@latest
 
 ### Init `npm init`
 
-https://docs.npmjs.com/cli/v8/commands/npm-init
+https://docs.npmjs.com/cli/v10/commands/npm-init
 
 Creates `package.json`.
 
 Init without questions: `npm init -y`
-
-### Get rid of 'x packages are looking for funding'
-
-```shell
-npm config set fund false
-# check the value, it should be false now
-npm config get fund
-```
-
-https://docs.npmjs.com/cli/v8/commands/npm-install#fund
 
 ### Global
 
@@ -134,7 +128,7 @@ Everything goes into dependencies? - https://github.com/facebook/create-react-ap
 
 ## Dependency version
 
-https://docs.npmjs.com/cli/v8/configuring-npm/package-json#dependencies
+https://docs.npmjs.com/cli/v10/configuring-npm/package-json#dependencies
 
 semver calculator: https://semver.npmjs.com
 
@@ -195,4 +189,20 @@ Never delete it: https://tkdodo.eu/blog/solving-conflicts-in-package-lock-json _
 
 https://docs.npmjs.com/cli/v9/configuring-npm/npmrc
 
-Options: https://docs.npmjs.com/cli/v9/using-npm/config
+Options: https://docs.npmjs.com/cli/v10/using-npm/config
+
+## Find unused packages
+
+https://github.com/dylang/npm-check
+
+https://github.com/depcheck/depcheck - Usage: `npx depcheck`
+
+## Get rid of 'x packages are looking for funding' forever
+
+```shell
+npm config set fund false
+# check the value, it should be false now
+npm config get fund
+```
+
+https://docs.npmjs.com/cli/v10/commands/npm-install#fund
