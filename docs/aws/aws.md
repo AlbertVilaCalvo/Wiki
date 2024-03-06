@@ -16,7 +16,7 @@ Back to Basics video series: https://aws.amazon.com/es/architecture/back-to-basi
 
 Open guide: https://github.com/open-guides/og-aws
 
-DevOps exercises: https://github.com/bregman-arie/devops-exercises/blob/master/topics/aws/README.md -> Some solutions include Terraform and Pulumi
+DevOps exercises: https://github.com/bregman-arie/devops-exercises/blob/master/topics/aws/README.md → Some solutions include Terraform and Pulumi
 
 https://github.com/topics/aws
 
@@ -46,7 +46,7 @@ Everything in AWS is an API call.
 
 With the root user.
 
-- Enable MFA for the root user [link](/aws/iam#root-user-multi-factor-authentication-mfa)
+- Enable MFA for the root user [link](/aws/root-user#root-user-multi-factor-authentication-mfa)
 - Set the account alias (at the IAM dashboard)
 - Enable IAM access to billing (so that non-root users can have access to billing) [link](/aws/billing-pricing#enable-iam-access-to-billing)
 - Enable free tier alerts [link](/aws/billing-pricing#enable-free-tier-alerts)

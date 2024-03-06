@@ -2,7 +2,7 @@
 title: Root User
 ---
 
-Has complete access to all AWS services and resources, including billing information. Is the most privileged user.
+Has complete access to all AWS services and resources, including billing information. Is the most privileged user, and its permissions cannot be restricted.
 
 Logs in using the email.
 

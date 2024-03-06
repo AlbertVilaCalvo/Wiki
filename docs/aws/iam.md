@@ -12,7 +12,13 @@ https://github.com/topics/iam
 
 **Security best practices in IAM** - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 
-IAM Access Analyzer - https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html - See some use cases at [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html).
+:::tip
+Enable [IAM Access Analyzer](https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html)
+
+See some use cases at [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+
+It can [generate policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html) - [see below](#generate-policy-based-on-cloudtrail-events)
+:::
 
 A vault for securely storing and accessing AWS credentials in development environments - https://github.com/99designs/aws-vault
 
@@ -23,6 +29,10 @@ A tool for quickly evaluating IAM permissions in AWS - https://github.com/nccgro
 Refining permissions in AWS using last accessed information - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html
 
 AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
+
+IAM is a global service. Notice you cannot select any region at the top-right dropdown. Any user, group, role etc. can be used on all regions, all around the world.
+
+Nice summary - https://blog.awsfundamentals.com/aws-iam-roles-terms-concepts-and-examples
 
 ## Summary
 
@@ -78,11 +88,19 @@ https://classroom.udacity.com/nanodegrees/nd0044/parts/8fc72c65-158a-429d-a08f-f
 
 ### `sts:AssumeRole`
 
+The API call used to assume a role.
+
 https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html
 
 https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/assume-role.html
 
 https://stackoverflow.com/questions/63241009/aws-sts-assume-role-in-one-command
+
+### Instance profile
+
+A way to attach a role to an EC2 instance, for example to access other services like S3.
+
+Note that we need a trust policy.
 
 ## Policy
 
@@ -93,34 +111,33 @@ JSON file. Permissions assigned to a user, group or role.
   "Sid": "AllowManageOwnSSHPublicKeys", // Who/what is authorized
   "Effect": "Allow", // Or "Deny"
   "Action": [
-    // Which task(s) are allowed
+    // Which task(s) are allowed/denied. It's an API action
     "iam:GetSSHPublicKey",
     "iam:ListSSHPublicKeys"
   ],
   "Condition": {
     // Which condition(s) need to be met for authorization
   },
-  "Resource": "arn:aws:iam::*:user/${aws:username}" // Resources to which authorized tasks are performed
+  // Resources to which authorized tasks are performed. An ARN or *
+  "Resource": "arn:aws:iam::*:user/${aws:username}"
 }
 ```
 
 Console: https://console.aws.amazon.com/iamv2/home?#/policies
 
-Simulator: https://policysim.aws.amazon.com
+**Policy Simulator**: https://policysim.aws.amazon.com
+
+Policy types - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types
+
+AWS managed policies - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies
 
 AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
-
-### Allow and Deny
-
-By default all permissions are denied. Thus, nothing is allowed unless there's an explicit Allow.
-
-Deny overrides any Allow.
 
 ### Examples
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
 
-AdministratorAccess:
+#### AdministratorAccess policy
 
 ```json
 {
@@ -137,13 +154,82 @@ AdministratorAccess:
 
 Allows all actions on all resources.
 
+### Permissions policy and trust policy (role)
+
+See https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/
+
+#### Permissions policy
+
+Defines the permissions (Allow or Deny) that the user of the role is able to perform (or is denied from performing), and on which resources. Is an **identity-based policy**.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "ec2:Describe*",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+#### Trust policy
+
+Who is allowed to assume the role, and under which conditions. Is a **resource-based policy**.
+
+> The IAM service supports only one type of resource-based policy called a role trust policy, which is attached to an IAM role. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based)
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::111122223333:root"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+
+### Allow and Deny
+
+By default all permissions are denied. Thus, nothing is allowed unless there's an explicit Allow.
+
+Any explicit Deny overrides any explicit Allows.
+
+Note that the root user has full access.
+
 ### Identity-based vs resource-based policy
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html
 
-Identity-based policy: applied to users, groups and roles.
+#### Identity-based policy
 
-Resource-based policy: applied to a resource like an S3 bucket or a SQS queue. Not all resources support resource-based policies, see the table at https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_id-based
+
+Attached to users, groups and roles (permissions policy). Can be attached in various ways:
+
+- Inline policy: a policy that only applies to single, specific user, group or role. It cannot be reused. If you delete the user, the policy is also deleted.
+- Managed policy: either created by you or AWS. Standalone: it can be applied to multiple entities.
+
+#### Resource-based policy
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based
+
+Attached to a resource like an S3 bucket, a DynamoDB table or a SQS queue.
+
+> Resource-based policies are inline policies. There are no managed resource-based policies. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based)
+
+**It has a `Principal`.**
+
+On the JSON there's a `Principal` who gets permission to perform `Action`s to a specific `Resource` only.
+
+Not all resources support resource-based policies, see the table at https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
 
 Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-allow-full-access-to-a-bucket-and-all-its-objects)):
 
@@ -156,12 +242,32 @@ Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-
       "Sid": "AllAccess",
       "Action": "s3:*",
       "Effect": "Allow",
-      "Resource": ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"],
-      "Principal": "*"
+      "Principal": "*",
+      "Resource": ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"]
     }
   ]
 }
 ```
+
+Can be applied to a role too: a trust policy.
+
+### Session policy
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session
+
+Limit the permissions of a role when you use the STS AssumeRole action using the CLI or API.
+
+> A session policy is a permissions policy which you can optionally pass during an AssumeRole operation. This enables you to place further restrictions on a role's permissions for that session. [source](https://aws.amazon.com/about-aws/whats-new/2019/05/session-permissions/)
+
+### Generate policy based on CloudTrail events
+
+Automatically generates a policy for the permissions that the entity actually used.
+
+Go to IAM → Roles and open a role. At the bottom you have the "Generate policy" button.
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_generate-policy.html
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html
 
 ### Role vs Policy
 
@@ -240,6 +346,8 @@ There are 2 guides/tutorials that explain how to set up the admin user:
 
 ### Steps
 
+TLDR: create a group with the 'AdministratorAccess' policy, then create a user and add it to the group.
+
 - Sign in to the console as Root user.
 - Click your name at the top navbar → Account. At the section 'IAM User and Role Access to Billing Information' click 'Edit' and enable 'Activate IAM Access'.
 - Go to the IAM console → Users and click 'Create user'.
@@ -267,6 +375,29 @@ Don't forget to enable MFA for the admin user
 
 Go to IAM → Account settings and on the Password policy box click the 'Edit' button.
 
+https://www.netskope.com/blog/a-real-world-look-at-aws-best-practices-password-policies
+
+## ARN
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html
+
+Format:
+
+```shell
+arn:partition:service:region:account-id:resource-id
+arn:partition:service:region:account-id:resource-type/resource-id
+arn:partition:service:region:account-id:resource-type:resource-id
+```
+
+Examples:
+
+```shell
+# IAM user
+arn:aws:iam::123456789012:user/johndoe
+# VPC
+arn:aws:ec2:us-east-1:123456789012:vpc/vpc-0e9801d129EXAMPLE
+```
+
 ## CLI
 
 `aws iam list-users`
@@ -278,7 +409,7 @@ Create role
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-role.html
 - `aws iam create-role --role-name <role-name> --assume-role-policy-document file://trust.json --output text --query 'Role.Arn'`
 
-Example of trust relationship policy document `trust.json`:
+Example of trust policy document (`trust.json`):
 
 ```json
 {
@@ -326,6 +457,10 @@ Delete role
 - If you get the error "Cannot delete entity, must remove roles from instance profile first" on the console when trying to delete a role, use the CLI instead.
 
 ## Permission boundaries
+
+Defines the maximum permissions that a user or role can have. Can be applied to users and roles. Used to prevent privilege escalation.
+
+Important: they don't grant permissions, it controls the permissions you have. You still need to have the permissions granted to you through a role for example.
 
 (Documentation) Permissions boundaries for IAM entities - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html
 

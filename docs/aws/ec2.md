@@ -14,7 +14,7 @@ IaaS. You manage the OS and up, AWS manages the hardware and [hypervisor](https:
 
 Tutorial 'Host a WordPress blog' (note that there are 2):
 
-- Amazon Linux 2: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/tuts-wordpress.html -> https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hosting-wordpress.html
+- Amazon Linux 2: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/tuts-wordpress.html → https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hosting-wordpress.html
 - AL2023 (AMI newer than Amazon Linux 2): https://docs.aws.amazon.com/linux/al2023/ug/hosting-wordpress-aml-2023.html
 
 ## Instance types
