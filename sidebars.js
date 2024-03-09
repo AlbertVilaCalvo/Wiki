@@ -84,6 +84,7 @@ const sidebars = {
     'aws/cli',
     'aws/iam',
     'aws/root-user',
+    'aws/sts',
     'aws/vpc',
     'aws/ec2',
     'aws/eks',
