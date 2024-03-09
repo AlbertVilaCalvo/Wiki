@@ -102,17 +102,65 @@ https://classroom.udacity.com/nanodegrees/nd0044/parts/8fc72c65-158a-429d-a08f-f
 
 The API call used to assume a role.
 
+On a trust policy the `Action` is `sts:AssumeRole`.
+
 https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html
 
 https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/assume-role.html
 
 https://stackoverflow.com/questions/63241009/aws-sts-assume-role-in-one-command
 
-### Instance profile
+### EC2 instance profile
 
 A way to attach a role to an EC2 instance, for example to access other services like S3.
 
-Note that we need a trust policy.
+We need a trust policy to allow the EC2 instance to assume the role.
+
+To create one:
+
+- Go to IAM → Roles, and click 'Create role'.
+- At the 'Trusted entity type' choose 'AWS service', and at the 'Use case' drop-down list select EC2 (under 'Commonly used services'). This is the trust policy.
+- Click 'Next' and select the Permissions policies.
+
+Once the role is created, you can see the **trust policy** at the role's 'Trust relationship' tab, where the trusted entities is:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+
+The **permissions policy** can be anything. For example, if we've given S3 read access with `AmazonS3ReadOnlyAccess`, it will be:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:Get*",
+        "s3:List*",
+        "s3:Describe*",
+        "s3-object-lambda:Get*",
+        "s3-object-lambda:List*"
+      ],
+      "Resource": "* "
+    }
+  ]
+}
+```
+
+To attach the role to the EC2 instance, when creating an instance, select the role at the 'IAM instance profile' dropdown. And if the instance is already running, go to the EC2 console → Instances, open the instance, and on the Actions drop-down menu (top right) do Security → Modify IAM role. Select the role and click 'Update IAM role'.
 
 ## Policy
 
