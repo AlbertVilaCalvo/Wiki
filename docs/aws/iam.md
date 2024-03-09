@@ -30,9 +30,7 @@ Refining permissions in AWS using last accessed information - https://docs.aws.a
 
 AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
 
-IAM is a global service. Notice you cannot select any region at the top-right dropdown. Any user, group, role etc. can be used on all regions, all around the world.
-
-Nice summary - https://blog.awsfundamentals.com/aws-iam-roles-terms-concepts-and-examples
+IAM is a **global** service. Notice you cannot select any region at the top-right dropdown. Any user, group, role etc. can be used on all regions, all around the world.
 
 ## Summary
 
@@ -41,6 +39,10 @@ Nice summary - https://blog.awsfundamentals.com/aws-iam-roles-terms-concepts-and
 - Role: set of permissions.
 - Policy: JSON file. Permissions assigned to a user, group or role.
 - Principal: user, account, service, or other entity that is allowed or denied access to a resource.
+
+Nice summary - https://blog.awsfundamentals.com/aws-iam-roles-terms-concepts-and-examples
+
+Cheatsheet - https://digitalcloud.training/aws-iam/
 
 ## User
 
@@ -55,15 +57,25 @@ Authentication:
   - Only a user can have access keys (not a group, role or policy).
   - Best practice: use roles for applications that run on EC2 instances or lambda functions. See [Require workloads to use temporary credentials with IAM roles to access AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-workloads-use-roles)
 
+### Service account
+
+An IAM user for a service or application.
+
+> IAM roles for service accounts provide the ability to manage credentials for your applications, similar to the way that Amazon EC2 instance profiles provide credentials to Amazon EC2 instances. [source](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html)
+
 ## Group
 
 A collection of users.
 
 A way of organizing users and applying permissions to them through a policy.
 
+Is not an identity, thus it cannot be used at the a `Principal` field of a policy. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html:
+
+> You cannot identify a user group as a principal in a policy (such as a resource-based policy) because groups relate to permissions, not authentication, and principals are authenticated IAM entities.
+
 ## Role
 
-A way to delegate permissions. Is an identity. Roles are assumed by users, applications and services.
+A way to **delegate** permissions without using permanent credentials. Is an identity. Roles are assumed by users, applications and services (the trusted entities).
 
 When you assume a role you loose any other permissions. Eg if you are an admin but you assume a role, you loose the admin permissions. Thus, the permissions assigned to a role need to include everything required to complete the task.
 
@@ -133,6 +145,14 @@ AWS managed policies - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_p
 
 AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
 
+### Allow and Deny
+
+All permissions are implicitly denied by default. Thus, nothing is allowed unless there's an explicit Allow.
+
+Any explicit Deny overrides any explicit Allows. Thus, if there's multiple policies with conflicting statements, the most restrictive policy is applied.
+
+Note that the root user has full access.
+
 ### Examples
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
@@ -196,14 +216,6 @@ Who is allowed to assume the role, and under which conditions. Is a **resource-b
 }
 ```
 
-### Allow and Deny
-
-By default all permissions are denied. Thus, nothing is allowed unless there's an explicit Allow.
-
-Any explicit Deny overrides any explicit Allows.
-
-Note that the root user has full access.
-
 ### Identity-based vs resource-based policy
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html
@@ -221,7 +233,7 @@ Attached to users, groups and roles (permissions policy). Can be attached in var
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based
 
-Attached to a resource like an S3 bucket, a DynamoDB table or a SQS queue.
+Attached to a resource like an S3 bucket, a DynamoDB table or a SQS queue. Defines permissions for a principal accessing the resource.
 
 > Resource-based policies are inline policies. There are no managed resource-based policies. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based)
 
@@ -264,6 +276,8 @@ Limit the permissions of a role when you use the STS AssumeRole action using the
 Automatically generates a policy for the permissions that the entity actually used.
 
 Go to IAM → Roles and open a role. At the bottom you have the "Generate policy" button.
+
+It's a [recommended best practice](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-gen-least-privilege-policies)
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_generate-policy.html
 
@@ -458,7 +472,9 @@ Delete role
 
 ## Permission boundaries
 
-Defines the maximum permissions that a user or role can have. Can be applied to users and roles. Used to prevent privilege escalation.
+Defines the maximum permissions that a user, group or role can have. Can be applied to users and roles. Used to prevent privilege escalation.
+
+Sets the maximum permissions that an identity-based policy can grant an IAM entity.
 
 Important: they don't grant permissions, it controls the permissions you have. You still need to have the permissions granted to you through a role for example.
 
@@ -473,3 +489,15 @@ How can I resolve access denied issues caused by permissions boundaries? - https
 Prevent privilege escalation with AWS IAM permission boundaries - https://iaasacademy.com/aws-how-to-guides/aws-iam-permissions-boundaries-help-to-prevent-privilege-escalations - https://www.youtube.com/watch?v=LZdfxS2DnFw
 
 AWS Permission Boundaries for Dummies - https://news.ycombinator.com/item?id=33192295
+
+It's a best practice - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-permissions-boundaries
+
+## Eventually consistent
+
+From https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html
+
+> IAM, like many other AWS services, is eventually consistent. IAM achieves high availability by replicating data across multiple servers within Amazon's data centers around the world. If a request to change some data is successful, the change is committed and safely stored. However, the change must be replicated across IAM, which can take some time.
+
+Changes that I make are not always immediately visible - https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency
+
+www.it-automation.com/2021/06/06/how-to-deal-with-eventual-consistency-in-AWS-IAM.html

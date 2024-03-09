@@ -16,6 +16,12 @@ Amazon EKS Blueprints for Terraform - https://github.com/aws-ia/terraform-aws-ek
 
 Amazon EKS Helm chart repository - https://github.com/aws/eks-charts
 
+https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/
+
+https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
+
+https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accounts/
+
 ## Learn
 
 - https://workshops.aws/?tag=EKS
