@@ -6,6 +6,8 @@ title: ECS
 
 https://aws.amazon.com/ecs/
 
+Cheatseet - https://digitalcloud.training/amazon-ecs-and-eks/
+
 ## Launch types
 
 Runs in EC2 and Fargate.
