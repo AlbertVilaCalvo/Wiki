@@ -65,6 +65,8 @@ AWS Organizations: https://aws.amazon.com/organizations
 
 https://www.leapp.cloud - https://github.com/Noovolari/leapp
 
+Do I need multiple AWS accounts? - https://docs.aws.amazon.com/accounts/latest/reference/welcome-multiple-accounts.html
+
 Transitioning to multiple AWS accounts (Prescriptive Guidance) - https://docs.aws.amazon.com/prescriptive-guidance/latest/transitioning-to-multiple-aws-accounts/welcome.html
 
 You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/

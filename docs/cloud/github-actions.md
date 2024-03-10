@@ -187,7 +187,7 @@ You need the on [`workflow_dispatch`](https://docs.github.com/en/actions/using-w
 
 Note that the workflow needs to be merged on a main branch, otherwise you won't see it on the Actions page: _This event will only trigger a workflow run if the workflow file is on the default branch._ [source](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch)
 
-Example of a drop down:
+Example of a dropdown:
 
 ```yml
 name: Native Apps Build
