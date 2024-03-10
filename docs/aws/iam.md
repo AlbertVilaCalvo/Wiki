@@ -226,6 +226,12 @@ Allows all actions on all resources.
 
 See https://aws.amazon.com/blogs/security/how-to-use-trust-policies-with-iam-roles/
 
+:::tip
+Trust policy: who
+
+Permissions policy: what
+:::
+
 #### Permissions policy
 
 Defines the permissions (Allow or Deny) that the user of the role is able to perform (or is denied from performing), and on which resources. Is an **identity-based policy**.
