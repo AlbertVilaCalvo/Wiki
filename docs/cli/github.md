@@ -18,6 +18,10 @@ Desktop app: https://desktop.github.com - https://github.com/desktop/desktop
 
 View raw commit/patch: add `.patch` to the commit URL, eg https://github.com/AlbertVilaCalvo/Android-Udacity-Popular-Movies/commit/5c1218db157fc6ce5dfd9c9e98f0522c67241963.patch
 
+List of cool features of Git and GitHub - https://github.com/tiimgreen/github-cheat-sheet
+
+Hub CLI - https://github.com/mislav/hub
+
 ## SSH
 
 Doing `ssh -T git@github.com` should say:

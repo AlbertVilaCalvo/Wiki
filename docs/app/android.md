@@ -191,3 +191,7 @@ Email 2022-04-06 'Google Play Developer Program Policy Update':
 Email 2022-12-15 'Target API Level policy changes and deadline extension':
 
 > We’re also extending the deadline to give you more time to adjust to these changes. Now, apps that target API level 29 or below will start experiencing reduced distribution starting **Jan 31, 2023** instead of Nov 1, 2022. If you need more time to update your app, you can request an extension to keep your app discoverable to all users until May 1, 2023.
+
+## Google Play
+
+Access levels: https://support.google.com/googleplay/android-developer/answer/9844686?hl=en Also see explanation of each permission here: https://support.google.com/googleplay/android-developer/answer/10019561?hl=en

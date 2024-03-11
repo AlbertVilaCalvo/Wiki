@@ -438,6 +438,8 @@ Environment variables and secrets: https://docs.expo.dev/build-reference/variabl
 
 Also see https://docs.expo.dev/build/eas-json/#environment-variables
 
+For `eas build`, doing `ENVIRONMENT=prod eas build` does not work, `ENVIRONMENT` needs to be defined in `eas.json`. However, it works for _"other commands that run entirely locally"_ like `eas update`. See https://github.com/expo/fyi/blob/main/eas-config-mismatch.md
+
 According to https://docs.expo.dev/build-reference/variables/#can-i-share-environment-variables-defined-in `expo start` does not pick variables defined in eas.json:
 
 > When you define environment variables on build profiles in eas.json, they will not be available for local development when you run `expo start` (and `expo publish`).

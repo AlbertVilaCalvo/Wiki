@@ -4,6 +4,8 @@ title: Git
 
 Source code mirror: https://github.com/git/git
 
+Git tips -https://github.com/git-tips/tips
+
 Ask HN: Apps that are built with Git as the back end? - https://news.ycombinator.com/item?id=33261862
 
 https://github.com/github/git-sizer. Compute various size metrics for a Git repository, flagging those that might cause problems. This tools is referenced in https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github.
@@ -246,6 +248,8 @@ https://www.atlassian.com/git/tutorials/merging-vs-rebasing#the-golden-rule-of-r
 https://github.blog/2022-10-03-highlights-from-git-2-38/#rebase-dependent-branches-with-update-refs - https://news.ycombinator.com/item?id=33071275
 
 ## Rebase interactive
+
+TODO check for interactive rebase https://github.com/jesseduffield/lazygit
 
 https://git-scm.com/docs/git-rebase
 
@@ -674,3 +678,13 @@ https://github.com/github/gitignore - A collection of useful .gitignore template
 https://git-scm.com/docs/gitignore
 
 To match a directory only (but not files) add a slash at the end, eg `build/`. _If there is a separator at the end of the pattern then the pattern will only match directories, otherwise the pattern can match both files and directories_ ([source](https://git-scm.com/docs/gitignore#_pattern_format)). You can also do `/build` if the directory is at the same level of the `.gitignore`, see https://github.com/github/gitignore/blob/main/Elixir.gitignore
+
+## CLI
+
+https://github.com/scmbreeze/scm_breeze
+
+https://github.com/extrawurst/gitui
+
+https://github.com/jesseduffield/lazygit
+
+https://github.com/jonas/tig
