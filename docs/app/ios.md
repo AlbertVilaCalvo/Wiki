@@ -31,6 +31,14 @@ Images are located in `~/Library/Developer/CoreSimulator/Devices/81F9EF8A-486B-4
 
 Get a simulator ID: `xcrun simctl list | egrep '(Booted)'`
 
+To move an icon from one screen to the other see https://stackoverflow.com/questions/45888520/how-to-move-app-icon-to-another-page-in-ios-simulator.
+
+## Real iPhone
+
+Enable developer mode (required to install an app): https://docs.expo.dev/guides/ios-developer-mode/
+
+You need to sign the app with an [ad hoc provisioning profile](https://help.apple.com/xcode/mac/current/#/dev4335bfd3d) that includes your device UDID, see [Distribute to registered devices (iOS, tvOS, watchOS)](https://help.apple.com/xcode/mac/current/#/dev7ccaf4d3c)
+
 ## Info.plist
 
 Keys: https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html
@@ -59,6 +67,13 @@ See what values to set here:
 - Run: ⌘ + R
 - Clean Build Folder: ⌘ + ⇧ + K
 - Stop: ⌘ + .
+
+## App Store
+
+Roles:
+
+- https://developer.apple.com/support/roles
+- https://developer.apple.com/help/app-store-connect/reference/role-permissions
 
 ## Certificates
 
