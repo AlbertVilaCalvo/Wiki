@@ -179,7 +179,7 @@ Limited to 16 kB.
 
 Accessible at the metadata.
 
-## Network
+## Networking
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-networking.html
 
@@ -241,9 +241,48 @@ https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
 
 Network Address Translation.
 
+Receives traffic on one IP and translates it and sends it out using a different IP.
+
 The internet gateway transforms the instance's public IP to a private IP (and viceversa) in incoming and outgoing network packets.
 
 See https://stackoverflow.com/questions/74455063/what-exactly-are-nat-gateway-and-internet-gateway-on-aws
+
+> NAT Gateways exist because organizations want the additional security offered by private subnets, which guarantee that there is no inbound access from the Internet. **Similar security can be provided with a Security Group**, so private subnets aren't actually required.
+
+### Bastion hosts
+
+Allows to connect to an instance on a private subnet through an instance on a public subnet.
+
+Can be done with a NAT gateway or a NAT instance.
+
+https://www.youtube.com/watch?v=ypWzL3PdKx0
+
+### NAT gateways
+
+An AWS service used to allow instances in private subnets to connect to the Internet.
+
+Traffic is **outbound** only. No one outside from the Internet will be able to connect to the private instance. This allows the instance to call an external service, download software updates etc. If we wanted bidirectional traffic, we would deploy the instance on a public subnet, so that it has a public IP, and use Internet Gateway.
+
+We have a private instance on a private subnet. We deploy a **NAT gateway** to a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP**. The NAT gateway talks to the Internet Gateway on behalf of the private instance.
+
+We create a **private route table**, explicitly associated to the **private subnet** (on 'Subnet associations'). Then on 'Edit routes' we add a route entry with 'Destination' 0.0.0.0/0 (ie everything else that is not routed locally via the VPC router) and for 'Target' choose 'NAT Gateway', selecting the NAT gateway we've created. So any address range outside of the VPC will go to the NAT gateway.
+
+The private instance can use it's private IP address to connect to the private IP of the NAT gateway, which will forward the traffic to the Internet Gateway using Network Address Translation, and reach the Internet.
+
+To check that the setup is correct do:
+
+- Connect to a public instance using Instance Connect.
+- From the terminal, using nano, create a file containing the private instance's SSH key-pair, and then `chmod 400`.
+- Connect to the private instance with `ssh`, using its private IPv4 address.
+- Once connected to the private instance, run `ping google.com`. It should receive a response.
+
+### NAT instances
+
+_Not used much nowadays since we have NAT gateways._
+
+Unlike NAT gateways, is not an AWS service. It's a special AMI pre-configured. Has amzn-ami-vpc-nat on the name.
+
+You have to disable the source and destination checks to function as a NAT.
 
 ## Amazon Linux
 
