@@ -105,7 +105,8 @@ const sidebars = {
     // https://docusaurus.io/docs/sidebar/items#category-shorthand
     {
       Certifications: [
-        'aws/certifications/cloud-practitioner'
+        'aws/certifications/cloud-practitioner',
+        'aws/certifications/solutions-architect-associate'
       ]
     },
     // Alternatively, we could have a Generated index page:
