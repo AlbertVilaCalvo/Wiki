@@ -24,6 +24,7 @@ https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accoun
 
 ## Learn
 
+- Amazon EKS - Knowledge Badge Readiness Path (learning plan) - https://explore.skillbuilder.aws/learn/public/learning_plan/view/1931/amazon-eks-knowledge-badge-readiness-path
 - https://workshops.aws/?tag=EKS
   - EKS Immersion Workshop - https://catalog.workshops.aws/eks-immersionday/en-US
   - https://www.eksworkshop.com

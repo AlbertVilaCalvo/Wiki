@@ -6,6 +6,8 @@ title: VPC
 
 Docs: https://docs.aws.amazon.com/vpc
 
+Building Your First Amazon Virtual Private Cloud (VPC) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/409/building-your-first-amazon-virtual-private-cloud
+
 ## Subnet
 
 https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html
