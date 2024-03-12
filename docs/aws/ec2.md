@@ -284,6 +284,91 @@ Unlike NAT gateways, is not an AWS service. It's a special AMI pre-configured. H
 
 You have to disable the source and destination checks to function as a NAT.
 
+## Lifecycle
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
+
+<img src="https://static.packt-cdn.com/products/9781787125629/graphics/573f7f95-0362-4395-a034-058e031d4f2b.png" />
+
+[Stopped](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html)
+
+- Only for EBS-backend instances. If the root volume is instance store-backed you cannot stop it.
+- You are not charged in EC2, but you pay for the EBS data since the volumes remain attached.
+- RAM is lost.
+- Host will be different when it restarts → if there's some maintenance or the host has an issue, we can stop the instance to move it.
+- Private IPv4 and IPv6 address is retained, but public (not Elastic) IPv4 is not. Elastic IPs are always retained.
+
+[Hibernating](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html)
+
+- Needs to be enabled when launched.
+- Only for supported AMIs.
+- RAM is saved on a EBS volume and restored when restarted.
+- Processes running are resumed when restarted.
+- Instance ID is retained.
+
+[Reboot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-reboot.html)
+
+- All IP address and DNS names are retained.
+
+[For retirement](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-retirement.html)
+
+- Scheduled to be retired by AWS when there is an irreparable failure of the underlying hardware.
+
+[Terminated](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html)
+
+- Root EBS volumes are deleted by default.
+
+[Recovered](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html)
+
+- Identical to the original instance.
+
+## Pricing
+
+https://aws.amazon.com/ec2/pricing
+
+Instance purchasing options - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html
+
+EC2 Pricing Models Explained - https://www.youtube.com/watch?v=rmFlOo7MNW0
+
+[On-Demand](https://aws.amazon.com/ec2/pricing/on-demand/)
+
+- No up-front commitment.
+- Most expensive option (standard rate, no discount).
+- Pay by the second (Amazon Linux) or hour (RHEL, SUSE).
+- To try something, test a new app or for unpredictable workloads; not for steady workloads.
+
+[Spot](https://aws.amazon.com/ec2/spot/)
+
+- Bid on spare capacity.
+- Least expensive option, up to 90% discount.
+- Instance can be terminated at any time, thus workload needs to be interruptible.
+  - You have 2 minutes to save the data, see [Spot Instance interruption notices](https://docs.amazonaws.cn/en_us/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html).
+- To run compute heavy tasks like ML or HPC (hundreds or thousands of servers) at a very low cost.
+
+[Reserved (RI)](https://aws.amazon.com/ec2/pricing/reserved-instances/)
+
+- Commitment of 1-3 years.
+- About 30-60% savings, up to 72%.
+- You pay for capacity even if you don't use it, but on the other hand you ensure you'll have capacity.
+- Can be Standard or Convertible (more expensive but you can change the instance attributes).
+
+[Savings plan](https://aws.amazon.com/savingsplans/)
+
+- Best of all options, [see this](https://youtu.be/rmFlOo7MNW0?feature=shared&t=146).
+- Hourly spend commitment of 1-3 years. Anything beyond that you'll pay On-Demand price.
+- Saving up to 72%.
+- More flexibility than reserved.
+- Three types of Savings Plans: Compute Savings Plans (includes Fargate and Lambda too), EC2 Instance Savings Plans, and Amazon SageMaker Savings Plans.
+
+[Dedicated instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html)
+
+- Might share hardware with other instances from the same AWS account that are not Dedicated Instances.
+
+[Dedicated hosts](https://aws.amazon.com/ec2/dedicated-hosts/)
+
+- Physical server that is fully dedicated for your use.
+- Dedicated hardware to support software licenses or compliance.
+
 ## Amazon Linux
 
 https://aws.amazon.com/linux/amazon-linux-2023
