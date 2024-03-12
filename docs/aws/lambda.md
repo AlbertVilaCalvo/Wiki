@@ -9,3 +9,5 @@ Quotas - https://docs.aws.amazon.com/general/latest/gr/lambda-service.html
 https://github.com/awslabs/aws-lambda-powertools-typescript
 
 Cheatseet - https://digitalcloud.training/aws-lambda/
+
+Build a serverless retail solution for endless aisle on AWS - https://aws.amazon.com/blogs/architecture/building-serverless-endless-aisle-retail-architectures-on-aws - from [Top Architecture Blog Posts of 2023](https://aws.amazon.com/blogs/architecture/top-architecture-blog-posts-of-2023/)

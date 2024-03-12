@@ -20,12 +20,6 @@ You manage the OS and whatever you want to run on top it, and AWS manages the [h
 
 Each EC2 instance is a virtual server or **virtual machine** that runs on top of host servers.
 
-## AMI
-
-Amazon Machine Image. A template with the OS and additional software like a server and applications.
-
-Can be backed by EBS or backed by instance store.
-
 ## Learn
 
 Tutorial 'Host a WordPress blog' (note that there are 2):
@@ -177,7 +171,7 @@ yum update -y
 
 Limited to 16 kB.
 
-Accessible at the metadata.
+Accessible at the metadata at `http://169.254.169.254/latest/user-data`.
 
 ## Networking
 
@@ -261,7 +255,11 @@ https://www.youtube.com/watch?v=ypWzL3PdKx0
 
 An AWS service used to allow instances in private subnets to connect to the Internet.
 
+To do it, launch a NAT gateway in a public subnet, and add a route in the private subnet route table
+
 Traffic is **outbound** only. No one outside from the Internet will be able to connect to the private instance. This allows the instance to call an external service, download software updates etc. If we wanted bidirectional traffic, we would deploy the instance on a public subnet, so that it has a public IP, and use Internet Gateway.
+
+#### Steps
 
 We have a private instance on a private subnet. We deploy a **NAT gateway** to a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP**. The NAT gateway talks to the Internet Gateway on behalf of the private instance.
 
@@ -278,7 +276,7 @@ To check that the setup is correct do:
 
 ### NAT instances
 
-_Not used much nowadays since we have NAT gateways._
+_Not used much nowadays since we have NAT gateways._ It was the way to do it in the past, but NAT gateways, since they are managed by AWS, are highly available and they scale automatically.
 
 Unlike NAT gateways, is not an AWS service. It's a special AMI pre-configured. Has amzn-ami-vpc-nat on the name.
 
@@ -300,19 +298,22 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
 
 [Hibernating](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html)
 
+- For On-Demand or Spot instances.
 - Needs to be enabled when launched.
 - Only for supported AMIs.
 - RAM is saved on a EBS volume and restored when restarted.
 - Processes running are resumed when restarted.
+- Previously attached data volumes are reattached.
 - Instance ID is retained.
 
 [Reboot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-reboot.html)
 
+- Equivalent to an OS reboot.
 - All IP address and DNS names are retained.
 
 [For retirement](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-retirement.html)
 
-- Scheduled to be retired by AWS when there is an irreparable failure of the underlying hardware.
+- Scheduled to be retired by AWS when there is an irreparable failure of the underlying hardware, .
 
 [Terminated](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html)
 
@@ -320,7 +321,8 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
 
 [Recovered](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html)
 
-- Identical to the original instance.
+- Automatic recovery be configured or you can do so using a CloudWatch alarm.
+- The recovered instance is identical to the original instance.
 
 ## Pricing
 
@@ -335,7 +337,7 @@ EC2 Pricing Models Explained - https://www.youtube.com/watch?v=rmFlOo7MNW0
 - No up-front commitment.
 - Most expensive option (standard rate, no discount).
 - Pay by the second (Amazon Linux) or hour (RHEL, SUSE).
-- To try something, test a new app or for unpredictable workloads; not for steady workloads.
+- To try something, test a new app or for unpredictable workloads. Not for steady, long-term workloads.
 
 [Spot](https://aws.amazon.com/ec2/spot/)
 
@@ -363,13 +365,23 @@ EC2 Pricing Models Explained - https://www.youtube.com/watch?v=rmFlOo7MNW0
 [Dedicated instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html)
 
 - Might share hardware with other instances from the same AWS account that are not Dedicated Instances.
+- Billed per instance.
 
 [Dedicated hosts](https://aws.amazon.com/ec2/dedicated-hosts/)
 
 - Physical server that is fully dedicated for your use.
-- Dedicated hardware to support software licenses or compliance.
+- Dedicated hardware to support software licenses (since we have visibility of sockets and physical cores) or compliance/regulatory requirements.
+- Billed per host.
 
-## Amazon Linux
+## AMI
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
+
+Amazon Machine Image. A template with the OS and additional software like a server and applications.
+
+Can be backed by EBS (persistent) or instance store (non-persistent).
+
+### Amazon Linux
 
 https://aws.amazon.com/linux/amazon-linux-2023
 
@@ -383,10 +395,12 @@ Comparing AL2 and Amazon Linux 2023 - https://docs.aws.amazon.com/linux/al2023/u
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html
 
+> Placement groups are optional. If you don't launch your instances into a placement group, EC2 tries to place the instances in such a way that all of your instances are spread out across the underlying hardware to minimize correlated failures.
+
 Options:
 
 - Cluster: instance are close (eg on the same rack) to have low-latency and high throughput. For HPC.
 - Partition: split instances in partitions, and each partition runs on a separate underlying hardware. You can have up to 7 partitions per AZ. When we have data replicated and we want to ensure there's always a node running, eg Kafka or Cassandra.
-- Spread: a small group of instances that all run on different hardware (rack) to reduce failures.
+- Spread: a small group of instances that all run on different hardware (ie a different rack) to reduce correlated failures.
 
 You choose it when you launch the instance.
