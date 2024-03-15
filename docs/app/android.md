@@ -12,6 +12,17 @@ Change package name (application id) - https://github.com/junedomingo/react-nati
 
 https://developer.android.com/studio/write/create-app-icons
 
+Adaptive icons - https://developer.android.com/develop/ui/views/launch/icon_design_adaptive
+
+Android 13 supports themed icons, which are tinted with a color determined by the wallpaper.
+
+See this video: https://www.youtube.com/watch?v=o_PnMp27DWU
+
+> If your app icon is already simple, your monochrome and foreground drawables can be the same.
+
+- Figma template: https://goo.gle/adaptive-icon-template → https://www.figma.com/community/file/1131374111452281708
+- Codelab: https://goo.gle/adaptive-icon-codelab
+
 For a simple icon use the [Image Asset Studio](https://developer.android.com/studio/write/create-app-icons#access) To open it, right-click the res folder and select New → Image Asset.
 
 IconKitchen icon generator (by Roman Nurik) does something similar than the Image Asset Studio - https://icon.kitchen
@@ -86,7 +97,17 @@ Install app bundle aab: https://stackoverflow.com/questions/50419286/install-and
 
 View logs: `adb logcat --pid=$(adb shell pidof -s com.example.myapp) -v color`. [See logcat docs](https://developer.android.com/tools/logcat) for more options. (Note that the app needs to be running on the phone or emulator, otherwise `pidof` will return nothing.)
 
-## Test deep links
+## App Links (verified deep links)
+
+https://developer.android.com/training/app-links
+
+https://docs.expo.dev/guides/deep-linking/#deep-links-on-android
+
+App Links are web links that use the HTTP and HTTPS schemes and contain the `autoVerify` attribute on the `<intent-filter>`. Your app opens immediately; the disambiguation dialog doesn't appear.
+
+For the `.well-known/assetlinks.json` file you need the SHA-256 certificate fingerprint of the signing key (not the upload key). To get it, go to [Play Console](https://play.google.com/console/) → Release → Setup → App Signing. You'll find the file at the "Digital Asset Links JSON" section of this page.
+
+### Test deep links
 
 https://developer.android.com/training/app-links/deep-linking#testing-filters
 

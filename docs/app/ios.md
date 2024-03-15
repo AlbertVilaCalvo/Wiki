@@ -106,14 +106,26 @@ Create a file `pushtest.apns`:
 xcrun simctl push <simulator identifier> <bundle identifier of the app> pushtest.apns"
 ```
 
-## Universal links (verified deep links)
+## Universal links (verified deep links with associated domains)
 
-https://developer.apple.com/library/archive/documentation/General/Conceptual/AppSearch/UniversalLinks.html
+https://developer.apple.com/ios/universal-links/
+
+(old) https://developer.apple.com/library/archive/documentation/General/Conceptual/AppSearch/UniversalLinks.html
+
+https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content
+
+Supporting associated domains - https://developer.apple.com/documentation/Xcode/supporting-associated-domains
 
 https://stackoverflow.com/questions/35609667/how-to-support-universal-links-in-ios-app-and-setup-server-for-it
+
+https://docs.expo.dev/guides/deep-linking/#universal-links-on-ios
+
+https://reactnavigation.org/docs/deep-linking/
 
 Validate apple-app-site-association: https://branch.io/resources/aasa-validator/
 
 Example of AASA file: https://facebook.com/.well-known/apple-app-site-association
 
-Test deep links (only works on the simulator): `xcrun simctl openurl booted "https://example.com/xyz"`
+Test deep links with `xcrun` (only works on the simulator): `xcrun simctl openurl booted "https://example.com/xyz"`
+
+Test deep links with [`uri-scheme`](https://www.npmjs.com/package/uri-scheme): `npx uri-scheme open "https://example.com/xyz" --ios`
