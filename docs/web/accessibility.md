@@ -8,6 +8,8 @@ Web Accessibility Testing extension - axe DevTools - https://chrome.google.com/w
 
 [accessibilityinsights.io](https://accessibilityinsights.io)
 
+https://developer.mozilla.org/en-US/curriculum/core/accessibility
+
 ## WCAG (Web Content Accessibility Guidelines)
 
 https://github.com/w3c/wcag

@@ -18,6 +18,8 @@ AWS Cloud Practitioner Essentials - https://explore.skillbuilder.aws/learn/cours
 
 Exam Prep Enhanced Course: AWS Certified Cloud Practitioner (CLF-C02) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/16485/exam-prep-enhanced-course-aws-certified-cloud-practitioner-clf-c02-english
 
+https://explore.skillbuilder.aws/learn/course/internal/view/elearning/16352/exam-prep-standard-course-aws-certified-devops-engineer-professional-dop-c02-english
+
 AWS Cloud Quest: Cloud Practitioner (free) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/11458/aws-cloud-quest-cloud-practitioner
 
 Cheatsheets: https://digitalcloud.training/category/aws-cheat-sheets/aws-cloud-practitioner/
@@ -33,3 +35,5 @@ https://portal.tutorialsdojo.com/courses/aws-certified-cloud-practitioner-practi
 ## CLF-C01 vs CLF-C02
 
 https://www.pluralsight.com/resources/blog/cloud/new-aws-clf-c02-exam0
+
+https://www.youtube.com/watch?v=ABlVM-b5w0c

@@ -10,13 +10,15 @@ Cheatsheet - https://digitalcloud.training/amazon-vpc
 
 Building Your First Amazon Virtual Private Cloud (VPC) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/409/building-your-first-amazon-virtual-private-cloud
 
+Regional: a VPC cannot span multiple regions.
+
 ## Subnet
 
 https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html
 
-A range of IP addresses.
+A range of IP addresses, which is a segment of the overall VPC address range.
 
-Must reside in a single Availability Zone.
+Must reside in a single Availability Zone and cannot span AZs.
 
 CIDR (Classless Inter-Domain Routing): the range of IP address allocated on the subnet. See [What is CIDR?](https://aws.amazon.com/what-is/cidr/)
 
