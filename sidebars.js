@@ -87,6 +87,7 @@ const sidebars = {
     'aws/sts',
     'aws/vpc',
     'aws/ec2',
+    'aws/ec2-auto-scaling',
     'aws/eks',
     'aws/ecs',
     'aws/fargate',
