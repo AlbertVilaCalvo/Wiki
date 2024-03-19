@@ -42,6 +42,14 @@ Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
 Everything in AWS is an API call.
 :::
 
+## Training Learning
+
+https://www.aws.training
+
+https://explore.skillbuilder.aws/learn
+
+https://www.awseducate.com - https://aws.amazon.com/education/awseducate → Really basic
+
 ## Things to do when you create an AWS account
 
 With the root user.
