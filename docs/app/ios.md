@@ -116,6 +116,8 @@ https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-li
 
 Supporting associated domains - https://developer.apple.com/documentation/Xcode/supporting-associated-domains
 
+> The apps in the `apple-app-site-association` file on your website must have a matching [Associated Domains Entitlement](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_associated-domains).
+
 https://stackoverflow.com/questions/35609667/how-to-support-universal-links-in-ios-app-and-setup-server-for-it
 
 https://docs.expo.dev/guides/deep-linking/#universal-links-on-ios
