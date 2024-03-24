@@ -28,6 +28,8 @@ https://github.com/awslabs
 
 https://github.com/donnemartin/awesome-aws
 
+https://github.com/thyagomota/aws-labs - https://github.com/thyagomota/aws-labs-2023
+
 https://www.101daysofdevops.com/courses/100-days-of-aws/
 
 Local Stack - https://www.localstack.cloud - https://github.com/localstack/localstack
@@ -38,9 +40,18 @@ Serverless Patterns Collection - https://serverlessland.com/patterns
 
 Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
 
+AWS observability in Grafana Cloud - https://grafana.com/solutions/cloud-monitoring-aws
+
 :::tip Important
 Everything in AWS is an API call.
 :::
+
+## Top architecture blog posts
+
+- 2020 - https://aws.amazon.com/blogs/architecture/top-15-architecture-blog-posts-of-2020/
+- 2021 - https://aws.amazon.com/blogs/architecture/top-10-architecture-blog-posts-of-2021/
+- 2022 - https://aws.amazon.com/blogs/architecture/top-10-aws-architecture-blog-posts-of-2022/
+- 2023 - https://aws.amazon.com/blogs/architecture/top-architecture-blog-posts-of-2023/
 
 ## Training Learning
 
@@ -87,6 +98,8 @@ Create six AWS accounts (logs, security, shared, dev, stage, and prod) - https:/
 - Dev/Stage/Prod: CloudFront, S3, Route53, VPC, ECS, EKS, RDS, Redis, Lambda, SQS, Kinesis, IaC Pipeline, CloudWatch, GuardDuty...
 
 ## Security
+
+What do I do if I notice unauthorized activity in my AWS account? - https://repost.aws/knowledge-center/potential-account-compromise
 
 AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
 

@@ -24,6 +24,8 @@ Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See T
 
 https://github.com/jesseduffield/lazydocker
 
+https://depot.dev
+
 ## Cheatsheets
 
 - https://github.com/wsargent/docker-cheat-sheet
@@ -48,6 +50,10 @@ https://labs.play-with-docker.com
 https://leanpub.com/erase-una-vez-docker
 
 https://www.amazon.com/Getting-Started-Docker-Nigel-Poulton/dp/1916585302/
+
+https://learn.digitalcloud.training/course/docker-for-beginners
+
+https://learn.cantrill.io/p/docker-fundamentals
 
 ## Best practices
 
@@ -347,6 +353,8 @@ COPY . /code
 # Command run when the container starts
 CMD [ "node", "src/server.js" ]
 ```
+
+The complexity of writing an efficient NodeJS Docker image - https://www.specfy.io/blog/1-efficient-dockerfile-nodejs-in-7-steps
 
 ### Python Dockerfile
 

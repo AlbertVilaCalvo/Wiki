@@ -12,6 +12,10 @@ https://maintainablecss.com/
 
 Defensive CSS - https://defensivecss.dev
 
+https://moderncss.dev/12-modern-css-one-line-upgrades
+
+https://moderncss.dev/contextual-spacing-for-intrinsic-web-design
+
 ## Cascade
 
 https://css-tricks.com/dont-fight-the-cascade-control-it/

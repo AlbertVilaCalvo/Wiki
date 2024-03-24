@@ -8,6 +8,8 @@ https://aws.amazon.com/ecs/
 
 Cheatseet - https://digitalcloud.training/amazon-ecs-and-eks/
 
+https://aws.github.io/copilot-cli
+
 ## Launch types
 
 Runs in EC2 and Fargate.
