@@ -197,6 +197,8 @@ https://github.com/dylang/npm-check
 
 https://github.com/depcheck/depcheck - Usage: `npx depcheck`
 
+https://github.com/webpro/knip
+
 ## Get rid of 'x packages are looking for funding' forever
 
 ```shell
