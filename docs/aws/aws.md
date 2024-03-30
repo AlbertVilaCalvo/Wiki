@@ -6,6 +6,8 @@ Documentation: https://docs.aws.amazon.com/index.html
 
 re:Post - https://www.repost.aws
 
+What's new - https://aws.amazon.com/new
+
 Whitepapers & Guides - https://aws.amazon.com/whitepapers
 
 Ramp-Up Guides (guides to learning the AWS Cloud) - https://aws.amazon.com/training/ramp-up-guides
@@ -60,6 +62,8 @@ https://www.aws.training
 https://explore.skillbuilder.aws/learn
 
 https://www.awseducate.com - https://aws.amazon.com/education/awseducate → Really basic
+
+AWS Debug Games - https://games.cloudonaut.io
 
 ## Things to do when you create an AWS account
 

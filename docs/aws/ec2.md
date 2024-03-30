@@ -122,11 +122,11 @@ Enables access to/from the internet.
 
 When we connect to the EC2 instance we do so through the internet gateway.
 
-## Security group (firewall)
+## Security group (instance firewall)
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html
 
-A virtual firewall that controls incoming and outgoing (inbound and outbound) traffic.
+A virtual firewall that controls incoming and outgoing (inbound and outbound) traffic _at the instance level_ (in contrast with Network ACL, which operate at the subnet level).
 
 Controls which port protocols and IP addresses we can connect from.
 

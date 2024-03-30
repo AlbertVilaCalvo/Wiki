@@ -10,9 +10,11 @@ Cheatsheet - https://digitalcloud.training/amazon-vpc
 
 Building Your First Amazon Virtual Private Cloud (VPC) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/409/building-your-first-amazon-virtual-private-cloud
 
-Regional: a VPC cannot span multiple regions.
+Regional service: a VPC cannot span multiple regions.
 
 Example: VPC for web and database servers - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-web-database-servers.html
+
+Analogy - https://stackoverflow.com/a/65193190/4034572
 
 ## Subnet
 

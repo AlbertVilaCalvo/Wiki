@@ -4,6 +4,8 @@ title: MySQL
 
 MySQL Workbench: https://www.mysql.com/products/workbench
 
+Show database tables: `show tables;`
+
 ## Logs
 
 https://stackoverflow.com/questions/5441972/how-to-see-log-files-in-mysql

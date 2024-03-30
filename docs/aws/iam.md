@@ -270,6 +270,23 @@ Who is allowed to assume the role, and under which conditions. Is a **resource-b
 }
 ```
 
+For example to allow the S3 service to replicate two buckets we create a Role with this custom trust policy:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+
 ### Identity-based vs resource-based policy
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html
@@ -316,6 +333,23 @@ Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-
 ```
 
 Can be applied to a role too: a trust policy.
+
+Note that when the Action applies to an object, like `s3:GetObject`, the Resource needs to have `/*` appended, otherwise the permission applies to the S3 bucket and it doesn't work:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowPublicAccessToS3Objects",
+      "Principal": "*",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::my-static-website-bucket/*" // <- We need '/*' here!
+    }
+  ]
+}
+```
 
 ### Session policy
 

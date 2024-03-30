@@ -10,6 +10,10 @@ https://github.com/teesloane/Auth-Boss
 
 https://www.manning.com/books/api-security-in-action
 
+https://thecopenhagenbook.com - A basic guideline on implementing auth for the web - https://github.com/pilcrowonpaper/copenhagen
+
+https://lucia-auth.com
+
 ## API Routes
 
 | Action                             | Method    | Route                                | HTML | Auth Token | Notes                                                                                             | Success Code             | Failure Code                                                                                      |                      Request Body                       | Response Body |

@@ -16,11 +16,15 @@ Minimum 700 out of 1000 score to pass.
 
 AWS Cloud Practitioner Essentials - https://explore.skillbuilder.aws/learn/course/external/view/elearning/134/aws-cloud-practitioner-essentials
 
-Exam Prep Enhanced Course: AWS Certified Cloud Practitioner (CLF-C02) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/16485/exam-prep-enhanced-course-aws-certified-cloud-practitioner-clf-c02-english
+Exam Prep Enhanced Course: AWS Certified Cloud Practitioner (CLF-C02) - 13 h - https://explore.skillbuilder.aws/learn/course/external/view/elearning/16485/exam-prep-enhanced-course-aws-certified-cloud-practitioner-clf-c02-english
 
 https://explore.skillbuilder.aws/learn/course/internal/view/elearning/16352/exam-prep-standard-course-aws-certified-devops-engineer-professional-dop-c02-english
 
-AWS Cloud Quest: Cloud Practitioner (free) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/11458/aws-cloud-quest-cloud-practitioner
+AWS Cloud Quest: Cloud Practitioner (free) - 12 h - https://explore.skillbuilder.aws/learn/course/external/view/elearning/11458/aws-cloud-quest-cloud-practitioner
+
+AWS Escape Room: Exam Prep for AWS Certified Cloud Practitioner (CLF-C02) - https://explore.skillbuilder.aws/learn/course/internal/view/elearning/17373/aws-escape-room-for-exam-prep-aws-certified-cloud-practitioner-clf-c02
+
+https://kodekloud.com/courses/aws-cloud-practitioner/
 
 Cheatsheets: https://digitalcloud.training/category/aws-cheat-sheets/aws-cloud-practitioner/
 
@@ -31,6 +35,8 @@ Six advantages of cloud computing - https://docs.aws.amazon.com/whitepapers/late
 ## Practice exams
 
 https://portal.tutorialsdojo.com/courses/aws-certified-cloud-practitioner-practice-exams/
+
+https://learn.digitalcloud.training/course/free-aws-certified-cloud-practitioner-practice-exam
 
 ## CLF-C01 vs CLF-C02
 

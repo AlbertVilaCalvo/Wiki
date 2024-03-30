@@ -16,6 +16,8 @@ https://github.com/Sceptre/sceptre - https://docs.sceptre-project.org
 
 Linter: https://github.com/aws-cloudformation/cfn-lint
 
+CloudFormation vs Terraform in 2022 - https://cloudonaut.io/cloudformation-vs-terraform
+
 Never store sensitive information (such as credentials and access keys) in a template file.
 
 A stack can be created using the console or the CLI.

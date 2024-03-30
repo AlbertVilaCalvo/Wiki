@@ -31,3 +31,10 @@ https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accoun
   - EKS Terraform Workshop - https://tf-eks-workshop.workshop.aws/
   - Web Application Hosts on EKS Workshop - https://catalog.us-east-1.prod.workshops.aws/workshops/a1101fcc-c7cf-4dd5-98c4-f599a65056d5/en-US
 - Deploy a Container Web App on Amazon EKS - https://aws.amazon.com/getting-started/guides/deploy-webapp-eks
+- Host a Dynamic Application with Kubernetes and AWS EKS, Helm, ECR, Secrets Manager - https://www.aosnote.com/offers/sQZUgFJY/checkout
+
+## Karpenter
+
+https://karpenter.sh/
+
+Run Kubernetes Clusters for Less with Amazon EC2 Spot and Karpenter - https://community.aws/tutorials/run-kubernetes-clusters-for-less-with-amazon-ec2-spot-and-karpenter
