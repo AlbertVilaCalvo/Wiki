@@ -96,11 +96,13 @@ const sidebars = {
     'aws/s3',
     'aws/cloudfront',
     'aws/route53',
+    'aws/rds',
     'aws/cloudformation',
     'aws/cloud-development-kit',
     'aws/codepipeline',
     'aws/codebuild',
     'aws/well-architected-framework',
+    'aws/serverless',
     'aws/sns',
     'aws/sqs',
     // https://docusaurus.io/docs/sidebar/items#category-shorthand
