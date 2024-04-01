@@ -9,3 +9,11 @@ Let’s Architect! Serverless architecture on AWS - https://aws.amazon.com/blogs
 https://learn.digitalcloud.training/course/aws-serverless-for-beginners-with-aws-lambda-api-gateway-sqs-sns-and-eventbridge
 
 Project 5 of "5 AWS Cloud Projects to Get You Hired in 2024 (For Beginners)" uses Amplify, AppSync GraphQL, S3, DynamoDB - https://learn.techwithlucy.com/p/5-beginner-aws-cloud-projects-for-2024-complete-step-by-step-guide - https://www.youtube.com/watch?v=akeSJBEWr3w - Use code "YT10" for 10% off
+
+https://www.udacity.com/course/develop-and-deploy-serverless-apps--cd12101
+
+https://www.whizlabs.com/full-stack-serverless-application-on-aws/
+
+https://www.whizlabs.com/aws-lambda-and-api-gateway-online-training/
+
+https://www.whizlabs.com/aws-serverless-services-hands-on-labs/

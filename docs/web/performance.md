@@ -8,6 +8,8 @@ https://web.dev/reduce-javascript-payloads-with-code-splitting/ → Dynamic impo
 
 https://developer.mozilla.org/en-US/docs/Web/API/Performance_API
 
+https://web.dev/learn/performance
+
 ## `<link rel="preconnect" href="https://example.com" />`
 
 https://web.dev/preconnect-and-dns-prefetch/

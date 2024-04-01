@@ -12,6 +12,8 @@ https://github.com/thanos-io/thanos
 
 https://fluentbit.io
 
+AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-US
+
 ## Definition
 
 https://opentelemetry.io/docs/concepts/observability-primer/#what-is-observability

@@ -2,6 +2,8 @@
 title: PostgreSQL
 ---
 
+Port: 5432
+
 `brew info postgresql`
 
 https://github.com/dhamaniasad/awesome-postgres

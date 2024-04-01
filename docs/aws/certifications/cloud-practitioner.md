@@ -38,6 +38,8 @@ https://portal.tutorialsdojo.com/courses/aws-certified-cloud-practitioner-practi
 
 https://learn.digitalcloud.training/course/free-aws-certified-cloud-practitioner-practice-exam
 
+https://www.whizlabs.com/aws-certified-cloud-practitioner/
+
 ## CLF-C01 vs CLF-C02
 
 https://www.pluralsight.com/resources/blog/cloud/new-aws-clf-c02-exam0

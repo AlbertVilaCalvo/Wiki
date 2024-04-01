@@ -61,6 +61,8 @@ How to manage multiple environments with Terraform (Yevgeniy Brikman) - https://
 
 https://medium.com/@itsnarayan/optimizing-aws-infrastructure-leveraging-terraform-for-low-coupling-and-high-cohesion-a5ae6049ab1e
 
+33 labs - https://www.whizlabs.com/infrastructure-automation-with-terraform/
+
 ## Examples
 
 - https://github.com/AJarombek/global-aws-infrastructure
@@ -83,3 +85,13 @@ AWS Control Tower Account Factory for Terraform:
 https://www.terraform.io/cdktf
 
 Terraforming with TypeScript - https://radar.com/blog/terraforming-with-typescript
+
+## Terraform Associate Certification
+
+https://www.hashicorp.com/certification/terraform-associate
+
+https://www.exampro.co/terraform
+
+https://www.whizlabs.com/hashicorp-certified-terraform-associate/
+
+https://www.udemy.com/course/terraform-associate-practice-exam

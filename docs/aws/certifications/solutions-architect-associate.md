@@ -31,3 +31,5 @@ Exams official question set - Exam Prep Official Practice Question Set: AWS Cert
 https://portal.tutorialsdojo.com/courses/aws-certified-solutions-architect-associate-practice-exams/
 
 https://learn.digitalcloud.training/course/free-aws-certified-solutions-architect-associate-practice-exam
+
+https://www.whizlabs.com/aws-solutions-architect-associate

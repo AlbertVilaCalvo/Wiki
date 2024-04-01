@@ -19,6 +19,8 @@ Reddit’s database has two tables
 
 ## Admins
 
+https://en.wikipedia.org/wiki/Comparison_of_database_administration_tools
+
 - https://www.adminer.org
 - https://dbeaver.io
 - https://tableplus.com
@@ -60,7 +62,11 @@ For [node.bcrypt.js](https://www.npmjs.com/package/bcrypt): `CHAR(60) NOT NULL`
 
 - What should be the typical length of user's Full Name in database - https://stackoverflow.com/questions/4297841/what-should-be-the-typical-length-of-users-full-name-in-database
 
-## Normalize to make better relations, denormalize for performance
+## Normalization
+
+https://en.wikipedia.org/wiki/Database_normalization
+
+### Normalize to make better relations, denormalize for performance
 
 From https://news.ycombinator.com/item?id=32414172
 
@@ -69,7 +75,15 @@ From https://news.ycombinator.com/item?id=32414172
 - Prof: "Why do we denormalize?"
 - Class, in unison: "Performance."
 
+## ACID
+
+https://en.wikipedia.org/wiki/ACID
+
 ## Database types
+
+AWS database services comparison - https://docs.aws.amazon.com/whitepapers/latest/aws-overview/database.html#compare-database-services
+
+https://en.wikipedia.org/wiki/Database#Classification
 
 https://www.prisma.io/dataguide/intro/comparing-database-types
 
@@ -79,6 +93,18 @@ From https://danpalmer.me/2022-09-10-write-your-own-task-queue/ - https://news.y
 - Redis can bring speed and simplicity.
 - RabbitMQ can bring complex queue topologies and behaviours, with strong consistency and scalability.
 - Kafka can bring performance benefits for large scale high performance systems.
+
+### Relational vs non-relational
+
+What is a Relational Database? - https://aws.amazon.com/relational-database
+
+### OLTP vs OLAP
+
+OLTP (online transaction processing): operational. CRUD.
+
+OLAP (online analytical processing): for analytics/analysis. User behavior reports, business intelligence, financial decision making etc. Read, not write. Data comes from multiple OLTP databases.
+
+https://aws.amazon.com/compare/the-difference-between-olap-and-oltp/
 
 ## Column oriented
 

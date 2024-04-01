@@ -8,6 +8,8 @@ EC2 Auto Scaling - https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is
 
 https://digitalcloud.training/amazon-ec2-auto-scaling/
 
+Tutorial - https://aws.amazon.com/tutorials/ec2-auto-scaling-spot-instances
+
 Provides scalability and elasticity by scaling out (horizontally, instead of up/vertically) by launching instances when demand increases, so that the application is performant, and scaling in by terminating instances when they are not needed, so that you only pay for what you need.
 
 ## Auto Scaling Group

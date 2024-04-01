@@ -138,6 +138,12 @@ Check the rollout status: `kubectl rollout status deployment/simple-flask-deploy
 
 Get external IP address: `kubectl get services <service-name> -o wide`
 
+## Certifications
+
+https://www.whizlabs.com/certified-kubernetes-application-developer/
+
+https://www.whizlabs.com/certified-kubernetes-administrator/
+
 ## Terraform
 
 https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594

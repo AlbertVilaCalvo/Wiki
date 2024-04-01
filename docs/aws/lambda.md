@@ -14,6 +14,8 @@ Serverless Application Repository - https://serverlessrepo.aws.amazon.com/applic
 
 Web Application reference architecture - https://github.com/aws-samples/lambda-refarch-webapp
 
+Tutorial - https://aws.amazon.com/getting-started/hands-on/amazon-s3-object-lambda-to-dynamically-watermark-images/
+
 Build a serverless retail solution for endless aisle on AWS - https://aws.amazon.com/blogs/architecture/building-serverless-endless-aisle-retail-architectures-on-aws - from [Top Architecture Blog Posts of 2023](https://aws.amazon.com/blogs/architecture/top-architecture-blog-posts-of-2023/)
 
 Lambda is a regional service.

@@ -2,7 +2,11 @@
 title: MySQL
 ---
 
+Port: 3306
+
 MySQL Workbench: https://www.mysql.com/products/workbench
+
+https://github.com/vitessio/vitess
 
 Show database tables: `show tables;`
 

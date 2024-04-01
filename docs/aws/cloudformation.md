@@ -26,6 +26,12 @@ A stack can be created using the console or the CLI.
 
 CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
 
+## Learn
+
+https://mng.workshop.aws/cloudformation.html
+
+https://www.udacity.com/course/deploy-infrastructure-as-code--cd12352
+
 ## Sample templates
 
 - https://aws.amazon.com/cloudformation/resources/templates
