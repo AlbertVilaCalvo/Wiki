@@ -24,6 +24,8 @@ TODO check: https://github.com/astro-community/AstroCompress
 
 TODO mirar: https://github.com/onwidget/astrowind
 
+TODO mirar: https://frontendmasters.com/courses/astro/
+
 ## Front matter
 
 The front matter is optional, you don't need to add the `---` section. You can always add it later when you need it.

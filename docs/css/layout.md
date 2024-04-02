@@ -6,6 +6,8 @@ https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout
 
 https://every-layout.dev
 
+https://frontendmasters.com/courses/css-layouts
+
 Sidebar:
 
 - https://every-layout.dev/layouts/sidebar/
