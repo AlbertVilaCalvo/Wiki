@@ -40,6 +40,8 @@ https://learn.digitalcloud.training/course/free-aws-certified-cloud-practitioner
 
 https://www.whizlabs.com/aws-certified-cloud-practitioner/
 
+https://courses.datacumulus.com
+
 ## CLF-C01 vs CLF-C02
 
 https://www.pluralsight.com/resources/blog/cloud/new-aws-clf-c02-exam0

@@ -98,6 +98,8 @@ From https://danpalmer.me/2022-09-10-write-your-own-task-queue/ - https://news.y
 
 What is a Relational Database? - https://aws.amazon.com/relational-database
 
+https://aws.amazon.com/nosql
+
 ### OLTP vs OLAP
 
 OLTP (online transaction processing): operational. CRUD.
@@ -105,6 +107,14 @@ OLTP (online transaction processing): operational. CRUD.
 OLAP (online analytical processing): for analytics/analysis. User behavior reports, business intelligence, financial decision making etc. Read, not write. Data comes from multiple OLTP databases.
 
 https://aws.amazon.com/compare/the-difference-between-olap-and-oltp/
+
+## Key-value
+
+https://aws.amazon.com/nosql/key-value
+
+## Document
+
+https://aws.amazon.com/nosql/document
 
 ## Column oriented
 
@@ -123,6 +133,12 @@ https://code.jsoftware.com/wiki/Jd/Overview
 > Row oriented is slavishly tied to the design ideas of filing cabinets and manila folders. Column oriented embraces computers.
 >
 > A table column is a mapped file.
+
+## Vector database
+
+https://en.wikipedia.org/wiki/Vector_database
+
+https://www.pinecone.io/learn/vector-database/
 
 ## Migration
 

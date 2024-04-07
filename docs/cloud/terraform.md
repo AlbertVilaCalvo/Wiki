@@ -65,6 +65,8 @@ https://medium.com/@itsnarayan/optimizing-aws-infrastructure-leveraging-terrafor
 
 33 labs - https://www.whizlabs.com/infrastructure-automation-with-terraform/
 
+Host a static website locally using Simple Storage Service (S3) and Terraform with LocalStack - https://docs.localstack.cloud/tutorials/s3-static-website-terraform/
+
 ## Examples
 
 - https://github.com/AJarombek/global-aws-infrastructure

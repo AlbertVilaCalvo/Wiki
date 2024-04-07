@@ -8,6 +8,12 @@ Tutorial - Create and Query a NoSQL Table with Amazon DynamoDB - https://aws.ama
 
 Amazon DynamoDB Learning Plan - https://explore.skillbuilder.aws/learn/public/learning_plan/view/1840/amazon-dynamodb-learning-plan
 
+## CLI
+
+```shell
+aws dynamodb put-item --table-name Users --item '{"Name": {"S": "Albert Einstein"}, "DOB": {"S": "1879-03-14"}}'
+```
+
 ## Single table design
 
 https://www.reddit.com/r/aws/comments/xq1p6s/comment/iq7m7g4/

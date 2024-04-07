@@ -17,3 +17,5 @@ https://www.whizlabs.com/full-stack-serverless-application-on-aws/
 https://www.whizlabs.com/aws-lambda-and-api-gateway-online-training/
 
 https://www.whizlabs.com/aws-serverless-services-hands-on-labs/
+
+https://learn.digitalcloud.training/course/aws-serverless-for-beginners-with-aws-lambda-api-gateway-sqs-sns-and-eventbridge - https://github.com/nealdct/serverless-for-beginners
