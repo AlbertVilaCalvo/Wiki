@@ -117,7 +117,15 @@ If you have multiple emulators then add '-s emulator-name', like this:
 
 `adb -s emulator-5554 shell am start -W -a android.intent.action.VIEW -d "scheme://example.com/some-path" com.example.debug`
 
-## Modify the emulator `hosts` file
+## Emulator
+
+### Networking
+
+https://developer.android.com/studio/run/emulator-networking
+
+Use `10.0.2.2` instead of `localhost`. See https://stackoverflow.com/questions/6760585/accessing-localhostport-from-android-emulator
+
+### Modify the emulator `hosts` file
 
 https://medium.com/code-procedure-and-rants/use-modified-hosts-file-on-android-emulator-4f29f5d12ac1
 

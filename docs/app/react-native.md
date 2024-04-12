@@ -198,6 +198,14 @@ https://reactnative.directory
 
 `alignSelf: 'stretch'`
 
+## Avoid width stretching (fit content)
+
+This is the opposite of the previous.
+
+`alignSelf: 'flex-start'`
+
+On the web we can use [`fit-content`](https://developer.mozilla.org/en-US/docs/Web/CSS/fit-content).
+
 ## ScrollView
 
 ### Full height

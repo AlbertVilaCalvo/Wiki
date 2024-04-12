@@ -31,7 +31,9 @@ Images are located in `~/Library/Developer/CoreSimulator/Devices/81F9EF8A-486B-4
 
 Get a simulator ID: `xcrun simctl list | egrep '(Booted)'`
 
-To move an icon from one screen to the other see https://stackoverflow.com/questions/45888520/how-to-move-app-icon-to-another-page-in-ios-simulator.
+Move an icon from one screen to the other: https://stackoverflow.com/questions/45888520/how-to-move-app-icon-to-another-page-in-ios-simulator
+
+Add files or images: https://stackoverflow.com/questions/468879/adding-images-or-videos-to-iphone-simulator
 
 ## Real iPhone
 
