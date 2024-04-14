@@ -22,6 +22,10 @@ Never store sensitive information (such as credentials and access keys) in a tem
 
 A stack can be created using the console or the CLI.
 
+:::info Important
+The AMI ID is region-specific, that is, the AMI ID of the latest Amazon Linux is different in us-east-1 and us-west-1. Is important to set the right value in CloudFormation templates.
+:::
+
 ## CLI
 
 CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html

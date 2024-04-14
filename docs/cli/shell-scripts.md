@@ -12,6 +12,12 @@ Reusable Bash functions: https://github.com/gruntwork-io/bash-commons
 
 Bash Guide: https://mywiki.wooledge.org/BashGuide - New version: https://guide.bash.academy - https://github.com/lhunath/guide.bash.academy
 
+## If statement
+
+https://stackoverflow.com/questions/669452/are-double-square-brackets-preferable-over-single-square-brackets-in-b
+
+https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-bash
+
 ## Ternary operator
 
 ```shell

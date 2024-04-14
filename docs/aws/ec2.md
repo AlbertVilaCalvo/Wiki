@@ -406,6 +406,10 @@ EC2 Pricing Models Explained - https://www.youtube.com/watch?v=rmFlOo7MNW0
 
 ## AMI
 
+:::info Important
+The AMI ID is region-specific, that is, the AMI ID of the latest Amazon Linux is different in us-east-1 and us-west-1. Is important to set the right value in CloudFormation templates.
+:::
+
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
 
 Amazon Machine Image. A template with the OS and additional software like a server and applications.

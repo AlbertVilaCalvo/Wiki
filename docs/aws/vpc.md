@@ -10,23 +10,33 @@ Cheatsheet - https://digitalcloud.training/amazon-vpc
 
 Building Your First Amazon Virtual Private Cloud (VPC) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/409/building-your-first-amazon-virtual-private-cloud
 
-Regional service: a VPC cannot span multiple regions.
-
 Example: VPC for web and database servers - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-web-database-servers.html
 
 Analogy - https://stackoverflow.com/a/65193190/4034572
+
+## Main concepts
+
+Is a regional service (a VPC cannot span multiple regions), but you can have multiple VPCs within a region (the default limit is 5, but you can request to increase it).
+
+A VPC has a router, which we configure through its route tables.
+
+To connect to the public Internet we use an Internet Gateway. There's only 1 per VPC.
+
+The VPC CIDR address block is the full range of IP address allocated. Each subnet takes a portion of them.
+
+CIDR: Classless Inter-Domain Routing. See [What is CIDR?](https://aws.amazon.com/what-is/cidr/)
 
 ## Subnet
 
 https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html
 
-A range of IP addresses, which is a segment of the overall VPC address range.
+A range of IP addresses, which is a segment/portion of the overall VPC CIDR address range.
 
-Must reside in a single Availability Zone and cannot span AZs.
+Must reside in a single Availability Zone, and cannot span multiple AZs.
+
+You can have multiple subnets in the same Availability Zone.
 
 By default we have a default VPC on each region, and each default VPC has a subnet on each AZ of the region. For example, for N. Virginia there are 6 subnets created, one for each AZ (us-east-1a to us-east-1f), but in Sydney there are 3 subnets, since there are 3 AZ. If you go to VPC → Your VPCs, there's a column 'Default VPC', and if you go to VPC → Subnets, there's a column 'Default subnet'.
-
-CIDR (Classless Inter-Domain Routing): the range of IP address allocated on the subnet. See [What is CIDR?](https://aws.amazon.com/what-is/cidr/)
 
 - Public:
   - Has an Internet Gateway on the route table.
@@ -72,10 +82,24 @@ https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html#subnet-ro
 
 > Your VPC has an implicit router, and you use route tables to control where network traffic is directed. Each subnet in your VPC must be associated with a route table, which controls the routing for the subnet (subnet route table). You can explicitly associate a subnet with a particular route table. Otherwise, the subnet is implicitly associated with the main route table. A subnet can only be associated with one route table at a time, but you can associate multiple subnets with the same subnet route table.
 
+## Internet Gateway
+
+https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
+
+https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html
+
+An internet gateway supports inbound and outbound IPv4 and IPv6 traffic, whereas an Egress-only internet gateway allows **outbound** communication over **IPv6** from instances in your VPC to the internet, and prevents the internet from initiating an IPv6 connection with your instances.
+
 ## NAT gateway
 
 https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
 
-A NAT gateway is a Network Address Translation (NAT) service. NAT gateways enable resources in private subnets to reach the internet. External services, however, cannot initiate a connection with the resources in the private subnets.
+A NAT gateway is a Network Address Translation (NAT) service.
+
+Traffic is outbound only: NAT gateways enable resources in private subnets to reach the internet. External services, however, cannot initiate a connection with the resources in the private subnets.
 
 If you choose to create a NAT gateway in your VPC, you are charged for each hour that your NAT gateway is provisioned and available. You are also charged for the amount of data that passes through the gateway.
+
+## Network ACL (firewall)
+
+Operates at the subnet level, whereas a security group operates at the EC2 instance level.
