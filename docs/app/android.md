@@ -242,6 +242,18 @@ See differences here:
 
 #### Closed Testing
 
+:::tip
+Promote the app from Internal to Closed testing ASAP to get the pre-lanuch report.
+
+See [this StackOverflow answer](https://stackoverflow.com/a/72031644/4034572):
+
+> The workflow I use is:
+>
+> 1. I set the app as Internal testing (even if it is just my email address). Right after doing this I
+> 2. Promote the app to "Close testing" (even if it is just my email address) - so I can get Google's report right away.
+
+:::
+
 - Requires review
 - Up to 2000 users
 - You get a pre-launch report from Google's tests
