@@ -72,9 +72,13 @@ See what values to set here:
 
 ## App Store
 
+https://appstoreconnect.apple.com
+
+Registered devices: https://developer.apple.com/account/resources/devices/list
+
 Roles:
 
-- https://developer.apple.com/support/roles
+- https://developer.apple.com/support/roles
 - https://developer.apple.com/help/app-store-connect/reference/role-permissions
 
 ## Certificates

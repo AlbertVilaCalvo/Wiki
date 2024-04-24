@@ -224,3 +224,31 @@ Email 2022-12-15 'Target API Level policy changes and deadline extension':
 ## Google Play
 
 Access levels: https://support.google.com/googleplay/android-developer/answer/9844686?hl=en Also see explanation of each permission here: https://support.google.com/googleplay/android-developer/answer/10019561?hl=en
+
+### Testing Tracks
+
+See differences here:
+
+- https://medium.com/@sudeshfernandez98/demystifying-google-play-testing-a-comprehensive-guide-to-internal-closed-and-open-testing-83bfe9bdad3a
+- https://medium.com/flutter-community/internal-close-and-open-testing-on-google-play-3685d931842a
+- https://play.google.com/console/about/closed-testing/
+- https://stackoverflow.com/questions/66550055/meaning-of-open-testing-in-playstore
+
+#### Internal Testing
+
+- No review required
+- Limited to 100 users
+- No need to pay
+
+#### Closed Testing
+
+- Requires review
+- Up to 2000 users
+- You get a pre-launch report from Google's tests
+- If you’re testing a paid app using an open or closed test, testers still need to purchase it. If you’re testing a paid app using an internal test, testers can install your app for free.
+
+#### Open Testing
+
+- Anyone can join
+- Limited and unlimited users (you choose)
+- End user reviews are only visible to you
