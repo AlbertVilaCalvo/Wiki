@@ -88,6 +88,8 @@ https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
 
 Create tsconfig.json: `npx tsc --init` or `yarn run tsc --init`.
 
+View the resulting configuration when using `"extends"`: `npx tsc -p tsconfig.json --showConfig` [source](https://stackoverflow.com/questions/60299620/see-resulting-tsconfig-when-using-extends)
+
 ### tsconfig.json options to enable
 
 `"noImplicitReturns": true /* Report error when not all code paths in function return a value. */`

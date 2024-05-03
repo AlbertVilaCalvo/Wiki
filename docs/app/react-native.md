@@ -300,3 +300,13 @@ Useful links:
 
 - https://stackoverflow.com/questions/63394726/how-to-publish-native-code-symbols-to-google-play-console
 - https://stackoverflow.com/questions/62568757/playstore-error-app-bundle-contains-native-code-and-youve-not-uploaded-debug
+
+## iOS error "PhaseScriptExecution failed with a nonzero exit code" if path contains spaces
+
+"Build target React-rncore is a directory"
+
+- https://github.com/facebook/react-native/issues/36762
+- https://stackoverflow.com/a/66641075/4034572
+- https://github.com/facebook/react-native/issues/36739
+- https://github.com/react-native-community/releases/issues/214
+- https://medium.com/@pascasigianpaolo/how-i-solved-react-native-xcode-14-build-error-command-phasescriptexecution-failed-with-a-nonzero-816d192edc54

@@ -13,6 +13,8 @@ VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=
 Run `npx expo-doctor@latest` to validate various things like dependency
 :::
 
+Why did your app crash? How to use Logcat & macOS Console to debug - https://www.youtube.com/watch?v=LvCci4Bwmpc
+
 ## Keyboard shortcuts
 
 After doing `npx expo start`, you can use the keys (`r`, `i`, `a`...) listed table at https://docs.expo.dev/more/expo-cli/#develop

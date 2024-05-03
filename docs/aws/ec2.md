@@ -212,6 +212,12 @@ Public IP:
 
 Note that when you reboot an instance it keeps the public IPv4 address, [see docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-reboot.html).
 
+### Pricing
+
+https://aws.amazon.com/blogs/aws/new-aws-public-ipv4-address-charge-public-ip-insights/
+
+https://www.linkedin.com/pulse/changes-aws-public-ip-address-charges-neal-k-davis-j0wae/ - https://www.youtube.com/watch?v=4EvktMxjyxU
+
 ### Elastic IP
 
 An [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) is **static**; it does not change over time.

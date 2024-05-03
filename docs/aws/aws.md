@@ -65,6 +65,8 @@ https://www.awseducate.com - https://aws.amazon.com/education/awseducate → Rea
 
 AWS Debug Games - https://games.cloudonaut.io
 
+AWS guides and templates - https://aws.amazon.com/startups/build
+
 ## Things to do when you create an AWS account
 
 With the root user.

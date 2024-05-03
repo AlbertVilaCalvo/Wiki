@@ -8,6 +8,8 @@ Nx Cloud: https://nx.app
 
 Good intro video: https://www.youtube.com/watch?v=E188J7E_MDU
 
+https://dev.to/this-is-learning/architects-delight-enforcing-layers-and-project-boundaries-with-nx-2d8o
+
 ## 3 different ways to use Nx
 
 https://nx.dev/getting-started/intro
