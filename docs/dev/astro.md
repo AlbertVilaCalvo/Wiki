@@ -326,7 +326,7 @@ Controls how [UI Framework components](https://docs.astro.build/en/core-concepts
 - `<ReactComponent />` → Sends HTML and CSS to the browser. Will be a static element.
 - `<ReactComponent client:load />` → Sends HTML, CSS and **JavaScript** to the browser. This is an **hydrated** component. Will have interactivity.
 
-:::caution
+:::warning
 If we hydrate a (eg) React component with `client:` we load the whole React framework! See this article: https://spacejelly.dev/posts/how-to-use-astro-to-build-react-apps-without-javascript
 :::
 

@@ -18,7 +18,7 @@ omz update
 
 ## Apply changes made to `.zshrc`
 
-:::caution
+:::warning
 Don't run `source ~/.zshrc`! See [How do I reload the zshrc file?](https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-reload-the-zshrc-file)
 :::
 

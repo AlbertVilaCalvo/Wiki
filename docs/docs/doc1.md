@@ -201,15 +201,15 @@ This is info ('important' also works)
 
 :::
 
-:::caution
+:::warning
 
-This is a caution
+This is a warning
 
 :::
 
 :::danger
 
-This is danger ('warning' also works)
+This is danger
 
 :::
 

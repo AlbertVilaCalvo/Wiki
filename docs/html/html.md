@@ -22,7 +22,7 @@ https://web.dev/learn/html/
 
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
 
-:::caution
+:::warning
 The browser blocks parsing and rendering of the page when it encounters `<script>` elements without a `defer` or `async` attribute - [source](https://web.dev/preload-scanner)
 :::
 

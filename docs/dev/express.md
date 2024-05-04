@@ -150,7 +150,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 router.use(errorHandler)
 ```
 
-:::caution
+:::warning
 
 In Express 4 error handlers are only called from handlers that are synchronous (ie not `async` functions nor callbacks).
 In Express 5 is OK.
