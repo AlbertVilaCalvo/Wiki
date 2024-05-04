@@ -139,6 +139,12 @@ const config = {
             position: 'left',
           },
           {
+            to: 'python',
+            activeBasePath: 'python',
+            label: 'Py',
+            position: 'left',
+          },
+          {
             to: 'auth/authentication',
             activeBasePath: 'auth',
             label: 'Auth',

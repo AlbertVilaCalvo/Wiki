@@ -36,7 +36,6 @@ const sidebars = {
     'dev/jetbrains',
     'dev/vscode',
     'dev/emacs',
-    'dev/python',
     'dev/go',
     'dev/php',
     'dev/cryptography',
@@ -183,6 +182,10 @@ const sidebars = {
     'databases/mongodb',
     'databases/redis',
     'databases/dynamodb',
+  ],
+  python: [
+    'python/python',
+    'python/tools',
   ],
   auth: [
     'auth/authentication',

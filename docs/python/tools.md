@@ -1,5 +1,5 @@
 ---
-title: Python
+title: Python Tools
 ---
 
 [Python Package Index - pypi.org](https://pypi.org)
@@ -393,7 +393,3 @@ At the project (not global) `.vscode/settings.json` set:
 https://github.com/PyCQA/pycodestyle
 
 Check your Python code against some of the style conventions in [PEP 8](http://www.python.org/dev/peps/pep-0008).
-
-## Concurrency
-
-How to Choose the Right Python Concurrency API - https://news.ycombinator.com/item?id=32408577 - https://superfastpython.com/python-concurrency-choose-api/
