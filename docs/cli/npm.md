@@ -12,7 +12,7 @@ CLI docs: https://docs.npmjs.com/cli-documentation
 
 **Options**: https://docs.npmjs.com/cli/v10/using-npm/config
 
-npm <-> yarn:
+npm ←→ yarn:
 
 - https://classic.yarnpkg.com/en/docs/migrating-from-npm#toc-cli-commands-comparison
 - https://devhints.io/yarn

@@ -103,7 +103,7 @@ Issues:
 - Editors may not add these imports automatically
 - https://github.com/import-js/eslint-plugin-import/issues/1547
   - Namespace imports are only for two reasons: metaprogramming and laziness. They’re the entire reason “treeshaking” exists as a concept - because namespace imports encourage files that export many things, which encourages non-deep imports, which causes too much code to end up in bundles.
-  - Specifically, if you have a file that exports 20 things, and you do import { three } from './twenty' or import \* as moreThanWeNeed from './twenty', a bundler will include by default all 20 things. Treeshaking is required to try to guess which of the other 19 it can delete/omit. If, instead, you have 20 files, each that export one thing, then no guessing is required and no omitting/deleting is required; you will have exactly the code you need in your bundle and no more.
+  - Specifically, if you have a file that exports 20 things, and you do `import { three } from './twenty'` or `import \* as moreThanWeNeed from './twenty'`, a bundler will include by default all 20 things. Treeshaking is required to try to guess which of the other 19 it can delete/omit. If, instead, you have 20 files, each that export one thing, then no guessing is required and no omitting/deleting is required; you will have exactly the code you need in your bundle and no more.
 
 Prohibit them with https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-namespace.md
 
