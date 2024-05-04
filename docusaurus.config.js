@@ -1,8 +1,7 @@
 // @ts-check
 
 // See available themes at https://github.com/FormidableLabs/prism-react-renderer/tree/master/src/themes
-const lightCodeTheme = require('prism-react-renderer/themes/github')
-const darkCodeTheme = require('prism-react-renderer/themes/palenight')
+import {themes as prismThemes} from 'prism-react-renderer';
 
 // API reference: https://docusaurus.io/docs/api/docusaurus-config
 
@@ -10,16 +9,21 @@ const darkCodeTheme = require('prism-react-renderer/themes/palenight')
 const config = {
   title: 'Albertpedia',
   tagline: 'Albert Vila Calvo',
-  url: 'https://albert.wiki',
-  baseUrl: '/',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+
+  // Set the production url of your site here
+  url: 'https://albert.wiki',
+  // Set the /<baseUrl>/ pathname under which your site is served
+  // For GitHub pages deployment, it is often '/<projectName>/'
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'AlbertVilaCalvo', // Usually your GitHub org/user name.
   projectName: 'Wiki', // Usually your repo name.
+
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -31,14 +35,14 @@ const config = {
 
   presets: [
     [
-      '@docusaurus/preset-classic',
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
           // Change routes from '/docs/cli/git' to '/cli/git'.
           // See Docs-only mode https://docusaurus.io/docs/docs-introduction#docs-only-mode
           routeBasePath: '/',
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
@@ -54,7 +58,7 @@ const config = {
           editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: './src/css/custom.css',
         },
       }),
     ],
@@ -249,8 +253,8 @@ const config = {
       // specify a different highlight background color for the dark mode syntax
       // highlighting theme. See https://docusaurus.io/docs/markdown-features/code-blocks#line-highlighting
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
       },
       docs: {
         // https://docusaurus.io/docs/sidebar#theme-configuration
@@ -267,4 +271,4 @@ const config = {
   },
 }
 
-module.exports = config
+export default config;
