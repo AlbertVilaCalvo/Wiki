@@ -2,6 +2,8 @@
 title: Docusaurus
 ---
 
+https://docusaurus.community - Knowledge sharing and plugin directory
+
 ## Doc front matter fields
 
 https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter
@@ -204,15 +206,30 @@ https://twitter.com/sebastienlorber/status/1598615824927002624
 - [beta 21](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.21) - [twitter](https://twitter.com/docusaurus/status/1530224861116780545)
 - [beta 22](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.22) - [twitter](https://twitter.com/docusaurus/status/1545438949610512384)
 - [2.0.0-rc.1](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-rc.1) - [twitter](https://twitter.com/docusaurus/status/1547616687117070338)
-- [2.0.0](https://github.com/facebook/docusaurus/releases/tag/v2.0.0) - [Announcement](https://docusaurus.io/blog/2022/08/01/announcing-docusaurus-2.0) - [twitter](https://twitter.com/docusaurus/status/1554000364432769025) - [HN](https://news.ycombinator.com/item?id=32303052)
-- [2.1.0](https://github.com/facebook/docusaurus/releases/tag/v2.1.0) - [Announcement](https://docusaurus.io/blog/2022/09/01/docusaurus-2.1) - [twitter](https://twitter.com/docusaurus/status/1565691803688370176)
+- [2.0](https://github.com/facebook/docusaurus/releases/tag/v2.0.0) - [Announcement](https://docusaurus.io/blog/2022/08/01/announcing-docusaurus-2.0) - [twitter](https://twitter.com/docusaurus/status/1554000364432769025) - [HN](https://news.ycombinator.com/item?id=32303052)
+- [2.1](https://github.com/facebook/docusaurus/releases/tag/v2.1.0) - [Announcement](https://docusaurus.io/blog/2022/09/01/docusaurus-2.1) - [twitter](https://twitter.com/docusaurus/status/1565691803688370176)
   - Allows to override hardcoded `<meta>`
   - Simple use `<DocCardList/>`, which can now be used in any document. `DocCardList` "will display all the sidebar items of the parent category of the current document" [source](https://docusaurus.io/docs/sidebar/items#embedding-generated-index-in-doc-page)
-- [2.2.0](https://github.com/facebook/docusaurus/releases/tag/v2.2.0) - [Announcement](https://docusaurus.io/blog/releases/2.2) - [twitter](https://twitter.com/docusaurus/status/1586347397667495936)
+- [2.2](https://github.com/facebook/docusaurus/releases/tag/v2.2.0) - [Announcement](https://docusaurus.io/blog/releases/2.2) - [twitter](https://twitter.com/docusaurus/status/1586347397667495936)
   - Mermaid diagrams [docs](https://docusaurus.io/docs/markdown-features/diagrams)
   - `headTags` allow to add arbitrary HTML `<head>` tags to all pages of your site [docs](https://docusaurus.io/docs/api/docusaurus-config#headTags)
-- [2.3.0](https://github.com/facebook/docusaurus/releases/tag/v2.3.0) - [Announcement](https://docusaurus.io/blog/releases/2.3) - [twitter](https://twitter.com/docusaurus/status/1619019393756794900)
+- [2.3](https://github.com/facebook/docusaurus/releases/tag/v2.3.0) - [Announcement](https://docusaurus.io/blog/releases/2.3) - [twitter](https://twitter.com/docusaurus/status/1619019393756794900)
   - Nested alerts (admonitions)
-- [2.4.0](https://github.com/facebook/docusaurus/releases/tag/v2.4.0) - [Announcement](https://docusaurus.io/blog/releases/2.4) - [twitter](https://twitter.com/docusaurus/status/1639279650974187521)
+- [2.4](https://github.com/facebook/docusaurus/releases/tag/v2.4.0) - [Announcement](https://docusaurus.io/blog/releases/2.4) - [twitter](https://twitter.com/docusaurus/status/1639279650974187521)
   - Sidebar item of type category or link can have description
-  - Use query string `?docusaurus-theme=dark` or `?docusaurus-theme=light` to force mode
+  - Use query string `?docusaurus-theme=dark` or `?docusaurus-theme=light` to force light or dark mode
+- [3.0](https://github.com/facebook/docusaurus/releases/tag/v3.0.0) - [Announcement](https://docusaurus.io/blog/releases/3.0) - [twitter](https://twitter.com/docusaurus/status/1719398424834134336)
+  - [Upgrade guide](https://docusaurus.io/docs/migration/v3). Also see [Preparing your site for Docusaurus v3](https://docusaurus.io/blog/preparing-your-site-for-docusaurus-v3)
+  - MDX 3
+  - Support for ES Modules and TypeScript config files (`docusaurus.config.ts` and `sidebars.ts`)
+  - [Admonitions](https://docusaurus.io/docs/migration/v3#admonition-warning):
+    - Fix and re-introduce the `:::warning` admonition (is now yellow instead of red)
+    - Deprecate `:::caution`. Refactor `:::caution` (yellow) to either `:::warning` (yellow) or `:::danger` (red)
+  - New `unlisted: true` front matter option, in addition to the already existing `draft: true`
+  - Build your static site in dev mode with `docusaurus build --dev`. Particularly helpful for troubleshooting React problems
+  - Code blocks syntax highlighting with Prism 2 only includes [a few languages](https://github.com/FormidableLabs/prism-react-renderer/blob/e35950e4f9520f33672e94b798eadfd426ef692d/packages/generate-prism-languages/index.ts#L9-L25). You need to add the other ones manually in `docusaurus.config.js`
+- [3.1](https://github.com/facebook/docusaurus/releases/tag/v3.1.0) - [Announcement](https://docusaurus.io/blog/releases/3.1) - [Twitter](https://twitter.com/sebastienlorber/status/1743348229175935351)
+  - `parseFrontMatter` hook, which allows to disable the 'Previous' and 'Next' links
+  - Built-in broken anchors detector
+- [3.2](https://github.com/facebook/docusaurus/releases/tag/v3.2.0) - [Announcement](https://docusaurus.io/blog/releases/3.2) - [Twitter](https://twitter.com/sebastienlorber/status/1773770169514426726)
+- [3.3](https://github.com/facebook/docusaurus/releases/tag/v3.3.0) - [Announcement](https://docusaurus.io/blog/releases/3.3) - [Twitter](https://twitter.com/sebastienlorber/status/1786424408938025199)
