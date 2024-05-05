@@ -18,7 +18,7 @@ Setup: https://www.typescriptlang.org/download
 
 Install locally, don't use a global install:
 
-```
+```shell
 npm install --save-dev typescript
 npm i -D typescript
 yarn add --dev typescript
@@ -26,7 +26,7 @@ yarn add --dev typescript
 
 If we install it locally in our project, we can run that version using npx or yarn:
 
-```
+```shell
 npx tsc
 yarn tsc
 ```
@@ -35,7 +35,7 @@ yarn tsc
 
 Use [`--noEmit`](https://www.typescriptlang.org/tsconfig/#noEmit) to only typecheck, without outputting JS files:
 
-```
+```shell
 npx tsc --noEmit
 yarn tsc --noEmit
 ```

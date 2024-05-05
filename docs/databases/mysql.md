@@ -18,7 +18,7 @@ https://stackoverflow.com/questions/11606972/how-can-i-enable-mysql-slow-query-l
 
 ### Log queries, at runtime
 
-```
+```sql
 SET GLOBAL general_log = 1;
 SET GLOBAL log_output = 'FILE';
 SET GLOBAL general_log_file = 'mysql_general.log';
