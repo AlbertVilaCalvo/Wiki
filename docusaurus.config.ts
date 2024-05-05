@@ -43,7 +43,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
+          // editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
           // Having breadcrumbs is pointless since I rarely have nested docs
           breadcrumbs: false,
           // https://docusaurus.io/docs/sidebar/items#expanded-categories-by-default
@@ -53,7 +53,7 @@ const config: Config = {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
+          // editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
         },
         theme: {
           customCss: './src/css/custom.css',
