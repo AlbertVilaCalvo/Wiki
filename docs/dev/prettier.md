@@ -15,11 +15,11 @@ https://prettier.io/docs/en/install.html
 ```shell
 npm install --save-dev --save-exact prettier
 npm i -D -E prettier
-// or
+# or
 yarn add --dev --exact prettier
 
 echo {}> .prettierrc.json
-// or
+# or
 echo '{\n  "semi": false,\n  "singleQuote": true\n}' >> .prettierrc.json
 
 touch .prettierignore
@@ -45,8 +45,7 @@ Check: `npx prettier --check .`
 
 https://prettier.io/docs/en/options.html
 
-```json
-// .prettierrc.json
+```json title=".prettierrc.json"
 {
   "semi": false, // default true
   "singleQuote": true // default false
