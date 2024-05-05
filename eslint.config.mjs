@@ -5,7 +5,7 @@ import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js'
 
 export default [
   {
-    ignores: ['.docusaurus/**', 'build/', "babel.config.js"],
+    ignores: ['.docusaurus/**', 'build/', 'babel.config.js'],
   },
   {
     languageOptions: { globals: globals.browser },
