@@ -8,7 +8,7 @@ Install the packages with `npm install`, then run `npm start` and open http://lo
 
 ## Run ESLint manually
 
-```
+```shell
 npm run eslint
 ```
 

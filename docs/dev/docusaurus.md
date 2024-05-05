@@ -175,50 +175,50 @@ https://twitter.com/sebastienlorber/status/1598615824927002624
 
 ## Releases
 
-- beta 4 - [twitter](https://twitter.com/docusaurus/status/1420518567313690627)
-- [beta 5](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.5) - [twitter](https://twitter.com/docusaurus/status/1430916848325910536)
+- beta 4 - [Twitter](https://twitter.com/docusaurus/status/1420518567313690627)
+- [beta 5](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.5) - [Twitter](https://twitter.com/docusaurus/status/1430916848325910536)
   - You can now use `<head>` in .md files
-- beta 6 - [twitter](https://twitter.com/docusaurus/status/1433463372666789892)
+- beta 6 - [Twitter](https://twitter.com/docusaurus/status/1433463372666789892)
   - blog/archive route
-- [beta 7](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.7) - [twitter](https://twitter.com/docusaurus/status/1449025696160956417)
-- [beta 10](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.10) - [twitter](https://twitter.com/docusaurus/status/1468938703854841856)
+- [beta 7](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.7) - [Twitter](https://twitter.com/docusaurus/status/1449025696160956417)
+- [beta 10](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.10) - [Twitter](https://twitter.com/docusaurus/status/1468938703854841856)
   - Link a sidebar category to an auto-generated index page, eg https://deploy-preview-6076--docusaurus-2.netlify.app/docs/category/guides/
   - Link a sidebar category to an existing markdown document
 - beta 11, 12, 13 fix issues in 10 deps and bad npm publish
-  - [twitter](https://twitter.com/docusaurus/status/1469253182387798020)
-  - [twitter](https://twitter.com/docusaurus/status/1469371710969462785)
-- [beta 14](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.14) - [twitter](https://twitter.com/docusaurus/status/1473324727527690245)
+  - [Twitter](https://twitter.com/docusaurus/status/1469253182387798020)
+  - [Twitter](https://twitter.com/docusaurus/status/1469371710969462785)
+- [beta 14](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.14) - [Twitter](https://twitter.com/docusaurus/status/1473324727527690245)
   - Simplified footer (if you don't have many links) - https://github.com/facebook/docusaurus/issues/6101
-- [beta 15](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.15) - [twitter](https://twitter.com/docusaurus/status/1486404763902222341)
+- [beta 15](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.15) - [Twitter](https://twitter.com/docusaurus/status/1486404763902222341)
   - Option to auto-collapse sidebar categories as you click
-- [beta 16](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.16) - [twitter](https://twitter.com/docusaurus/status/1497227180295823366)
+- [beta 16](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.16) - [Twitter](https://twitter.com/docusaurus/status/1497227180295823366)
   - Swizzling - https://docusaurus.io/docs/swizzling
   - Breadcrumbs in docs (disabled in config.js with presets docs.breadcrumbs)
   - Add arbitrary html elements to the docs sidebar like images, separators etc.
-- [beta 17](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.17) - [twitter](https://twitter.com/docusaurus/status/1499439030336950275)
-- [beta 18](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.18) - [twitter](https://twitter.com/docusaurus/status/1507375535114141696)
-- [beta 19](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.19) - [twitter](https://twitter.com/docusaurus/status/1521886747575074819)
+- [beta 17](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.17) - [Twitter](https://twitter.com/docusaurus/status/1499439030336950275)
+- [beta 18](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.18) - [Twitter](https://twitter.com/docusaurus/status/1507375535114141696)
+- [beta 19](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.19) - [Twitter](https://twitter.com/docusaurus/status/1521886747575074819)
   - Mark a doc or blog post as draft with `draft:true` and it won't show in production builds
   - Line numbers in code blocks [docs](https://docusaurus.io/docs/markdown-features/code-blocks#line-numbering)
   - Add a class name to a code block line with a comment [docs](https://docusaurus.io/docs/markdown-features/code-blocks#custom-magic-comments)
-- [beta 20](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.20) - [twitter](https://twitter.com/docusaurus/status/1522273335400357888)
+- [beta 20](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.20) - [Twitter](https://twitter.com/docusaurus/status/1522273335400357888)
   - Small release with fixes for beta 19
-- [beta 21](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.21) - [twitter](https://twitter.com/docusaurus/status/1530224861116780545)
-- [beta 22](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.22) - [twitter](https://twitter.com/docusaurus/status/1545438949610512384)
-- [2.0.0-rc.1](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-rc.1) - [twitter](https://twitter.com/docusaurus/status/1547616687117070338)
-- [2.0](https://github.com/facebook/docusaurus/releases/tag/v2.0.0) - [Announcement](https://docusaurus.io/blog/2022/08/01/announcing-docusaurus-2.0) - [twitter](https://twitter.com/docusaurus/status/1554000364432769025) - [HN](https://news.ycombinator.com/item?id=32303052)
-- [2.1](https://github.com/facebook/docusaurus/releases/tag/v2.1.0) - [Announcement](https://docusaurus.io/blog/2022/09/01/docusaurus-2.1) - [twitter](https://twitter.com/docusaurus/status/1565691803688370176)
+- [beta 21](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.21) - [Twitter](https://twitter.com/docusaurus/status/1530224861116780545)
+- [beta 22](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.22) - [Twitter](https://twitter.com/docusaurus/status/1545438949610512384)
+- [2.0.0-rc.1](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-rc.1) - [Twitter](https://twitter.com/docusaurus/status/1547616687117070338)
+- [2.0](https://github.com/facebook/docusaurus/releases/tag/v2.0.0) - [Announcement](https://docusaurus.io/blog/2022/08/01/announcing-docusaurus-2.0) - [Twitter](https://twitter.com/docusaurus/status/1554000364432769025) - [HN](https://news.ycombinator.com/item?id=32303052)
+- [2.1](https://github.com/facebook/docusaurus/releases/tag/v2.1.0) - [Announcement](https://docusaurus.io/blog/2022/09/01/docusaurus-2.1) - [Twitter](https://twitter.com/docusaurus/status/1565691803688370176)
   - Allows to override hardcoded `<meta>`
   - Simple use `<DocCardList/>`, which can now be used in any document. `DocCardList` "will display all the sidebar items of the parent category of the current document" [source](https://docusaurus.io/docs/sidebar/items#embedding-generated-index-in-doc-page)
-- [2.2](https://github.com/facebook/docusaurus/releases/tag/v2.2.0) - [Announcement](https://docusaurus.io/blog/releases/2.2) - [twitter](https://twitter.com/docusaurus/status/1586347397667495936)
+- [2.2](https://github.com/facebook/docusaurus/releases/tag/v2.2.0) - [Announcement](https://docusaurus.io/blog/releases/2.2) - [Twitter](https://twitter.com/docusaurus/status/1586347397667495936)
   - Mermaid diagrams [docs](https://docusaurus.io/docs/markdown-features/diagrams)
   - `headTags` allow to add arbitrary HTML `<head>` tags to all pages of your site [docs](https://docusaurus.io/docs/api/docusaurus-config#headTags)
-- [2.3](https://github.com/facebook/docusaurus/releases/tag/v2.3.0) - [Announcement](https://docusaurus.io/blog/releases/2.3) - [twitter](https://twitter.com/docusaurus/status/1619019393756794900)
+- [2.3](https://github.com/facebook/docusaurus/releases/tag/v2.3.0) - [Announcement](https://docusaurus.io/blog/releases/2.3) - [Twitter](https://twitter.com/docusaurus/status/1619019393756794900)
   - Nested alerts (admonitions)
-- [2.4](https://github.com/facebook/docusaurus/releases/tag/v2.4.0) - [Announcement](https://docusaurus.io/blog/releases/2.4) - [twitter](https://twitter.com/docusaurus/status/1639279650974187521)
+- [2.4](https://github.com/facebook/docusaurus/releases/tag/v2.4.0) - [Announcement](https://docusaurus.io/blog/releases/2.4) - [Twitter](https://twitter.com/docusaurus/status/1639279650974187521)
   - Sidebar item of type category or link can have description
   - Use query string `?docusaurus-theme=dark` or `?docusaurus-theme=light` to force light or dark mode
-- [3.0](https://github.com/facebook/docusaurus/releases/tag/v3.0.0) - [Announcement](https://docusaurus.io/blog/releases/3.0) - [twitter](https://twitter.com/docusaurus/status/1719398424834134336)
+- [3.0](https://github.com/facebook/docusaurus/releases/tag/v3.0.0) - [Announcement](https://docusaurus.io/blog/releases/3.0) - [Twitter](https://twitter.com/docusaurus/status/1719398424834134336)
   - [Upgrade guide](https://docusaurus.io/docs/migration/v3). Also see [Preparing your site for Docusaurus v3](https://docusaurus.io/blog/preparing-your-site-for-docusaurus-v3)
   - MDX 3
   - Support for ES Modules and TypeScript config files (`docusaurus.config.ts` and `sidebars.ts`)
