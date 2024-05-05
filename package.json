@@ -8,8 +8,8 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "serve": "docusaurus serve",
     "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc --noEmit",
@@ -30,12 +30,13 @@
     "@docusaurus/module-type-aliases": "3.3.2",
     "@docusaurus/tsconfig": "3.3.2",
     "@docusaurus/types": "3.3.2",
-    "@typescript-eslint/eslint-plugin": "7.8.0",
-    "@typescript-eslint/parser": "7.8.0",
+    "@eslint/js": "9.2.0",
     "eslint": "8.57.0",
     "eslint-plugin-react": "7.34.1",
+    "globals": "15.1.0",
     "prettier": "3.2.5",
-    "typescript": "5.4.5"
+    "typescript": "5.4.5",
+    "typescript-eslint": "7.8.0"
   },
   "browserslist": {
     "production": [

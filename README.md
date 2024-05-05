@@ -20,6 +20,6 @@ Note that the checks do not abort the commit, they only inform you of any issues
 
 ## Upgrade packages
 
-Docusaurus: http://localhost:3000/dev/docusaurus#upgrade
+Docusaurus: https://albert.wiki/dev/docusaurus/#upgrade
 
-ESLint packages: `npm i -D -E @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest eslint@latest eslint-plugin-react@latest`
+ESLint packages: `npm i -D -E globals@latest @eslint/js@latest typescript-eslint@latest eslint-plugin-react@latest eslint@latest`
