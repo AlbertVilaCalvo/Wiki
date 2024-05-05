@@ -268,9 +268,25 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
 
-  // Added by me - https://docusaurus.io/docs/api/docusaurus-config#customfields
+  // ADDED BY ME
+  // ***********
+
+  // https://docusaurus.io/docs/api/docusaurus-config#customfields
   customFields: {
     description: 'The personal Wiki of Albert Vila Calvo',
+  },
+
+  // Remove 'Previous' and 'Next' links
+  // https://docusaurus.io/docs/markdown-features#front-matter
+  // https://docusaurus.io/docs/api/docusaurus-config#markdown
+  markdown: {
+    parseFrontMatter: async (params) => {
+      // Reuse the default parser
+      const result = await params.defaultParseFrontMatter(params)
+      result.frontMatter.pagination_prev = null
+      result.frontMatter.pagination_next = null
+      return result
+    },
   },
 }
 
