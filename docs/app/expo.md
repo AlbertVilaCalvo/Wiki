@@ -10,7 +10,7 @@ Blog:
 VSCode plugin 'Expo Tools': https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo-tools
 
 :::tip
-Run `npx expo-doctor@latest` to validate various things like dependency
+Run `npx expo-doctor@latest` to validate various things like dependencies version compatibility
 :::
 
 Why did your app crash? How to use Logcat & macOS Console to debug - https://www.youtube.com/watch?v=LvCci4Bwmpc
@@ -104,9 +104,15 @@ The New Expo CLI (2022-08) - https://blog.expo.dev/the-new-expo-cli-f4250d8e3421
 
 Beta: Local Expo CLI (2022-04) - https://blog.expo.dev/new-versioned-expo-cli-cf6e10632656
 
-### Use `expo install` instead of `yarn add`/`npm install` because it picks the library versions compatible with the Expo SDK
+### Use `npx expo install` instead of `yarn add`/`npm install` because it picks the library versions compatible with the Expo SDK
 
-See https://docs.expo.dev/bare/using-expo-client/#prefer--expo-install--over-
+```shell
+npx expo install expo-camera
+```
+
+See https://docs.expo.dev/more/expo-cli/#install
+
+From https://docs.expo.dev/bare/using-expo-client/#prefer--expo-install--over-
 
 > Prefer `expo install` over `npm install` to add Expo SDK packages
 > This will ensure that you get a version of the package that is compatible with the SDK version in your app. If you use npm install directly instead, you may end up with a newer version of the package that isn't supported in Expo Go yet.
@@ -115,11 +121,23 @@ This is also explained at https://reactnavigation.org/docs/getting-started#insta
 
 ### Create new app/project
 
+https://www.npmjs.com/package/create-expo-app
+
+Note that we can use either `create-expo` or `create-expo-app`.
+
 See https://docs.expo.dev/get-started/create-a-project/
 
 ```shell
-npx create-expo-app my-app
-npx create-expo-app --template expo-template-blank-typescript
+npx create-expo-app@latest my-app
+npx create-expo-app@latest --template expo-template-blank-typescript
+```
+
+See all options with `npx create-expo --help`.
+
+To pick a specific SDK version use:
+
+```shell
+ npx create-expo@latest --template https://github.com/expo/expo/tree/sdk-49/templates/expo-template-blank-typescript
 ```
 
 Available templates: https://github.com/expo/expo/tree/main/templates
@@ -452,16 +470,17 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 
 [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md)
 
-- [SDK 42](https://blog.expo.dev/expo-sdk-42-579aee2348b6) - 2021-07 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4200--2021-06-16)
-- [SDK 43](https://blog.expo.dev/expo-sdk-43-aa9b3c7d5541) - 2021-10 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4300--2021-10-01) - Replaces Unimodules with Expo modules
-- [SDK 44](https://blog.expo.dev/expo-sdk-44-4c4b8306584a) - 2021-12 - [CHANGELOG](https://github.com/expo/expo/blob/master/CHANGELOG.md#4400--2021-12-03)
+- [SDK 42](https://blog.expo.dev/expo-sdk-42-579aee2348b6) - 2021-07 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#4200--2021-06-16)
+- [SDK 43](https://blog.expo.dev/expo-sdk-43-aa9b3c7d5541) - 2021-10 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#4300--2021-10-01) - Replaces Unimodules with Expo modules
+- [SDK 44](https://blog.expo.dev/expo-sdk-44-4c4b8306584a) - 2021-12 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#4400--2021-12-03)
 - [SDK 45](https://blog.expo.dev/expo-sdk-45-f4e332954a68) - 2022-05
 - [SDK 46](https://blog.expo.dev/expo-sdk-46-c2a1655f63f7) - 2022-08
 - [SDK 47](https://blog.expo.dev/expo-sdk-47-a0f6f5c038af) - 2022-11
-- [SDK 48](https://blog.expo.dev/expo-sdk-48-ccb8302e231) - 2023-02
-- [SDK 49](https://blog.expo.dev/expo-sdk-49-c6d398cdf740) - 2023-07
+- [SDK 48](https://blog.expo.dev/expo-sdk-48-ccb8302e231) - 2023-02 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#4800--2023-02-09)
+- [SDK 49](https://blog.expo.dev/expo-sdk-49-c6d398cdf740) - 2023-07 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#4900--2023-06-27)
   - Network debugging in the JS debugger. See https://blog.expo.dev/three-ways-to-use-network-debugging-75fa6118fac6 for more
-- [SDK 50](https://blog.expo.dev/expo-sdk-50-afb524038906) - 2024-01 - https://expo.dev/changelog/2024/01-18-sdk-50 - Highlights https://www.youtube.com/watch?v=cKFSVUo3AnI
+- [SDK 50](https://expo.dev/changelog/2024/01-18-sdk-50) - 2024-01 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#5000--2023-12-12)
+  - Highlights https://www.youtube.com/watch?v=cKFSVUo3AnI
 
 ## Unimodules → Expo modules
 

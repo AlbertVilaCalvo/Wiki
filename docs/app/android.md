@@ -223,6 +223,8 @@ Email 2022-12-15 'Target API Level policy changes and deadline extension':
 
 ## Google Play
 
+http://play.google.com/console
+
 Access levels: https://support.google.com/googleplay/android-developer/answer/9844686?hl=en Also see explanation of each permission here: https://support.google.com/googleplay/android-developer/answer/10019561?hl=en
 
 ### Testing Tracks

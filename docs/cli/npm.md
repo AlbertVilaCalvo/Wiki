@@ -27,6 +27,8 @@ List all commands: `npm`. List commands with details: `npm -l`.
 
 List packages: `npm list` or `npm list --depth=0`
 
+Find version of an installed package: `npm list <package> --depth=0` [source](https://stackoverflow.com/a/16704412/4034572)
+
 List all outdated packages: `npm outdated`
 
 Also see: https://github.com/raineorshine/npm-check-updates - `npx npm-check-updates`
@@ -158,6 +160,14 @@ save-exact=true
 ```
 
 :::
+
+## Find version of an installed package
+
+```shell
+npm list <package> --depth=0
+```
+
+[source](https://stackoverflow.com/a/16704412/4034572)
 
 ## Find parent of transitive dependency
 
