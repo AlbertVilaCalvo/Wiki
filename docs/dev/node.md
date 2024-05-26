@@ -112,6 +112,8 @@ Then:
 - `c` continues the execution. Will stop if a `debugger` is found
 - `repl` allows you to inspect variables with `console.log`
 
+https://blog.openreplay.com/an-introduction-to-debugging-in-nodejs/
+
 ## Performance
 
 Clinic.js - Performance profiling suite - https://clinicjs.org - https://github.com/clinicjs/node-clinic

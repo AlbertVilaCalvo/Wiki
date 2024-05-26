@@ -10,7 +10,10 @@ https://aws.amazon.com/cli
 
 https://github.com/aws/aws-cli
 
-Reference: https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html
+Command reference:
+
+- https://awscli.amazonaws.com/v2/documentation/api/latest/index.html
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html
 
 V1 reference: https://docs.aws.amazon.com/cli/latest/reference
 
@@ -20,6 +23,8 @@ Use `--dry-run` to check if you have the required permissions.
 Use [CloudShell](https://aws.amazon.com/cloudshell/) which is automatically configured with your credentials.
 [This video shows many things you can do on it](https://www.youtube.com/watch?v=fz4rbjRaiQM)
 :::
+
+AWS CLI Builder - https://awsclibuilder.com
 
 ## Command structure
 

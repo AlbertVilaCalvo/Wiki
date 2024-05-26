@@ -38,7 +38,14 @@ IAM is a **global** service. Notice you cannot select any region at the top-righ
 - Group: collection of users. A user can be in many groups.
 - Role: set of permissions.
 - Policy: JSON file. Permissions assigned to a user, group or role.
-- Principal: user, account, service, or other entity that is allowed or denied access to a resource.
+- Principal: user, account, service, or other entity that is allowed or denied access to a resource. Can be ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying)):
+  - AWS account and root user
+  - IAM roles
+  - Role sessions
+  - IAM users
+  - Federated user sessions
+  - AWS services
+  - All principals
 
 Nice summary - https://blog.awsfundamentals.com/aws-iam-roles-terms-concepts-and-examples
 
@@ -201,6 +208,8 @@ Any explicit Deny overrides any explicit Allows. Thus, if there's multiple polic
 
 Note that the root user has full access.
 
+See 'Policy evaluation logic' - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html
+
 ### Examples
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
@@ -295,10 +304,53 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-res
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_id-based
 
+Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
+
 Attached to users, groups and roles (permissions policy). Can be attached in various ways:
 
 - Inline policy: a policy that only applies to single, specific user, group or role. It cannot be reused. If you delete the user, the policy is also deleted.
-- Managed policy: either created by you or AWS. Standalone: it can be applied to multiple entities.
+- Managed policy: either created by you (customer managed) or AWS (AWS managed). Standalone: it can be applied to multiple entities.
+
+Does not have a Principal.
+
+Example: Allows access to a specific DynamoDB table ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_dynamodb_specific-table.html))
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListAndDescribe",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:List*",
+        "dynamodb:DescribeReservedCapacity*",
+        "dynamodb:DescribeLimits",
+        "dynamodb:DescribeTimeToLive"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "SpecificTable",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:BatchGet*",
+        "dynamodb:DescribeStream",
+        "dynamodb:DescribeTable",
+        "dynamodb:Get*",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:BatchWrite*",
+        "dynamodb:CreateTable",
+        "dynamodb:Delete*",
+        "dynamodb:Update*",
+        "dynamodb:PutItem"
+      ],
+      "Resource": "arn:aws:dynamodb:*:*:table/MyTable"
+    }
+  ]
+}
+```
 
 #### Resource-based policy
 
@@ -392,7 +444,7 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_pri
 
 A Principal is a user, account, service, or other entity that is allowed or denied access to a resource [source](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-bucket-user-policy-specifying-principal-intro.html)
 
-It can be a ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html)):
+It can be a ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying)):
 
 - AWS account and root user
 - IAM role

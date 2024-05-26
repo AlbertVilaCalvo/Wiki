@@ -14,6 +14,10 @@ https://vercel.com/blog/upgrading-nextjs-for-instant-performance-improvements
 
 https://remix.run/blog/remix-vs-next
 
+https://www.epicweb.dev/why-i-wont-use-nextjs
+
+Run on AWS Lambda with OpenNext - https://github.com/sst/open-next
+
 Aquí diu coses interessants: https://dev.to/alex_barashkov/comparing-gatsby-and-nextjs-for-website-development-13b7
 
 Cheapest way to deploy a React app using NextJS SSR on AWS? - https://stackoverflow.com/questions/61433306/cheapest-way-to-deploy-a-react-app-using-nextjs-ssr-on-aws

@@ -10,6 +10,8 @@ Web Accessibility Testing extension - axe DevTools - https://chrome.google.com/w
 
 https://developer.mozilla.org/en-US/curriculum/core/accessibility
 
+Designing better target sizes - https://ishadeed.com/article/target-size/
+
 ## WCAG (Web Content Accessibility Guidelines)
 
 https://github.com/w3c/wcag

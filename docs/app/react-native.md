@@ -257,6 +257,12 @@ Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. 
   - Flexbox gap
   - Web-inspired props for accessibility, styles, and events (src, alt, aria-label...)
 
+## Upgrading
+
+https://reactnative.dev/docs/upgrading
+
+https://react-native-community.github.io/upgrade-helper
+
 ## New Architecture
 
 Samples:

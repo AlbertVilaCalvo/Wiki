@@ -256,6 +256,10 @@ See https://stackoverflow.com/questions/74455063/what-exactly-are-nat-gateway-an
 
 ### Bastion hosts
 
+:::info
+Alternatively, there's also the EC2 Instance Connect Endpoint: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-with-ec2-instance-connect-endpoint.html
+:::
+
 Allows to connect to an instance on a private subnet through an instance on a public subnet.
 
 Can be done with a NAT gateway or a NAT instance.
@@ -421,6 +425,10 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
 Amazon Machine Image. A template with the OS and additional software like a server and applications.
 
 Can be backed by EBS (persistent) or instance store (non-persistent).
+
+You can find AMIs in the AWS Marketplace: https://aws.amazon.com/marketplace
+
+Automatically clean up unused AMIs to reduce EBS storage consumption and costs - https://cloudonaut.io/cleaning-up-amis - https://www.npmjs.com/package/aws-amicleaner
 
 ### Amazon Linux
 

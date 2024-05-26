@@ -8,6 +8,8 @@ re:Post - https://www.repost.aws
 
 What's new - https://aws.amazon.com/new
 
+re:Invent - https://reinvent.awsevents.com
+
 Whitepapers & Guides - https://aws.amazon.com/whitepapers
 
 Ramp-Up Guides (guides to learning the AWS Cloud) - https://aws.amazon.com/training/ramp-up-guides
@@ -40,13 +42,16 @@ AWS’s Egregious Egress - https://blog.cloudflare.com/aws-egregious-egress
 
 Serverless Patterns Collection - https://serverlessland.com/patterns
 
-Clean all account resources - https://github.com/gruntwork-io/cloud-nuke
-
 AWS observability in Grafana Cloud - https://grafana.com/solutions/cloud-monitoring-aws
 
 :::tip Important
 Everything in AWS is an API call.
 :::
+
+## Remove all resources from an AWS account
+
+- https://github.com/rebuy-de/aws-nuke
+- https://github.com/gruntwork-io/cloud-nuke
 
 ## Top architecture blog posts
 

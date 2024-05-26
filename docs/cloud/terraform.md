@@ -16,6 +16,8 @@ Cheatsheet: https://cheat-sheets.nicwortel.nl/terraform-cheat-sheet.pdf
 
 Generate terraform files from existing infrastructure (reverse Terraform) - https://github.com/GoogleCloudPlatform/terraformer
 
+Generate CloudFormation / Terraform / Troposphere templates from your existing AWS resources - https://github.com/iann0036/former2
+
 Wrapper for Terraform that provides extra tools for working with multiple Terraform modules - https://github.com/gruntwork-io/terragrunt
 
 Go library that makes it easier to write automated tests - https://github.com/gruntwork-io/terratest

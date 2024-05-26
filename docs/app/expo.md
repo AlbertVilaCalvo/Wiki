@@ -15,6 +15,8 @@ Run `npx expo-doctor@latest` to validate various things like dependencies versio
 
 Why did your app crash? How to use Logcat & macOS Console to debug - https://www.youtube.com/watch?v=LvCci4Bwmpc
 
+React Conf app - https://github.com/expo/react-conf-app
+
 ## Keyboard shortcuts
 
 After doing `npx expo start`, you can use the keys (`r`, `i`, `a`...) listed table at https://docs.expo.dev/more/expo-cli/#develop
@@ -499,6 +501,13 @@ https://docs.expo.dev/modules/overview/
 https://twitter.com/tsapeta/status/1590353202402115584
 
 ## Flipper
+
+:::info
+
+React Native 0.74 removes the Flipper plugin, see https://reactnative.dev/blog/2024/04/22/release-0.74#removal-of-flipper-react-native-plugin
+
+See [Why you don’t need Flipper in your React Native app … and how to get by without it](https://shift.infinite.red/why-you-dont-need-flipper-in-your-react-native-app-and-how-to-get-by-without-it-3af461955109)
+:::
 
 https://twitter.com/Baconbrix/status/1412921581542658049
 

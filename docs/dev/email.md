@@ -2,6 +2,8 @@
 title: Email
 ---
 
+https://www.caniemail.com - https://news.ycombinator.com/item?id=40280490
+
 Regex to validate email: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
 
 Email explained from first principles - https://explained-from-first-principles.com/email/

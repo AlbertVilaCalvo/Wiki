@@ -14,3 +14,9 @@ From https://docs.astro.build/en/concepts/why-astro/#fast-by-default
 - 40% faster → 15% more sign-ups (Pinterest) - https://medium.com/pinterest-engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7
 - 850ms faster → 7% more conversions (COOK) - https://web.dev/why-speed-matters/
 - Every 1 second slower → 10% fewer users (BBC) - https://www.creativebloq.com/features/how-the-bbc-builds-websites-that-scale
+
+## Passwords
+
+https://www.nngroup.com/articles/password-creation/
+
+https://baymard.com/blog/password-requirements-and-password-reset

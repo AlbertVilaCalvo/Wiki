@@ -6,6 +6,8 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries
 
 > Start by defining what should happen on small screen sizes first! Smaller screen sizes require simpler layouts. Then, adjust your styles to accommodate larger devices. If you design the complicated case first, then you have to work to try to make it simple again. [source](https://docs.astro.build/en/tutorial/3-components/3/)
 
+https://responsively.app
+
 Beginner's guide to media queries - https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Media_queries
 
 Also see Responsive design - https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design
