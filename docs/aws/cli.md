@@ -103,7 +103,7 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 
 `aws configure` is the fastest way to set up your AWS CLI installation. It will ask for the 'Access Key ID' and the 'Secret Access Key'.
 
-`aws sts get-caller-identity` → Returns details about the IAM user or role whose credentials are used to call the operation - [source](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html). You can do `aws sts get-caller-identity --query Account --output text` to get only the account ID.
+`aws sts get-caller-identity` → Returns details about the IAM user or role whose credentials are used to call the operation - [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html). You can do `aws sts get-caller-identity --query Account --output text` to get only the account ID.
 
 `aws configure list-profiles`
 
@@ -112,6 +112,8 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 `aws configure list --profile <profile-name>`
 
 Configure: `aws configure --profile <profile-name>` → Asks for AWS Access Key ID, AWS Secret Access Key, Default region name and Default output format.
+
+You can create access keys for a user with: `aws iam create-access-key --user-name MyUser`
 
 Set value: `aws configure set <varname> <value> [--profile profile-name]`, eg `aws configure set region us-east-1 --profile default`
 

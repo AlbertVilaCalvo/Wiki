@@ -200,6 +200,10 @@ AWS managed policies - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_p
 
 AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
 
+### EAR
+
+A policy needs to have an EAR to listen what is going to do: Effect, Action and Resource.
+
 ### Allow and Deny
 
 All permissions are implicitly denied by default. Thus, nothing is allowed unless there's an explicit Allow.
@@ -230,6 +234,57 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
 ```
 
 Allows all actions on all resources.
+
+#### Deny operations to resource if it's not authenticated using MFA
+
+For an S3 bucket:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::my-bucket/*",
+      "Condition": {
+        "Null": {
+          "aws:MultiFactorAuthAge": "true"
+        }
+      }
+    }
+  ]
+}
+```
+
+More specific:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Principal": {
+        "AWS": "arn:aws:iam::238267638199:user/Albert"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"],
+      "Condition": {
+        "Null": {
+          "aws:MultiFactorAuthAge": "true"
+        }
+      }
+    }
+  ]
+}
+```
 
 ### Permissions policy and trust policy (role)
 
@@ -423,6 +478,72 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_generate-policy
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html
 
+### S3 access control policies
+
+- IAM Policies
+  - Identity-based
+  - Does not have Principal
+  - Good for a large number of buckets with varying permissions
+  - Centralize access control within IAM
+  - Size limit of 2048-6144 characters
+- Bucket Policies
+  - Resource-based
+  - Attached to a specific bucket
+    - Similar to an inline policy. If you want to edit it, you'll have to go through every bucket
+  - Must have a Principal
+  - Simple to use for cross-account access without IAM roles
+  - Size limit of 20 KB
+
+Example of **IAM policy**:
+
+```json title=iam_policy.json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::my-bucket"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:DeleteObject"],
+      "Resource": ["arn:aws:s3:::my-bucket/*"]
+    }
+  ]
+}
+```
+
+Attach the IAM policy to the a user with [`put-user-policy`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-user-policy.html):
+
+```shell
+aws iam put-user-policy --user-name MyUser --policy-name S3AccessUserPolicy --policy-document file://iam_policy.json
+```
+
+Example of **bucket policy**:
+
+```json title=bucket_policy.json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::ACCOUNT_ID:user/MyUser"
+      },
+      "Action": ["s3:PutObject"],
+      "Resource": ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"]
+    }
+  ]
+}
+```
+
+Attach the bucket policy to an S3 bucket with [`put-bucket-policy`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/put-bucket-policy.html):
+
+```shell
+aws s3api put-bucket-policy --bucket my-bucket --policy file://bucket_policy.json
+```
+
 ### Role vs Policy
 
 https://www.strongdm.com/blog/aws-iam-roles-vs-policies
@@ -489,6 +610,22 @@ Go to the IAM Dashboard → Users and select a user. Click the 'Security credent
 
 Prevent users to perform actions unless they've set up MFA with a policy - https://www.youtube.com/watch?v=cP_IbgnK8yk - https://github.com/iaasacademy/aws-how-to-guide/tree/main/Enable%20IAM%20Users%20to%20setup%20MFA - https://iaasacademy.com/aws-how-to-guides/enable-iam-users-to-manage-their-mfa-settings-aws-how-to-guide/
 
+### Perform API call operations protected by MFA
+
+Use `sts get-session-token` to get _temporary_ credentials to access a service protected with MFA from the CLI:
+
+```shell
+aws sts get-session-token --serial-number arn:aws:iam::ACCOUNT_ID:mfa/DEVICE_NAME --token-code <otp-token>
+```
+
+Returns an `AccessKeyId`, `SecretAccessKey` and `SessionToken`.
+
+Documentation:
+
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-session-token.html
+- https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html
+- https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getsessiontoken
+
 ## Create the first IAM admin user
 
 > We recommend that you not use the root level credentials for anything other than initial setup of the account and the creation of the IAM user account with administrator permissions attached via policy [source](https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam)
@@ -554,14 +691,25 @@ arn:aws:ec2:us-east-1:123456789012:vpc/vpc-0e9801d129EXAMPLE
 
 ## CLI
 
-`aws iam list-users`
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
 
-`aws iam list-users --profile <profile-name>`
+[Create user](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-user.html)
 
-Create role
+```shell
+aws iam create-user --user-name my-user-name
+```
 
-- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-role.html
-- `aws iam create-role --role-name <role-name> --assume-role-policy-document file://trust.json --output text --query 'Role.Arn'`
+[List users](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/list-users.html)
+
+```shell
+aws iam list-users
+```
+
+[Create role](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-role.html)
+
+```shell
+aws iam create-role --role-name <role-name> --assume-role-policy-document file://trust.json --output text --query 'Role.Arn'
+```
 
 Example of trust policy document (`trust.json`):
 
@@ -580,10 +728,11 @@ Example of trust policy document (`trust.json`):
 }
 ```
 
-Attach a Policy to a IAM role
+Attach a Policy to a IAM role [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-role-policy.html)
 
-- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-role-policy.html
-- `aws iam put-role-policy --role-name <role-name> --policy-name <policy-name> --policy-document file://iam-role-policy.json`
+```shell
+aws iam put-role-policy --role-name <role-name> --policy-name <policy-name> --policy-document file://iam-role-policy.json
+```
 
 Example of policy document `iam-role-policy.json`:
 
@@ -595,6 +744,32 @@ Example of policy document `iam-role-policy.json`:
       "Effect": "Allow",
       "Action": ["eks:Describe*", "ssm:GetParameters"],
       "Resource": "*"
+    }
+  ]
+}
+```
+
+Attach an _inline_ policy to a user [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-user-policy.html)
+
+```shell
+aws iam put-user-policy --user-name MyUser --policy-name MyUserPolicy --policy-document file://iam-user-policy.json
+```
+
+Example of policy `iam-user-policy.json`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::my-bucket"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:DeleteObject"],
+      "Resource": ["arn:aws:s3:::my-bucket/*"]
     }
   ]
 }

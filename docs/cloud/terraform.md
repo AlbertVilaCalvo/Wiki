@@ -34,6 +34,8 @@ Static analysis to find misconfigurations and vulnerabilities - https://www.chec
 
 ## Learn / Best practices
 
+List of many courses - https://www.linkedin.com/posts/ann-afamefuna_devops-cloudengineers-cloudsecurity-activity-7200293109002342400-J_qn/
+
 https://frontendmasters.com/courses/enterprise-devops/
 
 Terraform Best Practices for AWS users - https://github.com/ozbillwang/terraform-best-practices
