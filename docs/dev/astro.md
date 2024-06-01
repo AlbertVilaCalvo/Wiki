@@ -302,6 +302,10 @@ You can create a new project based on a GitHub repository’s main branch with `
 - 3.2 - https://astro.build/blog/astro-320
 - 3.3 - https://astro.build/blog/astro-330 - https://github.com/withastro/astro/releases/tag/astro%403.3.0
   - New `<Picture />` component
+- 3.4 - https://astro.build/blog/astro-340 - https://github.com/withastro/astro/releases/tag/astro%403.4.0
+  - Page partials. To be used in conjunction with a front-end library, such as htmx or Unpoly
+  - Dev overlay (experimental)
+- 3.5 - https://astro.build/blog/astro-350
 
 ## Islands architecture
 

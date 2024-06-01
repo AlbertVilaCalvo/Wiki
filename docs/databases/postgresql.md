@@ -14,6 +14,8 @@ Learn Postgres at the Playground - https://www.crunchydata.com/developers/tutori
 
 Postgres WASM - https://news.ycombinator.com/item?id=33067962
 
+https://www.crunchydata.com
+
 Storage engine for modern hardware - https://github.com/orioledb/orioledb/ - From Thoughworks Technology Radar 27:
 
 > OrioleDB is a new storage engine for PostgreSQL. Our teams use PostgreSQL a lot, but its
@@ -34,7 +36,7 @@ https://www.postgresql.org/docs/current/errcodes-appendix.html
 
 With Brew:
 
-```
+```shell
 brew services start postgresql
 brew services stop postgresql
 brew services restart postgresql
@@ -43,7 +45,7 @@ brew services list
 
 With pg_ctl:
 
-```
+```shell
 pg_ctl -D /usr/local/var/postgres start
 pg_ctl -D /usr/local/var/postgres stop
 ```
@@ -104,7 +106,7 @@ Show table schema: `\d tablename`
 
 Docs: https://www.postgresql.org/docs/14/app-pg-ctl.html
 
-```
+```shell
 pg_ctl -D /usr/local/var/postgres start
 pg_ctl -D /usr/local/var/postgres stop
 ```

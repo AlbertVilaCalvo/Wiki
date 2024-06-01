@@ -16,6 +16,8 @@ https://remix.run/blog/remix-vs-next
 
 https://www.epicweb.dev/why-i-wont-use-nextjs
 
+https://www.propelauth.com/post/nextjs-challenges
+
 Run on AWS Lambda with OpenNext - https://github.com/sst/open-next
 
 Aquí diu coses interessants: https://dev.to/alex_barashkov/comparing-gatsby-and-nextjs-for-website-development-13b7
