@@ -22,6 +22,12 @@ Note that we also have `CSS.supports()` for JavaScript: https://developer.mozill
 CSS.supports('display: flex') // true
 ```
 
+## Nesting
+
+https://developer.chrome.com/docs/css-ui/css-nesting
+
+No need for `&`: https://developer.chrome.com/blog/css-nesting-relaxed-syntax-update
+
 ## Pseudo-classes (`:checked`, `:valid`, `:hover`, `:has`, `:not`, `:first-child`, `:nth-child`...)
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
@@ -30,7 +36,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
 
 https://web.dev/learn/css/pseudo-classes
 
-## :nth-child()
+## `:nth-child()`
 
 https://developer.chrome.com/docs/css-ui/css-nth-child-of-s
 
@@ -38,7 +44,7 @@ An+B microsyntax: https://www.w3.org/TR/css-syntax-3/#anb-microsyntax
 
 https://web.dev/learn/css/pseudo-classes#nth-child_and_nth-of-type
 
-## :nth-of-type()
+## `:nth-of-type()`
 
 Select the 2nd `<p>` inside the `.section-main-info`.
 
@@ -48,7 +54,7 @@ Select the 2nd `<p>` inside the `.section-main-info`.
 }
 ```
 
-## :not()
+## `:not()`
 
 https://developer.mozilla.org/en-US/blog/css-not-pseudo-multiple-selectors/
 
@@ -74,7 +80,7 @@ nav > ul > li:not(:last-child) {
 
 There are other ways to do this: https://stackoverflow.com/questions/5065766/css3-selector-question-for-all-but-first-select
 
-## :has()
+## `:has()`
 
 https://blog.jim-nielsen.com/2022/unlocked-possibilities-of-has-selector/
 
