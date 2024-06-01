@@ -117,6 +117,24 @@ https://docusaurus.io/docs/advanced/routing
 This is the message shown at the terminal when you do `npm start`:
 
 ```shell
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                              Update available 3.3.2 → 3.4.0
+                                     To upgrade Docusaurus packages with the latest version, run the following command:
+`npm i @docusaurus/core@latest @docusaurus/preset-classic@latest @docusaurus/module-type-aliases@latest @docusaurus/tsconfig@latest @docusaurus/types@latest`
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+```
+
+Also take a look at the other packages versions:
+
+- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-preset-classic/package.json
+- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/package.json
+
+<details>
+  <summary>OLD (for version 2)</summary>
+
+This is the message shown at the terminal when you do `npm start`:
+
+```shell
    ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
    │                                                                                                                │
    │                                         Update available 2.2.0 → 2.4.1                                         │
@@ -126,8 +144,14 @@ This is the message shown at the terminal when you do `npm start`:
    │                                                                                                                │
    ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
+</details>
 
-_OLD_ This is the message shown at the terminal when you do `yarn start`:
+<details>
+  <summary>OLD (with Yarn)</summary>
+
+_I'm not using Yarn [since this commit](https://github.com/AlbertVilaCalvo/Wiki/commit/7b5e0088d2551417d0a5e7ecf8cdf116ebe916a4)._
+
+This is the message shown at the terminal when you do `yarn start`:
 
 ```shell
 yarn run v1.22.19
@@ -147,11 +171,7 @@ You can also do:
 ```shell
 yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic @docusaurus/module-type-aliases
 ```
-
-Also take a look at the other packages versions:
-
-- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-preset-classic/package.json
-- https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/package.json
+</details>
 
 ## Styling
 
