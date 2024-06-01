@@ -9,6 +9,7 @@ const sidebars: SidebarsConfig = {
     'cli/github-pr',
     'cli/github',
     'cli/commands',
+    'cli/ssh',
     'cli/shell-scripts',
     'cli/tools',
     'cli/filesystem-permissions-acl',
