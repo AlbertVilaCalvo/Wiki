@@ -144,6 +144,7 @@ This is the message shown at the terminal when you do `npm start`:
    │                                                                                                                │
    ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
+
 </details>
 
 <details>
@@ -171,6 +172,7 @@ You can also do:
 ```shell
 yarn upgrade --latest @docusaurus/core @docusaurus/preset-classic @docusaurus/module-type-aliases
 ```
+
 </details>
 
 ## Styling
