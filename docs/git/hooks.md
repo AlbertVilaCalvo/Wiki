@@ -1,5 +1,6 @@
 ---
 title: Git Hooks
+sidebar_label: Hooks
 ---
 
 Customizing Git - Git Hooks: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
@@ -10,7 +11,7 @@ Prettier docs show a few options: https://prettier.io/docs/en/precommit.html
 
 https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath
 
-```
+```shell
 git config --global core.hooksPath ~/githooks
 ```
 

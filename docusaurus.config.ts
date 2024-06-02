@@ -71,7 +71,13 @@ const config: Config = {
       },
       items: [
         {
-          to: 'cli/git',
+          to: 'git',
+          activeBasePath: 'git',
+          label: 'Git',
+          position: 'left',
+        },
+        {
+          to: 'cli/commands',
           activeBasePath: 'cli',
           label: 'CLI',
           position: 'left',
