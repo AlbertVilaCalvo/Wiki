@@ -8,6 +8,8 @@ Tutorial: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids
 
 9 Biggest Mistakes with CSS Grid - https://www.youtube.com/watch?v=0Gr1XSyxZy0
 
+An Interactive Guide to CSS Grid - https://www.joshwcomeau.com/css/interactive-guide-to-grid/
+
 ## gap
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/gap

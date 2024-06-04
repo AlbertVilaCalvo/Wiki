@@ -255,3 +255,6 @@ https://twitter.com/sebastienlorber/status/1598615824927002624
   - Built-in broken anchors detector, with new option `onBrokenAnchors`
 - [3.2](https://github.com/facebook/docusaurus/releases/tag/v3.2.0) - [Announcement](https://docusaurus.io/blog/releases/3.2) - [Twitter](https://twitter.com/sebastienlorber/status/1773770169514426726)
 - [3.3](https://github.com/facebook/docusaurus/releases/tag/v3.3.0) - [Announcement](https://docusaurus.io/blog/releases/3.3) - [Twitter](https://twitter.com/sebastienlorber/status/1786424408938025199)
+- [3.4](https://github.com/facebook/docusaurus/releases/tag/v3.4.0) - [Announcement](https://docusaurus.io/blog/releases/3.4) - [Twitter](https://twitter.com/sebastienlorber/status/1796606082741330410)
+  - Tags files (`blog/tags.yml` and `docs/tags.yml`): list of pre-defined tags, to reuse them and validate them
+  - Hash router: generates a single page app `index.html` file that allows easy distribution and offline browsing locally without a web server (using the `file://` protocol)

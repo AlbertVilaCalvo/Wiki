@@ -2,6 +2,8 @@
 title: Cryptography
 ---
 
+An illustrated guide to the Advanced Encryption Standard (AES) - https://www.thoughtworks.com/insights/blog/privacy/illustrated-guide-advanced-encryption-standard
+
 ## Hashing vs Encryption
 
 - **Encryption**. Two-way function, reversible. We can go back and obtain the original text if we have the key. A secret key is required. Used to transfer data safely. Eg: RSA, AES

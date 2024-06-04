@@ -8,6 +8,8 @@ https://www.dynatrace.com
 
 https://opentelemetry.io
 
+https://www.solarwinds.com
+
 https://github.com/thanos-io/thanos
 
 https://fluentbit.io
