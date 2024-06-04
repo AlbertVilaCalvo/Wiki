@@ -6,6 +6,8 @@ Source code mirror: https://github.com/git/git
 
 Git tips -https://github.com/git-tips/tips
 
+Quickly rewrite git repository history (filter-branch replacement) - https://github.com/newren/git-filter-repo
+
 Ask HN: Apps that are built with Git as the back end? - https://news.ycombinator.com/item?id=33261862
 
 https://github.com/github/git-sizer. Compute various size metrics for a Git repository, flagging those that might cause problems. This tools is referenced in https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github.
@@ -181,6 +183,27 @@ git log --all --grep='Something'
 
 [source](https://stackoverflow.com/a/7124949/4034572)
 
+### Show author, author date, commit and commit date
+
+```shell
+git log --pretty=fuller
+```
+
+Output:
+
+```
+Author:     Albert Vila Calvo <albert@gmail.com>
+AuthorDate: Sun Jun 2 20:41:28 2024 +0200
+Commit:     Albert Vila Calvo <albert@gmail.com>
+CommitDate: Sun Jun 2 20:42:45 2024 +0200
+```
+
+For the difference see:
+
+- https://stackoverflow.com/questions/18750808/difference-between-author-and-committer-in-git
+- https://stackoverflow.com/questions/11856983/why-is-git-authordate-different-from-commitdate
+- https://stackoverflow.com/questions/6755824/what-is-the-difference-between-author-and-committer-in-git
+
 ## `git show`
 
 https://git-scm.com/docs/git-show
@@ -232,6 +255,8 @@ To fix it run `git fetch --all`.
 More info: https://stackoverflow.com/questions/30800454/error-pathspec-test-branch-did-not-match-any-files-known-to-git
 
 ## Rebase
+
+Rewriting History - https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History
 
 Squash, Merge, or Rebase? https://matt-rickard.com/squash-merge-or-rebase
 
@@ -464,6 +489,57 @@ They have extra information like author, date, SHA and message ([more info](http
 If you see `^M` run `sed -i.bak $'s/\r//' filename` (with backup) or `sed -i '' -e $'s/\r//' filename` (no backup).
 
 [source](https://stackoverflow.com/a/21622340/4034572)
+
+## Change commit email
+
+Start by setting the new email either on the global config or the repository (local) config:
+
+```shell
+git config --global user.email new@email.com
+git config --local user.email new@email.com
+```
+
+Then get the SHA of the **previous** commit of the commit with the wrong email.
+
+Run this command ([source](https://stackoverflow.com/a/73314321/4034572)):
+
+```shell
+git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE="%cD" GIT_AUTHOR_DATE="%aD" git commit --amend --no-edit --reset-author' rebase -f <previous commit SHA, or --root for all commits>
+```
+
+Note that this keeps both the AuthorDate and CommitDate unchanged, which is what makes sense. Other solutions set the date of all the modified commits to the current date, which is nonsense since you end up with dozens of commits with the same date, and you loose all the date history. The SHA of the commits will of course change though, since we are rebasing.
+
+### Another way to do it
+
+Alternatively, you can also do it like this, but it requires running 2 commands ([source](https://stackoverflow.com/a/75841127/4034572)):
+
+```shell
+git rebase -r <previous commit SHA> --exec "git commit --amend --no-edit --author 'Albert Vila Calvo <new@emailcom>'"
+```
+
+After this commit, if you run `git log --pretty=fuller` you'll get a wrong CommitDate (set to the current date, instead of the original):
+
+```
+Author:     Albert Vila Calvo <my@email.com>
+AuthorDate: Sun May 5 21:59:28 2024 +0200
+Commit:     Albert Vila Calvo <my@email.com>
+CommitDate: Sun Jun 2 14:07:23 2024 +0200
+```
+
+To fix it run:
+
+```shell
+git rebase --committer-date-is-author-date <previous commit SHA>
+```
+
+This changes the SHA of the commits again.
+
+### Links
+
+- How to update git commit author, but keep original date when amending? - https://stackoverflow.com/questions/41301627/how-to-update-git-commit-author-but-keep-original-date-when-amending
+- How do I change the author and committer name/email for multiple commits? - https://stackoverflow.com/questions/750172/how-do-i-change-the-author-and-committer-name-email-for-multiple-commits
+- Rebase without changing commit timestamps - https://stackoverflow.com/questions/2973996/git-rebase-without-changing-commit-timestamps
+- Change timestamps while rebasing git branch - https://stackoverflow.com/a/7352870/4034572
 
 ## Branch name
 
