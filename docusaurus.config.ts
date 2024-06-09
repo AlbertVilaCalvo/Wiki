@@ -121,7 +121,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: 'web/images',
+          to: 'web',
           activeBasePath: 'web',
           label: 'Web',
           position: 'left',

@@ -144,6 +144,7 @@ const sidebars: SidebarsConfig = {
     'http/csp',
   ],
   web: [
+    'web/web',
     'web/images',
     'web/cloudinary',
     'web/favicon',
