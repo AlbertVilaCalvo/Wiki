@@ -111,6 +111,8 @@ const sidebars: SidebarsConfig = {
       Certifications: [
         'aws/certifications/cloud-practitioner',
         'aws/certifications/solutions-architect-associate',
+        'aws/certifications/developer-associate',
+        'aws/certifications/sysops-administrator-associate',
       ],
     },
     // Alternatively, we could have a Generated index page:
