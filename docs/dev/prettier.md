@@ -41,6 +41,17 @@ Run: `npx prettier --write .`
 
 Check: `npx prettier --check .`
 
+Add the following scripts (`npm run format` and `npm run format:check`):
+
+```json title=package.json
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  }
+}
+```
+
 ## Options
 
 https://prettier.io/docs/en/options.html
@@ -62,11 +73,12 @@ https://prettier.io/docs/en/webstorm.html
 
 https://www.jetbrains.com/help/webstorm/prettier.html
 
-Go to Preferences | Languages and Frameworks | JavaScript | Prettier:
+Go to Preferences → Languages and Frameworks → JavaScript → Prettier:
 
+- Manual Prettier configuration
 - Set 'Prettier package' to `<project-dir>/node_modules/prettier`.
-- Set 'Run for files' to the glob pattern `{**/*,*}.{js,ts,jsx,tsx,css,json,md,yml,yaml}`.
+- Set 'Run for files' to the glob pattern `{**/*,*}.{js,ts,jsx,tsx,html,css,json,md,yml,yaml}`.
   - Since WebStorm 2023.3 `{**/*,*}.{js,ts}` can be simplified to `**/*.{js,ts}` [source](https://youtrack.jetbrains.com/issue/WEB-63021)
-- Check 'On Reformat Code action' and 'On save'.
+- Check "Run on 'Reformat Code' action" and "Run on save".
 
 Reformat with Prettier: ⌥⇧⌘P

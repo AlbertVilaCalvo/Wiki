@@ -99,6 +99,8 @@ Comments are written with `#`.
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/configure/index.html
+
 `aws configure help`
 
 `aws configure` is the fastest way to set up your AWS CLI installation. It will ask for the 'Access Key ID' and the 'Secret Access Key'.
@@ -115,7 +117,7 @@ Configure: `aws configure --profile <profile-name>` → Asks for AWS Access Key 
 
 You can create access keys for a user with: `aws iam create-access-key --user-name MyUser`
 
-Set value: `aws configure set <varname> <value> [--profile profile-name]`, eg `aws configure set region us-east-1 --profile default`
+[Set](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/configure/set.html) value: `aws configure set <varname> <value> [--profile profile-name]`, eg `aws configure set region us-east-1 --profile default`
 
 ### Multiple accounts
 

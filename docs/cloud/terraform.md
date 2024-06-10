@@ -32,6 +32,8 @@ Linter - https://github.com/terraform-linters/tflint - https://github.com/terraf
 
 Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
 
+https://www.brainboard.co
+
 ## Learn / Best practices
 
 List of many courses - https://www.linkedin.com/posts/ann-afamefuna_devops-cloudengineers-cloudsecurity-activity-7200293109002342400-J_qn/
