@@ -299,6 +299,10 @@ Get "✘ Locking Failed! ResolutionFailure" when doing `pipenv install black --d
 
 From https://stackoverflow.com/questions/51540404/how-do-you-resolve-python-package-dependencies-with-pipenv
 
+## uv
+
+https://github.com/astral-sh/uv
+
 ## Black
 
 https://github.com/psf/black

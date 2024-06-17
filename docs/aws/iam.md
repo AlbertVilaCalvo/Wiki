@@ -18,6 +18,8 @@ Enable [IAM Access Analyzer](https://docs.aws.amazon.com/IAM/latest/UserGuide/wh
 See some use cases at [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 
 It can [generate policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generation.html) - [see below](#generate-policy-based-on-cloudtrail-events)
+
+Note that this is a [paid service](https://aws.amazon.com/iam/access-analyzer/pricing/).
 :::
 
 A vault for securely storing and accessing AWS credentials in development environments - https://github.com/99designs/aws-vault
