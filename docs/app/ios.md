@@ -137,3 +137,23 @@ Example of AASA file: https://facebook.com/.well-known/apple-app-site-associatio
 Test deep links with `xcrun` (only works on the simulator): `xcrun simctl openurl booted "https://example.com/xyz"`
 
 Test deep links with [`uri-scheme`](https://www.npmjs.com/package/uri-scheme): `npx uri-scheme open "https://example.com/xyz" --ios`
+
+### `apple-app-site-association` examples
+
+```json
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "T76ZAX97ZF.com.example.app",
+        "paths": [
+          "/orders/*",
+          "/products/*",
+          "/contact",
+        ]
+      }
+    ]
+  }
+}
+```

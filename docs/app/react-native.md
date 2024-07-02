@@ -6,6 +6,8 @@ title: React Native
 Always open `.xcworkspace` not `.xcodeproj`.
 :::
 
+IDE: https://ide.swmansion.com
+
 Bundle visualizer: https://github.com/IjzerenHein/react-native-bundle-visualizer
 
 Clean Project: https://github.com/pmadruga/react-native-clean-project

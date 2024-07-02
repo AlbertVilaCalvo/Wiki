@@ -337,6 +337,10 @@ Properties:
 
 ### EAS Build
 
+:::tip
+Use `EXPO_DEBUG=1 eas build` to get more detailed logs and troubleshoot issues [source](https://docs.expo.dev/build-reference/ios-capabilities/#debugging-ios-capabilities)
+:::
+
 Replaces `expo build:ios` and `expo build:android` ([classic build](https://docs.expo.dev/classic/building-standalone-apps/), which uses a '[shell app](https://blog.expo.dev/expo-managed-workflow-in-2021-d1c9b68aa10)').
 
 Docs: https://docs.expo.dev/build/introduction

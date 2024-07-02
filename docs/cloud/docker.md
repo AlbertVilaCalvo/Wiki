@@ -35,6 +35,8 @@ https://depot.dev
 
 ## Tools
 
+https://github.com/jesseduffield/lazydocker
+
 https://github.com/wagoodman/dive
 
 https://github.com/GoogleContainerTools/container-diff

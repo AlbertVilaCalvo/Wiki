@@ -147,9 +147,13 @@ exit 0
 
 </details>
 
+## pre-commit framework
+
+https://pre-commit.com
+
 ## lint-staged
 
-https://github.com/okonet/lint-staged
+https://github.com/lint-staged/lint-staged
 
 `.husky/pre-commit` is always the same:
 
@@ -169,7 +173,7 @@ Then in `package.json` we specify the commands:
 }
 ```
 
-We can [run multiple commands](https://github.com/okonet/lint-staged/#running-multiple-commands-in-a-sequence), one after another, using an array:
+We can [run multiple commands](https://github.com/lint-staged/lint-staged#running-multiple-commands-in-a-sequence), one after another, using an array:
 
 ```json
 "lint-staged": {
@@ -224,3 +228,9 @@ Note that we can also put hooks in `package.json`:
   }
 },
 ```
+
+## commitlint - Lint commit messages
+
+https://commitlint.js.org
+
+https://github.com/conventional-changelog/commitlint

@@ -82,6 +82,8 @@ Access-Control-Allow-Origin: https://mydomain.com
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#preflighted_requests
 
+https://stackoverflow.com/questions/15381105/what-is-the-motivation-behind-the-introduction-of-preflight-cors-requests
+
 For any request with `Content-Type: application/json` or custom headers ([among other conditions](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#examples_of_access_control_scenarios)).
 
 1. The browser performs an `OPTIONS` method preflight request. This request specifies which headers and HTTP method will be used in the actual request, using the headers `Access-Control-Request-Headers` and `Access-Control-Request-Method`.
