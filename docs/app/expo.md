@@ -17,6 +17,10 @@ Why did your app crash? How to use Logcat & macOS Console to debug - https://www
 
 React Conf app - https://github.com/expo/react-conf-app
 
+## Sample code
+
+https://github.com/expo/react-conf-app
+
 ## Keyboard shortcuts
 
 After doing `npx expo start`, you can use the keys (`r`, `i`, `a`...) listed table at https://docs.expo.dev/more/expo-cli/#develop

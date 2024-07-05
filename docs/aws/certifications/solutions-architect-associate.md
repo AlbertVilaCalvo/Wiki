@@ -22,6 +22,8 @@ https://portal.tutorialsdojo.com/courses/aws-certified-solutions-architect-assoc
 
 https://kodekloud.com/courses/aws-saa
 
+https://www.pluralsight.com/cloud-guru/courses/aws-certified-sysops-administrator-associate-soa-c02
+
 If you have the Cloud Practitioner cert, renewing the SAA will also renew the Cloud Practitioner cert if you have it. And if you renew the Solutions Architect Professional, you'll also renew SAA, CP and Developer Associate if you have it.
 
 ## Exams

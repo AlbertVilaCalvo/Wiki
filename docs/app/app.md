@@ -8,6 +8,8 @@ https://www.appbrain.com/stats
 
 Android app frameworks: https://www.appbrain.com/stats/libraries/tag/app-framework/android-app-frameworks
 
+https://appetize.io - Run mobile apps in your browser, unify testing across web & mobile
+
 ## Facebook SDK
 
 How to generate Android Key hashes that you need to set in https://developers.facebook.com/apps/{app_id}/settings/basic/

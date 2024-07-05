@@ -18,6 +18,10 @@ Rename app, package name or bundle id: https://github.com/junedomingo/react-nati
 On Android negative margin is not supported [source](https://reactnative.dev/docs/style)
 :::
 
+## Sample code
+
+https://github.com/expo/react-conf-app
+
 ## Development environment setup
 
 :::tip

@@ -8,7 +8,7 @@ Handbook: https://www.typescriptlang.org/docs/handbook/intro.html
 
 :::tip
 
-Enable incremental compilation with `"incremental": true` (at the `compilerOptions` of `tsconfig.json`). See https://www.typescriptlang.org/tsconfig#incremental. You can also set `"tsBuildInfoFile": "./tsconfig.tsbuildinfo"` to control the file name.
+To make compilation faster, enable incremental compilation with `"incremental": true` (at the `compilerOptions` of `tsconfig.json`). See https://www.typescriptlang.org/tsconfig#incremental. You can also set `"tsBuildInfoFile": "./tsconfig.tsbuildinfo"` to control the file name and location.
 
 :::
 
