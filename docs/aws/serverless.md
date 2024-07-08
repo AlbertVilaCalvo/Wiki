@@ -21,3 +21,9 @@ https://www.whizlabs.com/aws-serverless-services-hands-on-labs/
 https://learn.digitalcloud.training/course/aws-serverless-for-beginners-with-aws-lambda-api-gateway-sqs-sns-and-eventbridge - https://github.com/nealdct/serverless-for-beginners
 
 https://school.theburningmonk.com/collections
+
+https://www.manning.com/books/serverless-architectures-on-aws-second-edition
+
+https://www.manning.com/livevideo/production-ready-serverless
+
+https://www.manning.com/livevideo/serverless-applications-with-AWS

@@ -81,6 +81,10 @@ Host a static website locally using Simple Storage Service (S3) and Terraform wi
 - Terraform module for building and deploying Next.js apps to AWS. Supports SSR (Lambda), Static (S3) and API (Lambda) pages. - https://github.com/milliHQ/terraform-aws-next-js
 - https://github.com/bregman-arie/devops-exercises/search?q=terraform
 
+## EKS
+
+https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
+
 ## Multiple AWS accounts
 
 You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/

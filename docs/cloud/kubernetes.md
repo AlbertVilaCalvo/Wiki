@@ -22,6 +22,8 @@ https://github.com/MichaelCade/90DaysOfDevOps#kubernetes
 
 https://github.com/bregman-arie/devops-exercises/blob/master/topics/kubernetes/README.md
 
+https://velero.io
+
 ## Validators / linters
 
 https://github.com/stackrox/kube-linter
@@ -115,6 +117,8 @@ Docs: https://kubectl.docs.kubernetes.io
 Overview: https://kubernetes.io/docs/reference/kubectl/overview/
 
 Cheatsheet: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+Explain: `kubectl explain pod.spec.restartPolicy` [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
 
 `kubectl version`
 

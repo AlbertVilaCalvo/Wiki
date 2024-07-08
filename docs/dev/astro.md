@@ -20,6 +20,8 @@ https://twitter.com/t3dotgg/status/1437195415439360003
 
 Astro is an Multi-Page Application framework, not a Single-Page Application framework - [see docs](https://docs.astro.build/en/concepts/mpa-vs-spa/)
 
+https://github.com/codiume/orbit - Collection of useful integrations & components
+
 TODO check: https://github.com/astro-community/AstroCompress
 
 TODO mirar: https://github.com/onwidget/astrowind

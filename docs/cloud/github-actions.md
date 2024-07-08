@@ -30,6 +30,8 @@ GitHub hosted runners preinstalled software: https://docs.github.com/en/actions/
 
 Terraform module for scalable GitHub action runners on AWS - https://github.com/philips-labs/terraform-aws-github-runner
 
+Self-hosted GitHub runners on AWS - https://hyperenv.com
+
 Roadmap: https://github.com/orgs/github/projects/4247/views/1?filterQuery=label%3Aactions
 
 ## Concepts
