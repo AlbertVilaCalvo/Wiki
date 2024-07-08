@@ -63,7 +63,7 @@ fi
 
 get_staged_files() {
   ALL_FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g' | awk '/\.ts$|\.tsx$|\.js$|\.jsx$|\.mjs$|\.md$|\.yml$|\.yaml$|\.css$|\.json$/')
-  CODE_FILES=$(echo "$ALL_FILES" | awk '/\.ts$|\.tsx$|\.js$|\.jsx$/')
+  CODE_FILES=$(echo "$ALL_FILES" | awk '/\.ts$|\.tsx$|\.js$|\.jsx$|\.mjs$/')
 }
 
 print_title() {
