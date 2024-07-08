@@ -256,7 +256,7 @@ Links:
 
 Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. See https://github.com/facebook/react-native/issues/26610#issuecomment-539843444
 
-## Releases
+## Releases
 
 - [0.71 2023/01](https://reactnative.dev/blog/2023/01/12/version-071)
   - [TypeScript by default](https://reactnative.dev/blog/2023/01/03/typescript-first) on new projects → **Important: they recommend removing the `@types/react-native` from `package.json`**

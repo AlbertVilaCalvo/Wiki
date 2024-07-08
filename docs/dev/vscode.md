@@ -6,7 +6,7 @@ title: VSCode
 
 [github.com/Microsoft/vscode](https://github.com/Microsoft/vscode)
 
-## Shortcuts
+## Shortcuts
 
 Word wrap: Alt+Z (⌥+Z). [source](https://stackoverflow.com/questions/31025502/how-can-i-switch-word-wrap-on-and-off-in-visual-studio-code)
 

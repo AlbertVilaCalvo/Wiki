@@ -236,7 +236,7 @@ On WebStorm, on Preferences → Languages & Frameworks → JavaScript → Pretti
 
 Get VSCode, eslint & prettier working with Astro - https://patheticgeek.dev/blog/astro-prettier-eslint-vscode
 
-## TypeScript support
+## TypeScript support
 
 Guide: https://docs.astro.build/en/guides/typescript/
 

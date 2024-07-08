@@ -236,7 +236,7 @@ const user: User = {
   password: 'abcd', // <- error
 }
 // TS2322: Type '{ id: number; name: string; password: string; }' is not assignable to type 'User'.
-// Object literal may only specify known properties, and 'password' does not exist in type 'User'.
+// Object literal may only specify known properties, and 'password' does not exist in type 'User'.
 
 function printUser(user: User) {
   alert(user.name)
