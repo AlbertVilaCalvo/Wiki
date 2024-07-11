@@ -258,6 +258,10 @@ With Proxy:
   - See https://legendapp.com/dev/state/fast/
   - > Legend-State uses Proxy, which is how it exposes the observable functions (get/set/listen etc...) on anything within state. But it differs from other Proxy-based systems by not touching the underlying data all. Each proxy node represents a path within the object tree, and to get the value of any node it traverses the raw data to that path and returns the value. So every node within the state object stores minimal metadata, and never has to modify or clone the underlying data, which keeps object creation to a minimum and memory usage down.
 
+Others:
+
+- https://github.com/nanostores/nanostores
+
 ## UI design libraries
 
 See comparison: https://chakra-ui.com/getting-started/comparison

@@ -4,6 +4,8 @@ title: Argo CD
 
 https://argoproj.github.io/cd/
 
+https://akuity.io
+
 ## Learn
 
 https://developers.redhat.com/courses/gitops/getting-started-argocd-and-openshift-gitops-operator
