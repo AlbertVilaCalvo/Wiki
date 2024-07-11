@@ -22,6 +22,8 @@ Astro is an Multi-Page Application framework, not a Single-Page Application fram
 
 https://github.com/codiume/orbit - Collection of useful integrations & components
 
+https://astro-tips.dev
+
 TODO check: https://github.com/astro-community/AstroCompress
 
 TODO mirar: https://github.com/onwidget/astrowind
@@ -145,10 +147,11 @@ https://astro.build/blog/astro-2
 
 https://astro.build/blog/introducing-content-collections
 
-Sample code that uses content collections:
+The Astro Content Layer - https://astro.build/blog/future-of-astro-content-layer
+
+Sample code that uses content collections is available at https://astro.new/latest, for example:
 
 - Blog: https://astro.new/blog
-- Docs: https://astro.new/docs
 - Portfolio: https://astro.new/portfolio
 - [Migration of the blog](https://docs.astro.build/en/guides/content-collections/#migrating-from-file-based-routing) of the [tutorial](https://docs.astro.build/en/tutorial/0-introduction/): https://github.com/withastro/blog-tutorial-demo/tree/content-collections
 
@@ -190,7 +193,11 @@ https://docs.astro.build/en/tutorial/5-astro-api/2/
 
 Reference: https://docs.astro.build/en/reference/cli-reference
 
-Create a project: `npm create astro@latest`
+### Create a project
+
+```shell
+npm create astro@latest
+```
 
 [Create a project using a starter template or GitHub repository](https://docs.astro.build/en/install/auto/#starter-templates):
 
@@ -205,24 +212,40 @@ npm create astro@latest -- --template <github-username>/<github-repo>
 npm create astro@latest -- --template <github-username>/<github-repo>#<branch>
 ```
 
-Add an [integration](https://astro.build/integrations) (eg [Preact](https://docs.astro.build/en/guides/integrations-guide/preact/)): `npx astro add preact`. See the [Integrations guide](https://docs.astro.build/en/guides/integrations-guide/).
+### Upgrade Astro
 
-Upgrade astro:
+https://docs.astro.build/en/upgrade-astro
 
-`npm install astro@latest`
+Recommended:
+
+```shell
+npx @astrojs/upgrade
+```
+
+Manual:
+
+```shell
+npm install astro@latest
+```
 
 ```sh
 npm i -E astro@latest && \
 npm i -D -E prettier@latest prettier-plugin-astro@latest
 ```
 
+Add an [integration](https://astro.build/integrations) (eg [Preact](https://docs.astro.build/en/guides/integrations-guide/preact/)): `npx astro add preact`. See the [Integrations guide](https://docs.astro.build/en/guides/integrations-guide/).
+
 ## Prettier
+
+Setup for Prettier 3: https://github.com/withastro/prettier-plugin-astro/issues/360#issuecomment-1646585591
 
 https://docs.astro.build/en/editor-setup/#prettier
 
 Prettier plugin: https://github.com/withastro/prettier-plugin-astro
 
 > Adds support for formatting `.astro` files outside of the editor (e.g. CLI) or inside editors that don’t support our editor tooling. If you’re using the [Astro VS Code Extension](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode) or the Astro language server within another editor, code formatting with Prettier is included. [source](https://docs.astro.build/en/editor-setup/#prettier)
+
+https://astro-tips.dev/tips/prettier/
 
 Setup:
 
@@ -273,6 +296,8 @@ You can create a new project based on a GitHub repository’s main branch with `
 
 ## Releases
 
+https://github.com/withastro/astro/blob/main/packages/astro/CHANGELOG.md
+
 - 2.0 - https://astro.build/blog/astro-2
   - Content Collections: https://astro.build/blog/introducing-content-collections
   - Hybrid Rendering, that is static (SSG) and server (SSR), mixing static and dynamic content
@@ -297,7 +322,7 @@ You can create a new project based on a GitHub repository’s main branch with `
 - 2.10 - https://astro.build/blog/astro-2100/
   - Persistent UI in View Transitions
 - 3.0 - https://astro.build/blog/astro-3/ - https://github.com/withastro/astro/releases/tag/astro%403.0.0
-  - Upgrade guide: https://docs.astro.build/en/guides/upgrade-to/v3/
+  - **Upgrade guide**: https://docs.astro.build/en/guides/upgrade-to/v3/
   - View transitions
   - Image Optimization (stable)
   - Optimized Build Output (HTML Minification, Component IDs and CSS Inlining)
@@ -307,7 +332,47 @@ You can create a new project based on a GitHub repository’s main branch with `
 - 3.4 - https://astro.build/blog/astro-340 - https://github.com/withastro/astro/releases/tag/astro%403.4.0
   - Page partials. To be used in conjunction with a front-end library, such as htmx or Unpoly
   - Dev overlay (experimental)
-- 3.5 - https://astro.build/blog/astro-350
+- 3.5 - 2023/11 - https://astro.build/blog/astro-350 - https://github.com/withastro/astro/releases/tag/astro%403.5.0
+  - i18n Routing (experimental) for multilingual apps
+  - Prefetch. Important: is enabled by default when using View Transitions
+  - Content Collections Build Cache (experimental), named Incremental Content Caching [in 4.0](https://astro.build/blog/astro-4/#incremental-content-caching-experimental)
+- 4.0 - 2023/12 - https://astro.build/blog/astro-4 - https://github.com/withastro/astro/releases/tag/astro%404.0.0
+  - **Upgrade guide**: https://docs.astro.build/en/guides/upgrade-to/v4/
+  - Dev Toolbar
+  - Internationalization (i18n) Routing
+  - New View Transition APIs
+- 4.1 - 2024/01 - https://astro.build/blog/astro-410 - https://github.com/withastro/astro/releases/tag/astro%404.1.0
+- 4.2 - 2024/01 - https://astro.build/blog/astro-420 - https://github.com/withastro/astro/releases/tag/astro%404.2.0
+  - First Astro release of almost all community-built features
+  - Prerendering pages using the Speculation Rules API (experimental)
+- 4.3 - 2024/02 - https://astro.build/blog/astro-430 - https://github.com/withastro/astro/releases/tag/astro%404.3.0
+  - New `build.format` option 'preserve' to allow index files like `/about/index.html`
+  - New `ComponentProps` type utility
+- 4.4 - 2024/02 - https://astro.build/blog/astro-440 - https://github.com/withastro/astro/releases/tag/astro%404.4.0
+  - Performance audits in the dev toolbar
+  - Audit list (Dev Audit UI)
+  - New `inferSize` attribute for `Image` or `Picture` components to automatically infer dimensions of remote images
+- 4.5 - 2024/03 - https://astro.build/blog/astro-450 - https://github.com/withastro/astro/releases/tag/astro%404.5.0
+  - Dev Audit UI
+- 4.6 - 2024/04 - https://astro.build/blog/astro-460 - https://github.com/withastro/astro/releases/tag/astro%404.6.0
+  - Support for CSRF protection (experimental, stabilized in 4.9) for server-side rendered pages
+- 4.7 - 2024/04 - https://astro.build/blog/astro-470 - https://github.com/withastro/astro/releases/tag/astro%404.7.0
+  - Update available message
+  - Change allowJs to true for strictest TypeScript preset
+- 4.8 - 2024/05 - https://astro.build/blog/astro-480 - https://github.com/withastro/astro/releases/tag/astro%404.8.0
+  - Actions (experimental): define and call backend functions with full type-safety from your client code
+- 4.9 - 2024/05 - https://astro.build/blog/astro-490 - https://github.com/withastro/astro/releases/tag/astro%404.9.0
+  - Container API (experimental): render Astro components in isolation, outside of an Astro application
+    - Can be used for [testing](https://docs.astro.build/en/guides/testing) components
+  - React 19 support
+  - Stabilizes the CSRF protection
+- 4.10 - 2024/06 - https://astro.build/blog/astro-4100 - https://github.com/withastro/astro/releases/tag/astro%404.10.0
+  - Environment variables handling with a new `astro:env` module (experimental)
+- Future of Astro (three major features planned for Astro in 2024):
+  - [Zero-JavaScript View Transitions](https://astro.build/blog/future-of-astro-zero-js-view-transitions/)
+  - [The Astro Content Layer](https://astro.build/blog/future-of-astro-content-layer/) - Improvements to Content Collections
+  - [Server Islands](https://astro.build/blog/future-of-astro-server-islands/)
+- 4.11 - 2024/06 - https://astro.build/blog/astro-4110 - https://github.com/withastro/astro/releases/tag/astro%404.11.0
 
 ## Islands architecture
 
