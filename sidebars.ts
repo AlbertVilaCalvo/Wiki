@@ -173,6 +173,7 @@ const sidebars: SidebarsConfig = {
     'css/misc',
     'css/divider',
     'css/gradient',
+    'css/dark-mode',
   ],
   databases: [
     'databases/databases',
