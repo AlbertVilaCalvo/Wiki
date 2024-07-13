@@ -15,6 +15,8 @@ DevCleaner for Xcode: https://apps.apple.com/us/app/devcleaner/id1388020431
 
 Change bundle id: https://github.com/junedomingo/react-native-rename
 
+https://www.macstadium.com
+
 ## CLI
 
 simctl commands: `xcrun simctl` or `xcrun simctl help`
@@ -147,11 +149,7 @@ Test deep links with [`uri-scheme`](https://www.npmjs.com/package/uri-scheme): `
     "details": [
       {
         "appID": "T76ZAX97ZF.com.example.app",
-        "paths": [
-          "/orders/*",
-          "/products/*",
-          "/contact",
-        ]
+        "paths": ["/orders/*", "/products/*", "/contact"]
       }
     ]
   }

@@ -216,21 +216,18 @@ npm create astro@latest -- --template <github-username>/<github-repo>#<branch>
 
 https://docs.astro.build/en/upgrade-astro
 
-Recommended:
+Recommended (upgrades integrations too):
 
 ```shell
-npx @astrojs/upgrade
+npx @astrojs/upgrade && \
+npm i -D -E prettier@latest prettier-plugin-astro@latest @astrojs/check@latest typescript@latest
 ```
 
 Manual:
 
 ```shell
-npm install astro@latest
-```
-
-```sh
 npm i -E astro@latest && \
-npm i -D -E prettier@latest prettier-plugin-astro@latest
+npm i -D -E prettier@latest prettier-plugin-astro@latest @astrojs/check@latest typescript@latest
 ```
 
 Add an [integration](https://astro.build/integrations) (eg [Preact](https://docs.astro.build/en/guides/integrations-guide/preact/)): `npx astro add preact`. See the [Integrations guide](https://docs.astro.build/en/guides/integrations-guide/).
@@ -249,7 +246,7 @@ https://astro-tips.dev/tips/prettier/
 
 Setup:
 
-```sh
+```shell
 npm i -D -E prettier prettier-plugin-astro
 ```
 
@@ -318,11 +315,15 @@ https://github.com/withastro/astro/blob/main/packages/astro/CHANGELOG.md
   - CSS inlining is also now stable, see https://github.com/withastro/roadmap/blob/main/proposals/0036-inline-stylesheets.md and https://docs.astro.build/en/reference/configuration-reference/#buildinlinestylesheets
   - Redirects
 - 2.9 - https://astro.build/blog/astro-290
-  - View transitions
+  - View transitions (experimental)
 - 2.10 - https://astro.build/blog/astro-2100/
   - Persistent UI in View Transitions
 - 3.0 - https://astro.build/blog/astro-3/ - https://github.com/withastro/astro/releases/tag/astro%403.0.0
   - **Upgrade guide**: https://docs.astro.build/en/guides/upgrade-to/v3/
+    - Removed support for TypeScript 4
+    - Removed `@astrojs/image`, replaced with `astro:assets`
+    - Moved `astro check` to an external package
+    - Changed default port 3000 to 4321
   - View transitions
   - Image Optimization (stable)
   - Optimized Build Output (HTML Minification, Component IDs and CSS Inlining)
@@ -445,6 +446,8 @@ https://www.npmjs.com/package/@astrojs/image
 
 https://docs.astro.build/en/guides/integrations-guide/image/
 
+Removed in Astro 3.
+
 ### New (assets)
 
 RFC: https://github.com/withastro/roadmap/blob/main/proposals/0030-core-image-story.md
@@ -455,6 +458,8 @@ Image service API: https://docs.astro.build/en/reference/image-service-reference
 
 - 2023-03 https://astro.build/blog/astro-210/
 - 2023-06 https://astro.build/blog/images/
+
+See version 3 upgrade guide: https://docs.astro.build/en/guides/upgrade-to/v3/#upgrade-images-to-v3
 
 ## View Transitions
 
