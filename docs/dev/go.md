@@ -16,3 +16,13 @@ https://quii.gitbook.io/learn-go-with-tests/
 
 - https://github.com/gothinkster/golang-gin-realworld-example-app - Gin
 - Event-driven microservices demo built with Golang. Nomad, Consul Connect, Vault, and Terraform for deployment - https://github.com/thangchung/go-coffeeshop
+
+## Enums
+
+https://dizzy.zone/2024/01/26/Enums-in-Go/ - https://news.ycombinator.com/item?id=40910731
+
+https://github.com/nishanths/exhaustive
+
+## Sum types
+
+https://github.com/BurntSushi/go-sumtype and https://github.com/alecthomas/go-check-sumtype (fork)

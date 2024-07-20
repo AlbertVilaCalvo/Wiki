@@ -27,3 +27,5 @@ https://www.manning.com/books/serverless-architectures-on-aws-second-edition
 https://www.manning.com/livevideo/production-ready-serverless
 
 https://www.manning.com/livevideo/serverless-applications-with-AWS
+
+Serverless Image Handler on AWS - https://aws.amazon.com/solutions/implementations/serverless-image-handler/

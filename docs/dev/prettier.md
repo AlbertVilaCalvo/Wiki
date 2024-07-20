@@ -59,7 +59,8 @@ https://prettier.io/docs/en/options.html
 ```json title=".prettierrc.json"
 {
   "semi": false, // default true
-  "singleQuote": true // default false
+  "singleQuote": true, // default false
+  "trailingComma": "es5" // default changed from "es5" to "all" in v3.0.0
 }
 ```
 
