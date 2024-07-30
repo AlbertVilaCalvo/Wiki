@@ -78,6 +78,7 @@ const sidebars: SidebarsConfig = {
   aws: [
     'aws/aws',
     'aws/billing-pricing',
+    'aws/security',
     'aws/cli',
     'aws/iam',
     'aws/root-user',
