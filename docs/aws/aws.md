@@ -46,6 +46,8 @@ AWS observability in Grafana Cloud - https://grafana.com/solutions/cloud-monitor
 
 :::tip Important
 Everything in AWS is an API call.
+
+AWS is API driven. You can automate everything. Automation increases reliability and efficiency.
 :::
 
 ## Remove all resources from an AWS account
@@ -76,7 +78,7 @@ AWS guides and templates - https://aws.amazon.com/startups/build
 
 With the root user.
 
-- Enable MFA for the root user [link](/aws/root-user#root-user-multi-factor-authentication-mfa)
+- Enable MFA for the root user [link](/aws/root-user#multi-factor-authentication-mfa)
 - Set the account alias (at the IAM dashboard)
 - Enable IAM access to billing (so that non-root users can have access to billing) [link](/aws/billing-pricing#enable-iam-access-to-billing)
 - Enable free tier alerts [link](/aws/billing-pricing#enable-free-tier-alerts)
@@ -121,3 +123,20 @@ AWS security tool to perform security best practices assessments, audits, etc - 
 Analyze your Amazon Web Services (AWS) environments - https://github.com/duo-labs/cloudmapper
 
 flAWS challenge (discover AWS-specific vulnerabilities) - http://flaws.cloud
+
+From https://www.linkedin.com/posts/andreaswittig_amazonwebservices-awscommunity-cloudsecurity-activity-7219251299983187968-Ra6t/
+
+> Hot take: Security Hub controls are becoming more of a sales tool for AWS than effective security best practices.
+> AWS recently announced the following controls.
+>
+> [GuardDuty.5] GuardDuty EKS Audit Log Monitoring should be enabled
+> [GuardDuty.6] GuardDuty Lambda Protection should be enabled
+> [GuardDuty.8] GuardDuty Malware Protection for EC2 should be enabled
+> [GuardDuty.9] GuardDuty RDS Protection should be enabled
+> [GuardDuty.10] GuardDuty S3 Protection should be enabled
+> [Inspector.1] Amazon Inspector EC2 scanning should be enabled
+> [Inspector.2] Amazon Inspector ECR scanning should be enabled
+> [Inspector.3] Amazon Inspector Lambda code scanning should be enabled
+> [Inspector.4] Amazon Inspector Lambda standard scanning should be enabled
+>
+> Most of these features are not worth the money, in my opinion.

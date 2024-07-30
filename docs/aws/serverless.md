@@ -2,7 +2,7 @@
 title: Serverless
 ---
 
-Tutorial: Build a Serverless Web Application with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Cognito - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/
+Tutorial: Build a Serverless Web Application using Generative AI - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-amplify-bedrock-cognito-gen-ai/ Previously it was Build a Serverless Web Application with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Cognito - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/
 
 Let’s Architect! Serverless architecture on AWS - https://aws.amazon.com/blogs/architecture/lets-architect-serverless-architecture-on-aws/ - From https://aws.amazon.com/blogs/architecture/top-10-aws-architecture-blog-posts-of-2022/
 
@@ -28,4 +28,8 @@ https://www.manning.com/livevideo/production-ready-serverless
 
 https://www.manning.com/livevideo/serverless-applications-with-AWS
 
+https://www.manning.com/books/ai-as-a-service
+
 Serverless Image Handler on AWS - https://aws.amazon.com/solutions/implementations/serverless-image-handler/
+
+https://frontendmasters.com/courses/go-aws/ - Go, AWS Lambda, DynamoDB, and API Gateway

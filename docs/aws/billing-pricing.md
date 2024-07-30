@@ -23,15 +23,17 @@ Docs:
 
 ### Enable PDF invoices delivery by email
 
-Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 'Billing Preferences' (at the left menu). Enable 'PDF invoices delivery by email'.
+Navigate to [Billing preferences](https://console.aws.amazon.com/billing/home#/preferences) (click 'Billing and Cost Management home' at the top right drop-down → 'Billing Preferences' at the left menu), and enable 'PDF invoices delivery by email'.
 
 ### Enable Free tier alerts
 
-Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 'Billing Preferences' (at the left menu) and enable 'AWS Free Tier alerts'.
+Navigate to [Billing preferences](https://console.aws.amazon.com/billing/home#/preferences) (click 'Billing and Cost Management home' at the top right drop-down → 'Billing Preferences' at the left menu), and enable 'AWS Free Tier alerts'.
+
+If you don't specify an email, alerts will be sent the to the root user email.
 
 ### Create Budget and enable CloudWatch billing alarm/alert
 
-Navigate to 'Billing and Cost Management home' (at the top right drop-down) → 'Billing Preferences' (at the left menu) and enable 'Receive CloudWatch billing alerts'.
+Navigate to [Billing preferences](https://console.aws.amazon.com/billing/home#/preferences) (click 'Billing and Cost Management home' at the top right drop-down → 'Billing Preferences' at the left menu), and enable 'Receive CloudWatch billing alerts'.
 
 Afterwards, navigate to 'Budgets' (at the left menu) and click 'Create a budget'. Choose 'Monthly cost budget'. Set the budget name, the 'budgeted amount ($)' and the 'Email recipients'. Finally click 'Create budget'.
 

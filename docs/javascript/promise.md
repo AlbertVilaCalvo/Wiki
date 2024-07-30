@@ -8,6 +8,8 @@ https://devdocs.io/javascript-promise/
 
 The gotcha of unhandled promise rejections - https://jakearchibald.com/2023/unhandled-rejections
 
+Practical Guide To Not Blocking The Event Loop - https://www.bbss.dev/posts/eventloop/
+
 ```js
 Api.fetchUser = function () {
   return new Promise((res, rej) => {

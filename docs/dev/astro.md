@@ -216,11 +216,11 @@ npm create astro@latest -- --template <github-username>/<github-repo>#<branch>
 
 https://docs.astro.build/en/upgrade-astro
 
-Recommended (upgrades integrations too):
+Recommended (upgrades integrations and `@astrojs/check` too):
 
 ```shell
-npx @astrojs/upgrade && \
-npm i -D -E prettier@latest prettier-plugin-astro@latest @astrojs/check@latest typescript@latest
+npx @astrojs/upgrade@latest && \
+npm i -D -E prettier@latest prettier-plugin-astro@latest typescript@latest
 ```
 
 Manual:
@@ -374,6 +374,8 @@ https://github.com/withastro/astro/blob/main/packages/astro/CHANGELOG.md
   - [The Astro Content Layer](https://astro.build/blog/future-of-astro-content-layer/) - Improvements to Content Collections
   - [Server Islands](https://astro.build/blog/future-of-astro-server-islands/)
 - 4.11 - 2024/06 - https://astro.build/blog/astro-4110 - https://github.com/withastro/astro/releases/tag/astro%404.11.0
+- 4.12 - 2024/07 - https://astro.build/blog/astro-4120 - https://github.com/withastro/astro/releases/tag/astro%404.12.0
+  - Server Islands (experimental)
 
 ## Islands architecture
 
@@ -384,10 +386,6 @@ From https://jasonformat.com/islands-architectures:
 - Sections of that HTML may be missing their client-side interactivity, but the document should at least contain the most essential content.
 - A "buy now" button that directly relates to revenue should be easily prioritized over a site feedback survey button that relates to information gathering.
 - Decompose the app into independently deliverable widgets.
-
-### Persistent islands
-
-https://github.com/withastro/rfcs/discussions/307 - https://www.maxiferreira.com/blog/astro-turbo-persistent-islands/
 
 ### `client:` directive
 
@@ -418,6 +416,24 @@ Both allow you to add interactive UI elements. Differences:
 [`<script>`](https://docs.astro.build/en/guides/client-side-scripts/) tag on Astro components:
 
 - Allows to add interactivity without any JavaScript framework.
+
+### Persistent islands
+
+https://github.com/withastro/rfcs/discussions/307 - https://www.maxiferreira.com/blog/astro-turbo-persistent-islands/
+
+## Server islands
+
+RFC - https://github.com/withastro/roadmap/pull/963a
+
+See https://server-islands.com
+
+From https://astro.build/blog/astro-4120:
+
+- Instead of starting the request to the origin on the server like PPR (Partial Prerendering), Server Islands do so from the browser.
+- It doesn’t depend on any server infrastructure so it will work with any host you have, from a Node.js server in a Docker container to the serverless provider of your choice.
+- Server Islands are normal Astro components and can use any of the features you expect from Astro like middleware, slots, `client:` islands.
+
+https://developers.netlify.com/guides/how-astros-server-islands-deliver-progressive-rendering-for-your-sites/
 
 ## CSS
 

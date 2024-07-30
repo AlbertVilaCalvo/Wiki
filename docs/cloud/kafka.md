@@ -10,6 +10,8 @@ https://www.conduktor.io
 
 https://redpanda.com
 
+Kaskade – A text user interface for Kafka - https://github.com/sauljabin/kaskade - https://news.ycombinator.com/item?id=40961101
+
 ## Learn
 
 https://courses.datacumulus.com
