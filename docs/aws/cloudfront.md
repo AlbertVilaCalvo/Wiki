@@ -162,7 +162,7 @@ Steps:
 
 ## Add Headers
 
-Use the [Mozilla Observatory ](https://observatory.mozilla.org/) to check if the headers are correct.
+Use the [MDN HTTP Observatory](https://developer.mozilla.org/en-US/observatory) to check if the headers are correct. Note that the HTTP Observatory is for websites, not APIs [source](https://developer.mozilla.org/en-US/blog/mdn-http-observatory-launch/#can_i_scan_non-websites_such_as_api_endpoints)
 
 Adding HTTP headers to CloudFront responses - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/adding-response-headers.html
 

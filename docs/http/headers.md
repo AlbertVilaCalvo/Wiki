@@ -9,7 +9,10 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
 
 ## Check headers security
 
-https://observatory.mozilla.org
+MDN HTTP Observatory (note that the HTTP Observatory is for websites, not APIs - [source](https://developer.mozilla.org/en-US/blog/mdn-http-observatory-launch/#can_i_scan_non-websites_such_as_api_endpoints)):
+
+- New version: https://developer.mozilla.org/en-US/observatory
+- Previous version ([deprecated July 2024](https://developer.mozilla.org/en-US/blog/mdn-http-observatory-launch/)): https://observatory.mozilla.org
 
 https://pentest-tools.com/website-vulnerability-scanning/website-scanner
 

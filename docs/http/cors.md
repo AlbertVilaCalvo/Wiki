@@ -4,6 +4,10 @@ title: CORS
 
 # Cross-Origin Resource Sharing
 
+## Validate
+
+[MDN HTTP Observatory](https://developer.mozilla.org/en-US/observatory). Limit cross-origin resource access to no more than necessary [source](https://developer.mozilla.org/en-US/blog/mdn-http-observatory-launch/#what_does_the_http_observatory_test). Note that the HTTP Observatory is for websites, not APIs [source](https://developer.mozilla.org/en-US/blog/mdn-http-observatory-launch/#can_i_scan_non-websites_such_as_api_endpoints)
+
 ## Resources
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
