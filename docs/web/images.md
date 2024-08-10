@@ -28,7 +28,7 @@ https://web.dev/serve-images-with-correct-dimensions/
 
 ### Not specifying `sizes` means `sizes="100vw"`
 
-_Responsive Images: If you’re just changing resolutions, use srcset_. Suggests not to use `sizes`, just `srcset`, but assumes that the image will be 100% width (ie `sizes="100vw"`): https://css-tricks.com/responsive-images-youre-just-changing-resolutions-use-srcset/ → If you try it out, by switching between different devices in the browser developer tools responsive mode, this is the simplest solution and the one that gives the best result, without thinking. For phones it picks the right size. And for laptops it picks the largest, even if the image is displayed with max-width, but it doesn't matter much since it's a device that probably has a good Internet connection.
+_Responsive Images: If you’re just changing resolutions, use `srcset`_. Suggests not to use `sizes`, just `srcset`, but assumes that the image will be 100% width (ie `sizes="100vw"`): https://css-tricks.com/responsive-images-youre-just-changing-resolutions-use-srcset/ → If you try it out, by switching between different devices in the browser developer tools responsive mode, this is the simplest solution and the one that gives the best result, without thinking. For phones it picks the right size. And for laptops it picks the largest, even if the image is displayed with max-width, but it doesn't matter much since it's a device that probably has a good Internet connection.
 
 ```html
 sizes="(min-width: 800px) 50vw, 100vw"
@@ -39,6 +39,40 @@ sizes="(min-width: 800px) 50vw, 100vw"
 Also see https://ericportis.com/posts/2014/separated/
 
 > Leaving `sizes` off entirely. Without it, the browser defaults to an implicit sizes value of 100vw, which, for important images that will probably be fairly large no matter the layout, isn’t a bad guess. Small, low-res viewports still get small images; big, hi-res viewports still get big ones. We avoid duplicating layout information and muddling our content and presentation.
+
+### When using `w` descriptors in `srcset`, you must set `sizes`
+
+- Error in RespImageLint: Sizes attribute must be set if W descriptors are used - [source](https://ausi.github.io/respimagelint/docs.html#descriptors.wMissingSizes)
+- Error in W3C Validator: When the `srcset` attribute has any image candidate string with a width descriptor, the `sizes` attribute must also be specified.
+
+### Good solution for a 100% width image with `max-width`
+
+- When viewport width is < 900, image width is 100vw - 40px padding. The browser will load the image required according to the phone's dpi and size.
+- When viewport width is > 900, image width is 800px. The browser will load a big image on hdip laptop, and mid image in mdpi laptop.
+
+```css
+#pic {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1600 / 2000;
+}
+```
+
+<!-- prettier-ignore -->
+```html
+<img
+  src="/pic-800.jpg"
+  srcset="
+    /pic-800.jpg 800w,
+    /pic-1200.jpg 1200w,
+    /pic-1600.jpg 1600w
+  "
+  sizes="(min-width: 900px) 800px, calc(100vw - 40px)"
+  id="pic"
+/>
+```
+
+Note that you can use `rem` for margin instead of `px` - [see this example](https://css-tricks.com/a-guide-to-the-responsive-images-syntax-in-html/#aa-creating-accurate-sizes).
 
 ### Examples
 
