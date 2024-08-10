@@ -8,9 +8,13 @@ Web Accessibility Testing extension - axe DevTools - https://chrome.google.com/w
 
 [accessibilityinsights.io](https://accessibilityinsights.io)
 
+https://developer.mozilla.org/en-US/docs/Learn/Accessibility
+
 https://developer.mozilla.org/en-US/curriculum/core/accessibility
 
 Designing better target sizes - https://ishadeed.com/article/target-size/
+
+Learn Accessible Web Design - https://v2.scrimba.com/learn-accessible-web-design-c031
 
 ## WCAG (Web Content Accessibility Guidelines)
 

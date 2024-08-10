@@ -202,6 +202,8 @@ AWS managed policies - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_p
 
 AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
 
+AWS IAM policy linting library - https://github.com/duo-labs/parliament
+
 ### EAR
 
 A policy needs to have an EAR to listen what is going to do: Effect, Action and Resource.

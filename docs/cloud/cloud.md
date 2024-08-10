@@ -21,3 +21,5 @@ https://www.diagrams.net
 https://www.cloudcraft.co
 
 https://pragprog.com/titles/apdiag/creating-software-with-modern-diagramming-techniques
+
+AWS icons - https://awsicons.dev

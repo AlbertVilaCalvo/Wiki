@@ -92,6 +92,8 @@ How to:
 
 - At the top right menu, go to 'Security credentials'. You'll see a warning 'You don't have MFA assigned'. Click 'Assign MFA'.
 - Alternatively, go to the IAM Dashboard and you'll see a warning 'Add MFA for root user' (and 'Add MFA for yourself' if you are not root) on the 'Security recommendations' box. Click 'Add MFA'.
+- MFA device name: root-account-mfa-device
+- MFA device: Authenticator app
 
 Documentation:
 

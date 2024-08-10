@@ -2,6 +2,10 @@
 title: Elements
 ---
 
+:::tip
+Use the [W3C Markup Validation Service](https://validator.w3.org) regularly.
+:::
+
 Cool HTML elements nobody uses - https://news.ycombinator.com/item?id=33068563 - https://tapajyoti-bose.medium.com/7-cool-html-elements-nobody-uses-436598d85668
 
 ## Void elements don't need trailing slash (`/>`)
@@ -39,6 +43,8 @@ See:
 - Semantic HTML: https://web.dev/learn/html/semantic-html/
 - Headings and sections: https://web.dev/learn/html/headings-and-sections/
 - Semantic HTML tags: https://www.dofactory.com/html/semantics
+- Document and website structure: https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure
+- Good document structure: https://developer.mozilla.org/en-US/curriculum/core/semantic-html/#2.2_good_document_structure
 
 ## nav
 
@@ -116,3 +122,7 @@ https://developer.chrome.com/blog/what-is-the-top-layer/
 > `z-index` has no effect in the top layer.
 
 If we have a `<form>` is inside a `<dialog>` we can use `method='dialog'` ([source](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-method)).
+
+## Deprecated elements
+
+https://www.w3docs.com/learn-html/deprecated-html-tags.html

@@ -38,6 +38,8 @@ https://www.101daysofdevops.com/courses/100-days-of-aws/
 
 Local Stack - https://www.localstack.cloud - https://github.com/localstack/localstack
 
+AWS deprecations, breaking changes and price increases - https://github.com/SummitRoute/aws_breaking_changes
+
 AWS’s Egregious Egress - https://blog.cloudflare.com/aws-egregious-egress
 
 Serverless Patterns Collection - https://serverlessland.com/patterns

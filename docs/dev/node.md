@@ -21,7 +21,8 @@ Node.js testing - https://github.com/testjavascript/nodejs-integration-tests-bes
 
 ## Libraries
 
-Libraries: https://nodejs.libhunt.com
+- https://nodejs.libhunt.com
+- https://nodejstoolbox.com
 
 ### HTTP clients
 
