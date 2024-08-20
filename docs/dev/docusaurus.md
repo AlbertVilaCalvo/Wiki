@@ -258,3 +258,5 @@ https://twitter.com/sebastienlorber/status/1598615824927002624
 - [3.4](https://github.com/facebook/docusaurus/releases/tag/v3.4.0) - [Announcement](https://docusaurus.io/blog/releases/3.4) - [Twitter](https://twitter.com/sebastienlorber/status/1796606082741330410)
   - Tags files (`blog/tags.yml` and `docs/tags.yml`): list of pre-defined tags, to reuse them and validate them
   - Hash router: generates a single page app `index.html` file that allows easy distribution and offline browsing locally without a web server (using the `file://` protocol)
+- [3.5](https://github.com/facebook/docusaurus/releases/tag/v3.5.0) - [Announcement](https://docusaurus.io/blog/releases/3.5) - [Twitter](https://twitter.com/sebastienlorber/status/1821948807426256996)
+  - Improvements to the blog, eg authors pages with social icons
