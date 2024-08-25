@@ -16,6 +16,8 @@ https://github.com/Sceptre/sceptre - https://docs.sceptre-project.org
 
 Linter: https://github.com/aws-cloudformation/cfn-lint
 
+Test AWS CloudFormation templates - https://github.com/aws-ia/taskcat - https://aws-ia.github.io/taskcat
+
 Generate CloudFormation / Terraform / Troposphere templates from your existing AWS resources - https://github.com/iann0036/former2
 
 CloudFormation vs Terraform in 2022 - https://cloudonaut.io/cloudformation-vs-terraform

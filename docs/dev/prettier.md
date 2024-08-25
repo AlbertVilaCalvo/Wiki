@@ -70,6 +70,10 @@ https://prettier.io/docs/en/options.html
 
 ## WebStorm setup
 
+:::info
+Starting from WebStorm 2024.2, **new projects** with a direct `prettier` dependency in their root `package.json` and a Prettier configuration file at the same level will have the _Automatic Prettier Configuration_ setting enabled by default. This feature simplifies the setup process and ensures that Prettier integration is enabled out of the box. [source](https://blog.jetbrains.com/webstorm/2024/08/webstorm-2024-2/#prettier-integration-enabled-by-default)
+:::
+
 https://prettier.io/docs/en/webstorm.html
 
 https://www.jetbrains.com/help/webstorm/prettier.html

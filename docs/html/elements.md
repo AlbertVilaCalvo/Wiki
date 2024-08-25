@@ -8,6 +8,8 @@ Use the [W3C Markup Validation Service](https://validator.w3.org) regularly.
 
 Cool HTML elements nobody uses - https://news.ycombinator.com/item?id=33068563 - https://tapajyoti-bose.medium.com/7-cool-html-elements-nobody-uses-436598d85668
 
+Those HTML Attributes You Never Use - https://www.smashingmagazine.com/2022/03/html-attributes-you-never-use - https://news.ycombinator.com/item?id=30887445
+
 ## Void elements don't need trailing slash (`/>`)
 
 We can write `<meta charset="UTF-8">` instead of `<meta charset="UTF-8" />`.

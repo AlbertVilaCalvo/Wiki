@@ -2,6 +2,15 @@
 title: youtube-dl
 ---
 
+:::warning
+There hasn't been a release since 2021. [The Homebrew page](https://formulae.brew.sh/formula/youtube-dl#default) says it's deprecated:
+
+> The current youtube-dl version has many unresolved issues.
+> Upstream have not tagged a new release since 2021.
+> Please use yt-dlp instead.
+
+:::
+
 https://github.com/ytdl-org/youtube-dl
 
 `youtube-dl <URL>`
