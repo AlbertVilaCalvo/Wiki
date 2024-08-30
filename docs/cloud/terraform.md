@@ -282,6 +282,63 @@ The identifier is `var.name`, eg `var.aws_region`. This is how you reference it.
 
 If you don't specify a type, its type will be `any`. It's important to always specify the type to avoid errors.
 
+Don't set a default value for sensitive values or things that need to be unique globally (like an S3 bucket).
+
+To set a variable, you have these options (_the latest ones will take precedence_):
+
+- If we don't pass any value, it uses the default value (if available).
+- Use an environment variable named `TF_VAR_` + the variable name, eg `TF_VAR_aws_region`.
+  - In Unix use `export TF_VAR_aws_region=us-east-1`.
+- Use a `terraform.tfvars`, `terraform.tfvars.json`, `*.auto.tfvars` or `*.auto.tfvars.json` file.
+  - Files are processed in this order, alphabetically. Multiple files can define the same variable, and the latest will take precedence.
+  - To use any other file name, use the `-var-file` CLI option.
+  - Do not store sensitive values in `tfvars` files that are checked in version control.
+- Use the CLI options `-var 'aws_region=us-east-1'` or `-var-file="prod.tfvars"`. [see docs](https://developer.hashicorp.com/terraform/cli/commands/plan#input-variables-on-the-command-line)
+- If no value was given with the previous options, you'll be prompted to supply the value interactively in the CLI.
+  - To avoid the interactive prompt to wait for an input in CI/CD pipelines, do `export TF_INPUT=0`. Otherwise, it will wait indefinitely until the pipeline times out! If we set `TF_INPUT=0` it throws an error if a variable is missing.
+
+If we run `terraform plan` and we save the plan into a file, all the variables will be saved in the file and will be used when doing `apply`. But if we don't save the plan into a file, when we run `apply`, since it runs `plan` again, we'll need to supply the variables again somehow.
+
+#### `sensitive`
+
+To mask or avoid printing a sensitive value:
+
+```hcl
+variable "db_password" {
+  description = "DB Password"
+  type        = string
+  sensitive   = true
+}
+```
+
+#### `nullable`
+
+By default is `true`, so `null` is accepted as a value.
+
+```hcl
+variable "db_password" {
+  description = "DB Password"
+  type        = string
+  nullable    = false
+}
+```
+
+In a module, if `nullable` is true (the default), when passing `null` Terraform doesn't use the default value. But when is false, Terraform uses the default value when a module input argument is `null`.
+
+#### `validation`
+
+https://developer.hashicorp.com/terraform/language/expressions/custom-conditions
+
+```hcl
+variable "min_size" {
+  type = number
+  validation {
+    condition     = var.min_size >= 0
+    error_message = "The min_size must greater or equal than zero."
+  }
+}
+```
+
 ### `output`
 
 https://developer.hashicorp.com/terraform/language/values/outputs
@@ -293,6 +350,8 @@ output "instance_ip_addr" {
   value = aws_instance.server.private_ip
 }
 ```
+
+We can set the argument `sensitive` to true to avoid displaying it. In this case, we can use `terraform output my_var` to display it. Note that it still stored in state, see [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data).
 
 ### `locals`
 
