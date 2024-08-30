@@ -263,7 +263,7 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
       // Base set of languages: https://github.com/FormidableLabs/prism-react-renderer/blob/master/packages/generate-prism-languages/index.ts#L9-L25
       // All supported languages: https://prismjs.com/#supported-languages
-      additionalLanguages: ['bash', 'json'],
+      additionalLanguages: ['bash', 'json', 'hcl'],
     },
     docs: {
       // https://docusaurus.io/docs/sidebar#theme-configuration
