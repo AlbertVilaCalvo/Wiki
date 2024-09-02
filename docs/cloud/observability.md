@@ -16,6 +16,10 @@ https://fluentbit.io
 
 https://www.solo.io
 
+https://chronosphere.io
+
+https://last9.io
+
 AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-US
 
 ## Definition

@@ -2,6 +2,8 @@
 title: UX
 ---
 
+Removing stuff is never obvious yet often better - https://www.gkogan.co/removing-stuff - https://news.ycombinator.com/item?id=41353328
+
 ## Speed
 
 Over 50% of users abandon a website if it takes longer than 3 seconds to load. // 53% of visits are likely to be abandoned if pages take longer than 3 seconds to load. Source: https://www.thinkwithgoogle.com/intl/en-154/marketing-strategies/app-and-mobile/need-mobile-speed-how-mobile-latency-impacts-publisher-revenue/

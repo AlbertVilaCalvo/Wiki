@@ -176,7 +176,13 @@ convert foto.jpg -resize 1080x1920 foto-1080x1920.jpg
 Make Instagram portrait 4:5. Eg if we have a DIN-A4 image and we want to add some black borders at the sides so that the image is not cropped at the top and bottom.
 
 ```shell
-convert image.jpeg -gravity center -background black -resize 1080x1350 -extent 1080x1350 image-instagram.jpeg
+magick image.jpeg -gravity center -background black -resize 1080x1350 -extent 1080x1350 image-instagram.jpeg
+```
+
+Same but square:
+
+```shell
+magick image.jpeg -gravity center -background black -resize 1080x1080 -extent 1080x1080 image-instagram-square.jpeg
 ```
 
 ## sips

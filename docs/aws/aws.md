@@ -2,7 +2,7 @@
 title: AWS
 ---
 
-Documentation: https://docs.aws.amazon.com/index.html
+Documentation: https://docs.aws.amazon.com
 
 re:Post - https://www.repost.aws
 
