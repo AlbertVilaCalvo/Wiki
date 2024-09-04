@@ -43,7 +43,7 @@ Check: `npx prettier --check .`
 
 Add the following scripts (`npm run format` and `npm run format:check`):
 
-```json title=package.json
+```json title="package.json"
 {
   "scripts": {
     "format": "prettier --write .",

@@ -500,7 +500,7 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generati
 
 Example of **IAM policy**:
 
-```json title=iam_policy.json
+```json title="iam_policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -526,7 +526,7 @@ aws iam put-user-policy --user-name MyUser --policy-name S3AccessUserPolicy --po
 
 Example of **bucket policy**:
 
-```json title=bucket_policy.json
+```json title="bucket_policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [

@@ -288,7 +288,7 @@ See examples at https://fettblog.eu/typescript-react-component-patterns
 
 ### Children
 
-```ts title=Children.tsx
+```ts title="Children.tsx"
 import * as React from 'react'
 
 /**

@@ -98,7 +98,7 @@ eslint --cache --fix
 
 On a npm `package.json` script we don't need the `npx` prefix:
 
-```json title=package.json
+```json title="package.json"
 {
   "scripts": {
     "eslint": "eslint 'src/**/*.{js,jsx,ts,tsx}'"

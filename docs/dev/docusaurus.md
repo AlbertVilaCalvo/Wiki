@@ -26,7 +26,7 @@ https://docusaurus.io/docs/sidebar
 
 https://docusaurus.io/docs/sidebar/items
 
-```js title=sidebars.js
+```js title="sidebars.js"
 const sidebars = {
   http: [
     'http/http',
