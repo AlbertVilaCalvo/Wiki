@@ -209,6 +209,7 @@ const sidebars: SidebarsConfig = {
     'disseny/social-media',
     'disseny/image-formats',
     'disseny/gimp',
+    'disseny/inkscape',
   ],
   ux: ['ux/ux'],
   log: ['log/talks', 'log/articles', 'log/courses'],
