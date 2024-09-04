@@ -31,17 +31,8 @@ Command history is saved in `~/.zsh_history`.
 
 ## Various commands & tips
 
-```shell
-# set environment variable
-NODE_ENV=production
-
-# unset environment variable
-unset NODE_ENV
-```
-
 - !!: run the previous command
 - What shell is used: `echo $SHELL`
-- List all environment variables: `printenv`. You can also print a specific envar: `printenv ANDROID_HOME`. (In Linux you can print many, eg `printenv ANDROID_HOME PATH`, but does not work in macOS.)
 
 Command-line pro tips: https://twitter.com/addyosmani/status/1264854298799665152
 
@@ -53,6 +44,22 @@ touch {P,H1,H2}.tsx # creates P.tsx, H1.tsx and H2.tsx
 ```
 
 You can also use this with npm: https://twitter.com/nucliweb/status/1096327937308135425
+
+## Environment variables
+
+List all environment variables: `printenv` or `env`. See [What is the difference between 'env' and 'printenv'?](https://unix.stackexchange.com/questions/123473/what-is-the-difference-between-env-and-printenv/284069). You can also print a specific envar: `printenv ANDROID_HOME`. In Linux you can print many (eg `printenv ANDROID_HOME PATH`) but this does not work in macOS (it only prints the first one).
+
+```shell
+# set environment variable
+export TF_VAR_vpc_cidr_block="10.0.0.0/16"
+
+# unset environment variable
+unset NODE_ENV
+```
+
+[What is the difference between env, setenv, export and when to use?](https://unix.stackexchange.com/questions/368944/what-is-the-difference-between-env-setenv-export-and-when-to-use)
+
+[What is the difference between set, env, declare and export when setting a variable in a Linux shell?](https://superuser.com/questions/821094/what-is-the-difference-between-set-env-declare-and-export-when-setting-a-varia)
 
 ## Command substitution
 
