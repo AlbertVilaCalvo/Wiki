@@ -14,15 +14,21 @@ Cheatsheet: https://cheat-sheets.nicwortel.nl/terraform-cheat-sheet.pdf
 
 > Terraform's primary function is to create, modify, and destroy infrastructure resources to match the desired state described in a Terraform configuration. [source](https://developer.hashicorp.com/terraform/cli/run)
 
-It uses a [Directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) to represent resources - see https://github.com/hashicorp/terraform/tree/main/internal/dag and https://developer.hashicorp.com/terraform/internals/graph.
+It uses a [Directed Acyclic Graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) to represent resources - see https://github.com/hashicorp/terraform/tree/main/internal/dag and https://developer.hashicorp.com/terraform/internals/graph.
 
 Uses the library https://github.com/zclconf/go-cty internally.
 
 ## `.gitignore`
 
-https://github.com/github/gitignore/blob/main/Terraform.gitignore
+https://github.com/github/gitignore/blob/main/Terraform.gitignore → Uncomment line 33 to exclude the `tfplan` plan file.
 
 https://developer.hashicorp.com/terraform/language/style#gitignore
+
+We should ignore:
+
+- The `.terraform` directory, since it contains binary files we don't want to store in Git.
+- State files (`*.tfstate`), since state contains secrets and passwords. Another reason is that if we deploy our infrastructure multiple times (dev, test, staging, prod), we need a different state file for each, so it makes sense to store them outside of the repository, decoupled from our code.
+- Any `*.tfvars` files that contain sensitive information.
 
 ## CLI
 
@@ -79,7 +85,7 @@ Actions are colored (green, red, yellow) and use a symbol:
 - Create: +
 - Destroy: -
 - Update: ~
-- Re-create (destroy and then create): -/+
+- Re-create or replace (destroy and then create): -/+
 
 You can optionally save the plan to a file with `terraform plan -out=tfplan`, and pass it to `apply` later. The file is not human-readable, but you can use `terraform show tfplan` to view the plan.
 
@@ -103,6 +109,10 @@ Some resources behave in unexpected ways. For example, a change of a network con
 - https://developer.hashicorp.com/terraform/cli/run#destroying
 
 Destroys the resources.
+
+:::danger
+Be very careful when running `terraform destroy -auto-approve`. Make sure you are at the right directory! And only do it while developing.
+:::
 
 It's an alias for `terraform apply -destroy`. To show the proposed destroy changes without executing them use `terraform plan -destroy`.
 
@@ -135,6 +145,18 @@ terraform fmt -check
 https://developer.hashicorp.com/terraform/cli/commands/validate
 
 Requires a successful run of `terraform init` (i.e. local installation of all providers and modules) to function.
+
+### `graph`
+
+https://developer.hashicorp.com/terraform/cli/commands/graph
+
+Create an image with the Directed Acyclic Graph of resources:
+
+```shell
+terraform graph -type=plan | dot -Tpng > graph.png
+```
+
+This requires installing [Graphviz](https://graphviz.org/), which we can do with [Homebrew](https://formulae.brew.sh/formula/graphviz).
 
 ## HCL
 
@@ -403,7 +425,7 @@ For example, when we want to change the configuration of an EC2 virtual machine 
 https://developer.hashicorp.com/terraform/language/meta-arguments/depends_on
 
 :::warning
-Should we used rarely.
+Should be used rarely.
 :::
 
 ### `count`
@@ -424,6 +446,121 @@ https://developer.hashicorp.com/terraform/language/meta-arguments/for_each
 
 Similar to `count`, is also used to create multiple instances of a resource or module, but we can easily set different properties to each one in a safer way.
 
+## State
+
+- https://developer.hashicorp.com/terraform/language/state
+- https://developer.hashicorp.com/terraform/cli/state
+- https://developer.hashicorp.com/terraform/cli/commands/state
+
+Primarily, the state binds remote objects with resources declared in our configuration files.
+
+State is stored in a JSON file:
+
+```json title="terraform.tfstate"
+{
+  "version": 4, // Version of the Terraform state schema
+  "terraform_version": "1.9.5", // Version of Terraform that last modified the state
+  "serial": 79, // Version of this state file. Incremented every time we update the state
+  "lineage": "8e16b7bb-3593-c363-6bf9-bde5a11ad86a",
+  "outputs": {},
+  "resources": [],
+  "check_results": null
+}
+```
+
+It contains sensitive values like passwords and private keys, so it needs to be stored securely. See [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data). This is one reason why we don't commit the state in our Git repositories.
+
+Another reason to not commit the state into version control is that we usually want to deploy multiple instances of our infrastructure (dev, test, staging, prod). Each environment requires it's own state file, which can live outside of our repo, decoupled from our code.
+
+### State backend (storage)
+
+https://developer.hashicorp.com/terraform/language/settings/backends/configuration
+
+By default the state file `terraform.tfstate` is stored locally using the [local backend](https://developer.hashicorp.com/terraform/language/settings/backends/local). This is OK for development, but not for anything serious since:
+
+- Is not backed up, so we can loose it. This is really bad since our state is crucial to use Terraform.
+- Is not accessible to others, so we can't collaborate with other people.
+
+It's better to store the state remotely with a state backend like S3 or HCP Terraform.
+
+Usually you need to install a provider to talk to a cloud provider like AWS or Azure using their APIs. However, Terraform knows how to use (for example) S3 or Google Cloud Storage APIs for the purpose of storing state, without installing any provider. Note that we can deploy resources to Azure (using the Azure provider) and use S3 for the state backend (without a provider) at the same time.
+
+### Migrate backend state
+
+- https://developer.hashicorp.com/terraform/tutorials/cloud/migrate-remote-s3-backend-hcp-terraform
+
+If we change the backend (eg from local to S3) we need to run `terraform init`. Terraform will ask us to move any existing local state to the new backend, and we need to answer 'yes':
+
+```
+$ terraform init
+
+Initializing the backend...
+Do you want to copy existing state to the new backend?
+  Pre-existing state was found while migrating the previous "local" backend to the
+  newly configured "s3" backend. No existing state was found in the newly
+  configured "s3" backend. Do you want to copy this state to the new "s3"
+  backend? Enter "yes" to copy and "no" to start with an empty state.
+
+  Enter a value: yes
+
+Successfully configured the backend "s3"! Terraform will automatically
+use this backend unless the backend configuration changes.
+```
+
+This creates a new state file object in the S3 bucket.
+
+To move a remote state back to local use `terraform init -migrate-state`, which reconfigures the backend and attempts to migrate any existing state, prompting for confirmation (answer 'yes'). This creates a local `terraform.tfstate` file. There's also the `-force-copy` option that suppresses these prompts and answers "yes" to the migration questions.
+
+Often backends don't allow you to migrate state straight from another backend (eg S3 → GCS), so you need to migrate the existing remote state to local first, and then to the new backend (S3 → local → GCS).
+
+### State locking
+
+https://developer.hashicorp.com/terraform/language/state/locking
+
+To prevent concurrent updates to the state, Terraform supports locking. When the state is locked, Terraform won't run. When the state is stored locally, Terraform creates a lock file `.terraform.tfstate.lock.info` so that two processes don't update the state concurrently - although the chances that this happens are very low. **Remote backends really need to support locking**, otherwise the state file can be corrupted or have conflicts due to race conditions. Not all remote backends support locking. HCP Terraform is a good choice.
+
+### Modify state
+
+You should never manually edit the state file. Instead, use the [`state`](https://developer.hashicorp.com/terraform/cli/commands/state) command subcommands:
+
+- `terraform state -help`: list the `state` subcommands.
+- [`terraform state list`](https://developer.hashicorp.com/terraform/cli/commands/state/list): list all the resources.
+- [`terraform state show <resource_id>`](https://developer.hashicorp.com/terraform/cli/commands/state/show): show attributes of a resource.
+- [`terraform state mv <old_id> <new_id>`](https://developer.hashicorp.com/terraform/cli/commands/state/mv): to change the resource identifier.
+  - When we change a resource name, Terraform deletes the existing resource and creates a new one. To avoid this, we can use `mv` by telling Terraform that is the same resource.
+  - Required for resources that have a configuration or data that needs to be preserved.
+  - Alternatively, we can use the [`moved` block](https://developer.hashicorp.com/terraform/language/moved) to do this too.
+- [`terraform state rm <resource_id>`](https://developer.hashicorp.com/terraform/cli/commands/state/rm): removes a resource from the state only; it doesn't delete the actual resource in the cloud.
+  - Used when we extract a part of our Terraform code to a different Git repository. Or when we want to deploy a new instance of a resource, but at the same time keep the old one to investigate (forensics) or check something on it.
+  - Alternatively, we can use the [`removed` block](https://developer.hashicorp.com/terraform/language/resources/syntax#removing-resources) to do this too.
+
+Use these commands to address some state drift. For example, if a security vulnerability was fixed outside of Terraform, so that Terraform doesn't try to undo the changes.
+
+### Import resources into state
+
+We can use [`terraform import`](https://developer.hashicorp.com/terraform/cli/commands/import) to grab resources that have been deployed and add them into the state. The resources can be things that already existed before we started using Terraform, for example.
+
+Some resources can't be imported, which should be detailed in the provider documentation for that resource.
+
+Resources need to be imported one a time, but we can create a script to import many.
+
+The command doesn't write any HCL, so we are responsible for updating the code.
+
+`terraform import` workflow:
+
+- We have some resources that already exist in the infrastructure, but not in our state.
+- We run `terraform import` to gather the resources, and commit them into the state.
+  - The command depends on the resource and the provider. For example, to import an EC2 instance we use `terraform import aws_instance.web i-12345678` according to [the docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#import). And to import a VPC we do `terraform import aws_vpc.web_vpc vpc-0eaee8c907067a57be`.
+  - Once the resources are imported, the state is aware of them, but we still don't have the code for them.
+- We write the code that matches the state.
+  - Most likely this code is not perfect, except for very simple resources, so we'll need to adjust it.
+- Run `terraform plan` and if there are changes, update the code iteratively until `terraform plan` gives no changes.
+  - Most likely, the first time we run `plan` it will say that we have some delta/gap, ie some changes to apply to the infrastructure. But we don't want to apply this changes. Instead, we need to revise the code we've written to incorporate the gap, and run `plan` again. We do this iteratively until there's no changes.
+- Finally, when `terraform plan` doesn't list any change, run `terraform apply`.
+  - Even though there are no changes, this updates the state file (eg it increments the "serial" number).
+
+Because executions of the `import` command are not recorded in version control, there's a new [`import` block](https://developer.hashicorp.com/terraform/language/import) which we can write and commit in version control. It can also generate the HCL code using `terraform plan`, although you'll need to edit it because it can have hardcoded values.
+
 ## Modules
 
 When Should We Write Modules - https://dustindortch.com/2022/10/21/why-do-we-write-terraform-modules/
@@ -434,7 +571,7 @@ https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform
 
 In addition to the [Terraform extension](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform), there is also the [HCL syntax extension](https://marketplace.visualstudio.com/items?itemName=hashicorp.hcl), which adds syntax highlighting for HCL files. Installing this extension optional, because Terraform syntax highlighting is already provided by the Terraform extension, since the HCL syntax extension _"is a grammar only extension targeted to provide HCL syntax highlighting for files not already accounted for by a more specific product-focused extension"_.
 
-To autoformat on save you need to modify the `settings.json` file (to open it do Cmd+Shif+P and select 'Preferences: Open User Settings (JSON)') as explained in https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform#formatting
+To autoformat on save you need to modify the `settings.json` file (to open it do Cmd+Shift+P and select 'Preferences: Open User Settings (JSON)') as explained in https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform#formatting
 
 It has [code snippets](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform#code-snippets).
 
@@ -488,6 +625,8 @@ Linter - https://github.com/terraform-linters/tflint - https://github.com/terraf
 Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
 
 https://www.brainboard.co
+
+https://spacelift.io - IaC Orchestration Platform
 
 ## Learn / Best practices
 
