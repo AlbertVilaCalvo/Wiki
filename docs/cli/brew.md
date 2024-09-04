@@ -25,11 +25,23 @@ Install: `brew install git`
 
 Uninstall: `brew uninstall git`
 
+Uninstall formulae that were only installed as a dependency of another formula and are now no longer needed: `brew autoremove`. Use `brew autoremove --dry-run` to list what would be uninstalled, but do not actually uninstall anything.
+
 List installed: `brew list`
+
+List top-level formulas (ie formulas that no other formulas depend on): `brew leaves`. At `man brew` says it "List installed formulae that are not dependencies of another installed formula."
+
+List dependencies of formula [source](https://stackoverflow.com/a/52120368/4034572): `brew deps --tree --installed vim`
 
 Doctor: `brew doctor` ← check from time to time!
 
-List top-level formulas (ie formulas that no other formulas depend on): `brew leaves`. At `man brew` says it "List installed formulae that are not dependencies of another installed formula."
+Get the size of the installed formulae [source](https://stackoverflow.com/a/64041990/4034572):
+
+```shell
+brew list --formula | xargs -n1 -P8 -I {} \
+    sh -c "brew info {} | egrep '[0-9]* files, ' | sed 's/^.*[0-9]* files, \(.*\)).*$/{} \1/'" | \
+    sort -h -r -k2 - | column -t
+```
 
 ## Cask
 
