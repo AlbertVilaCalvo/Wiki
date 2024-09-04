@@ -1,5 +1,5 @@
 ---
-title: Curl
+title: curl
 ---
 
 https://curl.se
