@@ -180,6 +180,7 @@ const sidebars: SidebarsConfig = {
   databases: [
     'databases/databases',
     'databases/sql',
+    'databases/relational-db-design',
     'databases/postgresql',
     'databases/mysql',
     'databases/mongodb',
