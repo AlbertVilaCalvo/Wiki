@@ -210,6 +210,7 @@ const sidebars: SidebarsConfig = {
     'disseny/animations',
     'disseny/social-media',
     'disseny/image-formats',
+    'disseny/svg',
     'disseny/gimp',
     'disseny/inkscape',
   ],
