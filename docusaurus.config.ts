@@ -163,7 +163,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: 'disseny/color',
+          to: 'disseny',
           activeBasePath: 'disseny',
           label: 'Disseny',
           position: 'left',

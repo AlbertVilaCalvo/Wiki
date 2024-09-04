@@ -204,6 +204,7 @@ const sidebars: SidebarsConfig = {
     'misc/wikis',
   ],
   disseny: [
+    'disseny/disseny',
     'disseny/ui',
     'disseny/color',
     'disseny/tipografia',
