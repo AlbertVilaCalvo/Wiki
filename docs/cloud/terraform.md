@@ -26,9 +26,21 @@ https://developer.hashicorp.com/terraform/language/style#gitignore
 
 We should ignore:
 
-- The `.terraform` directory, since it contains binary files we don't want to store in Git.
+- The `.terraform` directory, since it contains binary files we don't want to store in Git. Also, the binaries are OS-specific and they depend on the CPU architecture ([see releases](https://releases.hashicorp.com/terraform/1.9.1/)), so a specific version needs to be downloaded on each machine.
 - State files (`*.tfstate`), since state contains secrets and passwords. Another reason is that if we deploy our infrastructure multiple times (dev, test, staging, prod), we need a different state file for each, so it makes sense to store them outside of the repository, decoupled from our code.
 - Any `*.tfvars` files that contain sensitive information.
+
+We should commit:
+
+- `.terraform.lock.hcl`: the dependency lock file guarantees that the next time we do `terraform init` in another machine we download the same versions of the providers and modules.
+
+## `.terraform.lock.hcl`
+
+Is a dependency lock file that ensures that multiple people use the same versions of the providers and modules on different machines and CI/CD pipelines. It has the same function than the `package-lock.json`.
+
+It contains the exact versions (eg `version = "2.5.1"`) of the providers and modules to use, and the hashes to verify the integrity.
+
+Is created automatically by `init` if it doesn't exist. And if it exists, it's used by `init` to install the same versions.
 
 ## CLI
 
@@ -62,15 +74,19 @@ terraform init -help
 The first command we must always run. It initializes a working directory with this steps:
 
 - Initializes the backend (state).
-- Downloads provider plugins and modules.
 - Creates the hidden `.terraform` directory, which contains cached providers plugins and modules.
   - You don't commit the `.terraform` directory in version control. This makes sense since providers are binaries, which we don't put in version control, and they are OS-specific, ie you get a different binary on a x86 vs an ARM processor.
+- Downloads provider plugins and modules.
+  - If the dependency lock file `.terraform.lock.hcl` exists, it downloads the versions specified there. Otherwise, it downloads the versions that match the constraints and then creates the `.terraform.lock.hcl` file.
+- Creates the dependency lock file `.terraform.lock.hcl` if it doesn't exist yet. This file which ensures that every person running `terraform init` gets the same versions of the provider and modules, like `package-lock.json` does.
 
 Is idempotent: it is safe to call it multiple times, and will have no effect if no changes are required. Thus, you can call it any time.
 
 Since the `.terraform` directory is not checked into version control, you run `init` when you checkout a git repository, or in the CI/CD pipeline before running the other commands.
 
-You need to run it again when you add or remove providers or modules, or change their versions.
+You need to run it again when you add, remove or change versions of providers or modules, and when you change the state backend.
+
+To upgrade versions use `terraform init -upgrade`. It respects the version constraints set in the code.
 
 ### `plan`
 
@@ -564,6 +580,37 @@ Because executions of the `import` command are not recorded in version control, 
 ## Modules
 
 When Should We Write Modules - https://dustindortch.com/2022/10/21/why-do-we-write-terraform-modules/
+
+## Version constraints
+
+https://developer.hashicorp.com/terraform/language/expressions/version-constraints
+
+```hcl
+terraform {
+  required_version = "~> 1.7" # Uses 1.9.5
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0" # Uses 5.65.0
+    }
+  }
+}
+```
+
+Examples:
+
+- `= 2.0.0` or `2.0.0`: exactly 2.0.0. Is the default when there's no operator
+- `!= 2.0.0`: exclude exactly 2.0.0. Use it when there's a bug or issue with some specific version
+- `> 1.2.0`: 1.2.1 or 1.3, but not 1.2.0
+- `>= 1.2.0`
+- `>= 1.2.0, < 2.0.0"`
+- Pessimistic operator: allows only the _rightmost_ version component to increment
+  - `~> 1.2.0`: allows 1.2.0 and 1.2.1 but not 1.3
+  - `~> 1.2`: allows 1.2 and 1.3 but not 2.0. Equivalent to `>= 1.2.0, < 2.0.0"`
+
+For `module`s we can only use version constraints if they are sourced from a registry.
+
+To upgrade versions use `terraform init -upgrade`. It respects the version constraints set in the code.
 
 ## VSCode extension
 
