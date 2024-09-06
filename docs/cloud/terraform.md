@@ -86,7 +86,7 @@ Since the `.terraform` directory is not checked into version control, you run `i
 
 You need to run it again when you add, remove or change versions of providers or modules, and when you change the state backend.
 
-To upgrade versions use `terraform init -upgrade`. It respects the version constraints set in the code.
+To upgrade provider versions use `terraform init -upgrade`. It picks the latest version that meets the version constraints set in the code.
 
 ### `plan`
 
@@ -245,21 +245,34 @@ terraform {
 
 https://developer.hashicorp.com/terraform/language/providers
 
-What we use to interact with cloud vendors. It provides implementations of resources and data sources. Without providers, Terraform can't manage any kind of infrastructure.
+Providers are what we use to interact with cloud vendors. It provides implementations of resources and data sources. Without providers, Terraform can't manage any kind of infrastructure.
+
+The `provider` block is **optional** and allows us to specify additional configuration.
 
 ```hcl
+terraform {
+  required_providers {
+    # This name (aws) can be anything, but the convention is to be the same than the source.
+    # Is the name used in the provider block below.
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
 }
 ```
 
-When a provider implements a resource, it needs to implement a set of functions in Go (Create, Read, Update, Delete...) - [see docs](https://developer.hashicorp.com/terraform/plugin/framework/getting-started/code-walkthrough#resource).
+We can have multiple instances of the `provider` block. For example, if we want to deploy resources in two different AWS regions we need two instances of the provider - see the [resource `provider`](#resource-provider) meta-argument.
 
 ### `resource`
 
 https://developer.hashicorp.com/terraform/language/resources
 
-What we create and manage. The heart of Terraform and the reason why it exists.
+What we create and manage. The heart of Terraform and the reason why it exists. Supports [CRUD operations](https://developer.hashicorp.com/terraform/plugin/framework/resources).
 
 The first label is the resource type, and the second the resource name.
 
@@ -299,6 +312,8 @@ https://developer.hashicorp.com/terraform/language/data-sources
 
 Something that exists outside of our Terraform code that we want to get properties from, to
 pass them to our resources.
+
+A data source is **read only**, whereas resources support CRUD operations.
 
 ### `variable`
 
@@ -410,7 +425,11 @@ Arguments that are built-in into the language, as opposed to arguments defined b
 
 ### resource `provider`
 
-If we have multiple `provider "aws"`, we need to use the [resource `provider`](https://developer.hashicorp.com/terraform/language/meta-arguments/resource-provider) meta-argument in a `resource` to disambiguate:
+https://developer.hashicorp.com/terraform/language/meta-arguments/resource-provider
+
+Allows us to distinguish multiple instances of a provider.
+
+For example, to deploy to multiple AWS regions we need multiple `provider "aws"` instances:
 
 ```hcl
 # The default. Will be used when a resource doesn't specify a 'provider'
@@ -427,6 +446,13 @@ resource "aws_vpc" "myvpc" {
   provider = aws.california
 }
 ```
+
+We can also use it when doing VPC Peering or Transit Gateway and the VPCs are in different accounts, and we need to get information from multiple AWS accounts.
+
+Important:
+
+- Do not specify an `alias` for the first instance of the provider. Only do it for the second or third. This way we avoid adding `provider` in many places.
+- The default instance should be the one that is used the most. The instance with an `alias` should be used for a few resources only.
 
 ### `lifecycle`
 
@@ -577,6 +603,31 @@ The command doesn't write any HCL, so we are responsible for updating the code.
 
 Because executions of the `import` command are not recorded in version control, there's a new [`import` block](https://developer.hashicorp.com/terraform/language/import) which we can write and commit in version control. It can also generate the HCL code using `terraform plan`, although you'll need to edit it because it can have hardcoded values.
 
+## Providers
+
+https://developer.hashicorp.com/terraform/language/providers
+
+Providers are plugins of the Terraform core. They talk to cloud providers using their APIs. They define the resources and data sources available. Are written in Go.
+
+Data sources are read only, whereas the resources support [CRUD operations](https://developer.hashicorp.com/terraform/plugin/framework/resources).
+
+When a provider implements a resource, it needs to implement a set of functions in Go (Create, Read, Update, Delete...) - [see docs](https://developer.hashicorp.com/terraform/plugin/framework/getting-started/code-walkthrough#resource).
+
+Usually providers are pulled from the [Terraform Registry](https://registry.terraform.io/), where you have the documentation and versions available. There are other provider registries. At this registry there are 4 provider tiers ([source](https://developer.hashicorp.com/terraform/docs/partnerships#terraform-provider-integrations)):
+
+- Official: owned and maintained by HashiCorp. They use the `hashicorp` namespace.
+- Partner: owned and maintained by third-party companies against their own APIs. They must participate in the [HashiCorp Technology Partner Program](https://www.hashicorp.com/partners/become-a-partner#technology).
+- Community: published by individuals or organizations.
+- Archived: deprecated or no longer maintained, but still available so that your code can still function.
+
+:::danger
+Be careful with community providers. A provider can do anything with your authentication credentials! It can contain malicious code and send information (for example, about your infrastructure) to anyone.
+:::
+
+We can use multiple providers together. This is an advantage of Terraform over other tools like CloudFormation, since we can define (for example) AWS resources using the hashicorp/aws provider and then deploy third party tools and software onto it using other providers from Red Hat or Palo Alto Networks. In addition, we can combine AWS services with other services running outside AWS like CloudFlare or Datadog in the same code.
+
+It's not mandatory to specify the providers with `required_providers`, but it allows us to use version constraints.
+
 ## Modules
 
 When Should We Write Modules - https://dustindortch.com/2022/10/21/why-do-we-write-terraform-modules/
@@ -610,7 +661,7 @@ Examples:
 
 For `module`s we can only use version constraints if they are sourced from a registry.
 
-To upgrade versions use `terraform init -upgrade`. It respects the version constraints set in the code.
+To upgrade provider versions use `terraform init -upgrade`. It picks the latest version that meets the version constraints set in the code.
 
 ## VSCode extension
 
@@ -669,7 +720,7 @@ Security scanner for your Terraform code - https://github.com/aquasecurity/tfsec
 
 Linter - https://github.com/terraform-linters/tflint - https://github.com/terraform-linters/tflint-ruleset-aws
 
-Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
+Checkov - Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov - Workshop https://github.com/PaloAltoNetworks/prisma-cloud-devsecops-workshop/blob/main/guide/DevSecOps-lab.md
 
 https://www.brainboard.co
 
@@ -788,6 +839,8 @@ Terraforming with TypeScript - https://radar.com/blog/terraforming-with-typescri
 ## VS CloudFormation
 
 https://developer.hashicorp.com/terraform/intro/vs/cloudformation
+
+We can use multiple providers together. This is an advantage of Terraform over other tools like CloudFormation, since we can define (for example) AWS resources using the hashicorp/aws provider and then deploy third party tools and software onto it using other providers from Red Hat or Palo Alto Networks. In addition, we can combine AWS services with other services running outside AWS like CloudFlare or Datadog in the same code.
 
 ## Terraform Associate Certification (003)
 
