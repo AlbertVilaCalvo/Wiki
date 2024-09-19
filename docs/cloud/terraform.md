@@ -45,12 +45,14 @@ Is created automatically by `init` if it doesn't exist. And if it exists, it's u
 ## CLI
 
 :::tip
-Don't use the [official shell tab-completion](https://developer.hashicorp.com/terraform/cli/commands#shell-tab-completion) (installed with `terraform -install-autocomplete`), because it only adds tab-completion of commands (eg `apply`), but not options (eg `-refresh`).
+Don't use the [official shell tab-completion](https://developer.hashicorp.com/terraform/cli/commands#shell-tab-completion) (installed with `terraform -install-autocomplete`), because it only adds tab-completion of commands (eg `apply`), but not options (eg `-auto-approve`).
 
 Instead, use the [Oh My Zsh plugin](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/terraform), which autocompletes the options after typing just `-` + tab, showing a description of each argument too.
 
 Note that there's also an [OpenTofu plugin](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/opentofu).
 :::
+
+Workflow: `init` → `plan` → `apply` → `destroy`
 
 List commands:
 
@@ -94,16 +96,18 @@ To upgrade provider versions use `terraform init -upgrade`. It picks the latest 
 - https://developer.hashicorp.com/terraform/cli/run#planning
 - https://developer.hashicorp.com/terraform/tutorials/cli/plan
 
-Does a state [refresh](https://developer.hashicorp.com/terraform/cli/commands/refresh), that is, it checks the actual infrastructure resources using providers (which call cloud APIs), and compares them with the current configuration, to get the difference between the current and desired state. Once it has the difference, it presents a description (plan) of the changes necessary to achieve the desired state. It does not perform any actual changes to real world infrastructure.
+Does a **state [refresh](https://developer.hashicorp.com/terraform/cli/commands/refresh)**, that is, it checks the actual infrastructure resources using providers (which call cloud APIs), and compares them with the current configuration code, to get the difference between the current and desired state. Once it has the difference, it presents a description (plan) of the changes necessary to achieve the desired state. It does not perform any actual changes to real world infrastructure.
 
 Actions are colored (green, red, yellow) and use a symbol:
 
-- Create: +
-- Destroy: -
-- Update: ~
-- Re-create or replace (destroy and then create): -/+
+- `+` Create
+- `-` Destroy
+- `~` Update
+- `-/+` Re-create or replace (destroy and then create)
+  - Be careful: you can loose data!
+  - The destroy operation can fail. For example, if we try to re-create an S3 bucket that is not empty.
 
-You can optionally save the plan to a file with `terraform plan -out=tfplan`, and pass it to `apply` later. The file is not human-readable, but you can use `terraform show tfplan` to view the plan.
+You can optionally save the plan to a file with `terraform plan -out=tfplan`, and pass it to `apply` later. The file is not human-readable, but you can use the [`show` command](https://developer.hashicorp.com/terraform/cli/commands/show) (`terraform show tfplan`) to inspect the plan.
 
 ### `apply`
 
@@ -124,20 +128,20 @@ Some resources behave in unexpected ways. For example, a change of a network con
 - Doc: https://developer.hashicorp.com/terraform/cli/commands/destroy
 - https://developer.hashicorp.com/terraform/cli/run#destroying
 
-Destroys the resources.
+Destroys all the resources. You do this seldomly in production, but frequently in a dev environment.
 
 :::danger
 Be very careful when running `terraform destroy -auto-approve`. Make sure you are at the right directory! And only do it while developing.
 :::
 
-It's an alias for `terraform apply -destroy`. To show the proposed destroy changes without executing them use `terraform plan -destroy`.
+It's an alias for `terraform apply -destroy`. You can also run `terraform plan -destroy` to show the proposed destroy changes without executing them, and then pass the destroy plan to `apply`.
 
 See the [Destroy planning mode](https://developer.hashicorp.com/terraform/cli/commands/plan#planning-modes).
 
 :::tip
 Run `destroy` frequently while developing.
 
-While developing some new infrastructure, instead of -or in addition to- doing incremental updates (eg create a VPC → `apply` → add subnets → `apply` → add security groups → `apply`...), always do a `destroy` and then an `apply` after each update, creating the whole infrastructure from scratch every time.
+While developing some new infrastructure, instead of -or in addition to- doing incremental updates (eg create a VPC → `apply` → add subnets → `apply` → add security groups → `apply`...), it's a good practice to always do a `destroy` and then an `apply` after each update, re-creating the whole infrastructure from scratch.
 
 This way we avoid cyclic dependencies, and we make sure that we can create the environment from scratch at any time.
 :::
@@ -160,7 +164,11 @@ terraform fmt -check
 
 https://developer.hashicorp.com/terraform/cli/commands/validate
 
+Checks syntax errors.
+
 Requires a successful run of `terraform init` (i.e. local installation of all providers and modules) to function.
+
+Gotcha: sometimes a single syntax error can generate multiple errors.
 
 ### `graph`
 
@@ -174,9 +182,41 @@ terraform graph -type=plan | dot -Tpng > graph.png
 
 This requires installing [Graphviz](https://graphviz.org/), which we can do with [Homebrew](https://formulae.brew.sh/formula/graphviz).
 
+### `output`
+
+https://developer.hashicorp.com/terraform/cli/commands/output
+
+```shell
+terraform output -raw ec2_public_ip
+```
+
+If the output is a command, eg:
+
+```hcl
+output "ssh_connect" {
+  value = "ssh -i ec2_rsa ec2-user@${aws_instance.ec2.public_ip}"
+}
+```
+
+We can execute it with backticks:
+
+```shell
+`terraform output -raw ssh_connect`
+```
+
 ## HCL
 
 https://github.com/hashicorp/hcl
+
+### Files
+
+Usually you have 3 files:
+
+```
+main.tf
+variables.tf
+outputs.tf
+```
 
 ### Blocks
 
@@ -200,7 +240,7 @@ block_type "block_label_1" "block_label_2" {
 
 Most blocks can appear multiple times (eg `terraform`, `resource`, `variable`, `module`...), but some can't, which should be detailed in the documentation.
 
-Argument names, block type names, labels etc. are identifiers. An identifier can contain letters, digits, `_` and `-`. However, the first character can only be a letter or an underscore. [source](https://developer.hashicorp.com/terraform/language/syntax/configuration#identifiers)
+Argument names, block type names, labels etc. are identifiers. An identifier can contain letters, digits, `_` and `-`. However, the first character can only be a letter. [source](https://developer.hashicorp.com/terraform/language/syntax/configuration#identifiers)
 
 ### Primitive types (scalars)
 
@@ -319,7 +359,7 @@ A data source is **read only**, whereas resources support CRUD operations.
 
 https://developer.hashicorp.com/terraform/language/values/variables
 
-An input. Variables make the code more reusable by avoiding to hardcode values.
+An input or parameter. Variables make the code more reusable by avoiding to hardcode values.
 
 Variables are also available in other tools that use HCL (unlike `resource` for example, which is Terraform specific).
 
@@ -410,8 +450,7 @@ We can set the argument `sensitive` to true to avoid displaying it. In this case
 
 https://developer.hashicorp.com/terraform/language/values/locals
 
-Since all code in HCL must be inside a block, we use the `locals` block to define values,
-manipulate data etc. To avoid repetition, they allow reusing an expression within a module.
+Since all code in HCL must be inside a block, we use the `locals` block to define values, manipulate data etc. To avoid repetition, they allow reusing an expression within a module.
 
 ### `module`
 
@@ -467,7 +506,7 @@ For example, when we want to change the configuration of an EC2 virtual machine 
 https://developer.hashicorp.com/terraform/language/meta-arguments/depends_on
 
 :::warning
-Should be used rarely.
+Should be used rarely. Ask yourself if you really need it.
 :::
 
 ### `count`
@@ -630,7 +669,37 @@ It's not mandatory to specify the providers with `required_providers`, but it al
 
 ## Modules
 
+Reusable configuration. Like a library or package in other languages. To create resources in a repeatable way.
+
+A module is an opinionated collection of resources, which are tightly coupled and should be deployed together.
+
+All Terraform code is a module. The main directory where you run `plan` and `apply` is the root module, which calls other modules.
+
+Modules can live (`source`) locally, in a Git repository or a registry. If the module comes from a registry, we can specify a `version` constraint.
+
+We use variables to pass data into the module, and outputs to get data out from it.
+
+We do not generally specify `provider` blocks within a module, we simply allow them to pass through from the root.
+
+**Providers extend Terraform, and modules extend providers.**
+
 When Should We Write Modules - https://dustindortch.com/2022/10/21/why-do-we-write-terraform-modules/
+
+### Structure
+
+Usually you have 3 files:
+
+```
+main.tf
+variables.tf
+outputs.tf
+```
+
+We can also have an `example.tfvars` file.
+
+### Publish a module at the registry
+
+The repository needs to be hosted in GitHub. The repository name needs to follow this pattern: `terraform-<provider>-<name>`, for example `terraform-aws-ec2`. The `<provider>` is the main provider that the module uses in case that there is more than one.
 
 ## Version constraints
 
@@ -725,6 +794,36 @@ Checkov - Static analysis to find misconfigurations and vulnerabilities - https:
 https://www.brainboard.co
 
 https://spacelift.io - IaC Orchestration Platform
+
+### tfenv
+
+Terraform version manager - https://github.com/tfutils/tfenv
+
+List all installable versions:
+
+```shell
+tfenv list-remote
+```
+
+List installed versions and which version is used:
+
+```shell
+tfenv list
+```
+
+Install version:
+
+```shell
+tfenv install # Installs version in TFENV_TERRAFORM_VERSION or .terraform-version
+tfenv install 1.9.5
+tfenv install latest
+```
+
+Change version:
+
+```shell
+tfenv use 1.9.5
+```
 
 ## Learn / Best practices
 
@@ -833,6 +932,8 @@ AWS Control Tower Account Factory for Terraform:
 ## CDK for Terraform
 
 https://www.terraform.io/cdktf
+
+It generates JSON files (`*.tf.json`).
 
 Terraforming with TypeScript - https://radar.com/blog/terraforming-with-typescript
 
