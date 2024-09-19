@@ -30,6 +30,8 @@ Next.js 12 → Next.js 13: https://twitter.com/lydiahallie/status/15911202151897
 
 - Next.js Commerce: https://github.com/vercel/commerce
 - Expo docs: https://github.com/expo/expo/tree/master/docs
+- https://github.com/leerob/next-saas-starter - https://next-saas-start.vercel.app - https://x.com/leeerob/status/1835472583107440877 - https://www.linkedin.com/posts/leeerob_just-shipped-a-new-nextjs-template-uses-activity-7241572063822409728-9IW0
+  - Email/password authentication with JWT stored to cookies
 - A Beautiful Bejamas Blog Template with Next.js on Netlify: https://www.netlify.com/blog/a-beautiful-bejamas-blog-template-with-next.js-on-netlify - https://github.com/netlify-templates/nextjs-blog-theme - https://bejamas-nextjs-blog.netlify.app/
 - https://github.com/hoangvvo/nextjs-mongodb-app, auth amb Passport, hi ha 4 blog posts: https://hoangvvo.com/blog/next-js-and-mongodb-app-1
 - https://github.com/timlrx/tailwind-nextjs-starter-blog

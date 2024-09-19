@@ -12,6 +12,8 @@ https://redpanda.com
 
 Kaskade – A text user interface for Kafka - https://github.com/sauljabin/kaskade - https://news.ycombinator.com/item?id=40961101
 
+Best practices for cost-efficient Kafka clusters - https://stackoverflow.blog/2024/09/04/best-practices-for-cost-efficient-kafka-clusters
+
 ## Learn
 
 https://courses.datacumulus.com

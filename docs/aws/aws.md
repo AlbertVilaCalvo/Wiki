@@ -6,7 +6,7 @@ Documentation: https://docs.aws.amazon.com
 
 re:Post - https://www.repost.aws
 
-What's new - https://aws.amazon.com/new
+What's new (announcements) - https://aws.amazon.com/new
 
 re:Invent - https://reinvent.awsevents.com
 

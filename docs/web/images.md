@@ -2,6 +2,8 @@
 title: Images
 ---
 
+https://squoosh.app
+
 https://screensiz.es
 
 TODO download and try: https://github.com/ImageOptim/ImageOptim

@@ -119,6 +119,30 @@ https://stackoverflow.com/questions/16062358/referring-to-the-previous-next-comm
 
 https://git-scm.com/book/en/v2/Git-Tools-Revision-Selection
 
+## `add`
+
+https://git-scm.com/docs/git-add
+
+Stage all (new, modified and deleted): `git add -A` or `git add --all`
+
+Stage new and modified files, but not deleted, in the current directory: `git add .`
+
+Stage modified and deleted files, but not new files: `git add -u`
+
+Add portions of file: `git add -p` [see commands here](https://stackoverflow.com/a/1085191/4034572)
+
+## `reset`
+
+https://git-scm.com/docs/git-reset
+
+Unstage _all_ staged files:
+
+```shell
+git reset
+```
+
+Reset parts of a file: `git reset -p`
+
 ## `stash`
 
 https://git-scm.com/docs/git-stash

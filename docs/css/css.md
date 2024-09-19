@@ -16,6 +16,8 @@ https://moderncss.dev/12-modern-css-one-line-upgrades
 
 https://moderncss.dev/contextual-spacing-for-intrinsic-web-design
 
+https://cssguidelin.es - High-level advice and guidelines for writing sane, manageable, scalable CSS
+
 ## Cascade
 
 https://css-tricks.com/dont-fight-the-cascade-control-it/

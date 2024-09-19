@@ -10,6 +10,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/Performance_API
 
 https://web.dev/learn/performance
 
+https://csswizardry.com/2024/08/cache-grab-how-much-are-you-leaving-on-the-table/
+
 ## `<link rel="preconnect" href="https://example.com" />`
 
 https://web.dev/preconnect-and-dns-prefetch/
