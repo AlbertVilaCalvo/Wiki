@@ -142,6 +142,7 @@ Are located in `/Library/Extensions/`.
   - Remove dangling images (images with `<none>` in `docker image ls`): `docker image prune` ([docs](https://docs.docker.com/engine/reference/commandline/image_prune/))
     - IMPORTANT: be careful with `docker image prune -a` because it deletes plenty of stuff, eg it has deleted all images shown by `docker image ls`, not only the ones with `<none>`! It says `WARNING! This will remove all images without at least one container associated to them.`.
   - Pune everything: `docker system prune`. This removes all stopped containers, all networks not used by at least one container, all dangling images and all build cache.
+- Delete `.terraform` directories. The aws provider is 580 MB. [See instructions](/cloud/terraform#free-up-disk-space)
 - Anar a `~/Library/Application Support` i esborrar programes antics.
 - Esborrar fitxers grans: Sobre aquest Mac → Emmagatzematge → Gestionar...
 - Telegram: esborrar la memòria cau (pot tenir 1 GB). Es fa a Configuració → Dades i emmagatzematge → Ús de l'emmagatzematge

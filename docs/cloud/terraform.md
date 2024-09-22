@@ -180,6 +180,12 @@ Create an image with the Directed Acyclic Graph of resources:
 terraform graph -type=plan | dot -Tpng > graph.png
 ```
 
+We can pass a plan file:
+
+```shell
+terraform graph -plan=tfplan | dot -Tpng > graph.png
+```
+
 This requires installing [Graphviz](https://graphviz.org/), which we can do with [Homebrew](https://formulae.brew.sh/formula/graphviz).
 
 ### `output`
@@ -265,7 +271,7 @@ Top-level block types available in Terraform.
 
 ### `terraform`
 
-https://developer.hashicorp.com/terraform/language/settings
+https://developer.hashicorp.com/terraform/language/terraform
 
 Configures Terraform, the backend etc.
 
@@ -278,8 +284,22 @@ terraform {
       version = ">= 5.0"
     }
   }
+
+  backend "s3" {
+    bucket         = "terraform-state-bucket"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+  }
 }
 ```
+
+Note that you can't reference any input variable inside the `terraform` block ([source](https://developer.hashicorp.com/terraform/language/terraform#specification)):
+
+> You can only use constant values in the `terraform` block. Arguments in the `terraform` block cannot refer to named objects, such as resources and input variables. Additionally, you cannot use built-in Terraform language functions in the block.
+
+However, you can have multiple `terraform` blocks, which helps overcoming this limitation, since you can create a file on the fly (using HereDoc for example) that contains an extra `terraform` block, in which you set the values.
 
 ### `provider`
 
@@ -427,7 +447,7 @@ variable "min_size" {
   type = number
   validation {
     condition     = var.min_size >= 0
-    error_message = "The min_size must greater or equal than zero."
+    error_message = "The min_size must be greater or equal than zero."
   }
 }
 ```
@@ -464,7 +484,8 @@ Arguments that are built-in into the language, as opposed to arguments defined b
 
 ### resource `provider`
 
-https://developer.hashicorp.com/terraform/language/meta-arguments/resource-provider
+- https://developer.hashicorp.com/terraform/language/meta-arguments/resource-provider
+- https://developer.hashicorp.com/terraform/language/meta-arguments/module-providers
 
 Allows us to distinguish multiple instances of a provider.
 
@@ -484,9 +505,16 @@ provider "aws" {
 resource "aws_vpc" "myvpc" {
   provider = aws.california
 }
+
+# On a module we use a map
+module "example" {
+  providers = {
+    aws = aws.california
+  }
+}
 ```
 
-We can also use it when doing VPC Peering or Transit Gateway and the VPCs are in different accounts, and we need to get information from multiple AWS accounts.
+We can also use it when doing VPC Peering or Transit Gateway and the VPCs are in different accounts, and we need to get information from multiple AWS accounts. You should rarely use multiple accounts though; try to use a single account.
 
 Important:
 
@@ -543,13 +571,20 @@ State is stored in a JSON file:
   "terraform_version": "1.9.5", // Version of Terraform that last modified the state
   "serial": 79, // Version of this state file. Incremented every time we update the state
   "lineage": "8e16b7bb-3593-c363-6bf9-bde5a11ad86a",
-  "outputs": {},
+  "outputs": {
+    "bucket_name": {
+      "value": "session2-bucket-xu0th",
+      "type": "string"
+    }
+  },
   "resources": [],
   "check_results": null
 }
 ```
 
-It contains sensitive values like passwords and private keys, so it needs to be stored securely. See [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data). This is one reason why we don't commit the state in our Git repositories.
+It contains the Directed Acyclic Graph of resources; see the `"dependencies"` array.
+
+State contains sensitive values like passwords and private keys, so it needs to be stored securely. See [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data). This is one reason why we don't commit the state in our Git repositories.
 
 Another reason to not commit the state into version control is that we usually want to deploy multiple instances of our infrastructure (dev, test, staging, prod). Each environment requires it's own state file, which can live outside of our repo, decoupled from our code.
 
@@ -590,9 +625,26 @@ use this backend unless the backend configuration changes.
 
 This creates a new state file object in the S3 bucket.
 
+:::info
+Often backends don't allow you to migrate state straight from another backend (eg S3 → GCS), so you need to migrate the existing remote state to local first, and then to the new backend (S3 → local → GCS).
+:::
+
 To move a remote state back to local use `terraform init -migrate-state`, which reconfigures the backend and attempts to migrate any existing state, prompting for confirmation (answer 'yes'). This creates a local `terraform.tfstate` file. There's also the `-force-copy` option that suppresses these prompts and answers "yes" to the migration questions.
 
-Often backends don't allow you to migrate state straight from another backend (eg S3 → GCS), so you need to migrate the existing remote state to local first, and then to the new backend (S3 → local → GCS).
+```
+$ terraform init -migrate-state
+
+Terraform has detected you're unconfiguring your previously set "s3" backend.
+Do you want to copy existing state to the new backend?
+  Pre-existing state was found while migrating the previous "s3" backend to the
+  newly configured "local" backend. No existing state was found in the newly
+  configured "local" backend. Do you want to copy this state to the new "local"
+  backend? Enter "yes" to copy and "no" to start with an empty state.
+
+  Enter a value: yes
+
+Successfully unset the backend "s3". Terraform will now operate locally.
+```
 
 ### State locking
 
@@ -616,6 +668,14 @@ You should never manually edit the state file. Instead, use the [`state`](https:
   - Alternatively, we can use the [`removed` block](https://developer.hashicorp.com/terraform/language/resources/syntax#removing-resources) to do this too.
 
 Use these commands to address some state drift. For example, if a security vulnerability was fixed outside of Terraform, so that Terraform doesn't try to undo the changes.
+
+When we run `terraform state list`, if the resource has square brackets (eg `module.bucket.aws_s3_bucket.this[0]`), it means that the module is using `count` internally, and may create multiple instances (including zero) of the resource, so an index is required to specify which one is it:
+
+```hcl
+resource "aws_s3_bucket" "this" {
+  count = local.create_bucket ? 1 : 0
+}
+```
 
 ### Import resources into state
 
@@ -641,6 +701,16 @@ The command doesn't write any HCL, so we are responsible for updating the code.
   - Even though there are no changes, this updates the state file (eg it increments the "serial" number).
 
 Because executions of the `import` command are not recorded in version control, there's a new [`import` block](https://developer.hashicorp.com/terraform/language/import) which we can write and commit in version control. It can also generate the HCL code using `terraform plan`, although you'll need to edit it because it can have hardcoded values.
+
+### Replace a resource
+
+- https://developer.hashicorp.com/terraform/tutorials/state/state-cli#replace-a-resource-with-cli
+- https://developer.hashicorp.com/terraform/cli/commands/plan#replace-address
+
+```shell
+terraform plan -replace=random_string.s3_bucket_suffix
+terraform apply -replace=random_string.s3_bucket_suffix
+```
 
 ## Providers
 
@@ -675,7 +745,9 @@ A module is an opinionated collection of resources, which are tightly coupled an
 
 All Terraform code is a module. The main directory where you run `plan` and `apply` is the root module, which calls other modules.
 
-Modules can live (`source`) locally, in a Git repository or a registry. If the module comes from a registry, we can specify a `version` constraint.
+Modules can live (`source`) locally, in a Git repository or a registry. Note that only if the module comes from a registry we can specify a [`version` constraint](#version-constraints).
+
+https://registry.terraform.io/browse/modules
 
 We use variables to pass data into the module, and outputs to get data out from it.
 
@@ -728,9 +800,11 @@ Examples:
   - `~> 1.2.0`: allows 1.2.0 and 1.2.1 but not 1.3
   - `~> 1.2`: allows 1.2 and 1.3 but not 2.0. Equivalent to `>= 1.2.0, < 2.0.0"`
 
-For `module`s we can only use version constraints if they are sourced from a registry.
+For `module`s we can only use version constraints when they are `source`d from a registry, but not when locally or from a Git repository.
 
 To upgrade provider versions use `terraform init -upgrade`. It picks the latest version that meets the version constraints set in the code.
+
+If we don't specify a `version` it uses the latest one.
 
 ## VSCode extension
 
@@ -770,6 +844,8 @@ You can format a file with Code → Terraform tools → Format file, but is not 
   - Advanced settings: leave it as it is. Should have only one option checked: Trigger the watcher on external changes
 
 ## Tools
+
+**Pre-commit Git hook** - https://github.com/antonbabenko/pre-commit-terraform
 
 Terraform tools review playlist - https://www.youtube.com/playlist?list=PLvz1V_9d3uivwNgADT_eB-wKEWOzOOQXy
 
@@ -825,11 +901,20 @@ Change version:
 tfenv use 1.9.5
 ```
 
-## Learn / Best practices
+## Free up disk space
 
-Tutorials - https://developer.hashicorp.com/terraform/tutorials - https://developer.hashicorp.com/tutorials/library?product=terraform
+The aws provider (terraform-provider-aws_v5.67.0_x5) is 586 MB.
 
-File names conventions - https://developer.hashicorp.com/terraform/language/style#file-names
+```shell
+# See if there are files to delete
+find . -type d -name ".terraform"
+find . -type f -name "terraform-provider-aws_*"
+
+# Delete .terraform directories
+find . -type d -name ".terraform" -exec rm -rf {} +
+```
+
+## Best practices
 
 Best practices (Dustin Dortch):
 
@@ -839,21 +924,29 @@ Best practices (Dustin Dortch):
 - Defining Modules: https://dustindortch.com/2024/03/27/terraform-best-pratices-defining-modules/
 - Variables: https://dustindortch.com/2024/04/04/terraform-best-practices-variables/
 
+https://www.terraform-best-practices.com
+
+Terraform Best Practices for AWS users - https://github.com/ozbillwang/terraform-best-practices
+
+https://medium.com/devops-mojo/terraform-best-practices-top-best-practices-for-terraform-configuration-style-formatting-structure-66b8d938f00c
+
+## Learn
+
+Tutorials - https://developer.hashicorp.com/terraform/tutorials - https://developer.hashicorp.com/tutorials/library?product=terraform
+
+File names conventions - https://developer.hashicorp.com/terraform/language/style#file-names
+
 https://www.youtube.com/@AntonBabenkoLive
 
 List of many courses - https://www.linkedin.com/posts/ann-afamefuna_devops-cloudengineers-cloudsecurity-activity-7200293109002342400-J_qn/
 
 https://frontendmasters.com/courses/enterprise-devops/
 
-Terraform Best Practices for AWS users - https://github.com/ozbillwang/terraform-best-practices
-
 https://github.com/bregman-arie/devops-exercises/blob/master/topics/terraform/README.md
 
 - Also in https://github.com/bregman-arie/devops-exercises/blob/master/topics/aws/README.md some solutions include Terraform
 
 https://github.com/MichaelCade/90DaysOfDevOps#learn-infrastructure-as-code
-
-https://medium.com/devops-mojo/terraform-best-practices-top-best-practices-for-terraform-configuration-style-formatting-structure-66b8d938f00c
 
 Configuring a Highly Available Infrastructure in AWS using Terraform - https://faun.pub/configuring-a-highly-available-infrastructure-in-aws-using-terraform-2fc9dbb519b6
 
@@ -914,11 +1007,13 @@ Modules
 - https://github.com/aws-ia/terraform-aws-eks-blueprints-addons
 - https://github.com/aws-ia/terraform-aws-eks-blueprints-teams
 - https://github.com/aws-ia/terraform-aws-eks-ack-addons
+- https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594
 
 ## Lambda
 
 - https://github.com/dustindortch/terraform-docker-aws-lambda
 - https://github.com/dustindortch/terraform-aws-lambda-container
+- https://surajblog.medium.com/sending-cloudwatch-alarms-to-slack-via-sns-and-aws-lambda-using-terraform-7e707e0a413d
 
 ## Multiple AWS accounts
 
@@ -950,6 +1045,8 @@ https://developer.hashicorp.com/certifications/infrastructure-automation
 https://developer.hashicorp.com/terraform/tutorials/certification-003
 
 https://developer.hashicorp.com/terraform/tutorials/certification-associate-tutorials-003
+
+Recorded Webinar "Preparing for the HashiCorp Certified: Terraform Associate (003) certification exam" - https://www.hashicorp.com/events/webinars/terraform-associate-exam-preparation
 
 https://www.exampro.co/terraform
 

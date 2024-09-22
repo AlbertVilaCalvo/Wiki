@@ -85,6 +85,10 @@ Doing `aws s3 ls` should give a response (will be empty if there are no buckets,
 [default]
 aws_access_key_id = XYZ
 aws_secret_access_key = ABC
+
+[bootcamp]
+aws_access_key_id = XYZ
+aws_secret_access_key = ABC
 ```
 
 `~/.aws/config`
@@ -93,7 +97,13 @@ aws_secret_access_key = ABC
 [default]
 region = eu-west-3
 output = json
+
+[profile bootcamp]
+region = us-east-1
+output = json
 ```
+
+Note that we only add "profile" at the `config` file, not the `credentials` file, see [this](https://stackoverflow.com/questions/593334/how-to-use-multiple-aws-accounts-from-the-command-line) and [this](https://dev.to/hmintoh/how-to-use-multiple-aws-accounts-with-the-aws-cli-3lge).
 
 Comments are written with `#`.
 
