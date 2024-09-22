@@ -66,6 +66,7 @@ const sidebars: SidebarsConfig = {
     'cloud/docker',
     'cloud/kubernetes',
     'cloud/terraform',
+    'cloud/terraform-aws',
     'cloud/heroku',
     'cloud/github-actions',
     'cloud/system-design',
