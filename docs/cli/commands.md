@@ -14,6 +14,8 @@ Oh-heck, a terminal command for when you forget other terminal commands - https:
 
 Advanced macOS Command-Line Tools: https://saurabhs.org/advanced-macos-commands
 
+Use the GNU tools instead fo the macOS: https://ryanparman.com/posts/2019/using-gnu-command-line-tools-in-macos-instead-of-freebsd-tools/
+
 ## Notes
 
 zsh is the default shell in macOS since Catalina (10.15, released October 2019) - see https://support.apple.com/kb/HT208050

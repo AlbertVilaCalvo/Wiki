@@ -86,7 +86,7 @@ With the root user.
 - Enable free tier alerts [link](/aws/billing-pricing#enable-free-tier-alerts)
 - Enable CloudWatch billing alerts and create one or more budgets [link](/aws/billing-pricing#create-budget-and-enable-cloudwatch-billing-alarmalert)
 - Create the first IAM admin user [link](/aws/iam#create-the-first-iam-admin-user)
-  - Once the admin is created, enable MFA for it
+  - Once the admin is created, enable MFA for it using the root account [link](/aws/iam#add-mfa-to-other-users)
 - Enforce MFA to users [link](/aws/iam#enforce-mfa-to-users)
 
 ## Multiple accounts

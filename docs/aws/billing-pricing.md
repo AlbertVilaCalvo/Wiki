@@ -14,7 +14,7 @@ All the 4 actions below need to be done with the **root user**.
 
 Since we are not going to use the root account, we need to grant access to the billing console to the other user accounts.
 
-To do so, navigate to the 'Account page' (either at the top right drop-down or by searching 'Account'). Scroll down to 'IAM user and role access to Billing information', click 'Edit', check 'Activate IAM Access' and click 'Update'.
+To do so, navigate to the 'Account' page (either at the top right drop-down or by searching 'Account'). Scroll down to 'IAM user and role access to Billing information', click 'Edit', check 'Activate IAM Access' and click 'Update'.
 
 Docs:
 

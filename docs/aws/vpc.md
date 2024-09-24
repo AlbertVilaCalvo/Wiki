@@ -18,7 +18,7 @@ Analogy - https://stackoverflow.com/a/65193190/4034572
 
 Is a regional service (a VPC cannot span multiple regions), but you can have multiple VPCs within a region (the default limit is 5, but you can request to increase it).
 
-A VPC has a router, which we configure through its route tables.
+A VPC has a router, which we configure through its [route tables](https://docs.aws.amazon.com/vpc/latest/userguide/RouteTables.html).
 
 To connect to the public Internet we use an Internet Gateway. There's only 1 per VPC.
 
@@ -81,6 +81,10 @@ https://stackoverflow.com/questions/77355449/routing-tables-in-aws
 https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html#subnet-route-tables
 
 > Your VPC has an implicit router, and you use route tables to control where network traffic is directed. Each subnet in your VPC must be associated with a route table, which controls the routing for the subnet (subnet route table). You can explicitly associate a subnet with a particular route table. Otherwise, the subnet is implicitly associated with the main route table. A subnet can only be associated with one route table at a time, but you can associate multiple subnets with the same subnet route table.
+
+https://docs.aws.amazon.com/vpc/latest/userguide/RouteTables.html
+
+> Main route table: The route table that automatically comes with your VPC. It controls the routing for all subnets that are not explicitly associated with any other route table.
 
 ## Internet Gateway
 

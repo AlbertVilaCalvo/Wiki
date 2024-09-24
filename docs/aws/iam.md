@@ -606,9 +606,12 @@ Using multi-factor authentication (MFA) in AWS - https://docs.aws.amazon.com/IAM
 
 ### Add MFA to _other_ users
 
-(This works for yourself too if you are not the root user, since it doesn't appear on the list.)
+When you are logged as root, follow this steps to assign an MFA device to an IAM user like the Administrator. This works for yourself too if you are not the root user (the root user doesn't appear at the IAM users list).
 
-Go to the IAM Dashboard → Users and select a user. Click the 'Security credentials' tab and do 'Assign MFA device'.
+Go to the IAM Dashboard → Users and select a user. Click the 'Security credentials' tab and do 'Assign MFA device'. If you are using 1password to generate OTP codes then set:
+
+- MFA device name: 1password
+- MFA device: Authenticator app
 
 ### Enforce MFA to users
 
@@ -641,13 +644,13 @@ There are 2 guides/tutorials that explain how to set up the admin user:
 
 ### Steps
 
-TLDR: create a group with the 'AdministratorAccess' policy, then create a user and add it to the group.
+TLDR: create a group 'Administrators' with the `AdministratorAccess` policy, then create a user and add it to the group.
 
 - Sign in to the console as Root user.
 - Click your name at the top navbar → Account. At the section 'IAM User and Role Access to Billing Information' click 'Edit' and enable 'Activate IAM Access'.
 - Go to the IAM console → Users and click 'Create user'.
 - On the 'Set user details' page do:
-  - Set 'User name' to 'Administrator'.
+  - Set 'User name' to 'Administrator' or similar (eg 'BootcampAdmin').
   - Check 'Provide user access to the AWS Management Console'.
   - Select 'I want to create an IAM user'.
   - Set a password at 'Custom password' and save it.
@@ -655,15 +658,16 @@ TLDR: create a group with the 'AdministratorAccess' policy, then create a user a
   - Click 'Next'.
 - On the 'Set permissions' page do:
   - Click 'Add user to group' and then 'Create group'.
-  - Set 'Group name' to 'Administrators'.
-  - Check the policy 'AdministratorAccess'.
-  - Click 'Create group'.
+    - Set 'Group name' to 'Administrators'.
+    - Check the policy `AdministratorAccess`.
+    - Click 'Create user group'.
+  - At the 'User groups' list, check the newly created group 'Administrators' to add the user to the group.
   - Click 'Next'.
 - On the 'Review and create' page optionally add [tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html).
   - Click 'Create user'.
 
 :::info Important
-Don't forget to enable MFA for the admin user
+Don't forget to enable MFA for the admin user. Since you are logged as root now, [follow this steps](#add-mfa-to-other-users).
 :::
 
 ## Password policy
