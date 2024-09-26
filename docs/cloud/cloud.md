@@ -12,6 +12,75 @@ Reflections on 10,000 Hours of DevOps - https://matt-rickard.com/reflections-on-
 
 > The value of a CI/CD Pipeline is inversely proportional to how long the pipeline takes to run.
 
+## Types of cloud
+
+- Public: AWS, GCP, Azure, DigitalOcean... Shares compute resources among different customers.
+- Private (on-premises): OpenStack, VMware...
+- Hybrid: private & public clouds connected together. See https://aws.amazon.com/hybrid
+
+https://docs.aws.amazon.com/whitepapers/latest/aws-overview/types-of-cloud-computing.html
+
+https://www.redhat.com/en/topics/cloud-computing/public-cloud-vs-private-cloud-and-hybrid-cloud
+
+## Types of cloud services
+
+TODO
+
+- IaaS
+- PaaS
+- SaaS
+
+## Tools
+
+### Server Images
+
+Snapshot of the OS, software, files...
+
+Two categories: Virtual Machines and Containers.
+
+- Docker
+- Packer
+- Vagrant. For local development environments.
+
+### Configuration Management
+
+Install software on existing servers.
+
+- Ansible
+- Chef
+- Puppet
+
+More tools: https://en.wikipedia.org/wiki/Comparison_of_open-source_configuration_management_software
+
+Note that Ansible can do some provisioning too (_automates provisioning, configuration management, application deployment, orchestration, and many other IT processes_ - [source](https://www.ansible.com/)), but it's better to use a provisioning tool.
+
+:::info
+If you use server images (Docker, Packer), you don't have much need for configuration management tools, you only need provisioning tools. For example, use **Terraform** and **Docker** together.
+
+If you don't use server images, it's common to use provisioning and configuration tools together. For example, use **Terraform** to provision the servers and **Ansible** to configure them.
+:::
+
+### Provisioning
+
+To create the actual infrastructure (servers, databases, queues, load balancers, firewalls, SSL certificates etc.).
+
+- Terraform
+- CloudFormation
+- Pulumi
+- Azure Resource Manager
+
+:::info
+Provisioning tools can also do some configuration. For example, you can run user data scripts on an EC2 machine using CloudFormation and Terraform.
+:::
+
+### Orchestration
+
+- Kubernetes
+- ECS
+- Docker Swarm
+- Nomad
+- Heat (OpenStack)
+
 ## Diagrams
 
 https://diagrams.mingrammer.com
