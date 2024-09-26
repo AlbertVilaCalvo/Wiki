@@ -76,6 +76,7 @@ const sidebars: SidebarsConfig = {
     'cloud/kafka',
     'cloud/argocd',
     'cloud/gcp',
+    'cloud/azure',
   ],
   aws: [
     'aws/aws',
