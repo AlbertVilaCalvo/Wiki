@@ -63,6 +63,7 @@ const sidebars: SidebarsConfig = {
   ],
   cloud: [
     'cloud/cloud',
+    'cloud/devops',
     'cloud/docker',
     'cloud/kubernetes',
     'cloud/terraform',
