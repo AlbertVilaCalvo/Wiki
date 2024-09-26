@@ -260,6 +260,8 @@ See https://stackoverflow.com/questions/74455063/what-exactly-are-nat-gateway-an
 Alternatively, there's also the EC2 Instance Connect Endpoint: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-with-ec2-instance-connect-endpoint.html
 :::
 
+CloudFormation template - https://aws.amazon.com/solutions/implementations/linux-bastion/
+
 Allows to connect to an instance on a private subnet through an instance on a public subnet.
 
 Can be done with a NAT gateway or a NAT instance.

@@ -6,6 +6,10 @@ https://aws.amazon.com/cloudformation/
 
 Docs: https://docs.aws.amazon.com/cloudformation/index.html
 
+:::tip
+The Quick Starts page contains many CloudFormation templates ready to use: https://aws.amazon.com/quickstart
+:::
+
 https://github.com/donnemartin/awesome-aws#cloudformation
 
 Validate Infrastructure-as-code (IaC) or infrastructure/service compositions such as CloudFormation Templates, CloudFormation ChangeSets, Terraform JSON configuration files, Kubernetes configurations - https://github.com/aws-cloudformation/cloudformation-guard

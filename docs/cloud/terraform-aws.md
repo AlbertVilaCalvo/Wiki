@@ -6,6 +6,8 @@ https://registry.terraform.io/providers/hashicorp/aws
 
 Docs: https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
+https://aws.amazon.com/solutions/partners/terraform-modules/
+
 Tutorials:
 
 - Get started: https://developer.hashicorp.com/terraform/tutorials/aws-get-started

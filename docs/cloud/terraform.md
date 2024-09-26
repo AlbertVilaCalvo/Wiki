@@ -6,11 +6,17 @@ title: Terraform
 
 https://developer.hashicorp.com/terraform
 
+Forum - https://discuss.hashicorp.com/c/terraform-core/27
+
+Reddit - https://www.reddit.com/r/Terraform/
+
 https://github.com/topics/terraform
 
 https://github.com/topics/terraform-module
 
 Cheatsheet: https://cheat-sheets.nicwortel.nl/terraform-cheat-sheet.pdf
+
+> Terraform is a binary that translates the contents of your configuration files into API calls to cloud providers. (Page 19 of Terraform: Up and Running)
 
 > Terraform's primary function is to create, modify, and destroy infrastructure resources to match the desired state described in a Terraform configuration. [source](https://developer.hashicorp.com/terraform/cli/run)
 
@@ -999,6 +1005,7 @@ Modules
 
 - https://github.com/aws-ia/ecs-blueprints
 - https://github.com/aws-ia/terraform-aws-ecs-fargate
+- (2016) https://www.ybrikman.com/writing/2016/03/31/infrastructure-as-code-microservices-aws-docker-terraform-ecs
 
 ## EKS
 
@@ -1017,7 +1024,8 @@ Modules
 
 ## Multiple AWS accounts
 
-You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
+- You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
+- https://www.gruntwork.io/products/account-factory
 
 AWS Control Tower Account Factory for Terraform:
 
@@ -1051,6 +1059,8 @@ Recorded Webinar "Preparing for the HashiCorp Certified: Terraform Associate (00
 https://www.exampro.co/terraform
 
 https://www.whizlabs.com/hashicorp-certified-terraform-associate/
+
+https://www.coursera.org/learn/exam-prep-hashicorp-certified-terraform-associate-003 (Whizlabs)
 
 https://www.udemy.com/course/terraform-associate-practice-exam
 

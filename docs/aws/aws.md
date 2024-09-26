@@ -8,6 +8,10 @@ re:Post - https://www.repost.aws
 
 What's new (announcements) - https://aws.amazon.com/new
 
+AWS News Blog - aws.amazon.com/blogs/aws
+
+Reddit - https://www.reddit.com/r/aws/
+
 re:Invent - https://reinvent.awsevents.com
 
 Whitepapers & Guides - https://aws.amazon.com/whitepapers
@@ -45,6 +49,8 @@ AWS’s Egregious Egress - https://blog.cloudflare.com/aws-egregious-egress
 Serverless Patterns Collection - https://serverlessland.com/patterns
 
 AWS observability in Grafana Cloud - https://grafana.com/solutions/cloud-monitoring-aws
+
+Amazon Web Services In Plain English - https://expeditedsecurity.com/aws-in-plain-english - https://news.ycombinator.com/item?id=27948209
 
 :::tip Important
 Everything in AWS is an API call.

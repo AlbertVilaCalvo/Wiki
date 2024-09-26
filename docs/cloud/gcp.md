@@ -15,3 +15,5 @@ https://danielcompton.net/penny-wise-cloud-foolish
 > In contrast, most AWS services are region oriented, and when AWS provides multi-region services like DynamoDB Global Tables and S3 Cross-Region Replication, you need to handle eventual consistency yourself.
 
 A tale of two clouds - https://newsletter.goodtechthings.com/p/a-tale-of-two-clouds - Google Cloud accidentally deletes UniSuper’s online account due to ‘unprecedented misconfiguration’ - https://www.theguardian.com/australia-news/article/2024/may/09/unisuper-google-cloud-issue-account-access
+
+AWS & GCP explained in simple English - https://gist.github.com/miglen/f6eef81803a43dad434d

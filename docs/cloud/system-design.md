@@ -2,6 +2,8 @@
 title: System Design
 ---
 
+https://bytebytego.com - https://highscalability.com
+
 https://github.com/donnemartin/system-design-primer
 
 https://github.com/karanpratapsingh/system-design - https://www.karanpratapsingh.com/courses/system-design - https://leanpub.com/systemdesign
