@@ -96,3 +96,11 @@ See more possibilities at:
 - https://curlconverter.com
 - https://github.com/mholt/curl-to-go
 - https://github.com/incarnate/curl-to-php
+
+## Run multiple times
+
+From https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#scale-instances:
+
+```shell
+for i in `seq 1 5`; do curl https://www.google.com; echo;  done
+```

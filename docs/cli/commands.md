@@ -93,6 +93,16 @@ https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 ```
 
+## Run the same command multiple times
+
+https://stackoverflow.com/questions/3737740/is-there-a-better-way-to-run-a-command-n-times-in-bash
+
+From https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#scale-instances:
+
+```shell
+for i in `seq 1 5`; do curl https://www.google.com; echo;  done
+```
+
 ## Aliases
 
 On your `.zshrc` or `.bash_profile` put:
