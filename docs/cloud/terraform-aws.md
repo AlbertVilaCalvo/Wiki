@@ -13,6 +13,13 @@ Tutorials:
 - Get started: https://developer.hashicorp.com/terraform/tutorials/aws-get-started
 - Use cases: https://developer.hashicorp.com/terraform/tutorials/aws
 
+```hcl
+provider "aws" {
+  region  = "us-east-1"
+  profile = "personal"
+}
+```
+
 ## Authentication
 
 See the documentation for all the possible authentication methods: https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration

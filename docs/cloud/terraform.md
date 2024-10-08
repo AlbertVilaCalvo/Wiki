@@ -20,9 +20,16 @@ Cheatsheet: https://cheat-sheets.nicwortel.nl/terraform-cheat-sheet.pdf
 
 > Terraform's primary function is to create, modify, and destroy infrastructure resources to match the desired state described in a Terraform configuration. [source](https://developer.hashicorp.com/terraform/cli/run)
 
-It uses a [Directed Acyclic Graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) to represent resources - see https://github.com/hashicorp/terraform/tree/main/internal/dag and https://developer.hashicorp.com/terraform/internals/graph.
+## Characteristics
 
-Uses the library https://github.com/zclconf/go-cty internally.
+- Cross platform: works on Windows, macOS and Linux.
+- Multi-cloud or cloud-agnostic: supports multiple cloud providers like AWS, GCP, Azure etc.
+- Declarative: you describe the infrastructure you want, and Terraform figures out how to create it. The code represents the state of your infrastructure.
+- Domain Specific Language: concise and uniform code. However, it can be more difficult to do some things like for loops compared to general purpose languages like TypeScript.
+- Idempotent: we can execute it multiple times and we get the same result.
+- Agentless: no need to install any software on the servers we manage.
+- Masterless: no need to have a master server running that stores the state and distributes updates to the managed servers.
+- Immutable (for some resources): when we need to modify a resource, instead of updating it, it creates a new one.
 
 ## `.gitignore`
 
@@ -180,7 +187,11 @@ Gotcha: sometimes a single syntax error can generate multiple errors.
 
 https://developer.hashicorp.com/terraform/cli/commands/graph
 
-Create an image with the Directed Acyclic Graph of resources:
+Produces the Directed Acyclic Graph of resources, to see the objects dependencies.
+
+If we run `terraform graph` it outputs the dependency graph as text, in the [DOT](<https://en.wikipedia.org/wiki/DOT_(graph_description_language)>) language. Use https://dreampuf.github.io/GraphvizOnline to visualitze the graph.
+
+To create the graph image locally, install [Graphviz](https://graphviz.org) (use [Homebrew](https://formulae.brew.sh/formula/graphviz)) and run:
 
 ```shell
 terraform graph -type=plan | dot -Tpng > graph.png
@@ -191,8 +202,6 @@ We can pass a plan file:
 ```shell
 terraform graph -plan=tfplan | dot -Tpng > graph.png
 ```
-
-This requires installing [Graphviz](https://graphviz.org/), which we can do with [Homebrew](https://formulae.brew.sh/formula/graphviz).
 
 ### `output`
 
@@ -236,7 +245,7 @@ https://developer.hashicorp.com/terraform/language/syntax/configuration
 
 Everything is a block. Nothing can exist outside of a block.
 
-A block has a **type** or keyword (`terraform`, `resource`, `variable`...) and optionally some **labels**, followed by curly braces, which delimit the body. Inside the curly braces (the body) we have arguments and nested blocks. (The [HCL spec](https://github.com/hashicorp/hcl/blob/main/hclsyntax/spec.md) uses 'attribute' instead of 'argument' [source](https://developer.hashicorp.com/terraform/language/syntax/configuration#arguments).) Each **argument** has a name or key and a value. The value comes from an expression (a string literal, a boolean, a number, a variable, a function in HCL, a property of a resource or a data source...). [See documentation](https://developer.hashicorp.com/terraform/language#about-the-terraform-language)
+A block has a **type** or keyword (`terraform`, `resource`, `variable`...) and optionally some **labels**, followed by curly braces, which delimit the body. Inside the curly braces (the body) we have arguments and nested blocks. (The [HCL spec](https://github.com/hashicorp/hcl/blob/main/hclsyntax/spec.md) uses 'attribute' instead of 'argument' [source](https://developer.hashicorp.com/terraform/language/syntax/configuration#arguments).) Each **argument** has a name or key and a value. The value comes from an **expression**: a string literal, a boolean, a number, a variable, a function in HCL, a reference to an attribute of a resource or a data source, or a combination of them. [See documentation](https://developer.hashicorp.com/terraform/language#about-the-terraform-language)
 
 ```hcl
 block_type "block_label_1" "block_label_2" {
@@ -368,6 +377,8 @@ resource "aws_vpc" "web_vpc" {
 :::note
 The resource type (`aws_vpc` or `aws_instance`) always starts with the name of the provider and an underscore (`aws_`).
 
+> By default, Terraform interprets the initial word in the resource type name (separated by underscores) as the local name of a provider, and uses that provider's default configuration. [source](https://developer.hashicorp.com/terraform/language/meta-arguments/resource-provider)
+
 > By convention, resource type names start with their provider's preferred local name. [source](https://developer.hashicorp.com/terraform/language/resources/syntax#providers)
 
 :::
@@ -377,7 +388,7 @@ The resource type (`aws_vpc` or `aws_instance`) always starts with the name of t
 https://developer.hashicorp.com/terraform/language/data-sources
 
 Something that exists outside of our Terraform code that we want to get properties from, to
-pass them to our resources.
+pass them to our resources. A way to query the cloud provider's APIs for data.
 
 A data source is **read only**, whereas resources support CRUD operations.
 
@@ -470,7 +481,22 @@ output "instance_ip_addr" {
 }
 ```
 
-We can set the argument `sensitive` to true to avoid displaying it. In this case, we can use `terraform output my_var` to display it. Note that it still stored in state, see [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data).
+We can set the argument `sensitive` to true to avoid displaying it. In this case, we can use `terraform output my_var` to display it. Note that it is still stored in state, see [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data).
+
+If the output references a `sensitive` input variable or resource, you need to add `sensitive = true` to indicate that you are intentionally outputting a secret, or use the [`nonsensitive` function](https://developer.hashicorp.com/terraform/language/functions/nonsensitive) ([see example](https://stackoverflow.com/a/69001111/4034572)), otherwise you get this error:
+
+```
+│ Error: Output refers to sensitive values
+│
+│ on main.tf line 23:
+│ 23: output "password" {
+│
+│ To reduce the risk of accidentally exporting sensitive data that was intended to be only internal, Terraform requires that any root module output containing sensitive data be explicitly
+│ marked as sensitive, to confirm your intent.
+│
+│ If you do intend to export this data, annotate the output value as sensitive by adding the following argument:
+│ sensitive = true
+```
 
 ### `locals`
 
@@ -1015,6 +1041,8 @@ Modules
 - https://github.com/aws-ia/terraform-aws-eks-blueprints-teams
 - https://github.com/aws-ia/terraform-aws-eks-ack-addons
 - https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594
+- https://github.com/jcolemorrison/hashistack-on-aws
+- https://www.udemy.com/course/terraform-on-aws-eks-kubernetes-iac-sre-50-real-world-demos
 
 ## Lambda
 
@@ -1067,3 +1095,9 @@ https://www.udemy.com/course/terraform-associate-practice-exam
 https://github.com/allister-grange/terraform-associate-guide-003
 
 https://www.packtpub.com/en-es/product/hashicorp-terraform-associate-003-exam-guide-9781804618844
+
+## Internals
+
+It uses a [Directed Acyclic Graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) to represent resources - see https://github.com/hashicorp/terraform/tree/main/internal/dag and https://developer.hashicorp.com/terraform/internals/graph.
+
+Uses the library https://github.com/zclconf/go-cty internally.
