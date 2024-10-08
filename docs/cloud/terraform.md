@@ -1003,62 +1003,10 @@ https://medium.com/@itsnarayan/optimizing-aws-infrastructure-leveraging-terrafor
 
 Host a static website locally using Simple Storage Service (S3) and Terraform with LocalStack - https://docs.localstack.cloud/tutorials/s3-static-website-terraform/
 
-## Examples
-
-- https://github.com/AJarombek/global-aws-infrastructure
-- https://github.com/AJarombek/jarombek-com-infrastructure
-- https://github.com/AJarombek/saints-xctf-infrastructure
-- Terraform module for building and deploying Next.js apps to AWS. Supports SSR (Lambda), Static (S3) and API (Lambda) pages. - https://github.com/milliHQ/terraform-aws-next-js
-- https://github.com/bregman-arie/devops-exercises/search?q=terraform
-- https://github.com/aws-ia/terraform-aws-control_tower_account_factory
-
-### Modules
-
-Module templates:
+## Module templates
 
 - https://github.com/aws-ia/terraform-repo-template
 - https://github.com/dustindortch/template-terraform
-
-Modules
-
-- https://github.com/terraform-aws-modules
-- https://github.com/dustindortch/terraform-aws-account
-- https://github.com/dustindortch/terraform-aws-idp-tfe-oidc
-- https://github.com/aws-ia/terraform-aws-vpc
-- https://github.com/aws-ia/terraform-aws-iam-identity-center
-
-## ECS
-
-- https://github.com/aws-ia/ecs-blueprints
-- https://github.com/aws-ia/terraform-aws-ecs-fargate
-- (2016) https://www.ybrikman.com/writing/2016/03/31/infrastructure-as-code-microservices-aws-docker-terraform-ecs
-
-## EKS
-
-- https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
-- https://github.com/aws-ia/terraform-aws-eks-blueprints - https://aws-ia.github.io/terraform-aws-eks-blueprints
-- https://github.com/aws-ia/terraform-aws-eks-blueprints-addons
-- https://github.com/aws-ia/terraform-aws-eks-blueprints-teams
-- https://github.com/aws-ia/terraform-aws-eks-ack-addons
-- https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594
-- https://github.com/jcolemorrison/hashistack-on-aws
-- https://www.udemy.com/course/terraform-on-aws-eks-kubernetes-iac-sre-50-real-world-demos
-
-## Lambda
-
-- https://github.com/dustindortch/terraform-docker-aws-lambda
-- https://github.com/dustindortch/terraform-aws-lambda-container
-- https://surajblog.medium.com/sending-cloudwatch-alarms-to-slack-via-sns-and-aws-lambda-using-terraform-7e707e0a413d
-
-## Multiple AWS accounts
-
-- You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
-- https://www.gruntwork.io/products/account-factory
-
-AWS Control Tower Account Factory for Terraform:
-
-- https://registry.terraform.io/modules/aws-ia/control_tower_account_factory/aws/latest
-- Provision accounts with AWS Control Tower Account Factory for Terraform - https://docs.aws.amazon.com/controltower/latest/userguide/taf-account-provisioning.html
 
 ## CDK for Terraform
 
@@ -1095,6 +1043,8 @@ https://www.udemy.com/course/terraform-associate-practice-exam
 https://github.com/allister-grange/terraform-associate-guide-003
 
 https://www.packtpub.com/en-es/product/hashicorp-terraform-associate-003-exam-guide-9781804618844
+
+https://github.com/stacksimplify/hashicorp-certified-terraform-associate - https://www.udemy.com/course/hashicorp-certified-terraform-associate-step-by-step
 
 ## Internals
 

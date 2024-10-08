@@ -20,6 +20,69 @@ provider "aws" {
 }
 ```
 
+## Examples
+
+- Lots of examples: https://github.com/stacksimplify/terraform-on-aws-ec2 - https://www.udemy.com/course/terraform-on-aws-with-sre-iac-devops-real-world-demos
+- https://github.com/AJarombek/global-aws-infrastructure
+- https://github.com/AJarombek/jarombek-com-infrastructure
+- https://github.com/AJarombek/saints-xctf-infrastructure
+- https://github.com/bregman-arie/devops-exercises/search?q=terraform
+
+### Modules
+
+- https://github.com/topics/terraform-module
+- https://github.com/terraform-aws-modules
+- https://github.com/dustindortch/terraform-aws-account
+- https://github.com/dustindortch/terraform-aws-idp-tfe-oidc
+- https://github.com/aws-ia/terraform-aws-iam-identity-center
+- Terraform module for building and deploying Next.js apps to AWS. Supports SSR (Lambda), Static (S3) and API (Lambda) pages. - https://github.com/milliHQ/terraform-aws-next-js
+
+## VPC
+
+- https://github.com/dustindortch/terraform-aws-vpcpublish
+- https://github.com/aws-ia/terraform-aws-vpc
+- Auto Scaling Groups tutorial - https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg
+
+## ECS
+
+- https://github.com/aws-ia/ecs-blueprints
+- https://github.com/aws-ia/terraform-aws-ecs-fargate
+- (2016) https://www.ybrikman.com/writing/2016/03/31/infrastructure-as-code-microservices-aws-docker-terraform-ecs
+
+## EKS
+
+- https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
+- https://github.com/aws-ia/terraform-aws-eks-blueprints - https://aws-ia.github.io/terraform-aws-eks-blueprints
+- https://github.com/aws-ia/terraform-aws-eks-blueprints-addons
+- https://github.com/aws-ia/terraform-aws-eks-blueprints-teams
+- https://github.com/aws-ia/terraform-aws-eks-ack-addons
+- https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594
+- https://github.com/jcolemorrison/hashistack-on-aws
+- https://www.udemy.com/course/terraform-on-aws-eks-kubernetes-iac-sre-50-real-world-demos
+- https://github.com/terraform-aws-modules/terraform-aws-eks
+- https://github.com/maddevsio/aws-eks-base
+
+## Lambda
+
+- https://github.com/dustindortch/terraform-docker-aws-lambda
+- https://github.com/dustindortch/terraform-aws-lambda-container
+- https://surajblog.medium.com/sending-cloudwatch-alarms-to-slack-via-sns-and-aws-lambda-using-terraform-7e707e0a413d
+- https://github.com/terraform-aws-modules/terraform-aws-lambda
+
+## RDS
+
+- https://github.com/terraform-aws-modules/terraform-aws-rds
+
+## Multiple AWS accounts
+
+- You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
+- https://www.gruntwork.io/products/account-factory
+
+AWS Control Tower Account Factory for Terraform:
+
+- https://github.com/aws-ia/terraform-aws-control_tower_account_factory - https://registry.terraform.io/modules/aws-ia/control_tower_account_factory/aws/latest
+- Provision accounts with AWS Control Tower Account Factory for Terraform - https://docs.aws.amazon.com/controltower/latest/userguide/taf-account-provisioning.html
+
 ## Authentication
 
 See the documentation for all the possible authentication methods: https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration
