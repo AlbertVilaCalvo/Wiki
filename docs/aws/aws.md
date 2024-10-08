@@ -52,6 +52,8 @@ AWS observability in Grafana Cloud - https://grafana.com/solutions/cloud-monitor
 
 Amazon Web Services In Plain English - https://expeditedsecurity.com/aws-in-plain-english - https://news.ycombinator.com/item?id=27948209
 
+A Comprehensive Guide to Building a Scalable Web App on Amazon Web Services - Part 1 - https://archive.ph/j72xI
+
 :::tip Important
 Everything in AWS is an API call.
 
@@ -117,3 +119,7 @@ Create six AWS accounts (logs, security, shared, dev, stage, and prod) - https:/
 - Security: IAM Roles, Users, Gropus, MFA
 - Shared: shared Docker images, shared AMIs, CI/CD (Jenkins/CircleCI...)
 - Dev/Stage/Prod: CloudFront, S3, Route53, VPC, ECS, EKS, RDS, Redis, Lambda, SQS, Kinesis, IaC Pipeline, CloudWatch, GuardDuty...
+
+https://blog.gruntwork.io/a-comprehensive-guide-to-authenticating-to-aws-on-the-command-line-63656a686799
+
+> There are two ways you can manage authentication: IAM Users in each account or IAM Users in one account and IAM roles in all the others.

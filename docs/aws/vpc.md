@@ -14,6 +14,12 @@ Example: VPC for web and database servers - https://docs.aws.amazon.com/vpc/late
 
 Analogy - https://stackoverflow.com/a/65193190/4034572
 
+## Examples / Tutorials
+
+Example: VPC with servers in private subnets and NAT - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html
+
+Building a 3-Tier VPC in AWS - https://github.com/AmirMalaeb/3-Tier-VPC-AWS
+
 ## Main concepts
 
 Is a regional service (a VPC cannot span multiple regions), but you can have multiple VPCs within a region (the default limit is 5, but you can request to increase it).
@@ -24,7 +30,22 @@ To connect to the public Internet we use an Internet Gateway. There's only 1 per
 
 The VPC CIDR address block is the full range of IP address allocated. Each subnet takes a portion of them.
 
-CIDR: Classless Inter-Domain Routing. See [What is CIDR?](https://aws.amazon.com/what-is/cidr/)
+## CIDR block
+
+Classless Inter-Domain Routing.
+
+https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
+
+See [What is CIDR?](https://aws.amazon.com/what-is/cidr/)
+
+Is a concise way to specify IP address ranges. For example:
+
+- 10.0.0.0/24: all IP addresses from 10.0.0.0 and 10.0.0.255.
+- 0.0.0.0/0: all possible IP addresses. We can use it in Security Groups to allow all IP addresses to access an instance (Anywhere-IPv4).
+
+https://cidr.xyz
+
+https://formulae.brew.sh/formula/ipcalc
 
 ## Subnet
 
@@ -36,7 +57,7 @@ Must reside in a single Availability Zone, and cannot span multiple AZs.
 
 You can have multiple subnets in the same Availability Zone.
 
-By default we have a default VPC on each region, and each default VPC has a subnet on each AZ of the region. For example, for N. Virginia there are 6 subnets created, one for each AZ (us-east-1a to us-east-1f), but in Sydney there are 3 subnets, since there are 3 AZ. If you go to VPC → Your VPCs, there's a column 'Default VPC', and if you go to VPC → Subnets, there's a column 'Default subnet'.
+By default we have a default VPC on each region, and each default VPC has a default subnet on each AZ of the region. For example, for N. Virginia there are 6 default subnets created, one for each AZ (us-east-1a to us-east-1f), but in Sydney there are 3 default subnets, since there are 3 AZ. (If you go to VPC → Your VPCs, there's a column 'Default VPC', and if you go to VPC → Subnets, there's a column 'Default subnet'.) Note that **the default subnets are public**, which means that they get IP addresses that are accessible from the public internet, which is a security risk.
 
 - Public:
   - Has an Internet Gateway on the route table.
@@ -72,6 +93,11 @@ Route table of a _private_ subnet:
 
 The CIDR here allows routing within the VPC, thus we can have communication between public and private subnets.
 
+From "What is the difference between a public and private subnet in a Amazon VPC?" - https://serverfault.com/questions/556363/what-is-the-difference-between-a-public-and-private-subnet-in-a-amazon-vpc
+
+- A private subnet sets the route 0.0.0.0/0 to a NAT gateway/instance. Private subnet instances only need a private IP and internet traffic is routed through the NAT in the public subnet. You could also have no route to 0.0.0.0/0 to make it a truly private subnet with no internet access in or out.
+- A public subnet routes 0.0.0.0/0 through an Internet Gateway (igw). Instances in a public subnet require public IPs to talk to the internet.
+
 ### Subnet route table association
 
 If you don't explicitly associate a subnet to a specific route table, it will be implicitly associated to the main route table.
@@ -104,6 +130,33 @@ Traffic is outbound only: NAT gateways enable resources in private subnets to re
 
 If you choose to create a NAT gateway in your VPC, you are charged for each hour that your NAT gateway is provisioned and available. You are also charged for the amount of data that passes through the gateway.
 
+We always deploy a NAT gateway in a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP**.
+
+From https://aws.amazon.com/vpc/faqs/
+
+> How do instances without public IP addresses access the Internet?
+>
+> Instances without public IP addresses can access the Internet in one of two ways:
+>
+> 1. Instances without public IP addresses can route their traffic through a NAT gateway or a NAT instance to access the Internet. These instances use the public IP address of the NAT gateway or NAT instance to traverse the Internet. The NAT gateway or NAT instance allows outbound communication but doesn’t allow machines on the Internet to initiate a connection to the privately addressed instances.
+> 2. For VPCs with a hardware VPN connection or Direct Connect connection, instances can route their Internet traffic down the virtual private gateway to your existing datacenter. From there, it can access the Internet via your existing egress points and network security/monitoring devices.
+
 ## Network ACL (firewall)
 
 Operates at the subnet level, whereas a security group operates at the EC2 instance level.
+
+## Place your servers in private subnets, and load balancers in public subnets
+
+From 'Terraform: Up and Running' (p. 60 and 72):
+
+> Running a server in a public subnet is a security risk. You should deploy all of your servers, and certainly all of your data stores, in private subnets, which have IP addresses that can be accessed only from within the VPC and not from the public internet. **The only servers you should run in public subnets are a small number of reverse proxies and load balancers**, that you lock down as much as possible.
+
+> Place the EC2 instances in private subnets (so they aren't directly accessible from the public internet) and the ALBs in public subnets (so users can access them directly).
+
+When to use Public Subnet vs Private Subnet? - https://stackoverflow.com/questions/59067920/when-to-use-public-subnet-vs-private-subnet
+
+Where to put your server, in a private or public subnet? - https://medium.com/recursivelabs/where-to-put-your-server-in-a-private-or-public-subnet-b1f0087a19fb - https://bits.theoremone.co/where-to-put-your-server-in-a-private-or-public-subnet/
+
+EC2 instances should not have a public IP address | AWS Foundational Security Best Practices - https://stackoverflow.com/questions/67178299/ec2-instances-should-not-have-a-public-ip-address-aws-foundational-security-be
+
+[hola](#place-your-servers-in-private-subnets-and-load-balancers-in-public-subnets)

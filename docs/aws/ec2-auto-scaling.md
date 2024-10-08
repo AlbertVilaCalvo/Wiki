@@ -48,6 +48,8 @@ For accounts created after May 31, 2023, the EC2 console only supports creating 
 
 ## Target group
 
+Routes the requests to the targets (eg EC2 instances) and does health checks.
+
 https://stackoverflow.com/questions/48529074/how-is-target-groups-different-from-auto-scaling-groups-in-aws
 
 ## Elastic Load Balancing
@@ -60,16 +62,25 @@ Uses health checks to ensure that an instance is available and healthy. Does not
 
 ELB distributes traffic in a single or multiple availability zones, but cannot distribute across regions. To direct traffic across regions use Amazon Route 53.
 
-### ELB types
+A load balancer consists of multiple servers that can run in different subnets (ie datacenters). AWS automatically scales the number of load balancer servers up and down based on traffic and handles failover if a server goes down, so you get scalability and high availability. (From 'Terraform: Up and Running' p. 72.)
+
+:::info Important
+Place the EC2 instances in private subnets (so they aren't directly accessible from the public internet) and the ALBs in public subnets (so users can access them directly).
+
+See [Place your servers in private subnets, and load balancers in public subnets](/aws/vpc#place-your-servers-in-private-subnets-and-load-balancers-in-public-subnets).
+:::
+
+### Load balancer types
 
 https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html#integrations-aws-elastic-load-balancing-types
 
 https://aws.amazon.com/elasticloadbalancing/features/#Product_comparisons
 
-- [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html): application layer 7, HTTP/HTTPS. Supports routing based on the request HTTP headers, URL path, host (ie domain name) and query params, IP address etc.
-- [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html): layer 4, TCP/UDP. Routes based on the protocol, source or destination IP address etc.
+- [Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html): application layer 7, HTTP/HTTPS. Supports routing based on the request HTTP headers, URL path, host (ie domain name) and query params, IP address etc.
+- [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html): layer 4, TCP/UDP. Routes based on the protocol, source or destination IP address etc. Can scale up and down in response to load faster than the ALB. Scales to tens of milions of requests per second.
+- [Classic Load Balancer (CLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html): layer 4 and 7. Has far fewer features than ALB and NLB. Should not be used. See "Benefits of migrating from a Classic Load Balancer" [to ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html#application-load-balancer-benefits) and [to NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html#network-load-balancer-benefits).
 
-## Setup
+## Setup with an Application Load Balancer
 
 Create Auto Scaling groups using launch templates - https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-auto-scaling-groups-launch-template.html
 
