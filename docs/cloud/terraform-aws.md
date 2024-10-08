@@ -17,6 +17,96 @@ Tutorials:
 provider "aws" {
   region  = "us-east-1"
   profile = "personal"
+
+  default_tags {
+    tags = {
+      Name = "my-app"
+    }
+  }
+}
+```
+
+## Get the Amazon Linux AMI
+
+```hcl
+data "aws_ami" "amazon-linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn-ami-hvm-*-x86_64-ebs"]
+  }
+}
+
+resource "aws_launch_configuration" "example" {
+  image_id = data.aws_ami.amazon-linux.id
+}
+```
+
+## EC2 user data
+
+### Inline with heredoc
+
+```hcl
+resource "aws_instance" "example" {
+  ami                    = "ami-0fb653ca2d3203ac1"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.instance.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "Hello, World" > index.html
+              nohup busybox httpd -f -p 8080 &
+              EOF
+
+  user_data_replace_on_change = true
+
+  tags = {
+    Name = "example"
+  }
+}
+```
+
+### External file
+
+```shell title="user-data.sh"
+#!/bin/bash
+
+# Update the system and install necessary packages
+yum update -y
+yum install -y httpd
+
+# Start the Apache server
+systemctl start httpd
+systemctl enable httpd
+```
+
+```hcl
+resource "aws_instance" "example" {
+  user_data = file("user-data.sh")
+}
+```
+
+### Base 64
+
+On a [`aws_launch_template`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) you need to encode the data in base64 ([see the docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template#user_data)), otherwise you get this error:
+
+> Error: creating EC2 Launch Template (terraform-20241008173227703800000001): operation error EC2: CreateLaunchTemplate, https response error StatusCode: 400, RequestID: 38094e48-f95f-4a60-afc9-87645f3d4f63, api error InvalidUserData.Malformed: Invalid BASE64 encoding of user data.
+
+Use `user_data = filebase64("user-data.sh")` or `user_data = filebase64("${path.module}/user-data.sh")`. If you need to interpolate some variable into the user data then do:
+
+```hcl
+locals {
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "Hello, World" > index.html
+              nohup busybox httpd -f -p ${var.server_port} &
+              EOF
+}
+
+resource "aws_launch_template" "example" {
+  user_data = base64encode(local.user_data)
 }
 ```
 
@@ -41,7 +131,40 @@ provider "aws" {
 
 - https://github.com/dustindortch/terraform-aws-vpcpublish
 - https://github.com/aws-ia/terraform-aws-vpc
-- Auto Scaling Groups tutorial - https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg
+
+## Auto Scaling
+
+- Auto Scaling Groups tutorial - https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg - https://github.com/hashicorp/learn-terraform-aws-asg
+- https://terraformguru.com/terraform-real-world-on-aws-ec2/15-Autoscaling-with-Launch-Templates - https://github.com/stacksimplify/terraform-on-aws-ec2/tree/main/15-Autoscaling-with-Launch-Templates
+- https://github.com/stacksimplify/terraform-on-aws-ec2/tree/main/09-AWS-ALB-Application-LoadBalancer-Basic - https://github.com/gerardodavidlopezcastillo/TF_ALB-ApplicationLoadBalancer_Public
+- https://terraformguru.com/terraform-real-world-on-aws-ec2/10-ALB-Path-Based-Routing/ - https://github.com/gerardodavidlopezcastillo/TF_ALB-PathBasedRouting_Public
+- https://terraformguru.com/terraform-real-world-on-aws-ec2/11-ALB-Host-Header-Based-Routing/ - https://github.com/gerardodavidlopezcastillo/TF_ALB-HostHeaderBasedRouting_Public
+- https://github.com/stacksimplify/terraform-on-aws-ec2/tree/main/12-ALB-HTTPHeader-QueryString-Redirects - https://github.com/gerardodavidlopezcastillo/TF_ALB-HTTPHeaderQueryStringRedirects_Public
+- https://terraformguru.com/terraform-real-world-on-aws-ec2/16-AWS-NLB-Network-Load-Balancer/ - https://github.com/stacksimplify/terraform-on-aws-ec2/tree/main/16-AWS-NLB-Network-Load-Balancer - https://github.com/gerardodavidlopezcastillo/TF_NLB-NetworkLoadBalancer_Public
+
+We need to use [`create_before_destroy`](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle#create_before_destroy) in `aws_launch_configuration` and `aws_launch_configuration`.
+
+From https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#ec2-launch-template
+
+> You cannot modify a launch configuration, so any changes to the definition force Terraform to create a new resource. The `create_before_destroy` argument in the `lifecycle` block instructs Terraform to create the new version before destroying the original to avoid any service interruptions.
+
+From 'Terraform: Up and Running' (p. 68):
+
+> Launch configurations are immutable, so if you change any parameter, Terraform will try to replace it. Normally, when replacing a resource, Terraform would delete the old resource first and then creates its replacement, but because your ASG how has a reference to the old resource, Terraform won't be able to delete it.
+
+If you use `desired_capacity` attribute, when running `apply` Terraform will scale up or down the number of instances currently running to match the `desired_capacity` (~ desired_capacity = 2 -> 1). To avoid this, use the `ignore_changes` lifecycle ([source](https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#set-lifecycle-rule)):
+
+```hcl
+resource "aws_autoscaling_group" "example" {
+  min_size             = 1
+  max_size             = 3
+  desired_capacity     = 1
+
+  lifecycle {
+    ignore_changes = [desired_capacity]
+  }
+}
+```
 
 ## ECS
 
@@ -52,6 +175,7 @@ provider "aws" {
 ## EKS
 
 - https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
+- https://github.com/stacksimplify/aws-eks-kubernetes-masterclass - https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices
 - https://github.com/aws-ia/terraform-aws-eks-blueprints - https://aws-ia.github.io/terraform-aws-eks-blueprints
 - https://github.com/aws-ia/terraform-aws-eks-blueprints-addons
 - https://github.com/aws-ia/terraform-aws-eks-blueprints-teams
@@ -71,6 +195,8 @@ provider "aws" {
 
 ## RDS
 
+- Tutorial 'Manage AWS RDS instances' - https://developer.hashicorp.com/terraform/tutorials/aws/aws-rds
+- Tutorial 'Upgrade RDS major version' - https://developer.hashicorp.com/terraform/tutorials/aws/rds-upgrade
 - https://github.com/terraform-aws-modules/terraform-aws-rds
 
 ## Multiple AWS accounts

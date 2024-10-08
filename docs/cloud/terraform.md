@@ -1044,7 +1044,7 @@ https://github.com/allister-grange/terraform-associate-guide-003
 
 https://www.packtpub.com/en-es/product/hashicorp-terraform-associate-003-exam-guide-9781804618844
 
-https://github.com/stacksimplify/hashicorp-certified-terraform-associate - https://www.udemy.com/course/hashicorp-certified-terraform-associate-step-by-step
+https://github.com/stacksimplify/hashicorp-certified-terraform-associate - https://www.udemy.com/course/hashicorp-certified-terraform-associate-step-by-step - https://terraformguru.com/terraform-certification-using-aws-cloud
 
 ## Internals
 
