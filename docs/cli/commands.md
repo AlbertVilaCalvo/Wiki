@@ -31,7 +31,29 @@ Command history is saved in `~/.zsh_history`.
   - Esc to exit but leaving searched command
 - Ctrl + Z: send to the background
 
-## Various commands & tips
+## `&` to run in the background
+
+From https://manpages.org/bash
+
+> If a command is terminated by the control operator &, the shell executes the command in the background in a subshell. The shell does not wait for the command to finish, and the return status is 0.
+
+https://unix.stackexchange.com/questions/86247/what-does-ampersand-mean-at-the-end-of-a-shell-script-line
+
+## `nohup` to continue running when you close the shell
+
+https://en.wikipedia.org/wiki/Nohup
+
+Means "no hang up".
+
+Is usually combined with `&`, like this: `nohup command &`. Together, you can use it to run a web server indefinitely, for example.
+
+## Heredoc
+
+Multiline strings without `\n`.
+
+https://linuxize.com/post/bash-heredoc/
+
+## Tips
 
 - !!: run the previous command
 - What shell is used: `echo $SHELL`

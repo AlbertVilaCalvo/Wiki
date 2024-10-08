@@ -24,8 +24,6 @@ https://github.com/MichaelCade/90DaysOfDevOps#kubernetes
 
 https://github.com/bregman-arie/devops-exercises/blob/master/topics/kubernetes/README.md
 
-https://velero.io
-
 ## Validators / linters
 
 https://github.com/stackrox/kube-linter
@@ -143,6 +141,16 @@ Show component status (deprecated in 1.19): `kubectl get componentstatuses`
 Check the rollout status: `kubectl rollout status deployment/simple-flask-deployment`
 
 Get external IP address: `kubectl get services <service-name> -o wide`
+
+## Tools
+
+https://velero.io - Backup and migrate Kubernetes resources and persistent volumes
+
+Lens (GUI) - https://k8slens.dev - https://www.mirantis.com/blog/getting-started-with-lens
+
+# Learn
+
+- https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices/
 
 ## Certifications
 

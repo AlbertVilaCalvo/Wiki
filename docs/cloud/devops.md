@@ -13,3 +13,7 @@ Reflections on 10,000 Hours of DevOps - https://matt-rickard.com/reflections-on-
 > The value of a CI/CD Pipeline is inversely proportional to how long the pipeline takes to run.
 
 https://sprkl.dev/18-quick-tips-to-improve-developer-productivity
+
+## Continuous Deployment
+
+https://www.oreilly.com/library/view/continuous-deployment/9781098146719/

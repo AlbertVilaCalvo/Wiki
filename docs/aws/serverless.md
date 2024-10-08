@@ -30,6 +30,8 @@ https://www.manning.com/livevideo/serverless-applications-with-AWS
 
 https://www.manning.com/books/ai-as-a-service
 
+https://www.manning.com/liveprojectseries/build-serverless-applications-on-aws
+
 Serverless Image Handler on AWS - https://aws.amazon.com/solutions/implementations/serverless-image-handler/
 
 https://frontendmasters.com/courses/go-aws/ - Go, AWS Lambda, DynamoDB, and API Gateway
