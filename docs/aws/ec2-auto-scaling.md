@@ -12,6 +12,8 @@ Tutorial - https://aws.amazon.com/tutorials/ec2-auto-scaling-spot-instances
 
 Provides scalability and elasticity by scaling out (horizontally, instead of up/vertically) by launching instances when demand increases, so that the application is performant, and scaling in by terminating instances when they are not needed, so that you only pay for what you need.
 
+AutoSpotting - https://autospotting.io - https://github.com/LeanerCloud/AutoSpotting
+
 ## Auto Scaling Group
 
 Responds to EC2 status checks and CloudWatch metrics.
@@ -43,7 +45,7 @@ Similar to an instance launch configuration (which includes the AMI, instance ty
 https://stackoverflow.com/questions/61981663/what-is-the-difference-between-aws-asg-launch-templates-and-launch-configuration
 
 :::info
-For accounts created after May 31, 2023, the EC2 console only supports creating Auto Scaling groups with launch templates. Creating Auto Scaling groups with launch configurations is not recommended but still available via the CLI and API until December 31, 2023. (This message appears when you are creating an Auto Scaling Group.)
+For accounts created after May 31, 2023, the EC2 console **only supports creating Auto Scaling groups with launch templates**. Creating Auto Scaling groups with launch configurations is not recommended but still available via the CLI and API until December 31, 2023. (This message appears when you are creating an Auto Scaling Group.)
 :::
 
 ## Target group
@@ -101,3 +103,17 @@ The Target group is not yet attached to a load balancer. To create a load balanc
 Go to the Auto Scaling group. You'll see that 'Load balancing' is not set, so new instances launched won't be added to the target group. We need to add the load balancer so that request are distributed among instances. On 'Load balancing' click Edit. Choose 'Application, Network or Gateway Load Balancer target groups' and select the target group and click Update.
 
 Go to the Target group. The instance's 'Health status' should be Healthy. You can now go to the Load balancer, copy the 'DNS name' and open it on a browser.
+
+## CLI
+
+https://docs.aws.amazon.com/cli/latest/reference/autoscaling
+
+Scale the number of instances in your ASG:
+
+```shell
+aws autoscaling set-desired-capacity --auto-scaling-group-name my-auto-scaling-group --desired-capacity 2
+```
+
+## API
+
+https://docs.aws.amazon.com/autoscaling/ec2/APIReference/Welcome.html
