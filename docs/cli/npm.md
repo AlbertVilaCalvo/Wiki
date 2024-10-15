@@ -201,6 +201,10 @@ https://docs.npmjs.com/cli/v9/configuring-npm/npmrc
 
 Options: https://docs.npmjs.com/cli/v10/using-npm/config
 
+```shell
+touch .npmrc && echo 'save-exact=true' > .npmrc
+```
+
 ## Find unused packages
 
 https://github.com/dylang/npm-check

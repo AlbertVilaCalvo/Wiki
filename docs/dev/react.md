@@ -12,6 +12,8 @@ Avoid declaring components inside of components - https://isamatov.com/react-ant
 
 A Visual Guide to React Rendering - It Always Re-renders - https://alexsidorenko.com/blog/react-render-always-rerenders/
 
+The Interactive Guide to Rendering in React - https://ui.dev/why-react-renders
+
 When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecallback
 
 Preguntas típicas sobre React para entrevistas de trabajo - https://github.com/midudev/preguntas-entrevista-react

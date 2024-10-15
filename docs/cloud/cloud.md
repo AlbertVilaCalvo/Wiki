@@ -81,6 +81,8 @@ https://www.diagrams.net
 
 https://www.cloudcraft.co
 
+https://cloudairy.com - Easy to use and also allows animated gif export - [see example here](https://www.linkedin.com/posts/amir-malaeb_aws-cloudformation-wordpress-activity-7247376508095188994-AnML/)
+
 https://pragprog.com/titles/apdiag/creating-software-with-modern-diagramming-techniques
 
 AWS icons - https://awsicons.dev

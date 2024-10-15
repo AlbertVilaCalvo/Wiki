@@ -26,6 +26,8 @@ Cheapest way to deploy a React app using NextJS SSR on AWS? - https://stackoverf
 
 Next.js 12 → Next.js 13: https://twitter.com/lydiahallie/status/1591120215189749760
 
+Self-Hosting Next.js - https://www.youtube.com/watch?v=sIVL4JMqRfc - Learn how to deploy Next.js, Postgres, and Nginx to a $4 VPS with Docker. I'll explain how to use and configure Next.js features like image optimization, caching & ISR, streaming, middleware, server components, and more.
+
 ## Site examples and repos
 
 - Next.js Commerce: https://github.com/vercel/commerce

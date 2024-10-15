@@ -53,9 +53,7 @@ https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html
 
 A range of IP addresses, which is a segment/portion of the overall VPC CIDR address range.
 
-Must reside in a single Availability Zone, and cannot span multiple AZs.
-
-You can have multiple subnets in the same Availability Zone.
+Must reside in a single Availability Zone. You can have multiple subnets in the same Availability Zone.
 
 By default we have a default VPC on each region, and each default VPC has a default subnet on each AZ of the region. For example, for N. Virginia there are 6 default subnets created, one for each AZ (us-east-1a to us-east-1f), but in Sydney there are 3 default subnets, since there are 3 AZ. (If you go to VPC → Your VPCs, there's a column 'Default VPC', and if you go to VPC → Subnets, there's a column 'Default subnet'.) Note that **the default subnets are public**, which means that they get IP addresses that are accessible from the public internet, which is a security risk.
 

@@ -154,9 +154,19 @@ Lens (GUI) - https://k8slens.dev - https://www.mirantis.com/blog/getting-started
 
 ## Certifications
 
+Curriculum - https://github.com/cncf/curriculum
+
+Simulator - https://killer.sh
+
 https://www.whizlabs.com/certified-kubernetes-application-developer/
 
 https://www.whizlabs.com/certified-kubernetes-administrator/
+
+### CKA - Certified Kubernetes Administrator
+
+Only covers on-prem Kubernetes clusters, no cloud provider Kubernetes environments.
+
+The CKA exam environment does not offer a UI for interacting with a Kubernetes cluster. You can only use `kubectl` and other command line-based tools.
 
 ## Terraform
 
