@@ -26,7 +26,37 @@ provider "aws" {
 }
 ```
 
+## Get AZs
+
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones
+
+```hcl
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+resource "aws_subnet" "subnet_a" {
+  availability_zone = data.aws_availability_zones.available.names[0] # "us-east-1a" if we are at "us-east-1"
+}
+
+output "list_of_az" {
+  value = data.aws_availability_zones.available[*].names
+}
+# list_of_az = [
+#   tolist([
+#     "us-east-1a",
+#     "us-east-1b",
+#     "us-east-1c",
+#     "us-east-1d",
+#     "us-east-1e",
+#     "us-east-1f",
+#   ]),
+# ]
+```
+
 ## Get the Amazon Linux AMI
+
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami
 
 ```hcl
 data "aws_ami" "amazon-linux" {
@@ -192,6 +222,7 @@ resource "aws_autoscaling_group" "example" {
 - https://github.com/dustindortch/terraform-aws-lambda-container
 - https://surajblog.medium.com/sending-cloudwatch-alarms-to-slack-via-sns-and-aws-lambda-using-terraform-7e707e0a413d
 - https://github.com/terraform-aws-modules/terraform-aws-lambda
+- Creating an Image Thumbnail Generator Using AWS Lambda and S3 Event Notifications with Terraform - https://dev.to/chinmay13/creating-an-image-thumbnail-generator-using-aws-lambda-and-s3-event-notifications-with-terraform-4e13
 
 ## RDS
 
