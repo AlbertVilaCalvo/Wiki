@@ -129,6 +129,7 @@ Are located in `/Library/Extensions/`.
 - Delete `node_modules` folders with [npkill](https://github.com/voidcosmos/npkill). Usage: `npx npkill --directory ~/Programming`.
 - Delete `build` folders: `find . -type d -name "build" -exec rm -rf {} +`.
 - Delete Python `venv` folders: `find . -type d -name "venv" -exec rm -rf {} +`.
+- Delete `.terraform` folders. The aws provider is 580 MB. [See instructions](/cloud/terraform#free-up-disk-space)
 - Xcode
   - Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572.
   - Delete Xcode caches with 'DevCleaner for Xcode' - https://apps.apple.com/us/app/devcleaner/id1388020431.
@@ -136,14 +137,16 @@ Are located in `/Library/Extensions/`.
   - Delete old Xcode archives. Use the Organizer (Window → Organizer).
 - JetBrains IDEs, delete old versions: Help → Delete Leftover IDE Directories…
   - JetBrains IDEs are located at `~/Library/Application Support/JetBrains` (`cd ~/Library/Application\ Support/JetBrains`).
+  - There are also really big files at `~/Library/Caches/JetBrains`.
+  - Directories are listed at the uninstall instructions: https://www.jetbrains.com/help/idea/uninstall.html#macos.
   - Android Studio is located at `~/Library/Application Support/Google` (`cd ~/Library/Application\ Support/Google`).
 - Docker:
   - Docs: Prune unused Docker objects: https://docs.docker.com/config/pruning.
   - Remove dangling images (images with `<none>` in `docker image ls`): `docker image prune` ([docs](https://docs.docker.com/engine/reference/commandline/image_prune/))
     - IMPORTANT: be careful with `docker image prune -a` because it deletes plenty of stuff, eg it has deleted all images shown by `docker image ls`, not only the ones with `<none>`! It says `WARNING! This will remove all images without at least one container associated to them.`.
   - Pune everything: `docker system prune`. This removes all stopped containers, all networks not used by at least one container, all dangling images and all build cache.
-- Delete `.terraform` directories. The aws provider is 580 MB. [See instructions](/cloud/terraform#free-up-disk-space)
 - Anar a `~/Library/Application Support` i esborrar programes antics.
 - Esborrar fitxers grans: Sobre aquest Mac → Emmagatzematge → Gestionar...
 - Telegram: esborrar la memòria cau (pot tenir 1 GB). Es fa a Configuració → Dades i emmagatzematge → Ús de l'emmagatzematge
 - Firefox: esborrar dades del lloc (pot ser 3 GB). Anar a Preferències → Privadesa i seguretat → Gestiona les dades... S'ordenen per mida. Cal apretar Delete a cada Lloc i després 'Desa els canvis' (sinó no esborra). Esborrar les que fa més d'un any que es van fer servir ('Darrer ús').
+- `brew autoremove`: uninstall formulae that were only installed as a dependency of another formula and are now no longer needed.
