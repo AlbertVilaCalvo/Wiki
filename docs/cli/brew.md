@@ -10,9 +10,11 @@ Terminology: https://github.com/Homebrew/brew/blob/master/docs/Formula-Cookbook.
 
 Search formulas: https://formulae.brew.sh
 
+Help: `man brew` or `brew help <command>`
+
 Upgrade:
 
-```
+```shell
 brew update --debug --verbose
 brew outdated
 brew upgrade
@@ -27,11 +29,29 @@ Uninstall: `brew uninstall git`
 
 Uninstall formulae that were only installed as a dependency of another formula and are now no longer needed: `brew autoremove`. Use `brew autoremove --dry-run` to list what would be uninstalled, but do not actually uninstall anything.
 
-List installed: `brew list`
+List installed:
 
-List top-level formulas (ie formulas that no other formulas depend on): `brew leaves`. At `man brew` says it "List installed formulae that are not dependencies of another installed formula."
+```shell
+brew list
+brew list --installed-on-request
+brew list --installed-as-dependency
+```
+
+List top-level formulas (ie formulas that no other formulas depend on): `brew leaves`. If you do `brew help leaves` it says "List installed formulae that are not dependencies of another installed formula or cask."
 
 List dependencies of formula [source](https://stackoverflow.com/a/52120368/4034572): `brew deps --tree --installed vim`
+
+Some of the formulae given by `brew list --installed-on-request` cannot be uninstalled, since they are dependencies of other formulae (you get the error "Refusing to uninstall /usr/local/Cellar/xz/5.6.3 because it is required by ..." when doing `brew uninstall xz`). To list the formulae that I installed which are also top level formula (and thus can be uninstalled) do:
+
+```shell
+brew list --installed-on-request > brew-list-installed-on-request.txt
+brew leaves > brew-leaves.txt
+awk 'NR==FNR{arr[$0];next} $0 in arr' brew-list-installed-on-request.txt brew-leaves.txt
+rm brew-list-installed-on-request.txt
+rm brew-leaves.txt
+```
+
+[source of the awk command](https://stackoverflow.com/a/26319612/4034572)
 
 Doctor: `brew doctor` ← check from time to time!
 
