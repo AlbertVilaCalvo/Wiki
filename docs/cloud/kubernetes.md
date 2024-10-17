@@ -4,6 +4,8 @@ title: Kubernetes
 
 https://kubernetes.io
 
+Docs - https://kubernetes.io/docs/home/
+
 https://github.com/kelseyhightower/kubernetes-the-hard-way
 
 https://github.com/dennyzhang/cheatsheet-kubernetes-A4
@@ -16,6 +18,8 @@ https://github.com/kubernetes-sigs
 
 Deploy a Production Ready Kubernetes Cluster - https://github.com/kubernetes-sigs/kubespray - https://kubespray.io
 
+minikube - https://minikube.sigs.k8s.io/docs
+
 Local Kubernetes Development - https://github.com/GoogleContainerTools/skaffold - https://skaffold.dev
 
 Examples - https://github.com/AdminTurnedDevOps/kubernetes-examples
@@ -23,6 +27,8 @@ Examples - https://github.com/AdminTurnedDevOps/kubernetes-examples
 https://github.com/MichaelCade/90DaysOfDevOps#kubernetes
 
 https://github.com/bregman-arie/devops-exercises/blob/master/topics/kubernetes/README.md
+
+https://kustomize.io
 
 ## Validators / linters
 
@@ -86,7 +92,7 @@ Hierarchy:
 - A node has many pods
 - A pod has many containers
 
-### Control plane
+## Control plane
 
 A cluster is managed by the control plane (called master in the past), which exposes an API that allows for example to interact with the scheduler.
 
@@ -94,19 +100,45 @@ The control plane is responsible for maintaining the desired state of the cluste
 
 Components:
 
-- kube-apiserver: exposes the Kubernetes API.
-- etcd: key value store for all cluster data.
-- kube-scheduler: watches for newly created Pods with no assigned node, and selects a node for them to run on.
-- kube-controller-manager: runs controller processes.
+- [kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/): exposes the Kubernetes REST API used to connect to Kubernetes and deploy workloads.
+- [etcd](https://etcd.io): key-value store for all cluster data. Database for non-ephemeral data.
+  - etcd can run on a different server than the control plane, and communicate with it.
+- [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/): watches for newly created Pods with no assigned node, and selects a worker node for them to run on.
+- [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/): runs controller processes, which confirms that the current state is the desired state for all the running workloads.
 - cloud-controller-manager: embeds cloud-specific control logic. Lets you link your cluster into your cloud provider's API.
 
 See https://kubernetes.io/docs/concepts/overview/components/#control-plane-components for more details.
 
-### Node
+You want to have a minimum of 3 control planes, since etcd uses the RAFT consensus algorithm, which requires leader election. One of them will be the main control plane.
 
-- kubelet: agent that runs on each node and makes sure that containers are running in a Pod.
-- kube-proxy: https://kubernetes.io/docs/reference/glossary/?all=true#term-kube-proxy
-- Container runtime: software that is responsible for running containers, eg Docker.
+### API Server
+
+https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
+
+What you use to interact with Kubernetes.
+
+What you will be working with the most, since the operations you do with `kubectl` interact with this API. For example, when you run `kubectl apply -f manifest.yaml`, you are doing a POST request that sends the `manifest.yaml` to the API server. And when you run `kubectl get pods` you are doing a GET request.
+
+## Worker Nodes
+
+- [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/): agent that runs on each node and makes sure that containers are running in a Pod.
+- [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/): does internal networking. See https://kubernetes.io/docs/reference/glossary/?all=true#term-kube-proxy
+- Container Runtime: software that is responsible for running containers, eg Docker or containerd. Kubernetes doesn't know about containers, so it relies on a plugin for this. containerd is the default. Docker is not supported anymore ([source](https://kubernetes.io/blog/2020/12/02/dont-panic-kubernetes-and-docker/)). Needs to support the [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) (CRI).
+- [CoreDNS](https://coredns.io): internal DNS.
+
+The recommended number is between 3 and 5. It needs to have high availability and scaling, otherwise the pods won't have a place to move to if a worker node fails.
+
+## kubeconfig - `~/.kube/config`
+
+https://kubernetes.io/docs/reference/config-api/kubeconfig.v1/
+
+Holds the information needed to connect to remote kubernetes clusters, and the permissions (what you can do) on those clusters.
+
+Fields:
+
+- `certificate-authority-data`: contains the TLS certificates required to authenticate and access the Kubernetes clusters.
+- `context`: references to clusters we can connect and interact with. The `current-context` is the cluster you are connected to right now.
+- `user`: how you authenticate to the cluster. There's one for each cluster.
 
 ## `kubectl`
 
@@ -116,7 +148,7 @@ Docs: https://kubectl.docs.kubernetes.io
 
 Overview: https://kubernetes.io/docs/reference/kubectl/overview/
 
-Cheatsheet: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+Quick Reference: https://kubernetes.io/docs/reference/kubectl/quick-reference/
 
 Explain: `kubectl explain pod.spec.restartPolicy` [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
 
@@ -148,9 +180,10 @@ https://velero.io - Backup and migrate Kubernetes resources and persistent volum
 
 Lens (GUI) - https://k8slens.dev - https://www.mirantis.com/blog/getting-started-with-lens
 
-# Learn
+## Learn
 
 - https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices/
+- https://www.sharelearn.net/practice/k8slabs/
 
 ## Certifications
 
@@ -158,15 +191,47 @@ Curriculum - https://github.com/cncf/curriculum
 
 Simulator - https://killer.sh
 
-https://www.whizlabs.com/certified-kubernetes-application-developer/
+### KCNA - Kubernetes and Cloud Native Associate
 
-https://www.whizlabs.com/certified-kubernetes-administrator/
+https://training.linuxfoundation.org/certification/kubernetes-cloud-native-associate
+
+A light version of the CKA. Multiple-choice questions, theoretical.
+
+> A pre-professional certification designed for candidates interested in advancing to the professional level...
+
+### KCSA - Kubernetes and Cloud Native Security Associate
+
+https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-security-associate-kcsa
+
+A light version of the CKS. Multiple-choice questions, theoretical.
 
 ### CKA - Certified Kubernetes Administrator
 
+https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka
+
+Focuses on infrastructure. For sysadmins. Much harder than the KCNA.
+
 Only covers on-prem Kubernetes clusters, no cloud provider Kubernetes environments.
 
-The CKA exam environment does not offer a UI for interacting with a Kubernetes cluster. You can only use `kubectl` and other command line-based tools.
+Hands-on. The CKA (and the CKAD and CKS too) exam environment does not offer a UI for interacting with a Kubernetes cluster. You can only use `kubectl` and other command line-based tools.
+
+Changes - https://training.linuxfoundation.org/certified-kubernetes-administrator-cka-program-changes/
+
+https://www.whizlabs.com/certified-kubernetes-administrator/
+
+### CKAD - Certified Kubernetes Application Developer
+
+https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/
+
+https://github.com/bmuschko/ckad-crash-course
+
+https://www.whizlabs.com/certified-kubernetes-application-developer/
+
+### CKS - Certified Kubernetes Security Specialist
+
+https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/
+
+Must have taken and passed the CKA exam prior to attempting the CKS exam.
 
 ## Terraform
 
