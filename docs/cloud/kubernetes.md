@@ -152,6 +152,14 @@ Quick Reference: https://kubernetes.io/docs/reference/kubectl/quick-reference/
 
 Explain: `kubectl explain pod.spec.restartPolicy` [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
 
+Change the editor:
+
+```shell
+export KUBE_EDITOR="vim"
+```
+
+List shortnames: `kubectl api-resources`
+
 `kubectl version`
 
 `kubectl cluster-info`
@@ -159,6 +167,26 @@ Explain: `kubectl explain pod.spec.restartPolicy` [see this](https://www.linkedi
 `kubectl get nodes`
 
 `kubectl get pods`
+
+`kubectl get pods <pod-name>`
+
+`kubectl get pod <pod-name> -n <ns>`
+
+`kubectl get pods -o wide -n <ns>` → Get the IP
+
+### Namespace
+
+We can use `ns` instead of `namespace`.
+
+Create:
+
+```shell
+kubectl create ns h92
+```
+
+`kubectl get namespace <namespace>` or `kubectl get ns <namespace>`
+
+`kubectl delete namespace <namespace>`
 
 List all namespaces and pods: `kubectl get all -A`
 
@@ -174,7 +202,11 @@ Check the rollout status: `kubectl rollout status deployment/simple-flask-deploy
 
 Get external IP address: `kubectl get services <service-name> -o wide`
 
+Shell into a container: `kubectl exec mypod -it --namespace=mynamespace -- /bin/sh`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`
+
 ## Tools
+
+https://collabnix.github.io/kubetools
 
 https://velero.io - Backup and migrate Kubernetes resources and persistent volumes
 
@@ -224,6 +256,10 @@ https://www.whizlabs.com/certified-kubernetes-administrator/
 https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/
 
 https://github.com/bmuschko/ckad-crash-course
+
+https://github.com/bmuschko/ckad-prep
+
+https://github.com/bmuschko/ckad-study-guide
 
 https://www.whizlabs.com/certified-kubernetes-application-developer/
 
