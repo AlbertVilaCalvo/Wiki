@@ -75,7 +75,15 @@ https://github.com/react-native-community/cli
 
 Commands: https://github.com/react-native-community/cli/blob/main/docs/commands.md
 
-Create app: `npx react-native@latest init MyApp`. Note that there's no need to pass `--template react-native-template-typescript` since [version 0.71](https://reactnative.dev/blog/2023/01/12/version-071). See [First-class Support for TypeScript](https://reactnative.dev/blog/2023/01/03/typescript-first) for more details. The template https://github.com/react-native-community/react-native-template-typescript is deprecated. The new one lives in https://github.com/facebook/react-native/tree/main/packages/react-native/template.
+### Create app
+
+```shell
+npx @react-native-community/cli@latest init MyApp
+```
+
+In the past it was `npx react-native@latest init MyApp`. See "Sunsetting `react-native init`" at https://reactnative.dev/blog/2024/08/12/release-0.75#sunsetting-react-native-init
+
+Note that there's no need to pass `--template react-native-template-typescript` since [version 0.71](https://reactnative.dev/blog/2023/01/12/version-071). See [First-class Support for TypeScript](https://reactnative.dev/blog/2023/01/03/typescript-first) for more details. The template https://github.com/react-native-community/react-native-template-typescript is deprecated. It now lives in https://github.com/react-native-community/template. (It was in https://github.com/facebook/react-native/tree/main/packages/react-native/template in 0.71.)
 
 Check environment setup: `npx react-native doctor`
 
@@ -258,10 +266,26 @@ Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. 
 
 ## Releases
 
+[CHANGELOG](https://github.com/facebook/react-native/blob/main/CHANGELOG.md)
+
 - [0.71 2023/01](https://reactnative.dev/blog/2023/01/12/version-071)
   - [TypeScript by default](https://reactnative.dev/blog/2023/01/03/typescript-first) on new projects → **Important: they recommend removing the `@types/react-native` from `package.json`**
   - Flexbox gap
   - Web-inspired props for accessibility, styles, and events (src, alt, aria-label...)
+- [0.72 2023/06](https://reactnative.dev/blog/2023/06/21/0.72-metro-package-exports-symlinks)
+- [0.73 2023/12](https://reactnative.dev/blog/2023/12/06/0.73-debugging-improvements-stable-symlinks)
+  - Kotlin is now the recommended language for Android apps
+- [0.74 2024/04](https://reactnative.dev/blog/2024/04/22/release-0.74)
+  - Yoga 3.0
+  - Yarn 3 as the default package manager for new projects initialized with React Native Community CLI
+  - Android SDK version requirement of 23 (Android 6.0)
+  - Removal of Deprecated `PropTypes`
+  - Removal of Flipper React Native Plugin
+- [0.75 2024/08](https://reactnative.dev/blog/2024/08/12/release-0.75)
+  - Yoga 3.1 with support for % values in `gap`, `columnGap` and `rowGap`, and in `translate` (`transform`)
+  - Recommendation to use a React Native Framework (eg Expo). See [Use a framework to build React Native apps](https://reactnative.dev/blog/2024/06/25/use-a-framework-to-build-react-native-apps) and [RFC0759: React Native Frameworks](https://github.com/react-native-community/discussions-and-proposals/blob/main/proposals/0759-react-native-frameworks.md)
+    - The template was moved to a new repository https://github.com/react-native-community/template and package [@react-native-community/template](https://www.npmjs.com/package/@react-native-community/template)
+    - Sunsetting the `react-native init` command as of December 31st 2024. Should use `npx @react-native-community/cli@latest init MyApp` now
 
 ## Upgrading
 
