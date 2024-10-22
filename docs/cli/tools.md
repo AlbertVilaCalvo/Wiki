@@ -12,6 +12,8 @@ bat (`cat` clone) - https://github.com/sharkdp/bat
 
 View log files - https://github.com/Textualize/toolong
 
+[pastel](https://github.com/sharkdp/pastel) - CLI tool to generate, analyze, convert and manipulate colors
+
 ## Jump directory
 
 https://github.com/rupa/z

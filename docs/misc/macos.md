@@ -126,7 +126,9 @@ Are located in `/Library/Extensions/`.
 - _This frees plenty GBs_ Android emulators, system images, SDKs, build tools, NDK etcetera:
   - To get rid of Android emulators, open Android Studio → Device Manager and delete them.
   - To get rid of Android system images, SDKs and other stuff, open Android Studio → SDK Manager. (There are various ways to open it, eg Settings → Languages & Frameworks → Android SDK). Once thee, check the checkbox 'Show package details'. Then uninstall everything possible like the NDK, emulator System Images, SDKs etcetera.
-- Delete `node_modules` folders with [npkill](https://github.com/voidcosmos/npkill). Usage: `npx npkill --directory ~/Programming`.
+- Delete `node_modules` folders with [npkill](https://github.com/voidcosmos/npkill):
+  - `npx npkill@latest --directory ~/Programming`.
+  - `npx npkill@latest --directory ~/Webs`.
 - Delete `build` folders: `find . -type d -name "build" -exec rm -rf {} +`.
 - Delete Python `venv` folders: `find . -type d -name "venv" -exec rm -rf {} +`.
 - Delete `.terraform` folders. The aws provider is 580 MB. [See instructions](/cloud/terraform#free-up-disk-space)

@@ -79,6 +79,10 @@ See https://twitter.com/dan_abramov/status/1308739731551858689
 
 Also, the new JSX transform: https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
 
+https://stackoverflow.com/questions/54585763/what-is-the-difference-between-import-as-react-from-react-vs-import-react-fr
+
+https://stackoverflow.com/questions/54585763/what-is-the-difference-between-import-as-react-from-react-vs-import-react-fr
+
 ## Inputs
 
 ```jsx
