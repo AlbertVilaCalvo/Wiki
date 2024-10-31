@@ -20,16 +20,29 @@ You manage the OS and whatever you want to run on top it, and AWS manages the [h
 
 Each EC2 instance is a virtual server or **virtual machine** that runs on top of host servers.
 
+The virtualization technology of EC2 is [Nitro](https://aws.amazon.com/ec2/nitro/).
+
 ## Learn
 
 Tutorial 'Host a WordPress blog' (note that there are 2):
 
 - Amazon Linux 2: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/tuts-wordpress.html → https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hosting-wordpress.html
 - AL2023 (AMI newer than Amazon Linux 2): https://docs.aws.amazon.com/linux/al2023/ug/hosting-wordpress-aml-2023.html
+- Elastic Beanstalk - https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-hawordpress-tutorial.html
 
 ## Instance types
 
+https://aws.amazon.com/ec2/instance-types/
+
 https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html
+
+`t2.micro`:
+
+- `t` is the family
+- `2` is the generation
+- `micro` is the size (CPU, memory, storage and network)
+
+> **Our experience indicates that you'll overestimate the resource requirements for your applications.** We recommend that you try to start your application with a smaller instance type than you think you need at first and change the instance type later if needed. (AWS in Action p. 63)
 
 ## Launch instance
 
@@ -65,13 +78,15 @@ To terminate the instance, at the Instances pages open the 'Instance state' drop
 
 ## Connect
 
-Connect to your Linux instance - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-to-linux-instance.html
+Connect to your EC2 instance - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect.html
 
 Options:
 
-### SSH
+### SSH with key pair
 
-Connect to your Linux instance from Linux or macOS using SSH - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html
+(Prerequisites) Connect to your Linux instance using SSH - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-to-linux-instance.html
+
+(`ssh` commands) Connect to your Linux instance using an SSH client - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html
 
 We connect to an SSH server running on the instance. Port 22 (where the SSH daemon runs) must be open; we do this with the security group (the firewall).
 
@@ -94,6 +109,14 @@ If asked:
 
 Say 'yes'. It will say "Warning: Permanently added 'ec2-107-22-100-77.compute-1.amazonaws.com' (ED25519) to the list of known hosts."
 
+Problems:
+
+- You need to open the port 22.
+- It's not possible to change the key pair externally after launching the EC2 instance.
+- It works only for a single user.
+
+It's preferable to use the Session Manager.
+
 ### EC2 Instance Connect
 
 Connect to your Linux instance with EC2 Instance Connect - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-eic.html
@@ -104,13 +127,29 @@ Uses IAM for access control.
 
 You can use a terminal or a browser. Port 22 needs to be open. The instance needs to have a public IPv4 address.
 
-### Session Manager
+### Session Manager (AWS Systems Manager)
 
-Connect to your Linux instance with AWS Systems Manager Session Manager - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/session-manager-to-linux.html
+- Connect to an Amazon EC2 instance by using Session Manager - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/connect-to-an-amazon-ec2-instance-by-using-session-manager.html
+- Connect to your EC2 instance using SSH the modern way - https://cloudonaut.io/connect-to-your-ec2-instance-using-ssh-the-modern-way/ - https://www.youtube.com/watch?v=w-yVPzSbb0c
+- (Benefits and features) AWS Systems Manager Session Manager - https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html
+- (Not very useful) Connect to your Amazon EC2 instance using Session Manager - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-with-systems-manager-session-manager.html
 
-Uses IAM for access control. No need to open any ports Is the most secure.
+Uses IAM for access control. No need to open any ports (unlike SSH, which requires opening the port 22, or RDP, which requires opening the port 3389). No need to configure a key pair upfront (it uses temporary key pairs). No need to maintain a bastion host. Is the most secure option. [See all benefits here](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html#session-manager-benefits).
 
-### RDP
+You can use either an interactive one-click browser-based shell or the AWS Command Line Interface (AWS CLI). To connect from the terminal (instead of the browser) see [Install the Session Manager plugin for the AWS CLI](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html).
+
+Requirements:
+
+- The SSM agent needs to be installed. It is on Amazon Linux, Ubuntu and some other AMIs.
+- The EC2 instance needs to be launched with an [IAM instance profile](/aws/iam#ec2-instance-profile) role having the permission policy `AmazonSSMManagedInstanceCore`, which "Allows EC2 instances to call AWS services like CloudWatch and Systems Manager on your behalf.".
+
+When launching an EC2 instance using the console do:
+
+- At "Key pair (login)", choose "Proceed without a key pair (Not recommended)".
+- At "Network settings", choose "Create security group" and uncheck "Allow SSH traffic fom".
+- At "Advanced details" → "IAM instance profile", choose a role that has the permission policy `AmazonSSMManagedInstanceCore`. (You need the trust policy `sts:AssumeRole` as well, [see this](/aws/iam#ec2-instance-profile).)
+
+### RDP (Windows)
 
 [Remote Desktop Protocol](https://en.wikipedia.org/wiki/Remote_Desktop_Protocol). To connect to Windows machines. There are clients for many OS. You access the desktop using a graphical interface.
 
@@ -424,7 +463,9 @@ The AMI ID is region-specific, that is, the AMI ID of the latest Amazon Linux is
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
 
-Amazon Machine Image. A template with the OS and additional software like a server and applications.
+Amazon Machine Image. A template with a read-only filesystem including the OS, additional software like a server and applications and configuration.
+
+The AMI does not include the kernel of the OS. The kernel is loaded from Amazon Kernel Image (AKI)
 
 Can be backed by EBS (persistent) or instance store (non-persistent).
 
@@ -441,6 +482,22 @@ https://github.com/amazonlinux/amazon-linux-2023
 What is Amazon Linux 2023? - https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html
 
 Comparing AL2 and Amazon Linux 2023 - https://docs.aws.amazon.com/linux/al2023/ug/compare-with-al2.html
+
+Amazon Linux is originally based on RHEL, like CentOS. See [Relationship to Fedora](https://docs.aws.amazon.com/linux/al2023/ug/relationship-to-fedora.html).
+
+It uses the `yum` package manager. To install software run:
+
+```shell
+yum update -y
+yum install -y httpd
+```
+
+AL2 (not the 2023) has extras - https://docs.aws.amazon.com/linux/al2/ug/al2-extras.html
+
+```shell
+amazon-linux-extras list
+sudo amazon-linux-extras install python3.8
+```
 
 ## Placement groups
 

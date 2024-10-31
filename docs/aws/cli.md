@@ -3,7 +3,7 @@ title: CLI
 ---
 
 :::info
-If installed with Brew, the "examples" directory is at `/usr/local/share/awscli/examples`.
+If installed with [Brew](https://formulae.brew.sh/formula/awscli#default), the "examples" directory is at `/usr/local/share/awscli/examples`.
 :::
 
 https://aws.amazon.com/cli
@@ -30,11 +30,29 @@ AWS CLI Builder - https://awsclibuilder.com
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-commandstructure.html
 
-`aws <command> <subcommand> [options and parameters]`. Eg `aws s3 ls`.
+```
+aws <command> <subcommand> [options and parameters]
+aws <service> <action> [--name value...]
+```
+
+The _command_ typically corresponds to an AWS service, and the _subcommand_ is an action or operation, eg:
+
+```shell
+aws s3 ls
+aws ec2 describe-instances
+```
 
 :::tip
 In shell scripts, you can also `wait` for a command to finish. See https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-commandstructure.html#cli-usage-commandstructure-wait
 :::
+
+## Help
+
+```
+aws help # Shows all services
+aws <service> help # Shows all actions of the service
+aws <service> <action> help # Shows all options of the action
+```
 
 ## Auto-completion
 

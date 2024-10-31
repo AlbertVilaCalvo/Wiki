@@ -20,6 +20,8 @@ Ramp-Up Guides (guides to learning the AWS Cloud) - https://aws.amazon.com/train
 
 Architecture examples and diagrams - https://aws.amazon.com/architecture
 
+Services available on each region - https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services - https://awsservices.info
+
 Back to Basics video series: https://aws.amazon.com/es/architecture/back-to-basics
 
 Open guide: https://github.com/open-guides/og-aws
@@ -59,6 +61,18 @@ Everything in AWS is an API call.
 
 AWS is API driven. You can automate everything. Automation increases reliability and efficiency.
 :::
+
+## Regions
+
+https://aws.amazon.com/about-aws/global-infrastructure/
+
+Most services are region-specific, except for IAM, CDN (CloudFront) and DNS (Route 53), which are global ([more info](https://stackoverflow.com/questions/68811957/aws-global-services)). Note that at the web console, when you go to the IAM Dashboard, the region at the navigation bar is "Global" and you can't select any region like "N. Virginia".
+
+Regions are independent; data isn't transferred between regions.
+
+Not all services are available on all regions, see https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services and https://awsservices.info
+
+A region consist of (typically) 3 or more data centers (availability zones), located in the same area but isolated and physically separate from each other.
 
 ## Remove all resources from an AWS account
 

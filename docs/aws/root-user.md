@@ -10,7 +10,7 @@ AWS account root user - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root
 
 > We strongly recommend that you do not use the root user for your everyday tasks, even the administrative ones. Instead, **adhere to the best practice of using the root user only to create your first IAM user**. (...) For a tutorial on how to set up an administrator for daily use, see [Creating your first IAM admin user and user group](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html).
 
-Best practices to protect your account's root user - https://docs.aws.amazon.com/accounts/latest/reference/best-practices-root-user.html
+Root user best practices - https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html - Previously it was https://docs.aws.amazon.com/accounts/latest/reference/best-practices-root-user.html
 
 > We strongly recommend that you use the root user only for two things:
 >
