@@ -20,6 +20,8 @@ https://github.com/mr-karan/doggo - https://doggo.mrkaran.dev/docs/ - https://ne
 
 https://en.wikipedia.org/wiki/Dig_(command)
 
+https://digwebinterface.com
+
 ```
 dig example.com
 

@@ -49,6 +49,12 @@ Self-Hosting Next.js - https://www.youtube.com/watch?v=sIVL4JMqRfc - Learn how t
 - https://github.com/shadcn/taxonomy - app built using the new router, server components and everything new in Next.js 13
 - Similar to a Docusaurus site - https://github.com/GeekyAnts/nativebase-docs - https://docs.nativebase.io
 
+## Learn
+
+- Introduction to Next.js and React - https://www.youtube.com/watch?v=h2BcitZPMn4
+- Next.js: Authentication (Best Practices for Server Components, Actions, Middleware) - https://www.youtube.com/watch?v=N_sUsq_y10U
+- Next.js App Router Authentication (Sessions, Cookies, JWTs) - https://www.youtube.com/watch?v=DJvM2lSPn6w
+
 ## MDX
 
 https://www.joshwcomeau.com/blog/how-i-built-my-blog/#using-mdx-with-nextjs

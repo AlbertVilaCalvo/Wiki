@@ -17,6 +17,8 @@ GNU coretutils doc - https://www.gnu.org/software/coreutils/manual/html_node/Dat
 
 https://time.is/Unix_time
 
+JS Dates Are About to Be Fixed - https://docs.timetime.in/blog/js-dates-finally-fixed/
+
 ## Time zones
 
 https://time.is/time_zones

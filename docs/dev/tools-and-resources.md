@@ -2,6 +2,8 @@
 title: Tools & Resources
 ---
 
+https://radar.cloudflare.com/scan - Security, performance, technology and network details of a URL
+
 ## JSON formatter
 
 https://jsonformatter.org
@@ -20,6 +22,12 @@ https://www.diffchecker.com/text-compare/
 
 https://tree.nathanfriend.io
 
+## Broken link checker
+
+https://github.com/lycheeverse/lychee
+
+https://github.com/search?q=linkchecker&type=repositories
+
 ## Cheatsheets
 
 https://overapi.com
@@ -29,4 +37,3 @@ https://overapi.com
 https://libraries.io
 
 https://www.libhunt.com
-e

@@ -18,6 +18,8 @@ When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecal
 
 Preguntas típicas sobre React para entrevistas de trabajo - https://github.com/midudev/preguntas-entrevista-react
 
+TODO read: https://vercel.com/blog/whats-new-in-react-19
+
 ## Lifecycle
 
 https://twitter.com/dan_abramov/status/981712092611989509

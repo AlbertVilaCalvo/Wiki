@@ -8,6 +8,8 @@ https://github.com/ibraheemdev/modern-unix
 
 https://github.com/trimstray/the-book-of-secret-knowledge#cli-tools-toc
 
+Customizable shell prompt - https://github.com/starship/starship - https://starship.rs
+
 bat (`cat` clone) - https://github.com/sharkdp/bat
 
 View log files - https://github.com/Textualize/toolong

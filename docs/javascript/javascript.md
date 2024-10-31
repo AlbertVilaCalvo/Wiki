@@ -8,7 +8,7 @@ In JavaScript `typeof null` is "object".
 
 Deep JS - https://exploringjs.com/deep-js/
 
-https://stateofjs.com/en-us/
+https://stateofjs.com/en-US
 
 ## Libraries
 
@@ -269,6 +269,8 @@ string.match(regex)
 ## Dates
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
+
+JS Dates Are About to Be Fixed - https://docs.timetime.in/blog/js-dates-finally-fixed/
 
 ### Date format
 

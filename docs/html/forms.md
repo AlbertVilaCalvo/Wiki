@@ -80,6 +80,10 @@ https://developer.chrome.com/blog/hr-in-select/
 
 https://developer.chrome.com/blog/css-wrapped-2023#hrselect
 
+## Validation
+
+https://news.ycombinator.com/item?id=41976529 - https://expressionstatement.com/html-form-validation-is-heavily-underused
+
 ## `:user-valid` and `:user-invalid` instead of `:valid` and `:invalid`
 
 https://developer.chrome.com/blog/css-wrapped-2023#user-states
