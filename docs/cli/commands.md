@@ -170,6 +170,8 @@ Backup some file before modifying it, just in case:
 cat file.txt > file-backup.txt # Equivalent to 'cp file.txt file-backup.txt'
 ```
 
+Use `cat /proc/cpuinfo` to display CPU information on a EC2 instance.
+
 ## less
 
 If the file is big is better use `less` not `cat`.
@@ -222,6 +224,24 @@ List recent commands in history: `fc -l`
 ## lsof
 
 If we are running a server at (eg) port 3000 we can do `lsof -i :3000` and it will print information about the process that started the server. Doing `lsof -t -i :5000` gives the process id. Hence, to kill the process you can do `kill -9 $(lsof -t -i :3000)`.
+
+## free
+
+Prints information about the machine's memory. You can use it on a EC2 instance.
+
+```shell
+free -m
+```
+
+Output:
+
+```
+              total        used        free      shared  buff/cache   available
+Mem:           3856        1024        2012          64         819         2549
+Swap:          2047           0        2047
+```
+
+See [What is available memory while using free command?](https://askubuntu.com/questions/867068/what-is-available-memory-while-using-free-command), [What is available and free memory in response of free command on Linux?](https://stackoverflow.com/questions/41426656/what-is-available-and-free-memory-in-response-of-free-command-on-linux) and https://www.linuxatemyram.com.
 
 ## sed
 

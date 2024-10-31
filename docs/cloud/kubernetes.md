@@ -174,6 +174,12 @@ List shortnames: `kubectl api-resources`
 
 `kubectl get pods -o wide -n <ns>` → Get the IP
 
+`kubectl get deployment,rs,pods`
+
+`kubectl delete pod <pod-name> --now`
+
+`kubectl describe node <node-name>`
+
 ### Namespace
 
 We can use `ns` instead of `namespace`.
