@@ -129,6 +129,10 @@ You can use a terminal or a browser. Port 22 needs to be open. The instance need
 
 ### Session Manager (AWS Systems Manager)
 
+:::tip
+Open `https://console.aws.amazon.com/systems-manager/session-manager/$INSTANCEID` in your browser. (`INSTANCEID` is like i-01269dace6eb55218.)
+:::
+
 - Connect to an Amazon EC2 instance by using Session Manager - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/connect-to-an-amazon-ec2-instance-by-using-session-manager.html
 - Connect to your EC2 instance using SSH the modern way - https://cloudonaut.io/connect-to-your-ec2-instance-using-ssh-the-modern-way/ - https://www.youtube.com/watch?v=w-yVPzSbb0c
 - (Benefits and features) AWS Systems Manager Session Manager - https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html
@@ -512,3 +516,33 @@ Options:
 - Spread: a small group of instances that all run on different hardware (ie a different rack) to reduce correlated failures.
 
 You choose it when you launch the instance.
+
+## CLI
+
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/index.html
+
+See this example: https://github.com/AWSinAction/code3/blob/main/chapter04/virtualmachine.sh
+
+See [List and filter using the CLI and API](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Filtering.html#Filtering_Resources_CLI).
+
+Note that if you use wildcards (`*`) in `--filters` you need to use quotes.
+
+```shell
+aws ec2 describe-instances
+aws ec2 describe-instances --filters Name=instance-type,Values=t2.micro
+aws ec2 describe-instances --filters Name=instance-state-name,Values=stopped Name=instance-type,Values=t2.micro
+```
+
+:::tip
+Use `--query` to extract data from the JSON response using [JMESPath](https://jmespath.org).
+
+Use `--output text` to pass the output to `grep`, `sed` or `awk`.
+:::
+
+```shell
+aws ec2 describe-images --filters "Name=name,Values=amzn2-ami-hvm-2.0.202*-x86_64-gp2" --query "Images[0].ImageId" --output text
+```
+
+```shell
+aws ec2 describe-regions
+```
