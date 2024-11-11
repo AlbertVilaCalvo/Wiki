@@ -26,6 +26,10 @@ Generate CloudFormation / Terraform / Troposphere templates from your existing A
 
 CloudFormation vs Terraform in 2022 - https://cloudonaut.io/cloudformation-vs-terraform
 
+Declarative: you define the end state of your infrastructure, and CloudFormation figures out how to achieve it.
+
+Think of a template as a class, and a stack as an object. The template exists only once, whereas many stacks can be created from the same template. (AWS in Action p. 128)
+
 Never store sensitive information (such as credentials and access keys) in a template file.
 
 A stack can be created using the console or the CLI.
@@ -38,10 +42,6 @@ The AMI ID is region-specific, that is, the AMI ID of the latest Amazon Linux is
 
 What is AWS Cloudformation? Pros and Cons? - https://www.youtube.com/watch?v=0Sh9OySCyb4
 
-## CLI
-
-CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
-
 ## Learn
 
 https://mng.workshop.aws/cloudformation.html
@@ -51,8 +51,11 @@ https://www.udacity.com/course/deploy-infrastructure-as-code--cd12352
 ## Sample templates
 
 - https://aws.amazon.com/cloudformation/resources/templates
-- https://github.com/widdix/aws-cf-templates
+- AWS and AWS Partners - https://aws.amazon.com/solutions/
+- (AWS in Action) https://github.com/widdix/aws-cf-templates - https://templates.cloudonaut.io/en/stable/
+  - Also see https://github.com/cfn-modules/docs/tree/master/examples
 - Static site S3 CloudFront - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/getting-started-secure-static-website-cloudformation-template.html - https://github.com/aws-samples/amazon-cloudfront-secure-static-site
+- VPC with ASG and ALB - https://github.com/elhadjibarry/aws-iac-cloudformation
 
 ## Template sections
 
@@ -69,7 +72,7 @@ Description: >
   the template.
 
 Parameters:
-  InstanceTypeParameter:
+  InstanceType:
     Type: String
     Default: t2.micro
     AllowedValues:
@@ -96,12 +99,18 @@ Format version `AWSTemplateFormatVersion`
 
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
 - The only valid value is `2010-09-09`
+- It's optional. If omitted, _CloudFormation assumes the latest template format version_
+
+:::warning
+Always specify `AWSTemplateFormatVersion: 2010-09-09`. Otherwise, CloudFormation will use whatever version is the latest one, which can cause problems if new versions are introduced.
+:::
 
 Description
 
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-description-structure.html
 - String between 0 and 1024 bytes
 - Displayed on the console
+- Optional but recommended
 
 Parameters
 
@@ -110,16 +119,19 @@ Parameters
 - Set when the stack is created
 - Used in `Resources` and `Outputs` sections
 - The `Type` field is required, the rest are optional
+- You can optionally add the following [properties](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#parameters-section-structure-properties): `AllowedPattern`, `AllowedValues`, `ConstraintDescription`, `Default`, `Description`, `MinLength`, `MaxLength`, `MinValue`, `MaxValue` and `NoEcho`
 
 Resources
 
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 - Required
+- The `Type` is required. Some of the `Properties` are required, others optionals
 - Properties depend on the resource type
+- Full list of supported resource types: [AWS resource and property types reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
 
 Outputs
 
-- https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/outputs-section-structure.html
+- https://docs.aws.amazon.com/AWSCloudFormation/l atest/UserGuide/outputs-section-structure.html
 - Resources that you can reuse in other stacks
 - View them with `aws cloudformation describe-stacks`
 - Use [`ImportValue`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html) to get the value exported by another stack
@@ -133,6 +145,8 @@ Metadata
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
 
 ## CLI
+
+CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
 
 Create stack: `aws cloudformation create-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml`
 
