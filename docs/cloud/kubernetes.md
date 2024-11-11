@@ -92,6 +92,8 @@ Hierarchy:
 - A node has many pods
 - A pod has many containers
 
+See [Kubernetes – Architecture and main components overview](https://github.com/NotHarshhaa/kubernetes-projects-learning/tree/master/learning/Kubernetes-components-overview)
+
 ## Control plane
 
 A cluster is managed by the control plane (called master in the past), which exposes an API that allows for example to interact with the scheduler.
@@ -103,6 +105,7 @@ Components:
 - [kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/): exposes the Kubernetes REST API used to connect to Kubernetes and deploy workloads.
 - [etcd](https://etcd.io): key-value store for all cluster data. Database for non-ephemeral data.
   - etcd can run on a different server than the control plane, and communicate with it.
+  - https://github.com/spurin/etcd-snapshot-to-json
 - [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/): watches for newly created Pods with no assigned node, and selects a worker node for them to run on.
 - [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/): runs controller processes, which confirms that the current state is the desired state for all the running workloads.
 - cloud-controller-manager: embeds cloud-specific control logic. Lets you link your cluster into your cloud provider's API.
@@ -218,10 +221,16 @@ https://velero.io - Backup and migrate Kubernetes resources and persistent volum
 
 Lens (GUI) - https://k8slens.dev - https://www.mirantis.com/blog/getting-started-with-lens
 
+Secrets management - https://external-secrets.io/latest
+
+TLS certificates management - https://cert-manager.io
+
 ## Learn
 
+- https://github.com/topics/kubernetes-learning
 - https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices/
 - https://www.sharelearn.net/practice/k8slabs/
+- https://diveinto.com
 
 ## Certifications
 

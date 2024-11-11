@@ -162,6 +162,11 @@ https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html#cli-usage
 Use `--query <key>` to select. See https://jmespath.org/tutorial.html for how to query.
 
 Use `--output text/json/yaml/yaml-stream` to change the output format.
+Use `--output text` to pass the output to `grep`, `sed` or `awk`.
+
+## Shell scripts
+
+https://github.com/AWSinAction/code3/blob/main/chapter04/virtualmachine.sh
 
 ## ModuleNotFoundError: No module named 'docutils'
 

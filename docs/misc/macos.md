@@ -152,3 +152,4 @@ Are located in `/Library/Extensions/`.
 - Telegram: esborrar la memòria cau (pot tenir 1 GB). Es fa a Configuració → Dades i emmagatzematge → Ús de l'emmagatzematge
 - Firefox: esborrar dades del lloc (pot ser 3 GB). Anar a Preferències → Privadesa i seguretat → Gestiona les dades... S'ordenen per mida. Cal apretar Delete a cada Lloc i després 'Desa els canvis' (sinó no esborra). Esborrar les que fa més d'un any que es van fer servir ('Darrer ús').
 - `brew autoremove`: uninstall formulae that were only installed as a dependency of another formula and are now no longer needed.
+- `brew cleanup`: usually not necessary, but sometimes frees space.

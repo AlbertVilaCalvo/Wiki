@@ -6,6 +6,8 @@ https://squoosh.app
 
 https://screensiz.es
 
+https://www.faststone.org/FSResizerDetail.htm
+
 TODO download and try: https://github.com/ImageOptim/ImageOptim
 
 See resources: https://github.com/nucliweb/image-optimization-workshop#resources
