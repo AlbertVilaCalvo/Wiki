@@ -123,7 +123,7 @@ https://stackoverflow.com/questions/63241009/aws-sts-assume-role-in-one-command
 
 A way to attach a role to an EC2 instance, for example to access other services like S3.
 
-If you want to [connect to an EC2 instance using Session Manager](/iam/ec2#session-manager-aws-systems-manager), you need to attach an instance profile role with the permission policy `AmazonSSMManagedInstanceCore` to the EC2 instance.
+If you want to [connect to an EC2 instance using Session Manager](/aws/ec2#session-manager-aws-systems-manager), you need to attach an instance profile role with the permission policy `AmazonSSMManagedInstanceCore` to the EC2 instance.
 
 In addition to the permission policies, the role needs a trust policy with `sts:AssumeRole` to allow the EC2 instance to assume the role.
 
