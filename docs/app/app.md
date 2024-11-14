@@ -10,6 +10,8 @@ Android app frameworks: https://www.appbrain.com/stats/libraries/tag/app-framewo
 
 https://appetize.io - Run mobile apps in your browser, unify testing across web & mobile
 
+https://github.com/shopify/tophat - Easily install and test mobile applications with a single click - https://shopify.engineering/shopify-tophat-mobile-developer-testing - VS Orbit: https://x.com/mustafa01ali/status/1825920486666084360
+
 ## Facebook SDK
 
 How to generate Android Key hashes that you need to set in https://developers.facebook.com/apps/{app_id}/settings/basic/

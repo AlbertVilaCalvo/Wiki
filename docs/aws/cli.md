@@ -133,7 +133,7 @@ https://awscli.amazonaws.com/v2/documentation/api/latest/reference/configure/ind
 
 `aws configure` is the fastest way to set up your AWS CLI installation. It will ask for the 'Access Key ID' and the 'Secret Access Key'.
 
-`aws sts get-caller-identity` → Returns details about the IAM user or role whose credentials are used to call the operation - [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html). You can do `aws sts get-caller-identity --query Account --output text` to get only the account ID.
+`aws sts get-caller-identity` → Returns details about the IAM user or role whose credentials are used to call the operation - [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html). To get the **account ID** do `aws sts get-caller-identity --query Account --output text`.
 
 `aws configure list-profiles`
 

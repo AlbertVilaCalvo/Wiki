@@ -37,3 +37,5 @@ Serverless Image Handler on AWS - https://aws.amazon.com/solutions/implementatio
 https://frontendmasters.com/courses/go-aws/ - Go, AWS Lambda, DynamoDB, and API Gateway
 
 https://cloudcasts.io/course/serverless-with-lambda
+
+SST guide - https://guide.sst.dev

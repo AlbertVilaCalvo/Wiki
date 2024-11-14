@@ -8,6 +8,8 @@ Docs: https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
 https://aws.amazon.com/solutions/partners/terraform-modules/
 
+Are you missing an AWS resource in Terraform? Try awscc provider! - https://cloudonaut.io/are-you-missing-an-aws-resource-in-terraform-try-awscc-provider
+
 Tutorials:
 
 - Get started: https://developer.hashicorp.com/terraform/tutorials/aws-get-started
@@ -75,6 +77,10 @@ resource "aws_launch_configuration" "example" {
 ```
 
 ## EC2 user data
+
+:::warning
+It's recommended to install security updates at the end of the boot process by including `yum -y update` (installs all updates) or `yum -y --security update` (installs only security updates) in the user data.
+:::
 
 ### Inline with heredoc
 

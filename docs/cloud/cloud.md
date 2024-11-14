@@ -75,6 +75,8 @@ Provisioning tools can also do some configuration. For example, you can run user
 
 ## Diagrams
 
+Mermaid architecture diagrams - https://mermaid.js.org/syntax/architecture
+
 https://diagrams.mingrammer.com
 
 https://www.diagrams.net

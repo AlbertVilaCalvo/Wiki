@@ -42,6 +42,14 @@ The AMI ID is region-specific, that is, the AMI ID of the latest Amazon Linux is
 
 What is AWS Cloudformation? Pros and Cons? - https://www.youtube.com/watch?v=0Sh9OySCyb4
 
+From "Moving away from CDK" - https://sst.dev/blog/moving-away-from-cdk
+
+> CloudFormation stacks have resource limits. Meaning that if you have more than 500 resources in a stack, you need to move them out to a new stack. This happens with larger teams. They’ll need to refactor their stacks often. (...) When you deploy an app with these two stacks, you’ll get a different cyclical dependency error. Here CloudFormation cannot deploy this because these stacks depend on each other.
+
+> A consequence of CloudFormation being a black box is that it handles any errors internally. So you’ll see the error from CloudFormation as opposed to the underlying error with the resource. This is the reason why many AWS deployment errors are cryptic and vague.
+
+> CDK supports multi-region deployments. But it does this via a Custom Resource. The problem is that CloudFormation is a single-region service. There’s no way to link stacks across regions. So when you deploy stacks across regions you’ll rely on Custom Resources to share references across them.
+
 ## Learn
 
 https://mng.workshop.aws/cloudformation.html
@@ -144,6 +152,31 @@ Metadata
 
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-sub.html
 
+## EC2 user data
+
+`Fn::Base64` docs: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
+
+```yaml
+Resources:
+  Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      UserData: !Base64 |
+        #!/bin/bash -ex
+        yum -y update
+```
+
+```yaml
+Resources:
+  Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      UserData:
+        'Fn::Base64': !Sub |
+          #!/bin/bash -ex
+          /opt/aws/bin/cfn-signal -e 0 --stack ${AWS::StackName} --resource Instance --region ${AWS::Region}
+```
+
 ## CLI
 
 CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
@@ -155,3 +188,9 @@ Update stack: `aws cloudformation update-stack --stack-name myStackName --region
 Describe stack: `aws cloudformation describe-stacks --stack-name myStackName`
 
 Delete stack: `aws cloudformation delete-stack --stack-name myStackName`
+
+## Quick-create links
+
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stacks-quick-create-links.html
+
+For example: https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?templateURL=https://s3.amazonaws.com/awsinaction-code3/chapter05/ec2-os-update.yaml&stack-Name=ec2-os-update
