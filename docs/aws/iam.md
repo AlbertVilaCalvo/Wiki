@@ -36,9 +36,9 @@ IAM is a **global** service. Notice you cannot select any region at the top-righ
 
 ## Summary
 
-- User: an individual, system, or application requiring access to AWS services.
-- Group: collection of users. A user can be in many groups.
-- Role: set of permissions.
+- User: an individual, system or application _running outside of AWS_ requiring access to AWS services.
+- Group: collection of users with the same permissions. A user can be in many groups.
+- Role: set of permissions. Used to authenticate AWS entities such as EC2 instances.
 - Policy: JSON file. Permissions assigned to a user, group or role.
 - Principal: user, account, service, or other entity that is allowed or denied access to a resource. Can be ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying)):
   - AWS account and root user
@@ -59,12 +59,15 @@ By default users have no permissions, thus they can't do anything. You give them
 
 Each user has a username (Account name), used to log in.
 
-Authentication:
+Authentication options:
 
-- Web console: username and password + (optionally) MFA.
+- Web console: username and password + optionally MFA.
+  - To log in at the console use the URL `https:/ /$accountId.signin.aws.amazon.com/console` or `https:/ /$accountAlias.signin.aws.amazon.com/console`. Use `aws sts get-caller-identity` to get the account ID.
 - CLI & API: access key ID and secret access key. You can also have MFA too.
   - Only a user can have access keys (not a group, role or policy).
   - Best practice: use roles for applications that run on EC2 instances or lambda functions. See [Require workloads to use temporary credentials with IAM roles to access AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-workloads-use-roles)
+
+You should set up a unique IAM user for every person who needs access to the AWS account, and grant access only to the resources each person needs, following the least-privilege principle.
 
 ### Service account
 
@@ -74,9 +77,11 @@ An IAM user for a service or application.
 
 ## Group
 
-A collection of users.
+A collection of users with the same permissions.
 
 A way of organizing users and applying permissions to them through a policy.
+
+A user can be a member of zero, one or multiple groups.
 
 Is not an identity, thus it cannot be used at the a `Principal` field of a policy. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html:
 
@@ -91,7 +96,7 @@ When you assume a role you loose any other permissions. Eg if you are an admin b
 From https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam
 
 - Is an AWS identity with permissions that determine what can and can't do.
-- Can be assigned a policy for permissions.
+- Can be assigned an identity policy for permissions.
 - Users, applications and services can assume roles.
 - Does not have long term credentials/passwords/access keys. Instead, if a user is assigned a role, access keys are created dynamically and provided to the user temporarily.
 - Can be used to delegate access to users, applications or services that don't normally have access to your AWS resources.
@@ -107,6 +112,19 @@ https://classroom.udacity.com/nanodegrees/nd0044/parts/8fc72c65-158a-429d-a08f-f
 
 > A role is an identity in AWS that doesn't have its own credentials (as a user does) [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
 
+### Root vs User vs Role
+
+From AWS in Action, page 144.
+
+|                                                                        | Root user                                                                              | User | Role |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ---- | ---- |
+| Can have a password to log in to the web console                       | Must                                                                                   | Yes  | No   |
+| Can have access keys to send requests to the API with the CLI or SDKs  | Yes, [but not recommended](/aws/root-user#dont-generate-access-keys-for-the-root-user) | Yes  | No   |
+| Can belong to a group                                                  | No                                                                                     | Yes  | No   |
+| Can be associated with an EC2 instance, Lambda function, ECS container | No                                                                                     | No   | Yes  |
+
+By default, users and roles can't do anything. You need an identity policy to allow them to perform actions. Users and roles use identity policies.
+
 ### `sts:AssumeRole`
 
 The API call used to assume a role.
@@ -120,6 +138,14 @@ https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/assume-ro
 https://stackoverflow.com/questions/63241009/aws-sts-assume-role-in-one-command
 
 ### EC2 instance profile
+
+:::warning
+Never copy a user’s access keys to an EC2 instance; use IAM roles instead!
+
+Whenever you need to authenticate AWS resources like EC2 instancesI, instead of using an IAM user for authentication, you should use an IAM role. When using an IAM role, your access keys are injected into your EC2 instance automatically.
+
+(AWS in Action p. 148)
+:::
 
 A way to attach a role to an EC2 instance, for example to access other services like S3.
 
@@ -150,7 +176,7 @@ Once the role is created, you can see the **trust policy** at the role's 'Trust 
 }
 ```
 
-The **permissions policy** can be anything. For example, if we've given S3 read access with `AmazonS3ReadOnlyAccess`, it will be:
+The **permissions policy** (an *inline identity policy*) can be anything. For example, if we've given S3 read access with `AmazonS3ReadOnlyAccess`, it will be:
 
 ```json
 {
@@ -193,6 +219,13 @@ JSON file. Permissions assigned to a user, group or role.
   "Resource": "arn:aws:iam::*:user/${aws:username}"
 }
 ```
+
+:::info
+List of all `Action`s available for a service: [Actions, resources, and condition keys for AWS services
+](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html). You need to click on a service.
+
+_Not all API operations that are defined by a service can be used as an action in an IAM policy. Some services include permission-only actions that don't directly correspond to an API operation. These actions are indicated with **[permission only]**. Use this list to determine which actions you can use in an IAM policy._
+:::
 
 Console: https://console.aws.amazon.com/iamv2/home?#/policies
 
@@ -369,10 +402,21 @@ Examples: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examp
 
 Attached to users, groups and roles (permissions policy). Can be attached in various ways:
 
-- Inline policy: a policy that only applies to single, specific user, group or role. It cannot be reused. If you delete the user, the policy is also deleted.
-- Managed policy: either created by you (customer managed) or AWS (AWS managed). Standalone: it can be applied to multiple entities.
+- **Inline policy**: a policy that only applies to single, specific user, group or role. It cannot be reused. If you delete the user, the policy is also deleted.
+  - An EC2 instance profile role is an inline identity policy. See AWS in Action p. 149.
+- **Managed policy**: either created by you (customer managed) or AWS (AWS managed). Can be reused (standalone, it can be applied to multiple entities).
 
-Does not have a Principal.
+:::info
+With CloudFormation, it’s easy to maintain inline identity policies; that’s why we use inline identity policies most of the time in this book.
+(AWS in Action p. 147)
+:::
+
+:::danger
+Using managed policies can often conflict with following the least-privilege principal. Managed policies usually set the `Resource` property to `*`. That’s why we attach our own inline policies to IAM roles or users.
+(AWS in Action p. 147)
+:::
+
+Does not have a `Principal`.
 
 Example: Allows access to a specific DynamoDB table ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_dynamodb_specific-table.html))
 
@@ -421,11 +465,11 @@ Attached to a resource like an S3 bucket, a DynamoDB table or a SQS queue. Defin
 
 > Resource-based policies are inline policies. There are no managed resource-based policies. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based)
 
-**It has a `Principal`.**
+**If a policy has a `Principal`, it is a resource policy.**
 
-On the JSON there's a `Principal` who gets permission to perform `Action`s to a specific `Resource` only.
+On the JSON there's a `Principal` which defines who gets permission to perform the `Action` to a specific `Resource` only.
 
-Not all resources support resource-based policies, see the table at https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
+Not all resources support resource-based policies, only a few of them do, see the table at https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
 
 Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-allow-full-access-to-a-bucket-and-all-its-objects)):
 
@@ -438,7 +482,7 @@ Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-
       "Sid": "AllAccess",
       "Action": "s3:*",
       "Effect": "Allow",
-      "Principal": "*",
+      "Principal": "*", // Who is allowed to perform the action
       "Resource": ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"]
     }
   ]
@@ -672,6 +716,16 @@ TLDR: create a group 'Administrators' with the `AdministratorAccess` policy, the
 Don't forget to enable MFA for the admin user. Since you are logged as root now, [follow this steps](#add-mfa-to-other-users).
 :::
 
+### Using the CLI
+
+```shell
+aws iam create-group --group-name Administrators
+aws iam attach-group-policy --group-name Administrators --policy-arn "arn:aws:iam::aws:policy/AdministratorAccess"
+aws iam create-user --user-name MyUser
+aws iam add-user-to-group --group-name Administrators --user-name MyUser
+aws iam create-login-profile --user-name MyUser --password 'XB5j8stK4YVW3b'
+```
+
 ## Password policy
 
 Go to IAM → Account settings and on the Password policy box click the 'Edit' button.
@@ -681,6 +735,8 @@ https://www.netskope.com/blog/a-real-world-look-at-aws-best-practices-password-p
 ## ARN
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html
+
+List of possible resource type ARNs that you can specify as a `Resource` in a resource policy: https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html
 
 Format:
 
@@ -697,16 +753,26 @@ Examples:
 arn:aws:iam::123456789012:user/johndoe
 # VPC
 arn:aws:ec2:us-east-1:123456789012:vpc/vpc-0e9801d129EXAMPLE
+# EC2 instance
+arn:aws:ec2:us-east-1:123456789012:instance/i-0e9801d129f56c97
 ```
 
 ## CLI
 
 https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
 
+### User
+
 [Create user](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-user.html)
 
 ```shell
-aws iam create-user --user-name my-user-name
+aws iam create-user --user-name MyUser
+```
+
+Set a password so that the user can login to the web management console [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-login-profile.html)
+
+```shell
+aws iam create-login-profile --user-name MyUser --password 'XB5j8stK4YVW3b'
 ```
 
 [List users](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/list-users.html)
@@ -714,6 +780,28 @@ aws iam create-user --user-name my-user-name
 ```shell
 aws iam list-users
 ```
+
+### Group
+
+[Create group](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-group.html)
+
+```shell
+aws iam create-group --group-name Administrators
+```
+
+Attach a Policy to a group [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/attach-group-policy.html)
+
+```shell
+aws iam attach-group-policy --group-name Administrators --policy-arn "arn:aws:iam::aws:policy/AdministratorAccess"
+```
+
+Add user to group [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/add-user-to-group.html)
+
+```shell
+aws iam add-user-to-group --group-name Administrators --user-name MyUser
+```
+
+### Role
 
 [Create role](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-role.html)
 
@@ -738,7 +826,7 @@ Example of trust policy document (`trust.json`):
 }
 ```
 
-Attach a Policy to a IAM role [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-role-policy.html)
+Attach a Policy to a role [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-role-policy.html)
 
 ```shell
 aws iam put-role-policy --role-name <role-name> --policy-name <policy-name> --policy-document file://iam-role-policy.json

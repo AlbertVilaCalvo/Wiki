@@ -4,7 +4,7 @@ title: Root User
 
 Has complete access to all AWS services and resources, including billing information. Is the most privileged user, and its permissions cannot be restricted.
 
-Logs in using the email.
+Logs in at the web console using the email. IAM users log in using username and password (in case the user has access to the console, because you can have a user that only has access keys for the CLI).
 
 AWS account root user - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html
 
