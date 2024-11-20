@@ -176,7 +176,7 @@ Once the role is created, you can see the **trust policy** at the role's 'Trust 
 }
 ```
 
-The **permissions policy** (an *inline identity policy*) can be anything. For example, if we've given S3 read access with `AmazonS3ReadOnlyAccess`, it will be:
+The **permissions policy** (an _inline identity policy_) can be anything. For example, if we've given S3 read access with `AmazonS3ReadOnlyAccess`, it will be:
 
 ```json
 {

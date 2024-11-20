@@ -167,13 +167,26 @@ When we connect to the EC2 instance we do so through the internet gateway.
 
 ## Security group (instance firewall)
 
+:::tip
+To debug misconfiguration in firewall rules or monitor network traffic you can:
+
+- Use the [VPC Reachability Analyzer](https://docs.aws.amazon.com/vpc/latest/reachability/getting-started.html) to simulate the traffic and see if the tool finds the configuration problem.
+- Enable [VPC Flow Logs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html) to get access to aggregated log messages containing rejected connections.
+
+:::
+
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html
 
 A virtual firewall that controls incoming and outgoing (inbound and outbound) traffic _at the instance level_ (in contrast with Network ACL, which operate at the subnet level).
 
-Controls which port protocols and IP addresses we can connect from.
+The rules control which direction (inbound or outbound), IP protocols (TCP, UDP, ICMP), port and IP addresses we can connect from/to. We can also specify a security group.
 
-Source 0.0.0.0/0 means any IPv4 address, and ::/0 any IPv6 address.
+By default, a security group:
+
+- Does not allow any inbound traffic. You need to add rules yourself to do so.
+- Contains a rule that allows all outbound traffic. If you want something more restrictive, you need to remove the rule and add other rules.
+
+Source `0.0.0.0/0` means any IPv4 address, and `::/0` any IPv6 address.
 
 ## Metadata
 
@@ -220,6 +233,38 @@ yum update -y
 Limited to 16 kB.
 
 Accessible at the metadata at `http://169.254.169.254/latest/user-data`.
+
+### Run Apache server
+
+```shell
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+```
+
+Once the Apache server is running, there are various ways to customize the HTML:
+
+```shell
+echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Hello!</title></head><body><p>Hello!</p></body></html>' > /var/www/html/index.html
+```
+
+```shell
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+AZ=`curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/availability-zone`
+
+cat > /var/www/html/index.html <<EOF
+<html>
+  <head>
+    <title>Instance Availability Zone</title>
+  </head>
+  <body>
+    <div>This instance is located in Availability Zone: $AZ</div>
+  </body>
+</html>
+EOF
+```
 
 ## Networking
 
@@ -313,7 +358,7 @@ How to Connect to a Private EC2 Instance in a VPC Using a Bastion Host - https:/
 
 How can I connect to a private Amazon RDS instance from local system through EC2 as a bastion host? - https://www.youtube.com/watch?v=ypWzL3PdKx0
 
-### NAT gateways
+### NAT gateway
 
 An AWS service used to allow instances in private subnets to connect to the Internet.
 
@@ -326,7 +371,15 @@ Traffic is **outbound** only. No one outside from the Internet will be able to c
 Example: VPC with servers in private subnets and NAT - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html
 
 :::info Important
-Since a NAT gateway has an Elastic IP, you'll be charged. If you delete the NAT gateway, you need to release the EIP too afterwards.
+Since a NAT gateway has an Elastic IP, you'll be charged. If you delete the NAT gateway, you need to release the EIP too afterwards. You also pay for the data processed by the NAT gateway, and for data transfers. See https://aws.amazon.com/vpc/pricing/
+
+To reduce costs, you can:
+
+- Move the EC2 instances to public subnets and use firewalls to restrict incoming traffic.
+- To access AWS services you can:
+  - For S3 and DynamoDB, use [Gateway Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) at [no additional charge](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html).
+  - For [other services](https://docs.aws.amazon.com/vpc/latest/privatelink/aws-services-privatelink-support.html), use Interface Endpoints with [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) with an [hourly and data processing fee](https://aws.amazon.com/privatelink/pricing/#Interface_Endpoint_pricing).
+
 :::
 
 #### Steps
@@ -358,7 +411,7 @@ To check that the setup is correct do:
 - Connect to the private instance with `ssh`, using its private IPv4 address.
 - Once connected to the private instance, run `ping google.com`. It should receive a response.
 
-### NAT instances
+### NAT instance
 
 _Not used much nowadays since we have NAT gateways._ It was the way to do it in the past, but NAT gateways, since they are managed by AWS, are highly available and they scale automatically.
 
