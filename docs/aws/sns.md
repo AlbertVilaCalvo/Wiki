@@ -8,6 +8,10 @@ _Fully managed Pub/Sub service for A2A and A2P messaging._
 
 > Amazon SNS is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and event-driven serverless applications. Amazon SNS provides topics for high-throughput, push-based, many-to-many messaging.
 
+From https://aws.amazon.com/about-aws/whats-new/2023/10/amazon-sns-in-place-message-archiving-replay-fifo-topics/
+
+> Amazon SNS is a messaging service that supports Application-to-Application (A2A) communication. The A2A functionality provides topics for high-throughput, push-based, many-to-many messaging between distributed systems, microservices, and event-driven serverless applications. Amazon SNS Standard topics provide best-effort ordering and at-least-once-delivery, while Amazon SNS FIFO topics support strict ordering and exactly-once delivery. Both Standard and FIFO topics support message filtering and fanout to multiple subscriptions, with high durability and security.
+
 What is the difference between Amazon SNS and Amazon SQS? - https://stackoverflow.com/questions/13681213/what-is-the-difference-between-amazon-sns-and-amazon-sqs
 
 (Fanout Pattern) SQS Queues and SNS Notifications – Now Best Friends - https://aws.amazon.com/blogs/aws/queues-and-notifications-now-best-friends/

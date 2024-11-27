@@ -8,6 +8,8 @@ Tutorial - Create and Query a NoSQL Table with Amazon DynamoDB - https://aws.ama
 
 Amazon DynamoDB Learning Plan - https://explore.skillbuilder.aws/learn/public/learning_plan/view/1840/amazon-dynamodb-learning-plan
 
+On-demand price reduction - https://aws.amazon.com/about-aws/whats-new/2024/11/amazon-dynamo-db-reduces-prices-on-demand-throughput-global-tables/
+
 ## CLI
 
 ```shell

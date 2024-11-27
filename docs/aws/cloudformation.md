@@ -179,7 +179,10 @@ Resources:
 
 ## CLI
 
-CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
+CLI Reference:
+
+- v2: https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/index.html
+- v1: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
 
 Create stack: `aws cloudformation create-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml`
 
@@ -188,6 +191,28 @@ Update stack: `aws cloudformation update-stack --stack-name myStackName --region
 Describe stack: `aws cloudformation describe-stacks --stack-name myStackName`
 
 Delete stack: `aws cloudformation delete-stack --stack-name myStackName`
+
+### Deploy Lambda function with SAM
+
+From AWS in Action p. 198. Source code: https://github.com/AWSinAction/code3/tree/main/chapter06
+
+The Serverless Application Model (SAM) enables you to deploy a Lambda function in an automated way with AWS CloudFormation.
+
+On the terminal, navigate to the folder with a CloudFormation template named `template.yaml` and a Lambda function `lambda_function.py`.
+
+We need to create a S3 bucket first (`$ aws s3 mb s3://my-bucket`). Then we create a deployment package and we upload it to S3:
+
+```shell
+aws cloudformation package --template-file template.yaml \
+  --s3-bucket my-bucket --output-template-file output.yaml
+```
+
+Then we deploy the Lambda function:
+
+```shell
+aws cloudformation deploy --stack-name my-stack \
+  --template-file output.yaml --capabilities CAPABILITY_IAM
+```
 
 ## Quick-create links
 

@@ -16,6 +16,10 @@ https://jsonformatter.curiousconcept.com
 
 https://regex101.com
 
+## Get my IP address
+
+https://checkip.amazonaws.com
+
 ## API clients
 
 - https://www.usebruno.com - https://github.com/usebruno/bruno

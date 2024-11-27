@@ -39,3 +39,9 @@ https://frontendmasters.com/courses/go-aws/ - Go, AWS Lambda, DynamoDB, and API 
 https://cloudcasts.io/course/serverless-with-lambda
 
 SST guide - https://guide.sst.dev
+
+https://medium.com/@jvroig/the-problem-with-serverless-from-a-serverless-addict-172b627a85d4
+
+Why Serverless Is Inherently More Secure Than Containers - https://medium.com/@jvroig/why-serverless-is-inherently-more-secure-than-containers-6664ccceab0c
+
+> In a native serverless workload you don’t even have to bother with a VPC. No VPC means no related NACLs and security groups to configure and maintain.

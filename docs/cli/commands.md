@@ -10,6 +10,8 @@ The Art of Command Line: https://github.com/jlevy/the-art-of-command-line
 
 Shell One-liners: https://github.com/trimstray/the-book-of-secret-knowledge#shell-one-liners-toc
 
+Introduction to the Command Line - https://shop.fsf.org/books-docs/introduction-command-line (can be downloaded as PDF)
+
 Oh-heck, a terminal command for when you forget other terminal commands - https://news.ycombinator.com/item?id=30720834 - https://oh-heck.dev
 
 Advanced macOS Command-Line Tools: https://saurabhs.org/advanced-macos-commands
@@ -242,6 +244,17 @@ Swap:          2047           0        2047
 ```
 
 See [What is available memory while using free command?](https://askubuntu.com/questions/867068/what-is-available-memory-while-using-free-command), [What is available and free memory in response of free command on Linux?](https://stackoverflow.com/questions/41426656/what-is-available-and-free-memory-in-response-of-free-command-on-linux) and https://www.linuxatemyram.com.
+
+## at
+
+To schedule tasks in the future.
+
+```shell
+echo "command_to_be_run" | at 09:00
+echo "command_to_be_run" | at now + 10 minutes
+```
+
+Example: terminate EC2 instance at N minutes: https://github.com/AWSinAction/code3/blob/e8131b2a740d22cd5d487aa30d242336421c496e/chapter05/ec2-iam-role.yaml#L111
 
 ## sed
 
