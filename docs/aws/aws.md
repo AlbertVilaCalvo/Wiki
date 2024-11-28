@@ -110,6 +110,7 @@ With the root user.
 - Create the first IAM admin user [link](/aws/iam#create-the-first-iam-admin-user)
   - Once the admin is created, enable MFA for it using the root account [link](/aws/iam#add-mfa-to-other-users)
 - Enforce MFA to users [link](/aws/iam#enforce-mfa-to-users)
+- At the S3 dashboard, at the "Block Public Access settings for this account" page, enable "Block _all_ public access" to disable public access for _all_ S3 buckets in the account [link](/aws/s3#block-all-public-access-for-all-buckets-in-the-account)
 
 ## Multiple accounts
 

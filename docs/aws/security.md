@@ -32,3 +32,7 @@ From https://www.linkedin.com/posts/andreaswittig_amazonwebservices-awscommunity
 > - [Inspector.4] Amazon Inspector Lambda standard scanning should be enabled
 >
 > Most of these features are not worth the money, in my opinion.
+
+## Trusted Advisor
+
+Can be used to check if any S3 bucket in the account has "Block Public Access Enabled", see https://cloudonaut.io/s3-security-best-practice/#Rule-4-Monitor-Trusted-Advisor-findings
