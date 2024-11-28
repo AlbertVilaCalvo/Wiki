@@ -1018,6 +1018,8 @@ Terraforming with TypeScript - https://radar.com/blog/terraforming-with-typescri
 
 ## VS CloudFormation
 
+https://cloudonaut.io/cloudformation-vs-terraform
+
 https://developer.hashicorp.com/terraform/intro/vs/cloudformation
 
 We can use multiple providers together. This is an advantage of Terraform over other tools like CloudFormation, since we can define (for example) AWS resources using the hashicorp/aws provider and then deploy third party tools and software onto it using other providers from Red Hat or Palo Alto Networks. In addition, we can combine AWS services with other services running outside AWS like CloudFlare or Datadog in the same code.

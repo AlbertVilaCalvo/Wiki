@@ -154,6 +154,10 @@ From https://aws.amazon.com/vpc/faqs/
 
 A NAT gateway has a limit in bandwidth (100 Gbps) and number of packets it can process (10 million packets per second). You can split your resources into multiple subnets and create a NAT gateway in each subnet. [source](https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-basics.html)
 
+See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid/#NAT-Gateway-or-Public-Subnet
+
+> You need to create a NAT Gateway for every Availability Zone that you have created private subnets to achieve high availability.
+
 ## Network ACL (subnet firewall)
 
 Operates at the subnet level, whereas a security group operates at the EC2 instance level.

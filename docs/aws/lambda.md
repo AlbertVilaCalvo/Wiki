@@ -4,7 +4,9 @@ title: Lambda
 
 https://aws.amazon.com/lambda
 
-Quotas - https://docs.aws.amazon.com/general/latest/gr/lambda-service.html
+Quotas (limits) - https://docs.aws.amazon.com/general/latest/gr/lambda-service.html - https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+
+> The most important limitation of a Lambda function is the maximum duration of 900 seconds per invocation. (AWS in Action p. 203)
 
 https://github.com/awslabs/aws-lambda-powertools-typescript
 
@@ -21,3 +23,11 @@ Build a serverless retail solution for endless aisle on AWS - https://aws.amazon
 Lambda is a regional service.
 
 Issues to Avoid When Implementing Serverless Architecture with AWS Lambda - https://aws.amazon.com/blogs/architecture/mistakes-to-avoid-when-implementing-serverless-architecture-with-lambda/ - From https://aws.amazon.com/blogs/architecture/top-10-architecture-blog-posts-of-2021/
+
+:::info
+The Arm architecture based on AWS Graviton is the cheaper option. See https://aws.amazon.com/blogs/apn/comparing-aws-lambda-arm-vs-x86-performance-cost-and-analysis-2/ and https://aws.amazon.com/lambda/pricing/
+:::
+
+## Access to VPC resources
+
+Giving Lambda functions access to resources in an Amazon VPC - https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html

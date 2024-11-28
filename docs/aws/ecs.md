@@ -10,6 +10,8 @@ Cheatseet - https://digitalcloud.training/amazon-ecs-and-eks/
 
 https://aws.github.io/copilot-cli
 
+ECS vs. Fargate: What's the difference? - https://cloudonaut.io/ecs-vs-fargate-whats-the-difference/
+
 ## Launch types
 
 Runs in EC2 and Fargate.

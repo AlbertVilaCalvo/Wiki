@@ -380,6 +380,12 @@ To reduce costs, you can:
   - For S3 and DynamoDB, use [Gateway Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) at [no additional charge](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html).
   - For [other services](https://docs.aws.amazon.com/vpc/latest/privatelink/aws-services-privatelink-support.html), use Interface Endpoints with [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) with an [hourly and data processing fee](https://aws.amazon.com/privatelink/pricing/#Interface_Endpoint_pricing).
 
+See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid/#NAT-Gateway-or-Public-Subnet for a discussion of pros and cons.
+
+> If keeping costs to a minimum is essential, the baseline costs of $32.00 per month per NAT Gateway could be a show stopper. When using three AZs, you will pay $96.00 per month for three NAT Gateways.
+>
+> The NAT Gateway also increases costs for outbound traffic. You have to pay a premium of $0.045 per GB flowing from a private subnet to the Internet. That’s raising the costs for outgoing traffic by 50%.
+
 :::
 
 #### Steps

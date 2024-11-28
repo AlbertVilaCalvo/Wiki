@@ -20,6 +20,8 @@ Preguntas típicas sobre React para entrevistas de trabajo - https://github.com/
 
 TODO read: https://vercel.com/blog/whats-new-in-react-19
 
+Scan for React performance issues and eliminate slow renders in your app - https://github.com/aidenybai/react-scan - https://react-scan.million.dev/
+
 ## Lifecycle
 
 https://twitter.com/dan_abramov/status/981712092611989509
