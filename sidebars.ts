@@ -109,6 +109,7 @@ const sidebars: SidebarsConfig = {
     'aws/codebuild',
     'aws/well-architected-framework',
     'aws/serverless',
+    'aws/eventbridge',
     'aws/sns',
     'aws/sqs',
     // https://docusaurus.io/docs/sidebar/items#category-shorthand
