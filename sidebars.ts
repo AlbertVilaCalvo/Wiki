@@ -70,6 +70,8 @@ const sidebars: SidebarsConfig = {
     'cloud/terraform-aws',
     'cloud/heroku',
     'cloud/github-actions',
+    'cloud/backend',
+    'cloud/microservices',
     'cloud/system-design',
     'cloud/service-discovery',
     'cloud/observability',

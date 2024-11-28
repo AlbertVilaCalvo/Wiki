@@ -40,6 +40,8 @@ https://cloudcasts.io/course/serverless-with-lambda
 
 SST guide - https://guide.sst.dev
 
+Mastering Event-Driven Microservices in AWS: Design, Develop, and Deploy Scalable, Resilient, and Reactive Architectures with AWS Serverless Services - https://www.amazon.com/Mastering-Event-Driven-Microservices-AWS-Architectures-ebook/dp/B0DF81G5WP
+
 https://medium.com/@jvroig/the-problem-with-serverless-from-a-serverless-addict-172b627a85d4
 
 Why Serverless Is Inherently More Secure Than Containers - https://medium.com/@jvroig/why-serverless-is-inherently-more-secure-than-containers-6664ccceab0c
