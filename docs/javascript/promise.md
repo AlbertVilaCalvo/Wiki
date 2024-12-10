@@ -8,6 +8,8 @@ https://devdocs.io/javascript-promise/
 
 The gotcha of unhandled promise rejections - https://jakearchibald.com/2023/unhandled-rejections
 
+https://www.raymondcamden.com/2024/02/12/looking-at-the-javascript-promise-collection-methods
+
 Practical Guide To Not Blocking The Event Loop - https://www.bbss.dev/posts/eventloop/
 
 ```js
@@ -58,6 +60,8 @@ Promise.allSettled([
   console.log('posts result', postsResult) // {status: "rejected",  reason: Error: some error happened}
 })
 ```
+
+To control the concurrency and also decide whether or not to stop iterating when there's an error see https://github.com/sindresorhus/p-map. Taken from [Mapping Over Promises in JavaScript](https://www.telerik.com/blogs/mapping-promises-javascript).
 
 How to implement `Promise.all()`, `Promise.allSettled()` etc: https://javascript.plainenglish.io/i-lost-a-job-opportunity-just-because-of-promise-all-be396f6efe87
 

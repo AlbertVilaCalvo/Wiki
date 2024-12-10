@@ -49,6 +49,30 @@ fi
 
 https://stackoverflow.com/questions/39296472/how-to-check-if-an-environment-variable-exists-and-get-its-value
 
+## Wait for some condition
+
+https://linuxsimply.com/bash-scripting-tutorial/loop/until-loop/
+
+Wait until a file exists([source](https://superuser.com/questions/878640/unix-script-wait-until-a-file-exists)):
+
+```shell
+until [ -f /tmp/examplefile.txt ]
+do
+  sleep 5
+done
+echo "File found"
+exit
+```
+
+Wait for EFS mount target in EC2 ([source](https://github.com/AWSinAction/code3/blob/e8131b2a740d22cd5d487aa30d242336421c496e/chapter09/efs.yaml#L289-L290)):
+
+```shell
+while ! (echo > /dev/tcp/${FileSystem}.efs.${AWS::Region}.amazonaws.com/2049) >/dev/null 2>&1
+do
+  sleep 5
+done
+```
+
 ## Arguments
 
 - `$@` stores all the arguments in a list of string

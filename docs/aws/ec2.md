@@ -153,6 +153,10 @@ When launching an EC2 instance using the console do:
 - At "Network settings", choose "Create security group" and uncheck "Allow SSH traffic fom".
 - At "Advanced details" → "IAM instance profile", choose a role that has the permission policy `AmazonSSMManagedInstanceCore`. (You need the trust policy `sts:AssumeRole` as well, [see this](/aws/iam#ec2-instance-profile).)
 
+:::info
+The default user on Amazon Linux 2 is the `ec2-user`. But when using the Session Manager via the AWS Management Console, you are logged in with another user named `ssm-user`. (Doing `whoami` prints `ssm-user`.)
+:::
+
 ### RDP (Windows)
 
 [Remote Desktop Protocol](https://en.wikipedia.org/wiki/Remote_Desktop_Protocol). To connect to Windows machines. There are clients for many OS. You access the desktop using a graphical interface.

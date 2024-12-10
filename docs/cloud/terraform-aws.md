@@ -6,6 +6,8 @@ https://registry.terraform.io/providers/hashicorp/aws
 
 Docs: https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
+Terraform providers forum - https://discuss.hashicorp.com/c/terraform-providers/31
+
 https://aws.amazon.com/solutions/partners/terraform-modules/
 
 Are you missing an AWS resource in Terraform? Try awscc provider! - https://cloudonaut.io/are-you-missing-an-aws-resource-in-terraform-try-awscc-provider

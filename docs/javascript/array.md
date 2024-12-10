@@ -85,6 +85,17 @@ if (index !== -1) {
 }
 ```
 
+## Replace an item with `with`
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/with
+
+Does not mutate, it returns a new array.
+
+```js
+const a = ['a', 'b', 'c']
+a.with(1, 'x') // [ "a", "x", "c" ]
+```
+
 ## at()
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at)

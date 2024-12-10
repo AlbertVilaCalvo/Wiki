@@ -71,6 +71,8 @@ null !== undefined // true
 
 Spec: https://console.spec.whatwg.org/
 
+https://developer.mozilla.org/en-US/blog/learn-javascript-console-methods/
+
 Use %i (integer), %f (float), %s (string) for type conversions: https://twitter.com/addyosmani/status/1535706659128868864
 
 - Use console.log() like a pro: [Hacker News](https://news.ycombinator.com/item?id=26779800) - [Article](https://markodenic.com/use-console-log-like-a-pro/)

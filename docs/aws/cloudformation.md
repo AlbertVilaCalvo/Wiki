@@ -188,7 +188,11 @@ Create stack: `aws cloudformation create-stack --stack-name myStackName --region
 
 Update stack: `aws cloudformation update-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml`
 
+`aws cloudformation update-stack --stack-name myStackName --template-url https://s3.amazonaws.com/bucket/folder/template.yaml --capabilities CAPABILITY_IAM`
+
 Describe stack: `aws cloudformation describe-stacks --stack-name myStackName`
+
+Get stack outputs: `aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs"`
 
 Delete stack: `aws cloudformation delete-stack --stack-name myStackName`
 

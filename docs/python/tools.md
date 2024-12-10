@@ -87,9 +87,11 @@ Managing Application Dependencies (Python Packaging User Guide): https://packagi
 
 [github.com/pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
 
-[github.com/astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter, written in Rust
+[github.com/astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust
 
-### Search pacakges
+https://docs.astral.sh/uv - [github.com/astral-sh/uv](https://github.com/astral-sh/uv) - An extremely fast Python package and project manager, written in Rust
+
+### Search packages
 
 [pypi.org](https://pypi.org)
 
