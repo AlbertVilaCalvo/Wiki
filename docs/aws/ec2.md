@@ -462,12 +462,60 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
 
 [Terminated](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html)
 
-- Root EBS volumes are deleted by default.
+- Root EBS volumes are deleted by default (`DeleteOnTermination` is true for the root volume, but is false for any other EBS volume attached).
 
 [Recovered](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html)
 
 - Automatic recovery be configured or you can do so using a CloudWatch alarm.
 - The recovered instance is identical to the original instance.
+
+## EBS
+
+https://docs.aws.amazon.com/ebs/
+
+**Block** storage: requires an EC2 instance, since the OS is needed to create filesystems and partitions, reading and writing using system calls etc.
+
+For **legacy applications** that read/write files from/to a filesystem, like relational databases. Is standalone/independent: can exist without an EC2 instance, but you need an EC2 instance to access it. It's accessed over the network. It replicates data among multiple disks automatically to increase durability and availability.
+
+An EC2 instance has a root EBS volume (`/dev/xvda`) that contains the OS. By default, the root volume is deleted when you terminate the EC2 instance (since the attribute [`DeleteOnTermination`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ebs.html#cfn-ec2-instance-ebs-deleteontermination) is true for it), but any other volumes attached are not (`DeleteOnTermination` is false).
+
+Generally, an EBS volume is attached to exactly one EC2 instance. It's possible to attach EBS volumes to multiple EC2 instances with [Multi-Attach](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html), but with some limitations.
+
+Use `lsblk` to list the attached volumes. To use the volume, you need to create a filesystem first. For example, to create a filesystem of type XFS run `sudo mkfs -t xfs /dev/nvme1n1`. Then create a folder on which to mount the device with `sudo mkdir /data`. Afterwards, mount the device with `sudo mount /dev/nvme1n1 /data`. Once the device is mounted, use `df -h` to see it. Doing `lsblk` will now show `/data` at the `MOUNTPOINT` column. The volume is ready; we can now create files at the `/data` directory (eg `sudo touch /data/hello.txt`).
+
+Some EC2 instance types are EBS-optimized, others optionally support EBS optimization, an some do not support EBS optimization; see [Amazon EBS-optimized instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html) and [Amazon EBS optimization](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-optimization.html).
+
+You can back up EBS volumes with [EBS snapshots](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html). Snapshots are incremental. To create a snapshot with the CLI use [`create-snapshot`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-snapshot.html): `aws ec2 create-snapshot --volume-id <volume-id>`.
+
+## Instance Store
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html
+
+HDD or SSD physically attached to the machine that hosts the VM, which results in very high performance. Unlike EBS volumes, instances store volumes can't exist without an EC2 instance.
+
+Since instance stores are not independent of EC2 instances, data is lost when you stop or terminate the VM, or when there's a hardware failure, which means that should not be used for data that must not be lost. Use it for ephemeral/temporary data, for example, caching data locally from a remote data source, or for NoSQL databases that use a cluster of machines to replicate data. Unlike EBS volumes, there's no built-in backup mechanism for instance store. If you need to back up the data, use EBS instead.
+
+Not all instance types support instance store volumes.
+
+## EFS
+
+A filesystem that can be shared between multiple Linux virtual machines in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front.
+
+You need to create a mount target on a subnet, and the EC2 instance where you mount the filesystem must be in the same subnet as the EFS mount target. You can create mount targets in multiple subnets. Each mount target is bound to an availability zone. You need at least two mount targets in different availability zones for high availability. Mount targets are protected by security groups.
+
+## EBS vs Instance Store vs EFS
+
+|             | EBS                                         | Instance Store                           | EFS                                               |
+| ----------- | ------------------------------------------- | ---------------------------------------- | ------------------------------------------------- |
+| Type        | Block                                       | Block                                    | File                                              |
+| Attachment  | Accessed over the network                   | Physically attached → High performance   | Accessed over the network                         |
+| Shared      | Single instance (but can do multi-attach)   | Single instance                          | Multiple instances                                |
+| Data Center | Single AZ → 99.9% uptime                    | Single AZ                                | Multiple AZ → 99.99% uptime, high availability    |
+| Persistence | Persistent, since it's independent of VMs   | Ephemeral, for temporal data like caches | Persistent (11 9s of durability)                  |
+| Backup      | EBS snapshots and [AWS Backup][backup]      | No built-in backup mechanism             | [AWS Backup][backup]                              |
+| Pricing     | Pay for provisioned storage, even if unused |                                          | Grows as needed, don't have to provision up front |
+
+[backup]: https://aws.amazon.com/backup/
 
 ## Pricing
 
