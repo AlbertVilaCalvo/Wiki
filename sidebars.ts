@@ -22,6 +22,7 @@ const sidebars: SidebarsConfig = {
   ],
   dev: [
     'dev/tools-and-resources',
+    'dev/github-copilot',
     'dev/testing',
     'dev/node',
     'dev/express',
