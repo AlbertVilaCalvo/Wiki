@@ -19,6 +19,7 @@ https://www.redhat.com/en/topics/cloud-computing/public-cloud-vs-private-cloud-a
 TODO
 
 - IaaS
+  - EC2
 - PaaS
 - SaaS
 

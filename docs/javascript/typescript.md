@@ -12,6 +12,8 @@ To make compilation faster, enable incremental compilation with `"incremental": 
 
 :::
 
+**Do's and Don'ts** - https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html
+
 ## CLI
 
 Setup: https://www.typescriptlang.org/download

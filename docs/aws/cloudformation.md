@@ -186,13 +186,19 @@ CLI Reference:
 
 Create stack: `aws cloudformation create-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml`
 
+To check if the stack creation has completed, run `aws cloudformation describe-stacks --stack-name myStackName` and check if `StackStatus` is `CREATE_COMPLETE`.
+
 Update stack: `aws cloudformation update-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml`
 
 `aws cloudformation update-stack --stack-name myStackName --template-url https://s3.amazonaws.com/bucket/folder/template.yaml --capabilities CAPABILITY_IAM`
 
 Describe stack: `aws cloudformation describe-stacks --stack-name myStackName`
 
-Get stack outputs: `aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs"`
+Get stack outputs:
+
+`aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs"`
+
+`aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs[0].OutputValue" --output text`
 
 Delete stack: `aws cloudformation delete-stack --stack-name myStackName`
 

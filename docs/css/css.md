@@ -8,7 +8,7 @@ https://stateofcss.com
 
 https://news.ycombinator.com/item?id=30512512 - https://lexoral.com/blog/you-dont-need-js/
 
-https://maintainablecss.com/
+https://maintainablecss.com
 
 58 bytes of CSS to look great nearly everywhere - https://gist.github.com/JoeyBurzynski/617fb6201335779f8424ad9528b72c41
 
@@ -19,6 +19,8 @@ https://moderncss.dev/12-modern-css-one-line-upgrades
 https://moderncss.dev/contextual-spacing-for-intrinsic-web-design
 
 https://cssguidelin.es - High-level advice and guidelines for writing sane, manageable, scalable CSS
+
+https://stylelint.io - https://github.com/stylelint/stylelint
 
 ## Cascade
 

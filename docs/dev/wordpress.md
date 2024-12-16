@@ -20,6 +20,8 @@ Automattic acquires Frontity - https://thenewstack.io/frontity-and-the-future-of
 
 https://github.com/house-of-giants/hog-scaffold - from https://dev.to/magnificode/why-everyone-hates-wordpress-1ljd
 
+https://deliciousbrains.com - Creators of [Advanced Custom Fields](https://advancedcustomfields.com/), WP Migrate, WP Offload Media and WP Offload SES
+
 ## Security
 
 Scanner: https://pentest-tools.com/cms-vulnerability-scanning/wordpress-scanner-online-wpscan

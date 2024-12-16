@@ -99,8 +99,16 @@ See more possibilities at:
 
 ## Run multiple times
 
-From https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#scale-instances:
+```shell
+for i in `seq 1 5`; do curl https://www.google.com; echo; done
+```
+
+From https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#scale-instances.
+
+## Download a bash script and execute it
 
 ```shell
-for i in `seq 1 5`; do curl https://www.google.com; echo;  done
+curl -s https://raw.githubusercontent.com/AWSinAction/code3/main/chapter10/cleanup.sh | bash -ex
 ```
+
+From AWS in Action, page 279.
