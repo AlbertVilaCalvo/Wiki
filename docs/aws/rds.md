@@ -22,11 +22,15 @@ Access control to RDS configuration with IAM policies attached to users, groups 
 
 See examples here: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/security_iam_id-based-policy-examples.html
 
+List of available actions: https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonrds.html
+
 ### Network access to the database instance
 
-Network access to the database instance with Security Groups (at the database instances) and Network ACLs (at the subnets).
+_All here applies to ElastiCache as well._
 
-Public access from the internet should not be allowed. RDS instances should only be accessible from within the VPC. Only machines that need to connect to the database should have network access to the database. For example, only backend EC2 instances should have network access to database instances, on port 3306 (MySQL) or 5432 (PostgreSQL). To do so, you can attach to the database a security group that only allows access from the backend instances' security group.
+Control network access to the database instance with Security Groups (at the database instances) and Network ACLs (at the subnets).
+
+Public access from the internet should not be allowed. RDS instances should only be accessible from within the VPC. Only machines that need to connect to the database should have network access to the database. For example, only backend EC2 instances should have network access to database instances. To do so, create two security groups (one for the clients and another for the RDS instance) and configure the RDS security group to only allow access from the backend instances' security group, on port 3306 (MySQL) or 5432 (PostgreSQL).
 
 ### Database access
 
@@ -147,8 +151,8 @@ https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-metrics.html
 
 Should watch the following metrics:
 
-- FreeStorageSpace (Bytes)
-- CPUUtilization (%)
-- FreeableMemory (Bytes)
-- DiskQueueDepth (Count)
-- SwapUsage (Bytes)
+- `FreeStorageSpace` (Bytes)
+- `CPUUtilization` (%)
+- `FreeableMemory` (Bytes)
+- `DiskQueueDepth` (Count)
+- `SwapUsage` (Bytes)

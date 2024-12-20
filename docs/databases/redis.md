@@ -2,11 +2,15 @@
 title: Redis
 ---
 
+Port: 6379
+
 Commands: https://redis.io/commands
 
 Docs: https://redis.io/docs
 
 GitHub: https://github.com/redis
+
+https://db-engines.com/en/system/Redis
 
 https://upstash.com - Serverless data for Redis and Kafka
 
@@ -15,6 +19,8 @@ Command cheatsheet: https://github.com/LeCoupa/awesome-cheatsheets/blob/master/d
 https://university.redis.com
 
 GUI: https://getmedis.com
+
+Build your own Redis - https://app.codecrafters.io/courses/redis/overview
 
 ## Usages/patterns
 
@@ -50,6 +56,8 @@ Redis patterns example by building a Twitter clone: authentication with a cookie
 Use Redis for client-side caching: https://redis.io/docs/manual/client-side-caching
 
 ## VS memcached
+
+From https://www.linkedin.com/feed/update/urn:li:activity:7032024069294149632?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7032024069294149632%2C7032158702639976449%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287032158702639976449%2Curn%3Ali%3Aactivity%3A7032024069294149632%29
 
 > Redis may be one of the most overrated system in modern software architecture.
 > Its usefulness may more limited than many people think.
@@ -125,3 +133,11 @@ Delete a key: [`DEL key1 key2 ...`](https://redis.io/commands/del/).
 https://redis.io/docs/manual/patterns/twitter-clone/
 
 > Hashes are the ideal data structure to represent objects. For example we use Hashes in order to represent Users and Updates in our Twitter clone.
+
+## Optimization
+
+https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/
+
+From [Using hashes to abstract a very memory-efficient plain key-value store on top of Redis](https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/memory-optimization/#using-hashes-to-abstract-a-very-memory-efficient-plain-key-value-store-on-top-of-redis)
+
+> A few keys use a lot more memory than a single key containing a hash with a few fields

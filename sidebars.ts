@@ -106,6 +106,7 @@ const sidebars: SidebarsConfig = {
     'aws/route53',
     'aws/rds',
     'aws/aurora',
+    'aws/elasticache',
     'aws/cloudformation',
     'aws/cloud-development-kit',
     'aws/codepipeline',
