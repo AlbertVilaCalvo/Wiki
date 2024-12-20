@@ -14,6 +14,8 @@ Kaskade – A text user interface for Kafka - https://github.com/sauljabin/kaska
 
 Best practices for cost-efficient Kafka clusters - https://stackoverflow.blog/2024/09/04/best-practices-for-cost-efficient-kafka-clusters
 
+Build your own Kafka - https://app.codecrafters.io/courses/kafka/overview
+
 ## Learn
 
 https://courses.datacumulus.com

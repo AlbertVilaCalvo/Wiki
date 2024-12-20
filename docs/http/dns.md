@@ -16,6 +16,8 @@ https://github.com/mr-karan/doggo - https://doggo.mrkaran.dev/docs/ - https://ne
 
 (unmaintained) https://github.com/ogham/dog - https://dns.lookup.dog/
 
+Build your own DNS server - https://app.codecrafters.io/courses/dns-server/overview
+
 ## dig
 
 https://en.wikipedia.org/wiki/Dig_(command)

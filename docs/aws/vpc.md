@@ -28,9 +28,11 @@ Is a regional service (a VPC cannot span multiple regions), but you can have mul
 
 A VPC has a router, which we configure through its [route tables](https://docs.aws.amazon.com/vpc/latest/userguide/RouteTables.html).
 
-To connect to the public Internet we use an Internet Gateway. There's only 1 per VPC.
+A VPC has subnets. Each subnet resides in a single Availability Zone. Subnets allow you separate concerns inside the VPC and achieve high availability.
 
 The VPC CIDR address block is the full range of IP address allocated. Each subnet takes a portion of them.
+
+To connect to the public Internet we use an Internet Gateway. There's only 1 per VPC.
 
 ## CIDR block
 
@@ -59,6 +61,8 @@ https://formulae.brew.sh/formula/ipcalc
 https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html
 
 A range of IP addresses, which is a segment/portion of the overall VPC CIDR address range.
+
+> A subnet is **a way to separate concerns** inside the VPC. (AWS in Action p. 303)
 
 Must reside in a single Availability Zone. You can have multiple subnets in the same Availability Zone.
 

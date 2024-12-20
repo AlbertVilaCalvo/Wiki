@@ -4,6 +4,8 @@ title: Databases
 
 https://github.com/topics/database
 
+https://db-engines.com/en/ - See the [DB-Engines Ranking](https://db-engines.com/en/ranking)
+
 dbfiddle: https://dbfiddle.uk - See how it works here: https://stackoverflow.com/a/60091176/4034572
 
 Automatic SQL injection and database takeover tool - https://github.com/sqlmapproject/sqlmap
@@ -16,6 +18,12 @@ Reddit’s database has two tables
 
 - https://news.ycombinator.com/item?id=4468265
 - https://news.ycombinator.com/item?id=32407873
+
+| Database   | Default port |
+| ---------- | ------------ |
+| PostgreSQL | 5432         |
+| MySQL      | 3306         |
+| Redis      | 6379         |
 
 ## Admins
 
@@ -80,6 +88,14 @@ From https://news.ycombinator.com/item?id=32414172
 https://en.wikipedia.org/wiki/ACID
 
 ## Database types
+
+- Relational: https://db-engines.com/en/ranking/relational+dbms
+- Key-value: https://db-engines.com/en/ranking/key-value+store
+- Document: https://db-engines.com/en/ranking/document+store
+- Time Series: https://db-engines.com/en/ranking/time+series+dbms
+- Graph: https://db-engines.com/en/ranking/graph+dbms
+- Vector: https://db-engines.com/en/ranking/vector+dbms
+- Column: https://db-engines.com/en/ranking/wide+column+store
 
 AWS database services comparison - https://docs.aws.amazon.com/whitepapers/latest/aws-overview/database.html#compare-database-services
 
