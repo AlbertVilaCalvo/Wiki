@@ -196,3 +196,63 @@ Where to put your server, in a private or public subnet? - https://medium.com/re
 EC2 instances should not have a public IP address | AWS Foundational Security Best Practices - https://stackoverflow.com/questions/67178299/ec2-instances-should-not-have-a-public-ip-address-aws-foundational-security-be
 
 [hola](#place-your-servers-in-private-subnets-and-load-balancers-in-public-subnets)
+
+## Gateway and interface endpoints
+
+For S3 and DynamoDB, use [Gateway Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) at [no additional charge](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html).
+For [other services](https://docs.aws.amazon.com/vpc/latest/privatelink/aws-services-privatelink-support.html), use Interface Endpoints with [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) with an hourly and data [processing fee](https://aws.amazon.com/privatelink/pricing/#Interface_Endpoint_pricing).
+
+Comparison ([source](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/privatelink-interface-endpoints.html#types-of-vpc-endpoints-for-ddb)):
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        <p>Gateway endpoints for DynamoDB</p>
+      </th>
+      <th>
+        <p>Interface endpoints for DynamoDB</p>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2">
+        <p>In both cases, your network traffic remains on the AWS network.</p>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <p>Use Amazon DynamoDB public IP addresses</p>
+      </td>
+      <td>
+        <p>Use private IP addresses from your Amazon VPC to access Amazon DynamoDB</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Do not allow access from on premises</p>
+      </td>
+      <td>
+        <p>Allow access from on premises</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Do not allow access from another AWS Region</p>
+      </td>
+      <td>
+        <p>Allow access from an Amazon VPC endpoint in another AWS Region by using Amazon VPC
+          peering or AWS Transit Gateway</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Not billed</p>
+      </td>
+      <td>
+        <p>Billed</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
