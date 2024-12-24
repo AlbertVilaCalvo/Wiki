@@ -382,7 +382,7 @@ To reduce costs, you can:
 - Move the EC2 instances to public subnets and use firewalls to restrict incoming traffic.
 - To access AWS services you can:
   - For S3 and DynamoDB, use [Gateway Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) at [no additional charge](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html).
-  - For [other services](https://docs.aws.amazon.com/vpc/latest/privatelink/aws-services-privatelink-support.html), use Interface Endpoints with [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) with an [hourly and data processing fee](https://aws.amazon.com/privatelink/pricing/#Interface_Endpoint_pricing).
+  - For [other services](https://docs.aws.amazon.com/vpc/latest/privatelink/aws-services-privatelink-support.html), use Interface Endpoints with [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) with an hourly and data [processing fee](https://aws.amazon.com/privatelink/pricing/#Interface_Endpoint_pricing).
 
 See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid/#NAT-Gateway-or-Public-Subnet for a discussion of pros and cons.
 
