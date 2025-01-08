@@ -74,6 +74,16 @@ Provisioning tools can also do some configuration. For example, you can run user
 - Nomad
 - Heat (OpenStack)
 
+## High availability, fault tolerance and disaster recovery
+
+- High availability ($): a system with minimal (but not zero) downtime. For example, availability of 99.99%. It can recover from failure automatically with some downtime.
+- Fault tolerance ($$): a system that can continue to operate without interruption in case of failure.
+- Disaster recovery: recover from major failures like data centers or region disasters.
+
+https://www.freecodecamp.org/news/high-availability-fault-tolerance-and-disaster-recovery-explained/
+
+https://www.geeksforgeeks.org/high-availability-vs-fault-tolerance-vs-disaster-recovery/
+
 ## Diagrams
 
 Mermaid architecture diagrams - https://mermaid.js.org/syntax/architecture

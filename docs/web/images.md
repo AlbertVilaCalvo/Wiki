@@ -2,7 +2,7 @@
 title: Images
 ---
 
-https://squoosh.app
+https://squoosh.app - To batch compress images use https://squish.addy.ie ([see announcement](https://x.com/addyosmani/status/1871282664042541337))
 
 https://screensiz.es
 

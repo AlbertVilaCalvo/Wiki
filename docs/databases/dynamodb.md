@@ -116,3 +116,5 @@ aws dynamodb put-item --table-name Users --item '{"Name": {"S": "Albert Einstein
 ## Single table design
 
 https://www.reddit.com/r/aws/comments/xq1p6s/comment/iq7m7g4/
+
+When does single table design not make sense? - https://www.reddit.com/r/aws/comments/1hsohbz/dynamodb_when_does_single_table_design_not_make/

@@ -54,6 +54,17 @@ Routes the requests to the targets (eg EC2 instances) and does health checks.
 
 https://stackoverflow.com/questions/48529074/how-is-target-groups-different-from-auto-scaling-groups-in-aws
 
+## Health check types
+
+- EC2: uses the VM hypervisor and network.
+- ELB: check if the app works too.
+
+https://stackoverflow.com/questions/42466157/whats-the-difference-between-elb-health-check-and-ec2-health-check
+
+https://tutorialsdojo.com/ec2-instance-health-check-vs-elb-health-check-vs-auto-scaling-and-custom-health-check/
+
+https://digitalcloud.training/aws-health-checks-elb-vs-alb-vs-auto-scaling/
+
 ## Elastic Load Balancing
 
 https://aws.amazon.com/elasticloadbalancing

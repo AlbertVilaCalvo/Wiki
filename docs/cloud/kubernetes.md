@@ -231,6 +231,9 @@ TLS certificates management - https://cert-manager.io
 - https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices/
 - https://www.sharelearn.net/practice/k8slabs/
 - https://diveinto.com
+- https://github.com/kelseyhightower/kubernetes-the-hard-way
+  - https://www.pluralsight.com/cloud-guru/courses/kubernetes-the-hard-way
+  - https://napo.io/posts/kubernetes-the-real-hard-way-on-aws/ - https://github.com/hajowieland/cdk-py-k8s-the-real-hard-way-aws
 
 ## Certifications
 

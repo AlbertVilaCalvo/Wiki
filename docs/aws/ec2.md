@@ -651,9 +651,20 @@ Use `--output text` to pass the output to `grep`, `sed` or `awk`.
 :::
 
 ```shell
+aws ec2 describe-instances \
+ --filters "Name=tag:Name,Values=jenkins-multiaz" \
+ "Name=instance-state-code,Values=16" \
+ --query "Reservations[0].Instances[0].[InstanceId, PublicIpAddress, PrivateIpAddress, SubnetId]"
+```
+
+```shell
 aws ec2 describe-images --filters "Name=name,Values=amzn2-ami-hvm-2.0.202*-x86_64-gp2" --query "Images[0].ImageId" --output text
 ```
 
 ```shell
 aws ec2 describe-regions
+```
+
+```shell
+aws ec2 terminate-instances --instance-ids i-001b89bdc08ba65f7
 ```

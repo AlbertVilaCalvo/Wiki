@@ -202,6 +202,8 @@ Get stack outputs:
 
 Delete stack: `aws cloudformation delete-stack --stack-name myStackName`
 
+Wait for stack deletion: `aws cloudformation wait stack-delete-complete --stack-name myStackName`
+
 ### Deploy Lambda function with SAM
 
 From AWS in Action p. 198. Source code: https://github.com/AWSinAction/code3/tree/main/chapter06

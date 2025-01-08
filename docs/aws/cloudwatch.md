@@ -22,6 +22,14 @@ When you go from 0% utilization to 60%, wait time doubles. When you go to 80%, w
 (From AWS in Action p. 319.)
 :::
 
+A CloudWatch alarm consists of the following:
+
+- Metric: CPU usage, health check...
+- Rule: a function that defines a threshold.
+- Actions: what to do when the alarm state changes.
+
+The state can be `OK`, `INSUFFICIENT_DATA` or `ALARM`.
+
 ## Learning resources
 
 (Packt) Infrastructure Monitoring with Amazon CloudWatch - https://www.packtpub.com/product/infrastructure-monitoring-with-amazon-cloudwatch/9781800566057 - https://github.com/PacktPublishing/Infrastructure-Monitoring-with-Amazon-CloudWatch - https://www.youtube.com/playlist?list=PLeLcvrwLe186RQpGRXrruQ-zWFPYrFS5E
