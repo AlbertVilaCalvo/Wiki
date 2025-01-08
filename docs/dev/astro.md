@@ -166,6 +166,29 @@ export const collections = {
 
 The `render` function gives you 3 things: `const { Content, remarkPluginFrontmatter, headings } = await post.render()`
 
+### Content Layer
+
+Stable in Astro 5.0.
+
+Migration guide: https://docs.astro.build/en/guides/upgrade-to/v5/#legacy-v20-content-collections-api (follow the "Step-by-step instructions to update a collection")
+
+> Use a CMS, have some sections of your site powered by a REST API, or use optimized images coming from an asset management system like Cloudinary.
+
+https://astro.build/blog/content-layer-deep-dive/
+
+> Data is only updated when the site is built, so it won’t serve every use case. This means that collections are perfect when your data changes relatively infrequently, such as a blog. If you’re writing a blog that’s hosted in a CMS, you can trigger a build with a webhook whenever you publish a new post.
+
+https://astro.build/blog/astro-5/#content-layer
+
+https://astro.build/blog/astro-5-beta/#stable-content-layer
+
+Loaders:
+
+- Notion, Stripe, Feed (RSS), Airtable and Strapi - https://astro.build/blog/community-loaders/
+- Cloudinary - https://astro.cloudinary.dev/ - https://astro.build/blog/cloudinary-loader
+- Storyblock - https://astro.build/blog/storyblok-loader/
+- Hygraph - https://astro.build/blog/hygraph-loader/
+
 ## Routes
 
 https://docs.astro.build/en/core-concepts/routing/
@@ -376,8 +399,27 @@ https://github.com/withastro/astro/blob/main/packages/astro/CHANGELOG.md
 - 4.11 - 2024/06 - https://astro.build/blog/astro-4110 - https://github.com/withastro/astro/releases/tag/astro%404.11.0
 - 4.12 - 2024/07 - https://astro.build/blog/astro-4120 - https://github.com/withastro/astro/releases/tag/astro%404.12.0
   - Server Islands (experimental)
+- 4.13 - 2024/08 - https://astro.build/blog/astro-4130 - https://github.com/withastro/astro/releases/tag/astro%404.13.0
+- 4.14 - 2024/08 - https://astro.build/blog/astro-4140 - https://github.com/withastro/astro/releases/tag/astro%404.14.0
+- 4.15 - 2024/08 - https://astro.build/blog/astro-4150 - https://github.com/withastro/astro/releases/tag/astro%404.15.0
+  - Stable: [Actions](https://docs.astro.build/en/guides/actions/) (type-safe data fetching)
+- 5.0 - 2024/12 - https://astro.build/blog/astro-5/ - https://github.com/withastro/astro/releases/tag/astro%405.0.0
+  - **Upgrade guide**: https://docs.astro.build/en/guides/upgrade-to/v5/
+  - Beta: https://astro.build/blog/astro-5-beta/
+  - Content Layer stable. Instead of local markdown files, get the content from a CMS, a REST API or an asset management system like Cloudinary.
+  - Server Islands stable. Best of both worlds: fast, CDN-cached static pages, with personalized and dynamic content.
+  - `astro:env` module stable: a type-safe way to define and access environment variables.
+  - The output modes hybrid and static options have been merged into the default static option.
+  - Experimental:
+    - Image cropping
+    - Responsive images (automatically generate the proper `srcset` and `sizes` values)
+    - SVG components
+- 5.1 - 2024/12 - https://astro.build/blog/astro-510/ - https://github.com/withastro/astro/releases/tag/astro%405.1.0
+  - Sessions (experimental). Stores data on the server and sends the session ID as a cookie to the client.
 
 ## Islands architecture
+
+https://docs.astro.build/en/concepts/islands/
 
 From https://jasonformat.com/islands-architectures:
 
@@ -421,7 +463,13 @@ Both allow you to add interactive UI elements. Differences:
 
 https://github.com/withastro/rfcs/discussions/307 - https://www.maxiferreira.com/blog/astro-turbo-persistent-islands/
 
-## Server islands
+### Server islands
+
+https://docs.astro.build/en/guides/server-islands
+
+Stable in 5.0, see https://astro.build/blog/astro-5/#server-islands
+
+> Combine high-performance static HTML and dynamic server-generated components on the same page.
 
 RFC - https://github.com/withastro/roadmap/pull/963a
 
