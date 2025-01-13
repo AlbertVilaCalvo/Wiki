@@ -22,6 +22,11 @@ Building a 3-Tier VPC in AWS - https://github.com/AmirMalaeb/3-Tier-VPC-AWS
 
 ## Main concepts
 
+- A VPC is always bound to a region.
+- A subnet within a VPC is linked to an availability zone.
+- A virtual machine is launched into a single subnet.
+- If we move a virtual machine to a different availability zone, it will be placed in a different subnet and, as a consequence, it will have a different private IP address.
+
 A VPC is a private network on AWS.
 
 Is a regional service (a VPC cannot span multiple regions), but you can have multiple VPCs within a region (the default limit is 5, but you can request to increase it).

@@ -72,7 +72,43 @@ Regions are independent; data isn't transferred between regions.
 
 Not all services are available on all regions, see https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services and https://awsservices.info
 
-A region consist of (typically) 3 or more data centers (availability zones), located in the same area but isolated and physically separate from each other.
+## Availability zones
+
+:::warning
+AWS charges $0.01/GB for network traffic between availability zones. See [Overview of Data Transfer Costs for Common Architectures](https://aws.amazon.com/blogs/architecture/overview-of-data-transfer-costs-for-common-architectures/) and [Data Transfer within the same AWS Region](https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer_within_the_same_AWS_Region).
+
+Note that you pay twice: for outbound and inbound traffic. From [The hidden cross AZ cost: how we reduced AWS Data Transfer cost by 80%](https://medium.com/@debyroth340/the-hidden-cross-az-cost-how-we-reduced-aws-data-transfer-cost-by-80-836b6d06886d):
+
+> Effectively, it’s 0.02$ per GB since each transferred gigabyte counted as 2GB on the bill: once for sending and second for receiving.
+
+See [Understanding AWS Network Traffic Costs](https://aws.plainenglish.io/understanding-aws-network-traffic-costs-8e95542e1d84) for more network costs.
+:::
+
+A region consist of (typically) 3 or more availability zones, located in the same area but isolated and physically separate from each other. Each availability zone consist of one or more data centers — we don’t know how many because AWS doesn’t make information about their data centers publicly available.
+
+From AWS in Action p. 388:
+
+- Some services are global, like IAM, CDN (CloudFront) and DNS (Route 53).
+- Some services operate over multiple availability zones within a region, like S3, EFS and DynamoDB. They can withstand an availability zone outage by default.
+- Some services can optionally fail over into another availability zone, like RDS with [Multi-AZ](https://aws.amazon.com/rds/features/multi-az/), and EC2 with [Auto Scaling](https://aws.amazon.com/ec2/autoscaling/).
+
+To distribute resources across availability zones, when creating an AWS account, AWS randomly maps AZ identifiers (eg eu-west-1a) to different AZ data centers (eg use1-az4) for each account. You can see this by running `aws ec2 describe-availability-zones --region eu-west-1 --profile <profile>` with two different profiles, and you may get this different responses:
+
+```json
+{
+  "RegionName": "eu-west-1",
+  "ZoneName": "eu-west-1a",
+  "ZoneId": "euw1-az1"
+}
+```
+
+```json
+{
+  "RegionName": "eu-west-1",
+  "ZoneName": "eu-west-1a",
+  "ZoneId": "euw1-az2"
+}
+```
 
 ## Remove all resources from an AWS account
 

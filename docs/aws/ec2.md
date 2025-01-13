@@ -10,7 +10,11 @@ https://console.aws.amazon.com/ec2/v2/home
 
 Cheatsheet - https://digitalcloud.training/amazon-ec2/
 
-Autoscaling cheatsheet - https://digitalcloud.training/amazon-ec2/
+Auto Scaling cheatsheet - https://digitalcloud.training/amazon-ec2-auto-scaling/
+
+:::info
+EC2 instances run on a single availability zone. To achieve high availability in case there's an outage in one availability zone, you can fail over into another AZ with Auto Scaling.
+:::
 
 ## IaaS
 
@@ -477,6 +481,20 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
 
 https://docs.aws.amazon.com/ebs/
 
+Network-attached storage for virtual machines.
+
+:::info
+EC2 instances are linked to a subnet, and the subnet is linked to an availability zone. EBS volumes are also located only in a single availability zone. If a virtual machine is moved to another availability zone because of an outage, the EBS volume cannot be accessed from the other availability zones.
+
+To overcome this problem you can:
+
+- Use EFS.
+- Create snapshots of the EBS volumes regularly. Snapshots are stored in S3, which is available in multiple AZs. If the data is stored in the root volume, you can back it up with an AMI.
+- Use another storage solution like [Gluster](https://www.gluster.org/), [DRBD](https://linbit.com/drbd/), S3, RDS, DynamoDB...
+
+(AWS in Action p. 375.)
+:::
+
 **Block** storage: requires an EC2 instance, since the OS is needed to create filesystems and partitions, reading and writing using system calls etc.
 
 For **legacy applications** that read/write files from/to a filesystem, like relational databases. Is standalone/independent: can exist without an EC2 instance, but you need an EC2 instance to access it. It's accessed over the network. It replicates data among multiple disks automatically to increase durability and availability.
@@ -489,7 +507,12 @@ Use `lsblk` to list the attached volumes. To use the volume, you need to create 
 
 Some EC2 instance types are EBS-optimized, others optionally support EBS optimization, an some do not support EBS optimization; see [Amazon EBS-optimized instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html) and [Amazon EBS optimization](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-optimization.html).
 
-You can back up EBS volumes with [EBS snapshots](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html). Snapshots are incremental. To create a snapshot with the CLI use [`create-snapshot`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-snapshot.html): `aws ec2 create-snapshot --volume-id <volume-id>`.
+You can back up EBS volumes with [EBS snapshots](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html). Snapshots are incremental. Snapshots are stored in S3, which is available in multiple AZs. To create a snapshot with the CLI use [`create-snapshot`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-snapshot.html): `aws ec2 create-snapshot --volume-id <volume-id>`.
+
+Durability vs availability:
+
+- Durability of 99.9%: if you have 1000 volumes, you will loose the data stored in one volume every year.
+- Availability of 99.999%. If an outage occurs, the volume will not be available, but the data is not lost; it will be available when the outage ends.
 
 ## Instance Store
 
@@ -505,7 +528,7 @@ Not all instance types support instance store volumes.
 
 A filesystem that can be shared between multiple Linux virtual machines in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front.
 
-You need to create a mount target on a subnet, and the EC2 instance where you mount the filesystem must be in the same subnet as the EFS mount target. You can create mount targets in multiple subnets. Each mount target is bound to an availability zone. You need at least two mount targets in different availability zones for high availability. Mount targets are protected by security groups.
+You need to create a mount target on each subnet, and the EC2 instance where you mount the filesystem must be in the same subnet as the EFS mount target. Each mount target is bound to an availability zone. You need at least two mount targets in different availability zones for high availability. Mount targets are protected by security groups.
 
 ## EBS vs Instance Store vs EFS
 
@@ -652,17 +675,32 @@ Use `--output text` to pass the output to `grep`, `sed` or `awk`.
 
 ```shell
 aws ec2 describe-instances \
+ --filters "Name=tag:Name,Values=jenkins-multiaz-efs-eip" \
+ "Name=instance-state-code,Values=16" \
+ --query "Reservations[0].Instances[0].InstanceId" \
+ --output text
+```
+
+```shell
+aws ec2 describe-instances \
  --filters "Name=tag:Name,Values=jenkins-multiaz" \
  "Name=instance-state-code,Values=16" \
  --query "Reservations[0].Instances[0].[InstanceId, PublicIpAddress, PrivateIpAddress, SubnetId]"
 ```
 
 ```shell
-aws ec2 describe-images --filters "Name=name,Values=amzn2-ami-hvm-2.0.202*-x86_64-gp2" --query "Images[0].ImageId" --output text
+aws ec2 describe-images \
+ --filters "Name=name,Values=amzn2-ami-hvm-2.0.202*-x86_64-gp2" \
+ --query "Images[0].ImageId" \
+ --output text
 ```
 
 ```shell
 aws ec2 describe-regions
+```
+
+```shell
+aws ec2 describe-availability-zones --region eu-west-1
 ```
 
 ```shell
