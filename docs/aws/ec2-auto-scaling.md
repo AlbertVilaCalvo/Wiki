@@ -12,6 +12,8 @@ Tutorial - https://aws.amazon.com/tutorials/ec2-auto-scaling-spot-instances
 
 Provides scalability and elasticity by scaling out (horizontally, instead of up/vertically) by launching instances when demand increases, so that the application is performant, and scaling in by terminating instances when they are not needed, so that you only pay for what you need.
 
+In addition, with Auto Scaling you can achieve high availability. EC2 instances run on a single availability zone, but with Auto Scaling you can fail over into another AZ if there's an outage in one AZ.
+
 AutoSpotting - https://autospotting.io - https://github.com/LeanerCloud/AutoSpotting
 
 ## Auto Scaling Group
@@ -40,7 +42,7 @@ Can be dynamic (target, step and simple), predictive and scheduled.
 
 https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-templates.html
 
-Similar to an instance launch configuration (which includes the AMI, instance type, key pair, security groups etc.), but can be versioned.
+A blueprint used by the Auto Scaling group to launch virtual machines. Similar to an instance launch configuration (which includes the AMI, instance type, key pair, security groups etc.), but can be **versioned**.
 
 https://stackoverflow.com/questions/61981663/what-is-the-difference-between-aws-asg-launch-templates-and-launch-configuration
 
@@ -48,22 +50,20 @@ https://stackoverflow.com/questions/61981663/what-is-the-difference-between-aws-
 For accounts created after May 31, 2023, the EC2 console **only supports creating Auto Scaling groups with launch templates**. Creating Auto Scaling groups with launch configurations is not recommended but still available via the CLI and API until December 31, 2023. (This message appears when you are creating an Auto Scaling Group.)
 :::
 
-## Target group
-
-Routes the requests to the targets (eg EC2 instances) and does health checks.
-
-https://stackoverflow.com/questions/48529074/how-is-target-groups-different-from-auto-scaling-groups-in-aws
-
 ## Health check types
 
-- EC2: uses the VM hypervisor and network.
-- ELB: check if the app works too.
+https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-health-checks.html
+
+- EC2: uses the VM hypervisor and networking.
+- ELB (Elastic Load Balancing): checks if the application works too.
 
 https://stackoverflow.com/questions/42466157/whats-the-difference-between-elb-health-check-and-ec2-health-check
 
-https://tutorialsdojo.com/ec2-instance-health-check-vs-elb-health-check-vs-auto-scaling-and-custom-health-check/
+https://tutorialsdojo.com/ec2-instance-health-check-vs-elb-health-check-vs-auto-scaling-and-custom-health-check
 
-https://digitalcloud.training/aws-health-checks-elb-vs-alb-vs-auto-scaling/
+https://digitalcloud.training/aws-health-checks-elb-vs-alb-vs-auto-scaling
+
+The health check _type_ is defined in the Auto Scaling group, not the load balancer target group. See the Terraform resource [`aws_autoscaling_group`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) (attribute [`health_check_type`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#health_check_type-1)), or the CloudFormation resource [`AutoScalingGroup`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html), (attribute [`HealthCheckType`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html#cfn-autoscaling-autoscalinggroup-healthchecktype)). In addition to the type, if the health check is of type ELB, you define the path/protocol/status code/etc at the target group; see this [example in Terraform](https://github.com/brikis98/terraform-up-and-running-code/blob/27a3beaf842dbe2a582e29f64373dfb793374ba8/code/terraform/02-intro-to-terraform-syntax/webserver-cluster/main.tf#L98-L115) or this [example in CloudFormation](https://github.com/AWSinAction/code3/blob/73576c36857494a1dbf1d4e46c9d3bdfdaed54ac/chapter14/loadbalancer.yaml#L158-L171).
 
 ## Elastic Load Balancing
 
@@ -83,6 +83,11 @@ Place the EC2 instances in private subnets (so they aren't directly accessible f
 See [Place your servers in private subnets, and load balancers in public subnets](/aws/vpc#place-your-servers-in-private-subnets-and-load-balancers-in-public-subnets).
 :::
 
+:::info
+Load balancers can be used with more than web servers—you can use load balancers in front of any systems that deal with request/response-style communication, as long as the protocol is based on TCP.
+(AWS in Action p.394)
+:::
+
 ### Load balancer types
 
 https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html#integrations-aws-elastic-load-balancing-types
@@ -91,7 +96,26 @@ https://aws.amazon.com/elasticloadbalancing/features/#Product_comparisons
 
 - [Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html): application layer 7, HTTP/HTTPS. Supports routing based on the request HTTP headers, URL path, host (ie domain name) and query params, IP address etc.
 - [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html): layer 4, TCP/UDP. Routes based on the protocol, source or destination IP address etc. Can scale up and down in response to load faster than the ALB. Scales to tens of milions of requests per second.
-- [Classic Load Balancer (CLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html): layer 4 and 7. Has far fewer features than ALB and NLB. Should not be used. See "Benefits of migrating from a Classic Load Balancer" [to ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html#application-load-balancer-benefits) and [to NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html#network-load-balancer-benefits).
+- [Classic Load Balancer (CLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html): layer 4 and 7. Has far fewer features than ALB and NLB. Deprecated; should not be used. See "Benefits of migrating from a Classic Load Balancer" [to ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html#application-load-balancer-benefits) and [to NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html#network-load-balancer-benefits).
+
+### Load balancer components
+
+See example in Terraform at https://github.com/brikis98/terraform-up-and-running-code/blob/master/code/terraform/02-intro-to-terraform-syntax/webserver-cluster/main.tf
+
+- Load balancer: defines configuration like the load balancer type (application, network), the subnets etc. See [CreateLoadBalancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateLoadBalancer.html).
+- Listener: defines the port (80, 443) and protocol (HTTP, HTTPS, TCP, TLS, UDP), the default action if no rule matches the request etc. See [CreateListener](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateListener.html).
+- Target group: forwards the requests to the registered targets. Defines the periodic health check, the port and protocol on which the targets receive traffic, and the target type (EC2 instance, IP, Lambda). See [CreateTargetGroup](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateTargetGroup.html).
+- Listener rule (optional): chooses the target group to forward the requests to, based on path or host. See [CreateRule](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateRule.html) and [RuleCondition](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_RuleCondition.html).
+
+Usually the EC2 instances are managed by an Auto Scaling group, which registers and deregisters the EC2 instances at the load balancer’s target group automatically.
+
+![Load balancer](/img/AWS-load-balancer.png 'Load balancer')
+
+## Target group
+
+Routes the requests to the targets (eg EC2 instances) and does health checks.
+
+https://stackoverflow.com/questions/48529074/how-is-target-groups-different-from-auto-scaling-groups-in-aws
 
 ## Setup with an Application Load Balancer
 
@@ -114,6 +138,8 @@ The Target group is not yet attached to a load balancer. To create a load balanc
 Go to the Auto Scaling group. You'll see that 'Load balancing' is not set, so new instances launched won't be added to the target group. We need to add the load balancer so that request are distributed among instances. On 'Load balancing' click Edit. Choose 'Application, Network or Gateway Load Balancer target groups' and select the target group and click Update.
 
 Go to the Target group. The instance's 'Health status' should be Healthy. You can now go to the Load balancer, copy the 'DNS name' and open it on a browser.
+
+To test that new instances are started automatically, use `aws ec2 terminate-instances --instance-ids i-0fcf8a7cbc5d88d6b`.
 
 ## CLI
 
