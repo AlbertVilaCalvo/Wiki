@@ -199,19 +199,34 @@ grbi <commit you want to amend>^
 **r or reword** - amend commit message (note that if we are only rewording we don't need to do any of the following commands, just save the new commit message and we are done)
 
 ```shell
-gc! (git commit --amend)
-grbc (git rebase --continue)
+gc! # git commit --amend
+grbc # git rebase --continue
 ```
 
 **e or edit** - modify commit
 
 ```shell
-// edit file(s)...
-gaa (or) ga some/file.txt
-gc! (git commit --amend)
+# edit file(s)...
+gaa # or ga some/file.txt
+gc! # git commit --amend
 # it's also possible to do just do gcan!, or gaa and then gcn!
-grbc (git rebase --continue)
+grbc # git rebase --continue
 ```
+
+**f or fixup** - merge two commits, using the first commit's message
+
+This is useful if we forgot to commit a file in a commit. We can create a new commit just adding the file, then do `git rebase -i` and move the commit that adds the file up, below the commit where it should have been added to. See an example here: https://medium.com/@igor_marques/combining-two-commits-84281f470ee8.
+
+```shell
+ga some/missing-file.txt # add the file we forgot
+gc -m "Add missing file" # and do a commit with any message (it doesn't matter which)
+grbi <commit where the file should have been added to>^
+# move the commit "Add missing file" below the first commit (the top one)
+# and change 'pick' to 'fixup' a the commit "Add missing file"
+# then save and exit
+```
+
+The two commits will be merged into one, using the first commit's message.
 
 ### Rebase until first (root) commit
 
