@@ -54,6 +54,8 @@ AWS observability in Grafana Cloud - https://grafana.com/solutions/cloud-monitor
 
 Amazon Web Services In Plain English - https://expeditedsecurity.com/aws-in-plain-english - https://news.ycombinator.com/item?id=27948209
 
+Introduction to DevOps on AWS - https://docs.aws.amazon.com/whitepapers/latest/introduction-devops-aws/introduction-to-devops.html
+
 A Comprehensive Guide to Building a Scalable Web App on Amazon Web Services - Part 1 - https://archive.ph/j72xI
 
 :::tip Important
@@ -83,6 +85,8 @@ Note that you pay twice: for outbound and inbound traffic. From [The hidden cros
 
 See [Understanding AWS Network Traffic Costs](https://aws.plainenglish.io/understanding-aws-network-traffic-costs-8e95542e1d84) for more network costs.
 :::
+
+Regions, Availability Zones, and Local Zones - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
 
 A region consist of (typically) 3 or more availability zones, located in the same area but isolated and physically separate from each other. Each availability zone consist of one or more data centers — we don’t know how many because AWS doesn’t make information about their data centers publicly available.
 

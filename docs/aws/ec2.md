@@ -225,7 +225,26 @@ curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta
 EC2AZ=$(TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/placement/availability-zone)
 ```
 
+Get the region ([see other options here](https://stackoverflow.com/questions/4249488/find-region-from-within-an-ec2-instance)):
+
+```shell
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 60"`
+AZ=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/placement/availability-zone`
+REGION=${AZ::-1}
+```
+
 ## User Data
+
+:::tip
+To debug a user data script, have a look at the `/var/log/cloud-init-output.log` file shown, which contains the outputs of the user data script _at the end_.
+
+```shell
+sudo less /var/log/cloud-init-output.log
+sudo cat /var/log/cloud-init-output.log
+```
+
+See [Cloud-init log files](https://docs.cloud-init.io/en/latest/reference/user_files.html#cloud-init-log-files).
+:::
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html
 

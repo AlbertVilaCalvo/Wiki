@@ -233,7 +233,10 @@ Console: https://console.aws.amazon.com/iamv2/home?#/policies
 
 Policy types - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types
 
-AWS managed policies - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies
+AWS managed policy:
+
+- About: https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies
+- [List of all AWS managed policies](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/policy-list.html)
 
 AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policies-in-a-nutshell/
 
@@ -404,7 +407,9 @@ Attached to users, groups and roles (permissions policy). Can be attached in var
 
 - **Inline policy**: a policy that only applies to single, specific user, group or role. It cannot be reused. If you delete the user, the policy is also deleted.
   - An EC2 instance profile role is an inline identity policy. See AWS in Action p. 149.
-- **Managed policy**: either created by you (customer managed) or AWS (AWS managed). Can be reused (standalone, it can be applied to multiple entities).
+- **Managed policy**: either created by you (customer managed) or AWS (AWS managed). Can be reused (standalone, it can be applied to multiple entities). See [list of all managed policies](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/policy-list.html).
+
+See [Managed policies and inline policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html).
 
 :::info
 With CloudFormation, it’s easy to maintain inline identity policies; that’s why we use inline identity policies most of the time in this book.
