@@ -184,25 +184,77 @@ CLI Reference:
 - v2: https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/index.html
 - v1: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
 
-Create stack: `aws cloudformation create-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml`
+[Create stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/create-stack.html):
+
+```shell
+aws cloudformation create-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml
+```
+
+```shell
+aws cloudformation create-stack --stack-name myStackName \
+ --template-url https://s3.amazonaws.com/bucket/folder/template.yaml \
+ --capabilities CAPABILITY_IAM
+```
 
 To check if the stack creation has completed, run `aws cloudformation describe-stacks --stack-name myStackName` and check if `StackStatus` is `CREATE_COMPLETE`.
 
-Update stack: `aws cloudformation update-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml`
+[Update stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/update-stack.html):
 
-`aws cloudformation update-stack --stack-name myStackName --template-url https://s3.amazonaws.com/bucket/folder/template.yaml --capabilities CAPABILITY_IAM`
+```shell
+aws cloudformation update-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml
+```
 
-Describe stack: `aws cloudformation describe-stacks --stack-name myStackName`
+```shell
+aws cloudformation update-stack --stack-name myStackName --template-url https://s3.amazonaws.com/bucket/folder/template.yaml --capabilities CAPABILITY_IAM
+```
+
+[Describe stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/describe-stacks.html):
+
+```shell
+aws cloudformation describe-stacks --stack-name myStackName
+```
 
 Get stack outputs:
 
-`aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs"`
+```shell
+aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs"
+```
 
-`aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs[0].OutputValue" --output text`
+```shell
+aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs[0].OutputValue" --output text
+```
 
-Delete stack: `aws cloudformation delete-stack --stack-name myStackName`
+[Delete stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/delete-stack.html):
 
-Wait for stack deletion: `aws cloudformation wait stack-delete-complete --stack-name myStackName`
+```shell
+aws cloudformation delete-stack --stack-name myStackName
+```
+
+[Wait for stack deletion](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/wait/stack-delete-complete.html):
+
+```shell
+aws cloudformation wait stack-delete-complete --stack-name myStackName
+```
+
+[Get stack resources](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/describe-stack-resources.html) (only the first 100):
+
+```shell
+aws cloudformation describe-stack-resources --stack-name myStackName
+```
+
+[Get stack resource](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/describe-stack-resource.html):
+
+```shell
+aws cloudformation describe-stack-resource --stack-name myStackName \
+ --logical-resource-id Bucket
+```
+
+```shell
+aws cloudformation describe-stack-resource --stack-name imagery \
+ --logical-resource-id Bucket \
+ --query "StackResourceDetail.PhysicalResourceId" \
+ --output text
+```
 
 ### Deploy Lambda function with SAM
 
