@@ -13,6 +13,8 @@ https://news.ycombinator.com/item?id=33264190
 
 > Twitter distributes config files across their entire fleet (hundreds of thousands of machines) using git and a cron job. Commit your config change, wait a few minutes and there it is.
 
+Fundamentals of Backend Engineering - https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/
+
 ## Ports < 1024 are restricted to the root user
 
 Why are the first 1024 ports restricted to the root user only? - https://unix.stackexchange.com/questions/16564/why-are-the-first-1024-ports-restricted-to-the-root-user-only

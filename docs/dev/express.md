@@ -50,6 +50,10 @@ app.listen(app.get('port'), () => {
 })
 ```
 
+## Express 5
+
+https://expressjs.com/2024/10/15/v5-release.html
+
 ## Libraries
 
 https://expressjs.com/en/resources/middleware.html

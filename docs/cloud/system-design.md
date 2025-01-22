@@ -17,3 +17,9 @@ Engineering at N26: a Tour of our Tech Stack and Architecture - https://medium.c
 Event-driven microservices demo built with Golang. Nomad, Consul Connect, Vault, and Terraform for deployment - https://github.com/thangchung/go-coffeeshop
 
 https://github.com/ByteByteGoHq/system-design-101
+
+:::tip
+If you want to make a process asynchronous, you must manage the way the process initiator tracks the process status. One way of doing that is to return an ID to the initiator that can be used to look up the process. During the process, this ID is passed from step to step. (AWS in Action p. 401.)
+
+When designing an asynchronous process, it’s important to keep track of the process. You need some kind of identifier for it. (AWS in Action p. 441.)
+:::

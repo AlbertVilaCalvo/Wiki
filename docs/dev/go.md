@@ -8,6 +8,8 @@ https://gobyexample.com
 
 Oh My Zsh plugin - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/golang
 
+https://www.udemy.com/course/backend-master-class-golang-postgresql-kubernetes/
+
 ## Learn
 
 https://www.reddit.com/r/golang/comments/18ujt6g/new_at_go_start_here/

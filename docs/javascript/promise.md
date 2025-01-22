@@ -106,6 +106,10 @@ function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
+// Usage
+
+await delay(2500)
+
 function fakeApiCall(): Promise<void> {
   return delay(2500)
 }

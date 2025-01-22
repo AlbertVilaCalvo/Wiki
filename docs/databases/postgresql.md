@@ -12,6 +12,8 @@ https://www.pgadmin.org
 
 Learn Postgres at the Playground - https://www.crunchydata.com/developers/tutorials - https://news.ycombinator.com/item?id=32498435
 
+https://www.manning.com/books/just-use-postgres
+
 Postgres WASM - https://news.ycombinator.com/item?id=33067962
 
 https://www.crunchydata.com

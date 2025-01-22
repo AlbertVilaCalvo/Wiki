@@ -159,6 +159,8 @@ When launching an EC2 instance using the console do:
 
 :::info
 The default user on Amazon Linux 2 is the `ec2-user`. But when using the Session Manager via the AWS Management Console, you are logged in with another user named `ssm-user`. (Doing `whoami` prints `ssm-user`.)
+
+Thus, to access the `ec2-user` home directory (`cd /home/ec2-user`) you need to run `sudo -s` first, otherwise you get "Permission denied". [source](https://superuser.com/a/241137)
 :::
 
 ### RDP (Windows)

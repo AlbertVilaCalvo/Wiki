@@ -14,6 +14,8 @@ A `key=value` pair along with a number of attributes that control when and where
 Set-Cookie: theme=dark; Max-Age=2600000; Secure
 ```
 
+See Session Storage in Rails - https://guides.rubyonrails.org/security.html#session-storage
+
 ## `Set-Cookie` response header
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
