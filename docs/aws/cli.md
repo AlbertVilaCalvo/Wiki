@@ -164,6 +164,14 @@ Use `--query <key>` to select. See https://jmespath.org/tutorial.html for how to
 Use `--output text/json/yaml/yaml-stream` to change the output format.
 Use `--output text` to pass the output to `grep`, `sed` or `awk`.
 
+You can save the output in a variable:
+
+```shell
+S3_BUCKET=aws cloudformation describe-stacks --stack-name myStackName \
+ --query "Stacks[0].Outputs[?OutputKey=='BucketName'].OutputValue" \
+ --output text
+```
+
 ## Shell scripts
 
 https://github.com/AWSinAction/code3/blob/main/chapter04/virtualmachine.sh

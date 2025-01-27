@@ -208,6 +208,15 @@ aws cloudformation update-stack --stack-name myStackName --region us-east-1 --te
 aws cloudformation update-stack --stack-name myStackName --template-url https://s3.amazonaws.com/bucket/folder/template.yaml --capabilities CAPABILITY_IAM
 ```
 
+Update a stack reusing a previous parameter value:
+
+```shell
+aws cloudformation update-stack --stack-name myStackName \
+ --template-url https://s3.amazonaws.com/bucket/folder/template.yaml \
+ --parameters ParameterKey=SomeParameter,UsePreviousValue=true  \
+ --capabilities CAPABILITY_IAM
+```
+
 [Describe stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/describe-stacks.html):
 
 ```shell

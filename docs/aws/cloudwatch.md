@@ -8,6 +8,8 @@ To monitor services. The services send metrics to CloudWatch, and you can create
 
 Is a regional service.
 
+**AWS services that publish CloudWatch metrics** - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/aws-services-cloudwatch-metrics.html - Contains links to metrics for each service
+
 Utilization Saturation and Errors (USE) Method - https://www.brendangregg.com/usemethod.html
 
 :::info
@@ -22,6 +24,12 @@ When you go from 0% utilization to 60%, wait time doubles. When you go to 80%, w
 (From AWS in Action p. 319.)
 :::
 
+A CloudWatch metric has the following parameters:
+
+- Namespace: eg AWS/EC2, AWS/EKS or AWS/ECR.
+- Dimensions: eg AutoScalingGroupName (EC2), Cluster Name (EKS), TargetGroup (ALB), LoadBalancer (ALB) or QueueName (SQS).
+- MetricName: eg `CPUUtilization` (EC2), `RequestCount` (ALB) or `APIServerRequests` (EKS).
+
 A CloudWatch alarm consists of the following:
 
 - Metric: CPU usage, health check...
@@ -29,6 +37,10 @@ A CloudWatch alarm consists of the following:
 - Actions: what to do when the alarm state changes.
 
 The state can be `OK`, `INSUFFICIENT_DATA` or `ALARM`.
+
+Detailed monitoring - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-basic-detailed.html
+
+> In different AWS services, detailed monitoring also has different names. For example, in Amazon EC2 it is called detailed monitoring, in AWS Elastic Beanstalk it is called enhanced monitoring, and in Amazon S3 it is called request metrics.
 
 ## Learning resources
 

@@ -18,6 +18,15 @@ AutoSpotting - https://autospotting.io - https://github.com/LeanerCloud/AutoSpot
 
 ## Auto Scaling Group
 
+- CloudFormation [AWS::AutoScaling::AutoScalingGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscaling-autoscalinggroup.html)
+- Terraform [aws_autoscaling_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group)
+
+Defines the number of virtual machines (min size, max size and desired capacity) that need to run, and launches them based on the launch template. It also monitors the health of the EC2 instances and replaces them if they fail.
+
+If we use a load balancer, registers the new virtual machines on the target group of the load balancer.
+
+Defines the subnets (and thus the availability zones) in which to run the virtual machines, and distributes the VMs evenly among the subnets to achieve fault tolerance. (Obviously, there needs to be at least one VM running per subnet.)
+
 Responds to EC2 status checks and CloudWatch metrics.
 
 Deleting it terminates the instances.
@@ -42,7 +51,12 @@ Can be dynamic (target, step and simple), predictive and scheduled.
 
 https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-templates.html
 
-A blueprint used by the Auto Scaling group to launch virtual machines. Similar to an instance launch configuration (which includes the AMI, instance type, key pair, security groups etc.), but can be **versioned**.
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html
+
+- CloudFormation [AWS::EC2::LaunchTemplate](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html). Most of the stuff goes to the [LaunchTemplateData](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html) property.
+- Terraform [aws_launch_template](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template)
+
+A blueprint used by the Auto Scaling group to launch virtual machines. Similar to an instance launch configuration (which includes the AMI, instance type, key pair, instance profile, security groups etc.), but can be **versioned**.
 
 https://stackoverflow.com/questions/61981663/what-is-the-difference-between-aws-asg-launch-templates-and-launch-configuration
 
@@ -111,7 +125,7 @@ Usually the EC2 instances are managed by an Auto Scaling group, which registers 
 
 ![Load balancer](/img/AWS-load-balancer.png 'Load balancer')
 
-## Target group
+### Target group
 
 Routes the requests to the targets (eg EC2 instances) and does health checks.
 

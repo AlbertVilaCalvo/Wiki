@@ -72,3 +72,12 @@ aws sqs get-queue-attributes \
  --queue-url "https://sqs.us-east-1.amazonaws.com/<account-id>/<queue-name>" \
  --attribute-names ApproximateNumberOfMessages
 ```
+
+[Send message](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sqs/send-message.html):
+
+```shell
+aws sqs send-message \
+ --queue-url https://sqs.us-east-1.amazonaws.com/<account-id>/<queue-name> \
+ --message-body "{\"id\": \"87C7C957\", \"url\": \"http://www.google.com\"}"
+ --region=us-east-1
+```

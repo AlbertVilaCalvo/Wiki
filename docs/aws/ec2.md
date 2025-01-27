@@ -16,6 +16,10 @@ Auto Scaling cheatsheet - https://digitalcloud.training/amazon-ec2-auto-scaling/
 EC2 instances run on a single availability zone. To achieve high availability in case there's an outage in one availability zone, you can fail over into another AZ with Auto Scaling.
 :::
 
+:::tip
+Enable CloudWatch [detailed monitoring](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-detailed-monitoring.html) of the EC2 instances _in production_. Note that this is a paid feature, so it should not be enabled in environments other than production.
+:::
+
 ## IaaS
 
 You manage the OS and whatever you want to run on top it, and AWS manages the [hypervisor](https://en.wikipedia.org/wiki/Hypervisor) and the hardware below.
