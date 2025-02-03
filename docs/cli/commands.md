@@ -87,13 +87,33 @@ unset NODE_ENV
 
 [What is the difference between set, env, declare and export when setting a variable in a Linux shell?](https://superuser.com/questions/821094/what-is-the-difference-between-set-env-declare-and-export-when-setting-a-varia)
 
+## Parameter expansion
+
+https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+
+```shell
+NAME=Albert
+echo Hi, ${NAME}
+# Hi, Albert
+```
+
 ## Command substitution
 
 https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html
 
+Preferred:
+
 ```shell
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 ```
+
+Old style:
+
+```shell
+AWS_ACCOUNT_ID=`aws sts get-caller-identity --query Account --output text`
+```
+
+See [Why is $(...) preferred over `...` (backticks)?](https://mywiki.wooledge.org/BashFAQ/082).
 
 ## Run the same command multiple times
 

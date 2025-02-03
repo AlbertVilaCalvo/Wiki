@@ -54,3 +54,7 @@ JetBrains:
 - Official: https://plugins.jetbrains.com/plugin/21060-nx-console
 - https://plugins.jetbrains.com/plugin/15101-nx-console-idea
 - https://plugins.jetbrains.com/plugin/15000-nx-console-ui
+
+## Examples
+
+- https://github.com/streetwriters/notesnook

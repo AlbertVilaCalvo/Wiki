@@ -24,6 +24,8 @@ Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See T
 
 https://github.com/jesseduffield/lazydocker
 
+https://frontendmasters.com/courses/complete-intro-containers-v2/
+
 https://depot.dev
 
 ## Cheatsheets

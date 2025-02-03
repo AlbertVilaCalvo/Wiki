@@ -2,6 +2,8 @@
 title: Tools & Resources
 ---
 
+https://it-tools.tech
+
 https://github.com/topics/developer-tools
 
 https://radar.cloudflare.com/scan - Security, performance, technology and network details of a URL
