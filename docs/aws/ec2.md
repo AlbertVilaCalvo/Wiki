@@ -44,6 +44,8 @@ https://aws.amazon.com/ec2/instance-types/
 
 https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html
 
+https://instances.vantage.sh - https://github.com/vantage-sh/ec2instances.info
+
 `t2.micro`:
 
 - `t` is the family

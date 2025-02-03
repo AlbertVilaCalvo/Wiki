@@ -12,6 +12,8 @@ https://aws.github.io/copilot-cli
 
 ECS vs. Fargate: What's the difference? - https://cloudonaut.io/ecs-vs-fargate-whats-the-difference/
 
+An ECS service is like an Auto Scaling group. It launches tasks, monitors and replaces failed tasks, distributes tasks among subnets to achieve high availability, registers and deregisters tasks at the load balancer and deploys new versions (rolling updates).
+
 ## Launch types
 
 Runs in EC2 and Fargate.
@@ -23,3 +25,11 @@ https://cloudonaut.io/fargate-vs-apprunner
 ## Learn
 
 https://github.com/azat-co/practicalnode/blob/master/chapter15/chapter15.md
+
+## Pricing
+
+Theoretical cost optimization by Amazon ECS launch type: Fargate vs EC2 - https://aws.amazon.com/blogs/containers/theoretical-cost-optimization-by-amazon-ecs-launch-type-fargate-vs-ec2/
+
+> The pricing for the EC2-based launch type is fixed to the memory and capacity provisioned for a chosen instance type. You pay for a full instance regardless of how much of it is being used by the workload. In comparison, Fargate gives an alternative where pricing can often more closely match resource requirements. Fargate workloads are charged for the CPU and memory consumed for a single task, and AWS manages the allocation of these tasks on the underlying infrastructure. Up until a certain threshold, pricing specificity provided by Fargate becomes more cost effective over an EC2-based launch. However, there comes a point where managing your own EC2 fleet is more cost effective than using Fargate.
+
+> As can be seen, the advantage of Fargate launch types decreases as the compute and memory usage approaches the capacity of the instance. For steady-state, predictable workload levels that use a higher proportion of the instance CPU and memory, EC2 can be a more cost-effective choice, as it is possible to simply select the instance type for which tasks can optimally use the available resources.

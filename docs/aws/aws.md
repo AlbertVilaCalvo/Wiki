@@ -72,7 +72,7 @@ Most services are region-specific, except for IAM, CDN (CloudFront) and DNS (Rou
 
 Regions are independent; data isn't transferred between regions.
 
-Not all services are available on all regions, see https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services and https://awsservices.info
+Not all services are available on all regions, see https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services, [AWS Service Availability Tool](https://awsservices.info) and [AWS Services Matrix](https://services.adlinga.com/services).
 
 ## Availability zones
 

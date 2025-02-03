@@ -43,3 +43,7 @@ https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accoun
 https://karpenter.sh/
 
 Run Kubernetes Clusters for Less with Amazon EC2 Spot and Karpenter - https://community.aws/tutorials/run-kubernetes-clusters-for-less-with-amazon-ec2-spot-and-karpenter
+
+## Pricing
+
+https://aws.amazon.com/blogs/containers/saving-money-pod-at-time-with-eks-fargate-and-aws-compute-savings-plans/
