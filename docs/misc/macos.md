@@ -123,12 +123,29 @@ Are located in `/Library/Extensions/`.
 
 ## Free up disk space
 
+:::tip
+Per trobar fitxers grans fer:
+
+- Clicar l'escriptori i prémer Command + F.
+- S'obrirà una finestra del finder. A "Buscar a:" seleccionar "Aquest Mac"
+- Seleccionar:
+  - Mida de l'arxiu
+  - és superior a
+  - 100
+  - MB
+
+Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → Emmagatzematge → Gestionar... Atenció: el fitxer `Docker.raw` no té realment la mida que diu el Mac (64 GB!), cal fer `du -h ~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw` per veure la mida real - [source](https://github.com/docker/for-mac/issues/2297#issuecomment-390441184).
+:::
+
 - _This frees plenty GBs_ Android emulators, system images, SDKs, build tools, NDK etcetera:
   - To get rid of Android emulators, open Android Studio → Device Manager and delete them.
   - To get rid of Android system images, SDKs and other stuff, open Android Studio → SDK Manager. (There are various ways to open it, eg Settings → Languages & Frameworks → Android SDK). Once thee, check the checkbox 'Show package details'. Then uninstall everything possible like the NDK, emulator System Images, SDKs etcetera.
 - Delete `node_modules` folders with [npkill](https://github.com/voidcosmos/npkill):
   - `npx npkill@latest --directory ~/Programming`.
   - `npx npkill@latest --directory ~/Webs`.
+- Delete yarn cache: `yarn cache clean` - [docs](https://yarnpkg.com/cli/cache/clean). Can be +20 GB.
+- Delete npm cache (`~/.npm/_cacache`): `npm cache clean --force`. Not sure if doing this is necessary, see [Why and how to clear npm cache](https://sebhastian.com/npm-clear-cache). You can check the cache size with `npm cache verify`.
+- Delete Carthage cache (can be 2-3 GB): `rm -rf ~/Library/Caches/org.carthage.CarthageKit` [source](https://stackoverflow.com/q/45504896/4034572)
 - Delete `build` folders: `find . -type d -name "build" -exec rm -rf {} +`.
 - Delete Python `venv` folders: `find . -type d -name "venv" -exec rm -rf {} +`.
 - Delete `.terraform` folders. The aws provider is 580 MB. [See instructions](/cloud/terraform#free-up-disk-space)
@@ -142,15 +159,20 @@ Are located in `/Library/Extensions/`.
   - There are also really big files at `~/Library/Caches/JetBrains`.
   - Directories are listed at the uninstall instructions: https://www.jetbrains.com/help/idea/uninstall.html#macos.
   - Android Studio is located at `~/Library/Application Support/Google` (`cd ~/Library/Application\ Support/Google`).
+- Clear `~/Library/Caches/Google`. Contains data of old versions of Android Studio.
 - Docker:
   - Docs: Prune unused Docker objects: https://docs.docker.com/config/pruning.
   - Remove dangling images (images with `<none>` in `docker image ls`): `docker image prune` ([docs](https://docs.docker.com/engine/reference/commandline/image_prune/))
     - IMPORTANT: be careful with `docker image prune -a` because it deletes plenty of stuff, eg it has deleted all images shown by `docker image ls`, not only the ones with `<none>`! It says `WARNING! This will remove all images without at least one container associated to them.`.
   - Pune everything: `docker system prune`. This removes all stopped containers, all networks not used by at least one container, all dangling images and all build cache.
+  - You can adjust the "Disk usage limit" at the Docker Desktop Settings → Resources.
+  - The Mac may say that the `Docker.raw` file is (eg) 64 GB, but this is not true. To check the _actual_ size of the `Docker.raw` file use `du -h ~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw` - [source](https://github.com/docker/for-mac/issues/2297#issuecomment-390441184).
 - Anar a `~/Library/Application Support` i esborrar programes antics.
 - Esborrar fitxers grans: Sobre aquest Mac → Emmagatzematge → Gestionar...
 - Telegram: esborrar la memòria cau (pot tenir 1 GB). Es fa a Configuració → Dades i emmagatzematge → Ús de l'emmagatzematge
 - Firefox: esborrar dades del lloc (pot ser 3 GB). Anar a Preferències → Privadesa i seguretat → Gestiona les dades... S'ordenen per mida. Cal apretar Delete a cada Lloc i després 'Desa els canvis' (sinó no esborra). Esborrar les que fa més d'un any que es van fer servir ('Darrer ús').
-- `brew autoremove`: uninstall formulae that were only installed as a dependency of another formula and are now no longer needed.
-- `brew cleanup`: usually not necessary, but sometimes frees space.
+- Brew:
+  - `brew autoremove`: uninstall formulae that were only installed as a dependency of another formula and are now no longer needed.
+  - `brew cleanup`: usually not necessary, but sometimes frees space. Th
 - Spotify: esborrar la "Memòria cau" a les Preferències (uns 500 MB).
+- Find file duplicates: https://dupeguru.voltaicideas.net - https://github.com/arsenetar/dupeguru/
