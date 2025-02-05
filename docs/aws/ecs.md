@@ -14,6 +14,15 @@ ECS vs. Fargate: What's the difference? - https://cloudonaut.io/ecs-vs-fargate-w
 
 An ECS service is like an Auto Scaling group. It launches tasks, monitors and replaces failed tasks, distributes tasks among subnets to achieve high availability, registers and deregisters tasks at the load balancer and deploys new versions (rolling updates).
 
+From https://cloudonaut.io/ecs-vs-kubernetes/
+
+> ECS is offering the most seamless integration between your containers and other AWS services. A few examples working out of the box:
+>
+> - Assigning IAM roles to each container allows fine granular access control to other services.
+> - Registering containers at external load balancers (Application Load Balancer).
+> - Scaling EC2 instances based on cluster usage (Auto Scaling).
+> - Collecting logs (CloudWatch Logs).
+
 ## Launch types
 
 Runs in EC2 and Fargate.

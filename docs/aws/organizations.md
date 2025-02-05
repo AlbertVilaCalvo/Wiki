@@ -16,11 +16,11 @@ When you create an account through organizations, it will have the role `Organiz
 
 You need to enable each service you want to integrate at Organizations → Services.
 
-## Consolidate billing
+## Consolidated billing
 
 Have a single bill on the management account. You only pay in one place.
 
-Aggregate service use to get volume pricing discounts.
+Aggregate service usage on multiple accounts to get **volume pricing discounts**.
 
 - Paying account. Pays the bill. Is independent, it cannot access resources of other accounts.
 - Linked account. All linked accounts are independent.

@@ -24,6 +24,12 @@ https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accoun
 
 ## Learn
 
+See https://d1.awsstatic.com/training-and-certification/ramp-up_guides/Ramp-Up_Guide_Containers.pdf
+
+- Deploy and debug Amazon EKS clusters - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-and-debug-amazon-eks-clusters.html
+- Deploy Kubernetes resources and packages using Amazon EKS and a Helm chart repository in Amazon S3 - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-kubernetes-resources-and-packages-using-amazon-eks-and-a-helm-chart-repository-in-amazon-s3.html
+- Building and Deploying a Containerized Application with Amazon Elastic Kubernetes Service - 1 h - https://explore.skillbuilder.aws/learn/courses/13993/building-and-deploying-a-containerized-application-with-amazon-elastic-kubernetes-service
+- Digital Classroom - Running Containers on Amazon Elastic Kubernetes Service (Amazon EKS) - 18 h - https://explore.skillbuilder.aws/learn/courses/17210/digital-classroom-running-containers-on-amazon-elastic-kubernetes-service-amazon-eks
 - Amazon EKS - Knowledge Badge Readiness Path (learning plan) - https://explore.skillbuilder.aws/learn/public/learning_plan/view/1931/amazon-eks-knowledge-badge-readiness-path
 - https://workshops.aws/categories/Containers
 - https://workshops.aws/categories/Amazon%20EKS
@@ -37,6 +43,19 @@ https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accoun
 - Host a Dynamic Application with Kubernetes and AWS EKS, Helm, ECR, Secrets Manager - https://www.aosnote.com/offers/sQZUgFJY/checkout
 - https://kodekloud.com/courses/aws-eks
 - Mastering Elastic Kubernetes Service on AWS: Deploy and manage EKS clusters to support cloud-native applications in AWS - https://www.packtpub.com/en-us/product/mastering-elastic-kubernetes-service-on-aws-9781803231211
+- Designing for high availability and resiliency in Amazon EKS applications - https://docs.aws.amazon.com/prescriptive-guidance/latest/ha-resiliency-amazon-eks-apps/introduction.html
+- Examples of golden paths for internal development platforms - https://docs.aws.amazon.com/prescriptive-guidance/latest/internal-developer-platform/examples.html#example-eks
+- Place Kubernetes Pods on Amazon EKS by using node affinity, taints, and tolerations - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/place-kubernetes-pods-on-amazon-eks-by-using-node-affinity-taints-and-tolerations.html
+- Deploy a gRPC-based application on an Amazon EKS cluster and access it with an Application Load Balancer - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-a-grpc-based-application-on-an-amazon-eks-cluster-and-access-it-with-an-application-load-balancer.html
+- Access container applications privately on Amazon EKS using AWS PrivateLink and a Network Load Balancer - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/access-container-applications-privately-on-amazon-eks-using-aws-privatelink-and-a-network-load-balancer.html
+
+## Load Balancer Controller
+
+https://github.com/kubernetes-sigs/aws-load-balancer-controller
+
+https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
+
+https://docs.aws.amazon.com/eks/latest/userguide/lbc-manifest.html
 
 ## Karpenter
 
