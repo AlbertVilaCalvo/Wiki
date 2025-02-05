@@ -116,31 +116,37 @@ const sidebars: SidebarsConfig = {
     'aws/cloud-development-kit',
     'aws/codepipeline',
     'aws/codebuild',
+    // If we don't want the generated index page we can instead do:
     // https://docusaurus.io/docs/sidebar/items#category-shorthand
+    // {
+    //   Certifications: [
+    //     'aws/certifications/cloud-practitioner',
+    //     'aws/certifications/solutions-architect-associate',
+    //     'aws/certifications/developer-associate',
+    //     'aws/certifications/sysops-administrator-associate',
+    //   ],
+    // },
+    // Generated index page:
+    // https://docusaurus.io/docs/sidebar/items#generated-index-page
     {
-      Certifications: [
+      type: 'category',
+      label: 'Certifications',
+      collapsed: true,
+      link: {
+        type: 'generated-index',
+        title: 'AWS Certifications',
+        // description: 'Some description',
+        slug: '/aws/certifications',
+        // keywords: ['aws'],
+        // image: '/img/logo.svg',
+      },
+      items: [
         'aws/certifications/cloud-practitioner',
         'aws/certifications/solutions-architect-associate',
         'aws/certifications/developer-associate',
         'aws/certifications/sysops-administrator-associate',
       ],
     },
-    // Alternatively, we could have a Generated index page:
-    // https://docusaurus.io/docs/sidebar/items#generated-index-page
-    // {
-    //   type: 'category',
-    //   label: 'Certifications',
-    //   collapsed: false,
-    //   link: {
-    //     type: 'generated-index',
-    //     title: 'AWS Certifications',
-    //     // description: 'Some description',
-    //     slug: '/aws/certifications',
-    //     // keywords: ['aws'],
-    //     // image: '/img/logo.svg',
-    //   },
-    //   items: ['aws/certifications/cloud-practitioner'],
-    // },
   ],
   http: [
     'http/http',
