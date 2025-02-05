@@ -324,6 +324,10 @@ export type WithChildren<T> = T & { children: JSX.Element }
 
 Note that this [already exists on `@types/react`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/24f1d0c82da2d898acd03fbb3e692eba3c431f82/types/react/index.d.ts#L773), but children is optional.
 
+## Performance
+
+Are Your React Components Too BIG? - https://www.youtube.com/watch?v=NsFmOttIW9Y
+
 ## Portals
 
 https://marvinh.dev/blog/portals-considered-harmful/

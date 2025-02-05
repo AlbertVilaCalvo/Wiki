@@ -4,6 +4,8 @@ title: Image Formats
 
 ## WebP
 
+https://eng.aurelienpierre.com/2021/10/webp-is-so-great-except-its-not/ - https://news.ycombinator.com/item?id=38653110
+
 https://news.ycombinator.com/item?id=22907906
 
 > I'm happy that Apple hasn't adopted WebP. JPEG XL and AVIF are better formats. Even Google is considering creating WebP2. WebP is already an outdated format (no HDR support), which should just die.

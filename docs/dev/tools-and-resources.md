@@ -72,3 +72,9 @@ https://overapi.com
 https://libraries.io
 
 https://www.libhunt.com
+
+## Misc
+
+Responsive web design - https://polypane.app
+
+Bug reports - https://jam.dev - https://news.ycombinator.com/item?id=40318542

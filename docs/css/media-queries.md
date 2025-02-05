@@ -14,6 +14,8 @@ Also see Responsive design - https://developer.mozilla.org/en-US/docs/Learn/CSS/
 
 What Is Mobile First Design and Why It Is Important Today - https://www.mobileapps.com/blog/mobile-first-design
 
+Responsive web design - https://polypane.app
+
 ## Breakpoints
 
 https://material.io/design/layout/responsive-layout-grid.html#breakpoints
