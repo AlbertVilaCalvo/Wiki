@@ -145,6 +145,7 @@ const sidebars: SidebarsConfig = {
         'aws/certifications/solutions-architect-associate',
         'aws/certifications/developer-associate',
         'aws/certifications/sysops-administrator-associate',
+        'aws/certifications/solutions-architect-professional',
       ],
     },
   ],
