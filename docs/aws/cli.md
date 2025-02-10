@@ -20,8 +20,7 @@ V1 reference: https://docs.aws.amazon.com/cli/latest/reference
 Use `--dry-run` to check if you have the required permissions.
 
 :::tip
-Use [CloudShell](https://aws.amazon.com/cloudshell/) which is automatically configured with your credentials.
-[This video shows many things you can do on it](https://www.youtube.com/watch?v=fz4rbjRaiQM)
+Use [CloudShell](https://aws.amazon.com/cloudshell/) which is automatically configured with the credentials of the user you are logged in with. [This video](https://www.youtube.com/watch?v=fz4rbjRaiQM) shows many things you can do in CloudShell.
 :::
 
 AWS CLI Builder - https://awsclibuilder.com
@@ -48,7 +47,7 @@ In shell scripts, you can also `wait` for a command to finish. See https://docs.
 
 ## Help
 
-```
+```shell
 aws help # Shows all services
 aws <service> help # Shows all actions of the service
 aws <service> <action> help # Shows all options of the action

@@ -16,11 +16,9 @@ re:Invent - https://reinvent.awsevents.com
 
 Whitepapers & Guides - https://aws.amazon.com/whitepapers
 
-Ramp-Up Guides (guides to learning the AWS Cloud) - https://aws.amazon.com/training/ramp-up-guides
-
 Architecture examples and diagrams - https://aws.amazon.com/architecture
 
-Services available on each region - https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services - https://awsservices.info
+Services available on each region - https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services - https://awsservices.info - https://services.adlinga.com/services
 
 Back to Basics video series: https://aws.amazon.com/es/architecture/back-to-basics
 
@@ -58,15 +56,33 @@ Introduction to DevOps on AWS - https://docs.aws.amazon.com/whitepapers/latest/i
 
 A Comprehensive Guide to Building a Scalable Web App on Amazon Web Services - Part 1 - https://archive.ph/j72xI
 
-:::tip Important
-Everything in AWS is an API call.
+:::info
+**Everything in AWS is an API call.** It doesn’t matter whether you are using the management console, the command line interface or writing code using an SDK — you are always interacting with an API.
 
 AWS is API driven. You can automate everything. Automation increases reliability and efficiency.
+
+APIs is one of the reasons why AWS has been so successful.
 :::
 
-## Regions
+## Training Learning
+
+https://www.aws.training
+
+https://explore.skillbuilder.aws/learn
+
+https://www.awseducate.com - https://aws.amazon.com/education/awseducate → Really basic
+
+Ramp-Up Guides (guides to learning the AWS Cloud) - https://aws.amazon.com/training/ramp-up-guides
+
+AWS Debug Games - https://games.cloudonaut.io
+
+AWS guides and templates - https://aws.amazon.com/startups/build
+
+## Global Infrastructure
 
 https://aws.amazon.com/about-aws/global-infrastructure/
+
+### Regions
 
 Most services are region-specific, except for IAM, CDN (CloudFront) and DNS (Route 53), which are global ([more info](https://stackoverflow.com/questions/68811957/aws-global-services)). Note that at the web console, when you go to the IAM Dashboard, the region at the navigation bar is "Global" and you can't select any region like "N. Virginia".
 
@@ -74,7 +90,12 @@ Regions are independent; data isn't transferred between regions.
 
 Not all services are available on all regions, see https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services, [AWS Service Availability Tool](https://awsservices.info) and [AWS Services Matrix](https://services.adlinga.com/services).
 
-## Availability zones
+:::info
+For **disaster recovery**, deploy across multiple **regions**.
+For **high availability**, deploy across multiple **availability zones** for redundancy and quickly fail over to another AZ.
+:::
+
+### Availability zones
 
 :::warning
 AWS charges $0.01/GB for network traffic between availability zones. See [Overview of Data Transfer Costs for Common Architectures](https://aws.amazon.com/blogs/architecture/overview-of-data-transfer-costs-for-common-architectures/) and [Data Transfer within the same AWS Region](https://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer_within_the_same_AWS_Region).
@@ -126,33 +147,27 @@ To distribute resources across availability zones, when creating an AWS account,
 - 2022 - https://aws.amazon.com/blogs/architecture/top-10-aws-architecture-blog-posts-of-2022/
 - 2023 - https://aws.amazon.com/blogs/architecture/top-architecture-blog-posts-of-2023/
 
-## Training Learning
-
-https://www.aws.training
-
-https://explore.skillbuilder.aws/learn
-
-https://www.awseducate.com - https://aws.amazon.com/education/awseducate → Really basic
-
-AWS Debug Games - https://games.cloudonaut.io
-
-AWS guides and templates - https://aws.amazon.com/startups/build
-
 ## Things to do when you create an AWS account
 
 With the root user.
 
 - Enable MFA for the root user [link](/aws/root-user#multi-factor-authentication-mfa)
-- Set the account alias (at the IAM dashboard)
+- Set the account alias (at the IAM dashboard). It's easier to remember than the account id
+  - Note that the account alias must be globally unique, since it's used to generate the sign-in URL (eg `https://albert.signin.aws.amazon.com/console`). It can be changed later.
+  - Do not confuse the account alias with the account name, which is defined when you create the AWS account, and it helps you identify the account. It can also be changed.
 - Enable IAM access to billing (so that non-root users can have access to billing) [link](/aws/billing-pricing#enable-iam-access-to-billing)
+- Enable PDF invoices delivery by email [link](/aws/billing-pricing#enable-pdf-invoices-delivery-by-email)
 - Enable free tier alerts [link](/aws/billing-pricing#enable-free-tier-alerts)
 - Enable CloudWatch billing alerts and create one or more budgets [link](/aws/billing-pricing#create-budget-and-enable-cloudwatch-billing-alarmalert)
 - Create the first IAM admin user [link](/aws/iam#create-the-first-iam-admin-user)
   - Once the admin is created, enable MFA for it using the root account [link](/aws/iam#add-mfa-to-other-users)
 - Enforce MFA to users [link](/aws/iam#enforce-mfa-to-users)
 - At the S3 dashboard, at the "Block Public Access settings for this account" page, enable "Block _all_ public access" to disable public access for _all_ S3 buckets in the account [link](/aws/s3#block-all-public-access-for-all-buckets-in-the-account)
+- Enable regions that are not enabled by default, eg "Europe (Spain)". This is done by clicking Account at the top right
 
 ## Multiple accounts
+
+TODO move this to a new doc?
 
 Control Tower: https://aws.amazon.com/controltower
 

@@ -32,7 +32,7 @@ Refining permissions in AWS using last accessed information - https://docs.aws.a
 
 AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
 
-IAM is a **global** service. Notice you cannot select any region at the top-right dropdown. Any user, group, role etc. can be used on all regions, all around the world.
+IAM is a **global** service. Notice you cannot select any region at the top-right dropdown at the console. Any user, group, role etc. can be used on all regions, all around the world.
 
 ## Summary
 
@@ -55,19 +55,26 @@ Cheatsheet - https://digitalcloud.training/aws-iam/
 
 ## User
 
-By default users have no permissions, thus they can't do anything. You give them permissions using groups and policies.
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html
+
+A human user or workload who uses the IAM user to interact with AWS resources.
+
+Users have no permissions by default, thus they can't do anything. You give them permissions using groups and policies.
 
 Each user has a username (Account name), used to log in.
 
 Authentication options:
 
 - Web console: username and password + optionally MFA.
-  - To log in at the console use the URL `https:/ /$accountId.signin.aws.amazon.com/console` or `https:/ /$accountAlias.signin.aws.amazon.com/console`. Use `aws sts get-caller-identity` to get the account ID.
-- CLI & API: access key ID and secret access key. You can also have MFA too.
-  - Only a user can have access keys (not a group, role or policy).
+  - To log in at the console use the URL `https://$accountId.signin.aws.amazon.com/console` or `https://$accountAlias.signin.aws.amazon.com/console`. (Use `aws sts get-caller-identity` to get the account ID.)
+- CLI, SDK & API: access key ID and secret access key. You can additionally require MFA.
+  - Only a user can have access keys (not a group nor role).
   - Best practice: use roles for applications that run on EC2 instances or lambda functions. See [Require workloads to use temporary credentials with IAM roles to access AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-workloads-use-roles)
+  - Access keys are long term credentials. You can use the Security Token Service (STS) to generate temporary credentials, eg with [`assume-role`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/assume-role.html) and [`get-session-token`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-session-token.html). See [Temporary security credentials in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html).
 
 You should set up a unique IAM user for every person who needs access to the AWS account, and grant access only to the resources each person needs, following the least-privilege principle.
+
+You can have up to 5000 users.
 
 ### Service account
 
@@ -77,21 +84,27 @@ An IAM user for a service or application.
 
 ## Group
 
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html
+
 A collection of users with the same permissions.
 
 A way of organizing users and applying permissions to them through a policy.
 
-A user can be a member of zero, one or multiple groups.
+A user can be a member of zero, one or multiple groups (up to 10 groups maximum). If a user is in multiple groups it gains the permissions of all groups combined together, with any deny taking precedence over any allow. Note that a user may also have permissions applied to its individual user account.
 
-Is not an identity, thus it cannot be used at the a `Principal` field of a policy. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html:
+A group can have up to 10 managed policies - [see quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html).
 
-> You cannot identify a user group as a principal in a policy (such as a resource-based policy) because groups relate to permissions, not authentication, and principals are authenticated IAM entities.
+Is not an identity, thus it cannot be used at the a `Principal` field of a policy. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html (this sentence also appears in [IAM user groups](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html)):
+
+> You cannot identify a user group as a `Principal` in a policy (such as a resource-based policy) because groups relate to permissions, not authentication, and principals are authenticated IAM entities.
 
 ## Role
 
-A way to **delegate** permissions without using permanent credentials. Is an identity. Roles are assumed by users, applications and services (the trusted entities).
+A way to **delegate** permissions without using permanent credentials. Is an IAM identity with permissions assigned. Roles are assumed by users, applications and services (the trusted entities).
 
 When you assume a role you loose any other permissions. Eg if you are an admin but you assume a role, you loose the admin permissions. Thus, the permissions assigned to a role need to include everything required to complete the task.
+
+Roles are a secure way to provide permissions to users and services without using permanent credentials. It’s like a hat: you put a different one for each job, gaining a different set of permissions temporarily to do some action, and when done you leave that role, loosing the extra permissions and going back to the regular permissions of your account. This way you don’t accidentally do something wrong, because you only have the exact permissions required for that task, no more, and for a limited period of time.
 
 From https://explore.skillbuilder.aws/learn/course/120/play/459/introduction-to-aws-identity-and-access-management-iam
 
@@ -127,7 +140,7 @@ By default, users and roles can't do anything. You need an identity policy to al
 
 ### `sts:AssumeRole`
 
-The API call used to assume a role.
+To assume a role you use the `sts:AssumeRole` API action, which returns a set of temporary security credentials (access key ID, a secret access key, and a security token) that you can use to access AWS resources. Is like logging in as the role, and we gain the permissions of the role.
 
 On a trust policy the `Action` is `sts:AssumeRole`.
 
@@ -397,6 +410,43 @@ For example to allow the S3 service to replicate two buckets we create a Role wi
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html
 
+- Identity-based policies apply to users, groups and roles.
+- Resource-based policies apply to resources like S3 buckets or DymamoDB tables.
+  - The `Principal` defines who can do the action, and the `Resource` defines what resource the action applies to.
+
+Example: the `AdministratorAccess` policy, which can be applied to an administrators group:
+
+```json title="identity_policy.json"
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Example: to give a user access to an S3 bucket:
+
+```json title="resource_policy.json"
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::ACCOUNT_ID:user/MyUser"
+      },
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"]
+    }
+  ]
+}
+```
+
 #### Identity-based policy
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_id-based
@@ -422,6 +472,8 @@ Using managed policies can often conflict with following the least-privilege pri
 :::
 
 Does not have a `Principal`.
+
+> You cannot use the `Principal` element in an identity-based policy. Identity-based policies are permissions policies that you attach to IAM identities (users, groups, or roles). In those cases, the principal is implicitly the identity where the policy is attached. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html)
 
 Example: Allows access to a specific DynamoDB table ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_dynamodb_specific-table.html))
 
@@ -474,7 +526,7 @@ Attached to a resource like an S3 bucket, a DynamoDB table or a SQS queue. Defin
 
 On the JSON there's a `Principal` which defines who gets permission to perform the `Action` to a specific `Resource` only.
 
-Not all resources support resource-based policies, only a few of them do, see the table at https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
+**Not all services support resource-based policies**, only a few of them do, see the table at https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
 
 Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-allow-full-access-to-a-bucket-and-all-its-objects)):
 
@@ -597,6 +649,29 @@ Attach the bucket policy to an S3 bucket with [`put-bucket-policy`](https://awsc
 
 ```shell
 aws s3api put-bucket-policy --bucket my-bucket --policy file://bucket_policy.json
+```
+
+We can restrict access to a specific prefix:
+
+```json title="bucket_policy.json"
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::ACCOUNT_ID:user/Albert"
+      },
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::my-bucket",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": "SomeDepartment/*"
+        }
+      }
+    }
+  ]
+}
 ```
 
 ### Role vs Policy
@@ -740,6 +815,8 @@ https://www.netskope.com/blog/a-real-world-look-at-aws-best-practices-password-p
 ## ARN
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html
+
+A unique identifier of a resource.
 
 List of possible resource type ARNs that you can specify as a `Resource` in a resource policy: https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html
 
@@ -890,7 +967,7 @@ Delete role
 
 ## Permission boundaries
 
-Defines the maximum permissions that a user, group or role can have. Can be applied to users and roles. Used to prevent privilege escalation.
+Defines the maximum permissions that a user, group or role can have. Can be applied to users and roles. Used to restrict permissions in order to prevent privilege escalation.
 
 Sets the maximum permissions that an identity-based policy can grant an IAM entity.
 

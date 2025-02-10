@@ -431,14 +431,14 @@ We create a **private route table**, explicitly associated to the **private subn
 
 The private instance can use it's private IP address to connect to the private IP of the NAT gateway, which will forward the traffic to the Internet Gateway using Network Address Translation, and reach the Internet.
 
-Main route table (public subnet):
+Public subnet route table:
 
 | Destination | Target |
 | ----------- | ------ |
 | 10.0.0.0/16 | local  |
 | 0.0.0.0/0   | igw-id |
 
-Private route table (private subnet):
+Private subnet route table:
 
 | Destination | Target         |
 | ----------- | -------------- |
