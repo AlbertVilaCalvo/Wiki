@@ -2,6 +2,8 @@
 title: SSH
 ---
 
+The **port 22** needs to be open for inbound traffic.
+
 The client has the private key (contained on a `.pem` file), and the server the public key (a file with the `.pub` extension, saved at `~/.ssh/authorized_keys`). Anyone with the public key can access the instance.
 
 ```shell

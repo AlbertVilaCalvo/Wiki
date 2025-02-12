@@ -122,7 +122,13 @@ https://stackoverflow.com/questions/3737740/is-there-a-better-way-to-run-a-comma
 From https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#scale-instances:
 
 ```shell
-for i in `seq 1 5`; do curl https://www.google.com; echo;  done
+for i in `seq 1 5`; do curl https://www.google.com; echo; done
+```
+
+Another example (to generate load to an AWS load balancer, [source](https://github.com/nealdct/aws-clf-code/blob/main/amazon-ec2/generate-load-on-alb.md)):
+
+```shell
+for i in {1..200}; do curl http://alb-address.com & done; wait
 ```
 
 ## Aliases

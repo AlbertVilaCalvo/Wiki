@@ -38,3 +38,9 @@ Send 500,000 requests using 15 threads. The load test is limited to 300 seconds,
 ```shell
 ab -n 500000 -c 15 -t 300 -s 120 -r <url>
 ```
+
+You can also do ([source](https://github.com/nealdct/aws-clf-code/blob/main/amazon-ec2/generate-load-on-alb.md)):
+
+```shell
+for i in {1..200}; do curl http://alb-address.com & done; wait
+```

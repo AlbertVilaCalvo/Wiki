@@ -205,7 +205,7 @@ RFC 6238 - https://datatracker.ietf.org/doc/html/rfc6238
 
 FIDO2 security key providers - https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-passwordless#fido2-security-key-providers
 
-## Passwordless
+## Passkeys
 
 _Password-based security is an oxymoron_ - https://venturebeat.com/security/google-passkeys-chrome-android/
 
@@ -222,6 +222,10 @@ https://www.apple.com/newsroom/2022/10/macos-ventura-is-now-available
 > Whenever users create a passkey, a unique digital key is created that stays on device and is never stored on a web server, so hackers can’t leak them or trick users into sharing them. With passkeys, it’s easy for users to sign in securely using Touch ID or Face ID for biometric verification, and passkeys are securely synced with end-to-end encryption using iCloud Keychain so they are available across Apple devices including Mac, iPhone, and iPad. Passkeys also work across apps and the web, and users can even sign in to websites or apps on non-Apple devices using their iPhone.
 
 https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-passwordless
+
+Understand passkeys in 4 minutes - https://www.youtube.com/watch?v=2xdV-xut7EQ
+
+Passwordless login with passkeys - https://developers.google.com/identity/passkeys/
 
 # WebAuthn
 

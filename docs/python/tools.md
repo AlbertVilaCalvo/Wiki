@@ -301,6 +301,14 @@ Get "✘ Locking Failed! ResolutionFailure" when doing `pipenv install black --d
 
 From https://stackoverflow.com/questions/51540404/how-do-you-resolve-python-package-dependencies-with-pipenv
 
+## Pyright
+
+Static Type Checker for Python
+
+https://github.com/microsoft/pyright
+
+In VSCode, should be used with the [Pylance extension](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance).
+
 ## uv
 
 https://github.com/astral-sh/uv
