@@ -67,12 +67,27 @@ If the CLI is installed with Brew, auto-completion should work with no extra con
 
 ## Best practices for managing AWS access keys
 
-https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#securing_access-keys
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+
+- Do NOT use your account's root credentials to create access keys.
+- Do NOT put access keys or credential information in your application files.
+- Do NOT include files that contain access keys or credential information in your project area.
+- Access keys or credential information stored in the shared AWS credentials file are stored in plaintext.
 
 https://docs.aws.amazon.com/accounts/latest/reference/credentials-access-keys-best-practices.html
 
 - Remove (or don't generate) an account access key
 - Use temporary security credentials (IAM roles) instead of long-term access keys
+
+[Alternatives to long-term access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/security-creds-programmatic-access.html)
+
+- Don't embed long-term access keys and secret access keys in your application code or in a code repository
+- Use IAM roles to generate temporary security credentials whenever possible
+- Use alternatives to long-term access keys for the AWS Command Line Interface (AWS CLI) or the `aws-shell`
+  - AWS CloudShell
+  - AWS CLI Version 2 integration with AWS IAM Identity Center
+- Don't create long-term access keys for human users who need access to applications or AWS services
+- Don't store long-term access keys within an AWS compute service
 
 ## Create Access keys using the web console
 

@@ -117,6 +117,8 @@ From AWS in Action p. 388:
 - Some services operate over multiple availability zones within a region, like S3, EFS and DynamoDB. They can withstand an availability zone outage by default.
 - Some services can optionally fail over into another availability zone, like RDS with [Multi-AZ](https://aws.amazon.com/rds/features/multi-az/), and EC2 with [Auto Scaling](https://aws.amazon.com/ec2/autoscaling/).
 
+Also see which servies are fault tolerant at page 433.
+
 To distribute resources across availability zones, when creating an AWS account, AWS randomly maps AZ identifiers (eg eu-west-1a) to different AZ data centers (eg use1-az4) for each account. You can see this by running `aws ec2 describe-availability-zones --region eu-west-1 --profile <profile>` with two different profiles, and you may get this different responses:
 
 ```json

@@ -42,3 +42,13 @@ Theoretical cost optimization by Amazon ECS launch type: Fargate vs EC2 - https:
 > The pricing for the EC2-based launch type is fixed to the memory and capacity provisioned for a chosen instance type. You pay for a full instance regardless of how much of it is being used by the workload. In comparison, Fargate gives an alternative where pricing can often more closely match resource requirements. Fargate workloads are charged for the CPU and memory consumed for a single task, and AWS manages the allocation of these tasks on the underlying infrastructure. Up until a certain threshold, pricing specificity provided by Fargate becomes more cost effective over an EC2-based launch. However, there comes a point where managing your own EC2 fleet is more cost effective than using Fargate.
 
 > As can be seen, the advantage of Fargate launch types decreases as the compute and memory usage approaches the capacity of the instance. For steady-state, predictable workload levels that use a higher proportion of the instance CPU and memory, EC2 can be a more cost-effective choice, as it is possible to simply select the instance type for which tasks can optimally use the available resources.
+
+## IAM roles
+
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/security-ecs-iam-role-overview.html
+
+### Task role
+
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
+
+Provides permissions to the container in the task to make API requests to AWS services such as S3, similar to the way that EC2 instance profiles provide credentials to EC2 instances.

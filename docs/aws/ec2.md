@@ -52,7 +52,11 @@ https://instances.vantage.sh - https://github.com/vantage-sh/ec2instances.info
 - `2` is the generation
 - `micro` is the size (CPU, memory, storage and network)
 
+:::tip
+
 > **Our experience indicates that you'll overestimate the resource requirements for your applications.** We recommend that you try to start your application with a smaller instance type than you think you need at first and change the instance type later if needed. (AWS in Action p. 63)
+
+:::
 
 ## Launch instance
 
@@ -63,7 +67,7 @@ https://instances.vantage.sh - https://github.com/vantage-sh/ec2instances.info
   - Eg pick Amazon Linux 2023
 - Choose the instance type (t2.nano, t2.micro...)
 - Choose a [key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) if you plan to connect to the instance using SSH
-  - You can create a new one of type 'RSA', file format `.pem` and name like `us-east-kp`
+  - You can create a new one of type 'RSA', file format `.pem` and name like `us-east-kp`. A file named `us-east-kp.pem` containing the private key will be downloaded; store it safely, since anyone holding it will be able to connect to the instance
 - On the 'Network settings'
   - VPC: select one or just use the default
   - Subnet: No preference
@@ -84,8 +88,6 @@ https://instances.vantage.sh - https://github.com/vantage-sh/ec2instances.info
   - Set 'User data'
 - Click 'Launch instance'
 
-To terminate the instance, at the Instances pages open the 'Instance state' drop-down and click 'Terminate instance'.
-
 ## Connect
 
 Connect to your EC2 instance - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect.html
@@ -98,7 +100,7 @@ Options:
 
 (`ssh` commands) Connect to your Linux instance using an SSH client - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html
 
-We connect to an SSH server running on the instance. Port 22 (where the SSH daemon runs) must be open; we do this with the security group (the firewall).
+We connect to an SSH server running on the instance. **Port 22** (where the SSH daemon runs) must be open for inbound traffic; we do this with the security group (the firewall).
 
 The client has the private key (contained on a `.pem` file), and the server the public key (at ` ~/.ssh/authorized_keys`). Anyone with the public key can access the instance.
 
@@ -135,7 +137,7 @@ Uses SSH but there's no need to have a key :) It creates a temporary key pair: _
 
 Uses IAM for access control.
 
-You can use a terminal or a browser. Port 22 needs to be open. The instance needs to have a public IPv4 address.
+You can use a terminal or a browser. You need to allow inbound traffic on **port 22**, with protocol TCP and source 0.0.0.0/0 (any IP address). The instance needs to have a public IPv4 address. See [Prerequisites for EC2 Instance Connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-prerequisites.html).
 
 ### Session Manager (AWS Systems Manager)
 
@@ -148,7 +150,7 @@ Open `https://console.aws.amazon.com/systems-manager/session-manager/$INSTANCEID
 - (Benefits and features) AWS Systems Manager Session Manager - https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html
 - (Not very useful) Connect to your Amazon EC2 instance using Session Manager - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-with-systems-manager-session-manager.html
 
-Uses IAM for access control. No need to open any ports (unlike SSH, which requires opening the port 22, or RDP, which requires opening the port 3389). No need to configure a key pair upfront (it uses temporary key pairs). No need to maintain a bastion host. Is the most secure option. [See all benefits here](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html#session-manager-benefits).
+Uses IAM for access control. **No need to open any ports** (unlike SSH, which requires opening the port 22, or RDP, which requires opening the port 3389). No need to configure a key pair upfront (it uses temporary key pairs). No need to maintain a bastion host. Is the most secure option. [See all benefits here](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html#session-manager-benefits).
 
 You can use either an interactive one-click browser-based shell or the AWS Command Line Interface (AWS CLI). To connect from the terminal (instead of the browser) see [Install the Session Manager plugin for the AWS CLI](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html).
 
@@ -173,13 +175,7 @@ Thus, to access the `ec2-user` home directory (`cd /home/ec2-user`) you need to 
 
 [Remote Desktop Protocol](https://en.wikipedia.org/wiki/Remote_Desktop_Protocol). To connect to Windows machines. There are clients for many OS. You access the desktop using a graphical interface.
 
-Port 3389 must be open on the security group.
-
-## Internet gateway
-
-Enables access to/from the internet.
-
-When we connect to the EC2 instance we do so through the internet gateway.
+**Port 3389** must be open for inbound traffic on the security group.
 
 ## Security group (instance firewall)
 
@@ -220,6 +216,7 @@ curl http://169.254.169.254/
 curl http://169.254.169.254/latest/meta-data
 curl http://169.254.169.254/latest/meta-data/instance-id
 curl http://169.254.169.254/latest/meta-data/public-ipv4
+curl http://169.254.169.254/latest/meta-data/local-ipv4 # private IP
 
 # V2
 # Get token
@@ -254,11 +251,15 @@ sudo cat /var/log/cloud-init-output.log
 See [Cloud-init log files](https://docs.cloud-init.io/en/latest/reference/user_files.html#cloud-init-log-files).
 :::
 
+:::warning
+The user data only runs when the instance launches, at the first boot. You can edit its content (at Actions → Instance settings → Edit user data) in a instance that is running, but it won't run again, even if you stop and start the instance.
+:::
+
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
 
-Code scripts that run when the instance starts, to customize the instance.
+Code scripts that run the first time the instance launches, to customize the instance.
 
 ```shell
 #!/bin/bash
@@ -271,6 +272,8 @@ Accessible at the metadata at `http://169.254.169.254/latest/user-data`.
 
 ### Run Apache server
 
+Note that you need to open port 80 and/or 443.
+
 ```shell
 #!/bin/bash
 yum update -y
@@ -279,11 +282,15 @@ systemctl start httpd
 systemctl enable httpd
 ```
 
-Once the Apache server is running, there are various ways to customize the HTML:
+Once the Apache server is running, there are various ways to customize the HTML.
+
+From https://github.com/AWSinAction/code3/blob/ccf418e8fbb4d64aa6cfd9ede3cfcae445a4eda7/chapter05/firewall1.yaml#L91:
 
 ```shell
 echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Hello!</title></head><body><p>Hello!</p></body></html>' > /var/www/html/index.html
 ```
+
+From https://github.com/nealdct/aws-clf-code/blob/main/amazon-ec2/user-data-web-server.sh:
 
 ```shell
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
@@ -427,11 +434,13 @@ To overcome this problem you can:
 
 For **legacy applications** that read/write files from/to a filesystem, like relational databases. Is standalone/independent: can exist without an EC2 instance, but you need an EC2 instance to access it. It's accessed over the network. It replicates data among multiple disks automatically to increase durability and availability.
 
-An EC2 instance has a root EBS volume (`/dev/xvda`) that contains the OS. By default, the root volume is deleted when you terminate the EC2 instance (since the attribute [`DeleteOnTermination`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ebs.html#cfn-ec2-instance-ebs-deleteontermination) is true for it), but any other volumes attached are not (`DeleteOnTermination` is false).
+An EC2 instance has a root EBS volume (`/dev/xvda`) that contains the OS. By default, the root volume is deleted when you terminate the EC2 instance (since the attribute [`DeleteOnTermination`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ebs.html#cfn-ec2-instance-ebs-deleteontermination) is true for it), but any other volumes attached are not (since `DeleteOnTermination` is false).
 
 Generally, an EBS volume is attached to exactly one EC2 instance. It's possible to attach EBS volumes to multiple EC2 instances with [Multi-Attach](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html), but with some limitations.
 
 Use `lsblk` to list the attached volumes. To use the volume, you need to create a filesystem first. For example, to create a filesystem of type XFS run `sudo mkfs -t xfs /dev/nvme1n1`. Then create a folder on which to mount the device with `sudo mkdir /data`. Afterwards, mount the device with `sudo mount /dev/nvme1n1 /data`. Once the device is mounted, use `df -h` to see it. Doing `lsblk` will now show `/data` at the `MOUNTPOINT` column. The volume is ready; we can now create files at the `/data` directory (eg `sudo touch /data/hello.txt`).
+
+See similar instructions here: https://github.com/nealdct/aws-clf-code/blob/main/amazon-ebs/amazon-ebs-volumes.md
 
 Some EC2 instance types are EBS-optimized, others optionally support EBS optimization, an some do not support EBS optimization; see [Amazon EBS-optimized instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html) and [Amazon EBS optimization](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-optimization.html).
 

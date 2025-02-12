@@ -130,6 +130,8 @@ https://docs.aws.amazon.com/vpc/latest/userguide/RouteTables.html
 
 ## Internet Gateway
 
+Enables access to/from the internet. When we connect to an EC2 instance we do so through the internet gateway.
+
 https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html
 
 > An internet gateway enables resources in your public subnets (such as EC2 instances) to connect to the internet if the resource has a public IPv4 address or an IPv6 address. Similarly, resources on the internet can initiate a connection to resources in your subnet using the public IPv4 address or IPv6 address.
@@ -157,7 +159,7 @@ See https://stackoverflow.com/questions/74455063/what-exactly-are-nat-gateway-an
 ### Bastion hosts
 
 :::info
-Alternatively, there's also the EC2 Instance Connect Endpoint: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-with-ec2-instance-connect-endpoint.html
+Alternatively, you can connect to an instance in a private subnet with EC2 Instance Connect Endpoint: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-with-ec2-instance-connect-endpoint.html. You can do so in the console by clicking "Connect" as usual, and then choosing "Connect using EC2 Instance Connect Endpoint". You need to [create an EC2 Instance Connect Endpoint](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-ec2-instance-connect-endpoints.html) first.
 :::
 
 CloudFormation template - https://aws.amazon.com/solutions/implementations/linux-bastion/
