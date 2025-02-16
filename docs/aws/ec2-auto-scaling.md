@@ -10,6 +10,8 @@ https://digitalcloud.training/amazon-ec2-auto-scaling/
 
 Tutorial - https://aws.amazon.com/tutorials/ec2-auto-scaling-spot-instances
 
+> Amazon EC2 Auto Scaling helps you maintain application availability and allows you to scale your Amazon EC2 capacity up or down automatically according to conditions you define. You can use Auto Scaling to help ensure that you are running your desired number of Amazon EC2 instances during demand spikes to maintain performance and decrease capacity during lulls to reduce costs.
+
 Provides scalability and elasticity by scaling out (horizontally, instead of up/vertically) by launching instances when demand increases, so that the application is performant, and scaling in by terminating instances when they are not needed, so that you only pay for what you need.
 
 In addition, with Auto Scaling you can achieve high availability. EC2 instances run on a single availability zone, but with Auto Scaling you can fail over into another AZ if there's an outage in one AZ.
@@ -37,13 +39,15 @@ Is set on the ASG, at the 'Automatic scaling' tab.
 
 Can be dynamic (target, step and simple), predictive and scheduled.
 
-[Target tracking scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html) – Select a CloudWatch metric and a target value (eg average CPU utilization of 50%).
+[Target tracking scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html) – Select a CloudWatch metric and a target value (eg average CPU utilization of 70%). No need to define scaling steps nor thresholds.
 
-[Step scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html) – Scale a resource based on a set of scaling adjustments that vary based on the size of the alarm breach.
+[Step scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html) – Scale a resource based on a set of scaling adjustments that vary based on the _size_ of the alarm breach.
 
 > We strongly recommend that you use target tracking scaling policies to scale on metrics like average CPU utilization or average request count per target.
 
-[Simple scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html)
+[Simple scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html) - Legacy. Use step scaling. [See why here](https://docs.aws.amazon.com/autoscaling/ec2/userguide/simple-scaling-policies.html).
+
+[Predictive scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-predictive-scaling.html) - Uses machine learning.
 
 [Scheduled scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scheduled-scaling.html) – Scale a resource one time only or on a recurring schedule.
 
@@ -69,7 +73,7 @@ For accounts created after May 31, 2023, the EC2 console **only supports creatin
 https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-health-checks.html
 
 - EC2: uses the VM hypervisor and networking.
-- ELB (Elastic Load Balancing): checks if the application works too.
+- ELB (Elastic Load Balancing): checks if the application works too, _in addition_ to the EC2 status checks.
 
 https://stackoverflow.com/questions/42466157/whats-the-difference-between-elb-health-check-and-ec2-health-check
 
@@ -83,11 +87,13 @@ The health check _type_ is defined in the Auto Scaling group, not the load balan
 
 https://aws.amazon.com/elasticloadbalancing
 
-Distribute network traffic among targets (EC2 instances, lambda functions, containers...), providing fault tolerance. You can couple this with Auto Scaling to ensure the right number of instances are available.
+Distributes network traffic among targets. If one target fails, it stops sending requests to it and re-routes the request to another target, providing fault tolerance. You can couple this with Auto Scaling to ensure the right number of instances are available.
 
-Uses health checks to ensure that an instance is available and healthy. Does not use CloudWatch metrics.
+Uses health checks to ensure that an instance is available and healthy. The health check can be, for example, a request to the path '/health' on port 80 that expects a 200 response. Does not use CloudWatch metrics. When a target is not healthy, it notifies the Auto Scaling group, which will then terminate it and replace it.
 
-ELB distributes traffic in a single or multiple availability zones, but cannot distribute across regions. To direct traffic across regions use Amazon Route 53.
+Targets can be EC2 instances, containers, lambda functions (for ALB only), IP addresses and ALB load balancers (for NLB only).
+
+ELB distributes traffic in a single or multiple availability zones within a region, but cannot distribute across regions. To direct traffic across regions use Amazon Route 53. Note that is the Auto Scaling group which spreads the instances across availability zones; the load balancer will then distribute requests among the instances.
 
 A load balancer consists of multiple servers that can run in different subnets (ie datacenters). AWS automatically scales the number of load balancer servers up and down based on traffic and handles failover if a server goes down, so you get scalability and high availability. (From 'Terraform: Up and Running' p. 72.)
 
@@ -108,9 +114,10 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.
 
 https://aws.amazon.com/elasticloadbalancing/features/#Product_comparisons
 
-- [Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html): application layer 7, HTTP/HTTPS. Supports routing based on the request HTTP headers, URL path, host (ie domain name) and query params, IP address etc.
-- [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html): layer 4, TCP/UDP. Routes based on the protocol, source or destination IP address etc. Can scale up and down in response to load faster than the ALB. Scales to tens of milions of requests per second.
-- [Classic Load Balancer (CLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html): layer 4 and 7. Has far fewer features than ALB and NLB. Deprecated; should not be used. See "Benefits of migrating from a Classic Load Balancer" [to ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html#application-load-balancer-benefits) and [to NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html#network-load-balancer-benefits).
+- [Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html): application layer 7, HTTP/HTTPS. Supports routing based on the request HTTP headers, URL path, host (ie domain name) and query string params, IP address etc. Targets can be instances, containers, lambda functions and IP addresses.
+- [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html): layer 4, TCP/UDP. Routes based on the protocol, source or destination IP address etc. Can scale up and down in response to load faster than the ALB. Ultra-high performance. Scales to tens of milions of requests per second maintaining ultra-low latencies. Targets can be instances, IP addresses and ALB. Can have a static and Elastic IP address.
+- [Classic Load Balancer (CLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html): layer 4 and 7. Has far fewer features than ALB and NLB. **Deprecated**; should not be used. See "Benefits of migrating from a Classic Load Balancer" [to ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html#application-load-balancer-benefits) and [to NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html#network-load-balancer-benefits).
+- [Gateway Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/gateway/introduction.html). Third-party virtual appliances that support GENEVE. Firewalls.
 
 ### Load balancer components
 

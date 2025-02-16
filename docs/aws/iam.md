@@ -406,6 +406,8 @@ For example to allow the S3 service to replicate two buckets we create a Role wi
 }
 ```
 
+A Lambda function's [execution role](/aws/lambda#execution-role) also needs a trust policy to assume the role.
+
 ### Identity-based vs resource-based policy
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html
@@ -915,9 +917,9 @@ aws iam add-user-to-group --group-name Administrators --user-name MyUser
 aws iam create-role --role-name <role-name> --assume-role-policy-document file://trust.json --output text --query 'Role.Arn'
 ```
 
-Example of trust policy document (`trust.json`):
+Example of trust policy document:
 
-```json
+```json title="trust.json"
 {
   "Version": "2012-10-17",
   "Statement": [

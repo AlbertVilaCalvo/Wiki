@@ -56,6 +56,8 @@ Introduction to DevOps on AWS - https://docs.aws.amazon.com/whitepapers/latest/i
 
 A Comprehensive Guide to Building a Scalable Web App on Amazon Web Services - Part 1 - https://archive.ph/j72xI
 
+The Good Parts of AWS - https://dvassallo.gumroad.com/l/aws-good-parts - By https://dvassallo.com - https://stackoverflow.com/users/222908/daniel-vassallo
+
 :::info
 **Everything in AWS is an API call.** It doesn’t matter whether you are using the management console, the command line interface or writing code using an SDK — you are always interacting with an API.
 

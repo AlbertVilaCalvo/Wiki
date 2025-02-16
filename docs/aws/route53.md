@@ -38,7 +38,7 @@ Choosing a routing policy - https://docs.aws.amazon.com/Route53/latest/Developer
 
 [Latency-based](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-latency.html): route to the AWS region that provides the lowest possible latency.
 
-[IP-based](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-ipbased.html)
+[IP-based](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-ipbased.html): route based on the user IP.
 
 [Multivalue answer](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-multivalue.html): returns several IP addresses.
 

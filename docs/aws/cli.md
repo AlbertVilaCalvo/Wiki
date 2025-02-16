@@ -10,7 +10,7 @@ https://aws.amazon.com/cli
 
 https://github.com/aws/aws-cli
 
-Command reference:
+**Command reference**:
 
 - https://awscli.amazonaws.com/v2/documentation/api/latest/index.html
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html

@@ -293,9 +293,14 @@ EC2 instances should not have a public IP address | AWS Foundational Security Be
 
 [hola](#place-your-servers-in-private-subnets-and-load-balancers-in-public-subnets)
 
-## Gateway and interface endpoints
+## VPC endpoints
 
-For S3 and DynamoDB, use [Gateway Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) at [no additional charge](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html).
+Private connections to public AWS services.
+
+To access AWS services like S3 and DynamodB, instances in public subnets can use their public endpoints. For instances in private subnets, we could use a NAT Gateway, but there's a better way that doesn't use the public internet: VPC endpoints. Instances use private IPs to access the services.
+
+There are two types of VPC endpoints: gateway and interface endpoints.
+For S3 and DynamoDB, use [Gateway VPC Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) at [no additional charge](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html).
 For [other services](https://docs.aws.amazon.com/vpc/latest/privatelink/aws-services-privatelink-support.html), use Interface Endpoints with [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) with an hourly and data [processing fee](https://aws.amazon.com/privatelink/pricing/#Interface_Endpoint_pricing).
 
 Comparison ([source](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/privatelink-interface-endpoints.html#types-of-vpc-endpoints-for-ddb)):
@@ -352,3 +357,5 @@ Comparison ([source](https://docs.aws.amazon.com/amazondynamodb/latest/developer
     </tr>
   </tbody>
 </table>
+
+A similar comparison exists for S3 in [Types of VPC endpoints for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#types-of-vpc-endpoints-for-s3).

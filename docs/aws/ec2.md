@@ -424,15 +424,21 @@ EC2 instances are linked to a subnet, and the subnet is linked to an availabilit
 To overcome this problem you can:
 
 - Use EFS.
-- Create snapshots of the EBS volumes regularly. Snapshots are stored in S3, which is available in multiple AZs. If the data is stored in the root volume, you can back it up with an AMI.
+- Create snapshots of the EBS volumes regularly. Snapshots are stored in S3, which is regional and thus available in all AZs of the region. If the data is stored in the root volume, you can back it up with an AMI.
 - Use another storage solution like [Gluster](https://www.gluster.org/), [DRBD](https://linbit.com/drbd/), S3, RDS, DynamoDB...
 
 (AWS in Action p. 375.)
 :::
 
+:::info
+An EBS volume is stored in an AZ, but snapshots are regional, since they are stored in S3, which is a regional service. Thus, we can create volumes from snapshots in AZs different from the AZ of the source volume. This is a way to move volumes from one AZ to another, inside the same region.
+:::
+
 **Block** storage: requires an EC2 instance, since the OS is needed to create filesystems and partitions, reading and writing using system calls etc.
 
 For **legacy applications** that read/write files from/to a filesystem, like relational databases. Is standalone/independent: can exist without an EC2 instance, but you need an EC2 instance to access it. It's accessed over the network. It replicates data among multiple disks automatically to increase durability and availability.
+
+EBS volumes are independent of instances; you can terminate an instance and keep the volume. You can attach multiple volumes to an instance.
 
 An EC2 instance has a root EBS volume (`/dev/xvda`) that contains the OS. By default, the root volume is deleted when you terminate the EC2 instance (since the attribute [`DeleteOnTermination`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ebs.html#cfn-ec2-instance-ebs-deleteontermination) is true for it), but any other volumes attached are not (since `DeleteOnTermination` is false).
 
@@ -444,7 +450,7 @@ See similar instructions here: https://github.com/nealdct/aws-clf-code/blob/main
 
 Some EC2 instance types are EBS-optimized, others optionally support EBS optimization, an some do not support EBS optimization; see [Amazon EBS-optimized instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html) and [Amazon EBS optimization](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-optimization.html).
 
-You can back up EBS volumes with [EBS snapshots](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html). Snapshots are incremental. Snapshots are stored in S3, which is available in multiple AZs. To create a snapshot with the CLI use [`create-snapshot`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-snapshot.html): `aws ec2 create-snapshot --volume-id <volume-id>`.
+You can back up EBS volumes with [EBS snapshots](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html). Snapshots are incremental. Snapshots are stored in S3, which is regional, so they are available in all AZs. Thus, we can launch a volume from a snapshot in a different AZ than the AZ of the source volume. To create a snapshot with the CLI use [`create-snapshot`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-snapshot.html): `aws ec2 create-snapshot --volume-id <volume-id>`.
 
 Durability vs availability:
 
@@ -457,15 +463,19 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html
 
 HDD or SSD physically attached to the machine that hosts the VM, which results in very high performance. Unlike EBS volumes, instances store volumes can't exist without an EC2 instance.
 
-Since instance stores are not independent of EC2 instances, data is lost when you stop or terminate the VM, or when there's a hardware failure, which means that should not be used for data that must not be lost. Use it for ephemeral/temporary data, for example, caching data locally from a remote data source, or for NoSQL databases that use a cluster of machines to replicate data. Unlike EBS volumes, there's no built-in backup mechanism for instance store. If you need to back up the data, use EBS instead.
+Since instance stores are not independent of EC2 instances, data is lost when you stop or terminate the VM, when there's a hardware failure or the machine is powered off, which means that should not be used for data that must not be lost. Use it for ephemeral/temporary data, for example, caching data locally from a remote data source, or for NoSQL databases that use a cluster of machines to replicate data. Unlike EBS volumes, there's no built-in backup mechanism for instance store. If you need to back up the data, use EBS instead.
 
 Not all instance types support instance store volumes.
 
 ## EFS
 
-A filesystem that can be shared between multiple Linux virtual machines in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front.
+https://aws.amazon.com/efs
+
+A filesystem that can be shared between multiple Linux virtual machines running in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Linux only. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front. You can connect instances from other VPCs ([docs](https://docs.aws.amazon.com/efs/latest/ug/mount-fs-different-vpc.html)).
 
 You need to create a mount target on each subnet, and the EC2 instance where you mount the filesystem must be in the same subnet as the EFS mount target. Each mount target is bound to an availability zone. You need at least two mount targets in different availability zones for high availability. Mount targets are protected by security groups.
+
+EFS file systems can be replicated to another region for disaster recovery. You can also mount the file system, but the replica will be read-only until you fail over to that region.
 
 ## EBS vs Instance Store vs EFS
 
