@@ -137,7 +137,7 @@ Uses SSH but there's no need to have a key :) It creates a temporary key pair: _
 
 Uses IAM for access control.
 
-You can use a terminal or a browser. You need to allow inbound traffic on **port 22**, with protocol TCP and source 0.0.0.0/0 (any IP address). The instance needs to have a public IPv4 address. See [Prerequisites for EC2 Instance Connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-prerequisites.html).
+You can use a terminal or a browser. You need to allow inbound traffic on **port 22**, with protocol TCP and source 0.0.0.0/0 (any IP address). The instance needs to have a **public IP** address. See [Prerequisites for EC2 Instance Connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-prerequisites.html).
 
 ### Session Manager (AWS Systems Manager)
 
@@ -189,7 +189,9 @@ To debug misconfiguration in firewall rules or monitor network traffic you can:
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html
 
-A virtual firewall that controls incoming and outgoing (inbound and outbound) traffic _at the instance level_ (in contrast with Network ACL, which operate at the subnet level).
+https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html
+
+A virtual firewall that controls incoming and outgoing (inbound and outbound) traffic _at the instance level_ (in contrast with Network ACL, which operate at the subnet level). They are attached to Elastic Network Interfaces (ENI).
 
 The rules control which direction (inbound or outbound), IP protocols (TCP, UDP, ICMP), port and IP addresses we can connect from/to. We can also specify a security group.
 
@@ -199,6 +201,8 @@ By default, a security group:
 - Contains a rule that allows all outbound traffic. If you want something more restrictive, you need to remove the rule and add other rules.
 
 Source `0.0.0.0/0` means any IPv4 address, and `::/0` any IPv6 address.
+
+A security group is associated to a single VPC, but you can associate it to multiple VPCs with [Security Group VPC Associations](https://docs.aws.amazon.com/vpc/latest/userguide/security-group-assoc.html).
 
 ## Metadata
 
@@ -330,19 +334,23 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.ht
 
 > We release your instance's public IP address when it is stopped, hibernated, or terminated. Your stopped or hibernated instance receives a new public IP address when it is started.
 
+Note that when you reboot an instance it keeps the public IPv4 address, [see docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-reboot.html).
+
 Private IP:
 
+- Local. Used to communicate within the network.
 - Doesn't change, even if the instance is stopped.
-- Used on public and private subnets.
+- Used in public and private subnets.
 
 Public IP:
 
-- Is dynamic. It's associated to the instance until it is stopped or terminated, thus you cannot use it in application code since it can change. Note that the ‘Public IPv4 DNS’ (eg ec2-3-94-61-169.compute-1.amazonaws.com) will also change, since it includes the public IP.
+- Globally unique. Used to communicate outside the network, including the internet.
+- Is dynamic. It's associated to the instance until it is stopped or terminated, thus you cannot use it in application code since it can change. Note that the "Public IPv4 DNS" (eg ec2-3-94-61-169.compute-1.amazonaws.com) will also change, since it includes the public IP.
 - Used in public subnets only.
+- You don't control it. For example, you cannot move it to another instance like you can do with an Elastic IP.
+- A public IP is associated to a private IP. The same happens with an Elastic IP.
 
-Note that when you reboot an instance it keeps the public IPv4 address, [see docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-reboot.html).
-
-### Pricing
+### Public IPv4 address pricing
 
 https://aws.amazon.com/blogs/aws/new-aws-public-ipv4-address-charge-public-ip-insights/
 
@@ -361,6 +369,10 @@ Elastic IP addresses are only for IPv4, not IPv6.
 You are **charged** for elastic IPs that are allocated to your account but you don't actually use on a running instance. On a EC2 instance, if you do Instance state → Stop instance you'll see this warning:
 
 > After you stop the instance, you are no longer charged usage or data transfer fees for it. However, you will still be billed for associated resources, such as attached EBS volumes and associated Elastic IP addresses.
+
+The message has changed slightly now:
+
+> After you stop the instance, you are no longer charged usage or data transfer fees for it. However, you will still be billed for associated Elastic IP addresses and EBS volumes.
 
 And when you terminate an instance with an elastic IP it says:
 

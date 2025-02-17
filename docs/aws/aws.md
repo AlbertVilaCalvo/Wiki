@@ -121,7 +121,7 @@ From AWS in Action p. 388:
 
 Also see which servies are fault tolerant at page 433.
 
-To distribute resources across availability zones, when creating an AWS account, AWS randomly maps AZ identifiers (eg eu-west-1a) to different AZ data centers (eg use1-az4) for each account. You can see this by running `aws ec2 describe-availability-zones --region eu-west-1 --profile <profile>` with two different profiles, and you may get this different responses:
+To distribute resources across availability zones, when creating an AWS account, AWS randomly maps AZ identifiers (eg eu-west-1a) to different AZ data centers (eg use1-az4) for each account. You can see this mapping at the VPC console, at the Subnets page, at the columns "Availability Zone" and "Availability Zone ID". You can check that the mapping is different for different accounts by running `aws ec2 describe-availability-zones --region eu-west-1 --profile <profile>` with two different profiles, and you may get this different responses:
 
 ```json
 {
