@@ -22,6 +22,8 @@ On-demand price reduction - https://aws.amazon.com/about-aws/whats-new/2024/11/a
 Prefix the name of all your tables with the name of your application (eg todo-user instead of user) to prevent name clashes in the future.
 :::
 
+RCU means "Read Capacity Units".
+
 ## Characteristics
 
 From https://aws.amazon.com/dynamodb, https://aws.amazon.com/dynamodb/features, https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html and https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html.
@@ -66,6 +68,8 @@ There are two capacity modes: on demand and provisioned.
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
 
 Problem: you can only query using the primary key. For example, if you have a list of users, and each user has a country, you can't get all the users belonging to a country (unless you scan all the items and then filter). This can be solved with a global secondary index, an index with hash (primary key) and optionally range (sort key) different than the ones in the table, which allows you to query efficiently on an additional attribute. For example, you can create a global index on the country to get all the users belonging to a country.
+
+> Global secondary indexes allow you to perform queries on attributes that are not part of the table's primary key.
 
 Global secondary indexes are always eventually consistent, since that data needs to be copied (projected), which is an asynchronous process. You need to pay for the additional storage. You can project a subset of the attributes only.
 
@@ -112,6 +116,76 @@ aws dynamodb describe-table --table-name todo-user
 ```shell
 aws dynamodb put-item --table-name Users --item '{"Name": {"S": "Albert Einstein"}, "DOB": {"S": "1879-03-14"}}'
 ```
+
+[Batch write items](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/batch-write-item.html). To put or delete (not update) multiple items in one or more tables.
+
+```shell
+aws dynamodb batch-write-item --request-items file://users.json
+```
+
+The json file is something like:
+
+```json title="users.json"
+{
+  "users-table": [
+    {
+      "PutRequest": {
+        "Item": {
+          "userid": { "S": "497dcba3" },
+          "created": { "S": "2022-01-01T10:00Z" },
+          "email": { "S": "peter@example.com" },
+          "gender": { "S": "Male" },
+          "age": { "N": "37" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "userid": { "S": "50e14f43" },
+          "created": { "S": "2024-01-02T13:00Z" },
+          "email": { "S": "laura@example.com" },
+          "gender": { "S": "Female" },
+          "age": { "N": "19" }
+        }
+      }
+    }
+  ]
+}
+```
+
+There's an example [here](https://github.com/nealdct/aws-clf-code/blob/main/amazon-dynamodb/batch-write.json).
+
+[Scan](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/scan.html):
+
+```shell
+aws dynamodb scan --table-name users
+```
+
+```shell
+aws dynamodb scan \
+    --table-name users \
+    --filter-expression "gender = :g" \
+    --expression-attribute-values '{":g":{"S":"Male"}}'
+```
+
+```shell
+aws dynamodb scan \
+    --table-name users \
+    --filter-expression "age > :a" \
+    --expression-attribute-values '{":a":{"N":"18"}}'
+```
+
+[Query](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/query.html):
+
+```shell
+aws dynamodb query \
+    --table-name users \
+    --key-condition-expression "userid = :uid" \
+    --expression-attribute-values '{":uid":{"S":"50e14f43"}}'
+```
+
+See query with the sort key [here](https://github.com/nealdct/aws-clf-code/blob/main/amazon-dynamodb/create-table-add-data.md).
 
 ## Single table design
 
