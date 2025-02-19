@@ -119,7 +119,7 @@ https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/index.
 
 [Invoke](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/invoke.html):
 
-```json title=payload.json
+```json title="payload.json"
 {
   "email": "a@b.c"
 }

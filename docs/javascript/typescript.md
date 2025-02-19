@@ -44,7 +44,7 @@ yarn tsc --noEmit
 
 It's common to have a 'typecheck' script on `package.json`:
 
-```json title="package.json
+```json title="package.json"
 {
   "scripts": {
     "typecheck": "tsc --noEmit"
