@@ -89,7 +89,6 @@ const sidebars: SidebarsConfig = {
     'aws/cli',
     'aws/iam',
     'aws/root-user',
-    'aws/scp',
     'aws/organizations',
     'aws/sts',
     'aws/cloudwatch',

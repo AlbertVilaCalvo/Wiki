@@ -39,6 +39,20 @@ When you create an account through organizations, it will create a role in the n
 
 To manage a member account using the console, log in to the console using the management account and click "Switch role" (at the top right). At the form that opens, at the "Account ID" set the ID of the account you want to manage, and at the "IAM role name" set `OrganizationAccountAccessRole`. See [Accessing a member account that has OrganizationAccountAccessRole with AWS Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access-cross-account-role.html).
 
+## Service control policies (SCPs)
+
+https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html
+
+Control what API actions are allowed in a given account, that is, the maximum available permissions in an AWS account. SCPs do not grant permissions.
+
+IAM policies apply at users and roles within an AWS account, but SCP apply to multiple accounts or organizations.
+
+:::info
+SCP is a limit, not a permission, like permission boundaries.
+:::
+
+https://digitalcloud.training/aws-scp-mastering-aws-service-control-policies
+
 ## CLI
 
 API reference: https://docs.aws.amazon.com/organizations/latest/APIReference/Welcome.html
