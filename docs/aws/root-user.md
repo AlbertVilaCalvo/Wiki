@@ -103,3 +103,9 @@ Documentation:
 - Enable a **hardware** MFA device for the AWS account root user (console) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable_physical.html#enable-hw-mfa-for-root
 
 Recovering a root user MFA device - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_lost-or-broken.html#root-mfa-lost-or-broken - See steps at https://www.howtoforge.com/how-to-recover-aws-account-access-if-the-mfa-device-is-lost/
+
+## Centrally manage root access
+
+If you have an AWS Organization, you can delete root credentials for your member accounts and perform privileged actions from the management or delegated account.
+
+See [Centrally manage root access for member accounts](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user-access-management) and [Centralize root access for member accounts](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-enable-root-access.html).

@@ -12,6 +12,8 @@ AWS News Blog - aws.amazon.com/blogs/aws
 
 Reddit - https://www.reddit.com/r/aws/
 
+Service status - https://health.aws.amazon.com/health/status
+
 re:Invent - https://reinvent.awsevents.com
 
 Whitepapers & Guides - https://aws.amazon.com/whitepapers
@@ -173,11 +175,19 @@ With the root user.
 
 TODO move this to a new doc?
 
+With multiple accounts you can isolate resources, for example development and production resources.
+
+For disaster recovery, it's also recommended to place the duplicated workloads in separate accounts. See [Designing for multi-account scenarios using AWS Disaster Recovery Service](https://aws.amazon.com/blogs/storage/designing-for-multi-account-scenarios-using-aws-disaster-recovery-service/)
+
 Control Tower: https://aws.amazon.com/controltower
 
 AWS Control Tower vs Terraform - https://www.reddit.com/r/aws/comments/yv1tx4/aws_control_tower_vs_terraform/
 
 AWS Organizations: https://aws.amazon.com/organizations
+
+Setting up a secure and scalable multi-account AWS environment - https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-aws-environment/welcome.html
+
+AWS Whitepaper (PDF) - Organizing Your AWS Environment Using Multiple Accounts - https://docs.aws.amazon.com/pdfs/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.pdf
 
 https://www.leapp.cloud - https://github.com/Noovolari/leapp
 

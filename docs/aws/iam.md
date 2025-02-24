@@ -351,6 +351,10 @@ Trust policy: who
 Permissions policy: what
 :::
 
+From https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based and https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_access-management.html#intro-access-resource-based-policies:
+
+> The IAM service supports only one type of resource-based policy called a role _trust policy_, which you attach to an IAM role. Because an IAM role is both an identity and a resource that supports resource-based policies, you have to attach both a trust policy and an identity-based policy to an IAM role. Trust policies define which principal entities (accounts, users, roles, and federated users) can assume the role. To learn how IAM roles are different from other resource-based policies, see [Cross account resource access in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html).
+
 #### Permissions policy
 
 Defines the permissions (Allow or Deny) that the user of the role is able to perform (or is denied from performing), and on which resources. Is an **identity-based policy**.
@@ -372,8 +376,6 @@ Defines the permissions (Allow or Deny) that the user of the role is able to per
 
 Who is allowed to assume the role, and under which conditions. Is a **resource-based policy**.
 
-> The IAM service supports only one type of resource-based policy called a role trust policy, which is attached to an IAM role. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based)
-
 ```json
 {
   "Version": "2012-10-17",
@@ -389,7 +391,7 @@ Who is allowed to assume the role, and under which conditions. Is a **resource-b
 }
 ```
 
-For example to allow the S3 service to replicate two buckets we create a Role with this custom trust policy:
+For example, to allow the S3 service to replicate two buckets, we create a Role with this custom trust policy:
 
 ```json
 {
@@ -412,9 +414,19 @@ A Lambda function's [execution role](/aws/lambda#execution-role) also needs a tr
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html
 
+https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_access-management.html#intro-access-resource-based-policies
+
 - Identity-based policies apply to users, groups and roles.
-- Resource-based policies apply to resources like S3 buckets or DymamoDB tables.
+  - Control what actions the identity can perform, on which resources, and under what conditions.
+  - Can be further categorized:
+    - Managed policies.
+      - AWS managed.
+      - Customer managed.
+    - Inline policies. _In most cases, we don't recommend using inline policies._
+- Resource-based policies apply to resources like S3 buckets or DynamoDB tables.
+  - Control what actions a specified principal can perform on that resource and under what conditions.
   - The `Principal` defines who can do the action, and the `Resource` defines what resource the action applies to.
+  - Are inline policies.
 
 Example: the `AdministratorAccess` policy, which can be applied to an administrators group:
 
@@ -709,6 +721,18 @@ It can be a ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference
 Note that a Group is not a principal since:
 
 > You cannot identify a user group as a principal in a policy (such as a resource-based policy) because **groups relate to permissions, not authentication, and principals are authenticated IAM entities** [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying)
+
+## Cross-account access
+
+[Cross account resource access in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html)
+
+[IAM tutorial: Delegate access across AWS accounts using IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html)
+
+From https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based
+
+> To enable cross-account access, you can specify an entire account or IAM entities in another account as the principal in a resource-based policy. Adding a cross-account principal to a resource-based policy is only half of establishing the trust relationship. When the principal and the resource are in separate AWS accounts, you must also use an identity-based policy to grant the principal access to the resource. However, if a resource-based policy grants access to a principal in the same account, no additional identity-based policy is required.
+
+https://repost.aws/knowledge-center/cross-account-access-iam - https://www.youtube.com/watch?v=0Wo5pH5zibk
 
 ## Avoid access keys if possible
 

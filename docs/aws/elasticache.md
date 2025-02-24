@@ -6,6 +6,10 @@ https://aws.amazon.com/elasticache
 
 Valkey, Redis OSS and Memcached managed service. ElastiCache is for in-memory databases what RDS is for relational databases.
 
+Often, ElastiCache is used in front of an RDS database, acting as a secondary database that stores ephemeral data coming from a primary database. In addition:
+
+> You can use ElastiCache as a primary data store for use cases that don't require data durability, such as gaming leaderboards, streaming, and data analytics [source](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/creating-elasticache-cluster-with-RDS-settings.html)
+
 Caching patterns: lazy loading vs write-through - https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/caching-patterns.html
 
 | Web Console | CLI/API           |

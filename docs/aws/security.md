@@ -2,7 +2,7 @@
 title: Security
 ---
 
-## Security
+AWS Security Reference Architecture (AWS SRA) - https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html
 
 What do I do if I notice unauthorized activity in my AWS account? - https://repost.aws/knowledge-center/potential-account-compromise
 

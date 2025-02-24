@@ -65,3 +65,7 @@ https://www.lastweekinaws.com/blog/the-key-to-unlock-the-aws-billing-puzzle-is-a
 https://www.economize.cloud
 
 Infracost - https://www.infracost.io
+
+## Cost allocation tags
+
+https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
