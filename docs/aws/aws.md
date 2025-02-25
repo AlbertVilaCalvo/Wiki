@@ -187,7 +187,7 @@ AWS Organizations: https://aws.amazon.com/organizations
 
 Setting up a secure and scalable multi-account AWS environment - https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-aws-environment/welcome.html
 
-AWS Whitepaper (PDF) - Organizing Your AWS Environment Using Multiple Accounts - https://docs.aws.amazon.com/pdfs/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.pdf
+Organizing Your AWS Environment Using Multiple Accounts (AWS Whitepaper) - https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html - [Also available in PDF](https://docs.aws.amazon.com/pdfs/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.pdf)
 
 https://www.leapp.cloud - https://github.com/Noovolari/leapp
 

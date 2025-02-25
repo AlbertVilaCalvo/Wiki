@@ -10,9 +10,11 @@ The **management account** is the account that created the organization. It is a
 
 You can group accounts into Organizational Units (OU). Then we can apply SCP (service control policies) and tag policies to OUs and the root account.
 
-<img src="https://docs.aws.amazon.com/images/organizations/latest/userguide/images/AccountOuDiagram.png">
+<img src="https://docs.aws.amazon.com/images/organizations/latest/userguide/images/AccountOuDiagram.png" />
 
 You can apply CloudTrail to member accounts. Useful for auditing and compliance.
+
+Best practices - https://aws.amazon.com/organizations/getting-started/best-practices/
 
 You can just have consolidated billing or enable all features (which includes the consolidated billing too).
 
@@ -41,15 +43,17 @@ To manage a member account using the console, log in to the console using the ma
 
 ## Service control policies (SCPs)
 
+:::info
+SCP is a limit, not a permission, like permission boundaries.
+:::
+
 https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html
 
 Control what API actions are allowed in a given account, that is, the maximum available permissions in an AWS account. SCPs do not grant permissions.
 
 IAM policies apply at users and roles within an AWS account, but SCP apply to multiple accounts or organizations.
 
-:::info
-SCP is a limit, not a permission, like permission boundaries.
-:::
+SCPs affect all users and roles in the member account, including its root user, but they don't affect users or roles in the management account.
 
 https://digitalcloud.training/aws-scp-mastering-aws-service-control-policies
 

@@ -18,13 +18,17 @@ https://github.com/mr-karan/doggo - https://doggo.mrkaran.dev/docs/ - https://ne
 
 Build your own DNS server - https://app.codecrafters.io/courses/dns-server/overview
 
+## Record types
+
+https://en.wikipedia.org/wiki/List_of_DNS_record_types
+
 ## dig
 
 https://en.wikipedia.org/wiki/Dig_(command)
 
 https://digwebinterface.com
 
-```
+```shell
 dig example.com
 
 dig example.com A
