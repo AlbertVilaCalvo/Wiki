@@ -287,7 +287,7 @@ new Date(search.date).toLocaleDateString() // 5/27/2021
 new Date(search.date).toLocaleDateString('es-ES') // 27/5/2021
 ```
 
-### Intl.DateTimeFormat
+### `Intl.DateTimeFormat`
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
 
@@ -312,3 +312,9 @@ export function formatDate(dateNumber: number): string {
 ```
 
 `formatDate(1583495987)` returns `19 Jan 1970`.
+
+### `Intl.DurationFormat`
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DurationFormat
+
+New API. Added in preview in Firefox 136 (released March 2025).

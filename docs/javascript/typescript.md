@@ -94,7 +94,7 @@ View the resulting configuration when using `"extends"`: `npx tsc -p tsconfig.js
 
 ### tsconfig.json options to enable
 
-`"noImplicitReturns": true /* Report error when not all code paths in function return a value. */`
+- `"noImplicitReturns": true` → Report error when not all code paths in function return a value.
 
 ### Share tsconfig.json
 
@@ -143,6 +143,19 @@ To know which checks are enabled by 'strict' search for 'true if strict' here:
 
 - https://www.typescriptlang.org/tsconfig
 - https://www.typescriptlang.org/docs/handbook/compiler-options.html
+
+### Node.js type stripping `--erasableSyntaxOnly`
+
+https://www.typescriptlang.org/tsconfig/#erasableSyntaxOnly
+
+To use [Node.js type stripping](https://nodejs.org/api/typescript.html#type-stripping), set `--erasableSyntaxOnly` to avoid using TypeScript-specific syntax with runtime semantics.
+
+Type stripping only removes types, so the following features that have runtime behavior are not supported ([source](https://devblogs.microsoft.com/typescript/announcing-typescript-5-8/#the---erasablesyntaxonly-option)):
+
+- `enum` declarations
+- `namespace`s and `module`s with runtime code
+- parameter properties in classes ([docs](https://www.typescriptlang.org/docs/handbook/2/classes.html#parameter-properties))
+- `import =` aliases
 
 ## @ts-expect-error
 

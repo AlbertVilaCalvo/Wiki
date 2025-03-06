@@ -8,7 +8,11 @@ https://gobyexample.com
 
 Oh My Zsh plugin - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/golang
 
-https://www.udemy.com/course/backend-master-class-golang-postgresql-kubernetes/
+https://www.udemy.com/course/backend-master-class-golang-postgresql-kubernetes
+
+https://github.com/kisielk/godepgraph - A Go dependency graph visualization tool
+
+Go Anti-Patterns - https://www.youtube.com/watch?v=ltqV6pDKZD8
 
 ## Learn
 

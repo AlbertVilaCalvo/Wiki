@@ -12,6 +12,8 @@ https://web.dev/learn/performance
 
 https://csswizardry.com/2024/08/cache-grab-how-much-are-you-leaving-on-the-table/
 
+Test Website Without JavaScript - https://www.debugbear.com/test/noscript - Check if your website requires JavaScript and how JS impacts performance.
+
 ## `<link rel="preconnect" href="https://example.com" />`
 
 https://web.dev/preconnect-and-dns-prefetch/

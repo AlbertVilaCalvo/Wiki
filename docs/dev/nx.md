@@ -45,6 +45,16 @@ Nice explanation: https://www.youtube.com/watch?v=qEaVzh-oBBc
 
 Notice there's no `app` directory, but a `src` directory.
 
+## TypeScript Project References
+
+New NPM/Yarn/PNPM/Bun workspaces-based setup combined with TypeScript project references that is an improvement over the current TypeScript alias based setup.
+
+- Everything You Need to Know About TypeScript Project References - https://nx.dev/blog/typescript-project-references
+- Managing TypeScript Packages in Monorepos - https://nx.dev/blog/managing-ts-packages-in-monorepos
+- A New Nx Experience for TypeScript Monorepos and Beyond - https://nx.dev/blog/new-nx-experience-for-typescript-monorepos
+
+> Going forward, the recommended approach is to use NPM, Yarn, PNPM, or Bun workspaces combined with TypeScript project references. This setup integrates more seamlessly with modern tooling and can potentially lead to a more performant setup.
+
 ## Editor Extensions
 
 VSCode: https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console

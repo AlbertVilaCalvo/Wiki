@@ -23,3 +23,5 @@ If you want to make a process asynchronous, you must manage the way the process 
 
 When designing an asynchronous process, it’s important to keep track of the process. You need some kind of identifier for it. (AWS in Action p. 441.)
 :::
+
+Loose coupling benefit: reduce interdependencies so a failure in one component does not cascade to other components.
