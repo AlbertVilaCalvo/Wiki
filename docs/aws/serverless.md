@@ -4,6 +4,8 @@ title: Serverless
 
 Serverless: no need to provision and configure hardware, manage operating systems nor do software maintenance like upgrades or install patches. Scales in and out automatically (highly elastic). No need to design for high availability, it's built-in. Pay per use.
 
+Serverless Application Repository - https://serverlessrepo.aws.amazon.com/applications
+
 Tutorial: Build a Serverless Web Application using Generative AI - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-amplify-bedrock-cognito-gen-ai/ Previously it was Build a Serverless Web Application with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Cognito - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/
 
 Let’s Architect! Serverless architecture on AWS - https://aws.amazon.com/blogs/architecture/lets-architect-serverless-architecture-on-aws/ - From https://aws.amazon.com/blogs/architecture/top-10-aws-architecture-blog-posts-of-2022/

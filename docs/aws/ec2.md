@@ -195,6 +195,8 @@ A virtual firewall that controls incoming and outgoing (inbound and outbound) tr
 
 The rules control which direction (inbound or outbound), IP protocols (TCP, UDP, ICMP), port and IP addresses we can connect from/to. We can also specify a security group.
 
+Security group rules only support allow, they cannot deny. If you don’t explicitly allow, it's denied and it doesn't get in. Thus, you cannot block a specific, individual IP address; you can only allow it. If you want to block a specific IP you need to use a Network ACL rule, which applies to all instances in the subnet.
+
 By default, a security group:
 
 - Does not allow any inbound traffic. You need to add rules yourself to do so.
@@ -360,6 +362,8 @@ https://www.linkedin.com/pulse/changes-aws-public-ip-address-charges-neal-k-davi
 
 An [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) is **static**; it does not change over time.
 
+You can remap an EIP to an instance in a different availability zone, but not in a different region.
+
 You can assign the elastic IP (EIP) to a second network interface eth1 (will be on a different subnet than eth0), and attach this network interface to an instance. If the instance is stopped and started, the IP won't change.
 
 Both an ENI and EIP can be mapped to a different instance in the same AZ. However, as explained above, the ENI cannot be moved to a different AZ, but the EIP can. Thus, if the instance fails, we can move the ENI or the EIP to another instance within the same AZ, or move the EIP to an instance in different AZ.
@@ -381,6 +385,8 @@ And when you terminate an instance with an elastic IP it says:
 > The following Elastic IPs are still associated with your account: 34.192.137.227
 
 To **release** an EIP, first disassociate it from the network interface at EC2 → Network interfaces, select the network interface with the EIP, and then do Actions → Disassociate address. (Afterwards, if the instance is not running, you can optionally delete the network interface with Actions → Delete.) Then go to EC2 → Elastic IP addresses, select the allocated EIP and do Actions → Release Elastic IP address.
+
+Elastic IP addresses are one method for handling **failover**, especially for **legacy** type applications that cannot be scaled horizontally. In the event of a failure of a single server with an associated Elastic IP address, the failover mechanism can re-associate the Elastic IP address to a replacement instance, ideally in an automated fashion. While this scenario may experience downtime for the application, the time may be limited to the time it takes to detect the failure and quickly re-associate the Elastic IP address to the replacement resource. [source](https://d1.awsstatic.com/whitepapers/aws-building-fault-tolerant-applications.pdf)
 
 ## Lifecycle
 

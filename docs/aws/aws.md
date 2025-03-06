@@ -16,9 +16,13 @@ Service status - https://health.aws.amazon.com/health/status
 
 re:Invent - https://reinvent.awsevents.com
 
+Prescriptive Guidance - https://aws.amazon.com/prescriptive-guidance
+
 Whitepapers & Guides - https://aws.amazon.com/whitepapers
 
 Architecture examples and diagrams - https://aws.amazon.com/architecture
+
+Hands-on Tutorials - https://aws.amazon.com/getting-started/hands-on
 
 Services available on each region - https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services - https://awsservices.info - https://services.adlinga.com/services
 
@@ -170,6 +174,18 @@ With the root user.
 - Enforce MFA to users [link](/aws/iam#enforce-mfa-to-users)
 - At the S3 dashboard, at the "Block Public Access settings for this account" page, enable "Block _all_ public access" to disable public access for _all_ S3 buckets in the account [link](/aws/s3#block-all-public-access-for-all-buckets-in-the-account)
 - Enable regions that are not enabled by default, eg "Europe (Spain)". This is done by clicking Account at the top right
+
+## Tags
+
+Tagging enables customers to group sets of resources for cost reporting and automation, such as patching for select tagged instances and grouping resources that make up a microservice, application, or workload.
+
+Guidance for Tagging on AWS - https://aws.amazon.com/solutions/guidance/tagging-on-aws/
+
+Tag policies: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html
+
+Resource groups: a collection of resources that shares one or more tags. https://docs.aws.amazon.com/ARG/latest/userguide/resource-groups.html
+
+[Cost allocation tags](/aws/billing-pricing#cost-allocation-tags)
 
 ## Multiple accounts
 

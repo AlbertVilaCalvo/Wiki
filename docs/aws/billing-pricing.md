@@ -2,6 +2,8 @@
 title: Billing & Pricing
 ---
 
+https://aws.amazon.com/aws-cost-management
+
 Billing dashboard (old page): https://console.aws.amazon.com/billing/home
 
 ## Billing
@@ -69,3 +71,5 @@ Infracost - https://www.infracost.io
 ## Cost allocation tags
 
 https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
+
+You need to activate the tags.

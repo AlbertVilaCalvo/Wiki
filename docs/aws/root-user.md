@@ -58,6 +58,13 @@ https://docs.aws.amazon.com/accounts/latest/reference/root-user-tasks.html
 
 https://medium.com/awesome-cloud/aws-account-root-user-a43c9fb1697a
 
+- Change the account name, email address, root user password, and root user access keys. Other account settings, such as contact information, payment currency preference, and AWS Regions, don't require root user credentials.
+- Change your AWS support plan.
+- Change your payment options.
+- View your account billing information. View Billing tax invoices.
+- Close an AWS account.
+- Sign up for GovCloud.
+
 ## Don't use the root user for everyday tasks
 
 > We strongly recommend that you do not use the root user for your everyday tasks. Safeguard your root user credentials and use them to perform the tasks that only the root user can perform. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)

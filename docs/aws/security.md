@@ -4,6 +4,8 @@ title: Security
 
 AWS Security Reference Architecture (AWS SRA) - https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html
 
+Best Practices for Security, Identity, & Compliance - https://aws.amazon.com/architecture/security-identity-compliance
+
 What do I do if I notice unauthorized activity in my AWS account? - https://repost.aws/knowledge-center/potential-account-compromise
 
 AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
@@ -34,5 +36,7 @@ From https://www.linkedin.com/posts/andreaswittig_amazonwebservices-awscommunity
 > Most of these features are not worth the money, in my opinion.
 
 ## Trusted Advisor
+
+https://aws.amazon.com/premiumsupport/technology/trusted-advisor
 
 Can be used to check if any S3 bucket in the account has "Block Public Access Enabled", see https://cloudonaut.io/s3-security-best-practice/#Rule-4-Monitor-Trusted-Advisor-findings
