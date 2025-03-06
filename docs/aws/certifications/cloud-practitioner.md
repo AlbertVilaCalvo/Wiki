@@ -20,8 +20,6 @@ Exam Prep Standard Course: AWS Certified Cloud Practitioner (CLF-C02 - English) 
 
 Exam Prep Enhanced Course: AWS Certified Cloud Practitioner (CLF-C02) - 13 h - https://explore.skillbuilder.aws/learn/course/external/view/elearning/16485/exam-prep-enhanced-course-aws-certified-cloud-practitioner-clf-c02-english
 
-https://explore.skillbuilder.aws/learn/course/internal/view/elearning/16352/exam-prep-standard-course-aws-certified-devops-engineer-professional-dop-c02-english
-
 AWS Cloud Quest: Cloud Practitioner (free) - 12 h - https://explore.skillbuilder.aws/learn/course/external/view/elearning/11458/aws-cloud-quest-cloud-practitioner
 
 AWS Escape Room: Exam Prep for AWS Certified Cloud Practitioner (CLF-C02) - https://explore.skillbuilder.aws/learn/course/internal/view/elearning/17373/aws-escape-room-for-exam-prep-aws-certified-cloud-practitioner-clf-c02
