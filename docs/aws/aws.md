@@ -72,6 +72,12 @@ AWS is API driven. You can automate everything. Automation increases reliability
 APIs is one of the reasons why AWS has been so successful.
 :::
 
+TODO mirar:
+
+- AWS re:Invent 2023 - SaaS deep dive: Inside a scalable, efficient multi-tenant architecture (SAS304) - https://www.youtube.com/watch?v=qySi057gXuo
+- AWS re:Invent 2023 - Advanced integration patterns & trade-offs for loosely coupled systems (API309) - https://www.youtube.com/watch?v=FGKGdUiZKto
+- AWS re:Invent 2023 - Do modern cloud applications lock you in? (ARC307) - https://www.youtube.com/watch?v=jykSBmnAM2I
+
 ## Training Learning
 
 https://www.aws.training
@@ -90,11 +96,23 @@ AWS guides and templates - https://aws.amazon.com/startups/build
 
 https://aws.amazon.com/about-aws/global-infrastructure/
 
+https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/aws-infrastructure.html
+
+AWS service types (AZ, regional and global) - https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/aws-service-types.html
+
+From AWS in Action p. 388 and [AWS Services by Region](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services):
+
+- Some services are global, like IAM, Organizations, CDN (CloudFront), DNS (Route 53), Global Accelerator, Direct Connect, Firewall Manager, WAF and Shield. STS has a single global endpoint and multiple regional endpoints ([source](https://aws.amazon.com/blogs/security/announcing-upcoming-changes-to-the-aws-security-token-service-global-endpoint/)).
+- Some services operate over multiple availability zones within a region, like S3, EFS, SQS and DynamoDB. They can withstand an availability zone outage by default.
+- Some services can optionally fail over into another availability zone, like RDS with [Multi-AZ](https://aws.amazon.com/rds/features/multi-az/), and EC2 with [Auto Scaling](https://aws.amazon.com/ec2/autoscaling/).
+
+Also see which servies are fault tolerant at page 433.
+
 ### Regions
 
 Most services are region-specific, except for IAM, CDN (CloudFront) and DNS (Route 53), which are global ([more info](https://stackoverflow.com/questions/68811957/aws-global-services)). Note that at the web console, when you go to the IAM Dashboard, the region at the navigation bar is "Global" and you can't select any region like "N. Virginia".
 
-Regions are independent; data isn't transferred between regions.
+Regions are independent; data isn't transferred between regions. AWS charges you for data transferred between regions.
 
 Not all services are available on all regions, see https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services, [AWS Service Availability Tool](https://awsservices.info) and [AWS Services Matrix](https://services.adlinga.com/services).
 
@@ -102,6 +120,14 @@ Not all services are available on all regions, see https://aws.amazon.com/about-
 For **disaster recovery**, deploy across multiple **regions**.
 For **high availability**, deploy across multiple **availability zones** for redundancy and quickly fail over to another AZ.
 :::
+
+https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/regions.html
+
+> AWS believes that most customers can achieve their resilience goals in a single Region by using Regional services or Multi-AZ architectures that rely on zonal services. However, some workloads may require additional redundancy, and you can use the isolation of AWS Regions to create Multi-Region architectures for HA or business continuity purposes. (...) However, achieving the benefits of a Multi-Region architecture can be difficult; it requires careful work to take advantage of Regional isolation while not undoing anything at the application level. For example, if you’re failing over an application between Regions, you need to maintain strict separation between your application stacks in each Region, be aware of all the application dependencies, and failover all parts of the application together. Achieving this with a complex, microservices-based architecture that has many dependencies between applications requires planning and coordination amongst many engineering and business teams.
+
+https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/regional-services.html
+
+> Regional services are services that AWS has built on top of multiple Availability Zones so that customers don’t have to figure out how to make the best use of zonal services. We logically group together the service deployed across multiple Availability Zones to present a single Regional endpoint to customers. Amazon SQS and Amazon DynamoDB are examples of Regional services. They use the isolation and redundancy of Availability Zones to minimize infrastructure failure as a category of availability and durability risk. Amazon S3, for example, spreads requests and data across multiple Availability Zones and is designed to automatically recover from the failure of an Availability Zone. However, you only interact with the Regional endpoint of the service.
 
 ### Availability zones
 
@@ -119,13 +145,11 @@ Regions, Availability Zones, and Local Zones - https://docs.aws.amazon.com/Amazo
 
 A region consist of (typically) 3 or more availability zones, located in the same area but isolated and physically separate from each other. Each availability zone consist of one or more data centers — we don’t know how many because AWS doesn’t make information about their data centers publicly available.
 
-From AWS in Action p. 388:
+https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/availability-zones.html
 
-- Some services are global, like IAM, CDN (CloudFront) and DNS (Route 53).
-- Some services operate over multiple availability zones within a region, like S3, EFS and DynamoDB. They can withstand an availability zone outage by default.
-- Some services can optionally fail over into another availability zone, like RDS with [Multi-AZ](https://aws.amazon.com/rds/features/multi-az/), and EC2 with [Auto Scaling](https://aws.amazon.com/ec2/autoscaling/).
+> An Availability Zone is one or more discrete data centers with separate and redundant power infrastructure, networking, and connectivity in an AWS Region. Availability Zones in a Region are meaningfully distant from each other, up to 60 miles (~100 km) to prevent correlated failures, but close enough to use synchronous replication with single-digit millisecond latency. They are designed not to be simultaneously impacted by a shared fate scenario like utility power, water disruption, fiber isolation, earthquakes, fires, tornadoes, or floods. Common points of failure, like generators and cooling equipment, are not shared across Availability Zones and are designed to be supplied by different power substations.
 
-Also see which servies are fault tolerant at page 433.
+> All Availability Zones in a Region are interconnected with high-bandwidth, low-latency networking, over fully redundant, dedicated metro fiber.
 
 To distribute resources across availability zones, when creating an AWS account, AWS randomly maps AZ identifiers (eg eu-west-1a) to different AZ data centers (eg use1-az4) for each account. You can see this mapping at the VPC console, at the Subnets page, at the columns "Availability Zone" and "Availability Zone ID". You can check that the mapping is different for different accounts by running `aws ec2 describe-availability-zones --region eu-west-1 --profile <profile>` with two different profiles, and you may get this different responses:
 
@@ -164,7 +188,7 @@ With the root user.
 - Enable MFA for the root user [link](/aws/root-user#multi-factor-authentication-mfa)
 - Set the account alias (at the IAM dashboard). It's easier to remember than the account id
   - Note that the account alias must be globally unique, since it's used to generate the sign-in URL (eg `https://albert.signin.aws.amazon.com/console`). It can be changed later.
-  - Do not confuse the account alias with the account name, which is defined when you create the AWS account, and it helps you identify the account. It can also be changed.
+  - Do not confuse the account alias with the account name, which is defined when you create the AWS account, and it helps you identify the account. The account name can also be changed.
 - Enable IAM access to billing (so that non-root users can have access to billing) [link](/aws/billing-pricing#enable-iam-access-to-billing)
 - Enable PDF invoices delivery by email [link](/aws/billing-pricing#enable-pdf-invoices-delivery-by-email)
 - Enable free tier alerts [link](/aws/billing-pricing#enable-free-tier-alerts)

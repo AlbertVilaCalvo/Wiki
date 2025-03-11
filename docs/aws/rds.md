@@ -12,6 +12,8 @@ RDS course - https://awseducate.instructure.com/courses/912 - Getting Started wi
 
 Tutorial - https://aws.amazon.com/getting-started/hands-on/create-mysql-db/
 
+For long term usage (1 to 3 years), you can save money with reserved instances, see [Reserved DB instances for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithReservedDBInstances.html).
+
 ## Security
 
 There are 3 levels of access control:

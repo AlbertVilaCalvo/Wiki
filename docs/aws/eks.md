@@ -28,10 +28,15 @@ https://d1.awsstatic.com/training-and-certification/ramp-up_guides/Ramp-Up_Guide
 
 https://aws.amazon.com/architecture/containers
 
+Skill Builder: https://skillbuilder.aws/search?searchText=eks&page=1
+
+- Online Course Supplement: Running Containers on Amazon Elastic Kubernetes Service (Amazon EKS) - 18 h - Free - https://explore.skillbuilder.aws/learn/courses/19007/online-course-supplement-running-containers-on-amazon-elastic-kubernetes-service-amazon-eks
+- AWS Modernization Pathways: Move to Containers with Amazon EKS (includes labs) - 6.6 h - https://explore.skillbuilder.aws/learn/learning-plans/1981/plan
 - Deploy and debug Amazon EKS clusters - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-and-debug-amazon-eks-clusters.html
 - Deploy Kubernetes resources and packages using Amazon EKS and a Helm chart repository in Amazon S3 - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-kubernetes-resources-and-packages-using-amazon-eks-and-a-helm-chart-repository-in-amazon-s3.html
-- Building and Deploying a Containerized Application with Amazon Elastic Kubernetes Service - 1 h - https://explore.skillbuilder.aws/learn/courses/13993/building-and-deploying-a-containerized-application-with-amazon-elastic-kubernetes-service
-- Digital Classroom - Running Containers on Amazon Elastic Kubernetes Service (Amazon EKS) - 18 h - https://explore.skillbuilder.aws/learn/courses/17210/digital-classroom-running-containers-on-amazon-elastic-kubernetes-service-amazon-eks
+- Lab - Building and Deploying a Containerized Application with Amazon Elastic Kubernetes Service - 1 h - https://explore.skillbuilder.aws/learn/courses/13993/building-and-deploying-a-containerized-application-with-amazon-elastic-kubernetes-service
+- Lab - Deploy Applications on Amazon Elastic Kubernetes Service (EKS) - 1 h - https://explore.skillbuilder.aws/learn/courses/22325/lab-deploy-applications-on-amazon-elastic-kubernetes-service-eks
+- Digital Classroom - Running Containers on Amazon Elastic Kubernetes Service (Amazon EKS) - 18 h - Requires an AWS Skill Builder _annual_ subscription - https://explore.skillbuilder.aws/learn/courses/17210/digital-classroom-running-containers-on-amazon-elastic-kubernetes-service-amazon-eks
 - Amazon EKS - Knowledge Badge Readiness Path (learning plan) - https://explore.skillbuilder.aws/learn/public/learning_plan/view/1931/amazon-eks-knowledge-badge-readiness-path
 - https://workshops.aws/categories/Containers
 - https://workshops.aws/categories/Amazon%20EKS

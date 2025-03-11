@@ -255,6 +255,8 @@ AWS IAM Policies in a Nutshell - https://start.jcolemorrison.com/aws-iam-policie
 
 AWS IAM policy linting library - https://github.com/duo-labs/parliament
 
+Policies support versioning to allow changes, see [Versioning IAM policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-versioning.html).
+
 ### EAR
 
 A policy needs to have an EAR to listen what is going to do: Effect, Action and Resource.

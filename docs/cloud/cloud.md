@@ -23,6 +23,12 @@ TODO
 - PaaS
 - SaaS
 
+## Cloud Native
+
+https://aws.amazon.com/what-is/cloud-native
+
+> The CNCF lists immutable infrastructure, microservices, declarative APIs, containers, and service meshes as the technological blocks of cloud-native architecture.
+
 ## Tools
 
 ### Server Images

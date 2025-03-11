@@ -193,7 +193,8 @@ https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html
 
 A virtual firewall that controls incoming and outgoing (inbound and outbound) traffic _at the instance level_ (in contrast with Network ACL, which operate at the subnet level). They are attached to Elastic Network Interfaces (ENI).
 
-The rules control which direction (inbound or outbound), IP protocols (TCP, UDP, ICMP), port and IP addresses we can connect from/to. We can also specify a security group.
+The rules control which direction (inbound or outbound), IP protocols (TCP, UDP, ICMP), port and a single IP or a range of IP addresses we can connect from/to. We can also specify a security group. See [Components of a security group rule
+](https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html#security-group-rule-components).
 
 Security group rules only support allow, they cannot deny. If you don’t explicitly allow, it's denied and it doesn't get in. Thus, you cannot block a specific, individual IP address; you can only allow it. If you want to block a specific IP you need to use a Network ACL rule, which applies to all instances in the subnet.
 
@@ -356,6 +357,8 @@ Public IP:
 
 https://aws.amazon.com/blogs/aws/new-aws-public-ipv4-address-charge-public-ip-insights/
 
+> Effective February 1, 2024 there will be a charge of $0.005 per IP per hour for all public IPv4 addresses, whether attached to a service or not (there is already a charge for public IPv4 addresses you allocate in your account but don’t attach to an EC2 instance).
+
 https://www.linkedin.com/pulse/changes-aws-public-ip-address-charges-neal-k-davis-j0wae/ - https://www.youtube.com/watch?v=4EvktMxjyxU
 
 ### Elastic IP
@@ -370,7 +373,7 @@ Both an ENI and EIP can be mapped to a different instance in the same AZ. Howeve
 
 Elastic IP addresses are only for IPv4, not IPv6.
 
-You are **charged** for elastic IPs that are allocated to your account but you don't actually use on a running instance. On a EC2 instance, if you do Instance state → Stop instance you'll see this warning:
+You are **charged** ($0.005 per hour) for all elastic IPs that are allocated to your account, even if you don't actually use them on a running instance. On a EC2 instance, if you do Instance state → Stop instance you'll see this warning:
 
 > After you stop the instance, you are no longer charged usage or data transfer fees for it. However, you will still be billed for associated resources, such as attached EBS volumes and associated Elastic IP addresses.
 
@@ -489,7 +492,7 @@ Not all instance types support instance store volumes.
 
 https://aws.amazon.com/efs
 
-A filesystem that can be shared between multiple Linux virtual machines running in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Linux only. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front. You can connect instances from other VPCs ([docs](https://docs.aws.amazon.com/efs/latest/ug/mount-fs-different-vpc.html)).
+A serverless filesystem that can be shared between multiple Linux virtual machines running in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Linux only. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front. You can connect instances from other VPCs ([docs](https://docs.aws.amazon.com/efs/latest/ug/mount-fs-different-vpc.html)).
 
 You need to create a mount target on each subnet, and the EC2 instance where you mount the filesystem must be in the same subnet as the EFS mount target. Each mount target is bound to an availability zone. You need at least two mount targets in different availability zones for high availability. Mount targets are protected by security groups.
 
@@ -575,6 +578,12 @@ Can be backed by EBS (persistent) or instance store (non-persistent).
 You can find AMIs in the AWS Marketplace: https://aws.amazon.com/marketplace
 
 Automatically clean up unused AMIs to reduce EBS storage consumption and costs - https://cloudonaut.io/cleaning-up-amis - https://www.npmjs.com/package/aws-amicleaner
+
+### EC2 Image Builder
+
+https://aws.amazon.com/image-builder
+
+Simplifies the creation, maintenance, validation, sharing, and deployment of Linux, Windows, and macOS images for use with Amazon EC2 and on-premises.
 
 ### Amazon Linux
 

@@ -72,4 +72,6 @@ Infracost - https://www.infracost.io
 
 https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
 
+Can be AWS-generated or user-defined.
+
 You need to activate the tags.

@@ -6,6 +6,8 @@ https://aws.amazon.com/cloudformation/
 
 Docs: https://docs.aws.amazon.com/cloudformation/index.html
 
+https://github.com/aws-cloudformation
+
 :::tip
 The Quick Starts page contains many CloudFormation templates ready to use: https://aws.amazon.com/quickstart
 :::

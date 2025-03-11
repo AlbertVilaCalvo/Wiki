@@ -8,6 +8,10 @@ Developer guide - https://docs.aws.amazon.com/amazondynamodb/latest/developergui
 
 https://github.com/aws-samples/aws-dynamodb-examples
 
+https://github.com/alexdebrie/awesome-dynamodb
+
+Shell CLI - https://github.com/awslabs/dynamodb-shell - https://www.ddbsh.org
+
 Tutorials - https://www.youtube.com/c/EnricoPortolan/search?query=dynamodb
 
 Tutorial - Create and Query a NoSQL Table with Amazon DynamoDB - https://aws.amazon.com/tutorials/create-nosql-table/

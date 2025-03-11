@@ -12,7 +12,7 @@ https://aws.amazon.com/msk
 
 https://www.conduktor.io
 
-https://redpanda.com
+https://redpanda.com - See https://news.ycombinator.com/item?id=43098971
 
 https://github.com/provectus/kafka-ui
 
@@ -21,6 +21,10 @@ Kaskade – A text user interface for Kafka - https://github.com/sauljabin/kaska
 Best practices for cost-efficient Kafka clusters - https://stackoverflow.blog/2024/09/04/best-practices-for-cost-efficient-kafka-clusters
 
 Build your own Kafka - https://app.codecrafters.io/courses/kafka/overview
+
+[Kafka at the low end: how bad can it get?](https://broot.ca/kafka-at-the-low-end.html) - https://news.ycombinator.com/item?id=43095070
+
+> Kafka is not a good job queue, especially not at particularly low volumes, at least until [Queues for Kafka (KIP-932)](https://www.confluent.io/blog/queues-on-kafka/) comes along.
 
 ## Learn
 

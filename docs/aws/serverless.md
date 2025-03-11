@@ -12,6 +12,12 @@ Let’s Architect! Serverless architecture on AWS - https://aws.amazon.com/blogs
 
 https://learn.digitalcloud.training/course/aws-serverless-for-beginners-with-aws-lambda-api-gateway-sqs-sns-and-eventbridge
 
+Digital Classroom - Developing Serverless Solutions on AWS - Requires an AWS Skill Builder _annual_ subscription - https://explore.skillbuilder.aws/learn/courses/17205/digital-classroom-developing-serverless-solutions-on-aws
+
+AWS SimuLearn: Serverless Developer - https://explore.skillbuilder.aws/learn/learning-plans/2228/aws-simulearn-serverless-developer
+
+Cloud Quest: Serverless Developer - https://explore.skillbuilder.aws/learn/courses/15623/aws-cloud-quest-serverless-developer
+
 Project 5 of "5 AWS Cloud Projects to Get You Hired in 2024 (For Beginners)" uses Amplify, AppSync GraphQL, S3, DynamoDB - https://learn.techwithlucy.com/p/5-beginner-aws-cloud-projects-for-2024-complete-step-by-step-guide - https://www.youtube.com/watch?v=akeSJBEWr3w - Use code "YT10" for 10% off
 
 How to Use Amazon EventBridge to Build Decoupled, Event-Driven Architectures - https://pages.awscloud.com/AWS-Learning-Path-How-to-Use-Amazon-EventBridge-to-Build-Decoupled-Event-Driven-Architectures_2020_LP_0001-SRV.html
