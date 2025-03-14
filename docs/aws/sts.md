@@ -12,6 +12,6 @@ API Reference - https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html
 
 https://stackoverflow.com/questions/63241009/aws-sts-assume-role-in-one-command
 
-https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html
+Temporary security credentials in IAM - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html
 
 Session policy - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session

@@ -6,6 +6,17 @@ SAA-C03
 
 https://aws.amazon.com/certification/certified-solutions-architect-associate
 
+130 minutes, 65 questions, $150.
+
+The minimum passing score is 720 (out of 1000).
+
+- Domain 1: Design Secure Architectures (30%)
+- Domain 2: Design Resilient Architectures (26%)
+- Domain 3: Design High-Performing Architectures (24%)
+- Domain 4: Design Cost-Optimized Architectures (20%)
+
+Exam guide - https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf
+
 Ramp-Up Guide - https://d1.awsstatic.com/training-and-certification/ramp-up_guides/Ramp-Up_Guide_Architect.pdf
 
 https://skillbuilder.aws/exam-prep/solutions-architect-associate

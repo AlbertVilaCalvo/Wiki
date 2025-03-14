@@ -44,18 +44,30 @@ To manage a member account using the console, log in to the console using the ma
 ## Service control policies (SCPs)
 
 :::info
-SCP is a limit, not a permission, like permission boundaries.
+SCP is a limit, not a permission, like [permissions boundaries](/aws/iam#permissions-boundaries).
 :::
 
 https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html
 
 Control what API actions are allowed in a given account, that is, the maximum available permissions in an AWS account. SCPs do not grant permissions.
 
-IAM policies apply at users and roles within an AWS account, but SCP apply to multiple accounts or organizations.
+IAM policies apply at users and roles within an AWS account, whereas SCP apply to accounts or organization units (OU) in an organization.
 
 SCPs affect all users and roles in the member account, including its root user, but they don't affect users or roles in the management account.
 
 https://digitalcloud.training/aws-scp-mastering-aws-service-control-policies
+
+It's a best practice, see https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-permissions-guardrails
+
+> We recommend that you use Organizations service control policies (SCPs) to establish permissions guardrails to control access for all principals (IAM roles and users) across your accounts.
+
+## Resource control policies (RCPs)
+
+https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_rcps.html
+
+It's a best practice, see https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-permissions-guardrails
+
+> We recommend that you use Organizations resource control policies (RCPs) to establish permissions guardrails to control access for AWS resources across your organization.
 
 ## CLI
 

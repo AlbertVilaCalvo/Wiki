@@ -136,7 +136,7 @@ From AWS in Action, page 144.
 | Can belong to a group                                                  | No                                                                                     | Yes  | No   |
 | Can be associated with an EC2 instance, Lambda function, ECS container | No                                                                                     | No   | Yes  |
 
-By default, users and roles can't do anything. You need an identity policy to allow them to perform actions. Users and roles use identity policies.
+By default, users and roles can't do anything (except for the root user, which can do everything). You need an identity policy to allow them to perform actions. Users and roles use identity policies.
 
 ### `sts:AssumeRole`
 
@@ -269,7 +269,7 @@ Any explicit Deny overrides any explicit Allows. Thus, if there's multiple polic
 
 Note that the root user has full access.
 
-See 'Policy evaluation logic' - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html
+See [Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html).
 
 ### Examples
 
@@ -536,15 +536,17 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_r
 
 Attached to a resource like an S3 bucket, a DynamoDB table or a SQS queue. Defines permissions for a principal accessing the resource.
 
+Can be applied to a role too: a trust policy.
+
 > Resource-based policies are inline policies. There are no managed resource-based policies. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based)
 
-**If a policy has a `Principal`, it is a resource policy.**
+**If a policy has a `Principal`, it is a resource policy.** The `Principal` element is unnecessary in an IAM policy because the principal is by default the entity to which the IAM policy attaches. [source](https://aws.amazon.com/blogs/security/iam-policies-and-bucket-policies-and-acls-oh-my-controlling-access-to-s3-resources/)
 
 On the JSON there's a `Principal` which defines who gets permission to perform the `Action` to a specific `Resource` only.
 
 **Not all services support resource-based policies**, only a few of them do, see the table at https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
 
-Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-allow-full-access-to-a-bucket-and-all-its-objects)):
+Example, an S3 bucket policy ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-allow-full-access-to-a-bucket-and-all-its-objects)):
 
 ```json
 {
@@ -561,8 +563,6 @@ Example ([source](https://stackoverflow.com/questions/45306696/s3-bucket-policy-
   ]
 }
 ```
-
-Can be applied to a role too: a trust policy.
 
 Note that when the Action applies to an object, like `s3:GetObject`, the Resource needs to have `/*` appended, otherwise the permission applies to the S3 bucket and it doesn't work:
 
@@ -1017,17 +1017,19 @@ Delete role
 - Finally, remove the role: `aws iam delete-role --role-name <role-name>`
 - If you get the error "Cannot delete entity, must remove roles from instance profile first" on the console when trying to delete a role, use the CLI instead.
 
-## Permission boundaries
+## Permissions boundaries
 
-Defines the maximum permissions that a user, group or role can have. Can be applied to users and roles. Used to restrict permissions in order to prevent privilege escalation.
+Sets the maximum permissions that an identity-based policy can grant to an IAM entity. Can be applied to users and roles. Used to restrict permissions in order to prevent privilege escalation.
 
-Sets the maximum permissions that an identity-based policy can grant an IAM entity.
+Important: permissions boundaries don't grant permissions, they control the permissions you have. You still need to have the permissions granted to you through a role for example.
 
-Important: they don't grant permissions, it controls the permissions you have. You still need to have the permissions granted to you through a role for example.
+When a developer has permissions to create IAM users and roles, it can create a user or role with excessive permissions. To prevent privilege escalation, we can add a condition to a developer's IAM policy that allows the developer to create a role only if a permissions boundary is attached to the role.
 
 (Documentation) Permissions boundaries for IAM entities - https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html
 
 When and where to use IAM permissions boundaries - https://aws.amazon.com/blogs/security/when-and-where-to-use-iam-permissions-boundaries/
+
+> The predominant use case for permissions boundaries is to limit privileges available to IAM roles created by developers (referred to as delegated administrators in the IAM documentation) who have permissions to create and manage these roles.
 
 How can I use permissions boundaries to limit the scope of IAM users and roles, and also prevent privilege escalation? - https://aws.amazon.com/premiumsupport/knowledge-center/iam-permission-boundaries/
 
@@ -1038,6 +1040,8 @@ Prevent privilege escalation with AWS IAM permission boundaries - https://iaasac
 AWS Permission Boundaries for Dummies - https://news.ycombinator.com/item?id=33192295
 
 It's a best practice - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-permissions-boundaries
+
+Example - https://github.com/aws-samples/example-permissions-boundary
 
 ## Eventually consistent
 

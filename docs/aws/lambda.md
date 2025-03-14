@@ -24,6 +24,12 @@ Lambda is a regional service.
 
 Issues to Avoid When Implementing Serverless Architecture with AWS Lambda - https://aws.amazon.com/blogs/architecture/mistakes-to-avoid-when-implementing-serverless-architecture-with-lambda/ - From https://aws.amazon.com/blogs/architecture/top-10-architecture-blog-posts-of-2021/
 
+How to implement Durable Execution for Lambda (without frameworks) - https://theburningmonk.com/2025/03/how-to-implement-durable-execution-for-lambda-without-frameworks/
+
+- Using checkpoints to save progress and avoid repeating side-effects.
+- Relying on Lambda’s built-in retry mechanism.
+- Keeping execution history in DynamoDB.
+
 :::info
 The Arm architecture based on AWS Graviton is the cheaper option. See https://aws.amazon.com/blogs/apn/comparing-aws-lambda-arm-vs-x86-performance-cost-and-analysis-2/ and https://aws.amazon.com/lambda/pricing/
 :::

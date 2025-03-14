@@ -6,13 +6,18 @@ CLF-C01, CLF-C02
 
 https://aws.amazon.com/certification/certified-cloud-practitioner/
 
-Foundational. For technical and non-technical roles (eg a project manager).
-
-Doesn't require hands-on experience.
+Foundational. For technical and non-technical roles (eg a project manager). Doesn't require hands-on experience.
 
 90 minutes, 65 questions, $100.
 
 Minimum 700 out of 1000 score to pass. See [Demystifying your AWS Certification exam score](https://aws.amazon.com/blogs/training-and-certification/demystifying-your-aws-certification-exam-score/).
+
+- Domain 1: Cloud Concepts (24%)
+- Domain 2: Security and Compliance (30%)
+- Domain 3: Cloud Technology and Services (34%)
+- Domain 4: Billing, Pricing, and Support (12%)
+
+Exam guide - https://d1.awsstatic.com/training-and-certification/docs-cloud-practitioner/AWS-Certified-Cloud-Practitioner_Exam-Guide.pdf
 
 Ramp-Up Guide - https://d1.awsstatic.com/training-and-certification/ramp-up_guides/Ramp-Up_Guide_Cloud_Essentials.pdf
 

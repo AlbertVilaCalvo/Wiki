@@ -64,6 +64,7 @@ https://medium.com/awesome-cloud/aws-account-root-user-a43c9fb1697a
 - View your account billing information. View Billing tax invoices.
 - Close an AWS account.
 - Sign up for GovCloud.
+- Restore IAM administrator permissions. You must use the root user account to restore IAM permissions if the only IAM administrator accidentally revokes their own permissions.
 
 ## Don't use the root user for everyday tasks
 
