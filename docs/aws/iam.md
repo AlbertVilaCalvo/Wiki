@@ -271,6 +271,14 @@ Note that the root user has full access.
 
 See [Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html).
 
+### Condition
+
+[IAM JSON policy elements: Condition](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html)
+
+[AWS global condition context keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html) (available for any action or under unrelated circumstances)
+
+Each service supports different condition keys, see [Actions, resources, and condition keys for AWS services](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html)
+
 ### Examples
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html
@@ -1019,7 +1027,7 @@ Delete role
 
 ## Permissions boundaries
 
-Sets the maximum permissions that an identity-based policy can grant to an IAM entity. Can be applied to users and roles. Used to restrict permissions in order to prevent privilege escalation.
+Sets the maximum permissions that an identity-based policy can grant to an IAM entity. Is an IAM policy. Can be applied to users and roles. Used to restrict permissions in order to prevent privilege escalation.
 
 Important: permissions boundaries don't grant permissions, they control the permissions you have. You still need to have the permissions granted to you through a role for example.
 

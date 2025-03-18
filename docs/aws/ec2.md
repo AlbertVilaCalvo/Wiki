@@ -26,9 +26,11 @@ You manage the OS and whatever you want to run on top it, and AWS manages the [h
 
 ## Virtual servers
 
-Each EC2 instance is a virtual server or **virtual machine** that runs on top of host servers.
+Each EC2 instance is a virtual server or **virtual machine** that runs on top of a host server.
 
-The virtualization technology of EC2 is [Nitro](https://aws.amazon.com/ec2/nitro/).
+The virtualization technology of EC2 is [Nitro](https://aws.amazon.com/ec2/nitro/). Not all instances use Nitro, for example, the T2 family (eg t2.micro) doesn't, it uses Xen instead (see [Hypervisor type](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#instance-hypervisor-type)). At the EC2 console, at the "Instance Types" page, by using the preferences you can add a column to the list that shows the "Hypervisor" (xen or nitro).
+
+Note that you can also have a [Dedicated Host](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html), that is, a physical server that is fully dedicated for your use. [Mac instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html) are always bare metal instances on Dedicated Hosts. There are no Mac virtual machines, only dedicated hardware. You can launch one Mac instance per Dedicated Host.
 
 ## Learn
 
@@ -275,6 +277,8 @@ yum update -y
 
 Limited to 16 kB.
 
+Must be encoded in base64. This is done automatically in the console and the CLI.
+
 Accessible at the metadata at `http://169.254.169.254/latest/user-data`.
 
 ### Run Apache server
@@ -315,20 +319,26 @@ cat > /var/www/html/index.html <<EOF
 EOF
 ```
 
+See slightly different way [here](https://github.com/nealdct/aws-saa-code/blob/86269fef68dfc7655f0c5c429917402d24103550/amazon-ec2/user-data-metadata.md?plain=1#L57-L69).
+
 ## Networking
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-networking.html
 
 ### Network interface adapter
 
-Important: you can have multiple adapters connected to the instance, which can be on diferent subnets, but the subnets have to be in the same availability zone. Thus, you cannot move a network interface to a different AZ.
+Each instance always has a default (primary, eth0 or enX0) network interface attached to a subnet, and a private IP address on the subnet. (If it's on a public subnet, it can also have a public IP, which is associated with the private IP.) The primary network interface cannot be detached.
 
-Each instance has a default (primary, eth0) network interface attached to a subnet, and a private IP address on the subnet. (If it's on a public subnet, it can also have a public IP, which is associated with the private IP.) The primary network interface cannot be detached. You can optionally attach the instance to more subnets using more network interface adapters, but each subnet has to be on the same availability zone.
+You can optionally attach an instance to more subnets by connecting it to multiple network interface adapters. Adapters can be on diferent subnets, but the subnets have to be in the same availability zone than the instance. You cannot move a network interface to a different AZ.
+
+:::tip
+Use `ifconfig` or `ip addr` to view the network interfaces, and `ifconfig enX0` or `ip addr show enX0` to see the details of the device.
+:::
 
 Adapter types:
 
 - [Elastic Network Interface (ENI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html): the default. All instance types are supported.
-- [Elastic Network Adapter (ENA](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking.html): high network performance. _Not_ all instance types are supported.
+- [Elastic Network Adapter (ENA)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking.html): high network performance. _Not_ all instance types are supported.
 - [Elastic Fabric Adapter (EFA)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html): for HPC, MPI (message passing interface) and ML. See [supported instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html#efa-instance-types).
 
 ### IP address
@@ -348,10 +358,10 @@ Private IP:
 Public IP:
 
 - Globally unique. Used to communicate outside the network, including the internet.
-- Is dynamic. It's associated to the instance until it is stopped or terminated, thus you cannot use it in application code since it can change. Note that the "Public IPv4 DNS" (eg ec2-3-94-61-169.compute-1.amazonaws.com) will also change, since it includes the public IP.
+- Is dynamic. It's associated to the instance until it is stopped or terminated, thus you cannot use it in application code since it can change. Note that the "Public IPv4 DNS" (eg ec2-3-94-61-169.compute-1.amazonaws.com) will also change, since it includes the public IP. It doesn't change if you reboot.
 - Used in public subnets only.
 - You don't control it. For example, you cannot move it to another instance like you can do with an Elastic IP.
-- A public IP is associated to a private IP. The same happens with an Elastic IP.
+- A public IP is associated to a private IP. The same happens with an Elastic IP. The association is done externally; the instance only knows about its private IP.
 
 ### Public IPv4 address pricing
 
@@ -363,7 +373,7 @@ https://www.linkedin.com/pulse/changes-aws-public-ip-address-charges-neal-k-davi
 
 ### Elastic IP
 
-An [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) is **static**; it does not change over time.
+An [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) is **static**; it does not change over time. Therefore, you can rely on it.
 
 You can remap an EIP to an instance in a different availability zone, but not in a different region.
 
@@ -408,21 +418,21 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
 [Hibernating](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html)
 
 - For On-Demand or Spot instances.
-- Needs to be enabled when launched.
+- Hibernation needs to be enabled when launched.
 - Only for supported AMIs.
 - RAM is saved on a EBS volume and restored when restarted.
-- Processes running are resumed when restarted.
+- Processes that are running are resumed when restarted.
 - Previously attached data volumes are reattached.
 - Instance ID is retained.
 
 [Reboot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-reboot.html)
 
-- Equivalent to an OS reboot.
+- Equivalent to an OS reboot. AWS recommends rebooting using the EC2 console, CLI or API instead of running the operating system reboot command from the instance.
 - All IP address and DNS names are retained.
 
 [For retirement](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-retirement.html)
 
-- Scheduled to be retired by AWS when there is an irreparable failure of the underlying hardware, .
+- Scheduled to be retired by AWS when there is an irreparable failure of the underlying hardware.
 
 [Terminated](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html)
 
@@ -430,7 +440,8 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html
 
 [Recovered](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html)
 
-- Automatic recovery be configured or you can do so using a CloudWatch alarm.
+- Restore an instance that is unavailable due to an underlying hardware or software issue.
+- Automatic recovery can be configured or you can recover using a CloudWatch alarm.
 - The recovered instance is identical to the original instance.
 
 ## EBS
@@ -455,6 +466,12 @@ To overcome this problem you can:
 An EBS volume is stored in an AZ, but snapshots are regional, since they are stored in S3, which is a regional service. Thus, we can create volumes from snapshots in AZs different from the AZ of the source volume. This is a way to move volumes from one AZ to another, inside the same region.
 :::
 
+:::tip
+You can encrypt all new EBS volumes and copies of snapshots created in your account by default. At EC2 the console, go to the Settings page and enable "Always encrypt new EBS volumes".
+
+There's an [AWS Config](https://aws.amazon.com/config/) check for this: [ec2-ebs-encryption-by-default](https://docs.aws.amazon.com/config/latest/developerguide/ec2-ebs-encryption-by-default.html).
+:::
+
 **Block** storage: requires an EC2 instance, since the OS is needed to create filesystems and partitions, reading and writing using system calls etc.
 
 For **legacy applications** that read/write files from/to a filesystem, like relational databases. Is standalone/independent: can exist without an EC2 instance, but you need an EC2 instance to access it. It's accessed over the network. It replicates data among multiple disks automatically to increase durability and availability.
@@ -463,7 +480,7 @@ EBS volumes are independent of instances; you can terminate an instance and keep
 
 An EC2 instance has a root EBS volume (`/dev/xvda`) that contains the OS. By default, the root volume is deleted when you terminate the EC2 instance (since the attribute [`DeleteOnTermination`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ebs.html#cfn-ec2-instance-ebs-deleteontermination) is true for it), but any other volumes attached are not (since `DeleteOnTermination` is false).
 
-Generally, an EBS volume is attached to exactly one EC2 instance. It's possible to attach EBS volumes to multiple EC2 instances with [Multi-Attach](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html), but with some limitations.
+Generally, an EBS volume is attached to exactly one EC2 instance. It's possible to attach Provisioned IOPS SSD (io1 or io2) EBS volumes to multiple EC2 instances with [Multi-Attach](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html), but with some limitations.
 
 Use `lsblk` to list the attached volumes. To use the volume, you need to create a filesystem first. For example, to create a filesystem of type XFS run `sudo mkfs -t xfs /dev/nvme1n1`. Then create a folder on which to mount the device with `sudo mkdir /data`. Afterwards, mount the device with `sudo mount /dev/nvme1n1 /data`. Once the device is mounted, use `df -h` to see it. Doing `lsblk` will now show `/data` at the `MOUNTPOINT` column. The volume is ready; we can now create files at the `/data` directory (eg `sudo touch /data/hello.txt`).
 
@@ -520,11 +537,18 @@ Instance purchasing options - https://docs.aws.amazon.com/AWSEC2/latest/UserGuid
 
 EC2 Pricing Models Explained - https://www.youtube.com/watch?v=rmFlOo7MNW0
 
+:::info
+
+> **We recommend Savings Plans over Reserved Instances**. Saving Plans are the easiest and most flexible way to save money on your AWS compute costs and offer lower prices (up to 72% off On-Demand pricing), just like Reserved Instances. However, Savings Plans are different to Reserved Instances. With Reserved Instances, you make a commitment to a specific instance configuration, whereas with Savings Plans, you have the flexibility to use the instance configurations that best meet your needs. To use Savings Plans, you make a commitment to a consistent usage amount, measured in USD per hour.
+
+Source: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html:
+:::
+
 [On-Demand](https://aws.amazon.com/ec2/pricing/on-demand/)
 
 - No up-front commitment.
 - Most expensive option (standard rate, no discount).
-- Pay by the second (Amazon Linux) or hour (RHEL, SUSE).
+- Pay by the second (Amazon Linux, RHEL) or hour (SUSE).
 - To try something, test a new app or for unpredictable workloads. Not for steady, long-term workloads.
 
 [Spot](https://aws.amazon.com/ec2/spot/)
@@ -534,25 +558,32 @@ EC2 Pricing Models Explained - https://www.youtube.com/watch?v=rmFlOo7MNW0
 - Instance can be terminated at any time, thus workload needs to be interruptible.
   - You have 2 minutes to save the data, see [Spot Instance interruption notices](https://docs.amazonaws.cn/en_us/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html).
 - To run compute heavy tasks like ML or HPC (hundreds or thousands of servers) at a very low cost.
+- Fleet:
+  - EC2 fleet: combine spot, on-demand and reserved.
+  - Spot fleet (legacy): combine spot and on-demand.
 
 [Reserved (RI)](https://aws.amazon.com/ec2/pricing/reserved-instances/)
 
 - Commitment of 1-3 years.
 - About 30-60% savings, up to 72%.
 - You pay for capacity even if you don't use it, but on the other hand you ensure you'll have capacity.
-- Can be Standard or Convertible (more expensive but you can change the instance attributes).
+- You can pay All Upfront, Partial Upfront and No Upfront.
+- Can be:
+  - Standard. Can change AZ, instance size and networking type with [ModifyReservedInstances](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyReservedInstances.html).
+  - Convertible. More expensive, but you can change the instance family, OS, tenancy and payment option with [GetReservedInstancesExchangeQuote](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetReservedInstancesExchangeQuote.html).
 
 [Savings plan](https://aws.amazon.com/savingsplans/)
 
 - Best of all options, [see this](https://youtu.be/rmFlOo7MNW0?feature=shared&t=146).
-- Hourly spend commitment of 1-3 years. Anything beyond that you'll pay On-Demand price.
-- Saving up to 72%.
+- Hourly spend commitment of 1-3 years. Anything beyond that you'll pay the On-Demand price.
+- Save up to 72%.
+- You can pay All Upfront, Partial Upfront and No Upfront.
 - More flexibility than reserved.
 - Three types of Savings Plans: Compute Savings Plans (includes Fargate and Lambda too), EC2 Instance Savings Plans, and Amazon SageMaker Savings Plans.
 
 [Dedicated instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html)
 
-- Might share hardware with other instances from the same AWS account that are not Dedicated Instances.
+- Instances that run on hardware that's dedicated to a single AWS account, but might share hardware with other instances from the same AWS account that are not Dedicated Instances.
 - Billed per instance.
 
 [Dedicated hosts](https://aws.amazon.com/ec2/dedicated-hosts/)
@@ -619,9 +650,9 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html
 
 Options:
 
-- Cluster: instance are close (eg on the same rack) to have low-latency and high throughput. For HPC.
-- Partition: split instances in partitions, and each partition runs on a separate underlying hardware. You can have up to 7 partitions per AZ. When we have data replicated and we want to ensure there's always a node running, eg Kafka or Cassandra.
-- Spread: a small group of instances that all run on different hardware (ie a different rack) to reduce correlated failures.
+- Cluster: instance are close (eg on the same rack) to have low-latency and high throughput. For HPC. All instances are in the same AZ.
+- Partition: split instances in partitions, and each partition runs on a separate underlying hardware. Partitions can be in different AZs in the same region. You can have up to 7 partitions per AZ. When we have data replicated and we want to ensure there's always a node running, eg Hadoop, Kafka or Cassandra.
+- Spread: a small group of instances that all run on different hardware (ie a different rack) to reduce correlated failures. Can span multiple AZs in the same region.
 
 You choose it when you launch the instance.
 
@@ -676,6 +707,17 @@ aws ec2 describe-regions
 ```shell
 aws ec2 describe-availability-zones --region eu-west-1
 ```
+
+[Launch instance](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html)
+
+```shell
+aws ec2 run-instances --instance-type t2.micro \
+ --image-id ami-061ac2e015473fbe2 \
+ --user-data file://user_data.sh  \
+ --key-name MyKeyPair
+```
+
+[Terminate instance](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/terminate-instances.html)
 
 ```shell
 aws ec2 terminate-instances --instance-ids i-001b89bdc08ba65f7

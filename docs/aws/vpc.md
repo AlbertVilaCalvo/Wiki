@@ -70,7 +70,7 @@ https://formulae.brew.sh/formula/ipcalc
 
 https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html
 
-A range of IP addresses, which is a segment/portion of the overall VPC CIDR address range.
+A **range of IP addresses**, which is a segment/portion of the overall VPC CIDR address range.
 
 > A subnet is **a way to separate concerns** inside the VPC. (AWS in Action p. 303)
 
@@ -102,9 +102,9 @@ Route table of a _public_ subnet:
 | 172.31.0.0/16 | Local  |
 | 0.0.0.0/0     | igw-id |
 
-The 172.31.0.0/16 is the CIDR address block. Any address will be within this range. Any packet sent to a CIDR address will be routed locally by the VPC router.
+The 172.31.0.0/16 is the overall VPC CIDR address block. Any address in the VPC will be within this range. Any packet sent to a CIDR address will be routed locally by the VPC router.
 
-0.0.0.0/0 means anything else outside the CIDR range. Thus, anything that is not sent to the CIDR address block will be routed to the Internet, outside.
+0.0.0.0/0 means anything else outside the VPC CIDR range. Thus, anything that is not sent to the CIDR address block will be routed to the Internet, outside.
 
 Route table of a _private_ subnet:
 
@@ -112,7 +112,9 @@ Route table of a _private_ subnet:
 | ------------- | ------ |
 | 172.31.0.0/16 | Local  |
 
-The CIDR here allows routing within the VPC, thus we can have communication between public and private subnets.
+The CIDR block here allows routing within the VPC, thus we can have communication between public and private subnets. This happens with a bastion host, where an instance in a public subnet talks with an instance in a private subnet, using their private IPs.
+
+For example, the default VPC in us-east has an overall CIDR of 172.31.0.0/**16**. Its subnets, which are public, have this CIDRs: 172.31.**0**.0/20, 172.31.**16**.0/20, 172.31.**32**.0/20, 172.31.**48**.0/20, 172.31.**64**.0/20 and 172.31.**80**.0/20. Since there are no private subnets, there's only one route table (like the public one above with a route to the IGW). To have a private subnet, we can create a new subnet with CIDR 172.31.**96**.0/20 and also a new route table with only a Local route, and associate the subnet to this private route table.
 
 From "What is the difference between a public and private subnet in a Amazon VPC?" - https://serverfault.com/questions/556363/what-is-the-difference-between-a-public-and-private-subnet-in-a-amazon-vpc
 
@@ -133,6 +135,16 @@ https://docs.aws.amazon.com/vpc/latest/userguide/RouteTables.html
 
 > Main route table: The route table that automatically comes with your VPC. It controls the routing for all subnets that are not explicitly associated with any other route table.
 
+## Network Address Translation (NAT)
+
+Receive traffic on one IP and translate it and send it out using a different IP.
+
+For example, an internet gateway transforms the instance's public IP to a private IP (and viceversa) in incoming and outgoing network packets. From [Configuration for internet access](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-igw-internet-access.html):
+
+> The internet gateway logically provides the one-to-one NAT on behalf of your instance, so that when traffic leaves your VPC subnet and goes to the internet, the reply address field is set to the public IPv4 address or Elastic IP address of your instance, and not its private IP address. Conversely, traffic that's destined for the public IPv4 address or Elastic IP address of your instance has its destination address translated into the instance's private IPv4 address before the traffic is delivered to the VPC.
+
+Note that the association between the public and the private IPs is done externally to the instance, by the internet gateway. The instance only knows its private IP, not the public IP. If you run `ifconfig` or `ip addr` you only see the private IP. The instance's operating system can't see the public IP.
+
 ## Internet Gateway
 
 Enables access to/from the internet. When we connect to an EC2 instance we do so through the internet gateway.
@@ -149,45 +161,60 @@ https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.ht
 
 An internet gateway supports inbound and outbound IPv4 and IPv6 traffic, whereas an Egress-only internet gateway allows **outbound** communication over **IPv6** from instances in your VPC to the internet, and prevents the internet from initiating an IPv6 connection with your instances.
 
-## NAT
+https://stackoverflow.com/questions/74455063/what-exactly-are-nat-gateway-and-internet-gateway-on-aws
 
-https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
+> Think of the Internet Gateway as the wire that you use to connect your home router to the Internet. Pull out that wire and your home network won't be connected to the Internet.
 
-Network Address Translation.
-
-Receives traffic on one IP and translates it and sends it out using a different IP.
-
-The internet gateway transforms the instance's public IP to a private IP (and viceversa) in incoming and outgoing network packets.
-
-See https://stackoverflow.com/questions/74455063/what-exactly-are-nat-gateway-and-internet-gateway-on-aws
-
-> NAT Gateways exist because organizations want the additional security offered by private subnets, which guarantee that there is no inbound access from the Internet. **Similar security can be provided with a Security Group**, so private subnets aren't actually required.
-
-### Bastion hosts
+## Bastion host
 
 :::info
-Alternatively, you can connect to an instance in a private subnet with EC2 Instance Connect Endpoint: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-with-ec2-instance-connect-endpoint.html. You can do so in the console by clicking "Connect" as usual, and then choosing "Connect using EC2 Instance Connect Endpoint". You need to [create an EC2 Instance Connect Endpoint](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-ec2-instance-connect-endpoints.html) first.
+Alternatively, you can connect to an instance in a private subnet with EC2 Instance Connect Endpoint, [see docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-with-ec2-instance-connect-endpoint.html). You can do so in the console by clicking "Connect" as usual, and then choosing "Connect using EC2 Instance Connect Endpoint". You need to [create an EC2 Instance Connect Endpoint](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-ec2-instance-connect-endpoints.html) first.
 :::
 
 CloudFormation template - https://aws.amazon.com/solutions/implementations/linux-bastion/
 
-Allows to connect to an instance on a private subnet through an instance on a public subnet.
+Allows to connect to an instance in a private subnet through an instance in a public subnet.
 
 Can be done with a NAT gateway or a NAT instance.
 
-How to Connect to a Private EC2 Instance in a VPC Using a Bastion Host - https://www.youtube.com/watch?v=rn9kAXz6qxA - See this accompanying blog post 'SSH into EC2 in Private Subnet' - https://digitalcloud.training/ssh-into-ec2-in-private-subnet
+How to Connect to a Private EC2 Instance in a VPC Using a Bastion Host - https://www.youtube.com/watch?v=rn9kAXz6qxA - See this accompanying blog post "SSH into EC2 in Private Subnet" - https://digitalcloud.training/ssh-into-ec2-in-private-subnet
 
 How can I connect to a private Amazon RDS instance from local system through EC2 as a bastion host? - https://www.youtube.com/watch?v=ypWzL3PdKx0
 
+Setup:
+
+- Launch an instance in a private subnet, with an SSH key pair, and a security group that allows SSH access.
+- Launch an instance in a public subnet.
+- Connect to the public instance, and from there connect to the private instance by doing:
+  - Run `nano private-instance-private-key.pem` and paste the content of the private instance's private key (`-----BEGIN RSA PRIVATE KEY-----`).
+  - Give the file read access with `chmod 400 private-instance-private-key.pem`.
+  - Connect to the private instance with `ssh -i private-instance-private-key.pem ec2-user@172.31.110.223`, using the private instance’s private IP.
+- Once connected to the private instance, run `ping google.com`. It should _not_ receive a response, because it’s a private instance without a public IP, and the route table doesn’t have a route to the IGW. If we wanted the private instance to have access to the Internet we would use a NAT Gateway.
+
+## NAT Devices
+
+https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html
+
+> Use a NAT device to allow resources in private subnets to connect to the internet, other VPCs, or on-premises networks.
+
+**Traffic is outbound only**. No one in the outside world from the Internet can connect to the private instance. This allows the instance to call an external service, download software updates etc. If we wanted bidirectional traffic, we would deploy the instance on a public subnet, so that it has a public IP, and use Internet Gateway.
+
 ### NAT gateway
+
+:::info
+
+> NAT Gateways exist because organizations want the additional security offered by private subnets, which guarantee that there is no inbound access from the Internet. **Similar security can be provided with a Security Group**, so private subnets aren't actually required.
+
+From https://stackoverflow.com/questions/74455063/what-exactly-are-nat-gateway-and-internet-gateway-on-aws
+:::
+
+https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html
 
 An Network Address Translation service used to allow instances in private subnets to connect to the Internet.
 
 Announcement: https://aws.amazon.com/blogs/aws/new-managed-nat-network-address-translation-gateway-for-aws
 
 To do it, launch a NAT gateway in a public subnet, and add a route 0.0.0.0/0 to the private subnet's route table pointing to the NAT Gateway.
-
-Traffic is **outbound** only. No one outside from the Internet will be able to connect to the private instance. This allows the instance to call an external service, download software updates etc. If we wanted bidirectional traffic, we would deploy the instance on a public subnet, so that it has a public IP, and use Internet Gateway.
 
 We always deploy a NAT gateway in a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP**. We then add a route at the private subnet's route table, with destination 0.0.0.0/0 pointing to the NAT Gateway.
 
@@ -228,9 +255,9 @@ See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid
 
 :::
 
-### NAT gateway setup
+#### NAT gateway setup
 
-We have a private instance on a private subnet. We deploy a **NAT gateway** to a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP** (in 'Elastic IP allocation ID' click 'Allocate Elastic IP'). The NAT gateway talks to the Internet Gateway on behalf of the private instance.
+We have a private instance on a private subnet. We deploy a **NAT gateway** to a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP** (when creating the NAT gateway, at 'Elastic IP allocation ID' click 'Allocate Elastic IP'). The NAT gateway talks to the Internet Gateway on behalf of the private instance.
 
 We create a **private route table**, explicitly associated to the **private subnet** (on 'Subnet associations'). Then on 'Edit routes' we add a route entry with 'Destination' 0.0.0.0/0 (ie everything else that is not routed locally via the VPC router) and for 'Target' choose 'NAT Gateway', selecting the NAT gateway we've created. So any address outside of the subnet address range will go to the NAT gateway.
 
@@ -253,19 +280,23 @@ Private subnet route table:
 To check that the setup is correct do:
 
 - Connect to a public instance using Instance Connect.
-- From the terminal, using nano, create a file containing the private instance's SSH key-pair, and then `chmod 400`.
-- Connect to the private instance with `ssh`, using its private IPv4 address.
+- From the terminal, using nano, create a file containing the private SSH key (a `.pem` file) of the private instance, and then give it read access with `chmod 400 private-instance-private-key.pem`.
+- Connect to the private instance with `ssh`, using its private IPv4 address: `ssh -i private-instance-private-key.pem ec2-user@172.31.110.223`.
 - Once connected to the private instance, run `ping google.com`. It should receive a response.
 
 ### NAT instance
 
-_Not used much nowadays since we have NAT gateways._ It was the way to do it in the past, but NAT gateways, since they are managed by AWS, are highly available and they scale automatically.
+https://docs.aws.amazon.com/vpc/latest/userguide/VPC_NAT_Instance.html
+
+_Not used much nowadays since we have NAT gateways._ It was the way to do it in the past, but NAT gateways, since they are managed by AWS, are highly available and scale automatically.
 
 Unlike NAT gateways, is not an AWS service. It's a special AMI pre-configured. Has amzn-ami-vpc-nat on the name.
 
 You have to disable the source and destination checks to function as a NAT.
 
 See https://stackoverflow.com/questions/22188444/why-do-we-need-private-subnet-in-vpc
+
+Simple example here: https://stackoverflow.com/a/74455786/4034572
 
 ## Network ACL (subnet firewall)
 

@@ -4,17 +4,17 @@ title: SSH
 
 The **port 22** needs to be open for inbound traffic.
 
-The client has the private key (contained on a `.pem` file), and the server the public key (a file with the `.pub` extension, saved at `~/.ssh/authorized_keys`). Anyone with the public key can access the instance.
+The client has the private key (contained on a `.pem` file that starts with `-----BEGIN RSA PRIVATE KEY-----`), and the server the public key (a file with the `.pub` extension, saved at `~/.ssh/authorized_keys`). Anyone with the private key can access the instance.
 
 ```shell
-chmod 400 us-east-kp.pem # Fix WARNING: UNPROTECTED PRIVATE KEY FILE!
-ssh -i us-east-kp.pem ec2-user@3.83.54.1
-ssh -i us-east-kp.pem ec2-user@ec2-107-22-100-77.compute-1.amazonaws.com
+chmod 400 private-key.pem # Fix WARNING: UNPROTECTED PRIVATE KEY FILE!
+ssh -i private-key.pem ec2-user@3.83.54.1
+ssh -i private-key.pem ec2-user@ec2-107-22-100-77.compute-1.amazonaws.com
 ```
 
 Close connection: `exit`
 
-You can generate the public key from the private key at any time with: `ssh-keygen -y -f key.pem > key.pub` [source](https://askubuntu.com/questions/46424/how-do-i-add-ssh-keys-to-authorized-keys-file#comment372754_46425)
+You can generate the public key from the private key at any time with: `ssh-keygen -y -f private-key.pem > public-key.pub` [source 1](https://askubuntu.com/questions/46424/how-do-i-add-ssh-keys-to-authorized-keys-file#comment372754_46425) [source 2](https://serverfault.com/a/52287)
 
 ## Add an SSH key to an EC2 instance that is already launched
 
