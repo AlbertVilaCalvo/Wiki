@@ -29,7 +29,7 @@ If we use a load balancer, registers the new virtual machines on the target grou
 
 Defines the subnets (and thus the availability zones) in which to run the virtual machines, and distributes the VMs evenly among the subnets to achieve fault tolerance. (Obviously, there needs to be at least one VM running per subnet.)
 
-Responds to EC2 status checks and CloudWatch metrics.
+Responds to EC2 status checks and CloudWatch metrics, and dynamically scales instances based on scaling policies.
 
 Deleting it terminates the instances.
 
@@ -72,7 +72,7 @@ For accounts created after May 31, 2023, the EC2 console **only supports creatin
 
 https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-health-checks.html
 
-- EC2: uses the VM hypervisor and networking.
+- EC2: uses the VM hypervisor and networking status checks.
 - ELB (Elastic Load Balancing): checks if the application works too, _in addition_ to the EC2 status checks.
 
 https://stackoverflow.com/questions/42466157/whats-the-difference-between-elb-health-check-and-ec2-health-check
@@ -87,13 +87,23 @@ The health check _type_ is defined in the Auto Scaling group, not the load balan
 
 https://aws.amazon.com/elasticloadbalancing
 
+https://docs.aws.amazon.com/elasticloadbalancing/
+
+https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html
+
 Distributes network traffic among targets. If one target fails, it stops sending requests to it and re-routes the request to another target, providing fault tolerance. You can couple this with Auto Scaling to ensure the right number of instances are available.
 
 Uses health checks to ensure that an instance is available and healthy. The health check can be, for example, a request to the path '/health' on port 80 that expects a 200 response. Does not use CloudWatch metrics. When a target is not healthy, it notifies the Auto Scaling group, which will then terminate it and replace it.
 
-Targets can be EC2 instances, containers, lambda functions (for ALB only), IP addresses and ALB load balancers (for NLB only).
+Targets can be EC2 instances, containers, a single lambda function (ALB only), IP addresses and ALB load balancers (NLB only).
 
 ELB distributes traffic in a single or multiple availability zones within a region, but cannot distribute across regions. To direct traffic across regions use Amazon Route 53. Note that is the Auto Scaling group which spreads the instances across availability zones; the load balancer will then distribute requests among the instances.
+
+A load balancer can be Internet-facing or internal. Nodes of an Internet-facing load balancer have public IPs, therefore you need a _public_ subnet on each enabled AZ, whereas nodes in an internal load balancer have private IPs.
+
+You need to enable the AZs in which the load balancer will be deployed and that contain the targets. For an Application Load Balancer you need at least two AZs. For each enabled AZ, you need to select a public subnet. You can only select one public subnet per AZ. The public subnets are used by the load balancer; you can launch the EC2 instances in other (private) subnets of these AZs instead.
+
+When you enable an availability zone, ELB deploys a load balancer node in it. When cross-zone load balancing is enabled, each node distributes traffic across the targets in _all_ enabled availability zones. Otherwise, the node only distributes traffic to targets in its AZ. Cross-zone load balancing is always enabled by in ALB (but you can disable it at the target group), and disabled by default in NLB and GLB. See [Availability Zones and load balancer nodes](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#availability-zones).
 
 A load balancer consists of multiple servers that can run in different subnets (ie datacenters). AWS automatically scales the number of load balancer servers up and down based on traffic and handles failover if a server goes down, so you get scalability and high availability. (From 'Terraform: Up and Running' p. 72.)
 
@@ -108,24 +118,73 @@ Load balancers can be used with more than web servers—you can use load balance
 (AWS in Action p.394)
 :::
 
+You can get the client IP with the `X-Forwarded-For` header. See [How do I capture client IP addresses in the web server logs behind an elastic load balancer?](https://repost.aws/knowledge-center/elb-capture-client-ip-addresses).
+
+Both ALB and NLB support on-premises resources as targets for hibrid architectures, using their IPs; see [Does AWS ELB support load balancing to on-premises targets?](https://repost.aws/questions/QUrco66GKPTiCtR2JPnmktpA/does-aws-elb-support-load-balancing-to-on-premises-targets).
+
 ### Load balancer types
 
 https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html#integrations-aws-elastic-load-balancing-types
 
 https://aws.amazon.com/elasticloadbalancing/features/#Product_comparisons
 
-- [Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html). Application layer 7, HTTP/HTTPS. Supports routing based on the request HTTP headers, URL path, host (ie domain name) and query string params, IP address etc. Targets can be instances, containers, lambda functions and IP addresses. Supports WebSockets, HTTP/2 and gRPC.
-- [Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html). Layer 4, TCP/UDP. Routes based on the protocol, source or destination IP address etc. Can scale up and down in response to load faster than the ALB. Ultra-high performance. Scales to tens of milions of requests per second maintaining ultra-low latencies. Targets can be instances, IP addresses and ALB. Can have a static and Elastic IP address. Supports WebSockets.
-- [Classic Load Balancer (CLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html). Layer 4 and 7. Has far fewer features than ALB and NLB. **Deprecated**. Should not be used. See "Benefits of migrating from a Classic Load Balancer" [to ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html#application-load-balancer-benefits) and [to NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html#network-load-balancer-benefits).
-- [Gateway Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/gateway/introduction.html). Layer 3 (network). Third-party virtual appliances that support GENEVE. Firewalls.
+#### Application Load Balancer (ALB)
+
+https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
+
+Application layer (7). HTTP and HTTPS.
+
+Supports routing based on the request HTTP headers, URL path, host (ie domain name) and query string params, IP address etc. Does [advanced request routing](https://aws.amazon.com/blogs/aws/new-advanced-request-routing-for-aws-application-load-balancers/) to different target groups.
+
+Targets can be EC2 instances, containers, a single lambda function and IP addresses.
+
+Supports WebSockets, HTTP/2 and gRPC.
+
+You must enable at least two AZs. Cross-zone load balancing is always enabled, but you can disable it at the target group.
+
+#### Network Load Balancer (NLB)
+
+https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html
+
+Transport layer (4). TCP, UDP and TLS.
+
+Routes based on the protocol, source or destination IP address etc.
+
+Ultra-high performance. Scales to tens of milions of requests per second maintaining ultra-low latencies. Can scale up and down in response to load faster than the ALB.
+
+Targets can be EC2 instances, IP addresses and ALBs.
+
+Supports WebSockets.
+
+Can have a static IPs, and an Internet-facing load balancer can optionally have Elastic IPs (one per subnet).
+
+Can be used with [VPC endpoint services](https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html).
+
+Cross-zone load balancing is disabled by default.
+
+#### Classic Load Balancer (CLB)
+
+https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html
+
+Layer 4 and 7. Has far fewer features than ALB and NLB.
+
+**Deprecated**. Should not be used. See "Benefits of migrating from a Classic Load Balancer" [to ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html#application-load-balancer-benefits) and [to NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html#network-load-balancer-benefits).
+
+#### Gateway Load Balancer
+
+https://docs.aws.amazon.com/elasticloadbalancing/latest/gateway/introduction.html
+
+Layer 3 (network).
+
+To deploy third-party virtual appliances that support the GENEVE protocol (port 6081) such as firewalls, intrusion detection and prevention systems, and deep packet inspection systems.
 
 ### Load balancer components
 
 See example in Terraform at https://github.com/brikis98/terraform-up-and-running-code/blob/master/code/terraform/02-intro-to-terraform-syntax/webserver-cluster/main.tf
 
-- Load balancer: defines configuration like the load balancer type (application, network), the subnets etc. See [CreateLoadBalancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateLoadBalancer.html).
-- Listener: defines the port (80, 443) and protocol (HTTP, HTTPS, TCP, TLS, UDP), the default action if no rule matches the request etc. See [CreateListener](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateListener.html).
-- Target group: forwards the requests to the registered targets. Defines the periodic health check, the port and protocol on which the targets receive traffic, and the target type (EC2 instance, IP, Lambda). See [CreateTargetGroup](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateTargetGroup.html).
+- Load balancer: defines configuration like the load balancer type (application, network), the subnets (and therefore in which availability zones the load balancer will deploy its nodes to) etc. See [CreateLoadBalancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateLoadBalancer.html).
+- Target group: forwards the requests to the registered targets. Defines the periodic health check (path, protocol etc.), the port and protocol on which the targets receive traffic, the target type (EC2 instances, IPs, a Lambda function or ALB) and the VPC (not applicable for Lambda functions). See [CreateTargetGroup](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateTargetGroup.html).
+- Listener: defines the port (80, 443) and protocol (HTTP, HTTPS, TCP, TLS, UDP) the load balancer listens on, the default action if no rule matches the request, SSL certificates etc. See [CreateListener](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateListener.html).
 - Listener rule (optional): chooses the target group to forward the requests to, based on path or host. See [CreateRule](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_CreateRule.html) and [RuleCondition](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_RuleCondition.html).
 
 Usually the EC2 instances are managed by an Auto Scaling group, which registers and deregisters the EC2 instances at the load balancer’s target group automatically.

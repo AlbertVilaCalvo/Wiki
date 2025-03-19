@@ -13,7 +13,7 @@ https://console.aws.amazon.com/route53/
 ## Hosted zone
 
 :::danger
-Important: never delete the hosted zone nor the NS records! To recreate them you may need AWS support assistance.
+Important: never delete the hosted zone, nor the NS and SOA records that come by default. To recreate them you may need assistance from AWS support.
 
 https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-replace-hosted-zone.html
 :::
