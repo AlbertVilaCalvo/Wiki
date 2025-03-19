@@ -60,36 +60,6 @@ https://instances.vantage.sh - https://github.com/vantage-sh/ec2instances.info
 
 :::
 
-## Launch instance
-
-- _Make sure you are at the right region_
-- Go to the EC2 Dashboard and click the button 'Launch instance'
-- Give it a Name
-- Choose the OS image (Amazon Machine Image)
-  - Eg pick Amazon Linux 2023
-- Choose the instance type (t2.nano, t2.micro...)
-- Choose a [key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) if you plan to connect to the instance using SSH
-  - You can create a new one of type 'RSA', file format `.pem` and name like `us-east-kp`. A file named `us-east-kp.pem` containing the private key will be downloaded; store it safely, since anyone holding it will be able to connect to the instance
-- On the 'Network settings'
-  - VPC: select one or just use the default
-  - Subnet: No preference
-  - Auto-assign public IP: Enable
-  - Firewall (security groups):
-    - If we don't have any, create a new one:
-      - Check 'Create security group'
-      - Give it a name, eg 'WebSSHAccess', and edit the Description too, putting the same name and the creation date
-      - Type: ssh
-      - Source type: Anywhere, or any IP
-      - (This will open port 22 for SSH access)
-    - If we have one:
-      - Check 'Select exiting security group' and select it
-- Advanced details (optional)
-  - IAM instance profile: attach any IAM Role for accessing services like S3
-  - Metadata accessible: Enabled
-  - Metadata version: V1 and V2 or V2
-  - Set 'User data'
-- Click 'Launch instance'
-
 ## Connect
 
 Connect to your EC2 instance - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect.html
@@ -102,9 +72,13 @@ Options:
 
 (`ssh` commands) Connect to your Linux instance using an SSH client - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html
 
-We connect to an SSH server running on the instance. **Port 22** (where the SSH daemon runs) must be open for inbound traffic; we do this with the security group (the firewall).
+Amazon EC2 key pairs and Amazon EC2 instances - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html
+
+We connect to an SSH server running on the instance. **Port 22** (where the SSH daemon runs) must be open for inbound traffic; we do this with the security group, the instance firewall.
 
 The client has the private key (contained on a `.pem` file), and the server the public key (at ` ~/.ssh/authorized_keys`). Anyone with the public key can access the instance.
+
+To create a key pair, when launching an instance, click "Create new key pair" and select type 'RSA', file format `.pem` and enter a name like `us-east-kp`. A file named `us-east-kp.pem` containing the private key will be downloaded; store it safely, since anyone holding it will be able to connect to the instance. There are other ways to create it, see [Create a key pair for your Amazon EC2 instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html).
 
 To connect, we can use either the 'Public IPv4 address' (eg 3.87.6.57) or 'Public IPv4 DNS' (eg ec2-3-87-6-57.compute-1.amazonaws.com; note that it has the public IP on the name).
 
