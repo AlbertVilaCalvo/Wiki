@@ -90,6 +90,7 @@ const sidebars: SidebarsConfig = {
     'aws/iam',
     'aws/root-user',
     'aws/organizations',
+    'aws/control-tower',
     'aws/cloudwatch',
     'aws/vpc',
     'aws/ec2',
