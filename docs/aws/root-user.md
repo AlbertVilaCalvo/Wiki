@@ -114,6 +114,6 @@ Recovering a root user MFA device - https://docs.aws.amazon.com/IAM/latest/UserG
 
 ## Centrally manage root access
 
-If you have an AWS Organization, you can delete root credentials for your member accounts and perform privileged actions from the management or delegated account.
+If you have an AWS Organization, you can delete the root user credentials for your member accounts and perform privileged actions from the management or delegated account.
 
 See [Centrally manage root access for member accounts](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user-access-management) and [Centralize root access for member accounts](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-enable-root-access.html).
