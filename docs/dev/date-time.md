@@ -22,3 +22,5 @@ JS Dates Are About to Be Fixed - https://docs.timetime.in/blog/js-dates-finally-
 ## Time zones
 
 https://time.is/time_zones
+
+Daylight saving time and time zone best practices - https://stackoverflow.com/questions/2532729/daylight-saving-time-and-time-zone-best-practices

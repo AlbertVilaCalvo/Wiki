@@ -339,6 +339,8 @@ Public IP:
 
 See [IP addressing for your VPCs and subnets](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html) for more info about public and private IPs.
 
+IPAM (IP Address Manager) - https://docs.aws.amazon.com/vpc/latest/ipam/what-it-is-ipam.html
+
 ### Public IPv4 address pricing
 
 https://aws.amazon.com/blogs/aws/new-aws-public-ipv4-address-charge-public-ip-insights/
@@ -346,6 +348,8 @@ https://aws.amazon.com/blogs/aws/new-aws-public-ipv4-address-charge-public-ip-in
 > Effective February 1, 2024 there will be a charge of $0.005 per IP per hour for all public IPv4 addresses, whether attached to a service or not (there is already a charge for public IPv4 addresses you allocate in your account but don’t attach to an EC2 instance).
 
 https://www.linkedin.com/pulse/changes-aws-public-ip-address-charges-neal-k-davis-j0wae/ - https://www.youtube.com/watch?v=4EvktMxjyxU
+
+Como optimizar las cargas IPv4 en AWS y ademas generar ahorro de costes - https://dev.to/aws-espanol/como-optimizar-las-cargas-ipv4-en-aws-y-ademas-generar-ahorro-de-costes-45e1
 
 ### Elastic IP
 

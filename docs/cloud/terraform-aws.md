@@ -247,6 +247,7 @@ AWS Control Tower Account Factory for Terraform:
 
 - https://github.com/aws-ia/terraform-aws-control_tower_account_factory - https://registry.terraform.io/modules/aws-ia/control_tower_account_factory/aws/latest
 - Provision accounts with AWS Control Tower Account Factory for Terraform - https://docs.aws.amazon.com/controltower/latest/userguide/taf-account-provisioning.html
+- Manage your AWS multi-account environment with Account Factory for Terraform (AFT)- https://aws.amazon.com/blogs/mt/manage-your-aws-multi-account-environment-with-account-factory-for-terraform-aft/
 
 ## Authentication
 

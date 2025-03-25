@@ -15,7 +15,19 @@ https://news.ycombinator.com/item?id=33264190
 
 Fundamentals of Backend Engineering - https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/
 
-## Ports < 1024 are restricted to the root user
+## Ports
+
+https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+
+https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml
+
+- System or well-known ports (1-1023). Reserved for specific services. Used by system processes that provide widely used types of network services.
+- User or registered ports (1024-49151). Also registered by IANA, but not as commonly used. Designated for use with a certain protocol or application.
+- Dynamic, private or ephemeral ports (49152-65535). For proprietary services or private use. Used for only a short period of time for the duration of a communication session.
+
+When a client connects to a server, there's a source IP and a destination IP, and a source port and a destination port. The server listens on a well-known port like 80 or 443. The client's port, the source port, is dynamically chosen by the operating system, randomly, from th ephemeral ports range.
+
+### Ports < 1024 are restricted to the root user
 
 Why are the first 1024 ports restricted to the root user only? - https://unix.stackexchange.com/questions/16564/why-are-the-first-1024-ports-restricted-to-the-root-user-only
 
