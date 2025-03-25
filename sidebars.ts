@@ -108,6 +108,7 @@ const sidebars: SidebarsConfig = {
     'aws/elasticache',
     'aws/cloudformation',
     'aws/well-architected-framework',
+    'aws/disaster-recovery',
     'aws/serverless',
     'aws/eventbridge',
     'aws/sns',
