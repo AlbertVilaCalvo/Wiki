@@ -8,6 +8,10 @@ https://aws.amazon.com/cloudfront
 
 7 things wrong with CloudFront - https://twitter.com/matthieunapoli/status/1546071002064592897
 
+Transform, optimize, and deliver images in real time at a fraction of the cost - https://aws.amazon.com/solutions/implementations/dynamic-image-transformation-for-amazon-cloudfront - https://github.com/aws-solutions/dynamic-image-transformation-for-amazon-cloudfront/
+
+Improve Single-Page Application (SPA) Performance with a Same Domain policy using Amazon CloudFront - **Avoid CORS** - https://aws.amazon.com/blogs/networking-and-content-delivery/improve-single-page-application-spa-performance-with-a-same-domain-policy-using-amazon-cloudfront/
+
 ## CLI
 
 CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudfront/index.html

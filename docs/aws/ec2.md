@@ -172,7 +172,7 @@ A virtual firewall that controls incoming and outgoing (inbound and outbound) tr
 The rules control which direction (inbound or outbound), IP protocols (TCP, UDP, ICMP), port and a single IP or a range of IP addresses we can connect from/to. We can also specify a security group. See [Components of a security group rule
 ](https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html#security-group-rule-components).
 
-Security group rules only support allow, they cannot deny. If you don’t explicitly allow, it's denied and it doesn't get in. Thus, you cannot block a specific, individual IP address; you can only allow it. If you want to block a specific IP you need to use a Network ACL rule, which applies to all instances in the subnet.
+Security group rules only support allow, they cannot deny. If you don’t explicitly allow, it's denied and it doesn't get in. Thus, you cannot block a specific, individual IP address; you can only allow it. If you want to block a specific IP you need to use a Network ACL rule, which applies to all instances in the subnet. Or use AWS WAF.
 
 By default, a security group:
 
@@ -336,6 +336,8 @@ Public IP:
 - Used in public subnets only.
 - You don't control it. For example, you cannot move it to another instance like you can do with an Elastic IP.
 - A public IP is associated to a private IP. The same happens with an Elastic IP. The association is done externally; the instance only knows about its private IP.
+
+See [IP addressing for your VPCs and subnets](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html) for more info about public and private IPs.
 
 ### Public IPv4 address pricing
 

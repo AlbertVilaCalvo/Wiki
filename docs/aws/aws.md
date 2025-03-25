@@ -100,15 +100,26 @@ https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/aw
 
 AWS service types (AZ, regional and global) - https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/aws-service-types.html
 
-From AWS in Action p. 388 and [AWS Services by Region](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services):
+From AWS in Action page 388, complemented with [AWS Services by Region](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services) and [AWS service types](https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/aws-service-types.html):
 
-- Some services are global, like IAM, Organizations, CDN (CloudFront), DNS (Route 53), Global Accelerator, Direct Connect, Firewall Manager, WAF and Shield. STS has a single global endpoint and multiple regional endpoints ([source](https://aws.amazon.com/blogs/security/announcing-upcoming-changes-to-the-aws-security-token-service-global-endpoint/)).
-- Some services operate over multiple availability zones within a region, like S3, EFS, SQS and DynamoDB. They can withstand an availability zone outage by default.
+- Some services are global, like IAM, Organizations, CDN (CloudFront), DNS (Route 53), Global Accelerator, Direct Connect, Firewall Manager, WAF and Shield. STS has a single global endpoint and multiple regional endpoints ([source](https://aws.amazon.com/blogs/security/announcing-upcoming-changes-to-the-aws-security-token-service-global-endpoint/)). See [Global services](https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/global-services.html).
+- Some services operate over multiple availability zones within a region, like S3, EFS, SQS and DynamoDB. They can withstand an availability zone outage by default. See [Regional services](https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/regional-services.html).
 - Some services can optionally fail over into another availability zone, like RDS with [Multi-AZ](https://aws.amazon.com/rds/features/multi-az/), and EC2 with [Auto Scaling](https://aws.amazon.com/ec2/autoscaling/).
 
 Also see which servies are fault tolerant at page 433.
 
+Overview:
+
+- 36 regions
+- 114 availability zones
+- 700 CloudFront PoP and edge locations + 13 regional edge caches
+- 42 local zones (metropolitan areas)
+- 29 wavelength zones (telco)
+- 135 Direct Connect locations
+
 ### Regions
+
+Regions are isolated and independent geographic locations. Regions are connected by the AWS global network. All regions currently have three or more Availability Zones.
 
 Most services are region-specific, except for IAM, CDN (CloudFront) and DNS (Route 53), which are global ([more info](https://stackoverflow.com/questions/68811957/aws-global-services)). Note that at the web console, when you go to the IAM Dashboard, the region at the navigation bar is "Global" and you can't select any region like "N. Virginia".
 
@@ -168,6 +179,12 @@ To distribute resources across availability zones, when creating an AWS account,
   "ZoneId": "euw1-az2"
 }
 ```
+
+### Local zones
+
+https://aws.amazon.com/about-aws/global-infrastructure/localzones
+
+Run resources in dense metropolitan areas, close to the users.
 
 ## Remove all resources from an AWS account
 

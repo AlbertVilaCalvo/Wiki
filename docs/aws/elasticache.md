@@ -12,6 +12,8 @@ Often, ElastiCache is used in front of an RDS database, acting as a secondary da
 
 Caching patterns: lazy loading vs write-through - https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/caching-patterns.html
 
+Optimize cost and boost performance of RDS for MySQL using Amazon ElastiCache for Redis - https://aws.amazon.com/blogs/database/optimize-cost-and-boost-performance-of-rds-for-mysql-using-amazon-elasticache-for-redis/
+
 | Web Console | CLI/API           |
 | ----------- | ----------------- |
 | Cluster     | Replication group |

@@ -27,24 +27,26 @@ Building a 3-Tier VPC in AWS - https://github.com/AmirMalaeb/3-Tier-VPC-AWS
 - A virtual machine is launched into a single subnet.
 - If we move a virtual machine to a different availability zone, it will be placed in a different subnet and, as a consequence, it will have a different private IP address.
 
-A VPC is a private virtual network on AWS, logically isolated.
+A VPC is a private, logically isolated virtual network in AWS in which you can deploy resources like EC2 instances, ELB load balancers, RDS databases, EBS drives, EFS file systems, ElastiCache caches etc.
 
-Is a regional service (a VPC cannot span multiple regions), but you can have multiple VPCs within a region (the default limit is 5, but you can request to increase it). A VPC spans all AZ in a region.
+There are various ways we can connect out from the VPC, like Internet Gateways, NAT Gateways and [PrivateLink](https://aws.amazon.com/privatelink/). An we can connect into the VPC with public IPs, [Direct Connect](https://aws.amazon.com/directconnect/), [Site-to-Site VPN](https://aws.amazon.com/vpn/site-to-site-vpn/) and [Client VPN](https://aws.amazon.com/vpn/client-vpn/). We can connect VPCs together using [VPC Peering](https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html) and a [Transit Gateway](https://aws.amazon.com/transit-gateway).
 
-A VPC has a router, which defines how to route traffic and we configure through its [route tables](https://docs.aws.amazon.com/vpc/latest/userguide/RouteTables.html).
+Is a regional service: a VPC cannot span multiple regions. You can have multiple VPCs within a region. The default limit is 5 VPCs per region, but you can request to increase it. A VPC spans all AZ in a region; you can create subnets in all AZs in a region.
 
-A VPC has subnets. Each subnet resides in a single Availability Zone. Subnets allow you separate concerns inside the VPC and achieve high availability. We can create multiple subnets in the same AZ.
+A VPC has a router, which defines how to route traffic, and we configure through its [route tables](https://docs.aws.amazon.com/vpc/latest/userguide/RouteTables.html).
+
+A VPC has subnets. Each subnet resides in a single Availability Zone, it cannot span multiple AZs. We can create multiple subnets in the same AZ. Subnets allow you separate concerns inside the VPC and achieve high availability.
 
 The VPC CIDR address block is the full range of IP address allocated. Each subnet takes a portion of them. It's recommended that each VPC has a different block of addresses that don't overlap, since this is a requirement to do VPC Peering and use Transit Gateways.
 
-To connect to the public Internet we use an Internet Gateway. There's only one per VPC.
+To connect to the public Internet we use an Internet Gateway. Is used for both egress and ingress traffic. There's only one per VPC.
 
-Some AWS services are public, and others run within a VPC:
+Some AWS services are public, ie they run outside of a VPC, and others run within a VPC:
 
 - Public: DynamoDB, S3, Route 53, CloudFront... They are accessible from the public Internet, using public IPs and public endpoints.
 - Private: EC2, RDS, EBS, EFS... Can have a public IP address, but they exist within a VPC.
 
-## CIDR block
+## CIDR
 
 Classless Inter-Domain Routing.
 
@@ -66,6 +68,22 @@ https://cidr.xyz
 
 https://formulae.brew.sh/formula/ipcalc
 
+## VPC CIDR blocks
+
+https://docs.aws.amazon.com/vpc/latest/userguide/vpc-cidr-blocks.html
+
+https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html
+
+When you create a VPC you specify a CIDR block. You cannot change it, but you can add more CIDR blocks (5 in total). New blocks cannot overlap with any existing block in the VPC.
+
+AWS recommends using the private address ranges specified in RFC 1918.
+
+The allowed block size is between a `/16` netmask (65536 IP addresses) and `/28` netmask (16 IP addresses).
+
+The first four IP addresses and the last IP address in each subnet CIDR block are reserved and you can't use them.
+
+https://www.site24x7.com/tools/ipv4-subnetcalculator.html
+
 ## Subnet
 
 https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html
@@ -76,15 +94,15 @@ A **range of IP addresses**, which is a segment/portion of the overall VPC CIDR 
 
 Must reside within a single Availability Zone. You can have multiple subnets in the same Availability Zone.
 
-By default we have a default VPC on each region, with CIDR 172.31.0.0/16. Each default VPC has a default subnet on each AZ of the region. For example, for N. Virginia there are 6 default subnets created, one for each AZ (us-east-1a to us-east-1f), but in Sydney there are 3 default subnets, since there are 3 AZ. (If you go to VPC → Your VPCs, there's a column 'Default VPC', and if you go to VPC → Subnets, there's a column 'Default subnet'.) Note that **the default subnets are public**, which means that they resources we launch there get IP addresses that are accessible from the public internet, which is a security risk.
+By default we have a default VPC on each region, with CIDR 172.31.0.0/16. Each default VPC has a default subnet on each AZ of the region. For example, for N. Virginia there are 6 default subnets created, one for each AZ (us-east-1a to us-east-1f), but in Sydney there are 3 default subnets, since there are 3 AZ. (If you go to VPC → Your VPCs, there's a column 'Default VPC', and if you go to VPC → Subnets, there's a column 'Default subnet'.) Note that **the default subnets are public**, which means that the resources we launch there get public IP addresses that are accessible from the Internet, which is a security risk.
 
-- Public:
+- Public subnet:
   - Has an Internet Gateway on the route table.
   - On VPC → Subnets, the column 'Auto-assign public IPv4 address' is 'Yes'.
   - By default, every EC2 instance launched will have a public IP address assigned.
     - When we are launching an instance, at 'Network settings', if we pick a public subnet the field 'Auto-assign public IP' will be 'Enable'.
   - Used to deploy a load balancer or reverse proxy.
-- Private:
+- Private subnet:
   - Doesn't have an IG on the route table → instances cannot communicate to the outside world, nor viceversa.
   - On VPC → Subnets, the column 'Auto-assign public IPv4 address' is 'No'.
   - EC2 instances will not have a public IP address assigned when launched, and thus are unable to use an IG, even if you had an IG on the route table.
@@ -257,9 +275,9 @@ See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid
 
 #### NAT gateway setup
 
-We have a private instance on a private subnet. We deploy a **NAT gateway** to a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP** (when creating the NAT gateway, at 'Elastic IP allocation ID' click 'Allocate Elastic IP'). The NAT gateway talks to the Internet Gateway on behalf of the private instance.
+We have a private instance in a private subnet. Deploy a **NAT gateway** to a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP** (when creating the NAT gateway, at 'Elastic IP allocation ID' click 'Allocate Elastic IP'). The NAT gateway talks to the Internet Gateway on behalf of the private instance.
 
-We create a **private route table**, explicitly associated to the **private subnet** (on 'Subnet associations'). Then on 'Edit routes' we add a route entry with 'Destination' 0.0.0.0/0 (ie everything else that is not routed locally via the VPC router) and for 'Target' choose 'NAT Gateway', selecting the NAT gateway we've created. So any address outside of the subnet address range will go to the NAT gateway.
+Create a **private route table**, explicitly associated to the **private subnet** (on 'Subnet associations'). Then on 'Edit routes' add a route entry with 'Destination' 0.0.0.0/0 (ie everything else that is not routed locally via the VPC router) and for 'Target' choose 'NAT Gateway', selecting the NAT gateway created. So any address outside of the subnet address range will go to the NAT gateway.
 
 The private instance can use it's private IP address to connect to the private IP of the NAT gateway, which will forward the traffic to the Internet Gateway using Network Address Translation, and reach the Internet.
 
@@ -304,6 +322,13 @@ https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html
 
 [Compare security groups and network ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html#VPC_Security_Comparison)
 
+| Security group                                    | Network ACL                                               |
+| ------------------------------------------------- | --------------------------------------------------------- |
+| Stateful: return traffic is automatically allowed | Stateless: return traffic must be allowed                 |
+| Instance level                                    | Subnet level: applies to all instances in the subnet      |
+| Allow rules only                                  | Allow and deny rules                                      |
+| Evaluates all rules                               | Evaluates rules in ascending order until a match is found |
+
 Allows or denies inbound or outbound traffic at the subnet level, whereas a security group operates at the EC2 instance level. A security group applies only to the instance it is associated with, but a NACL applies to all the instances in a subnet. When two instances in a subnet talk to each other, security groups are involved and they need to allow the traffic, but NACLs are not because traffic doesn't go outside the subnet.
 
 A security group is stateful, whereas a NACL is stateless.
@@ -312,6 +337,8 @@ A security group is stateful, whereas a NACL is stateless.
 - Stateless (NACL): to allow inbound traffic, in addition to a rule allowing inbound traffic on a port (eg 80), you also need a rule to allow outbound ephemeral ports (from 1024 to 65535). And if you want to make an HTTP connection from within your subnet, you have to open outbound port 80 and inbound ephemeral ports as well. See AWS in Action p. 161.
 
 NACLs supports allow and deny rules, whereas security groups only support allow rules. A NACL requires defining a priority for each rule, from 1 to 32766. Rules are processed in order, with smaller number having higher priority. When it reaches a rule that either allows or denies the traffic, it applies the matching rule and stops evaluating the remaining rules. For example, we can have some allow rules for HTTP/S traffic, and then another rule that denies everything else. See an example of NACL rules [here](https://stackoverflow.com/a/45297037/4034572) and [here](https://github.com/AWSinAction/code3/blob/main/chapter05/vpc.yaml).
+
+Because NACL support deny rules, you can block a specific IP or a range of IPs. This is difficult to do with security groups, since they only support allow; see [How can I block a range of IP addresses with an Amazon EC2 instance?](https://unix.stackexchange.com/a/66499/425018). To block access by IP you can use AWS WAF as well.
 
 Traffic between subnets of a VPC is always routed by default. You can’t remove the routes between the subnets. If you want to prevent traffic between subnets in a VPC, you need to use NACLs attached to the subnets. (AWS in Action p. 163)
 
@@ -343,9 +370,9 @@ EC2 instances should not have a public IP address | AWS Foundational Security Be
 
 ## VPC endpoints
 
-Private connections to public AWS services.
+Private connections to public AWS services. Instances use private IPs to access the AWS services.
 
-To access AWS services like S3 and DynamodB, instances in public subnets can use their public endpoints. For instances in private subnets, we could use a NAT Gateway, but there's a better way that doesn't use the public internet: VPC endpoints. Instances use private IPs to access the services.
+To access AWS services like S3 and DynamodB, instances in public subnets can use their public endpoints. For instances in private subnets, we could use a NAT Gateway, but there's a better way for both public and private instances that doesn't use the public internet: VPC endpoints.
 
 There are two types of VPC endpoints: gateway and interface endpoints.
 For S3 and DynamoDB, use [Gateway VPC Endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html) at [no additional charge](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html).
@@ -407,3 +434,57 @@ Comparison ([source](https://docs.aws.amazon.com/amazondynamodb/latest/developer
 </table>
 
 A similar comparison exists for S3 in [Types of VPC endpoints for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html#types-of-vpc-endpoints-for-s3).
+
+There are 2 new VPC endpoint types:
+
+- [Resource endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-access-resources.html): to access a VPC resource (ARN-based resource, domain name and IP address) like an RDS database in another VPC. Uses PrivateLink.
+- [Service network endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-access-service-networks.html): to access a VPC Lattice service network. Uses PrivateLink.
+
+From https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid/#VPC-Endpoints-or-NAT-Gateway
+
+Keep the following rules of thumb in mind when designing your network architecture.
+
+- Adding Gateway Endpoints for S3 and DynamoDB should the default.
+- Do you need to access non-AWS resources via the Internet, add a NAT Gateway. Do the math if traffic to AWS services justifies additional Interface Endpoints.
+- Are you only accessing AWS services from the private subnets? No more than four different services? Use Interface Endpoints. Otherwise, do the math to calculate costs for Interface Endpoints and NAT Gateway.
+
+## VPC Peering
+
+https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html
+
+Connect resources in different VPCs using private IPs. Traffic stays in the private network from AWS, does not use the public Internet. The VPCs can be in different AWS accounts and different regions (called inter-region). Inter-region traffic is encrypted.
+
+The CIDR blocks of the VPCs cannot overlap. Transitive connections (ie from VPC 1 to VPC 2 through VPC 3) are not supported.
+
+The setup is done by adding an entry at the route table with Destination the CIDR block of the other VPC, and Target the peering-id:
+
+VPC A route table:
+
+| Destination | Target |
+| ----------- | ------ |
+| 10.0.0.0/16 | local  |
+| 0.0.0.0/0   | igw-id |
+| 10.1.0.0/16 | pcx-id |
+
+VPC B route table:
+
+| Destination | Target |
+| ----------- | ------ |
+| 10.1.0.0/16 | local  |
+| 0.0.0.0/0   | igw-id |
+| 10.0.0.0/16 | pcx-id |
+
+Setup using the console:
+
+- Create 2 VPCs.
+- At the VPC console of VPC A, navigate to "Peering connections". Click "Create peering connection" and set:
+  - Name: VPC-A-B.
+  - VPC ID (Requester): VPC A.
+  - Choose whether if VPC B is in this account and region or another.
+  - VPC ID (Accepter): VPC B id.
+  - Click "Create peering connection".
+  - A message like this appears: _A VPC peering connection pcx-02f881306a0e9b926 / vpc-peering-n-california has been requested. Remember to change your region to us-west-1 to accept the peering connection._
+- At the VPC console of VPC B, navigate to "Peering connections" and accept the connection (Actions → Accept request). This message appears: _Your VPC peering connection (pcx-02f881306a0e9b926) has been established. To send and receive traffic across this VPC peering connection, you must add a route to the peered VPC in one or more of your VPC route tables._
+- Status of the peering connection should become Active quickly.
+- At the VPC console of VPC A, navigate to "Route tables" and select the route table of VPC A. Add a route with Destination the CIDR of VPC B (10.1.0.0/16) and Target pcx-02f881306a0e9b926. Do the same for VPC B.
+- Adjust the security groups and NACL to allow traffic. You can reference security groups of the other VPC. [See docs](https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-security-groups.html)
