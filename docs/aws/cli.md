@@ -109,6 +109,20 @@ Once the access key is shown on the 'Retrieve access keys' page, on the terminal
 
 Doing `aws s3 ls` should give a response (will be empty if there are no buckets, but no credentials error will appear).
 
+## Who am I?
+
+```shell
+aws sts get-caller-identity
+```
+
+Returns details (UserId, Account and Arn) about the IAM user or role whose credentials are used to call the operation - [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html).
+
+Get the **account ID**:
+
+```shell
+aws sts get-caller-identity --query Account --output text
+```
+
 ## Access keys configuration
 
 `~/.aws/credentials`
@@ -145,17 +159,23 @@ https://awscli.amazonaws.com/v2/documentation/api/latest/reference/configure/ind
 
 `aws configure help`
 
-`aws configure` is the fastest way to set up your AWS CLI installation. It will ask for the 'Access Key ID' and the 'Secret Access Key'.
+`aws configure` is the fastest way to set up your AWS CLI installation. It asks for the AWS Access Key ID, AWS Secret Access Key, Default region name and Default output format.
 
-`aws sts get-caller-identity` → Returns details about the IAM user or role whose credentials are used to call the operation - [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html). To get the **account ID** do `aws sts get-caller-identity --query Account --output text`.
+`aws configure --profile <profile-name>` → It it sets `[profile-name]` at `~/.aws/credentials`.
+
+We can also configure by setting the values one by one:
+
+```shell
+aws configure set aws_access_key_id <access-key-id> --profile <profile-name>
+aws configure set aws_secret_access_key <secret-access-key> --profile <profile-name>
+aws configure set aws_session_token <session-token> --profile <profile-name>
+```
 
 `aws configure list-profiles`
 
 `aws configure list`
 
 `aws configure list --profile <profile-name>`
-
-Configure: `aws configure --profile <profile-name>` → Asks for AWS Access Key ID, AWS Secret Access Key, Default region name and Default output format.
 
 You can create access keys for a user with: `aws iam create-access-key --user-name MyUser`
 

@@ -76,13 +76,44 @@ https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html
 
 When you create a VPC you specify a CIDR block. You cannot change it, but you can add more CIDR blocks (5 in total). New blocks cannot overlap with any existing block in the VPC.
 
-AWS recommends using the private address ranges specified in RFC 1918.
+AWS recommends using the private address ranges specified in RFC 1918 ([source](https://en.wikipedia.org/wiki/Private_network#Private_IPv4_addresses)):
+
+|                | Addresses                     | Subnet mask | Number of addresses | Host ID size | Mask bits |
+| -------------- | ----------------------------- | ----------- | ------------------- | ------------ | --------- |
+| 10.0.0.0/8     | 10.0.0.0 – 10.255.255.255     | 255.0.0.0   | 16777216            | 24 bits      | 8         |
+| 172.16.0.0/12  | 172.16.0.0 – 172.31.255.255   | 255.240.0.0 | 1048576             | 20 bits      | 12        |
+| 192.168.0.0/16 | 192.168.0.0 – 192.168.255.255 | 255.255.0.0 | 65536               | 16 bits      | 16        |
 
 The allowed block size is between a `/16` netmask (65536 IP addresses) and `/28` netmask (16 IP addresses).
 
 The first four IP addresses and the last IP address in each subnet CIDR block are reserved and you can't use them.
 
 https://www.site24x7.com/tools/ipv4-subnetcalculator.html
+
+### VPC CIDR block examples
+
+- 10.0.0.0/16 (65.536 addresses, 10.0.0.0 – 10.0.255.255) (what "VPC and more" at the console does)
+  - 10.0.0.0/20 (4096 addresses, 10.0.0.0 – 10.0.15.255)
+  - 10.0.16.0/20
+  - 10.0.128.0/20
+  - 10.0.144.0/20
+- 10.0.0.0/16 (https://github.com/nealdct/aws-clf-code/blob/main/amazon-vpc/custom-vpc.md)
+  - 10.0.1.0/24 (256 addresses)
+  - 10.0.2.0/24
+  - 10.0.3.0/24
+  - 10.0.4.0/24
+- 10.10.0.0/16 (book "AWS Cookbook" p. 46 and 48)
+  - 10.10.0.0/24
+  - 10.10.1.0/24
+- 172.31.0.0/16 (the default)
+  - 172.31.0.0/20
+  - 172.31.16.0/20
+  - 172.31.32.0/20
+  - 172.31.48.0/20
+  - 172.31.64.0/20
+  - 172.31.80.0/20
+
+To calculate the number of addresses do: 2<sup>32 - mask bits</sup>. For example, for 10.0.0.0/20 we do: 2<sup>32 - 20</sup> = 2<sup>12</sup> = 4096 addresses. (Remember that the first four IPs and the last IP are not usable.) See [How to calculate IPv4 CIDR blocks for VPCs and Subnets](https://medium.com/@kylerloucks/how-to-calculate-ipv4-cidr-blocks-for-vpcs-and-subnets-cd9f4779558e).
 
 ## Subnet
 

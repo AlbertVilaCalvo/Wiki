@@ -271,6 +271,8 @@ https://www.whizlabs.com/certified-kubernetes-administrator/
 
 ### CKAD - Certified Kubernetes Application Developer
 
+https://kodekloud.com/courses/certified-kubernetes-application-developer-ckad/ - Has a lab environment
+
 https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/
 
 https://github.com/bmuschko/ckad-crash-course

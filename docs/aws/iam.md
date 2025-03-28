@@ -302,6 +302,8 @@ Allows all actions on all resources.
 
 #### Deny operations to resource if it's not authenticated using MFA
 
+It's called "MFA-protected API access". See [Secure API access with MFA](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_configure-api-require.html).
+
 For an S3 bucket:
 
 ```json
@@ -350,6 +352,8 @@ More specific:
   ]
 }
 ```
+
+See more examples of bucket policies requiring MFA: https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html#example-bucket-policies-MFA
 
 ### Permissions policy and trust policy (role)
 
@@ -611,21 +615,30 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-policy-generati
 
 ### S3 access control policies
 
+Blog post: IAM Policies and Bucket Policies and ACLs! Oh, My! (Controlling Access to S3 Resources) - https://aws.amazon.com/blogs/security/iam-policies-and-bucket-policies-and-acls-oh-my-controlling-access-to-s3-resources/
+
+There are two ways to control access to S3 buckets using IAM. (There's also ACLs, but should not be used nowadays.)
+
 - IAM Policies
-  - Identity-based
-  - Does not have Principal
-  - Good for a large number of buckets with varying permissions
-  - Centralize access control within IAM
-  - Size limit of 2048-6144 characters
+  - Identity-based → attached to users, groups and roles
+  - Does not have `Principal`, since the `Principal` is the identity where the policy is attached
+  - Can also be used to grant access to other AWS services in the same policy
+  - Good for a large number of buckets with varying permissions requirements
+  - Use it if you prefer to centralize access control in IAM → What can this user do in AWS?
+  - Size limit of 2048-6144 characters → Use bucket policies if you reach the limit
 - Bucket Policies
   - Resource-based
-  - Attached to a specific bucket
+  - Can only be attached to S3 buckets
+  - Attached to a specific bucket.
     - Similar to an inline policy. If you want to edit it, you'll have to go through every bucket
-  - Must have a Principal
-  - Simple to use for cross-account access without IAM roles
+  - Must have a `Principal`, which specifies who gets the permissions
+  - Simple way to grant cross-account access without IAM roles
+  - Use it if you prefer to keep access control policies in S3 → Who can access this S3 bucket?
   - Size limit of 20 KB
 
-Example of **IAM policy**:
+In both cases, the `Resource` specifies the bucket.
+
+**IAM policy** example:
 
 ```json title="iam_policy.json"
 {
@@ -651,7 +664,7 @@ Attach the IAM policy to the a user with [`put-user-policy`](https://awscli.amaz
 aws iam put-user-policy --user-name MyUser --policy-name S3AccessUserPolicy --policy-document file://iam_policy.json
 ```
 
-Example of **bucket policy**:
+**Bucket policy** example:
 
 ```json title="bucket_policy.json"
 {
@@ -684,7 +697,7 @@ We can restrict access to a specific prefix:
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::ACCOUNT_ID:user/Albert"
+        "AWS": "arn:aws:iam::ACCOUNT_ID:user/MyUser"
       },
       "Action": "s3:*",
       "Resource": "arn:aws:s3:::my-bucket",
@@ -723,7 +736,7 @@ It can be a ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference
 
 - AWS account and root user
 - IAM role
-- Role session
+- Role session (assume role)
 - IAM user
 - Federated user session (Google, Facebook etc)
 - AWS service (ie an application)
@@ -736,13 +749,90 @@ Note that a Group is not a principal since:
 
 [Cross account resource access in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html)
 
+> You can attach a resource policy directly to the resource that you want to share, or use a role as a proxy.
+
+When using a role, the identity who assumes the role gets temporary credentials, and gives up their original permissions. That's not the case with resource-based policies: the principal will have access to resources in its own account and the other account at the same time. This can be useful if we need to copy information from one account to another, for example. Another difference is that the role can be used in the management console (we can switch to it), but the resource policy can only be used programmatically.
+
+:::warning
+In cross account access, a principal needs an `Allow` in the identity policy **and** the resource-based policy. See [Resource-based policies to delegate AWS permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html#access_policies-cross-account-delegating-resource-based-policies).
+:::
+
 [IAM tutorial: Delegate access across AWS accounts using IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html)
+
+[Access for an IAM user in another AWS account that you own](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_aws-accounts.html). Uses a role.
+
+[Access to AWS accounts owned by third parties](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html) → Grant access to an account that you do not own or control
 
 From https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_resource-based
 
 > To enable cross-account access, you can specify an entire account or IAM entities in another account as the principal in a resource-based policy. Adding a cross-account principal to a resource-based policy is only half of establishing the trust relationship. When the principal and the resource are in separate AWS accounts, you must also use an identity-based policy to grant the principal access to the resource. However, if a resource-based policy grants access to a principal in the same account, no additional identity-based policy is required.
 
 https://repost.aws/knowledge-center/cross-account-access-iam - https://www.youtube.com/watch?v=0Wo5pH5zibk
+
+See examples in S3:
+
+- [Example 2: Bucket owner granting cross-account bucket permissions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-walkthroughs-managing-access-example2.html) → Uses a **bucket policy** instead of a role
+- [Example 4: Bucket owner granting cross-account permission to objects it does not own](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-walkthroughs-managing-access-example4.html)
+
+### Example: get access to an S3 bucket in another account by assuming a role
+
+From https://raw.githubusercontent.com/nealdct/aws-saa-code/refs/heads/main/aws-iam/cross-account-role.md and [Access for an IAM user in another AWS account that you own](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_aws-accounts.html).
+
+Account A has a private S3 bucket and a role. A user in account B gains access to the bucket by assuming the role.
+
+Role trust policy:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "AWS": "account-B-id"
+      },
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "some-password"
+        }
+      }
+    }
+  ]
+}
+```
+
+Role permissions policy:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowBucketAccess",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"]
+    }
+  ]
+}
+```
+
+To assume the role, a user in account B must have permission to call the Security Token Service `AssumeRole` action for the role.
+
+To assume the role, a user in account B can click "Switch Role" in the console or run:
+
+```shell
+aws sts assume-role --role-arn arn:aws:iam::<account-a-id>:role/<role-name> --role-session-name mysession --external-id some-password
+```
+
+This call returns temporary credentials: an Access Key ID, Secret Access Key and Session Token.
+
+Regarding the optional **external ID**, when creating the role at the console it says:
+
+> You can increase the security of your role by requiring an optional external identifier, which prevents "confused deputy" attacks. This is recommended if you do not own or have administrative access to the account that can assume this role. The external ID can include any characters that you choose. To assume this role, users must be in the trusted account and provide this exact external ID.
+
+For more information on when to use external IDs, see [Access to AWS accounts owned by third parties](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_common-scenarios_third-party.html).
 
 ## Avoid access keys if possible
 
