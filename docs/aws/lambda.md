@@ -83,18 +83,47 @@ The permissions policy of the default execution role allows the function to writ
 
 The AWS managed policy [`AWSLambdaBasicExecutionRole`](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSLambdaBasicExecutionRole.html) has the same permissions, but it applies to any resource (`*`), thus it doesn't follow the least-privilege principal.
 
-## Synchronous and Asynchronous execution
-
-- https://docs.aws.amazon.com/lambda/latest/dg/invocation-sync.html
-- https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html
+## Synchronous and asynchronous invocation
 
 From [invoke](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/invoke.html):
 
-> You can invoke a function synchronously (and wait for the response), or asynchronously. By default, Lambda invokes your function synchronously (i.e. the `InvocationType` is `RequestResponse`).
+> You can invoke a function synchronously (and wait for the response), or asynchronously. By default, Lambda invokes your function synchronously (i.e. the `InvocationType` is `RequestResponse`). To invoke a function asynchronously, set `InvocationType` to `Event`.
 
 > For synchronous invocation, details about the function response, including errors, are included in the response body and headers.
 
-> For asynchronous invocation , Lambda adds events to a queue before sending them to your function. If your function does not have enough capacity to keep up with the queue, events may be lost. Occasionally, your function may receive the same event multiple times, even if no error occurs. To retain events that were not processed, configure your function with a [dead-letter queue](https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-dlq).
+> When an error occurs, your function may be invoked multiple times. Retry behavior varies by error type, client, event source, and invocation type. For example, if you invoke a function asynchronously and it returns an error, Lambda executes the function up to two more times. For more information, see [Error handling and automatic retries in Lambda](https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html).
+
+> For asynchronous invocation, Lambda adds events to a queue before sending them to your function. If your function does not have enough capacity to keep up with the queue, events may be lost. Occasionally, your function may receive the same event multiple times, even if no error occurs. To retain events that were not processed, configure your function with a [dead-letter queue](https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-dlq).
+
+### Synchronous invocation
+
+https://docs.aws.amazon.com/lambda/latest/dg/invocation-sync.html
+
+Waits for execution and returns a response.
+
+You invoke a Lambda synchronously using the CLI, an SDK or API Gateway.
+
+Error handling (eg retries) needs to be done by the client.
+
+### Asynchronous invocation
+
+https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html
+
+AWS services like S3 and SNS invoke functions asynchronously.
+
+By default, it will attempt to retry on errors up to 3 times. Thus, the function needs to be **idempotent**.
+
+## Retry behavior
+
+https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html
+
+## Idempotency
+
+How do I make my Lambda function idempotent? - https://repost.aws/knowledge-center/lambda-function-idempotent - https://www.youtube.com/watch?v=GeJ1Qf8DU2s
+
+Implementing idempotent AWS Lambda functions with Powertools for AWS Lambda (TypeScript) - https://aws.amazon.com/blogs/compute/implementing-idempotent-aws-lambda-functions-with-powertools-for-aws-lambda-typescript/
+
+https://docs.powertools.aws.dev/lambda/typescript/latest/utilities/idempotency/
 
 ## CloudWatch alarm
 

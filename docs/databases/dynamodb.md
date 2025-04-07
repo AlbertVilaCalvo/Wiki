@@ -26,7 +26,7 @@ On-demand price reduction - https://aws.amazon.com/about-aws/whats-new/2024/11/a
 Prefix the name of all your tables with the name of your application (eg todo-user instead of user) to prevent name clashes in the future.
 :::
 
-RCU means "Read Capacity Units".
+RCU means "Read Capacity Units", WCU means "Write Capacity Units".
 
 ## Characteristics
 

@@ -27,7 +27,7 @@ Invalidate the edge caches:
 **CloudFront Functions**
 
 - Launched 2021
-- 2018+ Edge Locations
+- 218+ Edge Locations
 
 > simple HTTP(s) request/response manipulations that can be executed by very short-lived functions. For these use cases, you need a flexible programming experience with the performance, scale, and cost-effectiveness that enable you to execute them on every request.
 

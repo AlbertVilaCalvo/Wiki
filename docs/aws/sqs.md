@@ -53,7 +53,13 @@ Tutorial: Send Fanout Event Notifications - https://aws.amazon.com/getting-start
 | Best-effort ordering. Occasionally, messages might be delivered in an order different from which they were sent | Message order is preserved                                                                                        |
 | When very high throughput is important                                                                          | When the order of operations and events is critical, or where duplicates can't be tolerated                       |
 
-The name of a FIFO queue must end with the `.fifo` suffix.
+The name of a FIFO queue must end with the `.fifo` suffix. In FIFO queues, every message needs to have a message group ID (which ensures messages are processed in FIFO order) and a deduplication ID (which ensures messages are delivered only once within a deduplication interval).
+
+## Dead-letter queue
+
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html
+
+A queue to store messages that are not processed successfully, that is, messages that have been received by a consumer `maxReceiveCount` times. It needs to be of the same type (standard/FIFO) than the source queue.
 
 ## CLI
 

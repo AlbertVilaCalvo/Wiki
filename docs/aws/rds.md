@@ -42,6 +42,10 @@ Typically you create a user in the database for the application that needs to ac
 
 ## Backups / Snapshots
 
+- Automated backup: a snapshot done automatically by AWS during the backup window. It appears at the "System snapshots" list at the console (Snapshots page). Has a name like "rds:database-1-2025-04-03-20-04". Retained up to 35 days.
+- Manual snapshot: a snapshot done manually by you. It appears at the "Manual snapshots" list at the console (Snapshots page). They do not expire, you can keep them forever.
+- Restore: create a new DB instance or DB cluster from a snapshot.
+
 Automated backups are deleted when the database instance is deleted, but manual snapshots are not.
 
 The default [backup retention period](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.BackupRetention.html) is one day, the minimum is 0 and the maximum is 35 days. To disable automated backups, set the backup retention period to 0.

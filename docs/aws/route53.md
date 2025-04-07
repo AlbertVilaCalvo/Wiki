@@ -30,9 +30,9 @@ Choosing a routing policy - https://docs.aws.amazon.com/Route53/latest/Developer
 
 [Simple](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-simple.html): typically route traffic to a single resource (ie a web server).
 
-[Failover](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-failover.html): performs health checks to automatically route visitors to an alternate location to avoid outages. For disaster recovery across regions.
+[Failover](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-failover.html): performs health checks to automatically route visitors to an alternate location to avoid outages. For disaster recovery across regions. Health checks are required.
 
-[Geolocation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-geo.html): choose the resources that serve your traffic based on the geographic location of your users.
+[Geolocation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-geo.html): choose the resources that serve your traffic based on the geographic location of your users. Used for localization of content.
 
 [Geoproximity](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-geoproximity.html): route traffic to the geographically nearest resource.
 

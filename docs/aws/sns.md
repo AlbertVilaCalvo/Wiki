@@ -15,3 +15,5 @@ From https://aws.amazon.com/about-aws/whats-new/2023/10/amazon-sns-in-place-mess
 What is the difference between Amazon SNS and Amazon SQS? - https://stackoverflow.com/questions/13681213/what-is-the-difference-between-amazon-sns-and-amazon-sqs
 
 (Fanout Pattern) SQS Queues and SNS Notifications – Now Best Friends - https://aws.amazon.com/blogs/aws/queues-and-notifications-now-best-friends/
+
+Topics are used to deliver the same message to multiple subscribers.

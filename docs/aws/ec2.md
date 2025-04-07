@@ -60,6 +60,8 @@ https://instances.vantage.sh - https://github.com/vantage-sh/ec2instances.info
 
 :::
 
+You can change the instance type by stopping it and starting it, [see example](https://github.com/nealdct/aws-saa-code/blob/main/aws-lambda/ResizeInstance.py).
+
 ## Connect
 
 Connect to your EC2 instance - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect.html
@@ -454,9 +456,9 @@ There's an [AWS Config](https://aws.amazon.com/config/) check for this: [ec2-ebs
 
 **Block** storage: requires an EC2 instance, since the OS is needed to create filesystems and partitions, reading and writing using system calls etc.
 
-For **legacy applications** that read/write files from/to a filesystem, like relational databases. Is standalone/independent: can exist without an EC2 instance, but you need an EC2 instance to access it. It's accessed over the network. It replicates data among multiple disks automatically to increase durability and availability.
+For **legacy applications** that read/write files from/to a filesystem, like relational databases. Is standalone/independent: can exist without an EC2 instance, but you need an EC2 instance to access it. It's accessed over the network. It replicates data among multiple disks within the availability zone automatically to increase durability and availability.
 
-EBS volumes are independent of instances; you can terminate an instance and keep the volume. You can attach multiple volumes to an instance.
+EBS volumes are independent of instances; you can terminate an instance and keep the volume. You can attach multiple volumes to an instance. The volumes and the instance must be in the same AZ.
 
 An EC2 instance has a root EBS volume (`/dev/xvda`) that contains the OS. By default, the root volume is deleted when you terminate the EC2 instance (since the attribute [`DeleteOnTermination`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance-ebs.html#cfn-ec2-instance-ebs-deleteontermination) is true for it), but any other volumes attached are not (since `DeleteOnTermination` is false).
 
@@ -479,9 +481,9 @@ Durability vs availability:
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html
 
-HDD or SSD physically attached to the machine that hosts the VM, which results in very high performance. Unlike EBS volumes, instances store volumes can't exist without an EC2 instance.
+HDD or SSD physically attached to the machine that hosts the VM, which results in very high performance. Unlike EBS volumes, instances store volumes can't exist without an EC2 instance. You cannot detach and re-attach an instance store to the same or another instance.
 
-Since instance stores are not independent of EC2 instances, data is lost when you stop or terminate the VM, when there's a hardware failure or the machine is powered off, which means that should not be used for data that must not be lost. Use it for ephemeral/temporary data, for example, caching data locally from a remote data source, or for NoSQL databases that use a cluster of machines to replicate data. Unlike EBS volumes, there's no built-in backup mechanism for instance store. If you need to back up the data, use EBS instead.
+Since instance stores are not independent of EC2 instances, data is lost when you stop or terminate the VM, when there's a hardware failure or the machine is powered off, which means that it should not be used for data that must not be lost. Use it for ephemeral/temporary data, for example, caching data locally from a remote data source, or for NoSQL databases that use a cluster of machines to replicate data. Unlike EBS volumes, there's no built-in backup mechanism for instance store. If you need to back up the data, use EBS instead.
 
 Not all instance types support instance store volumes.
 
@@ -489,7 +491,7 @@ Not all instance types support instance store volumes.
 
 https://aws.amazon.com/efs
 
-A serverless filesystem that can be shared between multiple Linux virtual machines running in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Linux only. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front. You can connect instances from other VPCs ([docs](https://docs.aws.amazon.com/efs/latest/ug/mount-fs-different-vpc.html)).
+A serverless filesystem that can be shared between multiple Linux virtual machines running in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Linux only. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front. You can connect instances from other VPCs ([docs](https://docs.aws.amazon.com/efs/latest/ug/mount-fs-different-vpc.html)), and from on-premises servers via Direct Connect or VPN.
 
 You need to create a mount target on each subnet, and the EC2 instance where you mount the filesystem must be in the same subnet as the EFS mount target. Each mount target is bound to an availability zone. You need at least two mount targets in different availability zones for high availability. Mount targets are protected by security groups.
 
@@ -691,14 +693,35 @@ aws ec2 describe-availability-zones --region eu-west-1
 [Launch instance](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html)
 
 ```shell
-aws ec2 run-instances --instance-type t2.micro \
+aws ec2 run-instances \
  --image-id ami-061ac2e015473fbe2 \
+ --instance-type t2.micro \
  --user-data file://user_data.sh  \
  --key-name MyKeyPair
+```
+
+```shell
+aws ec2 run-instances \
+ --image-id ami-071226ecf16aa7d96 \
+ --instance-type t2.micro \
+ --placement AvailabilityZone=us-east-1a \
+ --security-group-ids sg-0ad454bc3945c3bf8
 ```
 
 [Terminate instance](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/terminate-instances.html)
 
 ```shell
 aws ec2 terminate-instances --instance-ids i-001b89bdc08ba65f7
+```
+
+[Create security group](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-security-group.html):
+
+```shell
+aws ec2 create-security-group --group-name SshAccess --description "Allow SSH"
+```
+
+Add inbound rule to security group ([docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/authorize-security-group-ingress.html)):
+
+```shell
+aws ec2 authorize-security-group-ingress --group-name SshAccess --protocol tcp --port 22 --cidr 0.0.0.0/0
 ```
