@@ -33,6 +33,8 @@ https://cloudonaut.io/fargate-vs-apprunner
 
 ## Learn
 
+ECS Workshop - https://ecsworkshop.com
+
 https://github.com/azat-co/practicalnode/blob/master/chapter15/chapter15.md
 
 ## Pricing

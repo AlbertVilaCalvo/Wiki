@@ -16,6 +16,8 @@ Amazon EKS Blueprints for Terraform - https://github.com/aws-ia/terraform-aws-ek
 
 Amazon EKS Helm chart repository - https://github.com/aws/eks-charts
 
+AWS Controllers for Kubernetes (ACK) - Manage AWS services from Kubernetes - https://github.com/aws-controllers-k8s - https://aws-controllers-k8s.github.io/community/
+
 https://www.eksworkshop.com
 
 Containers roadmap - https://github.com/orgs/aws/projects/244 - https://github.com/aws/containers-roadmap
@@ -26,7 +28,7 @@ https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-servi
 
 https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
 
-https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accounts/
+https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accounts
 
 ## Learn
 
@@ -72,9 +74,11 @@ https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
 
 https://docs.aws.amazon.com/eks/latest/userguide/lbc-manifest.html
 
+You can define rules to route requests to different services based on URL paths.
+
 ## Karpenter
 
-https://karpenter.sh/
+https://karpenter.sh
 
 Run Kubernetes Clusters for Less with Amazon EC2 Spot and Karpenter - https://community.aws/tutorials/run-kubernetes-clusters-for-less-with-amazon-ec2-spot-and-karpenter
 

@@ -38,9 +38,13 @@ Public access from the internet should not be allowed. RDS instances should only
 
 Access to the database data using the database engine access control system (eg username + password).
 
-Typically you create a user in the database for the application that needs to access the data. You can also use [IAM database authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html).
+Typically you create a user in the database for the application that needs to access the data.
+
+You can also use [IAM database authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html). It works with MariaDB, MySQL and PostgreSQL. You don't use a password to connect to an instance, you use an authentication token.
 
 ## Backups / Snapshots
+
+https://aws.amazon.com/rds/features/backup
 
 - Automated backup: a snapshot done automatically by AWS during the backup window. It appears at the "System snapshots" list at the console (Snapshots page). Has a name like "rds:database-1-2025-04-03-20-04". Retained up to 35 days.
 - Manual snapshot: a snapshot done manually by you. It appears at the "Manual snapshots" list at the console (Snapshots page). They do not expire, you can keep them forever.
@@ -55,6 +59,10 @@ An outage occurs if you change the backup retention period of a DB instance from
 :::
 
 There's a limit of 100 _manual_ snapshots per region (no limit for automated snapshots).
+
+### AWS Backup
+
+You can use AWS Backup to create a backup plan that automates RDS backups on a schedule. Snapshots can be retained for years or indefinitely. It also supports continuous backups for point-in-time recovery, which enables you to choose when to restore, down to the second. See [Amazon RDS Backup & Restore Using AWS Backup](https://aws.amazon.com/getting-started/hands-on/amazon-rds-backup-restore-using-aws-backup/).
 
 ### Create a manual snapshot
 

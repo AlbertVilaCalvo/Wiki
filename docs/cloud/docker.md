@@ -38,9 +38,13 @@ https://depot.dev
 
 ## Tools
 
+[Stop Managing Docker Like It’s 2020: Three Tools That Changed Everything](https://aws.plainenglish.io/stop-managing-docker-like-its-2020-three-tools-that-changed-everything-29b33b505593) → Recommends LazyDocker, Dive, and WatchTower
+
 https://github.com/jesseduffield/lazydocker
 
 https://github.com/wagoodman/dive
+
+https://github.com/containrrr/watchtower
 
 https://github.com/GoogleContainerTools/container-diff
 

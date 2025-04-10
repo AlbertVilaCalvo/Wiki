@@ -20,6 +20,8 @@ EC2 instances run on a single availability zone. To achieve high availability in
 Enable CloudWatch [detailed monitoring](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-detailed-monitoring.html) of the EC2 instances _in production_. Note that this is a paid feature, so it should not be enabled in environments other than production.
 :::
 
+Instance Scheduler (automates the starting and stopping of various AWS services like EC2 and RDS instances) - https://aws.amazon.com/solutions/implementations/instance-scheduler-on-aws/
+
 ## IaaS
 
 You manage the OS and whatever you want to run on top it, and AWS manages the [hypervisor](https://en.wikipedia.org/wiki/Hypervisor) and the hardware below.
@@ -484,6 +486,8 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html
 HDD or SSD physically attached to the machine that hosts the VM, which results in very high performance. Unlike EBS volumes, instances store volumes can't exist without an EC2 instance. You cannot detach and re-attach an instance store to the same or another instance.
 
 Since instance stores are not independent of EC2 instances, data is lost when you stop or terminate the VM, when there's a hardware failure or the machine is powered off, which means that it should not be used for data that must not be lost. Use it for ephemeral/temporary data, for example, caching data locally from a remote data source, or for NoSQL databases that use a cluster of machines to replicate data. Unlike EBS volumes, there's no built-in backup mechanism for instance store. If you need to back up the data, use EBS instead.
+
+There is no additional charge to use the instance store volumes provided for your instance.
 
 Not all instance types support instance store volumes.
 

@@ -22,6 +22,8 @@ Build a serverless retail solution for endless aisle on AWS - https://aws.amazon
 
 Lambda is a regional service.
 
+SnapStart (for Java, Python and .Net) - https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
+
 Issues to Avoid When Implementing Serverless Architecture with AWS Lambda - https://aws.amazon.com/blogs/architecture/mistakes-to-avoid-when-implementing-serverless-architecture-with-lambda/ - From https://aws.amazon.com/blogs/architecture/top-10-architecture-blog-posts-of-2021/
 
 How to implement Durable Execution for Lambda (without frameworks) - https://theburningmonk.com/2025/03/how-to-implement-durable-execution-for-lambda-without-frameworks/

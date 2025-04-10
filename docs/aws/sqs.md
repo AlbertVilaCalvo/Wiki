@@ -20,6 +20,8 @@ Characteristics:
 - Pay per message. No minimum fee.
 - Highly available. From the [FAQs](https://aws.amazon.com/sqs/faqs/): _How reliable is the storage of my data in Amazon SQS? Amazon SQS stores all message queues and messages within a single, highly-available AWS region with multiple redundant Availability Zones (AZs), so that no single computer, network, or AZ failure can make messages inaccessible_.
 
+SQS does not support message priorities. You can use multiple queues and prioritize messages from the higher priority queues. See [Implement the Priority Queue Pattern with SQS and Lambda](https://lucvandonkersgoed.com/2022/04/25/implement-the-priority-queue-pattern-with-sqs-and-lambda/), [Amazon SQS Priority Queue](https://stackoverflow.com/questions/22494357/amazon-sqs-priority-queue) and [How to implement a priority queue using SQS](https://stackoverflow.com/questions/28970289/how-to-implement-a-priority-queue-using-sqsamazon-simple-queue-service).
+
 Tutorial: Send Messages Between Distributed Applications with Amazon Simple Queue Service - https://aws.amazon.com/getting-started/hands-on/send-messages-distributed-applications
 
 https://stackoverflow.com/questions/2336438/emulating-amazon-sqs-during-development

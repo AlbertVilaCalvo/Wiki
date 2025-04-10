@@ -67,9 +67,23 @@ DynamoDB is schemaless. Other than the primary key, tables don't have a schema l
 
 There are two capacity modes: on demand and provisioned.
 
+## Choosing a partition key
+
+Choosing the Right DynamoDB Partition Key - https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key
+
+Best practices for designing and using partition keys effectively in DynamoDB - https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html
+
+The partition key portion of a table's primary key determines the logical partitions in which a table's data is stored.
+
+You want partition keys with high-cardinality attributes, which have a large number of distinct values for each item.
+
+The more distinct are partition key values, the more those requests will be spread across the partitioned space, and more efficiently you will use your provisioned throughput.
+
 ## Secondary indexes
 
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
+
+Best practices for using secondary indexes in DynamoDB - https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-indexes.html
 
 Problem: you can only query using the primary key. For example, if you have a list of users, and each user has a country, you can't get all the users belonging to a country (unless you scan all the items and then filter). This can be solved with a global secondary index, an index with hash (primary key) and optionally range (sort key) different than the ones in the table, which allows you to query efficiently on an additional attribute. For example, you can create a global index on the country to get all the users belonging to a country.
 

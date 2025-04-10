@@ -49,6 +49,8 @@ Stephane Maarek - https://www.udemy.com/course/aws-certified-cloud-practitioner-
 
 ## Practice exams
 
+Exam Prep Official Question Set: AWS Certified Cloud Practitioner (CLF-C02 - English) - Free - 20 questions - https://explore.skillbuilder.aws/learn/courses/14050/aws-certified-cloud-practitioner-official-practice-question-set-clf-c02-english
+
 Exam Prep Official Pretest - Paid - 65 questions - https://explore.skillbuilder.aws/learn/courses/18115/exam-prep-official-pre-test-aws-certified-cloud-practitioner-clf-c02
 
 Official Practice Exam - Paid - 65 questions - https://explore.skillbuilder.aws/learn/course/external/view/elearning/14637/aws-certified-cloud-practitioner-official-practice-exam-clf-c02-english

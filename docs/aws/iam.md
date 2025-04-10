@@ -769,10 +769,49 @@ From https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#polic
 
 https://repost.aws/knowledge-center/cross-account-access-iam - https://www.youtube.com/watch?v=0Wo5pH5zibk
 
-See examples in S3:
+Examples in SQS: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-basic-examples-of-sqs-policies.html
+
+Examples in S3:
 
 - [Example 2: Bucket owner granting cross-account bucket permissions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-walkthroughs-managing-access-example2.html) → Uses a **bucket policy** instead of a role
 - [Example 4: Bucket owner granting cross-account permission to objects it does not own](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-walkthroughs-managing-access-example4.html)
+
+### Example: allow another account to send messages to an SQS queue using a resource policy
+
+From https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-basic-examples-of-sqs-policies.html#grant-one-permission-to-one-account
+
+Use a resource-based policy attached to an SQS queue in account 444455556666 that grants another AWS account (111122223333) the `sqs:SendMessage` action.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": ["111122223333"]
+      },
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:us-east-1:444455556666:MyQueue"
+    }
+  ]
+}
+```
+
+Even though account 444455556666 has granted cross-account access to the queue via the resource policy, an IAM user or role in account 111122223333 must still have an IAM policy that explicitly allows it to perform actions on the queue:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:us-east-1:444455556666:MyQueue"
+    }
+  ]
+}
+```
 
 ### Example: get access to an S3 bucket in another account by assuming a role
 
@@ -957,6 +996,8 @@ aws iam create-login-profile --user-name MyUser --password 'XB5j8stK4YVW3b'
 ```
 
 ## Password policy
+
+Set an account password policy for IAM users - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_account-policy.html
 
 Go to IAM → Account settings and on the Password policy box click the 'Edit' button.
 

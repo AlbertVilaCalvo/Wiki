@@ -45,9 +45,9 @@ If you have the Cloud Practitioner cert, renewing the SAA will also renew the Cl
 
 ## Exams
 
-Exam Prep Official Practice Exam: AWS Certified Solutions Architect - Associate (SAA-C03 - English) - https://explore.skillbuilder.aws/learn/courses/13593/exam-prep-official-practice-exam-aws-certified-solutions-architect-associate-saa-c03-english
+Exam Prep Official Practice Question Set: AWS Certified Solutions Architect - Associate (SAA-C03 - English) - Free - 20 questions - https://explore.skillbuilder.aws/learn/courses/13266/aws-certified-solutions-architect-associate-official-practice-question-set-saa-c03-english
 
-Exams official question set - Exam Prep Official Practice Question Set: AWS Certified Solutions Architect - Associate (SAA-C03 - English) - https://explore.skillbuilder.aws/learn/course/external/view/elearning/13266/aws-certified-solutions-architect-associate-official-practice-question-set-saa-c03-english
+Exam Prep Official Practice Exam: AWS Certified Solutions Architect - Associate (SAA-C03 - English) - Free - 65 questions - https://explore.skillbuilder.aws/learn/courses/13593/exam-prep-official-practice-exam-aws-certified-solutions-architect-associate-saa-c03-english
 
 https://portal.tutorialsdojo.com/courses/aws-certified-solutions-architect-associate-practice-exams/
 

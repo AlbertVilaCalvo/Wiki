@@ -213,6 +213,7 @@ With the root user.
 - Create the first IAM admin user [link](/aws/iam#create-the-first-iam-admin-user)
   - Once the admin is created, enable MFA for it using the root account [link](/aws/iam#add-mfa-to-other-users)
 - Enforce MFA to users [link](/aws/iam#enforce-mfa-to-users)
+- Set an account password policy [link](/aws/iam#password-policy)
 - At the S3 dashboard, at the "Block Public Access settings for this account" page, enable "Block _all_ public access" to disable public access for _all_ S3 buckets in the account [link](/aws/s3#block-all-public-access-for-all-buckets-in-the-account)
 - Enable regions that are not enabled by default, eg "Europe (Spain)". This is done by clicking Account at the top right
 
@@ -221,6 +222,8 @@ With the root user.
 Tagging enables customers to group sets of resources for cost reporting and automation, such as patching for select tagged instances and grouping resources that make up a microservice, application, or workload.
 
 Guidance for Tagging on AWS - https://aws.amazon.com/solutions/guidance/tagging-on-aws/
+
+Tagging best practices - https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html
 
 Tag policies: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html
 

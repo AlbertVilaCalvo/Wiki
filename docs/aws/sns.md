@@ -17,3 +17,7 @@ What is the difference between Amazon SNS and Amazon SQS? - https://stackoverflo
 (Fanout Pattern) SQS Queues and SNS Notifications – Now Best Friends - https://aws.amazon.com/blogs/aws/queues-and-notifications-now-best-friends/
 
 Topics are used to deliver the same message to multiple subscribers.
+
+Supports different transfer protocols: HTTP, HTTPS, Email, Email-JSON, SMS and SQS.
+
+Messages can be delivered to SQS queues, email addresses, mobile apps (push notifications), phone numbers (SMS text messages), Lambda functions, HTTP(S) endpoints (webhooks) and Kinesis Data Firehose streams. These are called endpoints.

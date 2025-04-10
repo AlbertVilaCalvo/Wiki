@@ -12,6 +12,8 @@ Transform, optimize, and deliver images in real time at a fraction of the cost -
 
 Improve Single-Page Application (SPA) Performance with a Same Domain policy using Amazon CloudFront - **Avoid CORS** - https://aws.amazon.com/blogs/networking-and-content-delivery/improve-single-page-application-spa-performance-with-a-same-domain-policy-using-amazon-cloudfront/
 
+To improve availability, you can have multiple origins and use origin failover. For example, you have two S3 buckets that are in different regions and do cross-region replication, where one bucket is the primary origin and the other the secondary. See [Optimize high availability with CloudFront origin failover](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html).
+
 ## CLI
 
 CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudfront/index.html
