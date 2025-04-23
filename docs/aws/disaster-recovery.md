@@ -34,18 +34,20 @@ Live data means the data stores and databases are up-to-date (or nearly up-to-da
 - Active/passive: only one site gets traffic. When a disaster occurs, the requests are routed to the passive site.
 - Active/active: both sites get traffic.
 
-| Backup and restore              | Pilot light                     | Warm standby                          | Multi site active/active               |
-| ------------------------------- | ------------------------------- | ------------------------------------- | -------------------------------------- |
-| Data backed up                  | Data live                       | Data live                             | Data live                              |
-| Active/passive                  | Active/passive                  | Active/passive                        | Active/active                          |
-| $ (lowest cost)                 | $$                              | $$$                                   | $$$$ (highest cost)                    |
-| Highest RTO                     |                                 |                                       | Lowest RTO                             |
-| No infrastructure deployed      | Services are idle or shut off   | Minimum services running              | All infrastructure running, duplicated |
-| Can't serve traffic immediately | Can't serve traffic immediately | Can serve minimal traffic immediately | Can serve production traffic           |
+| Backup and restore              | Pilot light                       | Warm standby                          | Multi site active/active                                |
+| ------------------------------- | --------------------------------- | ------------------------------------- | ------------------------------------------------------- |
+| Data backed up                  | Data live                         | Data live                             | Data live                                               |
+| Active/passive                  | Active/passive                    | Active/passive                        | Active/active                                           |
+| $ (lowest cost)                 | $$                                | $$$                                   | $$$$ (highest cost)                                     |
+| RTO of hours (highest)          | RTO of 10s of minutes (eg 30 min) | RTO of minutes                        | Lowest RTO                                              |
+| No infrastructure deployed      | Services are idle or shut off     | Minimum services running              | All infrastructure running at full capacity, duplicated |
+| Can't serve traffic immediately | Can't serve traffic immediately   | Can serve minimal traffic immediately | Can serve production traffic                            |
 
 ### Backup and restore
 
 Backups are done to another region for safety.
+
+The infrastructure is rebuilt manually, which takes hours.
 
 ### Pilot light
 

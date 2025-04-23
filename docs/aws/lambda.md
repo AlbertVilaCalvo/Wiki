@@ -8,7 +8,9 @@ Quotas (limits) - https://docs.aws.amazon.com/general/latest/gr/lambda-service.h
 
 > The most important limitation of a Lambda function is the maximum duration of 900 seconds per invocation. (AWS in Action p. 203)
 
-https://github.com/awslabs/aws-lambda-powertools-typescript
+Developer toolkit to implement Serverless best practices - https://github.com/awslabs/aws-lambda-powertools-typescript - https://github.com/aws-powertools/powertools-lambda-python
+
+Best practices - https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
 
 Cheatseet - https://digitalcloud.training/aws-lambda/
 
@@ -20,9 +22,13 @@ Tutorial - https://aws.amazon.com/getting-started/hands-on/amazon-s3-object-lamb
 
 Build a serverless retail solution for endless aisle on AWS - https://aws.amazon.com/blogs/architecture/building-serverless-endless-aisle-retail-architectures-on-aws - from [Top Architecture Blog Posts of 2023](https://aws.amazon.com/blogs/architecture/top-architecture-blog-posts-of-2023/)
 
-Lambda is a regional service.
+Optimizing AWS Lambda Performance and Cost for Your Serverless Applications - AWS Online Tech Talks - https://www.youtube.com/watch?v=z8wGSykEauI
 
-SnapStart (for Java, Python and .Net) - https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
+https://github.com/alexcasalboni/aws-lambda-power-tuning - See how to use it at https://catalog.workshops.aws/serverless-optimization/en-US/power-tuning
+
+Introducing advanced logging controls for AWS Lambda functions - https://aws.amazon.com/blogs/compute/introducing-advanced-logging-controls-for-aws-lambda-functions/
+
+Lambda is a regional service.
 
 Issues to Avoid When Implementing Serverless Architecture with AWS Lambda - https://aws.amazon.com/blogs/architecture/mistakes-to-avoid-when-implementing-serverless-architecture-with-lambda/ - From https://aws.amazon.com/blogs/architecture/top-10-architecture-blog-posts-of-2021/
 
@@ -87,6 +93,8 @@ The AWS managed policy [`AWSLambdaBasicExecutionRole`](https://docs.aws.amazon.c
 
 ## Synchronous and asynchronous invocation
 
+See comparison at https://youtu.be/z8wGSykEauI?feature=shared&t=2680
+
 From [invoke](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/invoke.html):
 
 > You can invoke a function synchronously (and wait for the response), or asynchronously. By default, Lambda invokes your function synchronously (i.e. the `InvocationType` is `RequestResponse`). To invoke a function asynchronously, set `InvocationType` to `Event`.
@@ -113,7 +121,9 @@ https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html
 
 AWS services like S3 and SNS invoke functions asynchronously.
 
-By default, it will attempt to retry on errors up to 3 times. Thus, the function needs to be **idempotent**.
+By default, it will attempt to retry on errors up to 3 times. Thus, the function needs to be **idempotent**. It also attempts to run the function again for up to 6 hours by default. You control this with the Maximum Retry Attempts and the Maximum Event Age ([see announcement](https://aws.amazon.com/about-aws/whats-new/2019/11/aws-lambda-supports-max-retry-attempts-event-age-asynchronous-invocations/)). When Retry Attempts reaches its maximum value, or Event Age reaches its maximum value, events are discarded, or sent to a dead-letter queue and/or Lambda destinations.
+
+Introducing AWS Lambda Destinations - https://aws.amazon.com/blogs/compute/introducing-aws-lambda-destinations/
 
 ## Retry behavior
 
@@ -126,6 +136,14 @@ How do I make my Lambda function idempotent? - https://repost.aws/knowledge-cent
 Implementing idempotent AWS Lambda functions with Powertools for AWS Lambda (TypeScript) - https://aws.amazon.com/blogs/compute/implementing-idempotent-aws-lambda-functions-with-powertools-for-aws-lambda-typescript/
 
 https://docs.powertools.aws.dev/lambda/typescript/latest/utilities/idempotency/
+
+## Event source mapping
+
+https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html
+
+From a DynamoDB or Kinesis stream, or polling an SQS queue.
+
+You can filter the events to avoid unnecessary Lambda executions and save money, see [Filtering event sources for AWS Lambda functions](https://aws.amazon.com/blogs/compute/filtering-event-sources-for-aws-lambda-functions/).
 
 ## CloudWatch alarm
 
@@ -171,3 +189,13 @@ Note the 'b' in 'fileb', it indicates a binary file.
 ## Access to VPC resources
 
 Giving Lambda functions access to resources in an Amazon VPC - https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html
+
+## SnapStart
+
+https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html
+
+SnapStart (for Java, Python and .Net)
+
+Announcement – Accelerate Your Lambda Functions with Lambda SnapStart - https://aws.amazon.com/blogs/aws/new-accelerate-your-lambda-functions-with-lambda-snapstart/
+
+AWS re:Invent 2022 - AWS Lambda SnapStart: Fast cold starts for your Java functions (SVS320) - https://www.youtube.com/watch?v=ZbnAithBNYY

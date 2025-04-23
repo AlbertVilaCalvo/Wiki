@@ -42,6 +42,30 @@ Typically you create a user in the database for the application that needs to ac
 
 You can also use [IAM database authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html). It works with MariaDB, MySQL and PostgreSQL. You don't use a password to connect to an instance, you use an authentication token.
 
+### Connection encryption
+
+Using SSL/TLS to encrypt a connection to a DB instance or cluster - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html
+
+To have SSL/TLS encryption at the connection from the instances to the database, you need to download the AWS-provided root certificates and use them when connecting to the RDS DB instance.
+
+### Encryption at rest
+
+You can only enable encryption when you create an instance. Encryption can’t be disabled.
+
+You can’t restore an unencrypted backup or snapshot to an encrypted instance. In other words, you can’t change the encryption status of an existing database.
+
+A snapshot has the same encryption status (enabled/disabled) than the database. But you can create an encrypted copy of an unencrypted snapshot.
+
+If we have an unencrypted database and we want to encrypt it, we can:
+
+- Create a snapshot of the existing unencrypted DB instance.
+- Create an encrypted copy of the snapshot.
+- Create a new DB instance from the encrypted snapshot and update the application to use it.
+
+The opposite (create an unencrypted database from an encrypted database) can't be done, since you cannot remove the encryption from an encrypted DB snapshot.
+
+A read replica will always have the same encryption status as the primary. When a read replica in the same region than the primary, the same KMS key is used. If it is in a different region, a different KMS key is be used.
+
 ## Backups / Snapshots
 
 https://aws.amazon.com/rds/features/backup
@@ -59,6 +83,10 @@ An outage occurs if you change the backup retention period of a DB instance from
 :::
 
 There's a limit of 100 _manual_ snapshots per region (no limit for automated snapshots).
+
+A manual snapshot backs up the entire database instance, not just individual databases.
+
+A snapshot has the same encryption status (enabled/disabled) than the database.
 
 ### AWS Backup
 

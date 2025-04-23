@@ -6,6 +6,14 @@ Serverless: no need to provision and configure hardware, manage operating system
 
 Serverless Application Repository - https://serverlessrepo.aws.amazon.com/applications
 
+https://serverlessland.com
+
+Serverless Applications Lens - AWS Well-Architected Framework - https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/welcome.html
+
+Serverless Optimization Workshop (Performance and Cost) - https://catalog.workshops.aws/serverless-optimization/en-US
+
+- Optimizing AWS Lambda Performance and Cost for Your Serverless Applications - AWS Online Tech Talks - https://www.youtube.com/watch?v=z8wGSykEauI
+
 Tutorial: Build a Serverless Web Application using Generative AI - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-amplify-bedrock-cognito-gen-ai/ Previously it was Build a Serverless Web Application with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Cognito - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/
 
 Let’s Architect! Serverless architecture on AWS - https://aws.amazon.com/blogs/architecture/lets-architect-serverless-architecture-on-aws/ - From https://aws.amazon.com/blogs/architecture/top-10-aws-architecture-blog-posts-of-2022/
@@ -23,6 +31,8 @@ Project 5 of "5 AWS Cloud Projects to Get You Hired in 2024 (For Beginners)" use
 How to Use Amazon EventBridge to Build Decoupled, Event-Driven Architectures - https://pages.awscloud.com/AWS-Learning-Path-How-to-Use-Amazon-EventBridge-to-Build-Decoupled-Event-Driven-Architectures_2020_LP_0001-SRV.html
 
 Serverless Architectures on AWS - https://www.coursera.org/learn/aws-serverless
+
+How to build a global serverless service, Alex Casalboni - https://www.youtube.com/watch?v=Q19B-NTkMfk
 
 https://www.udacity.com/course/develop-and-deploy-serverless-apps--cd12101
 

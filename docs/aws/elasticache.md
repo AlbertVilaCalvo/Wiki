@@ -10,8 +10,6 @@ Often, ElastiCache is used in front of an RDS database, acting as a secondary da
 
 > You can use ElastiCache as a primary data store for use cases that don't require data durability, such as gaming leaderboards, streaming, and data analytics [source](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/creating-elasticache-cluster-with-RDS-settings.html)
 
-Caching patterns: lazy loading vs write-through - https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/caching-patterns.html
-
 Optimize cost and boost performance of RDS for MySQL using Amazon ElastiCache for Redis - https://aws.amazon.com/blogs/database/optimize-cost-and-boost-performance-of-rds-for-mysql-using-amazon-elasticache-for-redis/
 
 | Web Console | CLI/API           |
@@ -57,6 +55,32 @@ In addition, **sharding** provides the following benefits:
   - If cluster mode is enabled, you use a _configuration endpoint_ which knows all the primary and node endpoints in the cluster ([source](https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Replication.Endpoints.html)) and you can query to find the new primary.
 - Higher read and write throughput, since request are split among shards.
 - If a shard fails, you can still write to the other shards; only a share of the key space is affected. But if you only have one shard and it fails, you cannot write anything, since a single node takes the entire key space.
+
+## Caching strategies
+
+Caching patterns: lazy loading vs write-through - https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/caching-patterns.html
+
+Caching strategies for Memcached - https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/Strategies.html
+
+### Lazy loading
+
+1. The app writes to RDS.
+2. When the app reads, it makes a request to the cache first. If the data is not cached, it queries RDS and stores the data in the cache.
+
+The main problem is that you can read stale data. You need a TTL to expire items in the cache. The higher the TTL, the lower your load to your RDS database, but more stale data you'll have in the cache. Alternatively, you can remove the data from the cache when you write to RDS.
+
+The main advantage is that the cache only contains data that is actually read.
+
+### Write-through
+
+1. The app writes to RDS and the cache.
+2. When the app reads, it makes a request to the cache, which always contains the _latest_ data. (In case that the data is not cached, you read from RDS.)
+
+The main problem is that the cache needs to be very big, because it stores all the data, even though most of it will probably not be read.
+
+Another problem is that when you create a new cache node it will be empty, so you need a way to fill it (eg lazy loading).
+
+The main advantage is that data in the cache is never stale.
 
 ## Security
 

@@ -232,9 +232,9 @@ How can I connect to a private Amazon RDS instance from local system through EC2
 
 Setup:
 
-- Launch an instance in a private subnet, with an SSH key pair, and a security group that allows SSH access.
-- Launch an instance in a public subnet.
-- Connect to the public instance, and from there connect to the private instance by doing:
+- Launch an instance in a public subnet with a security group that allows connecting to it.
+- Launch an instance in a private subnet, with an SSH key pair, and a security group that allows SSH access from the public instance security group.
+- Connect to the public instance, and from there connect to the private instance with SSH by doing:
   - Run `nano private-instance-private-key.pem` and paste the content of the private instance's private key (`-----BEGIN RSA PRIVATE KEY-----`).
   - Give the file read access with `chmod 400 private-instance-private-key.pem`.
   - Connect to the private instance with `ssh -i private-instance-private-key.pem ec2-user@172.31.110.223`, using the private instance’s private IP.
@@ -280,7 +280,7 @@ You can use a NAT gateway to connect to other VPCs or an on-premises network. In
 
 A NAT gateway has a limit in bandwidth (100 Gbps) and number of packets it can process (10 million packets per second). You can split your resources into multiple subnets and create a NAT gateway in each subnet. [source](https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-basics.html)
 
-See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid/#NAT-Gateway-or-Public-Subnet
+An Internet Gateway applies to an entire VPC and there's only one per VPC, whereas NAT Gateways reside within a (public) subnet and thus within an availability zone, so you need a NAT Gateway in each AZ in which you have private subnets. See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid/#NAT-Gateway-or-Public-Subnet
 
 > You need to create a NAT Gateway for every Availability Zone that you have created private subnets to achieve high availability.
 

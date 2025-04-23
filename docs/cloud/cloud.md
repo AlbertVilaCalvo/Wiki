@@ -96,7 +96,7 @@ Mermaid architecture diagrams - https://mermaid.js.org/syntax/architecture
 
 https://diagrams.mingrammer.com
 
-https://www.diagrams.net
+https://app.diagrams.net - https://www.drawio.com
 
 https://www.cloudcraft.co
 

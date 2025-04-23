@@ -51,6 +51,12 @@ Can be dynamic (target, step and simple), predictive and scheduled.
 
 [Scheduled scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-scheduled-scaling.html) – Scale a resource one time only or on a recurring schedule.
 
+## Termination Policies
+
+Control which Auto Scaling instances terminate during scale in - https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html
+
+The default termination policy terminates instances from the AZ that has the most instances. This ensures that instances are distributed evenly across AZ for high availability. If the availability zones have an equal number of instances, Auto Scaling then checks for the oldest launch configuration. If there are multiple instance that match this criteria, then it checks which instances are closest to the next billing hour. Note that you can protect instances from a scale-in event.
+
 ## Launch template
 
 https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-templates.html

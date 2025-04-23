@@ -38,6 +38,8 @@ A CloudWatch alarm consists of the following:
 
 The state can be `OK`, `INSUFFICIENT_DATA` or `ALARM`.
 
+You can combine multiple alarms into one composite alarm, using boolean logic, see [Combining alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Composite_Alarm.html).
+
 Detailed monitoring - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-basic-detailed.html
 
 > In different AWS services, detailed monitoring also has different names. For example, in Amazon EC2 it is called detailed monitoring, in AWS Elastic Beanstalk it is called enhanced monitoring, and in Amazon S3 it is called request metrics.
