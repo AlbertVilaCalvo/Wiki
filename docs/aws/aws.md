@@ -44,6 +44,8 @@ https://github.com/donnemartin/awesome-aws
 
 https://github.com/thyagomota/aws-labs - https://github.com/thyagomota/aws-labs-2023
 
+https://cloudsnitch.io - https://github.com/ccbrown/cloud-snitch
+
 https://www.101daysofdevops.com/courses/100-days-of-aws/
 
 Local Stack - https://www.localstack.cloud - https://github.com/localstack/localstack

@@ -188,7 +188,9 @@ Note the 'b' in 'fileb', it indicates a binary file.
 
 ## Access to VPC resources
 
-Giving Lambda functions access to resources in an Amazon VPC - https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html
+By default, Lambda functions cannot access VPC resources. To access resources in a private network, you can attach a Lambda to a VPC. The connection is done using an Hyperplane Elastic Network Interface (ENI). To do the connection you choose the VPC, subnets and security groups. See [Giving Lambda functions access to resources in an Amazon VPC](https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html).
+
+By default, Lambda functions have internet connectivity. But when you connect a Lambda to a VPC, then the VPC needs to have a NAT gateway for the Lambda to have internet connectivity. See [Enable internet access for VPC-connected Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc-internet.html).
 
 ## SnapStart
 

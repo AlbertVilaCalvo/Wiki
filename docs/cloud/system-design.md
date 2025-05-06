@@ -27,3 +27,5 @@ When designing an asynchronous process, it’s important to keep track of the pr
 Loose coupling benefit: reduce interdependencies so a failure in one component does not cascade to other components.
 
 Virtual Waiting Room on AWS - To sell concert tickets. Uses an SQS queue - https://aws.amazon.com/solutions/implementations/virtual-waiting-room-on-aws/
+
+Avoiding fallback in distributed systems - https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/ - https://d1.awsstatic.com/builderslibrary/pdfs/avoiding-fallback-in-distributed-systems.pdf

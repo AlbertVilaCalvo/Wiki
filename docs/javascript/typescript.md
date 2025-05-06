@@ -437,8 +437,14 @@ export function isSuccess<T>(arg: 'loading' | T | Error): arg is T {
 
 export function isError<T>(arg: 'loading' | T | Error): arg is Error {
   return arg instanceof Error
+  // or
+  // return Error.isError(arg)
 }
 ```
+
+:::info
+[`Error.isError()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/isError) is a more robust alternative to `instanceof Error` because it avoids false positives and false negatives.
+:::
 
 ## Type narrowing in `filter` with type predicates
 

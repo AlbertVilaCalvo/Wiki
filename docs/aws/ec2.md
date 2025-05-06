@@ -491,6 +491,8 @@ There is no additional charge to use the instance store volumes provided for you
 
 Not all instance types support instance store volumes.
 
+Benchmark: https://benjdd.com/ec2-io/
+
 ## EFS
 
 https://aws.amazon.com/efs

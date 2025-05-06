@@ -203,6 +203,10 @@ Rethrow an error but with a different message: https://developer.mozilla.org/en-
 
 Handle errors in a simple, stable, consistent way: https://github.com/ehmicky/modern-errors
 
+:::tip
+[`Error.isError()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/isError) is a more robust alternative to `instanceof Error` because it avoids false positives and false negatives.
+:::
+
 ## AbortController
 
 https://developer.mozilla.org/en-US/docs/Web/API/AbortController

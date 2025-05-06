@@ -21,6 +21,8 @@ Ramp-Up Guide - https://d1.awsstatic.com/training-and-certification/ramp-up_guid
 
 https://skillbuilder.aws/exam-prep/solutions-architect-associate
 
+AWS SimuLearn: Solutions Architect - https://explore.skillbuilder.aws/learn/learning-plans/2227/aws-simulearn-solutions-architect
+
 https://cantrill.io/2020/05/24/Passing-the-AWS-certified-solutions-architect-associate-saa-c02-certification.html
 
 Cheatsheets - https://digitalcloud.training/category/aws-cheat-sheets/aws-solutions-architect-associate

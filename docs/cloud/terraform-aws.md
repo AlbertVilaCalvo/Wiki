@@ -24,9 +24,33 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Name = "my-app"
+      Project = "my-app"
     }
   }
+}
+```
+
+Since [version 1.11](https://github.com/hashicorp/terraform/releases/tag/v1.11.0), there's no need to have a DynamoDB table to do state locking:
+
+> S3 native state locking is now generally available. The `use_lockfile` argument enables users to adopt the S3-native mechanism for state locking. As part of this change, we've deprecated the DynamoDB-related arguments in favor of this new locking mechanism. While you can still use DynamoDB alongside S3-native state locking for migration purposes, we encourage migrating to the new state locking mechanism.
+
+## IAM
+
+Difference between aws_iam_policy and aws_iam_role_policy - https://stackoverflow.com/questions/66510222/difference-between-aws-iam-policy-and-aws-iam-role-policy
+
+- [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) -> managed policy, can be re-used
+- [aws_iam_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) → inline policy
+
+## Get AWS account id
+
+Use `data.aws_caller_identity.current.account_id`. You need to declare the data resource. You can use a local value to make it shorter.
+
+```hcl
+data "aws_caller_identity" "current" {}
+
+# Use local.account_id
+locals {
+  account_id = data.aws_caller_identity.current.account_id
 }
 ```
 
@@ -75,6 +99,23 @@ data "aws_ami" "amazon-linux" {
 
 resource "aws_launch_configuration" "example" {
   image_id = data.aws_ami.amazon-linux.id
+}
+```
+
+## S3
+
+```hcl
+resource "random_string" "bucket" {
+  length  = 6
+  special = false
+  upper   = false
+}
+
+resource "aws_s3_bucket" "image_uploads" {
+  bucket = "my-bucket-${random_string.bucket.result}"
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 ```
 
