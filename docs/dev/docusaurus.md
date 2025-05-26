@@ -262,3 +262,5 @@ https://twitter.com/sebastienlorber/status/1598615824927002624
   - Improvements to the blog, eg authors pages with social icons
 - [3.6](https://github.com/facebook/docusaurus/releases/tag/v3.6.0) - [Announcement](https://docusaurus.io/blog/releases/3.6) - [Twitter](https://x.com/sebastienlorber/status/1853407157925957851)
   - Faster builds with Rust-based tools (opt-in)
+- [3.7](https://github.com/facebook/docusaurus/releases/tag/v3.7.0) - [Announcement](https://docusaurus.io/blog/releases/3.7) - [Twitter](https://x.com/sebastienlorber/status/1875242615266013256)
+  - React 19 compatible
