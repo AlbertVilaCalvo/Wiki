@@ -789,6 +789,8 @@ We do not generally specify `provider` blocks within a module, we simply allow t
 
 When Should We Write Modules - https://dustindortch.com/2022/10/21/why-do-we-write-terraform-modules/
 
+Terraform Module Best Practices: A Complete Guide - https://devopscube.com/terraform-module-best-practices/
+
 ### Structure
 
 Usually you have 3 files:
@@ -892,6 +894,8 @@ Go library that makes it easier to write automated tests - https://github.com/gr
 Collection of useful Terraform utilities - https://github.com/gruntwork-io/terraform-aws-utilities - https://terratest.gruntwork.io
 
 Detect compliance and security violations - https://github.com/tenable/terrascan - https://runterrascan.io
+
+https://github.com/aquasecurity/trivy - https://trivy.dev/latest/tutorials/misconfiguration/terraform/
 
 Security scanner for your Terraform code - https://github.com/aquasecurity/tfsec - https://github.com/actions/starter-workflows/blob/main/code-scanning/tfsec.yml
 

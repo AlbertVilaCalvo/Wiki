@@ -8,6 +8,8 @@ https://db-engines.com/en/ - See the [DB-Engines Ranking](https://db-engines.com
 
 dbfiddle: https://dbfiddle.uk - See how it works here: https://stackoverflow.com/a/60091176/4034572
 
+Choose database type - https://www.linkedin.com/posts/raul-junco_i-used-to-overthink-which-database-to-choose-activity-7325852555396227073-_5ql/
+
 Automatic SQL injection and database takeover tool - https://github.com/sqlmapproject/sqlmap
 
 https://mobile.twitter.com/sarahmei/status/1348477224467394560

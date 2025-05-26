@@ -216,11 +216,20 @@ Use `/Whatever` for searching.
 
 `find . -type d -name "build" -exec rm -rf {} +`
 
+`find . -type f -name ".DS_Store" -exec rm -rf {} +`
+
 `find . -type f -name "*.iml"`
 
 `find . -type f -name "*.iml" -exec rm -rf {} +`
 
 Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
+
+Count files and directories:
+
+```shell
+find . -type f | wc -l
+find . -type d | wc -l
+```
 
 See user-friendly alternative `fd` - https://github.com/sharkdp/fd
 
@@ -235,7 +244,13 @@ diff -qr Dir1 Dir2 --exclude=.git --exclude=node_modules
 
 ## tree
 
-`tree somefolder`
+````shell
+tree # current folder
+tree somefolder
+tree -a # print hidden files too
+tree --gitignore # filters files and directories using .gitignore files
+tree -a | grep directories | grep files # just print the number of files and directories
+```
 
 To ignore something (eg a folder) use `-I <wild-card-pattern>`. Eg `tree -I node_modules` or `tree -I venv`. There can be multiple -I options.
 

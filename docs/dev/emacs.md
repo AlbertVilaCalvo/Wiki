@@ -12,7 +12,7 @@ https://www.emacswiki.org
 
 https://emacsrocks.com
 
-## `.emacs` file
+## Init file
 
 You can use `~/.emacs`, `~/.emacs.el`, `~/.emacs.d/init.el` and others.
 

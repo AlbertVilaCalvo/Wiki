@@ -48,6 +48,8 @@ https://github.com/containrrr/watchtower
 
 https://github.com/GoogleContainerTools/container-diff
 
+https://github.com/aquasecurity/trivy - https://trivy.dev/latest/docs/target/container_image/
+
 ## Learn
 
 https://docs.docker.com/get-started/resources

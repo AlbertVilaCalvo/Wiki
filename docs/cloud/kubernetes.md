@@ -30,13 +30,35 @@ https://github.com/bregman-arie/devops-exercises/blob/master/topics/kubernetes/R
 
 https://kustomize.io
 
-## Validators / linters
+https://readmedium.com/top-10-kubernetes-pod-concepts-that-confuse-beginners-8c0954021f3f
+
+Does Kubernetes really give you multicloud portability? - https://medium.com/digital-mckinsey/does-kubernetes-really-give-you-multicloud-portability-476270a0acc7
+
+Y tú, ¿odias o amas Kubernetes? - https://dev.to/aws-espanol/y-tu-odias-o-amas-kubernetes-ind - https://www.paradigmadigital.com/dev/odias-amas-kubernetes
+
+> Se ha dado tanta flexibilidad a Kubernetes que se puede ejecutar cualquier carga. Esto en principio parece bueno, pero el que se pueda ejecutar, no significa que sea lo más optimo, y menos si queremos evolucionar. Un claro ejemplo serían las BBDD en Kubernetes. Es posible ejecutar una BBDD en Kubernetes, pero no tiene sentido. Al final no estás contenerizado un microservicio, sino que estás contenerizado un servidor entero de BBDD.
+>
+> Otro ejemplo horrible son los famosos “Lift and Shift to Kubernetes”, ¿qué sentido tiene pasar de un servidor virtualizado a un pod en Kubernetes? Es posible hacerlo, pero solamente estamos generando problemas y utilizando la tecnología de contenedores para algo que no es su propósito.
+>
+> El problema no es que Kubernetes pueda ejecutar estas cargas, el problema es que es un mal caso de uso, que se está generalizando demasiado.
+
+> Es muy habitual que empecemos por montar un cluster de Kubernetes para ejecutar nuestras futuras cargas de trabajo, sin tener en cuenta las cargas de trabajo en sí. Primero montamos el cluster y luego ya definimos las cargas. También existe la variante de directamente desarrollar en Kubernetes sin tener en cuenta si va a ser lo más optimo.
+>
+> Estamos en 2023, la división entre infraestructura y desarrollo es algo del pasado, debemos de pensar en la carga que vamos a desarrollar y elegir el lugar más optimo para ejecutarla.
+
+> Aunque ECS, EKS y Kubernetes permiten montar discos persistentes en los pods no es algo recomendado, es más se debería de evitar al máximo.
+
+## Validators / linters / vulnerabilities
 
 https://github.com/stackrox/kube-linter
 
 https://github.com/datreeio/datree
 
 Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
+
+Security risk analysis for Kubernetes resources - https://kubesec.io - https://github.com/controlplaneio/kubesec
+
+https://github.com/aquasecurity/trivy - https://trivy.dev/latest/tutorials/kubernetes/cluster-scanning/
 
 ## What is Kubernetes?
 
@@ -234,6 +256,11 @@ TLS certificates management - https://cert-manager.io
 - https://github.com/kelseyhightower/kubernetes-the-hard-way
   - https://www.pluralsight.com/cloud-guru/courses/kubernetes-the-hard-way
   - https://napo.io/posts/kubernetes-the-real-hard-way-on-aws/ - https://github.com/hajowieland/cdk-py-k8s-the-real-hard-way-aws
+- https://github.com/stefanprodan/podinfo - Go microservice template for Kubernetes
+
+## Security
+
+https://github.com/controlplaneio/simulator
 
 ## Certifications
 

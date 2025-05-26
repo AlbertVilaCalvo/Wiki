@@ -16,6 +16,18 @@ View log files - https://github.com/Textualize/toolong
 
 [pastel](https://github.com/sharkdp/pastel) - CLI tool to generate, analyze, convert and manipulate colors
 
+## Search / find
+
+https://github.com/junegunn/fzf
+
+https://github.com/sharkdp/fd
+
+https://github.com/BurntSushi/ripgrep
+
+## ls
+
+https://github.com/eza-community/eza (a fork of https://github.com/ogham/exa)
+
 ## Jump directory
 
 https://github.com/rupa/z
@@ -27,6 +39,8 @@ https://github.com/wting/autojump
 https://github.com/Byron/dua-cli
 
 https://github.com/dundee/gdu
+
+https://github.com/bootandy/dust
 
 ## Count lines of code
 

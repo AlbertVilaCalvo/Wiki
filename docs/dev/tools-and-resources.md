@@ -31,6 +31,10 @@ https://checkip.amazonaws.com
 - https://paw.cloud (only for macOS)
 - https://httpie.io/desktop - https://httpie.io/app
 
+## API testing
+
+https://hurl.dev - https://github.com/Orange-OpenSource/hurl - https://www.thoughtworks.com/radar/tools/hurl
+
 ## HTTP CLI client
 
 Like curl.

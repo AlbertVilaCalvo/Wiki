@@ -651,6 +651,30 @@ https://git-scm.com/docs/gitignore
 
 To match a directory only (but not files) add a slash at the end, eg `build/`. _If there is a separator at the end of the pattern then the pattern will only match directories, otherwise the pattern can match both files and directories_ ([source](https://git-scm.com/docs/gitignore#_pattern_format)). You can also do `/build` if the directory is at the same level of the `.gitignore`, see https://github.com/github/gitignore/blob/main/Elixir.gitignore
 
+## Reduce the `.git` folder with `git gc`
+
+:::warning
+`git gc` can also make the `.git` folder larger. I had a repo growing from 115 MB to 230 MB.
+:::
+
+https://git-scm.com/docs/git-gc
+
+If you have a large repository where the `.git` folder is very big (eg 6 GB), you can run `git gc` and it will shrink it (eg to ~100 MB).
+
+How to shrink the .git folder - https://stackoverflow.com/questions/5613345/how-to-shrink-the-git-folder
+
+There is also the option `git gc --aggressive`, but at [the docs](https://git-scm.com/docs/git-gc#_aggressive) it says:
+
+> It’s probably not worth it to use this option on a given repository without running tailored performance benchmarks on it. It takes a lot more time, and the resulting space/delta optimization may or may not be worth it. Not using this at all is the right trade-off for most users and their repositories.
+
+And at https://gcc.gnu.org/legacy-ml/gcc/2007-12/msg00165.html it says:
+
+> So "--aggressive" is not really about being aggressive, but about wasting CPU time re-doing a decision we already did earlier!
+
+Note that `git gc --aggressive` can take 1 hour! See https://stackoverflow.com/a/68554906/4034572.
+
+git gc --aggressive vs git repack - https://stackoverflow.com/questions/28720151/git-gc-aggressive-vs-git-repack
+
 ## CLI
 
 https://github.com/scmbreeze/scm_breeze

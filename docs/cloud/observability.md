@@ -14,6 +14,8 @@ https://github.com/thanos-io/thanos
 
 https://fluentbit.io
 
+https://vector.dev - Observability data pipelines - https://github.com/vectordotdev/vector
+
 https://www.solo.io
 
 https://chronosphere.io
@@ -21,6 +23,8 @@ https://chronosphere.io
 https://last9.io
 
 AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-US
+
+Observability 2.0 - https://www.thoughtworks.com/radar/techniques/observability-2-0
 
 ## Definition
 

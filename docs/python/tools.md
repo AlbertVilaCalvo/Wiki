@@ -87,7 +87,7 @@ Managing Application Dependencies (Python Packaging User Guide): https://packagi
 
 [github.com/pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
 
-[github.com/astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust
+[github.com/astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust - https://www.thoughtworks.com/radar/tools/ruff
 
 https://docs.astral.sh/uv - [github.com/astral-sh/uv](https://github.com/astral-sh/uv) - An extremely fast Python package and project manager, written in Rust
 
@@ -312,6 +312,8 @@ In VSCode, should be used with the [Pylance extension](https://marketplace.visua
 ## uv
 
 https://github.com/astral-sh/uv
+
+Recommended in the Technology Radar - https://www.thoughtworks.com/radar/tools/summary/uv - https://www.thoughtworks.com/radar/tools/uv
 
 ## Black
 

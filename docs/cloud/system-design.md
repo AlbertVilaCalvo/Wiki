@@ -29,3 +29,7 @@ Loose coupling benefit: reduce interdependencies so a failure in one component d
 Virtual Waiting Room on AWS - To sell concert tickets. Uses an SQS queue - https://aws.amazon.com/solutions/implementations/virtual-waiting-room-on-aws/
 
 Avoiding fallback in distributed systems - https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/ - https://d1.awsstatic.com/builderslibrary/pdfs/avoiding-fallback-in-distributed-systems.pdf
+
+https://www.thoughtworks.com/radar/platforms/restate
+
+> We still maintain that it's best to avoid distributed transactions in distributed systems, because of both the additional complexity and the inevitable additional operational overhead involved
