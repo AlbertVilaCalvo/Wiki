@@ -119,9 +119,15 @@ Error handling (eg retries) needs to be done by the client.
 
 https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html
 
-AWS services like S3 and SNS invoke functions asynchronously.
+AWS services like S3 and SNS invoke functions asynchronously. Lambda asynchronous invocations can put an event or message on Simple Notification Service (SNS), Simple Queue Service (SQS) or EventBridge for further processing.
 
 By default, it will attempt to retry on errors up to 3 times. Thus, the function needs to be **idempotent**. It also attempts to run the function again for up to 6 hours by default. You control this with the Maximum Retry Attempts and the Maximum Event Age ([see announcement](https://aws.amazon.com/about-aws/whats-new/2019/11/aws-lambda-supports-max-retry-attempts-event-age-asynchronous-invocations/)). When Retry Attempts reaches its maximum value, or Event Age reaches its maximum value, events are discarded, or sent to a dead-letter queue and/or Lambda destinations.
+
+#### Destinations
+
+With Destinations, you can route asynchronous function results as an execution record to a destination resource without writing additional code. An execution record contains details about the request and response in JSON format including version, timestamp, request context, request payload, response context, and response payload. For each execution status such as Success or Failure you can choose one of four destinations: another Lambda function, SNS, SQS, or EventBridge.
+
+Workshop: https://catalog.workshops.aws/building-event-driven-architectures-on-aws/en-US/lambda/destinations
 
 Introducing AWS Lambda Destinations - https://aws.amazon.com/blogs/compute/introducing-aws-lambda-destinations/
 

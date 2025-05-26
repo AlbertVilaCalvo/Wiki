@@ -8,6 +8,8 @@ Best Practices for Security, Identity, & Compliance - https://aws.amazon.com/arc
 
 What do I do if I notice unauthorized activity in my AWS account? - https://repost.aws/knowledge-center/potential-account-compromise
 
+AWS Well-Architected Security Workshop - https://catalog.workshops.aws/well-architected-security/en-US
+
 AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
 
 List of open source tools for AWS security: defensive, offensive, auditing, DFIR, etc. - https://github.com/toniblyx/my-arsenal-of-aws-security-tools

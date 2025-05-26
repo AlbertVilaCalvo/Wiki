@@ -66,6 +66,10 @@ Skill Builder: https://skillbuilder.aws/search?searchText=eks&page=1
 - Access container applications privately on Amazon EKS using AWS PrivateLink and a Network Load Balancer - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/access-container-applications-privately-on-amazon-eks-using-aws-privatelink-and-a-network-load-balancer.html
 - Scaling Amazon EKS infrastructure to optimize compute, workloads, and network performance - https://docs.aws.amazon.com/prescriptive-guidance/latest/scaling-amazon-eks-infrastructure/introduction.html
 
+## eksctl
+
+https://eksctl.io - https://github.com/eksctl-io/eksctl
+
 ## Load Balancer Controller
 
 https://github.com/kubernetes-sigs/aws-load-balancer-controller

@@ -24,6 +24,8 @@ When you set up the landing zone, it creates:
 - Organization-level CloudTrail trail to aggregate logs for all accounts in the AWS Organization. Events are stored in an S3 bucket.
 - Permissions that Control Tower needs to administer accounts and SCPs in the organization. For example, the roles AWSControlTowerAdmin, AWSControlTowerStackSetRole, AWSControlTowerCloudTrailRole and AWSControlTowerConfigAggregatorRoleForOrganizations.
 
+https://www.thoughtworks.com/radar/tools/aws-control-tower
+
 ## Resources
 
 Guidance for Establishing an Initial Foundation using Control Tower on AWS - https://aws.amazon.com/solutions/guidance/establishing-an-initial-foundation-using-control-tower-on-aws/ → Links to this whitepaper: https://docs.aws.amazon.com/whitepapers/latest/establishing-your-cloud-foundation-on-aws/welcome.html
@@ -35,3 +37,7 @@ AWS Control Tower Overview and Landing Zone Hands-On - https://www.youtube.com/w
 Provisioning access to security and audit teams in an AWS multi-account environment created by AWS Control Tower - https://aws.amazon.com/blogs/mt/provisioning-access-to-security-and-audit-teams-in-an-aws-multi-account-environment-created-by-aws-control-tower/
 
 AWS re:Invent 2019: Architecting security & governance across your landing zone (SEC325-R2) - https://www.youtube.com/watch?v=zVJnenaD3U8
+
+## AWS Control Tower Account Factory for Terraform
+
+https://github.com/aws-ia/terraform-aws-control_tower_account_factory

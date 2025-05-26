@@ -14,6 +14,8 @@ Serverless Optimization Workshop (Performance and Cost) - https://catalog.worksh
 
 - Optimizing AWS Lambda Performance and Cost for Your Serverless Applications - AWS Online Tech Talks - https://www.youtube.com/watch?v=z8wGSykEauI
 
+Building event-driven architectures on AWS (EventBridge workshop) - https://catalog.workshops.aws/building-event-driven-architectures-on-aws/en-US
+
 Tutorial: Build a Serverless Web Application using Generative AI - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-amplify-bedrock-cognito-gen-ai/ Previously it was Build a Serverless Web Application with AWS Lambda, Amazon API Gateway, AWS Amplify, Amazon DynamoDB, and Amazon Cognito - https://aws.amazon.com/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/
 
 Let’s Architect! Serverless architecture on AWS - https://aws.amazon.com/blogs/architecture/lets-architect-serverless-architecture-on-aws/ - From https://aws.amazon.com/blogs/architecture/top-10-aws-architecture-blog-posts-of-2022/
