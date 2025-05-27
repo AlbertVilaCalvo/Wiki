@@ -11,6 +11,7 @@ const sidebars: SidebarsConfig = {
     'cli/shell-scripts',
     'cli/tools',
     'cli/filesystem-permissions-acl',
+    'cli/dotfiles',
     'cli/ohmyzsh',
     'cli/brew',
     'cli/npm',
