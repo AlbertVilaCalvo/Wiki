@@ -22,6 +22,8 @@ https://www.atatus.com/blog/a-complete-guide-to-cors-for-rest-apis/
 
 https://dev.to/lydiahallie/cs-visualized-cors-5b8h
 
+CORS for Developers - https://w3c.github.io/webappsec-cors-for-developers/
+
 [You don't need that CORS request](https://news.ycombinator.com/item?id=29777145)
 
 > Routing https://api.foobarbaz.app to https://foobarbaz.app/api and moving over the JavaScript clients using the api. subdomain will cut your network traffic in half.
