@@ -196,6 +196,7 @@ const sidebars: SidebarsConfig = {
     'css/divider',
     'css/gradient',
     'css/dark-mode',
+    'css/cascade-layers',
   ],
   databases: [
     'databases/databases',
