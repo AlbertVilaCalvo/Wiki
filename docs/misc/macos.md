@@ -16,6 +16,49 @@ Advanced macOS Command-Line Tools - https://saurabhs.org/advanced-macos-commands
 
 What prevents Mac to sleep: `pmset -g assertions`. See https://osxdaily.com/2012/07/11/mac-wont-sleep-heres-how-to-find-out-why-and-fix-it
 
+## Defaults
+
+https://macos-defaults.com
+
+```shell
+defaults help
+defaults domains
+defaults domains | tr ',' '\n' # List one per line. Easier to read
+defaults read com.apple.finder ShowPathbar # 1
+defaults read-type com.apple.finder ShowPathbar # Type is boolean
+defaults write com.apple.finder ShowPathbar -bool true
+```
+
+Backup:
+
+```shell
+defaults read > defaults
+defaults read com.apple.finder > finder
+defaults export com.apple.finder - > defaults.plist # XML plist, but only one domain
+```
+
+https://ss64.com/mac/defaults.html
+
+> If you change a default that belongs to a running application, the application won’t see the change and might even overwrite the default.
+
+> In general you should close an application before changing its defaults, in the case of Dock and Finder defaults - restart them after applying the default with the `killall` command (`killall Dock`, `killall Finder`).
+
+https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
+
+https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+
+Fork with changes: https://github.com/mathiasbynens/dotfiles/compare/master...junjizhi:dotfiles-2:master
+
+https://github.com/driesvints/dotfiles/blob/main/.macos
+
+https://github.com/pawelgrzybek/dotfiles/blob/master/setup-macos.sh
+
+Finder
+
+```shell
+defaults write com.apple.finder ShowPathbar -bool true
+```
+
 ## Keyboard Shortcuts
 
 [Mac keyboard shortcuts](https://support.apple.com/en-au/HT201236)
@@ -147,7 +190,9 @@ Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → 
 - Delete npm cache (`~/.npm/_cacache`): `npm cache clean --force`. Not sure if doing this is necessary, see [Why and how to clear npm cache](https://sebhastian.com/npm-clear-cache). You can check the cache size with `npm cache verify`.
 - Delete Carthage cache (can be 2-3 GB): `rm -rf ~/Library/Caches/org.carthage.CarthageKit` [source](https://stackoverflow.com/q/45504896/4034572)
 - Delete `build` folders: `find . -type d -name "build" -exec rm -rf {} +`.
-- Delete Python `venv` folders: `find . -type d -name "venv" -exec rm -rf {} +`.
+- Delete Python `venv` and `.venv` folders:
+  - `find . -type d -name "venv" -exec rm -rf {} +`
+  - `find . -type d -name ".venv" -exec rm -rf {} +`
 - Delete `.terraform` folders. The aws provider is 580 MB. [See instructions](/cloud/terraform#free-up-disk-space)
 - Xcode
   - Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572.

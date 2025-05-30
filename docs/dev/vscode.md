@@ -6,6 +6,12 @@ title: VSCode
 
 [github.com/Microsoft/vscode](https://github.com/Microsoft/vscode)
 
+## Diff
+
+```shell
+code --diff file1 file2
+```
+
 ## Shortcuts
 
 Word wrap: Alt+Z (⌥+Z). [source](https://stackoverflow.com/questions/31025502/how-can-i-switch-word-wrap-on-and-off-in-visual-studio-code)

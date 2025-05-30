@@ -138,6 +138,18 @@ git fetch origin main:main && git merge origin/main
 [source-part-1](https://stackoverflow.com/a/20103414/4034572)
 [source-part-2](https://stackoverflow.com/a/17722977/4034572)
 
+## Delete all branches that have already been merged with main
+
+https://stackoverflow.com/questions/6127328/how-do-i-delete-all-git-branches-which-have-been-merged
+
+Use the function `gbda` from the [OhMyZSH git plugin](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git#functions). There is also `gbds` for squash-merged branches.
+
+From https://github.com/mathiasbynens/dotfiles/blob/b7c7894e7bb2de5d60bfb9a2f5e46d01a61300ea/.gitconfig#L59-L61
+
+```shell
+git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d
+```
+
 ## GitHub pull request
 
 https://gist.github.com/Chaser324/ce0505fbed06b947d962
@@ -465,6 +477,8 @@ git push origin :old-name new-name
 
 [source and more info](https://stackoverflow.com/a/45561865/4034572)
 
+There's a function in the [OhMyZSH git plugin](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git#functions): `grename <old> <new>`.
+
 #### Fix error
 
 When doing `git push origin :master main` sometimes we get this error:
@@ -540,6 +554,10 @@ Customizing Git - Git Configuration - https://git-scm.com/book/en/v2/Customizing
 
 Git Commands - Setup and Config - https://git-scm.com/book/en/v2/Appendix-C%3A-Git-Commands-Setup-and-Config
 
+Examples: https://github.com/mathiasbynens/dotfiles/blob/main/.gitconfig
+
+TODO try this colors: https://github.com/cowboy/dotfiles/blob/master/copy/.gitconfig
+
 There are 3 type of settings:
 
 |                                     | Location         | `git config` option |
@@ -575,8 +593,9 @@ Getting Started - First-Time Git Setup - https://git-scm.com/book/en/v2/Getting-
 git config --global user.name "Albert Vila Calvo"
 git config --global user.email my@email.com
 git config --global core.editor "emacs -nw"
-git config --global init.defaultBranch main
+git config --global init.defaultBranch main # still required in May 2025
 git config --global push.autoSetupRemote true
+git config --global color.diff.meta "blue"
 ```
 
 ### Change email on a specific repo only

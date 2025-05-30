@@ -809,7 +809,15 @@ The repository needs to be hosted in GitHub. The repository name needs to follow
 
 ## Version constraints
 
+:::tip
+It's recommended to pin modules to a specific major and minor version, and to set a minimum required version of the Terraform binary, see https://developer.hashicorp.com/terraform/language/style#version-pinning
+:::
+
 https://developer.hashicorp.com/terraform/language/expressions/version-constraints
+
+https://developer.hashicorp.com/terraform/language/providers/requirements#version-constraints
+
+Tutorial - Lock and Upgrade Provider Versions - https://developer.hashicorp.com/terraform/tutorials/configuration-language/provider-versioning
 
 ```hcl
 terraform {
@@ -951,6 +959,8 @@ find . -type d -name ".terraform" -exec rm -rf {} +
 ```
 
 ## Best practices
+
+https://developer.hashicorp.com/terraform/language/style
 
 Best practices (Dustin Dortch):
 

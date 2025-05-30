@@ -12,8 +12,8 @@ Cheatsheet: https://www.pythonsheets.com
 2. Init Pypenv: `pipenv --python 3.10.2`. This creates the `Pipfile`.
 3. Enable the virtual environment: `pipenv shell`.
 4. Set the Python interpreter in PyCharm.
-   - At the Preferences, go to 'Python Interperter' (you can click 'Interpreter Settings...' at the bottom-right).
-   - Open the 'Python Interperter' drop-down and click 'Show All...'.
+   - At the Preferences, go to 'Python Interpreter' (you can click 'Interpreter Settings...' at the bottom-right).
+   - Open the 'Python Interpreter' drop-down and click 'Show All...'.
    - At the dialog that opens (Python Interpreters), click '+'.
    - At the dialog that opens (Add Python Interpreter), select 'Existing environment' and set the path to the location of new Python interpreter given by `pipenv --venv` + `/bin/python`.
    - Close the dialogs and at the drop-down select the new interpreter just added and then click 'OK'.
@@ -150,15 +150,27 @@ Uninstall package: `pip uninstall requests`. Important: this does _not_ remove t
 
 Docs: https://docs.python.org/3/library/venv.html
 
+Workflow:
+
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install requests
+```
+
 Integrated into the Python standard library, available since Python 3.3.
 
 Provides isolated Python environments, with project-specific dependencies and Python interpreter. pip installs dependencies systemwide (globally), which means that you can only have 1 version of a library. venv allows 2 projects to use different versions of the same library, and also different Python versions.
 
-Create virtual environment: `python3 -m venv <DIR>`. Eg `python3 -m venv venv` or `python3 -m venv ~/.virtualenvs/djangodev`.
+Create virtual environment: `python3 -m venv <DIR>`. For example:
 
-(This creates lots of files and folders - see them with `tree venv`.)
+- `python3 -m venv venv`
+- `python3 -m venv .venv`
+- `python3 -m venv ~/.virtualenvs/djangodev`
 
-Activate the virtual environment: `source venv/bin/activate` or `source ~/.virtualenvs/djangodev/bin/activate`. This needs to be done for each new terminal session. Doing `. venv/bin/activate` alwo works.
+This creates lots of files and folders - see them with `tree venv`.
+
+Activate the virtual environment: `source venv/bin/activate` or `source ~/.virtualenvs/djangodev/bin/activate`. This needs to be done for each new terminal session. Doing `. venv/bin/activate` also works.
 
 (After activating, doing `which pip` points to the binary in the venv folder, not the global `/usr/local/bin/pip3`. Same with the Python interpreter: `which python` points to the venv interpreter, not `/usr/bin/python`.)
 

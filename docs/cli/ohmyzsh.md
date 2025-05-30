@@ -6,13 +6,27 @@ https://github.com/ohmyzsh/ohmyzsh
 
 Cheatsheet: https://github.com/ohmyzsh/ohmyzsh/wiki/Cheatsheet
 
-Plugins: https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
+## Plugins
 
-Git plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
+
+https://github.com/unixorn/awesome-zsh-plugins
+
+Git: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+
+macOS: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/macos
+
+z: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
+
+terraform: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/terraform
+
+https://github.com/zsh-users/zsh-autosuggestions
+
+https://github.com/zsh-users/zsh-syntax-highlighting
 
 ## Upgrade
 
-```
+```shell
 omz update
 ```
 
@@ -22,7 +36,7 @@ omz update
 Don't run `source ~/.zshrc`! See [How do I reload the zshrc file?](https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-reload-the-zshrc-file)
 :::
 
-```
+```shell
 omz reload
 ```
 

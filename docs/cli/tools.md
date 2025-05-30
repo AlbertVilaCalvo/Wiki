@@ -16,6 +16,10 @@ View log files - https://github.com/Textualize/toolong
 
 [pastel](https://github.com/sharkdp/pastel) - CLI tool to generate, analyze, convert and manipulate colors
 
+Markdown reader - https://github.com/charmbracelet/glow
+
+File manager - https://github.com/sxyazi/yazi
+
 ## Search / find
 
 https://github.com/junegunn/fzf
@@ -27,6 +31,8 @@ https://github.com/BurntSushi/ripgrep
 ## ls
 
 https://github.com/eza-community/eza (a fork of https://github.com/ogham/exa)
+
+https://github.com/lsd-rs/lsd
 
 ## Jump directory
 
