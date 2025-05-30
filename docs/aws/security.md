@@ -18,6 +18,8 @@ AWS security tool to perform security best practices assessments, audits, etc - 
 
 Analyze your Amazon Web Services (AWS) environments - https://github.com/duo-labs/cloudmapper
 
+https://infosec.mozilla.org/guidelines/aws_security.html
+
 ¿Es AWS seguro? - https://dev.to/aws-espanol/es-aws-seguro-4gfp
 
 flAWS challenge (discover AWS-specific vulnerabilities) - http://flaws.cloud - http://flaws2.cloud

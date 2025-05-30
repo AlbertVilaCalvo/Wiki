@@ -648,6 +648,8 @@ You choose it when you launch the instance.
 
 https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/index.html
 
+Examples - https://github.com/aws/aws-cli/tree/develop/awscli/examples/ec2
+
 See this example: https://github.com/AWSinAction/code3/blob/main/chapter04/virtualmachine.sh
 
 See [List and filter using the CLI and API](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Filtering.html#Filtering_Resources_CLI).

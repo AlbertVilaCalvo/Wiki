@@ -3,7 +3,7 @@ title: CLI
 ---
 
 :::info
-If installed with [Brew](https://formulae.brew.sh/formula/awscli#default), the "examples" directory is at `/usr/local/share/awscli/examples`.
+If installed with [Brew](https://formulae.brew.sh/formula/awscli#default), the "examples" directory is located at `$HOMEBREW_PREFIX/share/awscli/examples`. (There are also completions and functions at `$HOMEBREW_PREFIX/share/zsh/site-functions`.)
 :::
 
 https://aws.amazon.com/cli

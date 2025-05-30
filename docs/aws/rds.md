@@ -164,6 +164,8 @@ aws rds delete-db-snapshot --db-snapshot-identifier <snapshot-id>
 
 Reference - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/index.html
 
+Examples - https://github.com/aws/aws-cli/tree/develop/awscli/examples/rds
+
 Get instance information with [describe-db-instances](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/describe-db-instances.html):
 
 ```shell

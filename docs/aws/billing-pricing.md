@@ -60,13 +60,11 @@ Free tier:
 - https://aws.amazon.com/free/
 - How do I make sure I don't incur charges when I'm using the AWS Free Tier? https://aws.amazon.com/premiumsupport/knowledge-center/free-tier-charges/
 
-Cloud cost estimates for Terraform in pull requests - https://github.com/infracost/infracost - https://www.infracost.io
+Infracost - Cloud cost estimates for Terraform in pull requests - https://github.com/infracost/infracost - https://www.infracost.io
 
 https://www.lastweekinaws.com/blog/the-key-to-unlock-the-aws-billing-puzzle-is-architecture/ (taken from https://danielcompton.net/penny-wise-cloud-foolish)
 
 https://www.economize.cloud
-
-Infracost - https://www.infracost.io
 
 ## Cost allocation tags
 

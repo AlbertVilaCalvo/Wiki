@@ -233,6 +233,12 @@ Resource groups: a collection of resources that shares one or more tags. https:/
 
 [Cost allocation tags](/aws/billing-pricing#cost-allocation-tags)
 
+## re:Invent
+
+https://roadtoaws.com/2024/10/03/navigating-aws-reinvent-2024-a-first-time-speakers-guide/
+
+https://reinvent-planner.cloud
+
 ## Multiple accounts
 
 TODO move this to a new doc?

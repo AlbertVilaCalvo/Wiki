@@ -1034,6 +1034,8 @@ arn:aws:ec2:us-east-1:123456789012:instance/i-0e9801d129f56c97
 
 https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
 
+Examples - https://github.com/aws/aws-cli/tree/develop/awscli/examples/iam
+
 ### User
 
 [Create user](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-user.html)

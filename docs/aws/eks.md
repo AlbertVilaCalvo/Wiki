@@ -22,6 +22,8 @@ https://www.eksworkshop.com
 
 Containers roadmap - https://github.com/orgs/aws/projects/244 - https://github.com/aws/containers-roadmap
 
+https://github.com/kubernetes-sigs/aws-iam-authenticator - Use AWS IAM credentials to authenticate to a Kubernetes cluster
+
 What's New with Containers? https://aws.amazon.com/about-aws/whats-new/containers/?whats-new-content.sort-by=item.additionalFields.postDateTime&whats-new-content.sort-order=desc&awsf.whats-new-products=*all
 
 https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/
