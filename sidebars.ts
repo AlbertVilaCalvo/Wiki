@@ -7,8 +7,8 @@ const sidebars: SidebarsConfig = {
   git: ['git/git', 'git/commands', 'git/hooks', 'git/github', 'git/github-pr'],
   cli: [
     'cli/commands',
-    'cli/ssh',
     'cli/shell-scripts',
+    'cli/ssh',
     'cli/tools',
     'cli/filesystem-permissions-acl',
     'cli/dotfiles',
