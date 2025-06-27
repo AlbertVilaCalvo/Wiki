@@ -1,5 +1,5 @@
 ---
-title: System Design
+title: Architecture
 ---
 
 https://bytebytego.com - https://highscalability.com

@@ -76,7 +76,7 @@ const sidebars: SidebarsConfig = {
     'cloud/heroku',
     'cloud/github-actions',
     'cloud/backend',
-    'cloud/system-design',
+    'cloud/architecture',
     'cloud/service-discovery',
     'cloud/observability',
     'cloud/grpc',
