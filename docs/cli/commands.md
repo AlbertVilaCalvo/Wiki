@@ -22,7 +22,7 @@ Use the GNU tools instead fo the macOS: https://ryanparman.com/posts/2019/using-
 
 zsh is the default shell in macOS since Catalina (10.15, released October 2019) - see https://support.apple.com/kb/HT208050
 
-Command history is saved in `~/.zsh_history`.
+Command history is saved in `~/.zsh_history`. You can run `history` to print it.
 
 ## Terminal shortcuts
 
@@ -52,7 +52,7 @@ Is usually combined with `&`, like this: `nohup command &`. Together, you can us
 ## Tips
 
 - !!: run the previous command
-- What shell is used: `echo $SHELL`
+- What shell is used: `echo $SHELL`. Prints `/bin/bash` or `/bin/zsh`
 
 Command-line pro tips: https://twitter.com/addyosmani/status/1264854298799665152
 
