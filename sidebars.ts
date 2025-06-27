@@ -70,7 +70,6 @@ const sidebars: SidebarsConfig = {
     'cloud/cloud',
     'cloud/devops',
     'cloud/docker',
-    'cloud/kubernetes',
     'cloud/terraform',
     'cloud/terraform-aws',
     'cloud/heroku',
@@ -81,9 +80,12 @@ const sidebars: SidebarsConfig = {
     'cloud/observability',
     'cloud/grpc',
     'cloud/kafka',
-    'cloud/argocd',
     'cloud/gcp',
     'cloud/azure',
+  ],
+  kubernetes: [
+    'kubernetes/kubernetes',
+    'kubernetes/argocd',
   ],
   aws: [
     'aws/aws',

@@ -107,6 +107,12 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: 'kubernetes',
+          activeBasePath: 'kubernetes',
+          label: 'K8s',
+          position: 'left',
+        },
+        {
           to: 'aws',
           activeBasePath: 'aws',
           label: 'AWS',
