@@ -6,6 +6,12 @@ title: Yarn
 Si la versió que em surt fent `yarn -v` és la 1.21.1 enlloc de 1.22.11 fer `npm install --global yarn`. Això passa després de fer `yarn global upgrade-interactive --latest`.
 :::
 
+:::tip
+Use https://github.com/nodejs/corepack to use Yarn, npm, and pnpm without having to install them. It comes with Node.js.
+
+For example, `corepack enable yarn`.
+:::
+
 CLI docs: https://classic.yarnpkg.com/en/docs/cli/
 
 Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/yarn

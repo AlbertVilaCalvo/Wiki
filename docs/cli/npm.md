@@ -6,6 +6,12 @@ title: npm
 
 Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html → Outdated! New link is https://exploringjs.com/nodejs-shell-scripting/ch_package-scripts.html, so it's a chapter of the book [Shell scripting with Node.js](https://exploringjs.com/nodejs-shell-scripting/index.html)
 
+:::tip
+Use https://github.com/nodejs/corepack to use Yarn, npm, and pnpm without having to install them. It comes with Node.js.
+
+For example, `corepack enable yarn`.
+:::
+
 ## CLI
 
 CLI docs: https://docs.npmjs.com/cli-documentation
