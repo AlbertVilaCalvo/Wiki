@@ -18,6 +18,8 @@ https://twitter.com/t3dotgg/status/1437195415439360003
 > Home route: 138kb → 7.6kb
 > "All posts": 570kb → 100kb (85kb was images)
 
+https://d13z.dev/blog/07-why-kleinanzeigen-picked-astro-over-nextjs - https://www.linkedin.com/posts/danilovelasquez_frontend-astro-nextjs-activity-7321106888048197633-fu0A/
+
 Astro is an Multi-Page Application framework, not a Single-Page Application framework - [see docs](https://docs.astro.build/en/concepts/mpa-vs-spa/)
 
 https://github.com/codiume/orbit - Collection of useful integrations & components

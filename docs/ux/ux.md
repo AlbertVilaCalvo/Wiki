@@ -8,6 +8,8 @@ https://www.pencilandpaper.io/articles/ux-pattern-analysis-loading-feedback
 
 In Defense of Text Labels - https://www.chrbutler.com/in-defense-of-text-labels - https://news.ycombinator.com/item?id=43142989
 
+Hamburger menu - https://www.nngroup.com/articles/hamburger-menu-icon-recognizability/
+
 ## Speed
 
 Over 50% of users abandon a website if it takes longer than 3 seconds to load. // 53% of visits are likely to be abandoned if pages take longer than 3 seconds to load. Source: https://www.thinkwithgoogle.com/intl/en-154/marketing-strategies/app-and-mobile/need-mobile-speed-how-mobile-latency-impacts-publisher-revenue/

@@ -42,3 +42,15 @@ Learn how Android devs are getting the most out of Gemini in Android Studio - ht
 
 > - Be specific with your prompts.
 > - Add more details to your instructions.
+
+## Claude Code
+
+https://github.com/anthropics/claude-code
+
+https://docs.anthropic.com/en/docs/claude-code/overview
+
+https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor
+
+https://github.com/ryoppippi/ccusage
+
+https://github.com/daaain/claude-code-log

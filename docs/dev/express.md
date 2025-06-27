@@ -2,9 +2,11 @@
 title: Express
 ---
 
-https://expressjs.com/
+https://expressjs.com
 
 https://github.com/expressjs/express
+
+https://expressjs.com/en/starter/generator.html
 
 ## Debug
 
@@ -53,6 +55,24 @@ app.listen(app.get('port'), () => {
 ## Express 5
 
 https://expressjs.com/2024/10/15/v5-release.html
+
+Migration guide - https://expressjs.com/en/guide/migrating-5.html
+
+Codemod to migrate from Express v4 to v5 - https://www.npmjs.com/package/@expressjs/codemod
+
+https://betterstack.com/community/guides/scaling-nodejs/express-5-new-features
+
+https://www.trevorlasn.com/blog/whats-new-in-express-5
+
+https://stateful.com/blog/new-express-5-features
+
+### Async error handlers
+
+https://expressjs.com/en/guide/error-handling.html
+
+> Starting with Express 5, route handlers and middleware that return a Promise will call `next(value)` automatically when they reject or throw an error.
+
+In v4, for an error handler to be invoked if an error is thrown in an `async` function, you need to wrap the async code with a try-catch and call `next(error)` at the `catch(error)`. See https://stackoverflow.com/questions/56973265/what-does-express-async-handler-do and https://www.npmjs.com/package/express-async-handler
 
 ## Libraries
 
@@ -186,13 +206,22 @@ router.get('/callback', (req, res) => {
 })
 ```
 
-In asynchronous handlers we must catch the errors in a try-catch and then call `next(error)` if we want our error handling middleware to be called.
+In v4, in asynchronous handlers we must catch the errors in a try-catch and then call `next(error)` if we want our error handling middleware to be called.
 
 Alternatively we can use https://www.npmjs.com/package/express-async-handler.
 
 ## TypeScript
 
 ### New project setup with TypeScript
+
+OJO ts-node-dev fa anys que no s'actualitza. Veure alternatives:
+
+- https://github.com/privatenumber/ts-runtime-comparison
+- https://www.pirobits.com/post/run-typescript-code-with-tsx-ts-node-alternative
+- https://tsx.is - https://github.com/privatenumber/tsx
+- OJO diu que tsx no fa type checking a https://www.reddit.com/r/node/comments/16qnlhy/have_you_used_tsx_as_an_alternative_to_tsnode_to/
+- https://github.com/swc-project/swc-node - Faster ts-node without typecheck
+- https://dev.to/rennycat/use-tsx-instead-of-nodemon-4lh3
 
 ```shell
 git init

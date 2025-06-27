@@ -20,6 +20,12 @@ https://www.propelauth.com/post/nextjs-challenges
 
 Run on AWS Lambda with OpenNext - https://github.com/sst/open-next
 
+You should know this before choosing Next.js - https://eduardoboucas.com/posts/2025-03-25-you-should-know-this-before-choosing-nextjs/
+
+https://d13z.dev/blog/07-why-kleinanzeigen-picked-astro-over-nextjs - https://www.linkedin.com/posts/danilovelasquez_frontend-astro-nextjs-activity-7321106888048197633-fu0A/
+
+> Next.js felt like a generalist framework, good for many things, but not optimized for our specific, high-traffic, mostly static content use case.
+
 Aquí diu coses interessants: https://dev.to/alex_barashkov/comparing-gatsby-and-nextjs-for-website-development-13b7
 
 Cheapest way to deploy a React app using NextJS SSR on AWS? - https://stackoverflow.com/questions/61433306/cheapest-way-to-deploy-a-react-app-using-nextjs-ssr-on-aws

@@ -4,6 +4,8 @@ title: Kubernetes
 
 https://kubernetes.io
 
+Distributed operating system.
+
 Docs - https://kubernetes.io/docs/home/
 
 https://github.com/kelseyhightower/kubernetes-the-hard-way
@@ -30,7 +32,13 @@ https://github.com/bregman-arie/devops-exercises/blob/master/topics/kubernetes/R
 
 https://kustomize.io
 
+https://github.com/siderolabs/talos - https://www.talos.dev
+
 https://readmedium.com/top-10-kubernetes-pod-concepts-that-confuse-beginners-8c0954021f3f
+
+The History of Kubernetes on a Timeline - https://blog.risingstack.com/the-history-of-kubernetes
+
+Kubernetes Distributions & Platforms - https://docs.google.com/spreadsheets/d/1uF9BoDzzisHSQemXHIKegMhuythuq_GL3N1mlUUK2h0/edit?usp=sharing
 
 Does Kubernetes really give you multicloud portability? - https://medium.com/digital-mckinsey/does-kubernetes-really-give-you-multicloud-portability-476270a0acc7
 
@@ -130,7 +138,7 @@ Components:
   - https://github.com/spurin/etcd-snapshot-to-json
 - [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/): watches for newly created Pods with no assigned node, and selects a worker node for them to run on.
 - [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/): runs controller processes, which confirms that the current state is the desired state for all the running workloads.
-- cloud-controller-manager: embeds cloud-specific control logic. Lets you link your cluster into your cloud provider's API.
+- cloud-controller-manager (optional): embeds cloud-specific control logic. Lets you link your cluster into your cloud provider's API.
 
 See https://kubernetes.io/docs/concepts/overview/components/#control-plane-components for more details.
 
@@ -146,12 +154,19 @@ What you will be working with the most, since the operations you do with `kubect
 
 ## Worker Nodes
 
+Components:
+
 - [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/): agent that runs on each node and makes sure that containers are running in a Pod.
-- [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/): does internal networking. See https://kubernetes.io/docs/reference/glossary/?all=true#term-kube-proxy
+- [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/) (optional): does internal networking. See https://kubernetes.io/docs/reference/glossary/?all=true#term-kube-proxy
 - Container Runtime: software that is responsible for running containers, eg Docker or containerd. Kubernetes doesn't know about containers, so it relies on a plugin for this. containerd is the default. Docker is not supported anymore ([source](https://kubernetes.io/blog/2020/12/02/dont-panic-kubernetes-and-docker/)). Needs to support the [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) (CRI).
-- [CoreDNS](https://coredns.io): internal DNS.
 
 The recommended number is between 3 and 5. It needs to have high availability and scaling, otherwise the pods won't have a place to move to if a worker node fails.
+
+## Addons
+
+https://kubernetes.io/docs/concepts/overview/components/#addons
+
+- [CoreDNS](https://coredns.io): internal DNS.
 
 ## kubeconfig - `~/.kube/config`
 
@@ -204,6 +219,8 @@ List shortnames: `kubectl api-resources`
 `kubectl delete pod <pod-name> --now`
 
 `kubectl describe node <node-name>`
+
+`kubectl run my-nginx --image=nginx:1.19.2 --port 80` - Similar to `docker run --name my-nginx -p 80 nginx:1.19.2`
 
 ### Namespace
 

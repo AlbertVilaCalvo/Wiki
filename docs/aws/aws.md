@@ -24,6 +24,8 @@ Architecture examples and diagrams - https://aws.amazon.com/architecture
 
 Hands-on Tutorials - https://aws.amazon.com/getting-started/hands-on
 
+Developer tools - https://aws.amazon.com/developer/tools
+
 Services available on each region - https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services - https://awsservices.info - https://services.adlinga.com/services
 
 Back to Basics video series: https://aws.amazon.com/es/architecture/back-to-basics

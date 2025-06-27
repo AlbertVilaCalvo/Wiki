@@ -14,6 +14,8 @@ Learn Postgres at the Playground - https://www.crunchydata.com/developers/tutori
 
 https://www.manning.com/books/just-use-postgres
 
+https://www.manning.com/books/postgresql-mistakes-and-how-to-avoid-them
+
 Postgres WASM - https://news.ycombinator.com/item?id=33067962
 
 https://www.crunchydata.com

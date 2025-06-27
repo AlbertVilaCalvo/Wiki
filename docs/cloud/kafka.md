@@ -8,6 +8,8 @@ Event Sourcing and Message Streaming are NOT the same things. Kafka is NOT suita
 
 https://www.confluent.io
 
+https://www.warpstream.com
+
 https://aws.amazon.com/msk
 
 https://www.conduktor.io
