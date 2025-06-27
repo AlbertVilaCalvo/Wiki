@@ -17,6 +17,7 @@ const sidebars: SidebarsConfig = {
     'cli/npm',
     'cli/yarn',
     'cli/nvm',
+    'cli/fnm',
     'cli/gradle',
     'cli/curl',
     'cli/nano',
