@@ -40,7 +40,7 @@ Every time we update the pre-commit hook we need to run `cp git-hooks/pre-commit
 Example of pre-commit hook that runs Prettier, ESLint and tsc:
 
 ```shell
-#!/bin/sh
+#!/bin/bash
 
 # Runs Prettier on ts/tsx/js/jsx/md/yml/yaml/css/json files, and ESLint and tsc on ts/tsx/js/jsx files.
 # Prettier and ESLint only check the committed files, whereas tsc checks all project files, since it's not possible to
@@ -105,7 +105,7 @@ exit 0
   <summary>Old version. Does not format md/css/json files.</summary>
 
 ```shell
-#!/bin/sh
+#!/bin/bash
 
 # Runs Prettier, ESLint and tsc on .ts, .tsx and .js files (not .md nor .json files). Prettier and ESLint only check the
 # committed files, whereas tsc checks all project files, since it's not possible to run tsc on specific files while
@@ -158,7 +158,7 @@ https://github.com/lint-staged/lint-staged
 `.husky/pre-commit` is always the same:
 
 ```shell
-#!/bin/sh
+#!/bin/bash
 . "$(dirname "$0")/_/husky.sh"
 
 npx lint-staged
@@ -200,7 +200,7 @@ Add scripts at `package.json`:
 Then in `.husky/pre-commit` we can have:
 
 ```shell
-#!/bin/sh
+#!/bin/bash
 . "$(dirname "$0")/_/husky.sh"
 
 npm run prettier-check ||

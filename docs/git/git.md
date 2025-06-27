@@ -495,7 +495,7 @@ This happens when eg we are renaming the branch `master` to `main` on a GitHub/B
 Add this `.git/hooks/pre-commit`.
 
 ```shell
-#!/bin/sh
+#!/bin/bash
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Runs Prettier on ts/tsx/js/jsx/md/yml/yaml/css/json files, and ESLint and tsc on ts/tsx/js/jsx files.
 # Prettier and ESLint only check the committed files, whereas tsc checks all project files, since it's not possible to
