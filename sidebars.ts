@@ -100,6 +100,7 @@ const sidebars: SidebarsConfig = {
     'aws/vpc',
     'aws/ec2',
     'aws/ec2-auto-scaling',
+    'aws/ecr',
     'aws/eks',
     'aws/ecs',
     'aws/fargate',
