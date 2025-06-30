@@ -8,7 +8,9 @@ https://hub.docker.com - Pre-built container image registry
 
 https://github.com/veggiemonk/awesome-docker
 
-Just say no to :latest: https://news.ycombinator.com/item?id=30576443
+Just say no to :latest - https://news.ycombinator.com/item?id=30576443
+
+Newsletter - https://www.docker.com/newsletter-subscription/
 
 Dockerfile linters:
 
@@ -78,7 +80,7 @@ Containers provide consistency between environments (eg local development machin
 
 Avoid issues due to different programming language or database versions. Avoid having to install and configure specific development environments per project. On your local machine, each project's environment is isolated.
 
-You can run different versions of the same app locally side-by-side, each with a different MySQL version for example with.
+You can run different versions of the same app locally, side-by-side, each with a different MySQL version for example.
 
 No need to install an OS (eg Linux/Windows), thus no need to patch/upgrade it when there are security vulnerabilities.
 
@@ -104,18 +106,24 @@ What are Linux containers? https://www.redhat.com/en/topics/containers
 
 Why we have containers - https://jessitron.com/2022/08/07/why-we-have-containers
 
-> Containers let us write code (a Dockerfile) to describe the computer an app needs to run on. Choose an operating system, install any runtimes and libraries needed, and populate the file system. This reduces many of the app’s expectations to one: a container runtime.
+> Containers let us write code (a `Dockerfile`) to describe the computer an app needs to run on. Choose an operating system, install any runtimes and libraries needed, and populate the file system. This reduces many of the app’s expectations to one: a container runtime.
 
 ## Containers vs virtual machines
 
+From https://www.docker.com/resources/what-container/
+
 - Containers
-  - All them share the same OS kernel (host OS)
-  - Do not virtualize hardware, they run in isolated processes
+  - All containers share the same OS kernel (host OS), running in isolated processes in user space
+  - Abstraction at the app layer that packages code and dependencies together
+  - Virtualize the OS, not the hardware
 - Virtual Machines
   - Each VM has a complete copy of the operating system (guest OS)
-  - Abstraction of physical hardware
+  - Abstraction (virtualization) of physical hardware turning one server into many servers
+  - Provide complete isolation from the host operating system and other VMs
 
-Thus, containers are lightweight and more efficient, and they can boot faster.
+> The key differentiator between containers and virtual machines is that virtual machines virtualize an entire machine down to the hardware layers and containers only virtualize software layers above the operating system level. [source](https://www.atlassian.com/microservices/cloud-computing/containers-vs-vms)
+
+Containers are lightweight and more efficient, and they can boot faster. They are ephemeral/disposable.
 
 You can run multiple containers in parallel, whereas to run multiple virtual machines in parallel you need a beefy host machine.
 
@@ -137,7 +145,7 @@ Examples:
 From https://docs.docker.com/get-started/overview
 
 - Image: read-only (ie immutable) template with instructions for creating a Docker container.
-- Container: a runnable instance of an image.
+- Container: a runnable instance of an image. You can modify the contents of its filesystem.
 
 Multiple instances of the same image can be created.
 
@@ -157,10 +165,21 @@ From https://docs.docker.com/get-started/docker_cheatsheet.pdf
 >
 > A container is a runtime instance of a docker image. A container will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.
 
-## Flow
+## Workflow
 
-:::tip Flow
+:::tip Local Workflow
 **Dockerfile ——`docker build`——> Image ——`docker run`——> Container**
+
+:::
+
+:::tip Container Registry Workflow
+
+**Dockerfile ——`docker build`——> Image ——`docker push`, `docker pull` (optional) and `docker run`——> Container**
+
+1. Build image (package the app following the instructions in the `Dockerfile`).
+2. Publish image to a registry.
+3. Run image (run the app in a container).
+
 :::
 
 | Image        | Container | Process |
@@ -193,36 +212,73 @@ Version: `docker version`
 
 ### Images
 
-[Build](https://docs.docker.com/engine/reference/commandline/build) an image from a `Dockerfile`: `docker build --tag <tagname> .` or `docker build -t <tagname> .`
+[Build](https://docs.docker.com/reference/cli/docker/buildx/build/) an image from a `Dockerfile`:
 
-[List](https://docs.docker.com/engine/reference/commandline/images/) images: `docker images` or `docker image ls`
+```shell
+docker build -t <tagname> .
+docker build --tag <tagname> .
+```
 
-[Remove](https://docs.docker.com/engine/reference/commandline/image_rm/) image: `docker image rm <image-id>` or `docker rmi <image-id>`
+[List](https://docs.docker.com/reference/cli/docker/image/ls/) local images:
 
-[Prune](https://docs.docker.com/engine/reference/commandline/image_prune/) (remove) all unused images: `docker image prune [-a]`
+```shell
+docker images
+docker image ls
+docker image list
 
-### Hub
+# Filter (-f, --filter)
+docker images --filter reference=myapp
+docker images --filter "dangling=true"
 
-[See this tutorial](https://www.youtube.com/watch?v=iqqDU2crIEQ)
+# Only show image ids (-q, --quiet)
+docker images -q # 553707c4889c
+# Useful for scripts, for example:
+docker rmi $(docker images -f "dangling=true" -q)
+docker stop $(docker ps -q)
+```
 
-[Pull](https://docs.docker.com/engine/reference/commandline/pull/) image from registry: `docker pull alpine:latest`
+[Remove](https://docs.docker.com/reference/cli/docker/image/rm/) image:
 
-[Push](https://docs.docker.com/engine/reference/commandline/push/) image to registry (Docker Hub):
+```shell
+docker image rm <image>
+docker image remove <image>
+docker rmi <image>
+```
 
-- If we are logged in Docker Desktop: `docker push <repo-name>:<tag-name>`
-- If we are not logged in Docker Desktop: `docker push <DockerHub-username>/<repo-name>:<tag-name>`
+You cannot remove an image of a running container unless you use the `-f`/`--force` option. To delete the image without using `--force`, run `docker stop <container>` and `docker rm <container>` first. Similarly, you cannot remove an image that has one or more tags referencing it unless you use the `--force` option (you get the error "image is referenced in multiple repositories"). In this case, to delete the image without using `--force`, remove the image with `docker rmi repository/image-name:tag`.
+
+[Prune](https://docs.docker.com/reference/cli/docker/image/prune/) (remove) unused images:
+
+```shell
+docker image prune # Remove all dangling images
+docker image prune --all # Remove all unused images, not just dangling ones
+```
 
 ### Containers
 
-[Create](https://docs.docker.com/engine/reference/commandline/create/) a new container form an image: `docker create`
+[Create](https://docs.docker.com/reference/cli/docker/container/create/) a new container form an image: `docker create`
 
-#### `docker run` = create + start
+**run = create + start**
 
-https://docs.docker.com/engine/reference/commandline/run
+https://docs.docker.com/reference/cli/docker/container/run/
 
 > Create and run a new container from an image
 
-Run a container: `docker run <image>` or `docker run -d <image>`
+Run a container:
+
+```shell
+docker run <image>
+docker run -d <image> # Run container in background (--detach)
+
+# Set environment variables (-e, --env, --env-file)
+docker run -e <name>=<value> <image>
+docker run --env PORT=3000 <image>
+
+# Bind, publish or expose port (-p, --expose)
+docker run -p <host-port>:<container-port> <image>
+docker run -p 3000:3000 <image>
+docker run -p 127.0.0.1:80:8080/tcp <image>
+```
 
 `docker run` options:
 
@@ -232,29 +288,87 @@ Run a container: `docker run <image>` or `docker run -d <image>`
 - `-p`/`--publish`: publish a container's port to the host, eg `-p 5433:5432` or `-p 80:8080`
 - `-rm`: automatically remove the container when it exits
 
-[List](https://docs.docker.com/engine/reference/commandline/ps/) running containers: `docker ps`
+[List](https://docs.docker.com/reference/cli/docker/container/ls/) running containers:
 
-List all containers: `docker ps --all` or `docker ps -a`
+```shell
+docker container ls
+docker container list
+docker ps
 
-[Start](https://docs.docker.com/engine/reference/commandline/start/) a container: `docker start <container-id>` or `docker start <container-name>`
+# List all containers (running and stopped)
+docker container ls -a
+docker ps -a
+docker ps --all
+```
 
-[Stop](https://docs.docker.com/engine/reference/commandline/stop/) a running container: `docker stop <container-id>` or `docker stop <container-name>` (get the id/name with `docker ps`)
+[Start](https://docs.docker.com/reference/cli/docker/container/start/) a stopped container: `docker start <container-id>` or `docker start <container-name>`
 
-[Remove](https://docs.docker.com/engine/reference/commandline/rm/) a container: `docker rm <container-id>` or `docker container rm <container-id>`
+[Stop](https://docs.docker.com/reference/cli/docker/container/stop/) a running container: `docker stop <container-id>` or `docker stop <container-name>` (get the container id/name with `docker ps`)
 
-Open a shell inside a running container: `docker exec -it <container_name> sh`
+Stop all running containers: `docker stop $(docker ps -q)`
 
-Display container [logs](https://docs.docker.com/engine/reference/commandline/logs/): `docker logs -f <container_name>` or `docker container logs -f <container_name>`
+[Remove](https://docs.docker.com/reference/cli/docker/container/rm/) a stopped container: `docker rm <container>` or `docker container rm <container>`
+
+Remove all containers: `docker rm $(docker ps -a -q)`
+
+[Execute](https://docs.docker.com/reference/cli/docker/container/exec/) a command in a running container:
+
+```shell
+docker exec <container> <command>
+docker container exec <container> <command>
+
+# Open a shell inside a running container
+docker exec -it <container> sh
+# Run 'exit' to quit
+```
+
+Display container [logs](https://docs.docker.com/reference/cli/docker/container/logs/):
+
+```shell
+docker logs -f <container>
+docker container logs -f <container>
+```
+
+### Registry
+
+Docker Hub, ECR, Azure Container Registry etc.
+
+[See this tutorial](https://www.youtube.com/watch?v=iqqDU2crIEQ)
+
+[Login](https://docs.docker.com/reference/cli/docker/login/) (authenticate) to a registry:
+
+```shell
+docker login --username <username> --password-stdin <registry-url>
+```
+
+[Pull](https://docs.docker.com/reference/cli/docker/image/pull/) image from registry: `docker pull alpine:latest`
+
+[Tag](https://docs.docker.com/reference/cli/docker/image/tag/) an image:
+
+```shell
+docker tag <image> <registry-url>/<image-name>:<version>
+
+# ECR
+docker tag <image> <account_id>.dkr.ecr.<region>.amazonaws.com/<repository>:<version>
+
+# Azure
+docker tag <image> <repository>.azurecr.io/<image>:<version>
+```
+
+[Push](https://docs.docker.com/reference/cli/docker/image/push/) image to registry:
+
+- If we are logged in Docker Desktop: `docker push <repo-name>:<tag-name>`
+- If we are not logged in Docker Desktop: `docker push <DockerHub-username>/<repo-name>:<tag-name>`
 
 ### Dockerfile workflow
 
-On a directory with a `Dockerfile` run:
+On a directory with a `Dockerfile`, run:
 
-- Build: `docker build --tag <imagename> .`
+- Build: `docker build --tag <image-name> .`
   - Doing `docker images` (or `docker image ls`) should show the image now
 - Run: `docker run <image-name> [-rm]`
   - Doing `docker ps` (if running) or `docker ps -a` (if stopped) should show the container and it's ID, name etc.
-- Stop container: `docker container stop <container-id>` and `docker container rm <container-id>`
+- Stop container: `docker container stop <container>` and `docker container rm <container>`
   - Afterwards use `docker start <container-id>` or `docker start <container-name>` to start it again
 - Delete image: `docker image rm <image-id>` (get the id with `docker images` or `docker image ls`)
 
@@ -307,11 +421,18 @@ docker-compose down
 
 https://docs.docker.com/config/pruning
 
-`docker system prune` → prune everything except volumes
+https://docs.docker.com/engine/manage-resources/pruning
+
+https://docs.docker.com/reference/cli/docker/system/prune/
+
+```shell
+docker system prune # prune everything except volumes
+docker system prune --volumes --all
+```
 
 Remove dangling images (images with `<none>` in `docker image ls`):
 
-- `docker image prune [-a]` - https://docs.docker.com/engine/reference/commandline/image_prune/
+- `docker image prune [-a]` - https://docs.docker.com/reference/cli/docker/image/prune/
 - `docker images -q --filter "dangling=true" | xargs docker rmi` - from https://dockerlabs.collabnix.com/beginners/components/container-vs-image.html
 
 https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
@@ -414,6 +535,8 @@ https://hub.docker.com/_/scratch
 
 ## Multi-stage builds
 
+Optimize images of compiled languages (C, C++, Go, Rust...).
+
 https://docs.docker.com/build/building/multi-stage/
 
 Example: https://github.com/victorgrubio/blog-projects/blob/main/react-nginx-dockerization/frontend/Dockerfile - https://mentorcruise.com/blog/how-to-dockerize-a-react-app-and-deploy-it-easily/
@@ -423,6 +546,8 @@ Example: https://github.com/victorgrubio/blog-projects/blob/main/react-nginx-doc
 Containers are started and stopped as required (ie they have a lifecycle). Volumes provide persistent data storage to containers, independent of its lifecycle. Volumes can be shared with many containers. They avoid increasing the container size.
 
 ## docker-compose
+
+https://docs.docker.com/compose
 
 Commands: https://docs.docker.com/compose/reference
 
@@ -471,3 +596,48 @@ Docker.raw (macOS):
 
 - https://apple.stackexchange.com/questions/391377/what-is-the-purpose-of-docker-raw-file-on-mac-os-catalina
 - Location of Docker.raw in macOS: ~/Library/Containers/com.docker.docker/Data/vms/0/ - see https://www.freecodecamp.org/news/where-are-docker-images-stored-docker-container-paths-explained/
+
+From "Known issues" https://docs.docker.com/desktop/troubleshoot-and-support/troubleshoot/known-issues:
+
+> Some command line tools do not work when Rosetta 2 is not installed.
+>
+> - The old version 1.x of `docker-compose`. Use Compose V2 instead - type `docker compose`.
+>
+> We recommend running arm64 containers on Apple silicon machines whenever possible.
+
+## Docker Desktop alternatives
+
+Docker Desktop provides (see [What's included in Docker Desktop](https://docs.docker.com/desktop/) and [10 Docker Myths Debunked](https://www.docker.com/blog/docker-myths-debunked/)):
+
+- Docker daemon (`dockerd`), Docker client (the `docker` CLI), Docker Compose, Docker Build (BuildKit)...
+- [Hyperkit](https://github.com/moby/hyperkit) hypervisor on macOS
+- Developer tools like Docker Scout, Docker Debug...
+- Kubernetes
+- Kubernetes CLI (`kubectl`)
+
+https://arnon.me/2021/09/replace-docker-with-minikube
+
+https://medium.com/rahasak/replace-docker-desktop-with-minikube-and-hyperkit-on-macos-783ce4fb39e3
+
+https://medium.com/rahasak/switching-from-docker-desktop-to-podman-on-macos-m1-m2-arm64-cpu-7752c02453ec
+
+> Unlike Docker, Podman uses the Linux kernel’s containerization features, which means that it does not require a separate daemon process to be running in the background. This can result in improved performance and reduced resource consumption.
+
+See [How is Podman different from Docker?](https://stackoverflow.com/questions/70798261/how-is-podman-different-from-docker)
+
+https://itnext.io/goodbye-docker-desktop-hello-minikube-3649f2a1c469
+
+https://www.bytebase.com/blog/top-docker-desktop-alternatives/
+
+https://orbstack.dev
+
+- VS Docker Desktop: https://docs.orbstack.dev/compare/docker-desktop
+- VS Colima: https://docs.orbstack.dev/compare/colima
+
+https://podman-desktop.io
+
+https://rancherdesktop.io
+
+https://github.com/abiosoft/colima - CLI only, not GUI
+
+A Docker CLI alternative can be installed with `brew install podman`.
