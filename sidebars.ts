@@ -159,6 +159,16 @@ const sidebars: SidebarsConfig = {
       ],
     },
   ],
+  databases: [
+    'databases/databases',
+    'databases/sql',
+    'databases/relational-db-design',
+    'databases/postgresql',
+    'databases/mysql',
+    'databases/mongodb',
+    'databases/redis',
+    'databases/dynamodb',
+  ],
   http: [
     'http/http',
     'http/https',
@@ -202,16 +212,6 @@ const sidebars: SidebarsConfig = {
     'css/gradient',
     'css/dark-mode',
     'css/cascade-layers',
-  ],
-  databases: [
-    'databases/databases',
-    'databases/sql',
-    'databases/relational-db-design',
-    'databases/postgresql',
-    'databases/mysql',
-    'databases/mongodb',
-    'databases/redis',
-    'databases/dynamodb',
   ],
   python: ['python/python', 'python/tools'],
   auth: [
