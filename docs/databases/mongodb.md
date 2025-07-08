@@ -31,7 +31,7 @@ Or, if you don't want/need a background service you can just run:
 
 With Brew:
 
-```
+```shell
 brew services start mongodb/brew/mongodb-community
 brew services stop mongodb/brew/mongodb-community
 brew services list
@@ -53,6 +53,12 @@ https://docs.mongodb.com/mongodb-shell/install/
 
 (Note that it comes with the Homebrew installation, no need to install it separately - [source](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/#installing-mongodb-5.0-edition-edition).)
 
+Connect to a container and use `mongosh`:
+
+```shell
+docker exec -it <container> mongosh
+```
+
 ### Shell commands
 
 Reference: https://www.mongodb.com/docs/mongodb-shell/reference/methods/
@@ -67,13 +73,17 @@ Reference: https://www.mongodb.com/docs/mongodb-shell/reference/methods/
 
 `show collections`
 
-`db.users.insert({...})`
+`db.users.insert({...})`: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite
+
+`db.users.insertOne({ _id: ObjectId("5d9e690ad76fe06a3d7ae416"), email : "a@b.c" })`
 
 `db.users.update({...}, {...})`: updates matching docs with the 2nd parameter values
 
 `db.users.delete({...})`: removes matching docs
 
-`db.users.deleteMany({})`
+`db.users.deleteMany({})`: removes _all_ documents in the users collection
+
+Note that Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite
 
 `db.users.find()`: returns array
 

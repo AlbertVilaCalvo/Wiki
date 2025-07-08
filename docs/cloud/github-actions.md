@@ -457,7 +457,7 @@ https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-arti
         with:
           node-version: 16
       - name: Install dependencies
-        run: npm ci --no-fund
+        run: npm ci --no-fund --omit=dev
       - name: Build
         run: npm run build
       - name: Upload build artifacts

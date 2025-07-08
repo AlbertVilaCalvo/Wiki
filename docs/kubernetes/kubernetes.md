@@ -4,9 +4,13 @@ title: Kubernetes
 
 https://kubernetes.io
 
-Distributed operating system.
+Distributed operating system. Universal computing platform.
 
 Docs - https://kubernetes.io/docs/home/
+
+https://github.com/kubernetes
+
+https://github.com/kubernetes-sigs
 
 https://github.com/kelseyhightower/kubernetes-the-hard-way
 
@@ -15,8 +19,6 @@ https://github.com/dennyzhang/cheatsheet-kubernetes-A4
 https://github.com/ramitsurana/awesome-kubernetes
 
 OWASP Kubernetes Top 10 - https://github.com/OWASP/www-project-kubernetes-top-ten
-
-https://github.com/kubernetes-sigs
 
 Deploy a Production Ready Kubernetes Cluster - https://github.com/kubernetes-sigs/kubespray - https://kubespray.io
 

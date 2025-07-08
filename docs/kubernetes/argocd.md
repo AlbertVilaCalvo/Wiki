@@ -6,6 +6,8 @@ https://argoproj.github.io/cd/
 
 https://akuity.io
 
+https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gitops-aks/gitops-blueprint-aks - See scenarios 3 and 4
+
 ## Learn
 
 https://developers.redhat.com/courses/gitops/getting-started-argocd-and-openshift-gitops-operator

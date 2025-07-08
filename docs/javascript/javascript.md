@@ -191,6 +191,10 @@ const user = {
 }
 ```
 
+## Classes
+
+https://webreflection.medium.com/js-classes-are-not-just-syntactic-sugar-28690fedf078
+
 ## Error
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error

@@ -2,6 +2,8 @@
 title: Architecture
 ---
 
+https://c4model.com
+
 https://bytebytego.com - https://highscalability.com
 
 https://github.com/donnemartin/system-design-primer
@@ -46,18 +48,31 @@ When designing an asynchronous process, it’s important to keep track of the pr
 
 Sync:
 
-- Easy to communicate the end result (success or error) to the user.
+- Easy to communicate the end result (success or error) to the receiver, and therefore to the end user.
+- Messages are _pushed_ (by the sender to the receiver).
+- The sender knows the receiver.
+- The message is handled immediately.
+- The receiver needs to respond, but if it doesn't the sender will know.
+- The receiver returns a direct response to the sender.
+- Direct coupling.
 
 Async:
 
 - Fire and forget.
+- Messages are stored in a queue (a middleman).
+- Messages are _pulled_ by the receiver.
+- Both the sender and the receiver don't know each other.
+- Because the receiver doesn't know the sender, it can't send a direct reply.
+- Messages are not handled immediately. The consumer processes messages as its own pace.
 - More resilient: if the consumer of the event is down, we can buffer the events in a queue and continue later.
 - Complex to build and debug.
+- Communication between services is not obvious.
 - Error handling is difficult.
 - Transactions are difficult.
 - Highly decoupled systems.
 - Performance hit due to communication, work done in multiple services etc.
 - High performance and scalability.
+- Respond with HTTP status code 202 Accepted.
 
 ## Atomic vs Eventual consistency
 

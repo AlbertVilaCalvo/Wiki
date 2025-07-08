@@ -72,9 +72,9 @@ https://stackoverflow.com/questions/66020820/npm-when-to-use-force-and-legacy-pe
 
 ### `npm ci` (clean install)
 
-Better use `npm ci --no-audit --no-fund`
+Better use `npm ci --no-audit --no-fund`. Also add `--omit=dev` if `NODE_ENV` is not 'production'
 
-- Docs: https://docs.npmjs.com/cli/v8/commands/npm-ci
+- Docs: https://docs.npmjs.com/cli/v11/commands/npm-ci
 - Use it when you want to make sure you're doing a clean install of your dependencies
 - It's deterministic - it always creates the same `node_modules` or it throws an error
 - Uses the exact package versions listed in `package-lock.json`. In contrast, `npm install` can install different versions of a package if you use version ranges (`^` or `~`) in `package.json`

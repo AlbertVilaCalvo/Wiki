@@ -92,13 +92,23 @@ https://www.geeksforgeeks.org/high-availability-vs-fault-tolerance-vs-disaster-r
 
 ## Diagrams
 
+https://c4model.com/diagrams
+
 Mermaid architecture diagrams - https://mermaid.js.org/syntax/architecture
 
-https://diagrams.mingrammer.com
+https://github.com/excalidraw/mermaid-to-excalidraw
+
+https://diagrams.mingrammer.com - https://github.com/mingrammer/diagrams
 
 https://app.diagrams.net - https://www.drawio.com
 
 https://www.cloudcraft.co
+
+https://www.ilograph.com
+
+https://github.com/stan-smith/FossFLOW - Uses https://github.com/markmanx/isoflow
+
+https://isoflow.io - They offer it as an open source library: https://github.com/markmanx/isoflow
 
 https://cloudairy.com - Easy to use and also allows animated gif export - [see example here](https://www.linkedin.com/posts/amir-malaeb_aws-cloudformation-wordpress-activity-7247376508095188994-AnML/)
 

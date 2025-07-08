@@ -12,6 +12,10 @@ https://github.com/bregman-arie/devops-exercises/blob/master/topics/dns/README.m
 
 https://dnsimple.com
 
+https://www.nslookup.io - Find all DNS records for a domain name
+
+https://www.nslookup.io/dns-course - The DNS course for developers
+
 https://github.com/mr-karan/doggo - https://doggo.mrkaran.dev/docs/ - https://news.ycombinator.com/item?id=40847699
 
 (unmaintained) https://github.com/ogham/dog - https://dns.lookup.dog/

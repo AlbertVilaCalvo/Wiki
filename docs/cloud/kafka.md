@@ -43,3 +43,9 @@ https://developers.redhat.com/learn/apache-kafka
 https://developers.redhat.com/devnation/event-driven-architecture
 
 https://university.redpanda.com
+
+## Queues
+
+https://cwiki.apache.org/confluence/display/KAFKA/KIP-932%3A+Queues+for+Kafka
+
+https://news.ycombinator.com/item?id=37677341
