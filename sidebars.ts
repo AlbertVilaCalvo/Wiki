@@ -28,6 +28,7 @@ const sidebars: SidebarsConfig = {
     'dev/ai-tools',
     'dev/github-copilot',
     'dev/testing',
+    'dev/clean-code',
     'dev/node',
     'dev/express',
     'dev/react',
