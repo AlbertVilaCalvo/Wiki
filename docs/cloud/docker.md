@@ -44,6 +44,8 @@ https://depot.dev
 
 https://github.com/jesseduffield/lazydocker
 
+https://github.com/dwmkerr/wait-port
+
 https://github.com/wagoodman/dive
 
 https://github.com/containrrr/watchtower
@@ -179,6 +181,12 @@ From https://docs.docker.com/get-started/docker_cheatsheet.pdf
 1. Build image (package the app following the instructions in the `Dockerfile`).
 2. Publish image to a registry.
 3. Run image (run the app in a container).
+
+:::
+
+:::tip Docker Compose Workflow
+
+**docker-compose.yaml ——`docker compose up --build`——> Application containers running ——`docker compose down --volumes`——> Container**
 
 :::
 
@@ -372,18 +380,19 @@ On a directory with a `Dockerfile`, run:
   - Afterwards use `docker start <container-id>` or `docker start <container-name>` to start it again
 - Delete image: `docker image rm <image-id>` (get the id with `docker images` or `docker image ls`)
 
-### docker-compose workflow
+### Docker Compose workflow
 
 docker-compose up, down, stop and start difference - https://stackoverflow.com/questions/46428420/docker-compose-up-down-stop-start-difference
 
-Start with [up](https://docs.docker.com/engine/reference/commandline/compose_up/):
+[Up](https://docs.docker.com/reference/cli/docker/compose/up/) - Create and start containers:
 
 ```shell
-docker-compose up -d
-docker-compose -f docker-compose.yml up
+docker compose up
+docker compose up --build
+docker compose up -d # Detached mode
 ```
 
-Connect to a container (use `docker ps` to get the name or id):
+Connect to a container (use `docker compose ps` to get the name or id):
 
 ```shell
 docker exec -it <container-id> /bin/sh
@@ -397,24 +406,34 @@ docker exec -it <container-id> bash
 docker exec -it <container-name> bash
 ```
 
-To exit run `exit`.
+To quit run `exit`.
 
-[Stop](https://docs.docker.com/engine/reference/commandline/compose_stop/) services:
+[Stop](https://docs.docker.com/reference/cli/docker/compose/stop/) services:
 
 ```shell
-docker-compose stop
+docker compose stop
 ```
 
-Shut [down](https://docs.docker.com/engine/reference/commandline/compose_down/):
+Note that `stop` doesn't remove the containers. Use `down` to stop and remove them. Use `stop` to inspect the containers.
 
-:::danger Can delete volumes
-
-Stops containers and removes containers, networks, volumes, and images created by `up`.
-
-:::
+[Down](https://docs.docker.com/reference/cli/docker/compose/down/) - Stop and remove containers, networks:
 
 ```shell
-docker-compose down
+docker compose down
+docker compose down --volumes
+```
+
+Reload app:
+
+```shell
+docker compose down --volumes && docker compose up --build
+```
+
+We can also reload a specific service when we update its code:
+
+```shell
+docker compose build <service>
+docker compose restart <service>
 ```
 
 ### Pruning
@@ -545,11 +564,11 @@ Example: https://github.com/victorgrubio/blog-projects/blob/main/react-nginx-doc
 
 Containers are started and stopped as required (ie they have a lifecycle). Volumes provide persistent data storage to containers, independent of its lifecycle. Volumes can be shared with many containers. They avoid increasing the container size.
 
-## docker-compose
+## Docker Compose
 
 https://docs.docker.com/compose
 
-Commands: https://docs.docker.com/compose/reference
+Commands: https://docs.docker.com/reference/cli/docker/compose/
 
 Samples: https://github.com/docker/awesome-compose
 
@@ -557,7 +576,7 @@ Cheatsheet: https://collabnix.com/docker-compose-cheatsheet
 
 Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose
 
-Docker Compose best practices for dev and prod: https://news.ycombinator.com/item?id=32484008 / https://prod.releasehub.com/blog/6-docker-compose-best-practices-for-dev-and-prod
+6 Docker Compose Best Practices for Dev and Prod - https://news.ycombinator.com/item?id=32484008 - https://release.com/blog/6-docker-compose-best-practices-for-dev-and-prod
 
 Example from https://www.youtube.com/watch?v=iqqDU2crIEQ
 
