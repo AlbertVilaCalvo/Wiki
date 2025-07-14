@@ -4,9 +4,13 @@ title: Kubernetes
 
 https://kubernetes.io
 
-Distributed operating system. Universal computing platform.
-
 Docs - https://kubernetes.io/docs/home/
+
+Definitions:
+
+- Distributed operating system.
+- Operating system for distributed computing.
+- Universal computing platform.
 
 https://github.com/kubernetes
 
@@ -186,13 +190,17 @@ Fields:
 
 Allows you to interact with the cluster, eg to get the status of nodes, pods, and services.
 
-Docs: https://kubectl.docs.kubernetes.io
+Docs:
 
-Overview: https://kubernetes.io/docs/reference/kubectl/overview/
+- https://kubectl.docs.kubernetes.io
+- https://kubernetes.io/docs/reference/kubectl/
 
-Quick Reference: https://kubernetes.io/docs/reference/kubectl/quick-reference/
+Reference:
 
-Explain: `kubectl explain pod.spec.restartPolicy` [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
+- https://kubernetes.io/docs/reference/kubectl/generated/
+- https://kubernetes.io/docs/reference/kubectl/quick-reference/
+- https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+- https://kubectl.docs.kubernetes.io/references/kubectl/
 
 Change the editor:
 
@@ -200,29 +208,103 @@ Change the editor:
 export KUBE_EDITOR="vim"
 ```
 
-List shortnames: `kubectl api-resources`
+`kubectl --help` (or just `kubectl`) → List commands
+
+`kubectl get --help` → Help for a command
+
+`kubectl options` → List global command-line options that apply to all commands
+
+`kubectl api-resources` → List shortnames. Also available at https://kubernetes.io/docs/reference/kubectl/#resource-types
+
+`kubectl explain pod.spec.restartPolicy` → Get documentation for a resource - [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
 
 `kubectl version`
 
+### Config
+
+- Cluster: a connection endpoint for Kubernetes API of a cluster.
+- User: credentials for connecting to cluster.
+- Context: a cluster, a user and a namespace.
+
+[source](https://stackoverflow.com/questions/56299440/kubectl-context-vs-cluster)
+
+`kubectl config view`
+
+`kubectl config get-clusters`
+
+`kubectl config get-contexts`
+
+`kubectl config current-context` → What cluster we are connected to. Prints "minikube" or "error: current-context is not set" if we are not connected to a cluster
+
+`kubectl config use-context <context>` → Connect to a cluster, eg a local cluster like `minikube` or `docker-desktop`
+
 `kubectl cluster-info`
+
+`kubectl cluster-info dump` → Check whether the cluster is configured properly
+
+### Get
 
 `kubectl get nodes`
 
 `kubectl get pods`
 
-`kubectl get pods <pod-name>`
+`kubectl get services`
 
-`kubectl get pod <pod-name> -n <ns>`
+`kubectl get deployments` → Verify the deployment
 
-`kubectl get pods -o wide -n <ns>` → Get the IP
+`kubectl get events`
+
+`kubectl get ds`
 
 `kubectl get deployment,rs,pods`
 
+`kubectl get all` → List all
+
+`kubectl get all -A` → List all of all namespaces
+
+`kubectl get <resource-type> <resource-name>`
+
+`kubectl get pod <pod-name> -n <namespace>`
+
+`kubectl get pods <pod-name>`
+
+`kubectl get pods -n <namespace>`
+
+`kubectl get pods -n kube-system` → List system pods (hidden by default)
+
+`kubectl get pods -o wide -n <namespace>` → Get the IP
+
+### Apply
+
+`kubectl apply -f deployment.yaml`
+
+`kubectl apply -f <directory>`
+
+### Delete
+
+`kubectl delete -f deployment.yaml`
+
 `kubectl delete pod <pod-name> --now`
+
+### Describe
+
+`kubectl describe <resource-type> <resource-name>`
 
 `kubectl describe node <node-name>`
 
+`kubectl describe pod <pod-name>`
+
+`kubectl describe services` → Show cluster services information
+
+### Run
+
 `kubectl run my-nginx --image=nginx:1.19.2 --port 80` - Similar to `docker run --name my-nginx -p 80 nginx:1.19.2`
+
+### Logs
+
+`kubectl logs <pod-name>`
+
+`kubectl logs --previous <pod-name>`
 
 ### Namespace
 
@@ -238,12 +320,6 @@ kubectl create ns h92
 
 `kubectl delete namespace <namespace>`
 
-List all namespaces and pods: `kubectl get all -A`
-
-Show cluster services: `kubectl describe services`
-
-Verify the deployment: `kubectl get deployments`
-
 Show all events: `kubectl get events -w`
 
 Show component status (deprecated in 1.19): `kubectl get componentstatuses`
@@ -253,6 +329,13 @@ Check the rollout status: `kubectl rollout status deployment/simple-flask-deploy
 Get external IP address: `kubectl get services <service-name> -o wide`
 
 Shell into a container: `kubectl exec mypod -it --namespace=mynamespace -- /bin/sh`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`
+
+### kubectl plugins
+
+Plugin manager - https://krew.sigs.k8s.io - https://github.com/kubernetes-sigs/krew
+
+- https://github.com/ahmetb/kubectx
+- https://github.com/ahmetb/kubectl-tree
 
 ## Tools
 
@@ -265,6 +348,8 @@ Lens (GUI) - https://k8slens.dev - https://www.mirantis.com/blog/getting-started
 Secrets management - https://external-secrets.io/latest
 
 TLS certificates management - https://cert-manager.io
+
+https://github.com/stern/stern - Logs
 
 ## Learn
 
