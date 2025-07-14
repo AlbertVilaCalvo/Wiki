@@ -88,6 +88,7 @@ const sidebars: SidebarsConfig = {
     'kubernetes/kubernetes',
     'kubernetes/minikube',
     'kubernetes/argocd',
+    'kubernetes/certifications',
   ],
   aws: [
     'aws/aws',
