@@ -84,7 +84,11 @@ const sidebars: SidebarsConfig = {
     'cloud/azure',
     'cloud/heroku',
   ],
-  kubernetes: ['kubernetes/kubernetes', 'kubernetes/argocd'],
+  kubernetes: [
+    'kubernetes/kubernetes',
+    'kubernetes/minikube',
+    'kubernetes/argocd',
+  ],
   aws: [
     'aws/aws',
     'aws/billing-pricing',
