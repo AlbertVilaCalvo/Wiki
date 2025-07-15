@@ -45,7 +45,7 @@ They recommend:
 - `ANDROID_HOME/tools/bin` → `avdmanager`, `apkanalyzer`
 - `ANDROID_HOME/platform-tools` → `adb`
 
-```zsh
+```shell
 export ANDROID_HOME=$HOME/Library/Android/sdk
 path+=("$ANDROID_HOME/emulator")
 path+=("$ANDROID_HOME/platform-tools")
@@ -55,11 +55,17 @@ path+=("$ANDROID_HOME/platform-tools")
 
 From https://runningcode.github.io/gradle-doctor/ - Ensure `JAVA_HOME` is set and matches IDE's `JAVA_HOME`
 
-```zsh
+```shell
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ```
 
-With this, doing `java --version` should say "openjdk 17.0.7 2023-04-18".
+With this, doing `java --version` should say:
+
+```
+openjdk 21.0.6 2025-01-21
+OpenJDK Runtime Environment (build 21.0.6+-13391695-b895.109)
+OpenJDK 64-Bit Server VM (build 21.0.6+-13391695-b895.109, mixed mode)
+```
 
 ### `ANDROID_SDK_ROOT` is deprecated, use `ANDROID_HOME`
 

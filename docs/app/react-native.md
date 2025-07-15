@@ -17,7 +17,7 @@ Clean Project: https://github.com/pmadruga/react-native-clean-project
 Rename app, package name or bundle id: https://github.com/junedomingo/react-native-rename
 
 :::info
-On Android negative margin is not supported [source](https://reactnative.dev/docs/style)
+On Android negative margin is not supported. [source](https://reactnative.dev/docs/style)
 :::
 
 ## Sample code
@@ -30,12 +30,6 @@ https://github.com/expo/react-conf-app
 Use `npx react-native doctor` to check if you have everything properly setup [docs](https://github.com/react-native-community/cli/blob/main/packages/cli-doctor/README.md#doctor)
 :::
 
-To develop with Expo we only need watchman, Xcode, the Command Line Tools and Android Studio. To develop normal React Native apps we need Ruby, Cocoapods etc.
-
-Installing a Java JDK and setting `$JAVA_HOME` is only necessary if we want to re-use the same daemon between Android Studio and the terminal.
-
-_Important: this instructions are not complete yet, it's for Expo development, and they need to be expanded to work on normal React Native apps._
-
 Resources:
 
 - https://reactnative.dev/docs/environment-setup
@@ -43,23 +37,38 @@ Resources:
 - Android: https://docs.expo.dev/workflow/android-studio-emulator
 - https://developer.android.com/studio/command-line/variables#envar → Important: "ANDROID_SDK_ROOT, which also points to the SDK installation directory, is deprecated"
 
+To develop with Expo we only need watchman, Xcode, the Command Line Tools and Android Studio. To develop normal React Native apps we need Ruby, CocoaPods etc.
+
 ### Common
 
-On macOS and Linus (not Windows), install watchman. On macOS run `brew install watchman`. See https://facebook.github.io/watchman/docs/install.html for more about how to install it.
-
-If developing with Expo, install the CLI: `npm install --global expo-cli`. This is how I have it installed on my MBP 2016.
+On macOS and Linux (not Windows), you need watchman. To install it on macOS run `brew install watchman`. See https://facebook.github.io/watchman/docs/install.html for more about how to install it.
 
 ### iOS
 
-You need Xcode to have simulators and open Xcode projects. Install it with the App Store either by [clicking this link](https://apps.apple.com/us/app/xcode/id497799835) or searching 'xcode' on the Store.
+You need Xcode to have simulators and open Xcode projects. Install it using the App Store, either by [clicking this link](https://apps.apple.com/us/app/xcode/id497799835) or searching 'xcode'. (You can also download it from https://developer.apple.com/download/all/). After installing Xcode, open it. The first time you need to accept the license and choose which components you want to develop for (macOS, iOS, watchOS, tvOS and visionOS). macOS is selected and you can't de-select it. Select iOS to get the iOS simulators. The iOS download is about 9 GB.
 
-Install the Command Line Tools. At Xcode, go to Settings → Locations and select a version at the 'Command Line Tools' dropdown.
+You also need the Command Line Tools. It's likely that you already have them installed, since when you install iTerm2 it installs the Command Line Tools.
+To check if you already have the Command Line Tools run `xcode-select --version` or `xcode-select -p`. (See all the options with `xcode-select --help`.) There are various ways to install them:
+
+- Run `xcode-select --install`.
+- At Xcode, go to Settings → Locations and select a version at the 'Command Line Tools' dropdown.
+
+Install CocoaPods: `gem install cocoapods`. See https://guides.cocoapods.org/using/getting-started.html#installation. Do not use the macOS system ruby (2.6.10) because it doesn't work, you get a lot of this errors: "The last version of securerandom (>= 0.3) to support your Ruby & RubyGems was 0.3.2. Try installing it with `gem install securerandom -v 0.3.2` and then running the current command again". You need to use a newer ruby version.
+
+You should be able to run `npx react-native run-ios` now. You may need to run `cd ios && bundle exec pod install` to install the `Podfile` dependencies of the app.
 
 ### Android
 
-You need Android Studio to have emulators, adb etc. Install it by downloading it from https://developer.android.com/studio. Make sure to pick the right CPU architecture (Intel/ARM) since there are 2 download buttons.
+You need Android Studio to have emulators, adb etc. Install it by downloading it from https://developer.android.com/studio. Make sure to pick the right CPU architecture (Intel/ARM) since there are 2 download buttons. It should install:
 
-You need to have the environment variable `$ANDROID_HOME` set, pointing to the sdk location (usually `~/Library/Android/sdk`). You also need to have `$ANDROID_HOME/emulator` and `$ANDROID_HOME/platform-tools` on your `$PATH` in order to have access to `adb` and `emulator` from the command line.
+- Android Emulator
+- Sources (eg for Android 36)
+- SDK Build-Tools (eg 36)
+- SDK Platform (eg 36)
+- SDK Platform-Tools
+- Google Play ARM 64 v8a System Image
+
+You need to have the environment variable `$ANDROID_HOME` set, pointing to the SDK location (`~/Library/Android/sdk` by default; you can check the value at the SDM Manager). You also need to have `$ANDROID_HOME/emulator` and `$ANDROID_HOME/platform-tools` on your `$PATH` in order to have access to `adb` and `emulator` from the command line.
 
 Add following to the `.zshrc`:
 
@@ -71,17 +80,35 @@ path+=("$ANDROID_HOME/platform-tools")
 
 Check if the environment variable is set with `echo $ANDROID_HOME`. And check that `adb` and `emulator` are on the `$PATH` with `which adb` and `which emulator`.
 
+You also need to set `JAVA_HOME`, otherwise you get this error when running `npx react-native run-android`:
+
+```
+error Failed to install the app. Command failed with exit code 1: ./gradlew app:installDebug -PreactNativeDevServerPort=8081
+The operation couldn’t be completed. Unable to locate a Java Runtime.
+Please visit http://www.java.com for information on installing Java.
+```
+
+See instructions to set `JAVA_HOME` [here](/app/android#java_home).
+
+You should be able to run `npx react-native run-android` now.
+
 ## CLI
 
 https://github.com/react-native-community/cli
 
 Commands: https://github.com/react-native-community/cli/blob/main/docs/commands.md
 
+Do not install `react-native-cli` as a global package, use `npx @react-native-community/cli@latest` instead. At [Get Started Without a Framework](https://reactnative.dev/docs/getting-started-without-a-framework) it says:
+
+> If you previously installed a global `react-native-cli` package, please remove it as it may cause unexpected issues: `npm uninstall -g react-native-cli @react-native-community/cli`.
+
 ### Create app
 
 ```shell
 npx @react-native-community/cli@latest init MyApp
 ```
+
+See [Get Started Without a Framework](https://reactnative.dev/docs/getting-started-without-a-framework).
 
 In the past it was `npx react-native@latest init MyApp`. See "Sunsetting `react-native init`" at https://reactnative.dev/blog/2024/08/12/release-0.75#sunsetting-react-native-init
 
