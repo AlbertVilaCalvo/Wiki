@@ -43,6 +43,7 @@ const sidebars: SidebarsConfig = {
     'dev/emacs',
     'dev/go',
     'dev/php',
+    'dev/ruby',
     'dev/cryptography',
     'dev/email',
     'dev/date-time',
