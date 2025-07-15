@@ -46,8 +46,9 @@ If you want to make a process asynchronous, you must manage the way the process 
 When designing an asynchronous process, it’s important to keep track of the process. You need some kind of identifier for it. (AWS in Action p. 441.)
 :::
 
-Sync:
+Sync (request/response):
 
+- Usually done with REST over HTTP or RPC.
 - Easy to communicate the end result (success or error) to the receiver, and therefore to the end user.
 - Messages are _pushed_ (by the sender to the receiver).
 - The sender knows the receiver.
@@ -56,10 +57,10 @@ Sync:
 - The receiver returns a direct response to the sender.
 - Direct coupling.
 
-Async:
+Async (event-driven):
 
 - Fire and forget.
-- Messages are stored in a queue (a middleman).
+- Messages are stored in a queue or a stream (a middleman).
 - Messages are _pulled_ by the receiver.
 - Both the sender and the receiver don't know each other.
 - Because the receiver doesn't know the sender, it can't send a direct reply.
@@ -209,6 +210,8 @@ Mark Richards, Neal Ford. See Software Architecture Fundamentals 2nd Edition and
 
 ## Event-driven architecture
 
+An event is a fact that something has happened.
+
 Event-driven microservices demo built with Golang. Nomad, Consul Connect, Vault, and Terraform for deployment - https://github.com/thangchung/go-coffeeshop
 
 https://www.developertoarchitect.com/lessons-eda.html
@@ -226,6 +229,33 @@ https://www.developertoarchitect.com/lessons-microservices.html - Software Archi
 Implementing Microservices on AWS - https://docs.aws.amazon.com/whitepapers/latest/microservices-on-aws/microservices-on-aws.html
 
 How to Use Amazon EventBridge to Build Decoupled, Event-Driven Architectures - https://pages.awscloud.com/AWS-Learning-Path-How-to-Use-Amazon-EventBridge-to-Build-Decoupled-Event-Driven-Architectures_2020_LP_0001-SRV.html - The first video is very good at explaining why and how to decouple services with an event bus (is available [at YouTube](https://www.youtube.com/watch?v=TXh5oU_yo9M) too).
+
+Monolith: a single change requires the whole system to be redeployed. You can build a modular monolith, but you'll do meetings frequently to coordinate releases, because there's no independent deployability. See https://www.youtube.com/watch?v=5OjqD-ow8GE
+
+Independently deployable. This is the most important characteristic of microservices. Benefits:
+
+- No need to coordinate releases.
+- More frequent releases. Makes it easier to deploy new versions and roll back.
+- Reduced downtime when deploying.
+- The scope (amount) of changes deployed tends to be smaller, so there's a lower risk to introduce defects/regressions.
+
+Is a distributed system. Each microservice is a different process.
+
+Boundaries are defined by _business_ domain, not by technical domain. Use DDD to find the boundaries.
+
+Microservices often depend on other microservices. Communication is done via network calls (REST or RPC usually).
+
+We hide the data that a microservice owns inside it. Is like a black box. We don't have direct database access to the data. Hidden (internal) things can change over time without breaking the consumer, shared things can't. This is important for backwards compatibility. Information hiding is key to create boundaries in our system that can be changed independently. Information hiding is key to avoiding a [big ball of mud](http://www.laputan.org/mud/):
+
+> Information is shared promiscuously among distant elements of the system, often to the point where nearly all the important information becomes global or duplicated.
+
+There's no metric (lines of code, number of endpoints) to measure if a services is small or big. Instead of the size, focus on the number of services. The easier is for you to have more services (due to infrastructure setup or devops, for example), the more microservices you'll have, and the smaller they will be.
+
+You usually have multiple copies of a service running, for scaling and/or robustness. Each copy uses a single, shared, private database.
+
+Services can be scaled independently.
+
+Services can use different tech stacks.
 
 Decoupled: when the components can perform tasks independently.
 
