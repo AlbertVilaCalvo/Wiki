@@ -210,6 +210,12 @@ From https://docs.docker.com/get-started/docker_cheatsheet.pdf
 
 ## CLI
 
+Auto-completion and aliases:
+
+- Oh My Zsh plugin for docker - https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/docker/README.md
+- Oh My Zsh plugin for docker compose - https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/docker-compose/README.md
+- Official completion - https://docs.docker.com/engine/cli/completion/
+
 List commands: `docker help`
 
 Command help: `docker <command> --help`, eg `docker run --help`
@@ -327,14 +333,31 @@ docker container exec <container> <command>
 
 # Open a shell inside a running container
 docker exec -it <container> sh
+docker exec -it <container> bash
 # Run 'exit' to quit
 ```
 
 Display container [logs](https://docs.docker.com/reference/cli/docker/container/logs/):
 
 ```shell
+docker logs <container>
 docker logs -f <container>
 docker container logs -f <container>
+```
+
+You can create an image from a running container with [`docker container commit`](https://docs.docker.com/reference/cli/docker/container/commit/). First run an image, modify it, and create a new image incorporating the changes:
+
+```shell
+docker container run -it --name demo ubuntu:22.04 bash
+apt update && apt install -y git
+# ctrl-c or exit
+
+docker container commit demo ubuntu-with-git:1.0.0
+docker image ls ubuntu-with-git # should show the image
+
+docker image inspect ubuntu:22.04
+docker image inspect ubuntu-with-git:1.0.0
+# At the output, notice that the "Parent" ID of ubuntu-with-git is the ID of the ubuntu image
 ```
 
 ### Registry
@@ -346,27 +369,41 @@ Docker Hub, ECR, Azure Container Registry etc.
 [Login](https://docs.docker.com/reference/cli/docker/login/) (authenticate) to a registry:
 
 ```shell
-docker login --username <username> --password-stdin <registry-url>
+docker login <registry-url>
 ```
 
-[Pull](https://docs.docker.com/reference/cli/docker/image/pull/) image from registry: `docker pull alpine:latest`
+```shell
+docker login --username <username> --password-stdin <registry-url>
+```
 
 [Tag](https://docs.docker.com/reference/cli/docker/image/tag/) an image:
 
 ```shell
-docker tag <image> <registry-url>/<image-name>:<version>
+docker tag <image>:<version> <registry-url>/<image>:<version>
 
 # ECR
-docker tag <image> <account_id>.dkr.ecr.<region>.amazonaws.com/<repository>:<version>
+docker tag <image>:<version> <account-id>.dkr.ecr.<region>.amazonaws.com/<repository>:<version>
 
 # Azure
-docker tag <image> <repository>.azurecr.io/<image>:<version>
+docker tag <image>:<version> <registry-name>.azurecr.io/<image>:<version>
 ```
 
 [Push](https://docs.docker.com/reference/cli/docker/image/push/) image to registry:
 
+```shell
+docker push <registry-url>/<image>:<version>
+```
+
+Push to Docker Hub:
+
 - If we are logged in Docker Desktop: `docker push <repo-name>:<tag-name>`
 - If we are not logged in Docker Desktop: `docker push <DockerHub-username>/<repo-name>:<tag-name>`
+
+[Pull](https://docs.docker.com/reference/cli/docker/image/pull/) image from registry:
+
+```shell
+docker pull alpine:latest
+```
 
 ### Dockerfile workflow
 
@@ -550,6 +587,8 @@ https://stackoverflow.com/questions/39597925/how-do-i-set-environment-variables-
 
 No-op.
 
+Used to create a base image. See https://docs.docker.com/build/building/base-images/#create-a-minimal-base-image-using-scratch
+
 https://hub.docker.com/_/scratch
 
 ## Multi-stage builds
@@ -611,6 +650,20 @@ volumes:
 
 https://docs.docker.com/desktop
 
+:::tip
+Install the extension Disk Usage to "optimize your disk space by removing unused objects from Docker Desktop". Click here to open it:
+
+https://open.docker.com/extensions/marketplace?extensionId=docker/disk-usage-extension
+
+Is the most installed extension by far (sort "Most installed").
+:::
+
+:::important
+Before installing Docker Desktop, make sure to install [`kubectl`](https://formulae.brew.sh/formula/kubernetes-cli), otherwise it will install it. See https://github.com/docker/for-mac/issues/6328.
+:::
+
+Install by downloading the dmg from https://www.docker.com/products/docker-desktop/. See https://docs.docker.com/desktop/setup/install/mac-install/. **Do not enable Rosetta** (is not necessary).
+
 Docker.raw (macOS):
 
 - https://apple.stackexchange.com/questions/391377/what-is-the-purpose-of-docker-raw-file-on-mac-os-catalina
@@ -631,8 +684,10 @@ Docker Desktop provides (see [What's included in Docker Desktop](https://docs.do
 - Docker daemon (`dockerd`), Docker client (the `docker` CLI), Docker Compose, Docker Build (BuildKit)...
 - [Hyperkit](https://github.com/moby/hyperkit) hypervisor on macOS
 - Developer tools like Docker Scout, Docker Debug...
-- Kubernetes
-- Kubernetes CLI (`kubectl`)
+- Kubernetes (needs to be enabled). See https://docs.docker.com/desktop/features/kubernetes/
+- Kubernetes CLI (`kubectl`). Installed only if it's not already installed, see https://github.com/docker/for-mac/issues/6328.
+
+You can use minikube as a Docker Desktop replacement, see https://minikube.sigs.k8s.io/docs/tutorials/docker_desktop_replacement/. At [Can I start minikube without Kubernetes running?](https://minikube.sigs.k8s.io/docs/faq/#can-i-start-minikube-without-kubernetes-running) it says "If you want to use minikube only as a Docker Desktop replacement without starting Kubernetes itself, try": `minikube start --container-runtime=docker --no-kubernetes`.
 
 https://arnon.me/2021/09/replace-docker-with-minikube
 
