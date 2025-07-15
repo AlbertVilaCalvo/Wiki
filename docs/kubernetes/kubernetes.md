@@ -256,6 +256,10 @@ export KUBE_EDITOR="vim"
 
 `kubectl get ds`
 
+`kubectl get jobs`
+
+`kubectl get cronjobs`
+
 `kubectl get deployment,rs,pods`
 
 `kubectl get all` → List all
@@ -284,7 +288,7 @@ export KUBE_EDITOR="vim"
 
 `kubectl delete -f deployment.yaml`
 
-`kubectl delete pod <pod-name> --now`
+`kubectl delete pod <pod-name> --now` → Force kill, no graceful deletion
 
 ### Describe
 
@@ -298,19 +302,46 @@ export KUBE_EDITOR="vim"
 
 ### Run
 
+Imperative.
+
 `kubectl run my-nginx --image=nginx:1.19.2 --port 80` - Similar to `docker run --name my-nginx -p 80 nginx:1.19.2`
+
+```shell
+kubectl run hazelcast \
+--image=hazelcast/hazelcast \
+--restart=Never \
+--port=5701 \
+--env="DNS_DOMAIN=cluster" \
+--labels="app=hazelcast,env=prod"
+```
+
+Use `--rm` to delete the pod after it exits:
+
+```shell
+kubectl run busybox --image=busybox --rm -it --restart=Never -- wget 10.1.0.41
+```
+
+Tip to create a yaml file:
+
+```shell
+kubectl run nginx --image=nginx --dry-run=client -o yaml > nginx-pod.yaml
+```
 
 ### Logs
 
 `kubectl logs <pod-name>`
 
-`kubectl logs --previous <pod-name>`
+`kubectl logs -f <pod-name>`
+
+Get logs of the previous container (eg if it crashed):
+
+`kubectl logs --previous <pod-name>` or `kubectl logs -p <pod-name>`
 
 ### Namespace
 
 We can use `ns` instead of `namespace`.
 
-Create:
+Create (imperative):
 
 ```shell
 kubectl create ns h92
@@ -319,6 +350,8 @@ kubectl create ns h92
 `kubectl get namespace <namespace>` or `kubectl get ns <namespace>`
 
 `kubectl delete namespace <namespace>`
+
+### Other
 
 Show all events: `kubectl get events -w`
 
@@ -330,12 +363,30 @@ Get external IP address: `kubectl get services <service-name> -o wide`
 
 Shell into a container: `kubectl exec mypod -it --namespace=mynamespace -- /bin/sh`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`
 
+Run a command in a container: `kubectl exec mypod -- env`
+
 ### kubectl plugins
 
 Plugin manager - https://krew.sigs.k8s.io - https://github.com/kubernetes-sigs/krew
 
 - https://github.com/ahmetb/kubectx
 - https://github.com/ahmetb/kubectl-tree
+
+## Pod
+
+Lifecycle - https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
+
+## Namespace
+
+To group objects and avoid name collisions.
+
+Deleting a namespace deletes all its objects.
+
+## Gateway API
+
+The Gateway API is going to replace the Ingress in the long term.
+
+https://gateway-api.sigs.k8s.io
 
 ## Tools
 
