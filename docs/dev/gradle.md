@@ -36,14 +36,14 @@ Task help: `./gradlew help --task <task>`
 
 Clear Gradle global cache (when clean and 'Invalidate Caches / Restart' don't work):
 
-```
+```shell
 ls ~/.gradle/caches/
 rm -rf ~/.gradle/caches/build-cache-*
 ```
 
 Clear local .gradle folders:
 
-```
+```shell
 find . -type d -name ".gradle"
 find . -type d -name ".gradle" -exec rm -rf {} +
 ```
@@ -52,7 +52,7 @@ find . -type d -name ".gradle" -exec rm -rf {} +
 
 https://github.com/rock3r/deep-clean
 
-```
+```shell
 find . -type d -name "build"
 find . -type d -name "build" -exec rm -rf {} +
 
@@ -77,7 +77,7 @@ You can do `./gradlew --profile` or `./gradlew clean build --profile`. On Androi
 
 Examples:
 
-```
+```shell
 ./gradlew --profile --offline --rerun-tasks assembleDebug
 ./gradlew --profile --offline --rerun-tasks --max-workers=4 assembleDebug
 ```
