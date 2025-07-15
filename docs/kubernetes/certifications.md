@@ -11,6 +11,10 @@ _Do not pay the full price of the exam, there are always discounts at the Linux 
 
 When you pay for the exam you get to _two_ attempts.
 
+## Tips
+
+Delete objects using the `--now` flag to avoid having to unnecessarily wait for the grace period to end.
+
 ## KCNA - Kubernetes and Cloud Native Associate
 
 https://www.cncf.io/training/certification/kcna/

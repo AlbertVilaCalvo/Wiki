@@ -8,6 +8,8 @@ VSCode extension - https://marketplace.visualstudio.com/items?itemName=GitHub.co
 
 VSCode extension docs - https://code.visualstudio.com/docs/copilot/overview
 
+GitHub Copilot in VS Code playlist - https://www.youtube.com/playlist?list=PLj6YeMhvp2S7rQaCLRrMnzRdkNdKnMVwg
+
 ## copilot-debug
 
 From https://code.visualstudio.com/updates/v1_96#_debugging-with-copilot

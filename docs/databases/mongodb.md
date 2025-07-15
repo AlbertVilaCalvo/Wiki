@@ -90,3 +90,9 @@ Note that Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneA
 `db.users.find({_id: ObjectId("62ceb24066844a5c4de433f5")})`: returns array
 
 `db.users.findOne({_id: ObjectId("62ceb24066844a5c4de433f5")})`: returns single item
+
+## Schema design
+
+https://learn.mongodb.com/courses/schema-design-patterns-and-antipatterns
+
+https://learn.mongodb.com/courses/relational-to-document-model

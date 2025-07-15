@@ -73,6 +73,10 @@ On your `.zshrc` or `.bash_profile` put:
 alias l='ls -la'
 ```
 
+## arch
+
+Prints the architecture: i386 (Mac with Intel chip), arm64 (Apple Silicon)...
+
 ## cd
 
 ```shell
@@ -198,7 +202,7 @@ diff -qr Dir1 Dir2 --exclude=.git --exclude=node_modules
 
 ## tree
 
-````shell
+```shell
 tree # current folder
 tree somefolder
 tree -a # print hidden files too
@@ -239,6 +243,10 @@ Swap:          2047           0        2047
 ```
 
 See [What is available memory while using free command?](https://askubuntu.com/questions/867068/what-is-available-memory-while-using-free-command), [What is available and free memory in response of free command on Linux?](https://stackoverflow.com/questions/41426656/what-is-available-and-free-memory-in-response-of-free-command-on-linux) and https://www.linuxatemyram.com.
+
+## cron
+
+https://crontab.guru
 
 ## at
 
