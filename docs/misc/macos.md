@@ -180,19 +180,24 @@ Per trobar fitxers grans fer:
 Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → Emmagatzematge → Gestionar... Atenció: el fitxer `Docker.raw` no té realment la mida que diu el Mac (64 GB!), cal fer `du -h ~/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw` per veure la mida real - [source](https://github.com/docker/for-mac/issues/2297#issuecomment-390441184).
 :::
 
-- _This frees plenty GBs_ Android emulators, system images, SDKs, build tools, NDK etcetera:
+- (This frees plenty GBs.) Android emulators, system images, SDKs, build tools, NDK etcetera:
+  - The Android virtual devices are stored at `~/.android/avd`.
   - To get rid of Android emulators, open Android Studio → Device Manager and delete them.
   - To get rid of Android system images, SDKs and other stuff, open Android Studio → SDK Manager. (There are various ways to open it, eg Settings → Languages & Frameworks → Android SDK). Once thee, check the checkbox 'Show package details'. Then uninstall everything possible like the NDK, emulator System Images, SDKs etcetera.
 - Delete `node_modules` folders with [npkill](https://github.com/voidcosmos/npkill):
   - `npx npkill@latest --directory ~/Programming`.
   - `npx npkill@latest --directory ~/Webs`.
 - Delete yarn cache: `yarn cache clean` - [docs](https://yarnpkg.com/cli/cache/clean). Can be +20 GB.
+- Delete gradle cache (`~/.gradle/caches`): `rm -rf ~/.gradle/caches`. See [How to clear gradle cache?](https://stackoverflow.com/questions/23025433/how-to-clear-gradle-cache).
+  - The whole `~/.gradle` folder is still big though (~600 MB). You can delete it if you don't need cached dependencies or wrapper files. Gradle will recreate this folder and re-download dependencies as needed when you build projects again. Deleting it may slow down the next build due to re-downloading.
 - Delete npm cache (`~/.npm/_cacache`): `npm cache clean --force`. Not sure if doing this is necessary, see [Why and how to clear npm cache](https://sebhastian.com/npm-clear-cache). You can check the cache size with `npm cache verify`.
 - Delete Carthage cache (can be 2-3 GB): `rm -rf ~/Library/Caches/org.carthage.CarthageKit` [source](https://stackoverflow.com/q/45504896/4034572)
 - Delete `build` folders: `find . -type d -name "build" -exec rm -rf {} +`.
 - Delete Python `venv` and `.venv` folders:
   - `find . -type d -name "venv" -exec rm -rf {} +`
   - `find . -type d -name ".venv" -exec rm -rf {} +`
+- Delete unused Node.js versions. Run `fnm list`. They are stored at `~/.local/share/fnm/node-versions`.
+- Delete unused Ruby versions. Run `rbenv versions`. They are stored at `~/.rbenv/versions`.
 - Delete `.terraform` folders. The aws provider is 580 MB. [See instructions](/cloud/terraform#free-up-disk-space)
 - Xcode
   - Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572.
@@ -218,6 +223,10 @@ Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → 
 - Firefox: esborrar dades del lloc (pot ser 3 GB). Anar a Preferències → Privadesa i seguretat → Gestiona les dades... S'ordenen per mida. Cal apretar Delete a cada Lloc i després 'Desa els canvis' (sinó no esborra). Esborrar les que fa més d'un any que es van fer servir ('Darrer ús').
 - Brew:
   - `brew autoremove`: uninstall formulae that were only installed as a dependency of another formula and are now no longer needed.
-  - `brew cleanup`: usually not necessary, but sometimes frees space. Th
+  - `brew cleanup`: usually not necessary, but sometimes frees space.
 - Spotify: esborrar la "Memòria cau" a les Preferències (uns 500 MB).
-- Find file duplicates: https://dupeguru.voltaicideas.net - https://github.com/arsenetar/dupeguru/
+- Find file duplicates:
+  - https://dupeguru.voltaicideas.net - https://github.com/arsenetar/dupeguru/
+  - https://macpaw.com/gemini
+
+https://cleanmymac.com

@@ -6,7 +6,7 @@ OpenVLM Leaderboard - https://huggingface.co/spaces/opencompass/open_vlm_leaderb
 
 https://www.cursor.com - Standalone editor based on VSCode
 
-https://windsurf.com - Standalone editor based on VSCode, but you can use the Cascade agentic AI on JetBrains and VSCode with plugins
+https://windsurf.com - Standalone editor based on VSCode, but you can use the Cascade agentic AI on JetBrains and VSCode with plugins:
 
 - VSCode plugin - https://marketplace.visualstudio.com/items?itemName=Codeium.codeium
 - JetBrains plugin - https://plugins.jetbrains.com/plugin/20540-windsurf-plugin-formerly-codeium-for-python-js-java-go--
@@ -15,6 +15,12 @@ https://www.augmentcode.com
 
 - VSCode plugin - https://marketplace.visualstudio.com/items?itemName=augment.vscode-augment
 - JetBrains plugin - https://plugins.jetbrains.com/plugin/24072-augment
+
+https://kiro.dev - Standalone editor based on VSCode. By AWS
+
+https://aws.amazon.com/q/developer
+
+https://aistudio.google.com/prompts/new_chat
 
 https://devin.ai
 
@@ -25,6 +31,8 @@ https://roocode.com - https://github.com/RooVetGit/Roo-Code - VSCode plugin
 https://aider.chat - https://github.com/Aider-AI/aider - AI pair programming in your terminal
 
 https://github.com/block/goose - Local AI agent
+
+https://lovable.dev - Create apps and websites by chatting with AI
 
 ## Models
 
@@ -54,3 +62,11 @@ https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor
 https://github.com/ryoppippi/ccusage
 
 https://github.com/daaain/claude-code-log
+
+## ChatGPT
+
+Canvas - https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it
+
+To open the app in the Canvas use `/canvas`, eg:
+
+> Use the /canvas feature and build a simple HTML page that says "Hello world!".

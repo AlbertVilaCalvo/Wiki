@@ -117,6 +117,12 @@ https://kubernetes.io/docs/concepts/cluster-administration/addons/
 minikube addons list
 ```
 
+[Metrics server](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/):
+
+```shell
+minikube addons enable metrics-server
+```
+
 Automatically pause Kubernetes after a certain amount of inactivity:
 
 ```shell

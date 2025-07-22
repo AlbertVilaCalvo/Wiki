@@ -92,6 +92,10 @@ How to build a CI/CD pipeline with GitHub Actions in four simple steps: https://
 
 GitHub Actions Pitfalls - https://news.ycombinator.com/item?id=32970198
 
+https://kodekloud.com/courses/github-actions
+
+https://kodekloud.com/courses/github-actions-certification
+
 ## Secret vs variable
 
 https://github.blog/changelog/2023-01-10-github-actions-support-for-configuration-variables-in-workflows/

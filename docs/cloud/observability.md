@@ -26,6 +26,8 @@ AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-
 
 Observability 2.0 - https://www.thoughtworks.com/radar/techniques/observability-2-0
 
+Monitoring in the time of Cloud Native - https://copyconstruct.medium.com/monitoring-in-the-time-of-cloud-native-c87c7a5bfa3e
+
 ## Definition
 
 https://opentelemetry.io/docs/concepts/observability-primer/#what-is-observability

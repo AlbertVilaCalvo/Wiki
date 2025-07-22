@@ -231,6 +231,8 @@ Version: `docker version`
 ```shell
 docker build -t <tagname> .
 docker build --tag <tagname> .
+docker build -t <tagname>:<version> --file Dockerfile-prod .
+docker build -t <tagname>:<version> --platform linux/amd64 --file Dockerfile-prod .
 ```
 
 [List](https://docs.docker.com/reference/cli/docker/image/ls/) local images:

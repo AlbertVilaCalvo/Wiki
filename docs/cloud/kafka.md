@@ -44,6 +44,8 @@ https://developers.redhat.com/devnation/event-driven-architecture
 
 https://university.redpanda.com
 
+https://kodekloud.com/courses/event-streaming-with-kafka
+
 ## Queues
 
 https://cwiki.apache.org/confluence/display/KAFKA/KIP-932%3A+Queues+for+Kafka

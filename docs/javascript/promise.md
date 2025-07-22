@@ -1,5 +1,6 @@
 ---
-title: Promise
+title: JavaScript Promise
+sidebar_label: Promise
 ---
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise

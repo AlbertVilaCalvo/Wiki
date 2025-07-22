@@ -15,3 +15,5 @@ https://developers.redhat.com/courses/gitops/getting-started-argocd-and-openshif
 https://developers.redhat.com/devnation/devops-gitops
 
 https://training.linuxfoundation.org/training/devops-and-workflow-management-with-argo-lfs256/
+
+https://kodekloud.com/courses/argocd

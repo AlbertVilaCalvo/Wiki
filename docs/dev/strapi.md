@@ -2,7 +2,7 @@
 title: Strapi
 ---
 
-https://strapi.io/
+https://strapi.io
 
 Developer Docs: https://docs.strapi.io
 

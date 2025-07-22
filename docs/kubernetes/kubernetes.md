@@ -32,6 +32,8 @@ Local Kubernetes Development - https://github.com/GoogleContainerTools/skaffold 
 
 Examples - https://github.com/AdminTurnedDevOps/kubernetes-examples
 
+https://github.com/nigelpoulton/TheK8sBook
+
 https://github.com/MichaelCade/90DaysOfDevOps#kubernetes
 
 https://github.com/bregman-arie/devops-exercises/blob/master/topics/kubernetes/README.md
@@ -45,6 +47,8 @@ https://readmedium.com/top-10-kubernetes-pod-concepts-that-confuse-beginners-8c0
 The History of Kubernetes on a Timeline - https://blog.risingstack.com/the-history-of-kubernetes
 
 Kubernetes Distributions & Platforms - https://docs.google.com/spreadsheets/d/1uF9BoDzzisHSQemXHIKegMhuythuq_GL3N1mlUUK2h0/edit?usp=sharing
+
+For the Love of God, Stop Using CPU Limits on Kubernetes - https://home.robusta.dev/blog/stop-using-cpu-limits
 
 Does Kubernetes really give you multicloud portability? - https://medium.com/digital-mckinsey/does-kubernetes-really-give-you-multicloud-portability-476270a0acc7
 
@@ -214,7 +218,7 @@ export KUBE_EDITOR="vim"
 
 `kubectl options` → List global command-line options that apply to all commands
 
-`kubectl api-resources` → List shortnames. Also available at https://kubernetes.io/docs/reference/kubectl/#resource-types
+`kubectl api-resources` → List all resources and its short names. Also available at https://kubernetes.io/docs/reference/kubectl/#resource-types
 
 `kubectl explain pod.spec.restartPolicy` → Get documentation for a resource - [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
 
@@ -278,11 +282,15 @@ export KUBE_EDITOR="vim"
 
 `kubectl get pods -o wide -n <namespace>` → Get the IP
 
+`kubectl get configmap app-config -o yaml`
+
+`kubectl get pods -l <label>=<value> --show-labels`
+
 ### Apply
 
 `kubectl apply -f deployment.yaml`
 
-`kubectl apply -f <directory>`
+`kubectl apply -f <directory>` - To apply files in the current directory do `kubectl apply -f .`
 
 ### Delete
 
@@ -296,7 +304,7 @@ export KUBE_EDITOR="vim"
 
 `kubectl describe node <node-name>`
 
-`kubectl describe pod <pod-name>`
+`kubectl describe pod <pod-name>` → Useful to diagnose errors when creating a pod, like `ErrImagePull` (look at the Events section)
 
 `kubectl describe services` → Show cluster services information
 
@@ -351,6 +359,12 @@ kubectl create ns h92
 
 `kubectl delete namespace <namespace>`
 
+### Exec
+
+Run a command in a container: `kubectl exec mypod -- <command>`
+
+Shell into a container: `kubectl exec mypod -it -- /bin/sh`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`. If the conatiner does not provide shell access (is a [distroless container](https://github.com/GoogleContainerTools/distroless)), we get this error: "OCI runtime exec failed: exec failed: unable to start container process: exec: "env": executable file not found in $PATH: unknown command terminated with exit code 127". In this case, we can debug it with `kubectl debug -it <pod> --image=busybox --target=debian --share-processes` ([source](https://github.com/bmuschko/ckad-crash-course/blob/master/exercises/20-troubleshooting-pod/solution/solution.md)).
+
 ### Other
 
 Show all events: `kubectl get events -w`
@@ -360,10 +374,6 @@ Show component status (deprecated in 1.19): `kubectl get componentstatuses`
 Check the rollout status: `kubectl rollout status deployment/simple-flask-deployment`
 
 Get external IP address: `kubectl get services <service-name> -o wide`
-
-Shell into a container: `kubectl exec mypod -it --namespace=mynamespace -- /bin/sh`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`
-
-Run a command in a container: `kubectl exec mypod -- env`
 
 ### kubectl plugins
 
@@ -382,11 +392,44 @@ To group objects and avoid name collisions.
 
 Deleting a namespace deletes all its objects.
 
+## Labels
+
+Recommended Labels - https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/
+
+## Service
+
+The IP address of a pod is not stable, eg it changes when a pod is restarted.
+A service load balances a set of pods.
+
+Types:
+
+- ClusterIP: internal, not accessible from outside the cluster.
+- NodePort: accessible from outside the cluster. For development.
+- LoadBalancer: external load balancer, of a cloud provider.
+
+## Ingress
+
+https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+Sits in front of a service.
+
+To be replaced by the Gateway API.
+
+https://www.f5.com/products/nginx/nginx-ingress-controller
+
+https://github.com/kubernetes-sigs/aws-load-balancer-controller
+
 ## Gateway API
 
 The Gateway API is going to replace the Ingress in the long term.
 
 https://gateway-api.sigs.k8s.io
+
+## Network Policy
+
+https://github.com/ahmetb/kubernetes-network-policy-recipes
+
+https://cilium.io
 
 ## Tools
 
