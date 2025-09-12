@@ -2,15 +2,13 @@
 title: GitHub Actions
 ---
 
-:::tip
-Use the [YAML extension for VSCode](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) to have autocomplete and validation.
-:::
-
 :::warning
 Always specify the action version, eg `actions/checkout@v3` instead of `actions/checkout`, otherwise the pipeline can suddenly break with a new release of the action. [Rationale](https://youtu.be/sIhm4YOMK6Q?t=2819)
 :::
 
 Docs: https://docs.github.com/en/actions
+
+Reference: https://docs.github.com/en/actions/reference
 
 TODO Guide to learn: https://resources.github.com/learn/pathways/automation/. Has 3 levels: essentials, intermediate and advanced
 
@@ -36,6 +34,14 @@ Roadmap: https://github.com/orgs/github/projects/4247/views/1?filterQuery=label%
 
 ## Concepts
 
+A workflow is triggered in response to an event (eg push to main or open a pull request), manually, on schedule or using the REST API.
+
+- A workflow runs a series of jobs.
+- A job runs a series of steps.
+  - Jobs run in parallel by default, but they can depend on (wait for) other jobs.
+- A step either `uses` an action or `run`s a command, a series of commands or a shell script.
+  - Steps run sequentially.
+
 ```yaml
 name: Print CI environment variable
 on: [push]
@@ -47,7 +53,7 @@ jobs:
       - run: echo "$CI"
 ```
 
-From [Understanding GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions).
+From [Understanding GitHub Actions](https://docs.github.com/en/actions/get-started/understand-github-actions).
 
 Event - `on`
 
@@ -80,9 +86,77 @@ Runner - `runs-on`
 
 > GitHub provides Ubuntu Linux, Microsoft Windows, and macOS runners to run your workflows. If you need a different operating system or require a specific hardware configuration, you can [host your own runners](https://docs.github.com/en/actions/hosting-your-own-runners).
 
+## Workflow examples
+
+Official starter workflows: https://github.com/actions/starter-workflows
+
+Examples: https://docs.github.com/en/actions/tutorials
+
+Example workflows that demonstrate the features of GitHub Actions - https://docs.github.com/en/actions/examples - Link does not work now, see https://web.archive.org/web/20240807225554/https://docs.github.com/en/actions/examples
+
+Awesome Actions (curated list): https://github.com/sdras/awesome-actions
+
+### Node.js
+
+- Node.js official starter workflow: https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
+  - Note that it uses `continue-on-error: true`
+- Node.js with Webpack official starter workflow: https://github.com/actions/starter-workflows/blob/main/ci/webpack.yml
+
+### ESLint
+
+- Official starter workflow: https://github.com/actions/starter-workflows/blob/main/code-scanning/eslint.yml. Note that it doesn't use `actions/setup-node`
+- Using `actions/setup-node`: https://github.com/midudev/pokedex-for-ci/blob/main/.github/workflows/pipeline.yml#L20-L33
+
+### Interesting workflows
+
+- https://github.com/SUI-Components/sui-components/tree/master/.github/workflows
+
+## Actions
+
+Marketplace: https://github.com/marketplace?type=actions
+
+Marketplace most starred/installed actions: https://github.com/marketplace?category=&query=sort%3Apopularity-desc&type=actions&verification=
+
+Awesome Actions (curated list): https://github.com/sdras/awesome-actions
+
+Curated list of useful Github actions - https://github.com/GuillaumeFalourd/useful-actions
+
+### Commonly used actions
+
+- Checkout: https://github.com/marketplace/actions/checkout ([code](https://github.com/actions/checkout))
+- Setup Node.js environment: https://github.com/marketplace/actions/setup-node-js-environment ([code](https://github.com/actions/setup-node/))
+- Upload artifact: https://github.com/actions/upload-artifact
+
+### Useful actions
+
+- [paths-filter](https://github.com/dorny/paths-filter): Conditionally run actions based on files modified by PR, feature branch or pushed commits
+- [Secrets Sync Action](https://github.com/marketplace/actions/secrets-sync-action): Define and rotate secrets in a single repository and have them synced to all other repositories in the Github organization or beyond
+
+### AWS actions
+
+Note that GitHub runners already come with the AWS CLI installed, see https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#preinstalled-software
+
+- https://github.com/aws-actions
+- Official starter workflow: https://github.com/actions/starter-workflows/blob/main/deployments/aws.yml
+- https://github.com/clowdhaus/aws-github-actions
+
+### AWS S3 actions
+
+- GitHub Action to sync a directory with a remote S3 bucket - https://github.com/jakejarvis/s3-sync-action - https://github.com/marketplace/actions/s3-sync
+- Easily deploy a static website to AWS S3 and invalidate CloudFront distribution - https://github.com/Reggionick/s3-deploy - https://github.com/marketplace/actions/s3-deploy
+- Synchronize a local directory to an AWS S3 bucket: https://github.com/clowdhaus/aws-github-actions/tree/main/s3_sync - They also have CloudFront invalidation: https://github.com/clowdhaus/aws-github-actions/tree/main/cloudfront_invalidate
+
+### Terraform actions
+
+https://github.com/marketplace?type=actions&query=terraform+
+
+- HashiCorp - Setup Terraform: https://github.com/marketplace/actions/hashicorp-setup-terraform
+- Official starter workflow: https://github.com/actions/starter-workflows/blob/main/deployments/terraform.yml
+- TFLint: https://github.com/terraform-linters/setup-tflint - https://github.com/marketplace/actions/setup-tflint
+
 ## Learn
 
-Examples: https://docs.github.com/en/actions/examples
+Examples: https://docs.github.com/en/actions/tutorials
 
 Midudev - GitHub Actions TUTORIAL Desde Cero - Integración continua (CI/CD) - https://www.youtube.com/watch?v=sIhm4YOMK6Q&list=PLV8x_i1fqBw0Kn_fBIZTa3wS_VZAqddX7&index=62 - Repository: https://github.com/midudev/pokedex-for-ci/blob/main/.github/workflows/pipeline.yml
 
@@ -96,96 +170,178 @@ https://kodekloud.com/courses/github-actions
 
 https://kodekloud.com/courses/github-actions-certification
 
-## Secret vs variable
+## Run
 
-https://github.blog/changelog/2023-01-10-github-actions-support-for-configuration-variables-in-workflows/
+Run multiple commands with `|`:
 
-- `secrets` context: https://docs.github.com/en/actions/learn-github-actions/contexts#secrets-context
-- `vars` context: https://docs.github.com/en/actions/learn-github-actions/contexts#vars-context
+```yaml
+name: Multiline
+on: [push]
+jobs:
+  echo_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Print files'
+        run: |
+          echo "Print files"
+          ls -la
+```
+
+Run a script file:
+
+```yaml
+name: Script file
+on: [push]
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run shell script
+        run: ./my-script.sh
+```
+
+The script lives at the root of the git repository. You need to get the code fist.
+
+## Contexts
+
+https://docs.github.com/en/actions/reference/contexts-reference
+
+https://docs.github.com/en/actions/reference/workflows-and-actions/contexts
 
 ```
+${{ github.sha }}
+${{ github.ref }}
 ${{ secrets.API_TOKEN }}
 ${{ vars.USERNAME }}
+${{ inputs.app_version }}
 ```
 
-## Workflow examples and actions list
+Secrets are encrypted, whereas variables are shown as plain text. See https://github.blog/changelog/2023-01-10-github-actions-support-for-configuration-variables-in-workflows/
 
-Marketplace: https://github.com/marketplace?type=actions
+## Environment variables
 
-Repo: https://github.com/actions
+https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-variables
 
-Official starter workflows: https://github.com/actions/starter-workflows
+Environment variables available by default (`$GITHUB_ENV`, `$GITHUB_OUTPUT` etc.) - https://docs.github.com/en/actions/reference/workflows-and-actions/variables#default-environment-variables
 
-https://docs.github.com/en/actions/examples
+You can set environment variables scoped to the entire workflow, a job or a step.
+Often you set environment variables from secrets and variables.
 
-Awesome Actions (curated list): https://github.com/sdras/awesome-actions
+Inside `run` we can use the runner environment variables using bash shell interpolation (`$AWS_REGION`), and in most cases also use contexts (`${{ env.AWS_REGION }}`). The difference is that the context will be interpolated and replaced by a string before the job is sent to a runner. However, at the other parts of the workflow you need to use context, not the runner environment variables.
 
-## Commonly used actions
+```yaml
+env:
+  ENVIRONMENT: staging
 
-Marketplace most starred/installed actions: https://github.com/marketplace?category=&query=sort%3Apopularity-desc&type=actions&verification=
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      API_TOKEN: ${{ secrets.API_TOKEN }}
+    steps:
+      - name: Say hello
+        env:
+          Name: Albert
+        # In run we can use both {{ contexts }} and bash $substitution
+        run: |
+          echo "Hello $Name! The environment is $ENVIRONMENT and the region is $AWS_REGION."
+          if [[ ${{ github.ref_name }} == 'main' ]]; then
+            echo "Branch is main"
+          fi
+      - name: Say hello if N. Virginia
+        # But here we can only use the {{ contexts }}
+        if: ${{ env.AWS_REGION == 'useast' }}
+        run: echo "Hi N. Virginia!"
+```
 
-- Checkout: https://github.com/marketplace/actions/checkout
-- Setup Node.js environment: https://github.com/marketplace/actions/setup-node-js-environment
-- Upload artifact: https://github.com/actions/upload-artifact
+### Set environment variables with `$GITHUB_ENV`
 
-### Useful actions
+https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#setting-an-environment-variable
 
-- [paths-filter](https://github.com/dorny/paths-filter): Conditionally run actions based on files modified by PR, feature branch or pushed commits
-- [Secrets Sync Action](https://github.com/marketplace/actions/secrets-sync-action): Define and rotate secrets in a single repository and have them synced to all other repositories in the Github organization or beyond
+You can use this to pass values to subsequent steps. (You can also use `$GITHUB_OUTPUT`, see below.) From https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-variables#passing-values-between-steps-and-jobs-in-a-workflow
 
-### Interesting workflows
+> If you generate a value in one step of a job, you can use the value in subsequent steps of the same job by assigning the value to an existing or new environment variable and then writing this to the `GITHUB_ENV` environment file.
 
-- https://github.com/SUI-Components/sui-components/tree/master/.github/workflows
+```yml
+steps:
+  - name: Set the value
+    id: step_one
+    run: |
+      echo "action_state=yellow" >> "$GITHUB_ENV"
+  - name: Use the value
+    id: step_two
+    run: |
+      printf '%s\n' "$action_state" # This will output 'yellow'
+```
 
-### Node.js
+From https://stackoverflow.com/a/66358561/4034572
 
-- Node.js official starter: https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
-  - Note that it uses `continue-on-error: true`
-- Node.js with Webpack official starter: https://github.com/actions/starter-workflows/blob/main/ci/webpack.yml
+```yml
+steps:
+  - name: Set the value
+    id: step_one
+    run: |
+      echo "FOO=$(git status)" >> $GITHUB_ENV
+  - name: Use the value
+    id: step_two
+    run: |
+      echo "${{ env.FOO }}"
+```
 
-### ESLint actions
+## Functions
 
-- Official starter: https://github.com/actions/starter-workflows/blob/main/code-scanning/eslint.yml
-- https://github.com/midudev/pokedex-for-ci/blob/main/.github/workflows/pipeline.yml#L20-L33
+https://docs.github.com/en/actions/reference/evaluate-expressions-in-workflows-and-actions#functions
 
-### AWS actions
+- `contains('xyz', 'y')` is `true`
+- `startsWith('xyz', 'y')` is `false`
+- `endsWith('xyz', 'y')` is `false`
 
-Note that GitHub runners already come with the AWS CLI installed, see https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#preinstalled-software
+```
+environment: ${{ contains(inputs.profile, 'dev') && 'dev' || inputs.profile }}
+```
 
-- https://github.com/aws-actions
-- Official starter: https://github.com/actions/starter-workflows/blob/main/deployments/aws.yml
-- https://github.com/clowdhaus/aws-github-actions
+## Status check functions
 
-### AWS S3 actions
+https://docs.github.com/en/actions/reference/evaluate-expressions-in-workflows-and-actions#status-check-functions
 
-- GitHub Action to sync a directory with a remote S3 bucket - https://github.com/jakejarvis/s3-sync-action - https://github.com/marketplace/actions/s3-sync
-- Easily deploy a static website to AWS S3 and invalidate CloudFront distribution - https://github.com/Reggionick/s3-deploy - https://github.com/marketplace/actions/s3-deploy
-- Synchronize a local directory to an AWS S3 bucket: https://github.com/clowdhaus/aws-github-actions/tree/main/s3_sync - They also have CloudFront invalidation: https://github.com/clowdhaus/aws-github-actions/tree/main/cloudfront_invalidate
+- `success()`
+- `failure()`
+- `always()`
+- `cancelled()`
 
-### Terraform
+It's important to note that `failure()`:
 
-https://github.com/marketplace?type=actions&query=terraform+
+- Returns `true` when any previous step of a job fails. If you have a chain of dependent jobs, `failure()` returns `true` if any ancestor job fails.
+- You can include extra conditions for a step to run after a failure, but you must still include `failure()` to override the default status check of `success()` that is automatically applied to if conditions that don't contain a status check function.
 
-- HashiCorp - Setup Terraform: https://github.com/marketplace/actions/hashicorp-setup-terraform
-- Official starter: https://github.com/actions/starter-workflows/blob/main/deployments/terraform.yml
-
-## OpenID Connect
-
-Use it to authenticate to cloud services (like AWS) without storing long-lived secrets (like access key ID and secret access key) in GitHub.
-
-About security hardening with OpenID Connect - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
-
-> using hardcoded secrets requires you to create credentials in the cloud provider and then duplicate them in GitHub as a secret.
-
-> With OIDC, your cloud provider issues a short-lived access token that is only valid for a single job, and then automatically expires.
-
-Configuring OpenID Connect in Amazon Web Services - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services
-
-See the examples at https://github.com/aws-actions/configure-aws-credentials/tree/master/examples. In particular see the workflow https://github.com/aws-actions/configure-aws-credentials/blob/master/examples/cfn-deploy-example/.github/workflows/deploy.yml
-
-Creating OpenID Connect (OIDC) identity providers - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
-
-Creating a role for a third-party Identity Provider (federation) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html
+```shell
+jobs:
+  xyz:
+    steps:
+      - name: Step 1
+        run: npm run step1
+      - name: Step 2
+        id: step_2
+        run: npm run step2
+      - name: Send slack notification _only_ if step 2 fails
+        uses: slackapi/slack-github-action@v1.23.0
+        if: ${{ failure() && steps.step_2.conclusion == 'failure' }}
+        with:
+          payload: |
+            {
+              "app": "${{ github.repository }}",
+              "environment": "${{ env.ENV }}",
+              "version": "RC/Tag/Commit: ${{ env.checkout_ref || github.sha }}",
+              "branch": "${{ github.ref_name }}",
+              "execution_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "html_report": "https://${{ env.REPORTS_PAGES_SUBDOMAIN }}/${{ env.REPORTS_PAGES_PATH }}/${{ env.FEATURE_BRANCH_NAME }}/"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+```
 
 ## Manually triggered workflow
 
@@ -220,7 +376,7 @@ jobs:
 
 `type` can be `string`, `choice`, `boolean` and `environment` - see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_dispatchinputs
 
-## Run a single job at a time
+## Run a single workflow or job at a time
 
 https://docs.github.com/en/actions/using-jobs/using-concurrency
 
@@ -281,6 +437,8 @@ Docs (search for `working-directory`):
 Reusing workflows - https://docs.github.com/en/actions/using-workflows/reusing-workflows
 
 About custom actions - https://docs.github.com/en/actions/creating-actions/about-custom-actions
+
+Creating and publishing actions - https://docs.github.com/en/actions/how-tos/creating-and-publishing-actions
 
 GitHub Actions: reusable workflows is generally available - https://github.blog/2021-11-29-github-actions-reusable-workflows-is-generally-available/
 
@@ -358,7 +516,7 @@ https://michaelcurrin.github.io/dev-cheatsheets/cheatsheets/ci-cd/github-actions
 
 https://stackoverflow.com/questions/59191913/how-do-i-get-the-output-of-a-specific-step-in-github-actions
 
-https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
+https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#setting-an-output-parameter
 
 <!-- prettier-ignore -->
 ```yml
@@ -411,36 +569,6 @@ Use `printf` instead of `echo` to deal with new lines [source](https://stackover
 ### For jobs
 
 https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
-
-## Setting environment variables with `$GITHUB_ENV`
-
-https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
-
-```yml
-steps:
-  - name: Set the value
-    id: step_one
-    run: |
-      echo "action_state=yellow" >> "$GITHUB_ENV"
-  - name: Use the value
-    id: step_two
-    run: |
-      printf '%s\n' "$action_state" # This will output 'yellow'
-```
-
-From https://stackoverflow.com/a/66358561/4034572
-
-```yml
-steps:
-  - name: Set the value
-    id: step_one
-    run: |
-      echo "FOO=$(git status)" >> $GITHUB_ENV
-  - name: Use the value
-    id: step_two
-    run: |
-      echo "${{ env.FOO }}"
-```
 
 ## Artifacts
 
@@ -543,6 +671,24 @@ https://dev.to/zirkelc/trigger-github-workflow-for-comment-on-pull-request-45l2
 ## JavaScript
 
 https://github.com/actions/github-script
+
+## OpenID Connect
+
+Use it to authenticate to cloud services (like AWS) without storing long-lived secrets (like access key ID and secret access key) in GitHub.
+
+About security hardening with OpenID Connect - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
+
+> using hardcoded secrets requires you to create credentials in the cloud provider and then duplicate them in GitHub as a secret.
+
+> With OIDC, your cloud provider issues a short-lived access token that is only valid for a single job, and then automatically expires.
+
+Configuring OpenID Connect in Amazon Web Services - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services
+
+See the examples at https://github.com/aws-actions/configure-aws-credentials/tree/master/examples. In particular see the workflow https://github.com/aws-actions/configure-aws-credentials/blob/master/examples/cfn-deploy-example/.github/workflows/deploy.yml
+
+Creating OpenID Connect (OIDC) identity providers - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
+
+Creating a role for a third-party Identity Provider (federation) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html
 
 ## Badge
 
