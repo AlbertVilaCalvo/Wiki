@@ -2,9 +2,46 @@
 title: Python Tools
 ---
 
+## Search packages
+
 [Python Package Index - pypi.org](https://pypi.org)
 
-Cheatsheet: https://www.pythonsheets.com
+https://github.com/vinta/awesome-python
+
+[python.libhunt.com](https://python.libhunt.com/)
+
+## Tools summary
+
+Environment:
+
+- [github.com/pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
+
+Dependencies / package manager:
+
+- [uv](https://github.com/astral-sh/uv) - An extremely fast Python package and project manager, written in Rust
+- [github.com/pypa/pipenv](https://github.com/pypa/pipenv) - Python Development Workflow for Humans (Pipfile.lock)
+- [github.com/python-poetry/poetry](https://github.com/python-poetry/poetry) - Python dependency management and packaging made easy
+- [github.com/jazzband/pip-tools](https://github.com/jazzband/pip-tools) - A set of tools to keep your pinned Python dependencies fresh (requirements.in)
+- [github.com/bndr/pipreqs](https://github.com/bndr/pipreqs) - Generate pip requirements.txt file based on imports of any project
+- [github.com/naiquevin/pipdeptree](https://github.com/naiquevin/pipdeptree) - A command line utility to display dependency tree of the installed Python packages
+
+Linter:
+
+- [github.com/astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust - https://www.thoughtworks.com/radar/tools/ruff
+- [github.com/pylint-dev/pylint](https://github.com/pylint-dev/pylint)
+
+Type checker:
+
+- [astral-sh/ty](https://github.com/astral-sh/ty) - An extremely fast Python type checker and language server, written in Rust
+- [github.com/microsoft/pyright](https://github.com/microsoft/pyright) - Static Type Checker for Python
+- [MyPy](https://github.com/python/mypy) - Optional static typing for Python
+- [Pyrefly](https://pyrefly.org/) - A fast Python type checker written in Rust
+  - Pyrefly vs. Ty: Comparing Python's two new Rust-based type checkers - https://news.ycombinator.com/item?id=44107655
+
+Formatter:
+
+- [github.com/psf/black](https://github.com/psf/black) - The uncompromising Python code formatter
+- [github.com/astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust - https://www.thoughtworks.com/radar/tools/ruff
 
 ## Steps to create a Python project
 
@@ -72,32 +109,6 @@ To avoid surprises and bugs, always use exacte versions (`==`) for all dependenc
 Python Packaging User Guide: https://packaging.python.org
 
 Managing Application Dependencies (Python Packaging User Guide): https://packaging.python.org/tutorials/managing-dependencies
-
-### Tools
-
-[github.com/pypa/pipenv](https://github.com/pypa/pipenv) - Python Development Workflow for Humans (Pipfile.lock)
-
-[github.com/python-poetry/poetry](https://github.com/python-poetry/poetry) - Python dependency management and packaging made easy
-
-[github.com/jazzband/pip-tools](https://github.com/jazzband/pip-tools) - A set of tools to keep your pinned Python dependencies fresh (requirements.in)
-
-[github.com/bndr/pipreqs](https://github.com/bndr/pipreqs) - Generate pip requirements.txt file based on imports of any project
-
-[github.com/naiquevin/pipdeptree](https://github.com/naiquevin/pipdeptree) - A command line utility to display dependency tree of the installed Python packages
-
-[github.com/pypa/pipx](https://github.com/pypa/pipx) - Install and Run Python Applications in Isolated Environments
-
-[github.com/astral-sh/ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust - https://www.thoughtworks.com/radar/tools/ruff
-
-https://docs.astral.sh/uv - [github.com/astral-sh/uv](https://github.com/astral-sh/uv) - An extremely fast Python package and project manager, written in Rust
-
-### Search packages
-
-[pypi.org](https://pypi.org)
-
-[awesome-python.com](https://awesome-python.com)
-
-[python.libhunt.com](https://python.libhunt.com/)
 
 ## pip
 
@@ -325,7 +336,23 @@ In VSCode, should be used with the [Pylance extension](https://marketplace.visua
 
 https://github.com/astral-sh/uv
 
+Fast Python package manager, drop-in replacement for common `pip` workflows.
+
+https://astral.sh/blog/uv-unified-python-packaging
+
 Recommended in the Technology Radar - https://www.thoughtworks.com/radar/tools/summary/uv - https://www.thoughtworks.com/radar/tools/uv
+
+By [Astral](https://astral.sh), the same company of ruff (linter) and ty (type checker).
+
+Fun with uv and PEP 723 - https://news.ycombinator.com/item?id=44369388
+
+Switching from Pyenv to Uv - https://news.ycombinator.com/item?id=43307563
+
+Switching Pip to Uv in a Dockerized Flask / Django App (nickjanetakis.com) - https://news.ycombinator.com/item?id=44364406
+
+> It's worth noting that uv also supports a workflow that directly replaces pyenv, virtualenv and pip without mandating a change to a lockfile/pyproject.toml approach.
+
+uv: running a script with dependencies - https://news.ycombinator.com/item?id=44641521
 
 ## Black
 
