@@ -48,6 +48,8 @@ The History of Kubernetes on a Timeline - https://blog.risingstack.com/the-histo
 
 Kubernetes Distributions & Platforms - https://docs.google.com/spreadsheets/d/1uF9BoDzzisHSQemXHIKegMhuythuq_GL3N1mlUUK2h0/edit?usp=sharing
 
+https://github.com/GoogleCloudPlatform/microservices-demo - Sample cloud-first application with 10 microservices showcasing Kubernetes, Istio, and gRPC
+
 For the Love of God, Stop Using CPU Limits on Kubernetes - https://home.robusta.dev/blog/stop-using-cpu-limits
 
 Does Kubernetes really give you multicloud portability? - https://medium.com/digital-mckinsey/does-kubernetes-really-give-you-multicloud-portability-476270a0acc7
@@ -240,7 +242,9 @@ export KUBE_EDITOR="vim"
 
 `kubectl config current-context` → What cluster we are connected to. Prints "minikube" or "error: current-context is not set" if we are not connected to a cluster
 
-`kubectl config use-context <context>` → Connect to a cluster, eg a local cluster like `minikube` or `docker-desktop`
+`kubectl config use-context <context>` → Connect to a cluster, eg a remote cluster, or local cluster like `minikube` or `docker-desktop`
+
+`kubectl config delete-context <context>`
 
 `kubectl cluster-info`
 
@@ -337,7 +341,13 @@ kubectl run nginx --image=nginx --dry-run=client -o yaml > nginx-pod.yaml
 
 ### Logs
 
+:::tip
+Use [stern](https://github.com/stern/stern) to get the logs of multiple pods. Instead of doing `kubectl logs gateway-867d76cc6-kwnjf`, which targets a single pod only, you can do `stern gateway`, which matches all the pods that start with gateway (that is, all the replicas), including new pods.
+:::
+
 `kubectl logs <pod-name>`
+
+Follow logs:
 
 `kubectl logs -f <pod-name>`
 
@@ -363,7 +373,15 @@ kubectl create ns h92
 
 Run a command in a container: `kubectl exec mypod -- <command>`
 
-Shell into a container: `kubectl exec mypod -it -- /bin/sh`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`. If the conatiner does not provide shell access (is a [distroless container](https://github.com/GoogleContainerTools/distroless)), we get this error: "OCI runtime exec failed: exec failed: unable to start container process: exec: "env": executable file not found in $PATH: unknown command terminated with exit code 127". In this case, we can debug it with `kubectl debug -it <pod> --image=busybox --target=debian --share-processes` ([source](https://github.com/bmuschko/ckad-crash-course/blob/master/exercises/20-troubleshooting-pod/solution/solution.md)).
+Shell into a container: `kubectl exec mypod -it -- /bin/sh` or `kubectl exec --stdin --tty mypod -- bash`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`. If the conatiner does not provide shell access (is a [distroless container](https://github.com/GoogleContainerTools/distroless)), we get this error: "OCI runtime exec failed: exec failed: unable to start container process: exec: "env": executable file not found in $PATH: unknown command terminated with exit code 127". In this case, we can debug it with `kubectl debug -it <pod> --image=busybox --target=debian --share-processes` ([source](https://github.com/bmuschko/ckad-crash-course/blob/master/exercises/20-troubleshooting-pod/solution/solution.md)).
+
+## Port forward
+
+Expose an internal pod locally.
+
+`kubectl port-forward <pod-name> 6000:80` → We can access the service locally at http://localhost:6000, and requests are forwarded to port 80 on the pod in our cluster
+
+`kubectl port-forward <pod-name> [<local-port>:]<pod-port>`
 
 ### Other
 
@@ -385,6 +403,12 @@ Plugin manager - https://krew.sigs.k8s.io - https://github.com/kubernetes-sigs/k
 ## Pod
 
 Lifecycle - https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
+
+### Container probes
+
+- Readiness probe: the container is ready to accept requests
+- Liveness probe: the container is still accepting requests
+- Startup probe: the application is started
 
 ## Namespace
 
@@ -444,6 +468,12 @@ Secrets management - https://external-secrets.io/latest
 TLS certificates management - https://cert-manager.io
 
 https://github.com/stern/stern - Logs
+
+### Dashboard
+
+https://github.com/kubernetes/dashboard
+
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
 ## Learn
 
