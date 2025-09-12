@@ -72,7 +72,7 @@ https://stackoverflow.com/questions/66020820/npm-when-to-use-force-and-legacy-pe
 
 ### `npm ci` (clean install)
 
-Better use `npm ci --no-audit --no-fund`. Also add `--omit=dev` if `NODE_ENV` is not 'production'
+Better use `npm ci --no-audit --no-fund`. Also, consider adding `--omit=dev` if `NODE_ENV` is not 'production' to avoid installing dev dependencies.
 
 - Docs: https://docs.npmjs.com/cli/v11/commands/npm-ci
 - Use it when you want to make sure you're doing a clean install of your dependencies

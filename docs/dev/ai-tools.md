@@ -20,7 +20,7 @@ https://kiro.dev - Standalone editor based on VSCode. By AWS
 
 https://aws.amazon.com/q/developer
 
-https://aistudio.google.com/prompts/new_chat
+https://aistudio.google.com/prompts/new_chat - https://gemini.google.com/?hl=en - https://ai.google.dev
 
 https://devin.ai
 
@@ -34,13 +34,23 @@ https://github.com/block/goose - Local AI agent
 
 https://lovable.dev - Create apps and websites by chatting with AI
 
+https://bolt.new
+
+https://replit.com
+
+https://www.blackbox.ai
+
 ## Models
 
 https://docs.github.com/en/copilot/using-github-copilot/ai-models/choosing-the-right-ai-model-for-your-task
 
 https://code.visualstudio.com/docs/copilot/language-models#_choose-the-right-model-for-your-task
 
+GPT-4o -> o means omni. Is [multimodal](https://en.wikipedia.org/wiki/Multimodal_learning): it accepts as input any combination of text, audio, image and video and generates any combination of text, audio and image outputs.
+
 ## Prompts
+
+Use English.
 
 https://www.promptingguide.ai
 
@@ -50,6 +60,10 @@ Learn how Android devs are getting the most out of Gemini in Android Studio - ht
 
 > - Be specific with your prompts.
 > - Add more details to your instructions.
+
+https://github.com/ttaulli/GitHub-Copilot-ChatGPT/blob/main/4-prompt-engineering/Prompts.md
+
+https://platform.openai.com/tokenizer
 
 ## Claude Code
 

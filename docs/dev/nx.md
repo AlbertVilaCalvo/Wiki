@@ -70,3 +70,4 @@ JetBrains:
 ## Examples
 
 - https://github.com/streetwriters/notesnook
+- https://github.com/openops-cloud/openops

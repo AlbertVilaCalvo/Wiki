@@ -10,6 +10,8 @@ Disaster Recovery of Workloads on AWS: Recovery in the Cloud - https://docs.aws.
 
 Plan for Disaster Recovery (DR) - https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/plan-for-disaster-recovery-dr.html
 
+Summary of the AWS Service Event in the US East Region - https://aws.amazon.com/message/67457/
+
 ## RPO and RTO
 
 Disaster Recovery (DR) objectives - https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/disaster-recovery-dr-objectives.html

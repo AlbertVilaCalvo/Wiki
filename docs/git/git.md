@@ -540,6 +540,16 @@ More info:
 - https://medium.com/@checko/merging-two-git-repositories-into-one-preserving-the-git-history-4e20d3fafa4e
 - https://blog.jdriven.com/2021/04/how-to-merge-multiple-git-repositories/
 
+## Split a repository (eg a monorepo)
+
+For example, if we have a monorepo with multiple microservices and we want to move them to their own git repository.
+
+Important: using `git filter-branch` is not recommended, see warning at https://git-scm.com/docs/git-filter-branch#_warning:
+
+> `git filter-branch` has a plethora of pitfalls that can produce non-obvious manglings of the intended history rewrite (and can leave you with little time to investigate such problems since it has such abysmal performance). These safety and performance issues cannot be backward compatibly fixed and as such, its use is not recommended. Please use an alternative history filtering tool such as [git filter-repo](https://github.com/newren/git-filter-repo).
+
+https://docs.github.com/en/get-started/using-git/splitting-a-subfolder-out-into-a-new-repository
+
 ## Ignore mass reformatting with `--ignore-rev` and `git config blame.ignoreRevsFile`
 
 https://news.ycombinator.com/item?id=27643608

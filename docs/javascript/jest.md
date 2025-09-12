@@ -22,7 +22,8 @@ https://jestjs.io/docs/cli
 # Run all tests once
 npx jest
 
-# Watch mode
+# Watch mode (live reload)
+# There is also --watchAll, but runs all tests, not just the ones for changed files
 npx jest --watch
 
 # File name
@@ -126,6 +127,8 @@ Set [`clearMocks: true`](https://jestjs.io/docs/configuration/#clearmocks-boolea
 :::
 
 https://jestjs.io/docs/mock-functions
+
+https://jestjs.io/docs/manual-mocks
 
 https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
 

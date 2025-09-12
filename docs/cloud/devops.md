@@ -26,7 +26,7 @@ Developers integrate source code changes frequently into a central repository, a
 
 https://en.wikipedia.org/wiki/Continuous_delivery
 
-Code changes are automatically built, tested, and prepared for a release to production.
+Code changes are automatically built, tested and prepared for a release to production, but an actual release happens only after manual approval.
 
 ## Continuous deployment
 

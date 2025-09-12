@@ -36,6 +36,8 @@ Since [version 1.11](https://github.com/hashicorp/terraform/releases/tag/v1.11.0
 
 ## IAM
 
+GitHub Action to validate IAM policies in Terraform templates - https://github.com/aws-actions/terraform-aws-iam-policy-validator
+
 Difference between aws_iam_policy and aws_iam_role_policy - https://stackoverflow.com/questions/66510222/difference-between-aws-iam-policy-and-aws-iam-role-policy
 
 - [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) -> managed policy, can be re-used

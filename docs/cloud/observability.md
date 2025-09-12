@@ -8,6 +8,12 @@ https://www.dynatrace.com
 
 https://opentelemetry.io
 
+https://www.datadoghq.com
+
+https://newrelic.com
+
+https://www.sumologic.com
+
 https://www.solarwinds.com
 
 https://github.com/thanos-io/thanos
@@ -27,6 +33,8 @@ AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-
 Observability 2.0 - https://www.thoughtworks.com/radar/techniques/observability-2-0
 
 Monitoring in the time of Cloud Native - https://copyconstruct.medium.com/monitoring-in-the-time-of-cloud-native-c87c7a5bfa3e
+
+Example of using OpenTelementry (with Honeycomb) across Node.js microservices - https://github.com/ashleydavis/open-telemetry-nodejs-microservices-example - https://www.youtube.com/watch?v=alkBpw2U7rA
 
 ## Definition
 

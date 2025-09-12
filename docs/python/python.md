@@ -4,6 +4,8 @@ title: Python Language
 
 PEP 20 – The Zen of Python - https://peps.python.org/pep-0020/
 
+Cheatsheet - https://www.pythonsheets.com
+
 https://awesome-python.com - https://github.com/vinta/awesome-python
 
 Python 3 Module of the Week - https://pymotw.com/3/

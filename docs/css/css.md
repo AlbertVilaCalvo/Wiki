@@ -24,6 +24,8 @@ https://stylelint.io - https://github.com/stylelint/stylelint
 
 https://frontendmasters.com/courses/pro-css/
 
+Math for Frontend Web Dev - https://www.manning.com/books/math-for-frontend-web-dev
+
 ## Cascade
 
 https://css-tricks.com/dont-fight-the-cascade-control-it/

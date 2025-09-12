@@ -84,8 +84,9 @@ https://expressjs.com/en/resources/utils.html
 
 ### Testing
 
-- https://github.com/visionmedia/supertest - Super-agent driven library for testing node.js HTTP servers using a fluent API
+- https://github.com/forwardemail/supertest - Super-agent driven library for testing node.js HTTP servers using a fluent API
 - https://github.com/howardabrams/node-mocks-http - Mock 'http' objects for testing Express routing functions
+- https://github.com/pact-foundation/pact-js - Contract testing framework for HTTP APIs and non-HTTP asynchronous messaging systems
 
 ## CORS
 

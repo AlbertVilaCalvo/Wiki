@@ -4,6 +4,10 @@ title: Serverless
 
 Serverless: no need to provision and configure hardware, manage operating systems nor do software maintenance like upgrades or install patches. Scales in and out automatically (highly elastic). No need to design for high availability, it's built-in. Pay per use.
 
+Even Amazon can't make sense of serverless or microservices - https://world.hey.com/dhh/even-amazon-can-t-make-sense-of-serverless-or-microservices-59625580
+
+> Replacing method calls and module separations with network invocations and service partitioning within a single, coherent team and application is madness in almost all cases.
+
 Serverless Application Repository - https://serverlessrepo.aws.amazon.com/applications
 
 https://serverlessland.com

@@ -49,6 +49,8 @@ Changes - https://training.linuxfoundation.org/certified-kubernetes-administrato
 
 https://www.whizlabs.com/certified-kubernetes-administrator/
 
+https://kodekloud.com/courses/cka-certification-course-certified-kubernetes-administrator - https://github.com/kodekloudhub/certified-kubernetes-administrator-course
+
 ## CKAD - Certified Kubernetes Application Developer
 
 https://www.cncf.io/training/certification/ckad/

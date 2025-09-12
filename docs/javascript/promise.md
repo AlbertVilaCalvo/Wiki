@@ -168,6 +168,38 @@ function fakeApiCall(): Promise<number> {
 }
 ```
 
+## Retry
+
+https://stackoverflow.com/questions/38213668/promise-retry-design-patterns
+
+https://gist.github.com/vitaly-t/6e3d285854d882b1618c7e435df164c4
+
+From Bootstrapping Microservices (p. 376):
+
+```js
+async function sleep(timeMS) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, timeMS)
+  })
+}
+
+async function retry(operation, maxAttempts, waitTimeMS) {
+  while (maxAttempts-- > 0) {
+    try {
+      const result = await operation()
+      return result
+    } catch (err) {
+      lastError = err
+
+      if (maxAttempts >= 1) {
+        await sleep(waitTimeMS)
+      }
+    }
+  }
+  throw lastError
+}
+```
+
 ## `try-catch` only 'catches' errors if you `await`
 
 ```js
