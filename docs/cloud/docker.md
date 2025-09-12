@@ -92,6 +92,12 @@ Can be easily replicated, ie deploy multiple copies.
 
 Containers are ephemeral, short-lived. If they die we just replace them.
 
+From https://www.docker.com/resources/what-container
+
+> Containerized software will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.
+
+> Containers share the machine’s OS system kernel and therefore do not require an OS per application, driving higher server efficiencies and reducing server and licensing costs
+
 Phases:
 
 1. Build Image (package the app)
@@ -103,6 +109,8 @@ Phases:
 Container = App Code + Runtime + Libraries/Dependencies/Binaries + Configuration Files
 
 What is a container? https://www.docker.com/resources/what-container
+
+> A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
 
 What are Linux containers? https://www.redhat.com/en/topics/containers
 
@@ -118,10 +126,12 @@ From https://www.docker.com/resources/what-container/
   - All containers share the same OS kernel (host OS), running in isolated processes in user space
   - Abstraction at the app layer that packages code and dependencies together
   - Virtualize the OS, not the hardware
+  - Images are typically tens of MBs in size
 - Virtual Machines
   - Each VM has a complete copy of the operating system (guest OS)
   - Abstraction (virtualization) of physical hardware turning one server into many servers
   - Provide complete isolation from the host operating system and other VMs
+  - Each VM includes a full copy of an operating system, taking up tens of GBs
 
 > The key differentiator between containers and virtual machines is that virtual machines virtualize an entire machine down to the hardware layers and containers only virtualize software layers above the operating system level. [source](https://www.atlassian.com/microservices/cloud-computing/containers-vs-vms)
 
@@ -428,6 +438,8 @@ docker-compose up, down, stop and start difference - https://stackoverflow.com/q
 ```shell
 docker compose up
 docker compose up --build
+# Both display output in the terminal and save it to a file
+docker compose up --build 2>&1 | tee docker.log
 docker compose up -d # Detached mode
 ```
 
@@ -593,6 +605,66 @@ Used to create a base image. See https://docs.docker.com/build/building/base-ima
 
 https://hub.docker.com/_/scratch
 
+## `.dockerignore`
+
+Helps reduce image size and speeds up builds. It also avoids leaking secrets.
+
+Common things to ignore:
+
+```shell title=".dockerignore"
+.DS_Store
+LICENSE
+README.md
+CHANGELOG.md
+*.md
+
+# Git
+.git
+.gitignore
+
+# Secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Editors
+.idea
+.vscode
+
+# Node.js
+node_modules
+npm-debug.log
+yarn.lock
+
+# Logs
+*.log
+logs/
+
+# Docker
+.dockerignore
+docker-compose.yml
+Dockerfile.prod # Optional
+Dockerfile.dev
+Dockerfile.test
+# You can also do Dockerfile*
+
+# Misc
+coverage/
+tests/
+docs/
+build/
+dist/
+.cache
+.github
+```
+
+From https://docs.docker.com/offload/optimize/
+
+> As a rule of thumb, your `.dockerignore` should be similar to your `.gitignore`.
+
+You can have multiple .dockerignore files, for example `.dockerignore.prod` (excludes everything including Dockerfiles) and `.dockerignore.dev` (more permissive). Then specify which one to use: `docker build -f Dockerfile.prod --ignore-file .dockerignore.prod`.
+
 ## Multi-stage builds
 
 Optimize images of compiled languages (C, C++, Go, Rust...).
@@ -618,6 +690,8 @@ Cheatsheet: https://collabnix.com/docker-compose-cheatsheet
 Oh My Zsh plugin: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose
 
 6 Docker Compose Best Practices for Dev and Prod - https://news.ycombinator.com/item?id=32484008 - https://release.com/blog/6-docker-compose-best-practices-for-dev-and-prod
+
+React application with a Node.js backend and a MySQL database - https://github.com/docker/awesome-compose/blob/master/react-express-mysql/compose.yaml
 
 Example from https://www.youtube.com/watch?v=iqqDU2crIEQ
 
