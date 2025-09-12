@@ -243,6 +243,7 @@ const sidebars: SidebarsConfig = {
     'disseny/svg',
     'disseny/gimp',
     'disseny/inkscape',
+    'disseny/figma',
   ],
   ux: ['ux/ux'],
   log: ['log/talks', 'log/articles', 'log/courses'],
