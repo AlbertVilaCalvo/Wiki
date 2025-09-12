@@ -160,13 +160,23 @@ Use `cat /proc/cpuinfo` to display CPU information on a EC2 instance.
 
 ## less
 
-If the file is big is better use `less` not `cat`.
+If the file is big is better use `less` instead of `cat`.
 
 ```shell
 less file.txt
 ```
 
 Use `/Whatever` for searching.
+
+You can also use `more`, but has less features than `less` and it's slower. Also see [`bat`](https://github.com/sharkdp/bat), which pages the output too.
+
+## tee
+
+Use it to both display output in the terminal and save it to a file.
+
+```shell
+docker compose up --build 2>&1 | tee docker.log
+```
 
 ## find
 
@@ -258,6 +268,24 @@ echo "command_to_be_run" | at now + 10 minutes
 ```
 
 Example: terminate EC2 instance at N minutes: https://github.com/AWSinAction/code3/blob/e8131b2a740d22cd5d487aa30d242336421c496e/chapter05/ec2-iam-role.yaml#L111
+
+## envsubst
+
+https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html
+
+https://stackoverflow.com/questions/14155596/how-to-substitute-shell-variables-in-complex-text-files
+
+```shell
+# Export the variables first
+export VERSION=1
+
+# Create a new file
+envsubst < source.yaml > replaced.yaml
+# Pipe to a command
+envsubst < deploy.yaml | kubectl apply -f -
+```
+
+See an example [here](https://github.com/bootstrapping-microservices-2nd-edition/chapter-10/blob/d6e7358b966572350b3f4b83291876174a34e5b9/scripts/production-kub/deploy.sh#L43-L48) and [here](https://github.com/bootstrapping-microservices-2nd-edition/chapter-10/blob/d6e7358b966572350b3f4b83291876174a34e5b9/scripts/cd/video-upload.yaml#L23).
 
 ## sed
 

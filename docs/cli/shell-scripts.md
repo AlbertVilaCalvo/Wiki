@@ -121,10 +121,23 @@ https://en.wikipedia.org/wiki/Standard_streams
 
 https://www.gnu.org/software/bash/manual/html_node/Redirections.html
 
-Redirect standard error to the same destination than standard output:
+https://tldp.org/LDP/abs/html/io-redirection.html
+
+- stdin: the keyboard
+- stdout: the screen
+- stderr: error messages output to the screen
+
+Use `2>&1` to redirect both stdout and stderr to the same destination ([source](https://stackoverflow.com/questions/876239/how-to-redirect-and-append-both-standard-output-and-standard-error-to-a-file-wit)):
 
 ```shell
-$command > file.txt 2>&1
+$command > file.txt 2>&1 # overwrite or create
+$command >> file.txt 2>&1 # append or create
+```
+
+Both display output in the terminal and save it to a file:
+
+```shell
+docker compose up --build 2>&1 | tee docker.log
 ```
 
 To suppress use ([source](https://stackoverflow.com/a/51045329/4034572)):
@@ -157,8 +170,8 @@ http://redsymbol.net/articles/unofficial-bash-strict-mode/
 
 https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 
-- `set -e`. Exit on error. _Exit immediately if a command exits with a non-zero status._
-- `set -u`. Error when using undefined variables, for example to catch typos. _Treat unset variables as an error when substituting._
+- `set -e` or `set -o errexit`. Exit on error. _Exit immediately if a command exits with a non-zero status._
+- `set -u` or `set -o nounset`. Error when using undefined variables, for example to catch typos. _Treat unset variables as an error when substituting._
 - `set -o pipefail`. Avoid swallowing errors in pipelines (`|`). _The return value of a pipeline is the status of the last command to exit with a non-zero status, or zero if no command exited with a non-zero status._
 
 An option can be temporarily disabled and re-enabled. For example, if a command exits with non-zero status and we don't want to exit:
@@ -174,6 +187,27 @@ For `set -e` we can also use `|| true` to avoid exiting immediately:
 
 ```shell
 count=$(grep -c some-string some-file || true)
+```
+
+The colon (`:`) is a shell built-in command that does nothing (it's a no-op). We can use it to check for the existence of variables that are _not_ used in the script, maybe because they are interpolated to another file. For example ([source](https://github.com/bootstrapping-microservices-2nd-edition/chapter-8-example-3/blob/ae37b015081016ea3d26f56b9d04f5d970295f48/scripts/deploy.sh#L16-L18)):
+
+```shell
+set -u # or set -o nounset
+: "$CONTAINER_REGISTRY"
+: "$VERSION"
+
+envsubst < ./scripts/kubernetes/deploy.yaml | kubectl apply -f -
+```
+
+This works because the shell tries to expand the parameters. If unset, you get the error "./scripts/deploy.sh: line 18: VERSION: unbound variable". You can also check for arguments ([source](https://github.com/ashleydavis/kubernetes-log-aggregation-example/blob/8a5c19cb883408db9c43e852287ddf8fffb50d73/scripts/docker/build-image.sh)):
+
+```shell
+set -u # or set -o nounset
+: "$1"
+: "$DOCKER_REGISTRY"
+: "$VERSION"
+
+export DIR=$1
 ```
 
 ## Command substitution
