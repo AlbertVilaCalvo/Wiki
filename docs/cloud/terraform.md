@@ -8,6 +8,11 @@ https://developer.hashicorp.com/terraform
 
 Forum - https://discuss.hashicorp.com/c/terraform-core/27
 
+Copilot instructions:
+
+- https://github.com/github/awesome-copilot/blob/main/instructions/terraform.instructions.md
+- https://github.com/github/awesome-copilot/blob/main/instructions/generate-modern-terraform-code-for-azure.instructions.md
+
 Reddit - https://www.reddit.com/r/Terraform/
 
 https://github.com/topics/terraform

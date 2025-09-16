@@ -10,6 +10,12 @@ React re-renders guide: everything, all at once - https://www.developerway.com/p
 
 Avoid declaring components inside of components - https://isamatov.com/react-antipatterns/#declaring-components-inside-of-components
 
+Copilot instructions:
+
+- https://github.com/github/awesome-copilot/blob/main/instructions/reactjs.instructions.md
+- https://github.com/github/awesome-copilot/blob/main/instructions/nextjs.instructions.md
+- https://github.com/github/awesome-copilot/blob/main/instructions/performance-optimization.instructions.md
+
 A Visual Guide to React Rendering - It Always Re-renders - https://alexsidorenko.com/blog/react-render-always-rerenders/
 
 The Interactive Guide to Rendering in React - https://ui.dev/why-react-renders

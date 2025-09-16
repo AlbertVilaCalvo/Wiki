@@ -8,6 +8,8 @@ Official examples: https://github.com/vercel/next.js/tree/canary/examples
 
 Curs interessant: https://react2025.com/
 
+Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/nextjs.instructions.md
+
 Blog posts i altres recursos: https://reactresources.com/topics/nextjs
 
 https://vercel.com/blog/upgrading-nextjs-for-instant-performance-improvements

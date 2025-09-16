@@ -9,6 +9,8 @@ End of life/release schedule:
 - https://github.com/nodejs/Release/#release-schedule
 - https://endoflife.date/nodejs
 
+Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/nodejs-javascript-vitest.instructions.md
+
 https://github.com/goldbergyoni/nodebestpractices
 
 Shell scripting with Node.js (Axel Rauschmayer) - https://exploringjs.com/nodejs-shell-scripting

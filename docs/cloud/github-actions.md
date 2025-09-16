@@ -10,6 +10,8 @@ Docs: https://docs.github.com/en/actions
 
 Reference: https://docs.github.com/en/actions/reference
 
+Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/github-actions-ci-cd-best-practices.instructions.md
+
 TODO Guide to learn: https://resources.github.com/learn/pathways/automation/. Has 3 levels: essentials, intermediate and advanced
 
 Marketplace: https://github.com/marketplace?type=actions

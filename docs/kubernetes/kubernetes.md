@@ -16,6 +16,8 @@ https://github.com/kubernetes
 
 https://github.com/kubernetes-sigs
 
+Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/kubernetes-deployment-best-practices.instructions.md
+
 https://github.com/kelseyhightower/kubernetes-the-hard-way
 
 https://github.com/dennyzhang/cheatsheet-kubernetes-A4

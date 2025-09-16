@@ -8,6 +8,8 @@ https://gobyexample.com
 
 Oh My Zsh plugin - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/golang
 
+Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/go.instructions.md
+
 https://www.udemy.com/course/backend-master-class-golang-postgresql-kubernetes
 
 https://github.com/kisielk/godepgraph - A Go dependency graph visualization tool

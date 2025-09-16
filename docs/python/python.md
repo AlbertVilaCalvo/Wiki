@@ -8,6 +8,8 @@ Cheatsheet - https://www.pythonsheets.com
 
 https://awesome-python.com - https://github.com/vinta/awesome-python
 
+Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/python.instructions.md
+
 Python 3 Module of the Week - https://pymotw.com/3/
 
 Think Python, 3rd edition - https://allendowney.github.io/ThinkPython - https://github.com/AllenDowney/ThinkPython/tree/v3 - https://greenteapress.com/wp/think-python-3rd-edition

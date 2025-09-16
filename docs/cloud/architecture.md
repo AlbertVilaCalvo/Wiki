@@ -352,3 +352,7 @@ https://github.com/App-vNext/Polly - https://www.pollydocs.org
 https://microservices.io/patterns/reliability/circuit-breaker.html
 
 https://github.com/netflix/hystrix
+
+## DDD
+
+DDD - https://github.com/github/awesome-copilot/blob/main/instructions/dotnet-architecture-good-practices.instructions.md
