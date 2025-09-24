@@ -104,7 +104,7 @@ Init without questions: `npm init -y`
 
 ### Global
 
-List global pacakges: `npm list -g --depth=0`
+List global packages: `npm list -g --depth=0`
 
 List outdated global packages: `npm outdated -g`
 
@@ -122,7 +122,7 @@ Putting packages in `dependencies` or `devDependencies` matters on Node.js and l
 
 How do I decide whether @types/\* goes into `dependencies` or `devDependencies`? - https://stackoverflow.com/questions/45176661/how-do-i-decide-whether-types-goes-into-dependencies-or-devdependencies
 
-create-react-app install devDepencies in dependencies section - https://stackoverflow.com/questions/44868453/create-react-app-install-devdepencies-in-dependencies-section
+create-react-app install devDependencies in dependencies section - https://stackoverflow.com/questions/44868453/create-react-app-install-devdepencies-in-dependencies-section
 
 Consider moving react-scripts to devDependencies in the generated package - https://github.com/facebook/create-react-app/issues/4342
 
@@ -154,18 +154,39 @@ There are more operators you can use in addition to `^` and `~`, like `>=1.2.3`,
 
 To save exact do: `npm install --save-exact express` or `npm i -E express`
 
+Consistent dependency versions in large JavaScript Monorepos - https://jamiemason.github.io/syncpack/ - https://github.com/JamieMason/syncpack
+
 ## Exact or range versions?
 
 https://www.reddit.com/r/javascript/comments/ira5gz/askjs_do_you_use_exact_or_range_versions_for_your/
 
 :::tip
-Force exact package versions with a [`.npmrc`](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc) file:
+Force exact package versions with a [`.npmrc`](https://docs.npmjs.com/cli/v11/configuring-npm/npmrc) file:
 
 ```shell title=".npmrc"
 save-exact=true
 ```
 
 :::
+
+A recommended approach (best practice) is:
+
+- For applications:
+  - Production dependencies: Use exact versions
+  - Dev dependencies: Use ranges (^)
+  - Benefits:
+    - Reproducible builds across all environments
+    - No surprises in production deployments
+    - Easier debugging (same versions everywhere)
+    - Security control (you decide when to update)
+- For libraries/packages:
+  - Dependencies: Use ranges (^)
+  - Peer dependencies: Use ranges (^)+
+  - Benefits:
+    - Automatic bug fixes and patches
+    - Latest TypeScript improvements
+    - Updated linting rules
+    - Less maintenance overhead
 
 ## Find version of an installed package
 
@@ -203,7 +224,7 @@ Never delete it: https://tkdodo.eu/blog/solving-conflicts-in-package-lock-json _
 
 ## .npmrc
 
-https://docs.npmjs.com/cli/v9/configuring-npm/npmrc
+https://docs.npmjs.com/cli/v11/configuring-npm/npmrc
 
 Options: https://docs.npmjs.com/cli/v10/using-npm/config
 

@@ -25,12 +25,17 @@ Node.js testing - https://github.com/testjavascript/nodejs-integration-tests-bes
 
 - https://nodejs.libhunt.com
 - https://nodejstoolbox.com
+- https://bestofjs.org
 
 ### HTTP clients
 
 https://github.com/sindresorhus/got#comparison
 
+- https://github.com/topics/http-client
 - https://github.com/sindresorhus/got
+  - > You probably want [Ky](https://github.com/sindresorhus/ky) instead, by the same people. It's smaller, works in the browser too, and is more stable since it's built on [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Or [fetch-extras](https://github.com/sindresorhus/fetch-extras) for simple needs.
+- https://github.com/sindresorhus/ky
+- https://github.com/forwardemail/superagent
 - https://github.com/node-fetch/node-fetch
 
 ### HTTP testing
@@ -74,6 +79,16 @@ With Redis:
 
 - https://github.com/motdotla/dotenv
 - https://github.com/KATT/envsafe
+
+### Dependency injection
+
+https://bestofjs.org/projects?page=1&limit=30&tags=di&sort=last-commit
+
+- https://github.com/inversify/InversifyJS - https://inversify.io
+- https://github.com/mgechev/injection-js
+- https://github.com/jeffijoe/awilix
+- https://github.com/microsoft/tsyringe
+- https://github.com/typestack/typedi
 
 ## Version managers
 

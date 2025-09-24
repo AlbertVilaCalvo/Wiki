@@ -74,6 +74,10 @@ https://github.com/reactjs/react.dev/pull/5487#issuecomment-1409720741
 
 https://github.com/facebook/create-react-app/issues/13072
 
+https://react.dev/blog/2025/02/14/sunsetting-create-react-app
+
+https://github.com/bhbs/viject
+
 ## Imports
 
 Correct:
@@ -279,6 +283,8 @@ Others:
 - https://github.com/nanostores/nanostores
 
 ## UI design libraries
+
+https://reactbits.dev - https://github.com/DavidHDev/react-bits
 
 See comparison: https://chakra-ui.com/getting-started/comparison
 

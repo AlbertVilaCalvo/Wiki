@@ -2,6 +2,8 @@
 title: macOS
 ---
 
+https://medium.com/@simpleandkind788/7-macos-tahoe-settings-you-should-turn-off-right-now-fed342f8a70e
+
 |     Name     | Character |     kbd      | Physical key |
 | :----------: | :-------: | :----------: | :----------: |
 |   Command    |     ⌘     | <kbd>⌘</kbd> |  ⊞ Windows   |
@@ -158,6 +160,14 @@ From https://sergeemond.ca/en/articles/iterm-extend-send-text-action
   - Important: adjust the timeout in Settings → Profiles → Session, at "Undo can revive a session that has been closed for up to X seconds". Default value is 5 seconds. Should be changed to about 25 seconds.
 - Hold Cmd+Option to select text with the mouse doing a rectangle
 
+### Full disk access
+
+If a dialog pops up every time you run `docker compose up --build`, you need to give iTerm2 full disk access at the macOS settings → Privacy and security. See:
+
+- https://gitlab.com/gnachman/iterm2/-/wikis/fulldiskaccess
+- https://apple.stackexchange.com/questions/442220/how-to-stop-iterm2-requiring-being-granted-access-every-time
+- https://www.reddit.com/r/iterm/comments/17c97d3/macos_sonoma_iterm2_iterm2_wants_to_access/
+
 ## kexts
 
 Used by Little Snitch and Razer Synapse.
@@ -230,3 +240,26 @@ Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → 
   - https://macpaw.com/gemini
 
 https://cleanmymac.com
+
+## Port 5000 used
+
+Si tens aquest error:
+
+```
+Error: listen EADDRINUSE: address already in use :::5000
+```
+
+Si fas `lsof -i tcp:5000` diu:
+
+```
+COMMAND   PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+ControlCe 971 albert    9u  IPv4 0x82f98b9c1d6f8cd3      0t0  TCP *:commplex-main (LISTEN)
+ControlCe 971 albert   11u  IPv6 0x4e61d39e72bdbfc6      0t0  TCP *:commplex-main (LISTEN)
+```
+
+Cal anar a Configuració del Sistema → General → AirDrop i Handoff i desactivar el switch "Receptor AirPlay".
+
+Veure:
+
+- https://nono.ma/port-5000-used-by-control-center-in-macos-controlce
+- https://www.reddit.com/r/perl/comments/10p8p39/macos_port_5000_mystery_solved/

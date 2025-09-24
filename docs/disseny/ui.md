@@ -15,6 +15,12 @@ Font size isn’t always the best way to emphasize text. Try font color and font
 - https://github.com/topics/ui
 - https://github.com/topics/components
 
+https://ui.shadcn.com - https://github.com/shadcn-ui/ui
+
+https://www.radix-ui.com
+
+https://chakra-ui.com - https://github.com/chakra-ui/chakra-ui
+
 https://magicui.design
 
 https://bundui.io

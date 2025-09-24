@@ -55,7 +55,7 @@ Examples:
     "description": "Code block in markdown"
   },
   "Shell code block": {
-    "prefix": "she",
+    "prefix": "sh",
     "body": [
       "```shell",
       "$0",

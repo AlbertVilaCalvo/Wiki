@@ -197,6 +197,12 @@ const user = {
 
 https://webreflection.medium.com/js-classes-are-not-just-syntactic-sugar-28690fedf078
 
+https://medium.com/@dan_abramov/how-to-use-classes-and-sleep-at-night-9af8de78ccb4
+
+> Don’t make `super` calls from methods
+
+> Instead of `instanceof` checks, assert the existence of the methods you plan to use, and trust the user to do the right thing.
+
 ## Error
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
