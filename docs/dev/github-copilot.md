@@ -20,12 +20,6 @@ GitHub Copilot in VS Code playlist - https://www.youtube.com/playlist?list=PLj6Y
 Use VSCode, it has the latest features. Other editors are behind.
 :::
 
-## copilot-debug
-
-From https://code.visualstudio.com/updates/v1_96#_debugging-with-copilot
-
-Use it by prefixing the command that you would normally run with `copilot-debug`. For example, if you normally run your program using the command `python foo.py`, you can now run `copilot-debug python foo.py` to start a debugging session.
-
 ## Custom instructions
 
 :::tip
@@ -67,6 +61,8 @@ https://code.visualstudio.com/docs/copilot/customization/custom-instructions
 
 https://docs.github.com/en/copilot/tutorials/customization-library/custom-instructions/your-first-custom-instructions
 
+https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results#adding-custom-instructions-to-your-repository
+
 ### Tips
 
 From [Writing effective repository custom instructions](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions?tool=vscode#writing-effective-repository-custom-instructions):
@@ -100,6 +96,10 @@ From [Tips for defining custom instructions](https://code.visualstudio.com/docs/
 
 ### Examples
 
+See examples at https://docs.github.com/en/copilot/tutorials/customization-library/custom-instructions
+
+Many instructions for different technologies - https://github.com/github/awesome-copilot/blob/main/README.instructions.md
+
 - https://github.com/ttaulli/GitHub-Copilot-ChatGPT/blob/main/.github/copilot-instructions.md
 - https://github.com/timothywarner-org/copilot-cert-prep/blob/main/.github/copilot-instructions.md
 - https://github.com/timothywarner-org/copilot-cert-prep/blob/main/course-materials/custom-instructions-improved.md
@@ -118,11 +118,19 @@ From [Tips for defining custom instructions](https://code.visualstudio.com/docs/
 
 ## Prompt files
 
+https://docs.github.com/en/copilot/tutorials/customization-library/prompt-files
+
 https://code.visualstudio.com/blogs/2025/03/26/custom-instructions#_introducing-prompt-files
 
 https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions?tool=vscode#enabling-and-using-prompt-files
 
 https://docs.github.com/en/copilot/concepts/prompting/response-customization#about-prompt-files
+
+## copilot-debug
+
+From https://code.visualstudio.com/updates/v1_96#_debugging-with-copilot
+
+Use it by prefixing the command that you would normally run with `copilot-debug`. For example, if you normally run your program using the command `python foo.py`, you can now run `copilot-debug python foo.py` to start a debugging session.
 
 ## Docker extension for GitHub Copilot
 

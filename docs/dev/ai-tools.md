@@ -2,7 +2,7 @@
 title: AI Tools
 ---
 
-OpenVLM Leaderboard - https://huggingface.co/spaces/opencompass/open_vlm_leaderboard
+https://github.com/open-webui/open-webui
 
 https://www.cursor.com - Standalone editor based on VSCode
 
@@ -40,11 +40,17 @@ https://replit.com
 
 https://www.blackbox.ai
 
+https://github.com/spark - https://docs.github.com/en/copilot/tutorials/easy-apps-with-spark - https://docs.github.com/en/copilot/tutorials/build-apps-with-spark
+
 ## Models
 
-https://docs.github.com/en/copilot/using-github-copilot/ai-models/choosing-the-right-ai-model-for-your-task
+**AI model comparison** - https://docs.github.com/en/copilot/reference/ai-models/model-comparison
+
+https://docs.github.com/en/copilot/tutorials/compare-ai-models
 
 https://code.visualstudio.com/docs/copilot/language-models#_choose-the-right-model-for-your-task
+
+OpenVLM Leaderboard - https://huggingface.co/spaces/opencompass/open_vlm_leaderboard
 
 GPT-4o -> o means omni. Is [multimodal](https://en.wikipedia.org/wiki/Multimodal_learning): it accepts as input any combination of text, audio, image and video and generates any combination of text, audio and image outputs.
 
@@ -53,6 +59,43 @@ GPT-4o -> o means omni. Is [multimodal](https://en.wikipedia.org/wiki/Multimodal
 Use English.
 
 https://www.promptingguide.ai
+
+Examples of prompts - https://docs.github.com/en/copilot/tutorials/copilot-chat-cookbook
+
+https://github.com/github/awesome-copilot/tree/main/prompts
+
+Prompt engineering for GitHub Copilot Chat - https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering
+
+> First give Copilot a broad description of the goal or scenario. Then list any specific requirements.
+
+> Use examples to help Copilot understand what you want. You can provide example input data, example outputs, and example implementations.
+>
+> Unit tests can also serve as examples. Before writing your function, you can use Copilot to write unit tests for the function. Then, you can ask Copilot to write a function described by those unit tests.
+
+> If you want Copilot to complete a complex or large task, break the task into multiple simple, small tasks.
+
+> Avoid ambiguous terms. Instead, be specific. What does the `createUser` function do? What does the code in your last response do?
+
+> If you want to use a specific library, set the import statements at the top of the file or specify what library you want to use.
+
+> To get suggestions as you code, open any relevant files and close irrelevant files. Copilot will use the open files to understand your request.
+>
+> Open the file or highlight the code that you want Copilot to reference. You can also use keywords to manually supply context to Copilot Chat. For example, you can add the `@workspace` chat participant in VS Code, or `@project` in JetBrains IDEs.
+
+> If you don’t get the result that you want, iterate on your prompt and try again.
+>
+> You can delete the suggestion entirely and start over. Or you can keep the suggestion and request modifications.
+>
+> You can reference the previous response in your next request. Or, you can delete the previous response and start over.
+
+> Copilot Chat uses the chat history to get context about your request. To give Copilot only the relevant history:
+>
+> - Use threads to start a new conversation for a new task
+> - Delete requests that are no longer relevant or that didn’t give you the desired result
+
+> Make sure that your existing code follows best practices and is easy to read.
+
+**Issues that you may choose to work on yourself, rather than assigning to Copilot** - https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results#choosing-the-right-type-of-tasks-to-give-to-copilot
 
 https://prompts.chat - https://github.com/f/awesome-chatgpt-prompts
 
@@ -77,6 +120,8 @@ https://github.com/ryoppippi/ccusage
 
 https://github.com/daaain/claude-code-log
 
+Announcement - https://www.anthropic.com/news/claude-3-7-sonnet
+
 ## ChatGPT
 
 Canvas - https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it
@@ -84,3 +129,7 @@ Canvas - https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-
 To open the app in the Canvas use `/canvas`, eg:
 
 > Use the /canvas feature and build a simple HTML page that says "Hello world!".
+
+## Junie
+
+https://github.com/kousen/junie-training
