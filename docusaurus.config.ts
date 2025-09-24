@@ -288,10 +288,10 @@ const config: Config = {
     description: 'The personal Wiki of Albert Vila Calvo',
   },
 
-  // Remove 'Previous' and 'Next' links
-  // https://docusaurus.io/docs/markdown-features#front-matter
-  // https://docusaurus.io/docs/api/docusaurus-config#markdown
   markdown: {
+    // Remove 'Previous' and 'Next' links
+    // https://docusaurus.io/docs/markdown-features#front-matter
+    // https://docusaurus.io/docs/api/docusaurus-config#markdown
     parseFrontMatter: async (params) => {
       // Reuse the default parser
       const result = await params.defaultParseFrontMatter(params)
@@ -299,7 +299,11 @@ const config: Config = {
       result.frontMatter.pagination_next = null
       return result
     },
+    // https://docusaurus.io/docs/markdown-features/diagrams
+    mermaid: true,
   },
+  // https://docusaurus.io/docs/markdown-features/diagrams
+  themes: ['@docusaurus/theme-mermaid'],
 }
 
 export default config

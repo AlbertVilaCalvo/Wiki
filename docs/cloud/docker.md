@@ -92,6 +92,8 @@ Can be easily replicated, ie deploy multiple copies.
 
 Containers are ephemeral, short-lived. If they die we just replace them.
 
+"Build once, run anywhere". The Docker Engine is a flexible runtime. As long as we have the Docker Engine in the machine, we can run PHP, C#, Node.js, Python... We don't need to have a runtime like Java pre-installed in the machine, because the runtime is packaged into the image. The deployment target is not the Java runtime or the C# runtime, is the Docker Engine. The image we run on the Docker Engine can be anything, and the DevOps team doesn't need to know about what we are using. You can also change the app runtime (for example from Java 8 to Java 21) by simply changing the image, and the Docker Engine doesn't care, it stays the same.
+
 From https://www.docker.com/resources/what-container
 
 > Containerized software will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.
@@ -152,14 +154,19 @@ Examples:
 - https://containerd.io
 - https://www.docker.com/products/container-runtime
 
-## Container vs image
+## Image vs container
 
-From https://docs.docker.com/get-started/overview
+An image is a blueprint from which you create multiple container instances.
+A container is a writable filesystem on top of an read-only filesystem.
+
+<img src="/img/Docker-layers-commit.drawio.png" alt="Docker layers" title="Docker layers" width="750" loading="lazy"/>
+
+From https://docs.docker.com/get-started/docker-overview
 
 - Image: read-only (ie immutable) template with instructions for creating a Docker container.
 - Container: a runnable instance of an image. You can modify the contents of its filesystem.
 
-Multiple instances of the same image can be created.
+> Docker allocates a read-write filesystem to the container, as its final layer. This allows a running container to create or modify files and directories in its local filesystem.
 
 From https://docs.docker.com/get-started:
 
@@ -179,25 +186,57 @@ From https://docs.docker.com/get-started/docker_cheatsheet.pdf
 
 ## Workflow
 
+```mermaid
+graph TD
+    Dockerfile[Dockerfile] -->|build| Image[Image]
+    Registry[Registry] -->|pull| Image
+    Image -->|push| Registry
+    Image -->|run| Container[Container]
+    Container -->|commit| Image
+    Container -->|modify| Container
+
+    style Dockerfile fill:#FFE4B5,stroke:#333,stroke-width:2px,color:#333
+    style Registry fill:#228B22,stroke:#333,stroke-width:2px,color:#fff
+    style Image fill:#E91E63,stroke:#333,stroke-width:2px,color:#fff
+    style Container fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+```
+
 :::tip Local Workflow
-**Dockerfile ——`docker build`——> Image ——`docker run`——> Container**
+
+```mermaid
+graph LR
+    Dockerfile[Dockerfile] -->|build| Image[Image]
+    Image -->|run| Container[Container]
+
+    style Dockerfile fill:#FFE4B5,stroke:#333,stroke-width:2px,color:#333
+    style Image fill:#E91E63,stroke:#333,stroke-width:2px,color:#fff
+    style Container fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+```
 
 :::
 
 :::tip Container Registry Workflow
 
-**Dockerfile ——`docker build`——> Image ——`docker push`, `docker pull` (optional) and `docker run`——> Container**
+```mermaid
+graph LR
+    Dockerfile[Dockerfile] -->|build| Image[Image]
+    Image -->|push| Registry[Registry]
+    Registry -->|run| Container[Container]
 
-1. Build image (package the app following the instructions in the `Dockerfile`).
-2. Publish image to a registry.
-3. Run image (run the app in a container).
+    style Dockerfile fill:#FFE4B5,stroke:#333,stroke-width:2px,color:#333
+    style Image fill:#E91E63,stroke:#333,stroke-width:2px,color:#fff
+    style Container fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+    style Registry fill:#228B22,stroke:#333,stroke-width:2px,color:#fff
+```
+
+1. Build image: package the app following the instructions in the `Dockerfile`.
+2. Push image: publish image to a registry.
+3. Run image: run the app in a container.
 
 :::
 
 :::tip Docker Compose Workflow
-
-**docker-compose.yaml ——`docker compose up --build`——> Application containers running ——`docker compose down --volumes`——> Container**
-
+**docker-compose.yaml ——`docker compose up --build`——> Application containers running ——`docker compose down --volumes`——> Containers stopped and removed**
 :::
 
 | Image        | Container | Process |
@@ -212,11 +251,13 @@ From https://docs.docker.com/get-started/docker_cheatsheet.pdf
 
 [source](https://stackoverflow.com/a/61554030/4034572)
 
-`run` vs `start`: https://stackoverflow.com/questions/34782678/difference-between-running-and-starting-a-docker-container
+### `run` vs `start`
 
-> run = create + start
+https://stackoverflow.com/questions/34782678/difference-between-running-and-starting-a-docker-container
 
-> You can create N clones of the same image.
+run = create + start
+
+You can create N clones of the same image.
 
 ## CLI
 
@@ -251,6 +292,11 @@ docker build -t <tagname>:<version> --platform linux/amd64 --file Dockerfile-pro
 docker images
 docker image ls
 docker image list
+
+# Filter by name
+docker image ls alpine
+# Filter by name and tag
+docker image ls alpine:3.21
 
 # Filter (-f, --filter)
 docker images --filter reference=myapp
@@ -355,21 +401,6 @@ Display container [logs](https://docs.docker.com/reference/cli/docker/container/
 docker logs <container>
 docker logs -f <container>
 docker container logs -f <container>
-```
-
-You can create an image from a running container with [`docker container commit`](https://docs.docker.com/reference/cli/docker/container/commit/). First run an image, modify it, and create a new image incorporating the changes:
-
-```shell
-docker container run -it --name demo ubuntu:22.04 bash
-apt update && apt install -y git
-# ctrl-c or exit
-
-docker container commit demo ubuntu-with-git:1.0.0
-docker image ls ubuntu-with-git # should show the image
-
-docker image inspect ubuntu:22.04
-docker image inspect ubuntu-with-git:1.0.0
-# At the output, notice that the "Parent" ID of ubuntu-with-git is the ID of the ubuntu image
 ```
 
 ### Registry
@@ -507,7 +538,91 @@ Remove dangling images (images with `<none>` in `docker image ls`):
 
 https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
 
+### Commit
+
+Create a new image from a container's changes.
+Run `docker container commit --help` to see the command options.
+
+You can create an image from a running container with [`docker container commit`](https://docs.docker.com/reference/cli/docker/container/commit/). First run an image, modify it, and create a new image incorporating the changes:
+
+```shell
+docker container run -it --name ubuntu-source ubuntu:22.04 bash
+# Doing "git --version" prints "git: command not found"
+# Install git:
+apt update && apt install -y git
+# Run ctrl-c or type 'exit'
+# The container is stopped
+docker container ls -a
+# CONTAINER ID   IMAGE          COMMAND   CREATED         STATUS                     PORTS     NAMES
+# e8f019854cac   ubuntu:22.04   "bash"    6 minutes ago   Exited (0) 5 minutes ago             ubuntu-source
+
+docker container commit ubuntu-source ubuntu-with-git:1.0.0
+# sha256:070099ee24c1232d4ef2502371ab9d678154627b36f3e4e8d278085edb01d7b6
+docker image ls ubuntu-with-git # Shows the new image:
+# REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+# ubuntu-with-git   1.0.0     070099ee24c1   56 seconds ago   323MB
+
+# Note that the "Parent" ID of ubuntu-with-git is the ID of the ubuntu image
+docker image inspect ubuntu:22.04
+# "Id": "sha256:4e0171b9275e12d375863f2b3ae9ce00a4c53ddda176bd55868df97ac6f21a6e",
+docker image inspect ubuntu-with-git:1.0.0
+# "Parent": "sha256:4e0171b9275e12d375863f2b3ae9ce00a4c53ddda176bd55868df97ac6f21a6e",
+
+docker container run -it --name ubuntu-modified ubuntu-with-git:1.0.0 bash
+# Doing "git --version" prints "git version 2.34.1"
+
+# Clean everything
+docker rm ubuntu-source
+docker rm ubuntu-modified
+docker rmi ubuntu-with-git:1.0.0
+docker rmi ubuntu:22.04
+```
+
+In this case we are installing `git`, but we could instead create a file, for example.
+
+The workflow is:
+
+**Image ——`run`——> Container ——Modify image and `commit`——> <ins>New</ins> image**
+
+```mermaid
+graph TD
+    Registry[Registry]
+    Image[Image]
+    Container[Container]
+
+    Registry -->|pull| Image
+    Image -->|push| Registry
+    Image -->|run| Container
+    Container -->|commit| Image
+    Container -->|modify| Container
+
+    style Registry fill:#228B22,stroke:#333,stroke-width:2px,color:#fff
+    style Image fill:#E91E63,stroke:#333,stroke-width:2px,color:#fff
+    style Container fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+```
+
+Every time we do `run`, Docker adds a writeable layer on top of the base image filesystem. We can repeat this process many times, and each time we `run` we add a new writeable layer on top, which becomes immutable and can't be changed after we `commit`.
+
+<img src="/img/Docker-layers-commit.drawio.png" alt="Docker layers" title="Docker layers" width="750" loading="lazy"/>
+
+Docker uses a Union File System to optimize these layers, see https://stackoverflow.com/questions/32775594/why-does-docker-need-a-union-file-system. From https://en.wikipedia.org/wiki/UnionFS:
+
+> Docker uses file systems inspired by Unionfs, such as [Aufs](https://en.wikipedia.org/wiki/Aufs), to layer Docker images. As actions are done to a base image, layers are created and documented, such that each layer fully describes how to recreate an action. This strategy enables Docker's lightweight images, as only layer updates need to be propagated (compared to full VMs, for example).
+
 ## Dockerfile
+
+:::important
+We want:
+
+- Fast builds.
+- Lean, small images. Only package exactly what you need.
+  - Less network usage.
+  - Less disk usage.
+  - Less costs.
+  - Less security issues.
+- Deterministic builds.
+  - If I build on my machine and on CI I get the exact same image.
+    :::
 
 Set of instructions (list of commands) to create a container image.
 
@@ -605,6 +720,51 @@ Used to create a base image. See https://docs.docker.com/build/building/base-ima
 
 https://hub.docker.com/_/scratch
 
+### Multi-stage builds
+
+A `Dockerfile` with multiple `FROM` statements. Each `FROM` instruction starts a new stage of the build, and you can selectively copy artifacts from one stage to another, leaving behind everything you don't need.
+
+Used to optimize images of compiled languages (C, C++, Go, Rust...).
+
+https://docs.docker.com/build/building/multi-stage/
+
+Example: https://github.com/victorgrubio/blog-projects/blob/main/react-nginx-dockerization/frontend/Dockerfile - https://mentorcruise.com/blog/how-to-dockerize-a-react-app-and-deploy-it-easily/
+
+Node.js server example:
+
+```shell
+# ---- Builder Stage ----
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package.json package-lock.json ./
+RUN npm ci --no-fund --no-audit
+
+# Copy source code
+COPY . .
+
+# Build TypeScript to JavaScript
+RUN npm run build
+
+# ---- Production Stage ----
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy built files and dependencies from the builder stage
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/node_modules ./node_modules
+COPY package.json .
+
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Command to run the application
+CMD ["node", "build/index.js"]
+```
+
 ## `.dockerignore`
 
 Helps reduce image size and speeds up builds. It also avoids leaking secrets.
@@ -665,14 +825,6 @@ From https://docs.docker.com/offload/optimize/
 
 You can have multiple .dockerignore files, for example `.dockerignore.prod` (excludes everything including Dockerfiles) and `.dockerignore.dev` (more permissive). Then specify which one to use: `docker build -f Dockerfile.prod --ignore-file .dockerignore.prod`.
 
-## Multi-stage builds
-
-Optimize images of compiled languages (C, C++, Go, Rust...).
-
-https://docs.docker.com/build/building/multi-stage/
-
-Example: https://github.com/victorgrubio/blog-projects/blob/main/react-nginx-dockerization/frontend/Dockerfile - https://mentorcruise.com/blog/how-to-dockerize-a-react-app-and-deploy-it-easily/
-
 ## Volumes
 
 Containers are started and stopped as required (ie they have a lifecycle). Volumes provide persistent data storage to containers, independent of its lifecycle. Volumes can be shared with many containers. They avoid increasing the container size.
@@ -696,7 +848,7 @@ React application with a Node.js backend and a MySQL database - https://github.c
 Example from https://www.youtube.com/watch?v=iqqDU2crIEQ
 
 ```yml
-version: '2'
+version: '2' # This field is deprecated now
 
 services:
   web:
@@ -721,6 +873,16 @@ volumes:
   mongodb:
   mongodb_config:
 ```
+
+### Health Check
+
+https://last9.io/blog/docker-compose-health-checks/
+
+https://github.com/peter-evans/docker-compose-healthcheck
+
+https://github.com/vishnubob/wait-for-it
+
+https://hub.docker.com/r/willfarrell/autoheal/
 
 ## Docker Desktop
 
