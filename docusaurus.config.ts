@@ -280,6 +280,13 @@ const config: Config = {
         hideable: true,
       },
     },
+    // By default only h2 and h3 are shown at the Table of Contents at the right, see
+    // https://docusaurus.io/docs/markdown-features/toc#table-of-contents-heading-level and
+    // https://docusaurus.io/docs/api/themes/configuration#table-of-contents.
+    // Note that you can override this later at each doc with toc_max_heading_level: 5.
+    tableOfContents: {
+      maxHeadingLevel: 4,
+    },
   } satisfies Preset.ThemeConfig,
 
   // ADDED BY ME
