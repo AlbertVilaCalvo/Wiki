@@ -8,8 +8,6 @@ https://hub.docker.com - Pre-built container image registry
 
 https://github.com/veggiemonk/awesome-docker
 
-Just say no to :latest - https://news.ycombinator.com/item?id=30576443
-
 Newsletter - https://www.docker.com/newsletter-subscription/
 
 Dockerfile linters:
@@ -46,7 +44,7 @@ https://github.com/jesseduffield/lazydocker
 
 https://github.com/dwmkerr/wait-port
 
-https://github.com/wagoodman/dive
+https://github.com/wagoodman/dive - Explore layers in a docker image
 
 https://github.com/containrrr/watchtower
 
@@ -92,7 +90,7 @@ Can be easily replicated, ie deploy multiple copies.
 
 Containers are ephemeral, short-lived. If they die we just replace them.
 
-"Build once, run anywhere". The Docker Engine is a flexible runtime. As long as we have the Docker Engine in the machine, we can run PHP, C#, Node.js, Python... We don't need to have a runtime like Java pre-installed in the machine, because the runtime is packaged into the image. The deployment target is not the Java runtime or the C# runtime, is the Docker Engine. The image we run on the Docker Engine can be anything, and the DevOps team doesn't need to know about what we are using. You can also change the app runtime (for example from Java 8 to Java 21) by simply changing the image, and the Docker Engine doesn't care, it stays the same.
+"Build once, run anywhere". The Docker Engine is a flexible runtime. As long as we have the Docker Engine in the machine, we can run PHP, C#, Node.js, Python... We don't need to have a runtime like Java pre-installed in the machine, because the runtime is packaged into the image. The deployment target is not the Java runtime or the C# runtime, is the Docker Engine. The image we run on the Docker Engine can be anything, and the DevOps team doesn't need to know about what we are using. You can also change the app runtime (for example from Java 8 to Java 21) by simply changing the image, and the Docker Engine doesn't care, it stays the same. See [Docker simplified in 55 seconds](https://www.youtube.com/watch?v=vP_4DlOH1G4).
 
 From https://www.docker.com/resources/what-container
 
@@ -157,7 +155,7 @@ Examples:
 ## Image vs container
 
 An image is a blueprint from which you create multiple container instances.
-A container is a writable filesystem on top of an read-only filesystem.
+A container has a writable filesystem on top of an read-only filesystem.
 
 <img src="/img/Docker-layers-commit.drawio.png" alt="Docker layers" title="Docker layers" width="750" loading="lazy"/>
 
@@ -183,6 +181,147 @@ From https://docs.docker.com/get-started/docker_cheatsheet.pdf
 > Images are a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
 >
 > A container is a runtime instance of a docker image. A container will always run the same, regardless of the infrastructure. Containers isolate software from its environment and ensure that it works uniformly despite differences for instance between development and staging.
+
+## Layers
+
+:::tip
+Use `docker history <image>` to view the layers. See ([history docs](https://docs.docker.com/reference/cli/docker/image/history/)).
+
+You can also use https://github.com/wagoodman/dive and https://github.com/orisano/dlayer.
+:::
+
+Docker images are composed of a series of read-only layers stacked on top of each other. Each instruction in a `Dockerfile` translates to a layer in your final image. Image from https://docs.docker.com/build/cache:
+
+<p align="center">
+  <img src="/img/Docker-layers.png" alt="Docker layers" title="Docker layers" width="450" loading="lazy"/>
+</p>
+
+When you run a container from an image, Docker adds a thin writable layer on top, called the "container layer". All changes made to the running container, such as writing new files, modifying existing files, and deleting files, are written to this thin writable container layer.
+
+<img src="/img/Docker-layers-commit.drawio.png" alt="Docker layers" title="Docker layers" width="750" loading="lazy"/>
+
+[See the `commit` command below](#commit) for details of how changes done in a container filesystem are recorded into an immutable image layer.
+
+This layered architecture is made possible by a Union File System (like OverlayFS or AUFS), which merges these layers into a single, coherent filesystem for the container.
+
+The benefits of this layered system are:
+
+- Caching and faster builds. Docker caches each layer. During a build, if an instruction in the `Dockerfile` hasn't changed, Docker reuses the cached layer from a previous build. This makes subsequent builds much faster, as only the changed layers need to be rebuilt.
+  - Look for the word `CACHED` at the `docker build` output.
+  - Note that any change in the layer instruction (for example, just adding an insignificant whitespace to a command) can invalidate the cache. This is because Docker uses the instruction to create a hash. For example, if we have `RUN npm ci --no-fund --no-audit` it uses `npm ci --no-fund --no-audit` to create a hash.
+- Lower disk usage. Layers are shared between images. If multiple images are based on the same base image (eg `node:18-alpine`), the layers of the base image are stored only once on the host machine, saving disk space.
+- Lightweight images. When you create a new image based on another, you only add new layers for the changes you make.
+
+Only instructions that modify the image's filesystem (`FROM`, `RUN`, `COPY` and `ADD`) create new filesystem layers.
+All other instructions (`LABEL`, `CMD`, `ENTRYPOINT`, `ENV`, `EXPOSE`, etc.) only set image metadata; they do not create new filesystem layers, and are recorded in the image's history as 0B size.
+
+### View layers with `docker history`
+
+Use [`docker history <image>`](https://docs.docker.com/reference/cli/docker/image/history/) to see the layers. For example:
+
+```shell title="Dockerfile"
+# syntax=docker/dockerfile:1
+
+# Base image
+FROM node:24-alpine
+
+# Sets metadata
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+# Sets metadata
+EXPOSE 3000
+
+# Sets metadata
+CMD ["node", "index.js"]
+```
+
+```shell
+docker build -t myapp -f Dockerfile .
+docker history myapp
+```
+
+```
+IMAGE          CREATED              CREATED BY                                      SIZE      COMMENT
+254c36b80bec   18 seconds ago       CMD ["node" "index.js"]                         0B        buildkit.dockerfile.v0
+<missing>      18 seconds ago       EXPOSE &{[{{16 0} {16 0}}] 0x4002716740}        0B        buildkit.dockerfile.v0
+<missing>      18 seconds ago       COPY . . # buildkit                             6.49MB    buildkit.dockerfile.v0
+<missing>      About a minute ago   RUN /bin/sh -c npm install # buildkit           601MB     buildkit.dockerfile.v0
+<missing>      About a minute ago   COPY package*.json ./ # buildkit                758kB     buildkit.dockerfile.v0
+<missing>      2 minutes ago        WORKDIR /app                                    8.19kB    buildkit.dockerfile.v0
+<missing>      3 days ago           CMD ["node"]                                    0B        buildkit.dockerfile.v0
+<missing>      3 days ago           ENTRYPOINT ["docker-entrypoint.sh"]             0B        buildkit.dockerfile.v0
+<missing>      3 days ago           COPY docker-entrypoint.sh /usr/local/bin/ # …   20.5kB    buildkit.dockerfile.v0
+<missing>      3 days ago           RUN /bin/sh -c apk add --no-cache --virtual …   5.47MB    buildkit.dockerfile.v0
+<missing>      3 days ago           ENV YARN_VERSION=1.22.22                        0B        buildkit.dockerfile.v0
+<missing>      3 days ago           RUN /bin/sh -c addgroup -g 1000 node     && …   161MB     buildkit.dockerfile.v0
+<missing>      3 days ago           ENV NODE_VERSION=24.9.0                         0B        buildkit.dockerfile.v0
+<missing>      2 months ago         CMD ["/bin/sh"]                                 0B        buildkit.dockerfile.v0
+<missing>      2 months ago         ADD alpine-minirootfs-3.22.1-aarch64.tar.gz …   9.17MB    buildkit.dockerfile.v0
+```
+
+When looking at `docker history`, don’t just check the SIZE column — also remember that some `RUN` instructions may change the filesystem without increasing image size (e.g., deleting files, making empty dirs, etc.).
+
+### Inheritance
+
+We inherit many things from parent layers:
+
+- Filesystem contents. For example, if the base image installed /bin/bash, you can use it in your layer.
+- Environment variables (`ENV`).
+- Working directory (`WORKDIR`).
+- Default user (`USER`). If the parent image switched users, you inherit that user.
+- Default command / entrypoint (`CMD`, `ENTRYPOINT`).
+- Exposed ports (`EXPOSE`), Volumes (`VOLUME`), and Labels (`LABEL`).
+
+Note that you can override all these things. Use `docker image inspect ubuntu:22.04`, at the "Config" field, to see the details.
+
+What you don’t inherit:
+
+- `ARG` values. `ARG` is only available at build time, not passed into runtime unless explicitly forwarded into `ENV`.
+
+### Layers summary
+
+- Each layer is read-only and immutable.
+- Docker stacks layers. We inherit everything from them, including environment variables and even the user.
+- At runtime, when you run a container, Docker mounts a writable container layer on top (using union filesystems).
+- Instructions that only change metadata (`ENV`, `CMD`, etc.) still produce a new image record, but without a filesystem diff.
+- Docker aggressively caches layers: if the same instruction has already been built before with the same inputs, it reuses the existing layer instead of rebuilding.
+
+## Build process
+
+How Docker builds an image from a `Dockerfile`.
+
+:::tip
+Tip: use `--progress=plain` and `--no-cache` (eg `docker build -t myapp --no-cache --progress=plain .`) to see the full details of a build.
+:::
+
+When you run `docker build -t myapp -f Dockerfile .`, Docker goes through the `Dockerfile` line by line, and for each instruction it does something like this:
+
+1. Starts from `FROM`:
+
+- Docker pulls the base image (alpine:3.20 for example), which becomes the first layer of your build.
+
+2. For each instruction in the `Dockerfile` it repeats this:
+
+- Create a temporary container from the current image (either the base image or the last intermediate image).
+  - This container is not visible unless you use `--progress=plain`, but you need to disable Buildkit, see [Getting docker build to show IDs of intermediate containers](https://stackoverflow.com/questions/65614378/getting-docker-build-to-show-ids-of-intermediate-containers).
+- Run the instruction inside that container:
+  - If it’s a `RUN` → execute the command.
+  - If it’s a `COPY` / `ADD` → copy files into the container’s filesystem.
+  - If it’s a metadata instruction (`ENV`, `WORKDIR`, etc.) → just update config in the image JSON.
+- Commit the container: snapshot its filesystem into a new read-only image layer. Think of this as Docker doing an internal `docker commit`. That snapshot becomes the new current image.
+- Throw away the temporary container. Only the new layer (the diff) is kept.
+
+3. At the end:
+
+- You have a stack of read-only layers (from `FROM`, `RUN`, `COPY` and `ADD`).
+- Docker stores metadata like `CMD`, `ENTRYPOINT`, `ENV` in the image config JSON (not in the filesystem layers).
+- The image you tagged (eg myapp:3.2) points to the top of that stack.
 
 ## Workflow
 
@@ -302,6 +441,9 @@ docker image ls alpine:3.21
 docker images --filter reference=myapp
 docker images --filter "dangling=true"
 
+# Print exact timestamps, instead of "2 hours ago"
+docker image ls --format "table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedAt}}\t{{.Size}}"
+
 # Only show image ids (-q, --quiet)
 docker images -q # 553707c4889c
 # Useful for scripts, for example:
@@ -315,6 +457,9 @@ docker stop $(docker ps -q)
 docker image rm <image>
 docker image remove <image>
 docker rmi <image>
+
+# You can remove multiple images:
+docker image rm <image1> <image2> <image3>
 ```
 
 You cannot remove an image of a running container unless you use the `-f`/`--force` option. To delete the image without using `--force`, run `docker stop <container>` and `docker rm <container>` first. Similarly, you cannot remove an image that has one or more tags referencing it unless you use the `--force` option (you get the error "image is referenced in multiple repositories"). In this case, to delete the image without using `--force`, remove the image with `docker rmi repository/image-name:tag`.
@@ -324,6 +469,12 @@ You cannot remove an image of a running container unless you use the `-f`/`--for
 ```shell
 docker image prune # Remove all dangling images
 docker image prune --all # Remove all unused images, not just dangling ones
+```
+
+View image layers ([history docs](https://docs.docker.com/reference/cli/docker/image/history/)):
+
+```shell
+docker history <image>
 ```
 
 ### Containers
@@ -350,15 +501,18 @@ docker run --env PORT=3000 <image>
 docker run -p <host-port>:<container-port> <image>
 docker run -p 3000:3000 <image>
 docker run -p 127.0.0.1:80:8080/tcp <image>
+
+# Run the container and shell into it. Run 'exit' to quit
+docker run --rm -it ubuntu:22.04 bash
 ```
 
 `docker run` options:
 
-- `-d`/`--detach`: run in the background, this way we can keep using the terminal session
-- `--name`: assign a name to reference the container, eg `--name myapp`
-- `-e`/`--env`: pass environment variables, eg `-e SOME_VAR=xyz`
-- `-p`/`--publish`: publish a container's port to the host, eg `-p 5433:5432` or `-p 80:8080`
-- `-rm`: automatically remove the container when it exits
+- `-d`/`--detach`: run in the background, this way we can keep using the terminal session.
+- `--name`: assign a name to reference the container, eg `--name myapp`.
+- `-e`/`--env`: pass environment variables, eg `-e SOME_VAR=xyz`.
+- `-p`/`--publish`: publish a container's port to the host, eg `-p 5433:5432` or `-p 80:8080`.
+- `-rm`: automatically remove the container when it exits. No need to run `docker container rm <container>` afterwards.
 
 [List](https://docs.docker.com/reference/cli/docker/container/ls/) running containers:
 
@@ -393,6 +547,12 @@ docker container exec <container> <command>
 docker exec -it <container> sh
 docker exec -it <container> bash
 # Run 'exit' to quit
+```
+
+You can also run a container and shell into it (`--rm` to automatically removes the container and its associated anonymous volumes when it exits):
+
+```shell
+docker container run --rm -it ubuntu:22.04 bash
 ```
 
 Display container [logs](https://docs.docker.com/reference/cli/docker/container/logs/):
@@ -445,7 +605,7 @@ Push to Docker Hub:
 [Pull](https://docs.docker.com/reference/cli/docker/image/pull/) image from registry:
 
 ```shell
-docker pull alpine:latest
+docker pull alpine:3.22
 ```
 
 ### Dockerfile workflow
@@ -543,7 +703,7 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 Create a new image from a container's changes.
 Run `docker container commit --help` to see the command options.
 
-You can create an image from a running container with [`docker container commit`](https://docs.docker.com/reference/cli/docker/container/commit/). First run an image, modify it, and create a new image incorporating the changes:
+You can create an image from a running container with [`docker container commit`](https://docs.docker.com/reference/cli/docker/container/commit/). First run an image, then modify it, and finally create a new image incorporating the changes:
 
 ```shell
 docker container run -it --name ubuntu-source ubuntu:22.04 bash
@@ -622,7 +782,10 @@ We want:
   - Less security issues.
 - Deterministic builds.
   - If I build on my machine and on CI I get the exact same image.
-    :::
+  - Do not use `FROM alpine:latest`.
+  - Do not install packages without specifying an exact version. For example, do `RUN apk add --no-cache python3=3.11.8` instead of `RUN apk add --no-cache python3`.
+
+:::
 
 Set of instructions (list of commands) to create a container image.
 
@@ -632,6 +795,8 @@ From https://docs.docker.com/get-started/overview
 
 > You might create your own images or you might only use those created by others and published in a registry. To build your own image, you create a Dockerfile with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image. When you change the Dockerfile and rebuild the image, only those layers which have changed are rebuilt. This is part of what makes images so lightweight, small, and fast, when compared to other virtualization technologies.
 
+The following instructions can be overridden later when we run the container, using the CLI flags of [`docker run`](https://docs.docker.com/reference/cli/docker/container/run/): `ENV`, `CMD`, `ENTRYPOINT` and `HEALTHCHECK`.
+
 Reference: https://docs.docker.com/engine/reference/builder
 
 Examples: https://github.com/jessfraz/dockerfiles
@@ -640,14 +805,27 @@ Linter: https://github.com/hadolint/hadolint
 
 Best practices:
 
-- https://docs.docker.com/develop/develop-images/dockerfile_best-practices
+- https://docs.docker.com/build/building/best-practices
 - https://github.com/hexops/dockerfile
+- Node.js - https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md
+
+Optimization:
+
+- https://www.redhat.com/en/blog/tiny-containers
+
+Dockerfile examples:
+
+- https://github.com/docker-library/postgres
+- https://github.com/jenkinsci/docker
+- https://github.com/redis/docker-library-redis
 
 ### Node.js Dockerfile
 
 [source](https://www.youtube.com/watch?v=iqqDU2crIEQ)
 
-```shell
+```shell title="Dockerfile"
+# syntax=docker/dockerfile:1
+
 # Base image form hub.docker.com. A verified image that has Node.js, npm and yarn installed
 FROM node:12.16.3
 
@@ -662,9 +840,9 @@ COPY package.json /code/package.json
 
 RUN npm install
 
-# Copy everything in our current local directory and we put it inside the image's 'code' directory
-# Use the a .dockerignore file to exclude files and directories:
-# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+# Copy everything in our current local directory and we put it inside the image's 'code' directory.
+# Use the a .dockerignore file to exclude files and directories from the build context:
+# https://docs.docker.com/build/concepts/context/#dockerignore-files
 COPY . /code
 
 # Command run when the container starts
@@ -673,9 +851,25 @@ CMD [ "node", "src/server.js" ]
 
 The complexity of writing an efficient NodeJS Docker image - https://www.specfy.io/blog/1-efficient-dockerfile-nodejs-in-7-steps
 
+Docker and Node.js Best Practices - https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md
+
+#### Don't do `CMD ["npm", "start"]`
+
+Do `CMD ["node", "build/index.js"]` instead.
+
+https://www.docker.com/blog/how-to-use-the-node-docker-official-image/#Docker-Node-best-practices
+
+> Include the `package.json` `start` command directly within your `Dockerfile`, to reduce active container processes and let Node properly receive exit signals.
+
+Docker and Node.js Best Practices - https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md#cmd
+
+> When creating an image, you can bypass the `package.json`'s `start` command and bake it directly into the image itself. First off, this reduces the number of processes running inside of your container. Secondly, it causes exit signals such as `SIGTERM` and `SIGINT` to be received by the Node.js process instead of npm swallowing them.
+
 ### Python Dockerfile
 
-```shell
+```shell title="Dockerfile"
+# syntax=docker/dockerfile:1
+
 # Base image
 FROM python:3.10
 
@@ -696,23 +890,109 @@ ENV FLASK_ENV=production
 ENTRYPOINT ["python", "app.py"]
 ```
 
-### `COPY` vs `ADD`
+### Use `# syntax=docker/dockerfile:1`
 
-https://stackoverflow.com/questions/24958140/what-is-the-difference-between-the-copy-and-add-commands-in-a-dockerfile
+https://docs.docker.com/reference/dockerfile/#syntax
 
-https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy
+> Use the syntax parser directive to declare the Dockerfile syntax version to use for the build. If unspecified, BuildKit uses a bundled version of the Dockerfile frontend. Declaring a syntax version lets you automatically use the latest Dockerfile version without having to upgrade BuildKit or Docker Engine, or even use a custom Dockerfile implementation.
 
-> `COPY` is preferred. . That’s because it’s more transparent than `ADD`. `COPY` only supports the basic copying of local files into the container, while `ADD` has some features (like local-only tar extraction and remote URL support) that are not immediately obvious. Consequently, the best use for `ADD` is local tar file auto-extraction into the image, as in `ADD rootfs.tar.xz /`.
+> Most users will want to set this parser directive to `docker/dockerfile:1`, which causes BuildKit to pull the latest stable version of the Dockerfile syntax before the build.
 
-https://docs.docker.com/engine/reference/builder/#add
+https://docs.docker.com/build/buildkit/frontend
 
-https://docs.docker.com/engine/reference/builder/#copy
+- `docker/dockerfile:1` - kept updated with the latest `1.x.x` minor and patch release.
+- `docker/dockerfile:1.2` - kept updated with the latest `1.2.x` patch release, and stops receiving updates once version `1.3.0` is released.
+- `docker/dockerfile:1.2.1` - immutable: never updated.
 
-### `ARG` vs `ENV`
+> **We recommend using `docker/dockerfile:1`**, which always points to the latest stable release of the version 1 syntax, and receives both "minor" and "patch" updates for the version 1 release cycle. BuildKit automatically checks for updates of the syntax when performing a build, making sure you are using the most current version.
 
-https://stackoverflow.com/questions/39597925/how-do-i-set-environment-variables-during-the-build-in-docker
+> **If a specific version is used, such as `1.2` or `1.2.1`, the Dockerfile needs to be updated manually** to continue receiving bugfixes and new features. Old versions of the Dockerfile remain compatible with the new versions of the builder.
 
-### `FROM scratch`
+### Instruction order
+
+:::important
+Place instructions that change infrequently (like installing dependencies) before instructions that change frequently (like copying your source code).
+:::
+
+If a Docker layer changes, all subsequent layers must be rebuilt, they cannot be re-used from the build cache, even if they would build the same. Image from https://docs.docker.com/build/cache:
+
+<p align="center">
+  <img src="/img/Docker-layers-cache-invalidation.png" alt="Docker layers" title="Docker layers" width="450" loading="lazy"/>
+</p>
+
+That's why **the order of instructions in the `Dockerfile` is very important for build performance**. You should place instructions that change infrequently (like installing dependencies) before instructions that change frequently (like copying your source code). For example:
+
+```shell
+# Don't
+COPY src ./src
+
+COPY package.json package-lock.json ./
+RUN npm ci --no-fund --no-audit
+```
+
+```shell
+# Do
+COPY package.json package-lock.json ./
+RUN npm ci --no-fund --no-audit
+
+COPY src ./src
+```
+
+When you build an image, Docker steps through the instructions in your Dockerfile. For each instruction, it checks if it already has a layer in its cache from a previous build that was created from the same parent layer and with the same instruction. Then we can have:
+
+- Cache Hit. If it finds a match, it uses the existing layer from the cache and moves to the next instruction.
+- Cache Miss. If an instruction has changed, or if the files it depends on (like with a `COPY` command) have changed, Docker cannot use the cache. It must execute the instruction, which creates a new layer.
+- Cache Invalidation. Once an instruction results in a cache miss and a new layer is created, the cache is invalidated for all subsequent instructions. Docker must execute every following instruction from scratch because their parent layer has changed.
+
+### `FROM`
+
+https://docs.docker.com/reference/dockerfile/#from
+
+`FROM` has to be the first line, except by `ARG`.
+
+Use `docker image inspect ubuntu:22.04` to see what you get from an image. At the "Config" field, you have details of what you inherit.
+
+Choose your parent image wisely. For example, `FROM` has a huge implication in your image size:
+
+```
+$ docker pull --quiet ubuntu:22.04
+$ docker pull --quiet alpine:3.22
+
+$ docker image ls ubuntu
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+ubuntu       22.04     4e0171b9275e   5 weeks ago   106MB <-- !!
+
+$ docker image ls alpine
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+alpine       3.22      4bcff63911fc   2 months ago   13.3MB <-- !!
+```
+
+Don’t use Alpine Linux for Python images - https://pythonspeed.com/articles/alpine-docker-python/
+
+#### Never use `:latest`
+
+:::important
+Never use `FROM alpine:latest`. Remember: we want deterministic, reproducible builds!
+:::
+
+Latest can be anything, for example:
+
+```shell
+# Build image without version -> it uses "latest" as tag
+docker build -t hola -f Dockerfile .
+# Modify the Dockerfile and build again, but with a version number
+docker build -t hola:2 -f Dockerfile .
+
+# Notice that "latest" points to the older image!
+docker image ls
+# REPOSITORY             TAG         IMAGE ID       CREATED          SIZE
+# hola                   2           8c2b0d31d21f   29 seconds ago   13.6MB
+# hola                   latest      6b8000fd7353   43 seconds ago   13.6MB
+```
+
+Just say no to :latest - https://news.ycombinator.com/item?id=30576443
+
+#### `FROM scratch`
 
 No-op.
 
@@ -720,21 +1000,243 @@ Used to create a base image. See https://docs.docker.com/build/building/base-ima
 
 https://hub.docker.com/_/scratch
 
+### `RUN`
+
+https://docs.docker.com/reference/dockerfile/#run
+
+Always clean up stuff after installing libraries.
+
+Beware when doing this:
+
+```shell
+# Don't
+RUN apt-get update
+RUN apt-get install -y netcat=1.217-3ubuntu1
+RUN apt-get clean
+```
+
+If the image layer of `RUN apt-get update` is cached and you later change `netcat=1.217-3ubuntu1` to a different version, it can happen that when you do `RUN apt-get install -y netcat=1.234-3ubuntu1` it fails because the `RUN apt-get update` layer contains an outdated list of the software packages available upstream, and the new version can't be found. Do this instead:
+
+```shell
+# Do
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+  netcat=1.217-3ubuntu1 \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+```
+
+_A single `RUN` command also has the advantage that it creates one layer instead of three!_ See next point for how this can impact image size when cleaning.
+
+#### Cleaning with multiple `RUN` gotcha
+
+:::warning
+Deleting in later layers doesn’t shrink images.
+To reduce size, you must remove unnecessary files in the same layer they were created.
+:::
+
+An example of how doing things in multiple `RUN` instructions can be pointless.
+
+Run `docker build -t fedora-git:1 -f Dockerfile1 .` with:
+
+```shell title="Dockerfile1"
+FROM fedora:42
+
+RUN dnf install -y git
+```
+
+Run `docker build -t fedora-git:2 -f Dockerfile2 .` with:
+
+```shell title="Dockerfile2"
+FROM fedora:42
+
+# This won't do anything to improve image sizes
+RUN dnf install -y git
+RUN dnf clean all
+RUN rm -rf /var/cache/yum
+```
+
+Run `docker build -t fedora-git:3 -f Dockerfile3 .` with:
+
+```shell title="Dockerfile3"
+FROM fedora:42
+
+# This is what you want
+RUN dnf install -y git \
+  && dnf clean all \
+  && rm -rf /var/cache/yum
+```
+
+Check the images sizes:
+
+```
+$ docker image ls
+REPOSITORY   TAG       IMAGE ID       CREATED              SIZE
+fedora-git   3         768fdee06bfa   About a minute ago   360MB
+fedora-git   2         6658e85700cd   2 minutes ago        768MB <-- Same size than 1!
+fedora-git   1         607909e711b8   2 minutes ago        768MB
+```
+
+The size of fedora-git:1 and fedora-git:2 is the same because Dockerfile2 does the clean operations in two extra layers (one for `dnf clean all` and another for `rm -rf /var/cache/yum`). The files removed will not be present in the final image filesystem, but the cache files are still "baked" inside the layer that does `RUN dnf install -y git` and cannot be reclaimed in later layers, so it’s still part of the final image size.
+
+This also makes the build slower, see https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/
+
+> We create a new layer for each RUN, making our image much larger than it needs to be (and making builds take much longer).
+
+#### Do not do OS level upgrades
+
+Do not do OS level upgrades like `RUN apt-get upgrade`, `RUN apt-get dist-upgrade` or `RUN yum update` because:
+
+- Is not deterministic/reproducible. Dockerfiles should produce the same image today and in 6 months (given the same base image). If you run `RUN apt-get dist-upgrade`, the contents of your image depend on the state of upstream package repositories at build time. That means two builds of the same Dockerfile may result in different images.
+- Bloats image size. `dist-upgrade` or `yum update` pulls down all available updates, including things unrelated to your application. Install only what you need.
+- Layers cache poorly. OS upgrades modify tons of files, and this makes Docker’s build cache less effective — almost every package changes, so you invalidate the layer every build.
+- It complicates security scanning. Most teams rely on base image updates (from upstream maintainers) to receive security patches. If you `dist-upgrade`, you diverge from that baseline. This makes vulnerability scans noisy because your image no longer matches what scanners expect from the official base image.
+
+### Heredoc
+
+https://docs.docker.com/reference/dockerfile/#here-documents
+
+Can be used with `RUN` and `COPY`.
+
+Example: run multiple commands:
+
+```shell title="Dockerfile"
+FROM fedora:42
+
+RUN <<EOF
+dnf install -y git
+dnf clean all
+rm -rf /var/cache/yum
+EOF
+```
+
+Example: create a file:
+
+```shell title="Dockerfile"
+FROM nginx:alpine
+
+WORKDIR /usr/share/nginx/html
+
+COPY <<EOF index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hello from Docker</title>
+</head>
+<body>
+  <h1>Welcome to my Nginx container!</h1>
+  <p>This page was created directly in the Dockerfile with heredoc syntax.</p>
+</body>
+</html>
+EOF
+```
+
+### `COPY`
+
+https://docs.docker.com/reference/dockerfile/#copy
+
+:::important
+Copy dependency files first, then install dependencies, and finally copy the source code. For example:
+
+```shell
+COPY package*.json ./
+RUN npm ci --no-fund --no-audit
+COPY src ./src
+```
+
+See [Instruction order](#instruction-order) for why.
+:::
+
+#### Avoid `COPY . .`
+
+`COPY . .` copies everything from the build context not excluded in the `.dockerignore` file. Any change in any file (even docs) invalidates the cache.
+
+For example, when we do:
+
+```shell
+COPY . .
+RUN npm install
+```
+
+If any file changes (even just adding a comment), the cache is invalidated and `npm install` re-runs. Should do this instead:
+
+```shell
+COPY package*.json ./
+# This step (the node_modules folder) gets cached if package*.json don’t change
+RUN npm install
+```
+
+It also may copy unnecessary files, bloating the image.
+
+### `COPY` vs `RUN --mount=type=bind`
+
+From https://docs.docker.com/build/building/best-practices/#add-or-copy
+
+> If you need to add files from the build context to the container temporarily to execute a `RUN` instruction, you can often substitute the `COPY` instruction with a bind mount instead. For example, to temporarily add a `requirements.txt` file for a `RUN pip install` instruction:
+
+```shell
+RUN --mount=type=bind,source=requirements.txt,target=/tmp/requirements.txt \
+  pip install --requirement /tmp/requirements.txt
+```
+
+> **Bind mounts are more efficient than `COPY` for including files from the build context in the container**. Note that bind-mounted files are only added temporarily for a single `RUN` instruction, and don't persist in the final image. If you need to include files from the build context in the final image, use `COPY`.
+
+### `ADD` vs `COPY`
+
+`ADD` is similar to `COPY` but does tar extraction (automatically removing the compressed tar package) and can download files from a URL.
+
+https://stackoverflow.com/questions/24958140/what-is-the-difference-between-the-copy-and-add-commands-in-a-dockerfile
+
+https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy
+
+> Although `ADD` and `COPY` are functionally similar, generally speaking, **`COPY` is preferred**. That’s because it’s more transparent than `ADD`. `COPY` only supports the basic copying of local files into the container, while `ADD` has some features (like local-only tar extraction and remote URL support) that are not immediately obvious. Consequently, the best use for `ADD` is local tar file auto-extraction into the image, as in `ADD rootfs.tar.xz /`.
+
+### `ADD` vs `RUN wget` or `RUN curl`
+
+https://docs.docker.com/build/building/best-practices/#add-or-copy
+
+> The `ADD` instruction is best for when you need to download a remote artifact as part of your build. **`ADD` is better than manually adding files using something like `wget` and `tar`**, because it ensures a more precise build cache. `ADD` also has built-in support for checksum validation of the remote resources, and a protocol for parsing branches, tags, and subdirectories from [Git URLs](https://docs.docker.com/reference/cli/docker/buildx/build/#git-repositories).
+
+https://stackoverflow.com/questions/72971015/is-there-any-cache-advantage-to-using-add-url-vs-run-wget-curl-url-in-a-dock
+
+> The `RUN` instruction will not invalidate the cache unless its text changes. So if the remote file is updated, you won't get it. Docker will use the cached layer.
+>
+> The `ADD` instruction will always download the file and the cache will be invalidated if the checksum of the file no longer matches.
+
+### `ARG` vs `ENV`
+
+https://stackoverflow.com/questions/39597925/how-do-i-set-environment-variables-during-the-build-in-docker
+
+### `LABEL`
+
+https://docs.docker.com/reference/dockerfile/#label
+
+> You can specify multiple labels on a single line. Prior to Docker 1.10, this decreased the size of the final image, but this is no longer the case.
+
+If something in the label is interpolated, put `LABEL` at the end of the `Dockerfile` to have more cache.
+
 ### Multi-stage builds
-
-A `Dockerfile` with multiple `FROM` statements. Each `FROM` instruction starts a new stage of the build, and you can selectively copy artifacts from one stage to another, leaving behind everything you don't need.
-
-Used to optimize images of compiled languages (C, C++, Go, Rust...).
 
 https://docs.docker.com/build/building/multi-stage/
 
+A `Dockerfile` with multiple `FROM` statements. Each `FROM` instruction starts a new stage of the build, and you can selectively copy artifacts from one stage to another, leaving behind everything you don't need: build tools (gcc, make), source code, devDependencies (tsc), etc.
+
+Used to optimize images of compiled languages (C, C++, Go, Rust...).
+
+Idea:
+
+- Use a **build** stage with all compilers, package managers, and dev tools.
+- Use a **runtime** or **production** stage that only copies the built artifacts (no compilers, no extra dependencies).
+
 Example: https://github.com/victorgrubio/blog-projects/blob/main/react-nginx-dockerization/frontend/Dockerfile - https://mentorcruise.com/blog/how-to-dockerize-a-react-app-and-deploy-it-easily/
 
-Node.js server example:
+#### Node.js server example
 
-```shell
-# ---- Builder Stage ----
-FROM node:18-alpine AS builder
+```shell title="Dockerfile"
+# syntax=docker/dockerfile:1
+
+# ---- Build Stage ----
+FROM node:24-alpine AS build
 
 WORKDIR /app
 
@@ -749,13 +1251,13 @@ COPY . .
 RUN npm run build
 
 # ---- Production Stage ----
-FROM node:18-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 
-# Copy built files and dependencies from the builder stage
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/node_modules ./node_modules
+# Copy built files and dependencies from the build stage
+COPY --from=build /app/build ./build
+COPY --from=build /app/node_modules ./node_modules
 COPY package.json .
 
 # Expose the port the app runs on
@@ -768,6 +1270,14 @@ CMD ["node", "build/index.js"]
 ## `.dockerignore`
 
 Helps reduce image size and speeds up builds. It also avoids leaking secrets.
+
+When you run `docker build .` Docker creates a "build context". This build context contains _all_ the files in your current directory (`.`) that are not excluded with a `.dockerignore` file.
+When you do `COPY hello.txt .` in your Dockerfile, Docker copies just that file _from the build context_ (not from your current directory) to the image, but all the other files in your project that are not excluded in the `.dockerignore` are still loaded in the build context.
+The Docker CLI must `tar` up the entire build context and send it to the Docker daemon, which takes memory _and_ time.
+For example, if you have a 500 MB `node_modules` or `.git` folder, that’s a lot of wasted transfer.
+So the build context should contain only the necessary files, no more.
+
+In addition, a `.dockerignore` speeds up caching and rebuilds. Docker caches layers based on the checksum of the inputs. If files that aren’t needed in the build change, they will invalidate the cache unnecessarily. A `.dockerignore` also prevents accidentally copying junk (logs, build artifacts) and sensitive information (secrets) into the image.
 
 Common things to ignore:
 
