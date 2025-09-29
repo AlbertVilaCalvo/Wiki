@@ -21,8 +21,10 @@ const config: Config = {
   organizationName: 'AlbertVilaCalvo', // Usually your GitHub org/user name.
   projectName: 'Wiki', // Usually your repo name.
 
+  // At https://docusaurus.io/blog/releases/3.1#broken-anchors-checker recommends to throw:
+  // We recommend to turn it to throw and fail your CI builds instead of deploying broken anchors to productions.
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenAnchors: 'throw',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -298,6 +300,10 @@ const config: Config = {
       result.frontMatter.pagination_prev = null
       result.frontMatter.pagination_next = null
       return result
+    },
+    hooks: {
+      onBrokenMarkdownImages: 'throw',
+      onBrokenMarkdownLinks: 'throw',
     },
     // https://docusaurus.io/docs/markdown-features/diagrams
     mermaid: true,

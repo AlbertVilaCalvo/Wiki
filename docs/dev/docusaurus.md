@@ -124,6 +124,16 @@ This is the message shown at the terminal when you do `npm start`:
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 
+New message after enabling Mermaid diagrams:
+
+```shell
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                     Update available 3.8.1 → 3.9.1
+                                           To upgrade Docusaurus packages with the latest version, run the following command:
+`npm i @docusaurus/core@latest @docusaurus/preset-classic@latest @docusaurus/theme-mermaid@latest @docusaurus/module-type-aliases@latest @docusaurus/tsconfig@latest @docusaurus/types@latest`
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+```
+
 Also take a look at the other packages versions:
 
 - https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-preset-classic/package.json
@@ -266,3 +276,5 @@ https://twitter.com/sebastienlorber/status/1598615824927002624
   - React 19 compatible
 - [3.8](https://github.com/facebook/docusaurus/releases/tag/v3.8.0) - [Announcement](https://docusaurus.io/blog/releases/3.8) - [Twitter](https://x.com/sebastienlorber/status/1927336066505122281)
   - Feature flags to enable v4 breaking changes
+- [3.9](https://github.com/facebook/docusaurus/releases/tag/v3.9.0) - [Announcement](https://docusaurus.io/blog/releases/3.9) - [Twitter](https://x.com/sebastienlorber/status/1971479834749698441)
+  - Support for Mermaid ELK layout algorithm
