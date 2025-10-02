@@ -28,7 +28,7 @@ https://chronosphere.io
 
 https://last9.io
 
-AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-US
+AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-US - https://github.com/aws-samples/one-observability-demo
 
 Observability 2.0 - https://www.thoughtworks.com/radar/techniques/observability-2-0
 

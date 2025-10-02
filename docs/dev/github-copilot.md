@@ -94,6 +94,20 @@ From [Tips for defining custom instructions](https://code.visualstudio.com/docs/
 - Store project-specific instructions in your workspace to share them with other team members and include them in your version control.
 - Reuse and reference instructions files in your prompt files and chat modes to keep them clean and focused, to avoid duplicating instructions.
 
+From [5 tips for writing better custom instructions for Copilot](https://github.blog/ai-and-ml/github-copilot/5-tips-for-writing-better-custom-instructions-for-copilot):
+
+> Copilot works best when you give it the right context. Just like a new teammate, it can’t read your mind (even if it sometimes feels like it can).
+
+> Copilot can likely figure out what you’re doing and how you’re doing it. But spelling out the essentials – what you’re building, the stack you’re using, the rules to follow, etc., will help avoid confusion and mistakes.
+
+> **One important tip I want to share before we get into more details is to not overthink things. There isn’t a specific prescribed way to write instructions files. The nature of generative AI is probabilistic, meaning the same requests can actually render different results. Your goal is to tilt the scales, to help point Copilot to finding the answer you’re hoping for as often as possible.**
+
+> - Elevator pitch of what you’re building
+> - Frameworks and the tech stack you’re using to build it
+> - Coding and other project guidelines
+> - Project structure and where to find things
+> - Resources available for automation and tasks
+
 ### Examples
 
 See examples at https://docs.github.com/en/copilot/tutorials/customization-library/custom-instructions
@@ -102,7 +116,7 @@ Many instructions for different technologies - https://github.com/github/awesome
 
 - https://github.com/ttaulli/GitHub-Copilot-ChatGPT/blob/main/.github/copilot-instructions.md
 - https://github.com/timothywarner-org/copilot-cert-prep/blob/main/.github/copilot-instructions.md
-- https://github.com/timothywarner-org/copilot-cert-prep/blob/main/course-materials/custom-instructions-improved.md
+- https://github.com/timothywarner-org/copilot-cert-prep/blob/main/course-materials/custom-instructions-improved.md → Curious, uses true
 - Python: https://github.com/github/awesome-copilot/blob/main/instructions/python.instructions.md
 - Node: https://github.com/github/awesome-copilot/blob/main/instructions/nodejs-javascript-vitest.instructions.md
 - React:

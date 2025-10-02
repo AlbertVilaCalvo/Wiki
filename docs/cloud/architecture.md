@@ -242,6 +242,11 @@ https://martinfowler.com/articles/microservices.html
 
 https://www.developertoarchitect.com/lessons-microservices.html - Software Architecture Monday - Microservices Lessons
 
+Demos:
+
+- https://github.com/topics/microservices-demo
+- https://github.com/aws-containers/retail-store-sample-app
+
 Microservices Granularity Tradeoffs - https://arnon.me/2025/03/microservice-granularity-tradeoffs
 
 > A related issue is excessive inter-service communication, particularly for retrieving essential data elements, which introduces latency and reduces system throughput. Tight data dependencies suggest that services are improperly delineated and that data co-location would enhance performance (note that an alternative here, at least sometimes, is to cache some of the other service data).

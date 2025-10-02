@@ -20,7 +20,9 @@ CLI Reference: https://docs.aws.amazon.com/cli/latest/reference/cloudfront/index
 
 Invalidate the edge caches:
 
-`aws cloudfront create-invalidation --distribution-id <distribution-id> --paths '/*' [--profile <profile>]`
+```shell
+aws cloudfront create-invalidation --distribution-id <distribution-id> --paths '/*' [--profile <profile>]
+```
 
 ## Lambda@Edge vs CloudFront Functions
 

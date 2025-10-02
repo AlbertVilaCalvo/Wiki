@@ -492,6 +492,20 @@ https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
 https://github.com/controlplaneio/simulator
 
+## Node.js
+
+https://blog.platformatic.dev/the-myths-and-costs-of-running-nodejs-on-kubernetes
+
+https://www.linkedin.com/posts/matteocollina_last-month-a-cto-friend-called-me-in-a-panic-activity-7375937934878912512-4LtP/
+
+> Node.js applications are (usually!!) single-threaded and event-driven, while Kubernetes was built for heavyweight Java applications.
+
+> We're using CPU metrics when we should watch event loop lag.
+
+> One team I know switched their scaling metrics to event loop lag and cut response times in half. Another reduced their cloud bill by 60 percent just by understanding how V8 uses memory versus what Kubernetes assumes.
+
+> The companies winning at this have stopped trying to force Node.js to behave like Java. They scale on metrics that actually matter for event-driven architectures. They've stopped blindly trusting Kubernetes defaults.
+
 ## Terraform
 
 https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594

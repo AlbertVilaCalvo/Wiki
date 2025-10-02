@@ -18,6 +18,8 @@ Textures.js is a JavaScript library for creating SVG patterns - https://github.c
 
 https://www.softr.io/tools/svg-shape-generator
 
+https://www.joshwcomeau.com/svg/friendly-introduction-to-svg
+
 SVG Editor - https://boxy-svg.com
 
 ## Optimize

@@ -6,6 +6,8 @@ title: VSCode
 
 [github.com/Microsoft/vscode](https://github.com/Microsoft/vscode)
 
+VSCode in the browser - https://coder.com - https://github.com/coder/code-server
+
 ## Diff
 
 ```shell

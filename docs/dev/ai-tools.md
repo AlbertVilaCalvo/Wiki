@@ -108,6 +108,46 @@ https://github.com/ttaulli/GitHub-Copilot-ChatGPT/blob/main/4-prompt-engineering
 
 https://platform.openai.com/tokenizer
 
+Warner’s Laws of Generative AI - https://gist.github.com/timothywarner/212f69798587efccc79610d7ab4cc194 → Interesting points
+
+> If you leave something out of your prompt, the AI will guess, and not always how you want.
+
+> Prompt Procedurally, Think in Steps. Break problems down step by step. Guide the AI like you’d mentor a human: who, what, when, where, why, how.
+
+> A/B Test Your AI Daily Drivers. Maintain at least two paid LLMs. Compare answers, cross-check facts, and swap when one stumbles.
+
+> Watch for Amnesia and Hallucination. When the AI forgets or fabricates, call it out. Keep a backup LLM for fault tolerance and groundedness.
+
+> Sculpt Context, Don’t Pollute It. Feed the AI only what matters. Be surgical. Trim background noise, legacy docs, and side chatter.
+
+### Zero-shot vs few-shot prompting
+
+**Zero-shot** prompting: give the model an instruction or question without examples. The model relies only on its training knowledge to figure out what you want.
+
+```
+Write a Python function that checks if a string is a palindrome.
+```
+
+Copilot generates the full function based solely on your description.
+
+**Few-shot** prompting: provide a few examples of the task you want done, then ask the model to continue in the same style or pattern. The model infers the rules or style from your examples.
+
+```python
+# Example 1:
+# Input: "hello"'
+# Output: "olleh"
+
+# Example 2:
+# Input: "world"
+# Output: "dlrow"
+
+# Now write a function that follows this pattern.
+def reverse_string(s: str) -> str:
+    ...
+```
+
+Copilot uses your examples to generate a matching function.
+
 ## Claude Code
 
 https://github.com/anthropics/claude-code
@@ -120,9 +160,23 @@ https://github.com/ryoppippi/ccusage
 
 https://github.com/daaain/claude-code-log
 
-Announcement - https://www.anthropic.com/news/claude-3-7-sonnet
+Announcements
 
-## ChatGPT
+- 2025-02-24 - https://www.anthropic.com/news/claude-3-7-sonnet
+- 2025-05-22 - https://www.anthropic.com/news/claude-4
+- 2025-08-05 - https://www.anthropic.com/news/claude-opus-4-1
+- 2025-08-12 - https://www.anthropic.com/news/1m-context
+  - > lets you process entire codebases with over 75,000 lines of code
+- 2025-09-29 - https://www.anthropic.com/news/claude-sonnet-4-5
+
+https://github.com/timothywarner-org/prompt-pro/blob/main/CLAUDE.md
+
+VSCode extension - https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code
+
+- Sonnet: lower cost. Lower latency, more efficient. Good for general use.
+- Opus: higher cost. Slower for complex tasks, more compute-intensive. For deeper reasoning. Better at agentic tasks and long workflows.
+
+## ChatGPT
 
 Canvas - https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it
 
@@ -133,3 +187,8 @@ To open the app in the Canvas use `/canvas`, eg:
 ## Junie
 
 https://github.com/kousen/junie-training
+
+Guidelines (`.junie/guidelines.md`):
+
+- Docs: https://www.jetbrains.com/help/junie/customize-guidelines.html
+- Examples: https://github.com/JetBrains/junie-guidelines

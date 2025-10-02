@@ -71,3 +71,4 @@ JetBrains:
 
 - https://github.com/streetwriters/notesnook
 - https://github.com/openops-cloud/openops
+- https://github.com/aws-containers/retail-store-sample-app - Contains Go, Node, Java...

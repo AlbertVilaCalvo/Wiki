@@ -10,13 +10,16 @@ https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#markdown-
 
 ## Link to another doc
 
+https://docusaurus.io/docs/markdown-features/links
+
 ```md
 [ESLint](javascript/eslint.md#setup)
 [ESLint](/javascript/eslint.md#setup)
 [ESLint](/javascript/eslint#setup)
 ```
 
-All options produce the same link.
+`[link](/target.mdx)` is resolved from the docs content root.
+`[link](target.mdx)` is resolved from the current directory, then from the docs content roots, then from the site root.
 
 Important: when using the first option you need to add `.md`, otherwise you get `/dev/javascript/eslint#setup` instead of `/javascript/eslint#setup`.
 

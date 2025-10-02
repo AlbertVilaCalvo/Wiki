@@ -40,6 +40,8 @@ https://aws.amazon.com/architecture/containers
 
 Skill Builder: https://skillbuilder.aws/search?searchText=eks&page=1
 
+- https://github.com/topics/amazon-eks
+- https://github.com/aws-containers/retail-store-sample-app
 - Online Course Supplement: Running Containers on Amazon Elastic Kubernetes Service (Amazon EKS) - 18 h - Free - https://explore.skillbuilder.aws/learn/courses/19007/online-course-supplement-running-containers-on-amazon-elastic-kubernetes-service-amazon-eks
 - AWS Modernization Pathways: Move to Containers with Amazon EKS (includes labs) - 6.6 h - https://explore.skillbuilder.aws/learn/learning-plans/1981/plan
 - Deploy and debug Amazon EKS clusters - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-and-debug-amazon-eks-clusters.html
@@ -50,9 +52,12 @@ Skill Builder: https://skillbuilder.aws/search?searchText=eks&page=1
 - Amazon EKS - Knowledge Badge Readiness Path (learning plan) - https://explore.skillbuilder.aws/learn/public/learning_plan/view/1931/amazon-eks-knowledge-badge-readiness-path
 - https://workshops.aws/categories/Containers
 - https://workshops.aws/categories/Amazon%20EKS
+- https://workshops.aws/categories/Containers?tag=EKS
 - https://workshops.aws/?tag=EKS
   - EKS Immersion Workshop - https://catalog.workshops.aws/eks-immersionday/en-US
-  - https://www.eksworkshop.com
+  - https://catalog.workshops.aws/eks-saas-gitops/en-US - https://github.com/aws-samples/eks-saas-gitops - Argo Workflows, Flux, Helm
+  - https://www.eksworkshop.com - https://github.com/aws-samples/eks-workshop-v2
+  - https://catalog.workshops.aws/eks-security-immersionday/en-US - https://github.com/aws-samples/amazon-eks-security-immersion-day
   - EKS Terraform Workshop - https://tf-eks-workshop.workshop.aws/
   - Web Application Hosts on EKS Workshop - https://catalog.us-east-1.prod.workshops.aws/workshops/a1101fcc-c7cf-4dd5-98c4-f599a65056d5/en-US
 - Deploy a Container Web App on Amazon EKS - https://aws.amazon.com/getting-started/guides/deploy-webapp-eks
@@ -87,6 +92,12 @@ You can define rules to route requests to different services based on URL paths.
 https://karpenter.sh
 
 Run Kubernetes Clusters for Less with Amazon EC2 Spot and Karpenter - https://community.aws/tutorials/run-kubernetes-clusters-for-less-with-amazon-ec2-spot-and-karpenter
+
+https://github.com/aws-samples/karpenter-blueprints
+
+## Auto Mode
+
+https://catalog.workshops.aws/eks-auto-mode/en-US
 
 ## Pricing
 

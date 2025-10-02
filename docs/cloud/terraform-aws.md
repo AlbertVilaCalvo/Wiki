@@ -255,6 +255,10 @@ resource "aws_autoscaling_group" "example" {
 
 ## EKS
 
+- https://github.com/aws-containers/retail-store-sample-app/tree/main/terraform/eks
+- https://github.com/aws-samples/karpenter-blueprints/tree/main/cluster/terraform
+- https://github.com/aws-samples/amazon-eks-security-immersion-day/tree/mainline/terraform/common
+- https://github.com/aws-samples/eks-saas-gitops/tree/main/terraform
 - https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
 - https://github.com/stacksimplify/aws-eks-kubernetes-masterclass - https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices
 - https://github.com/aws-ia/terraform-aws-eks-blueprints - https://aws-ia.github.io/terraform-aws-eks-blueprints
