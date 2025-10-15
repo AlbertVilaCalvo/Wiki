@@ -15,6 +15,8 @@ https://news.ycombinator.com/item?id=33264190
 
 Fundamentals of Backend Engineering - https://www.udemy.com/course/fundamentals-of-backend-communications-and-protocols/
 
+https://www.manning.com/books/latency - Latency - Reduce delay in software systems
+
 ## Ports
 
 https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers

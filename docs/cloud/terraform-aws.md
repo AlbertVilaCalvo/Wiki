@@ -270,6 +270,8 @@ resource "aws_autoscaling_group" "example" {
 - https://www.udemy.com/course/terraform-on-aws-eks-kubernetes-iac-sre-50-real-world-demos
 - https://github.com/terraform-aws-modules/terraform-aws-eks
 - https://github.com/maddevsio/aws-eks-base
+- https://blog.raftech.nl/building-robust-platform-for-containers-part-1-terraform-eks-cillium-5822a13d3113 - https://github.com/RaftechNL/blog/tree/part-1 and https://github.com/RaftechNL/blog/tree/building-robust-container-platform-1
+- https://blog.raftech.nl/building-robust-platform-for-containers-part-2-terraform-eks-with-karpenter-d7050c9cedd9 - https://github.com/RaftechNL/blog/tree/building-robust-container-platform-2
 
 ## Lambda
 

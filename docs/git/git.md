@@ -12,6 +12,8 @@ Ask HN: Apps that are built with Git as the back end? - https://news.ycombinator
 
 https://github.com/github/git-sizer. Compute various size metrics for a Git repository, flagging those that might cause problems. This tools is referenced in https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github.
 
+https://github.com/awslabs/git-secrets - Prevents you from committing secrets and credentials into git repositories
+
 ## Branch models
 
 Trunk Based Development - https://trunkbaseddevelopment.com

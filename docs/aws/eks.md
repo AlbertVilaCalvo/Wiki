@@ -12,7 +12,7 @@ The control plane components (etcd, API server, Scheduler...) runs in AWS-owned 
 
 Terraform infrastructure for building an EKS cluster. Infrastructure includes a VPC, EKS cluster, and EC2 worker nodes: https://github.com/AJarombek/global-aws-infrastructure/tree/master/eks
 
-Amazon EKS Blueprints for Terraform - https://github.com/aws-ia/terraform-aws-eks-blueprints
+Amazon EKS Blueprints for Terraform - https://github.com/aws-ia/terraform-aws-eks-blueprints - https://www.youtube.com/watch?v=DhoZMbqwwsw
 
 Amazon EKS Helm chart repository - https://github.com/aws/eks-charts
 
