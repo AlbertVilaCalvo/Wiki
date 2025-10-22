@@ -6,6 +6,10 @@ export default function Corrector(): JSX.Element {
   const context = useDocusaurusContext()
   const siteConfig = context.siteConfig
 
+  const copyToClipboard = React.useCallback(() => {
+    navigator.clipboard.writeText('→')
+  }, [])
+
   return (
     <Layout
       title={`Corrector`}
@@ -20,6 +24,13 @@ export default function Corrector(): JSX.Element {
           <textarea
             style={{ marginTop: '20px', width: '100%', height: '58vh' }}
           />
+          <h2>Caràcters</h2>
+          <button
+            onClick={copyToClipboard}
+            style={{ margin: '10px', padding: '5px 10px', cursor: 'pointer' }}
+          >
+            →
+          </button>
         </div>
       </main>
     </Layout>
