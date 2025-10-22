@@ -255,6 +255,7 @@ resource "aws_autoscaling_group" "example" {
 
 ## EKS
 
+- https://www.eksworkshop.com/docs/introduction/setup/your-account/using-terraform
 - https://github.com/aws-containers/retail-store-sample-app/tree/main/terraform/eks
 - https://github.com/aws-samples/karpenter-blueprints/tree/main/cluster/terraform
 - https://github.com/aws-samples/amazon-eks-security-immersion-day/tree/mainline/terraform/common
@@ -286,6 +287,7 @@ resource "aws_autoscaling_group" "example" {
 - Tutorial 'Manage AWS RDS instances' - https://developer.hashicorp.com/terraform/tutorials/aws/aws-rds
 - Tutorial 'Upgrade RDS major version' - https://developer.hashicorp.com/terraform/tutorials/aws/rds-upgrade
 - https://github.com/terraform-aws-modules/terraform-aws-rds
+- https://github.com/lm-academy/terraform-course/tree/main/proj04-rds-module
 
 ## Multiple AWS accounts
 

@@ -418,7 +418,7 @@ To set a variable, you have these options (_the latest ones will take precedence
   - In Unix use `export TF_VAR_aws_region=us-east-1`.
 - Use a `terraform.tfvars`, `terraform.tfvars.json`, `*.auto.tfvars` or `*.auto.tfvars.json` file.
   - Files are processed in this order, alphabetically. Multiple files can define the same variable, and the latest will take precedence.
-  - To use any other file name, use the `-var-file` CLI option.
+  - To use any other file name, use the `-var-file` CLI option, eg: `terraform plan -var-file="prod.tfvars"`.
   - Do not store sensitive values in `tfvars` files that are checked in version control.
 - Use the CLI options `-var 'aws_region=us-east-1'` or `-var-file="prod.tfvars"`. [see docs](https://developer.hashicorp.com/terraform/cli/commands/plan#input-variables-on-the-command-line)
 - If no value was given with the previous options, you'll be prompted to supply the value interactively in the CLI.
@@ -497,15 +497,21 @@ If the output references a `sensitive` input variable or resource, you need to a
 
 ### `locals`
 
+https://developer.hashicorp.com/terraform/language/block/locals
+
 https://developer.hashicorp.com/terraform/language/values/locals
 
 Since all code in HCL must be inside a block, we use the `locals` block to define values, manipulate data etc. To avoid repetition, they allow reusing an expression within a module.
 
 ### `module`
 
+https://developer.hashicorp.com/terraform/language/block/module
+
 https://developer.hashicorp.com/terraform/language/modules
 
 Other code written in HCL that's reusable and we call from our code. A library.
+
+[See Modules below](#modules)
 
 ## Meta-arguments
 
@@ -589,6 +595,8 @@ Similar to `count`, is also used to create multiple instances of a resource or m
 - https://developer.hashicorp.com/terraform/language/state
 - https://developer.hashicorp.com/terraform/cli/state
 - https://developer.hashicorp.com/terraform/cli/commands/state
+
+https://www.gruntwork.io/blog/how-to-manage-terraform-state
 
 Primarily, the state binds remote objects with resources declared in our configuration files.
 
@@ -792,27 +800,93 @@ It's not mandatory to specify the providers with `required_providers`, but it al
 
 ## Modules
 
+https://developer.hashicorp.com/terraform/language/modules
+
+https://developer.hashicorp.com/terraform/language/block/module
+
 Reusable configuration. Like a library or package in other languages. To create resources in a repeatable way.
 
 A module is an opinionated collection of resources, which are tightly coupled and should be deployed together.
 
-All Terraform code is a module. The main directory where you run `plan` and `apply` is the root module, which calls other modules.
-
-Modules can live (`source`) locally, in a Git repository or a registry. Note that only if the module comes from a registry we can specify a [`version` constraint](#version-constraints).
-
-https://registry.terraform.io/browse/modules
+All Terraform code is a module. The main directory where you run `plan` and `apply` is the **root module**, which calls other modules, the child modules. A child module can also call its own nested child module.
 
 We use variables to pass data into the module, and outputs to get data out from it.
 
 We do not generally specify `provider` blocks within a module, we simply allow them to pass through from the root.
 
+You need to run `terraform init` when you add a new module, remove a module, modify the `source` or `version` of a module, or checkout a repository that contains module. Doing `terraform init` downloads modules, caches them in the `.terraform/modules` directory and updates the dependency lock file (`.terraform.lock.hcl`) if needed.
+
 **Providers extend Terraform, and modules extend providers.**
+
+> In Terraform, there are two forms of modularity, the provider (written in Go) and modules (written in HCL). [source](https://dustindortch.com/2024/03/27/terraform-best-pratices-defining-modules)
+
+Advantages:
+
+- Reusability: write infrastructure code once and use it multiple times across different projects or environments.
+- Maintainability: update infrastructure in one place instead of many.
+- Encapsulation: hide a lot of resource details and complexity inside a module and expose only a simple interface using variables and outputs.
+- Standardization: organizations can enforce best practices and patterns by providing prebuilt modules (eg a secure VPC or a compliant S3 bucket).
+- Organization: group related resources together logically (eg all VPC components).
 
 When Should We Write Modules - https://dustindortch.com/2022/10/21/why-do-we-write-terraform-modules/
 
+Terraform Best Practices: Defining Modules - https://dustindortch.com/2024/03/27/terraform-best-pratices-defining-modules
+
+> Witnessing many learners of Terraform, there is a pattern where they create their first module and then go crazy writing modules for everything. Creating a module for an Azure Resource Group is one that takes things to an extreme.
+
+> Modules for Complete Deployments. These should often be avoided, as well. Such a pattern goes a bit overboard on opinionation. The more opinionated a module is the lower the flexibility is.
+> I have also created and watched others create a module that deploys an entire hub-and-spoke architecture. These sorts of modules do too much. Not only do they make the code less flexible, they also inflate the number of resources managed by the state. While deployment can be impressive, a failure can be equally impressive.
+
 Terraform Module Best Practices: A Complete Guide - https://devopscube.com/terraform-module-best-practices/
 
-### Structure
+https://www.gruntwork.io/blog/how-to-create-reusable-infrastructure-with-terraform-modules
+
+> When creating a module, you should always prefer using separate resources. The advantage of using separate resources is that they can be added anywhere, whereas an inline block can only be added within the module that creates a resource. So using solely separate resources makes your module more flexible and configurable.
+
+Google Cloud - Best practices for reusable modules - https://cloud.google.com/docs/terraform/best-practices/reusable-modules
+
+### Source
+
+Modules can live (`source`) locally, in a Git repository or a registry like https://registry.terraform.io/browse/modules.
+
+```hcl
+module "rds_read_replica" {
+  source = "./modules/rds"
+}
+```
+
+Note that only if the module comes from a registry we can specify a [`version` constraint](#version-constraints):
+
+```hcl
+# https://github.com/terraform-aws-modules/terraform-aws-eks
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 21.0"
+}
+```
+
+If it comes from Git, we can use the `HEAD`, or use the `?ref=` query param to specify either a tag, a commit SHA or a branch:
+
+```hcl
+module "vpc" {
+  source = "git::https://example.com/vpc.git" # HEAD
+}
+module "vpc" {
+  source = "git::https://example.com/vpc.git?ref=v1.2.0"
+}
+module "vpc" {
+  source = "git::https://example.com/vpc.git?ref=51d462976d84fdea54b47d80dcabbf680badcdb8"
+}
+module "vpc" {
+  source = "git::https://example.com/vpc.git?ref=someBranch"
+}
+```
+
+Using Git sources allows you to consume a module directly from the source repository, without publishing it to a registry. This can be useful if we need to use a version that the maintainer hasn't published to the registry yet. It's also a way to have private modules without using a private registry, since it works with private Git repos (with SSH or HTTPS + tokens).
+
+### Module structure
+
+https://developer.hashicorp.com/terraform/language/modules/develop/structure
 
 Usually you have 3 files:
 
@@ -824,6 +898,70 @@ outputs.tf
 
 We can also have an `example.tfvars` file.
 
+### Module example
+
+```
+modules/
+├── ec2_instance/
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+└── main.tf
+```
+
+Child module:
+
+```hcl title="modules/ec2_instance/variables.tf"
+variable "instance_name" {
+  type        = string
+  description = "Name of the EC2 instance"
+}
+
+variable "instance_type" {
+  type        = string
+  default     = "t2.micro"
+  description = "EC2 instance type"
+}
+```
+
+```hcl title="modules/ec2_instance/main.tf"
+resource "aws_instance" "this" {
+  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux (note that is region-specific)
+  instance_type = var.instance_type
+  tags = {
+    Name = var.instance_name
+  }
+}
+```
+
+```hcl title="modules/ec2_instance/outputs.tf"
+output "instance_id" {
+  value = aws_instance.this.id
+}
+
+output "public_ip" {
+  value = aws_instance.this.public_ip
+}
+```
+
+Root module (where you run `terraform plan` etc.):
+
+```hcl title="main.tf"
+provider "aws" {
+  region = "us-east-1"
+}
+
+module "web_server" {
+  source        = "./modules/ec2_instance"
+  instance_name = "web-server"
+  instance_type = "t2.xlarge"
+}
+
+output "web_server_public_ip" {
+  value = module.web_server.public_ip
+}
+```
+
 ### Publish a module at the registry
 
 The repository needs to be hosted in GitHub. The repository name needs to follow this pattern: `terraform-<provider>-<name>`, for example `terraform-aws-ec2`. The `<provider>` is the main provider that the module uses in case that there is more than one.
@@ -832,6 +970,11 @@ The repository needs to be hosted in GitHub. The repository name needs to follow
 
 :::tip
 It's recommended to pin modules to a specific major and minor version, and to set a minimum required version of the Terraform binary, see https://developer.hashicorp.com/terraform/language/style#version-pinning
+
+From https://cloud.google.com/docs/terraform/best-practices/root-modules#minor-provider-versions:
+
+> In root modules, declare each provider and pin to a minor version (eg `version = "~> 4.0.0"`). This allows automatic upgrade to new patch releases while still keeping a solid target. For consistency, name the versions file `versions.tf`.
+
 :::
 
 https://developer.hashicorp.com/terraform/language/expressions/version-constraints
@@ -868,6 +1011,122 @@ For `module`s we can only use version constraints when they are `source`d from a
 To upgrade provider versions use `terraform init -upgrade`. It picks the latest version that meets the version constraints set in the code.
 
 If we don't specify a `version` it uses the latest one.
+
+## Templates
+
+- https://github.com/aws-ia/terraform-repo-template
+- https://github.com/dustindortch/template-terraform
+
+## Multiple environments
+
+How to manage multiple environments with Terraform (Yevgeniy Brikman) - https://www.gruntwork.io/blog/how-to-manage-multiple-environments-with-terraform ([Old URL](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-32c7bc5d692))
+
+1. [Using workspaces](https://www.gruntwork.io/blog/how-to-manage-multiple-environments-with-terraform-using-workspaces) ([Old URL](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-workspaces-98680d89a03e))
+2. [Using branches](https://www.gruntwork.io/blog/how-to-manage-multiple-environments-with-terraform-using-branches) ([Old URL](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-branches-875d1a2ee647))
+3. [Using Terragrunt](https://www.gruntwork.io/blog/how-to-manage-multiple-environments-with-terraform-using-terragrunt) ([Old URL](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-terragrunt-2c3e32fc60a8))
+
+https://dustindortch.com/2024/03/11/github-actions-release-flow/
+
+> There are a number of practices that have been in place within the community, some of which I will proclaim are bad. The practice described in “Terraform Up and Running” whereby repositories hold subdirectories for each deployment...
+
+> Terraform accommodates for differences with the use of variables. Instead of hardcoding differences, implement variables that allow for inputs that vary based on the requirements.
+
+From https://www.fundamentals-of-devops.com/resources/2025/01/28/how-to-manage-state-and-environments-with-opentofu/#how-to-manage-multiple-environments:
+
+|                                         | Workspaces | Branches | Terragrunt |
+| --------------------------------------- | :--------: | :------: | :--------: |
+| Minimize code duplication               |   ■■■■■    |  □□□□□   |   ■■■■□    |
+| See and navigate environments           |   □□□□□    |  ■■■□□   |   ■■■■■    |
+| Different settings in each environment  |   ■■■■■    |  ■■■■□   |   ■■■■■    |
+| Different backends for each environment |   □□□□□    |  ■■■■□   |   ■■■■■    |
+| Different versions in each environment  |   □□□□□    |  ■■□□□   |   ■■■■■    |
+| Share data between modules              |   ■■□□□    |  ■■□□□   |   ■■■■■    |
+| Work with multiple modules concurrently |   □□□□□    |  □□□□□   |   ■■■■■    |
+| No extra tooling to learn or use        |   ■■■■■    |  ■■■■■   |   □□□□□    |
+
+https://cloud.google.com/docs/terraform/best-practices/root-modules#separate-directories
+
+> Use separate directories for each application
+>
+> To manage applications and projects independently of each other, put resources for each application and project in their own Terraform directories. A service might represent a particular application or a common service such as shared networking. Nest all Terraform code for a particular service under one directory (including subdirectories).
+
+https://cloud.google.com/docs/terraform/best-practices/root-modules#subdirectories
+
+> When deploying services in Google Cloud, split the Terraform configuration for the service into two top-level directories: a `modules` directory that contains the actual configuration for the service, and an `environments` directory that contains the root configurations for each environment.
+
+```
+-- SERVICE-DIRECTORY/
+   -- OWNERS
+   -- modules/
+      -- <service-name>/
+         -- main.tf
+         -- variables.tf
+         -- outputs.tf
+         -- provider.tf
+         -- README
+      -- ...other…
+   -- environments/
+      -- dev/
+         -- backend.tf
+         -- main.tf
+
+      -- qa/
+         -- backend.tf
+         -- main.tf
+
+      -- prod/
+         -- backend.tf
+         -- main.tf
+```
+
+https://cloud.google.com/docs/terraform/best-practices/root-modules#environment-directories
+
+> To share code across environments, reference modules. Typically, this might be a service module that includes the base shared Terraform configuration for the service. In service modules, hard-code common inputs and only require environment-specific inputs as variables.
+>
+> Each environment directory must contain the following files:
+>
+> - A `backend.tf` file, declaring the Terraform backend state location (typically, Cloud Storage)
+> - A `main.tf` file that instantiates the service module
+
+https://cloud.google.com/docs/terraform/best-practices/root-modules#tfvars
+
+> For root modules, provide variables by using a `.tfvars` variables file. For consistency, name variable files `terraform.tfvars`.
+
+> Don't specify variables by using alternative var-files or `var='key=val'` command-line options. Command-line options are ephemeral and easy to forget. Using a default variables file is more predictable.
+
+Don't do this: `terraform plan -var-file="prod.tfvars"`
+
+## Workspaces
+
+https://developer.hashicorp.com/terraform/language/state/workspaces
+
+> Workspaces in the Terraform CLI refer to separate instances of state data inside the same Terraform working directory.
+
+> Terraform relies on state to associate resources with real-world objects. When you run the same configuration multiple times with separate state data, Terraform can manage multiple sets of non-overlapping resources.
+
+https://developer.hashicorp.com/terraform/cli/workspaces
+
+> Every initialized working directory starts with one workspace named `default`.
+
+```shell
+terraform workspace new development
+terraform workspace new staging
+terraform workspace select development
+terraform workspace list
+terraform workspace delete staging
+```
+
+https://cloud.google.com/docs/terraform/best-practices/root-modules#environment-directories
+
+> Having multiple [CLI workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces) within an environment isn't recommended for the following reasons:
+>
+> - It can be difficult to inspect the configuration in each workspace.
+> - Having a single shared backend for multiple workspaces isn't recommended because the shared backend becomes a single point of failure if it is used for environment separation.
+> - While code reuse is possible, code becomes harder to read having to switch based on the current workspace variable (for example, `terraform.workspace == "foo" ? this : that`).
+
+Don't do this: `instance_type = terraform.workspace == "production" ? "t3.large" : "t3.micro"`
+
+https://www.gruntwork.io/blog/how-to-manage-multiple-environments-with-terraform-using-workspaces
 
 ## VSCode extension
 
@@ -983,7 +1242,7 @@ find . -type d -name ".terraform" -exec rm -rf {} +
 
 https://developer.hashicorp.com/terraform/language/style
 
-Best practices (Dustin Dortch):
+Dustin Dortch:
 
 - Do not hardcode values: https://dustindortch.com/2024/02/08/terraform-best-practices-do-not-hard-code-values/
 - Files: https://dustindortch.com/2024/02/12/terraform-best-practices-files/
@@ -993,9 +1252,22 @@ Best practices (Dustin Dortch):
 
 https://www.terraform-best-practices.com
 
+Google Cloud:
+
+- General style and structure: https://cloud.google.com/docs/terraform/best-practices/general-style-structure
+- Root modules: https://cloud.google.com/docs/terraform/best-practices/root-modules
+
+> _All_ resources in a particular root configuration are refreshed every time Terraform is run. This can cause slow execution if too many resources are included in a single state. **A general rule: Don't include more than 100 resources (and ideally only a few dozen) in a single state.**
+
+See [Working with huge Terraform states](https://medium.com/@alexott_en/working-with-huge-terraform-states-2cb493db5352).
+
 Terraform Best Practices for AWS users - https://github.com/ozbillwang/terraform-best-practices
 
+Terraform Module Best Practices: A Complete Guide - https://devopscube.com/terraform-module-best-practices/
+
 https://medium.com/devops-mojo/terraform-best-practices-top-best-practices-for-terraform-configuration-style-formatting-structure-66b8d938f00c
+
+https://towardsaws.com/terraform-secrets-every-senior-engineer-must-know-advanced-best-practices-a72179458dff
 
 ## Learn
 
@@ -1026,22 +1298,11 @@ Comprehensive Guide to Terraform series by Yevgeniy Brikman:
 5. [Terraform tips & tricks: loops, if-statements, and gotchas](https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9)
 6. [How to use Terraform as a team](https://blog.gruntwork.io/how-to-use-terraform-as-a-team-251bc1104973)
 
-How to manage multiple environments with Terraform (Yevgeniy Brikman) - https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-32c7bc5d692
-
-1. [Using workspaces](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-workspaces-98680d89a03e)
-2. [Using branches](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-branches-875d1a2ee647)
-3. [Using ](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-terragrunt-2c3e32fc60a8)
-
 https://medium.com/@itsnarayan/optimizing-aws-infrastructure-leveraging-terraform-for-low-coupling-and-high-cohesion-a5ae6049ab1e
 
 33 labs - https://www.whizlabs.com/infrastructure-automation-with-terraform/
 
 Host a static website locally using Simple Storage Service (S3) and Terraform with LocalStack - https://docs.localstack.cloud/tutorials/s3-static-website-terraform/
-
-## Module templates
-
-- https://github.com/aws-ia/terraform-repo-template
-- https://github.com/dustindortch/template-terraform
 
 ## CDK for Terraform
 
