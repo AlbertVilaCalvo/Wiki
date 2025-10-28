@@ -305,6 +305,14 @@ https://docs.github.com/en/actions/reference/evaluate-expressions-in-workflows-a
 environment: ${{ contains(inputs.profile, 'dev') && 'dev' || inputs.profile }}
 ```
 
+## Environments
+
+:::info
+When environments are used in workflows or in OIDC policies, we recommend adding protection rules to the environment for additional security. For example, you can configure deployment rules on an environment to restrict which branches and tags can deploy to the environment or access environment secrets. For more information, see [Managing environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/managing-environments-for-deployment#deployment-protection-rules). [source](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws#configuring-the-role-and-trust-policy)
+
+Also see [Deployments and environments](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments) for information about deployment protection rules.
+:::
+
 ## Status check functions
 
 https://docs.github.com/en/actions/reference/evaluate-expressions-in-workflows-and-actions#status-check-functions
@@ -674,23 +682,433 @@ https://dev.to/zirkelc/trigger-github-workflow-for-comment-on-pull-request-45l2
 
 https://github.com/actions/github-script
 
-## OpenID Connect
+## OIDC
+
+OpenID Connect
 
 Use it to authenticate to cloud services (like AWS) without storing long-lived secrets (like access key ID and secret access key) in GitHub.
 
-About security hardening with OpenID Connect - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
+https://docs.github.com/en/actions/concepts/security/openid-connect (In the past was [About security hardening with OpenID Connect](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect))
 
-> using hardcoded secrets requires you to create credentials in the cloud provider and then duplicate them in GitHub as a secret.
+> Using hardcoded secrets requires you to create credentials in the cloud provider and then duplicate them in GitHub as a secret.
+
+> After you have established a trust connection with a cloud provider that supports OIDC, you can configure your workflow to request a short-lived access token directly from the cloud provider.
 
 > With OIDC, your cloud provider issues a short-lived access token that is only valid for a single job, and then automatically expires.
 
-Configuring OpenID Connect in Amazon Web Services - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services
+GitHub Actions: Secure cloud deployments with OpenID Connect - https://github.blog/changelog/2021-10-27-github-actions-secure-cloud-deployments-with-openid-connect/
 
-See the examples at https://github.com/aws-actions/configure-aws-credentials/tree/master/examples. In particular see the workflow https://github.com/aws-actions/configure-aws-credentials/blob/master/examples/cfn-deploy-example/.github/workflows/deploy.yml
+AWS, Azure, GCP, etc. how to: https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments
 
-Creating OpenID Connect (OIDC) identity providers - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
+> Add `/.well-known/openid-configuration` to the end of your OIDC identity provider's URL to see the provider's publicly available configuration document and metadata. You must have a discovery document in JSON format with the provider's configuration document and metadata that can be retrieved from the [OpenID Connect provider discovery endpoint URL](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig). [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
 
-Creating a role for a third-party Identity Provider (federation) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html
+For example: https://token.actions.githubusercontent.com/.well-known/openid-configuration
+
+Also see: https://token.actions.githubusercontent.com/.well-known/jwks
+
+## OIDC AWS
+
+Configuring OpenID Connect in Amazon Web Services - https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws
+
+https://github.com/aws-actions/configure-aws-credentials
+
+See the examples at https://github.com/aws-actions/configure-aws-credentials/tree/master/examples. In particular, see the workflow https://github.com/aws-actions/configure-aws-credentials/blob/master/examples/cfn-deploy-example/.github/workflows/deploy.yml
+
+Create an OpenID Connect (OIDC) identity provider in IAM - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html
+
+OIDC identity provider's publicly available configuration document and metadata. - https://token.actions.githubusercontent.com/.well-known/openid-configuration
+
+Create a role for a third-party identity provider (federation) - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html
+
+https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/
+
+### Step 1. Create an IAM Identity Provider in your AWS account for GitHub OIDC
+
+Create an IAM Identity Provider (IdP) that trusts GitHub's OIDC endpoint.
+
+- Using the management console ([docs](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html#manage-oidc-provider-console)). Go to the [IAM console](https://console.aws.amazon.com/iam) → Identity providers, click **Add provider** and set:
+  - Provider type: OpenID Connect.
+  - Provider URL: `https://token.actions.githubusercontent.com`
+  - Audience: `sts.amazonaws.com`. This allows the AWS Security Token Service (STS) API to be called by this IdP.
+- Using the CLI ([see `create-open-id-connect-provider` docs](https://docs.aws.amazon.com/cli/latest/reference/iam/create-open-id-connect-provider.html)):
+
+```shell
+# There's no need to pass ‐‐thumbprint-list
+aws iam create-open-id-connect-provider \
+    --url https://token.actions.githubusercontent.com \
+    --client-id-list sts.amazonaws.com
+```
+
+Validate that the OIDC IdP was successfully created with [`list-open-id-connect-providers`](https://docs.aws.amazon.com/cli/latest/reference/iam/list-open-id-connect-providers.html):
+
+```shell
+aws iam list-open-id-connect-providers
+```
+
+Get the details of the OIDC IdP with [`get-open-id-connect-provider`](https://docs.aws.amazon.com/cli/latest/reference/iam/get-open-id-connect-provider.html):
+
+```shell
+aws iam get-open-id-connect-provider --open-id-connect-provider-arn arn:aws:iam::<account-id>:oidc-provider/token.actions.githubusercontent.com
+```
+
+### Step 2. Create an IAM Role in your AWS account with a trust policy that allows GitHub Actions to assume it
+
+Assign an IAM role to your identity provider to give external user identities managed by your identity provider permissions to access AWS resources in your account. To learn more about creating roles for identity federation, see [Create a role for a third-party identity provider](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp.html).
+
+Note: OIDC IdPs used in a role trust policy must be in the same account as the role that trusts it.
+
+> To use an identity provider (IdP), you create an IAM identity provider resource and then set up a role to establish a trust relationship between your AWS account and the IdP. (From the console right sidebar at the "Add Identity provider" page.)
+
+> After you create an IAM OIDC identity provider, you must create one or more IAM roles. A role is an identity in AWS that doesn't have its own credentials (as a user does). But in this context, a role is dynamically assigned to an OIDC federated principal that is authenticated by your organization's IdP. The role permits your organization's IdP to request temporary security credentials for access to AWS. The policies assigned to the role determine what users are allowed to do in AWS. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
+
+To create the role using the management console, go to the [IAM console](https://console.aws.amazon.com/iam) → Roles, click **Create role** and set:
+
+- Trusted entity type: Web identity (Allows users federated by the specified external web identity provider to assume this role to perform actions in this account.)
+- Identity provider: `token.actions.githubusercontent.com`
+- Audience: `sts.amazonaws.com`
+- The GitHub organization is required, but the repository and the git branch are optional.
+
+If you set a repository but leave the branch empty, the console creates a role with this trust policy:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Principal": {
+        "Federated": "arn:aws:iam::<account-id>:oidc-provider/token.actions.githubusercontent.com"
+      },
+      "Condition": {
+        "StringEquals": {
+          "token.actions.githubusercontent.com:aud": ["sts.amazonaws.com"]
+        },
+        "StringLike": {
+          "token.actions.githubusercontent.com:sub": [
+            "repo:<GITHUB_USER_OR_ORGANIZATION>/<GITHUB_REPOSITORY>:*",
+            "repo:<GITHUB_USER_OR_ORGANIZATION>/<GITHUB_REPOSITORY>:*"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+_Note: it doesn't make sense to have `"repo:<GITHUB_USER_OR_ORGANIZATION>/<GITHUB_REPOSITORY>:*"` twice here._
+
+Alternatively, when creating a role, instead of choosing a "Trusted entity type" of "Web identity", choose "Custom trust policy" and paste this:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Principal": {
+        "Federated": "arn:aws:iam::<AWS_ACCOUNT_ID>:oidc-provider/token.actions.githubusercontent.com"
+      },
+      "Condition": {
+        "StringEquals": {
+          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+          "token.actions.githubusercontent.com:sub": "repo:<GITHUB_ORG>/<GITHUB_REPOSITORY>:ref:refs/heads/<GITHUB_BRANCH>"
+        }
+      }
+    }
+  ]
+}
+```
+
+Or this:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Principal": {
+        "Federated": "arn:aws:iam::725270464668:oidc-provider/token.actions.githubusercontent.com"
+      },
+      "Condition": {
+        "StringEquals": {
+          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+        },
+        "StringLike": {
+          "token.actions.githubusercontent.com:sub": "repo:<GITHUB_ORG>/<GITHUB_REPOSITORY>:*"
+        }
+      }
+    }
+  ]
+}
+```
+
+Modify the "token.actions.githubusercontent.com:sub" as needed:
+
+- Allow any branch: `"repo:<ORG>/<REPO>:*"`
+- Allow specific branch: `"repo:<ORG>/<REPO>:ref:refs/heads/main"`
+- Allow specific branch pattern: `"repo:<ORG>/<REPO>:ref:refs/heads/feature/*"`
+- Allow pull requests: `"repo:<ORG>/<REPO>:pull_request"`
+
+Two important things from [the docs](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws#configuring-the-role-and-trust-policy):
+
+- Evaluating the condition key `token.actions.githubusercontent.com:sub` in the role trust policy limits which GitHub actions are able to assume the role.
+- If you use a workflow with an **environment**, the `sub` field must reference the environment name: `repo:ORG-NAME/REPO-NAME:environment:ENVIRONMENT-NAME`.
+
+### Step 3. Attach permissions to the IAM Role
+
+To allow the role to access the AWS resources, set the permissions policies (eg `AmazonS3FullAccess`).
+
+### Step 4. Modify the GitHub Actions workflow
+
+https://docs.github.com/en/actions/reference/security/oidc#workflow-permissions-for-the-requesting-the-oidc-token
+
+You can request permissions at the workflow level or job level:
+
+```yaml
+# Workflow level
+permissions:
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy website
+    # Job level
+    # Permissions needed to interact with GitHub’s OIDC Token endpoint
+    # https://docs.github.com/en/actions/reference/security/oidc#workflow-permissions-for-the-requesting-the-oidc-token
+    permissions:
+      id-token: write # Allows the job to request the JWT token from GitHub's OIDC provider
+      contents: read # Allows the action to clone your repository code. Required for actions/checkout
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: 'npm'
+          cache-dependency-path: 'web/package-lock.json'
+      - name: Install dependencies
+        run: npm ci --no-fund --no-audit
+      - name: Build React web app
+        run: npm run build
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5.1.0 # https://github.com/aws-actions/configure-aws-credentials
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_GITHUB_ACTIONS_OIDC_ROLE_ARN }}
+          # You can also do:
+          # role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_DEPLOY_ROLE }}
+      - name: Upload build folder files to S3
+        run: aws s3 sync build s3://${{ vars.WEB_S3_BUCKET }} --delete
+      - name: Invalidate CloudFront distribution
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ vars.WEB_CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths '/*'
+```
+
+Permissions requested at the workflow level are inherited by all the jobs. If you request only `id-token: write` at the workflow level and you want to use `actions/checkout` in a job, it won't work unless you explicitly request `contents: read` at the job to override the inherited permissions. To avoid this issue, it's better to request permissions at the job level.
+
+### CloudTrail
+
+See how to do this at https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/
+
+Once the setup is done and you trigger the workflow, you can see the events at CloudTrail. Filter by "Event source" with value "sts.amazonaws.com":
+
+| Event name                | User name                                          | Event source      |
+| ------------------------- | -------------------------------------------------- | ----------------- |
+| AssumeRoleWithWebIdentity | repo:AlbertVilaCalvo/RecipeManager:environment:dev | sts.amazonaws.com |
+| GetCallerIdentity         | GitHubActions                                      | sts.amazonaws.com |
+
+Or filter by "User name" with value "GitHubActions":
+
+| Event name         | User name     | Event source             |
+| ------------------ | ------------- | ------------------------ |
+| CreateInvalidation | GitHubActions | cloudfront.amazonaws.com |
+| GetCallerIdentity  | GitHubActions | sts.amazonaws.com        |
+
+:::tip
+You can change the default "User name" (GitHubActions) in CloudTrail events with `role-session-name`:
+
+```shell
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5.1.0
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_GITHUB_ACTIONS_OIDC_ROLE_ARN }}
+          role-session-name: "GitHubActions-web-deploy-dev"
+```
+
+:::
+
+### OIDC AWS with Terraform
+
+https://github.com/terraform-module/terraform-aws-github-oidc-provider
+
+https://github.com/philips-labs/terraform-aws-github-oidc
+
+Thumbprint:
+
+- Recommended values: https://github.blog/changelog/2023-06-27-github-actions-update-on-oidc-integration-with-aws/
+- Script to generate thumbprints: https://github.com/philips-labs/terraform-aws-github-oidc/blob/main/bin/generate-thumbprint.sh
+- How to obtain the thumbprints: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc_verify-thumbprint.html
+
+```hcl title="main.tf"
+# Data source for the GitHub OIDC provider thumbprint
+data "tls_certificate" "github" {
+  url = "https://token.actions.githubusercontent.com/.well-known/openid-configuration"
+}
+
+resource "aws_iam_openid_connect_provider" "github_actions" {
+  url = "https://token.actions.githubusercontent.com"
+  client_id_list = [
+    "sts.amazonaws.com"
+  ]
+  thumbprint_list = [
+    # From https://github.blog/changelog/2023-06-27-github-actions-update-on-oidc-integration-with-aws/
+    "6938fd4d98bab03faadb97b34396831e3780aea1",
+    "1c58a3a8518e8759bf075b76b750d4f2df264fcd",
+    # Keep the dynamic lookup as a fallback
+    data.tls_certificate.github.certificates[0].sha1_fingerprint
+  ]
+}
+
+resource "aws_iam_role" "github_actions" {
+  name = "${var.app_name}-github-actions-oidc-role-${var.environment}"
+  # Trust policy allowing GitHub Actions (the trusted entity) to assume this role
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github_actions.arn
+        }
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+          }
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}/${var.github_repo}:*"
+          }
+        }
+      }
+    ]
+  })
+}
+
+# Inline permissions policy for the GitHub Actions role
+resource "aws_iam_role_policy" "github_actions" {
+  name = "${var.app_name}-github-actions-oidc-policy-${var.environment}"
+  role = aws_iam_role.github_actions.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket"
+        ]
+        Resource = [
+          var.website_s3_bucket_arn
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject"
+        ]
+        Resource = [
+          "${var.website_s3_bucket_arn}/*"
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "cloudfront:CreateInvalidation"
+        ]
+        Resource = [
+          var.website_cloudfront_distribution_arn
+        ]
+      }
+    ]
+  })
+}
+```
+
+```hcl title="variables.tf"
+variable "environment" {
+  description = "The deployment environment (dev, staging, prod)"
+  type        = string
+  validation {
+    condition     = can(regex("^(dev|staging|prod)$", var.environment))
+    error_message = "The environment must be one of: dev, staging, prod."
+  }
+}
+
+variable "app_name" {
+  description = "The application name"
+  type        = string
+}
+
+variable "aws_region" {
+  description = "The AWS region to deploy the resources to"
+  type        = string
+  validation {
+    condition     = can(regex("^(us|eu|ap|sa|ca|me|af)-(east|west|north|south|central|northeast|southeast|northwest|southwest)-[1-3]$", var.aws_region))
+    error_message = "The region must be a valid AWS region (e.g., us-east-1, eu-west-2)."
+  }
+}
+
+variable "default_tags" {
+  description = "Common tags to be applied to all resources"
+  type        = map(string)
+}
+
+variable "github_org" {
+  description = "GitHub organization or username"
+  type        = string
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9-]+$", var.github_org))
+    error_message = "GitHub organization must contain only alphanumeric characters and hyphens."
+  }
+}
+
+variable "github_repo" {
+  description = "GitHub repository name"
+  type        = string
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9-_\\.]+$", var.github_repo))
+    error_message = "GitHub repository name must contain only alphanumeric characters, hyphens, underscores, and dots."
+  }
+}
+
+variable "website_s3_bucket_arn" {
+  description = "ARN of the S3 bucket that contains the website files"
+  type        = string
+  validation {
+    condition     = can(regex("^arn:aws:s3:::[a-z0-9.-]{3,63}$", var.website_s3_bucket_arn))
+    error_message = "The S3 bucket ARN must be a valid ARN (e.g., arn:aws:s3:::my-bucket)."
+  }
+}
+
+variable "website_cloudfront_distribution_arn" {
+  description = "ARN of the CloudFront distribution of the website"
+  type        = string
+}
+```
+
+```hcl title="outputs.tf"
+output "oidc_role_arn" {
+  description = "ARN of the IAM role for OIDC authentication with GitHub Actions"
+  value       = aws_iam_role.github_actions.arn
+}
+```
 
 ## Badge
 
