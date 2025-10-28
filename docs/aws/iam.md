@@ -279,6 +279,14 @@ See [Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/r
 
 Each service supports different condition keys, see [Actions, resources, and condition keys for AWS services](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html)
 
+String condition operators: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_String
+
+- `StringEquals`: Performs exact string matching. Use this when you want to match a specific value with no wildcards.
+  - Example: `"token.actions.githubusercontent.com:sub": "repo:myorg/myrepo:ref:refs/heads/main"` only matches that exact branch.
+- `StringLike`: Allows wildcard matching using `*` (matches zero or more characters) and `?` (matches exactly one character).
+  - Example: `"token.actions.githubusercontent.com:sub": "repo:myorg/myrepo:*"` matches any branch, tag, or pull request in that repository.
+  - Example: `"token.actions.githubusercontent.com:sub": "repo:myorg/*"` matches any repository in that organization.
+
 ### Examples
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html

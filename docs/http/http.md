@@ -14,6 +14,8 @@ https://httptoolkit.tech/blog/http-wtf/
 
 HTTP/1 to HTTP/2 to HTTP/3 - https://www.youtube.com/watch?v=a-sBfyiXysI
 
+HTTP Semantics - RFC 9110 - https://datatracker.ietf.org/doc/html/rfc9110
+
 ## Status codes
 
 https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
@@ -37,6 +39,8 @@ npm package: https://github.com/prettymuchbryce/http-status-codes
 - 5xx server error – the server failed to fulfil an apparently valid request
 
 ### Common codes
+
+RFC 9110 HTTP Semantics - https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes - https://datatracker.ietf.org/doc/html/rfc9110#name-status-codes
 
 | Status Code | Status Message        | Comments                                                      | Spec                                                         |
 | :---------: | --------------------- | ------------------------------------------------------------- | ------------------------------------------------------------ |
@@ -67,7 +71,7 @@ https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-ht
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
-RFC 9110 HTTP Semantics https://www.rfc-editor.org/rfc/rfc9110.html#name-methods - (old) https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
+RFC 9110 HTTP Semantics https://www.rfc-editor.org/rfc/rfc9110.html#name-methods - https://datatracker.ietf.org/doc/html/rfc9110 - (old) https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
 
 https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods
 

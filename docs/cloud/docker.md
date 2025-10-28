@@ -15,7 +15,7 @@ Dockerfile linters:
 - https://github.com/hadolint/hadolint
 - https://www.checkov.io - https://github.com/bridgecrewio/checkov
 
-Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See Thoughworks Technology Radar 27:
+Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See Thoughtworks Technology Radar 27:
 
 > is becoming a popular open alternative to Docker Desktop. It provisions the Docker container
 > run time in a Lima VM, configures the Docker CLI on macOS and handles port-forwarding and
@@ -1379,10 +1379,28 @@ services:
       - 27017:27017
     command: mongod
 
+# Named volumes. To reuse a volume across multiple services, a named volume
+# must be declared in the 'volumes' top-level element.
 volumes:
   mongodb:
   mongodb_config:
 ```
+
+### Volumes
+
+https://docs.docker.com/reference/compose-file/services/#volumes
+
+https://docs.docker.com/reference/compose-file/volumes/
+
+### Compose Watch
+
+https://docs.docker.com/compose/how-tos/file-watch/
+
+An alternative to using `volumes`.
+
+https://github.com/dockersamples/avatars/blob/main/compose.yaml
+
+https://github.com/docker/docs/blob/main/compose.yaml
 
 ### Health Check
 
@@ -1393,6 +1411,8 @@ https://github.com/peter-evans/docker-compose-healthcheck
 https://github.com/vishnubob/wait-for-it
 
 https://hub.docker.com/r/willfarrell/autoheal/
+
+https://docs.docker.com/compose/how-tos/startup-order/
 
 ## Docker Desktop
 

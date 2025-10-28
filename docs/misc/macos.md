@@ -16,7 +16,13 @@ https://medium.com/@simpleandkind788/7-macos-tahoe-settings-you-should-turn-off-
 
 Advanced macOS Command-Line Tools - https://saurabhs.org/advanced-macos-commands
 
-What prevents Mac to sleep: `pmset -g assertions`. See https://osxdaily.com/2012/07/11/mac-wont-sleep-heres-how-to-find-out-why-and-fix-it
+## What prevents Mac to sleep
+
+```shell
+pmset -g assertions
+```
+
+See https://osxdaily.com/2012/07/11/mac-wont-sleep-heres-how-to-find-out-why-and-fix-it
 
 ## Defaults
 

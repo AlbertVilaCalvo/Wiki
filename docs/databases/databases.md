@@ -29,6 +29,8 @@ Reddit’s database has two tables
 | MySQL      | 3306         |
 | Redis      | 6379         |
 
+Every system eventually fails or scales at its data layer first, not its API or cache. That's why strong database design, indexing, and query optimization are the real foundations of scalability. [source](https://www.linkedin.com/feed/update/urn:li:activity:7384919515282817024?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7384919515282817024%2C7384924552562376705%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287384924552562376705%2Curn%3Ali%3Aactivity%3A7384919515282817024%29)
+
 ## Admins
 
 https://en.wikipedia.org/wiki/Comparison_of_database_administration_tools

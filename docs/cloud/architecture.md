@@ -30,6 +30,14 @@ https://github.com/dapr/dapr - https://dapr.io
 
 Virtual Waiting Room on AWS - To sell concert tickets. Uses an SQS queue - https://aws.amazon.com/solutions/implementations/virtual-waiting-room-on-aws/
 
+## System Design
+
+System Design Staircase - https://www.linkedin.com/posts/raul-junco_system-design-isnt-one-big-concept-it-activity-7386008937277472768-Xfnq/
+
+Databases - https://www.linkedin.com/posts/raul-junco_in-one-system-design-interview-i-used-kafka-activity-7384919515282817024-wcFP/
+
+> Every system eventually fails or scales at its data layer first, not its API or cache. That's why strong database design, indexing, and query optimization are the real foundations of scalability. [source](https://www.linkedin.com/feed/update/urn:li:activity:7384919515282817024?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7384919515282817024%2C7384924552562376705%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287384924552562376705%2Curn%3Ali%3Aactivity%3A7384919515282817024%29)
+
 ## Coupling
 
 https://en.wikipedia.org/wiki/Coupling_(computer_programming)

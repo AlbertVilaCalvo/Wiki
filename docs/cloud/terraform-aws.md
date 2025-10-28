@@ -38,10 +38,25 @@ Since [version 1.11](https://github.com/hashicorp/terraform/releases/tag/v1.11.0
 
 GitHub Action to validate IAM policies in Terraform templates - https://github.com/aws-actions/terraform-aws-iam-policy-validator
 
+### aws_iam_policy vs aws_iam_role_policy
+
 Difference between aws_iam_policy and aws_iam_role_policy - https://stackoverflow.com/questions/66510222/difference-between-aws-iam-policy-and-aws-iam-role-policy
 
-- [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) -> managed policy, can be re-used
-- [aws_iam_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) → inline policy
+[aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) (recommended)
+
+- Managed IAM policy that exists independently and can be reused.
+- Can be attached to multiple roles, users, or groups.
+- Has its own ARN and lifecycle.
+- Reusable across different IAM principals.
+- Requires a separate `aws_iam_role_policy_attachment` resource to attach it to a role.
+- Managed policies are recommended by AWS for better policy management.
+
+[aws_iam_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy)
+
+- Inline policy that is embedded directly in a single role.
+- Tied to the lifecycle of the role (deleted when the role is deleted).
+- Cannot be reused or attached to other roles.
+- More concise - no need for a separate attachment resource.
 
 ## Get AWS account id
 

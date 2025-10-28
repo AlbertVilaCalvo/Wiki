@@ -8,6 +8,12 @@ https://aws.amazon.com/ecr
 
 https://gallery.ecr.aws/eks-distro/
 
+- OCI compliant.
+- Accessible over VPC endpoints.
+- Cross-region replication.
+
+Amazon Inspector provides advanced image scanning capabilities.
+
 ## Workflow
 
 From https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html
