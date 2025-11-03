@@ -4,7 +4,7 @@ title: EKS
 
 # EKS - Elastic Kubernetes Service
 
-https://aws.amazon.com/eks/
+https://aws.amazon.com/eks
 
 Console: https://console.aws.amazon.com/eks/home
 
@@ -560,7 +560,7 @@ kubectl get pods -n my-namespace -o wide
 # httpd   1/1     Running   0          60s     172.31.100.212   fargate-ip-172-31-100-212.ec2.internal   <none>           <none>
 ```
 
-Note that you need a [NAT Gateway](./vpc.md#nat-gateway) to pull the Docker image, otherwise you get the errors ErrImagePull and ImagePullBackOff.
+Note that you need a [NAT Gateway](../aws/vpc.md#nat-gateway) to pull the Docker image, otherwise you get the errors ErrImagePull and ImagePullBackOff.
 
 Note that Fargate allocates a node for every pod. For example, if we have 2 pods running we have 2 nodes:
 

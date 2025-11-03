@@ -88,6 +88,7 @@ const sidebars: SidebarsConfig = {
   kubernetes: [
     'kubernetes/kubernetes',
     'kubernetes/minikube',
+    'kubernetes/eks',
     'kubernetes/argocd',
     'kubernetes/certifications',
   ],
@@ -105,7 +106,6 @@ const sidebars: SidebarsConfig = {
     'aws/ec2',
     'aws/ec2-auto-scaling',
     'aws/ecr',
-    'aws/eks',
     'aws/ecs',
     'aws/fargate',
     'aws/app-runner',
