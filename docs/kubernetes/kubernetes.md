@@ -11,6 +11,7 @@ Definitions:
 - Distributed operating system.
 - Operating system for distributed computing.
 - Universal computing platform.
+- An open-source system for automating deployment, scaling, and management of containerized applications.
 
 https://github.com/kubernetes
 
@@ -39,8 +40,6 @@ https://github.com/nigelpoulton/TheK8sBook
 https://github.com/MichaelCade/90DaysOfDevOps#kubernetes
 
 https://github.com/bregman-arie/devops-exercises/blob/master/topics/kubernetes/README.md
-
-https://kustomize.io
 
 https://github.com/siderolabs/talos - https://www.talos.dev
 
@@ -96,13 +95,22 @@ History: https://cloud.google.com/blog/products/containers-kubernetes/from-googl
 
 ## Benefits
 
-- Scaling management
+- Automatic scaling management
 - Secrets and configuration management
-- Service discovery
+- Service discovery (DNS service for internal communication)
 - Load balancing
-- Container health checks and management
+- Container health checks and automatic replacement. Self-healing, high availability
+- Rolling updates and rollbacks. Zero downtime deployment
+- Persistent storage
+- Network management
+- Efficient cluster utilization
+- Workload balance across servers
+- Open source. Large community
+- Extensible
 
 https://jessitron.com/2022/10/02/why-we-use-kubernetes
+
+What is Kubernetes? - https://www.youtube.com/watch?v=a2gfpZE8vXY
 
 ## Concepts and components
 
@@ -112,13 +120,17 @@ https://kubernetes.io/docs/reference/glossary/?fundamental=true
 
 https://www.redhat.com/en/topics/containers/kubernetes-architecture
 
+https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-concepts.html
+
+[Kubernetes – Architecture and main components overview](https://github.com/NotHarshhaa/kubernetes-projects-learning/tree/master/learning/Kubernetes-components-overview)
+
 - Cluster: a set of worker machines (nodes).
 - Node: a worker machine.
   - Can be virtual or physical.
   - Each node has a container runtime (eg Docker, containerd, CRI-O).
 - Pod: a set of running containers.
   - https://kubernetes.io/docs/concepts/workloads/pods
-  - Is the smallest object in Kubernetes.
+  - The smallest deployable unit of computing that you can create and manage in Kubernetes.
   - A pod can have 1 or more containers (eg application, logging...).
   - Pods are replicated across multiple nodes, providing high availability.
   - Pods are disposable and replaceable (ephemeral, nonpermanent, not persistent), and can be created and terminated by the control plane.
@@ -127,22 +139,61 @@ https://www.redhat.com/en/topics/containers/kubernetes-architecture
   - https://kubernetes.io/docs/concepts/services-networking/service
   - Since pods are ephemeral, services provide a persistent way to communicate with them.
   - Load balances pods.
-- Volume: A directory containing data, accessible to the containers in a Pod.
+- Volume: a directory containing data, accessible to the containers in a Pod.
   - Since pods are ephemeral, volumes provide a persistent way to store data.
+- Namespace: a virtual grouping of objects.
+  - Kubernetes resources are either namespace or cluster-scoped (non-namespaced).
+    - Namespaced: Pod, ReplicaSet, Deployment, StatefulSet, DaemonSet, Service, Ingress, ConfigMap, Secret, PersistentVolumeClaim...
+    - Non-namespaced: Namespace, Node, PersistentVolume, ClusterRole, ClusterRoleBinding, IngressClass, StorageClass, CustomResourceDefinition...
+    - Use `kubectl api-resources --namespaced=true` and `kubectl api-resources --namespaced=false` to list all resources.
+  - Built-in namespaces: default, kube-system, kube-public, kube-node-lease.
+  - Names of resources need to be unique within a namespace, but not across namespaces.
 
-Hierarchy:
+<figure>
+  <img src="/img/Kubernetes-objects.png" alt="Kubernetes objects" title="Kubernetes objects" width="750" loading="lazy"/>
+  <figcaption>Source: <a href="https://aws-experience.com/emea/iberia/learning-hub/media/88a07ed3-47b4-459a-bbab-7527bd7c6497">AWS Experience</a></figcaption>
+</figure>
+
+### Hierarchy
 
 - A cluster has many nodes
 - A node has many pods
 - A pod has many containers
 
-See [Kubernetes – Architecture and main components overview](https://github.com/NotHarshhaa/kubernetes-projects-learning/tree/master/learning/Kubernetes-components-overview)
+### Glossary
+
+https://kubernetes.io/docs/reference/glossary/?all=true
+
+From https://kubectl.docs.kubernetes.io/guides/introduction/resources_controllers:
+
+- Resource Config: declarative files with resources that are written to a cluster.
+- Resources: instances of Kubernetes objects, which are declared as json or yaml and applied to a cluster. For example: deployment, services, namespaces, etc.
+  - Resources are uniquely identified by:
+    - `apiVersion`: API Type Group and Version
+    - `kind`: API Type Name
+    - `metadata.namespace`: Instance namespace
+    - `metadata.name`: Instance name
+- Controllers: actuate Kubernetes APIs. They observe the state of the system and look for changes either to desired state of Resources (create, update, delete) or the system (Pod or Node dies).
+- Workloads: resources which run containers. For example: Deployments, StatefulSets, Jobs, CronJobs and DaemonSets.
+
+| Workload API |                        |                                                        |
+| ------------ | ---------------------- | ------------------------------------------------------ |
+| Deployments  | Stateless Applications | replication + rollouts                                 |
+| StatefulSets | Stateful Applications  | replication + rollouts + persistent storage + identity |
+| Jobs         | Batch Work             | run to completion                                      |
+| CronJobs     | Scheduled Batch Work   | scheduled run to completion                            |
+| DaemonSets   | Per-Machine            | per-Node scheduling                                    |
 
 ## Control plane
 
 A cluster is managed by the control plane (called master in the past), which exposes an API that allows for example to interact with the scheduler.
 
 The control plane is responsible for maintaining the desired state of the cluster, such as which applications are running and which container images they use. ([source](https://www.redhat.com/en/topics/containers/what-is-kubernetes))
+
+<figure>
+  <img src="/img/Kubernetes-components.png" alt="Kubernetes components" title="Kubernetes components" width="750" loading="lazy"/>
+  <figcaption>Source: <a href="https://aws-experience.com/emea/iberia/learning-hub/media/88a07ed3-47b4-459a-bbab-7527bd7c6497">AWS Experience</a></figcaption>
+</figure>
 
 Components:
 
@@ -154,7 +205,7 @@ Components:
 - [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/): runs controller processes, which confirms that the current state is the desired state for all the running workloads.
 - cloud-controller-manager (optional): embeds cloud-specific control logic. Lets you link your cluster into your cloud provider's API.
 
-See https://kubernetes.io/docs/concepts/overview/components/#control-plane-components for more details.
+See https://kubernetes.io/docs/concepts/architecture/#control-plane-components and https://kubernetes.io/docs/concepts/overview/components/#control-plane-components.
 
 You want to have a minimum of 3 control planes, since etcd uses the RAFT consensus algorithm, which requires leader election. One of them will be the main control plane.
 
@@ -168,13 +219,17 @@ What you will be working with the most, since the operations you do with `kubect
 
 ## Worker Nodes
 
+Also called data plane.
+
 Components:
 
 - [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/): agent that runs on each node and makes sure that containers are running in a Pod.
 - [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/) (optional): does internal networking. See https://kubernetes.io/docs/reference/glossary/?all=true#term-kube-proxy
 - Container Runtime: software that is responsible for running containers, eg Docker or containerd. Kubernetes doesn't know about containers, so it relies on a plugin for this. containerd is the default. Docker is not supported anymore ([source](https://kubernetes.io/blog/2020/12/02/dont-panic-kubernetes-and-docker/)). Needs to support the [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) (CRI).
 
-The recommended number is between 3 and 5. It needs to have high availability and scaling, otherwise the pods won't have a place to move to if a worker node fails.
+See https://kubernetes.io/docs/concepts/architecture/#node-components and https://kubernetes.io/docs/concepts/overview/components/#node-components.
+
+The recommended number of nodes is between 3 and 5. It needs to have high availability and scaling, otherwise the pods won't have a place to move to if a worker node fails.
 
 ## Addons
 
@@ -210,6 +265,16 @@ Reference:
 - https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
 - https://kubectl.docs.kubernetes.io/references/kubectl/
 
+Command families, from https://kubectl.docs.kubernetes.io/guides/introduction/kubectl/#command-families but modified:
+
+| Type                            |                                          | Used For                           | Description                                                               |
+| ------------------------------- | ---------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------- |
+| Declarative Resource Management | `apply`                                  | Deployment and Operations (GitOps) | Declaratively manage Kubernetes Workloads using Resource Config files     |
+| Imperative Resource Management  | `run`, `create`                          | Development Only                   | Run commands to manage Kubernetes Workloads using CLI arguments and flags |
+| Printing Workload State         | `get`, `describe`, `explain`             | Debugging                          | Print information about Workloads                                         |
+| Interacting with Containers     | `attach`, `cp`, `exec`, `events`, `logs` | Debugging                          | Commands for inspecting and debugging your applications                   |
+| Cluster Management              | `cordon`, `drain`, `uncordon`            | Cluster Ops                        | Drain and Cordon Nodes                                                    |
+
 Change the editor:
 
 ```shell
@@ -223,6 +288,10 @@ export KUBE_EDITOR="vim"
 `kubectl options` → List global command-line options that apply to all commands
 
 `kubectl api-resources` → List all resources and its short names. Also available at https://kubernetes.io/docs/reference/kubectl/#resource-types
+
+`kubectl api-resources --namespaced=true` → Namespaced objects
+
+`kubectl api-resources --namespaced=false` → Cluster-scoped objects
 
 `kubectl explain pod.spec.restartPolicy` → Get documentation for a resource - [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
 
@@ -248,19 +317,66 @@ export KUBE_EDITOR="vim"
 
 `kubectl config delete-context <context>`
 
+`kubectl config set-context --current --namespace=myns` → Set namespace for all subsequent kubectl commands in the current context. To see the namespace run `kubectl config view | grep namespace:`
+
 `kubectl cluster-info`
 
 `kubectl cluster-info dump` → Check whether the cluster is configured properly
 
+### Auth
+
+```shell
+kubectl auth whoami
+kubectl --context <context> auth whoami
+```
+
+```shell
+kubectl auth can-i '*' '*'
+kubectl auth can-i create namespace
+kubectl auth can-i create pods --all-namespaces
+```
+
 ### Get
+
+`kubectl get <resource-type> <resource-name>`
+
+`kubectl get all` → List all
+
+`kubectl get all -A` → List all of all namespaces
 
 `kubectl get nodes`
 
+`kubectl get nodes --show-labels`
+
+`kubectl get namespaces`
+
+`kubectl get pod <pod-name> -n <namespace>`
+
 `kubectl get pods`
 
-`kubectl get services`
+`kubectl get pods -A` → List pods of all namespaces
+
+`kubectl get pods -o wide`
+
+`kubectl get pods <pod-name>`
+
+`kubectl get pods -n <namespace>`
+
+`kubectl get pods -n kube-system` → List system pods (hidden by default)
+
+`kubectl get pods -n <namespace> -o wide` → Get the IP
+
+`kubectl get pods -n <namespace> -o wide -w` → Watch for changes (`--watch`)
+
+`kubectl get pods -n <namespace> --show-labels`
+
+`kubectl get pods -n <namespace> --show-labels -o wide`
+
+`kubectl get pods -l <label>=<value>`
 
 `kubectl get deployments` → Verify the deployment
+
+`kubectl get services`
 
 `kubectl get events`
 
@@ -270,29 +386,42 @@ export KUBE_EDITOR="vim"
 
 `kubectl get cronjobs`
 
+`kubectl get configmaps`
+
 `kubectl get deployment,rs,pods`
 
-`kubectl get all` → List all
+`kubectl get configmap app-config -o yaml` → Adding `-o yaml` shows the details
 
-`kubectl get all -A` → List all of all namespaces
+### Create vs Apply
 
-`kubectl get <resource-type> <resource-name>`
+> Apply is the preferred mechanism for managing Resources in a Kubernetes cluster. [source](https://kubectl.docs.kubernetes.io/guides/introduction/kubectl/#declarative-application-management)
 
-`kubectl get pod <pod-name> -n <namespace>`
+[`kubectl create`](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/)
 
-`kubectl get pods <pod-name>`
+- Creates a new resource from a manifest or command-line flags.
+- Fails with an error (AlreadyExists) if the resource already exists.
+- Imperative, not idempotent.
+- `kubectl create -f deployment.yaml`
+- `kubectl create deployment my-dep --image=nginx --replicas=3`
 
-`kubectl get pods -n <namespace>`
+[`kubectl apply`](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/)
 
-`kubectl get pods -n kube-system` → List system pods (hidden by default)
+- Creates _or updates_ resources declaratively based on manifest files.
+- Creates the resource if it doesn’t exist, or updates it if it does (upsert).
+- Declarative, idempotent.
+- `kubectl apply -f deployment.yaml`
 
-`kubectl get pods -o wide -n <namespace>` → Get the IP
+### Create
 
-`kubectl get configmap app-config -o yaml`
+Upsert with create:
 
-`kubectl get pods -l <label>=<value> --show-labels`
+```shell
+kubectl create -f deployment.yaml --save-config --dry-run=client -o yaml | kubectl apply -f -
+```
 
 ### Apply
+
+Is declarative: we can apply the manifests multiple times and expect that, because the resources are already created, Kubernetes will take no action.
 
 `kubectl apply -f deployment.yaml`
 
@@ -310,7 +439,7 @@ export KUBE_EDITOR="vim"
 
 `kubectl describe node <node-name>`
 
-`kubectl describe pod <pod-name>` → Useful to diagnose errors when creating a pod, like `ErrImagePull` (look at the Events section)
+`kubectl describe pod <pod-name> -n <namespace>` → Useful to diagnose errors when creating a pod, like `ErrImagePull` or `FailedScheduling` (look at the Events section)
 
 `kubectl describe services` → Show cluster services information
 
@@ -349,6 +478,8 @@ Use [stern](https://github.com/stern/stern) to get the logs of multiple pods. In
 
 `kubectl logs <pod-name>`
 
+`kubectl logs -n catalog deployment/catalog`
+
 Follow logs:
 
 `kubectl logs -f <pod-name>`
@@ -377,6 +508,27 @@ Run a command in a container: `kubectl exec mypod -- <command>`
 
 Shell into a container: `kubectl exec mypod -it -- /bin/sh` or `kubectl exec --stdin --tty mypod -- bash`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`. If the conatiner does not provide shell access (is a [distroless container](https://github.com/GoogleContainerTools/distroless)), we get this error: "OCI runtime exec failed: exec failed: unable to start container process: exec: "env": executable file not found in $PATH: unknown command terminated with exit code 127". In this case, we can debug it with `kubectl debug -it <pod> --image=busybox --target=debian --share-processes` ([source](https://github.com/bmuschko/ckad-crash-course/blob/master/exercises/20-troubleshooting-pod/solution/solution.md)).
 
+```shell
+kubectl -n catalog exec -i \
+  deployment/catalog -- curl catalog.catalog.svc/catalog/products | jq .
+```
+
+### Scale
+
+`kubectl scale -n catalog --replicas 3 deployment/catalog`
+
+### Wait
+
+`kubectl wait --for=condition=Ready pods --all -n catalog --timeout=180s`
+
+`kubectl wait --for=condition=Ready --timeout=180s pods -l app.kubernetes.io/created-by=eks-workshop -A`
+
+## Kustomize
+
+https://kustomize.io
+
+https://www.eksworkshop.com/docs/introduction/kustomize/
+
 ## Port forward
 
 Expose an internal pod locally.
@@ -404,13 +556,31 @@ Plugin manager - https://krew.sigs.k8s.io - https://github.com/kubernetes-sigs/k
 
 ## Pod
 
+https://kubernetes.io/docs/concepts/workloads/pods/
+
 Lifecycle - https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
 
 ### Container probes
 
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+
 - Readiness probe: the container is ready to accept requests
 - Liveness probe: the container is still accepting requests
 - Startup probe: the application is started
+
+### Resource limits
+
+https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+Requests a specific amount of CPU and memory so the Kubernetes scheduler can place it on a node with enough available resources.
+
+## Deployment
+
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+Manage one or more replicas of a pod, allowing it to scale horizontally. A Deployment manages [ReplicaSets](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/) automatically.
+
+Provides update strategies: Recreate or RollingUpdate.
 
 ## Namespace
 
@@ -418,14 +588,19 @@ To group objects and avoid name collisions.
 
 Deleting a namespace deletes all its objects.
 
+The Namespaces are a logical grouping of the resources for each microservice and also act as a soft isolation boundary, which can be used to effectively implement controls using Kubernetes RBAC and Network Policies. [source](https://www.eksworkshop.com/docs/introduction/getting-started/microservices)
+
 ## Labels
 
 Recommended Labels - https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/
 
 ## Service
 
-The IP address of a pod is not stable, eg it changes when a pod is restarted.
-A service load balances a set of pods.
+https://kubernetes.io/docs/concepts/services-networking/service/
+
+The IP address of a pod is not stable, for example, it changes when a pod is restarted. A service load balances a set of pods matching labels, and exposes them over a network. Allows an application running as a set of pods to be called by other components inside the Kubernetes cluster. Each service is given its own virtual IP and DNS entry.
+
+Transport layer (4): TCP, UDP and TLS.
 
 Types:
 
@@ -433,17 +608,29 @@ Types:
 - NodePort: accessible from outside the cluster. For development.
 - LoadBalancer: external load balancer, of a cloud provider.
 
+ClusterIP services are internal to the cluster, so we cannot access them from the Internet or even the VPC. However, we can use exec to access an existing pod in the EKS cluster to check the catalog API is working ([source](https://www.eksworkshop.com/docs/introduction/getting-started/first)):
+
+```shell
+kubectl -n catalog exec -i \
+  deployment/catalog -- curl catalog.catalog.svc/catalog/products | jq .
+```
+
+https://github.com/kubernetes-sigs/aws-load-balancer-controller
+
+- AWS Application Load Balancer → Kubernetes Ingress
+- AWS Network Load Balancer → Kubernetes Service
+
 ## Ingress
 
 https://kubernetes.io/docs/concepts/services-networking/ingress/
 
-Sits in front of a service.
+Sits in front of a service. Application layer (7): HTTP and HTTPS.
 
-To be replaced by the Gateway API.
+Acts as the entry point for your cluster. Lets you consolidate your routing rules into a single resource, so that you can expose multiple components of your workload, running separately in your cluster, behind a single listener.
+
+To be replaced by the [Gateway API](#gateway-api).
 
 https://www.f5.com/products/nginx/nginx-ingress-controller
-
-https://github.com/kubernetes-sigs/aws-load-balancer-controller
 
 ## Gateway API
 
@@ -453,9 +640,76 @@ https://gateway-api.sigs.k8s.io
 
 ## Network Policy
 
+https://kubernetes.io/docs/concepts/services-networking/network-policies/
+
 https://github.com/ahmetb/kubernetes-network-policy-recipes
 
 https://cilium.io
+
+## DeamonSet
+
+https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+
+Ensures that a set of worker nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them.
+
+Use case: logging agents, node monitoring deamon, etc.
+
+## StatefulSet
+
+https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+
+Runs a group of Pods, and maintains a sticky identity for each of those Pods. Guarantees a unique network ID and startup order.
+
+Used to manage stateful workloads, for example a MySQL database that runs inside a Kubernetes cluster.
+
+## Job
+
+https://kubernetes.io/docs/concepts/workloads/controllers/job/
+
+One-off tasks that run to completion and then stop. Can run in parallel.
+
+## CronJob
+
+https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
+
+For performing regular scheduled actions such as backups, report generation, etc.
+
+## ServiceAccount
+
+https://kubernetes.io/docs/concepts/security/service-accounts/
+
+## ConfigMap
+
+https://kubernetes.io/docs/concepts/configuration/configmap/
+
+Used to store non-confidential data in key-value pairs, and expose it to a pod.
+
+## Secrets
+
+https://kubernetes.io/docs/concepts/configuration/secret/
+
+To avoid including confidential data in application code or a container image.
+
+## Volume
+
+https://kubernetes.io/docs/concepts/storage/volumes/
+
+A directory accessible to the containers in a pod. Volumes provide data persistance and shared storage for pods.
+
+- Static provisioning: done by the cluster administrator. Explicitly refers to physical storage.
+- Dynamic provisioning: done by the application developer. Requires a StorageClasses.
+
+### PersistentVolume
+
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+
+A `persistentVolumeClaim` volume is used to mount a PersistentVolume into a Pod. PersistentVolumeClaims are a way for users to "claim" durable storage (such as an iSCSI volume) without knowing the details of the particular cloud environment.
+
+## RBAC
+
+https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+
+ClusterRole is a non-namespaced resource, it applies to all namespaces.
 
 ## Tools
 
