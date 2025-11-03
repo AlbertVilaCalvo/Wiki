@@ -684,7 +684,7 @@ https://kubernetes.io/docs/concepts/configuration/configmap/
 
 Used to store non-confidential data in key-value pairs, and expose it to a pod.
 
-## Secrets
+## Secrets
 
 https://kubernetes.io/docs/concepts/configuration/secret/
 

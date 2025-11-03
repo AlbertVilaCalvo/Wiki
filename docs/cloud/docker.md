@@ -712,7 +712,7 @@ You can create an image from a running container with [`docker container commit`
 ```shell
 docker container run -it --name ubuntu-source ubuntu:22.04 bash
 # Doing "git --version" prints "git: command not found"
-# Install git:
+# Install git:
 apt update && apt install -y git
 # Run ctrl-c or type 'exit'
 # The container is stopped

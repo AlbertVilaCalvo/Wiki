@@ -227,7 +227,7 @@ diff -qr Dir1 Dir2 --exclude=.git --exclude=node_modules
 ## tree
 
 ```shell
-tree # current folder
+tree # current folder
 tree somefolder
 tree -a # print hidden files too
 tree --gitignore # filters files and directories using .gitignore files

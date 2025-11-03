@@ -72,7 +72,7 @@ git log -p -S something
 
 ```shell
 git log --all --grep='Something' # Commits whose message contain 'Something'
-git log -i --grep='Something' # Case insensitive. Matches 'something' too
+git log -i --grep='Something' # Case insensitive. Matches 'something' too
 git log --invert-grep --grep='Something' # Commits whose message don't contain 'Something'
 
 # Can have multiple patterns
