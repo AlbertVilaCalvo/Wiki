@@ -14,6 +14,8 @@ Example: VPC for web and database servers - https://docs.aws.amazon.com/vpc/late
 
 Analogy - https://stackoverflow.com/a/65193190/4034572
 
+If you delete the default VPC, use `aws ec2 create-default-vpc` to recreate it. [See `create-default-vpc` docs](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-default-vpc.html) and https://docs.aws.amazon.com/vpc/latest/userguide/work-with-default-vpc.html#create-default-vpc. Note that you cannot mark an existing nondefault VPC as a default VPC.
+
 ## Examples / Tutorials
 
 Example: VPC with servers in private subnets and NAT - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html
@@ -125,7 +127,7 @@ A **range of IP addresses**, which is a segment/portion of the overall VPC CIDR 
 
 Must reside within a single Availability Zone. You can have multiple subnets in the same Availability Zone.
 
-By default we have a default VPC on each region, with CIDR 172.31.0.0/16. Each default VPC has a default subnet on each AZ of the region. For example, for N. Virginia there are 6 default subnets created, one for each AZ (us-east-1a to us-east-1f), but in Sydney there are 3 default subnets, since there are 3 AZ. (If you go to VPC → Your VPCs, there's a column 'Default VPC', and if you go to VPC → Subnets, there's a column 'Default subnet'.) Note that **the default subnets are public**, which means that the resources we launch there get public IP addresses that are accessible from the Internet, which is a security risk.
+By default we have a [default VPC](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html) on each region, with CIDR 172.31.0.0/16. Each default VPC has a default subnet on each AZ of the region. For example, for N. Virginia there are 6 default subnets created, one for each AZ (us-east-1a to us-east-1f), but in Sydney there are 3 default subnets, since there are 3 AZ. (If you go to VPC → Your VPCs, there's a column 'Default VPC', and if you go to VPC → Subnets, there's a column 'Default subnet'.) Note that **the default subnets are public**, which means that the resources we launch there get public IP addresses that are accessible from the Internet, which is a security risk.
 
 - Public subnet:
   - Has an Internet Gateway on the route table.
@@ -286,7 +288,8 @@ An Internet Gateway applies to an entire VPC and there's only one per VPC, where
 
 Example: VPC with servers in private subnets and NAT - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html
 
-:::info Important
+#### Pricing considerations
+
 Since a NAT gateway has an Elastic IP, you are charged for each hour that your NAT gateway is provisioned and available. If you delete the NAT gateway, you need to release the EIP too afterwards. You also pay for the data processed by the NAT gateway, and for data transfers. See https://aws.amazon.com/vpc/pricing/
 
 To reduce costs, you can:
@@ -302,9 +305,12 @@ See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid
 >
 > The NAT Gateway also increases costs for outbound traffic. You have to pay a premium of $0.045 per GB flowing from a private subnet to the Internet. That’s raising the costs for outgoing traffic by 50%.
 
-:::
+Also check the following NAT gateway alternatives, which use NAT instances:
 
-#### NAT gateway setup
+- fck-nat - https://github.com/AndrewGuenther/fck-nat - https://fck-nat.dev - https://news.ycombinator.com/item?id=39164010
+- alterNAT - https://github.com/chime/terraform-aws-alternat - https://www.reddit.com/r/aws/comments/yqkzax/just_released_alternat_a_high_availability_aws/ - https://www.reddit.com/r/aws/comments/1j01egs/has_anyone_used_alternat_to_replace_nat_gateway/
+
+#### NAT gateway setup - Console
 
 We have a private instance in a private subnet. Deploy a **NAT gateway** to a **public subnet**, since it needs to have public IP assigned, which needs to be an **elastic IP** (when creating the NAT gateway, at 'Elastic IP allocation ID' click 'Allocate Elastic IP'). The NAT gateway talks to the Internet Gateway on behalf of the private instance.
 
@@ -332,6 +338,139 @@ To check that the setup is correct do:
 - From the terminal, using nano, create a file containing the private SSH key (a `.pem` file) of the private instance, and then give it read access with `chmod 400 private-instance-private-key.pem`.
 - Connect to the private instance with `ssh`, using its private IPv4 address: `ssh -i private-instance-private-key.pem ec2-user@172.31.110.223`.
 - Once connected to the private instance, run `ping google.com`. It should receive a response.
+
+#### NAT gateway setup - CLI
+
+Creation script steps:
+
+1. Find your VPC id and public subnet id.
+2. Allocate an Elastic IP for the NAT Gateway.
+3. Create the NAT Gateway. It must be created in a public subnet.
+4. Update a private subnet's route table to add a route 0.0.0.0/0 to the NAT Gateway.
+
+```shell
+VPC_ID=$(aws ec2 describe-vpcs --query "Vpcs[].VpcId" --output text)
+echo "VPC ID: $VPC_ID"
+# VPC ID: vpc-083b8ad09b3deee44
+
+PUBLIC_SUBNET_ID=$(aws ec2 describe-subnets \
+  --filters "Name=vpc-id,Values=$VPC_ID" "Name=map-public-ip-on-launch,Values=true" \
+  --query 'Subnets[0].SubnetId' \
+  --output text)
+echo "Public Subnet ID: $PUBLIC_SUBNET_ID"
+# Public Subnet ID: subnet-07a3aabc36527ccda
+
+ALLOCATION_ID=$(aws ec2 allocate-address --domain vpc \
+  --query 'AllocationId' --output text)
+echo "✓ Allocated Elastic IP Address"
+echo "Elastic IP Allocation ID: $ALLOCATION_ID"
+# Elastic IP Allocation ID: eipalloc-01efce7ccd9e88469
+
+NAT_GATEWAY_ID=$(aws ec2 create-nat-gateway \
+  --subnet-id $PUBLIC_SUBNET_ID \
+  --allocation-id $ALLOCATION_ID \
+  --query 'NatGateway.NatGatewayId' \
+  --output text)
+echo "✓ Created NAT Gateway in Public Subnet"
+echo "NAT Gateway ID: $NAT_GATEWAY_ID"
+# NAT Gateway ID: nat-099efd839fc967de1
+
+echo "Waiting for NAT Gateway to become available (takes 2-5 minutes)..."
+aws ec2 wait nat-gateway-available --nat-gateway-ids $NAT_GATEWAY_ID
+echo "NAT Gateway is now available"
+
+PRIVATE_SUBNET_ID=$(aws ec2 describe-subnets \
+  --filters "Name=vpc-id,Values=$VPC_ID" "Name=map-public-ip-on-launch,Values=false" \
+  --query 'Subnets[0].SubnetId' \
+  --output text)
+echo "Private Subnet: $PRIVATE_SUBNET_ID"
+# Private Subnet: subnet-09f9730da066c6b53
+
+# Get the route table of the private subnet
+PRIVATE_ROUTE_TABLE_ID=$(aws ec2 describe-route-tables \
+  --filters "Name=association.subnet-id,Values=$PRIVATE_SUBNET_ID" \
+  --query 'RouteTables[0].RouteTableId' \
+  --output text)
+echo "Private Subnet Route Table: $PRIVATE_ROUTE_TABLE_ID"
+# Private Subnet Route Table: rtb-05512a0a41cc01df3
+
+# Add route to NAT Gateway to the private route table
+aws ec2 create-route \
+  --route-table-id $PRIVATE_ROUTE_TABLE_ID \
+  --destination-cidr-block 0.0.0.0/0 \
+  --nat-gateway-id $NAT_GATEWAY_ID
+echo "✓ Added Route to NAT Gateway to Private Route Table"
+
+# Verify the NAT Gateway
+aws ec2 describe-nat-gateways \
+  --filter "Name=vpc-id,Values=$VPC_ID" \
+  --query 'NatGateways[*].[NatGatewayId,State,SubnetId]' \
+  --output table
+
+# --------------------------------------------------------------------
+# |                        DescribeNatGateways                       |
+# +------------------------+------------+----------------------------+
+# |  nat-099efd839fc967de1 |  available |  subnet-07a3aabc36527ccda  |
+# +------------------------+------------+----------------------------+
+```
+
+Cleanup script steps:
+
+1. Deletes the route from the private subnet's route table first.
+2. Deletes the NAT Gateway and waits for deletion to complete.
+3. Releases the Elastic IP after the NAT Gateway is deleted.
+
+```shell
+VPC_ID=$(aws ec2 describe-vpcs --query "Vpcs[].VpcId" --output text)
+echo "VPC ID: $VPC_ID"
+
+NAT_GATEWAY_ID=$(aws ec2 describe-nat-gateways \
+  --filter "Name=vpc-id,Values=$VPC_ID" "Name=state,Values=available" \
+  --query 'NatGateways[0].NatGatewayId' \
+  --output text)
+echo "NAT Gateway ID: $NAT_GATEWAY_ID"
+
+# Get Elastic IP Allocation ID (before deleting NAT Gateway)
+ALLOCATION_ID=$(aws ec2 describe-nat-gateways \
+  --nat-gateway-ids $NAT_GATEWAY_ID \
+  --query 'NatGateways[0].NatGatewayAddresses[0].AllocationId' \
+  --output text)
+echo "Elastic IP Allocation ID: $ALLOCATION_ID"
+
+# Get one private subnet to find its route table
+PRIVATE_SUBNET_ID=$(aws ec2 describe-subnets \
+  --filters "Name=vpc-id,Values=$VPC_ID" "Name=map-public-ip-on-launch,Values=false" \
+  --query 'Subnets[0].SubnetId' \
+  --output text)
+echo "Private Subnet: $PRIVATE_SUBNET_ID"
+
+PRIVATE_ROUTE_TABLE_ID=$(aws ec2 describe-route-tables \
+  --filters "Name=association.subnet-id,Values=$PRIVATE_SUBNET_ID" \
+  --query 'RouteTables[0].RouteTableId' \
+  --output text)
+echo "Private Route Table: $PRIVATE_ROUTE_TABLE_ID"
+
+# Step 1: Delete route to NAT Gateway from route table
+echo "Deleting route to NAT Gateway..."
+aws ec2 delete-route \
+  --route-table-id $PRIVATE_ROUTE_TABLE_ID \
+  --destination-cidr-block 0.0.0.0/0 \
+  --output text
+echo "✓ Route deleted"
+
+# Step 2: Delete NAT Gateway
+echo "Deleting NAT Gateway (this takes 2-5 minutes)..."
+aws ec2 delete-nat-gateway --nat-gateway-id $NAT_GATEWAY_ID
+aws ec2 wait nat-gateway-deleted --nat-gateway-ids $NAT_GATEWAY_ID
+echo "✓ NAT Gateway deleted"
+
+# Step 3: Release Elastic IP
+echo "Releasing Elastic IP..."
+aws ec2 release-address --allocation-id $ALLOCATION_ID
+echo "✓ Elastic IP released"
+
+echo "Cleanup complete"
+```
 
 ### NAT instance
 
@@ -519,3 +658,30 @@ Setup using the console:
 - Status of the peering connection should become Active quickly.
 - At the VPC console of VPC A, navigate to "Route tables" and select the route table of VPC A. Add a route with Destination the CIDR of VPC B (10.1.0.0/16) and Target pcx-02f881306a0e9b926. Do the same for VPC B.
 - Adjust the security groups and NACL to allow traffic. You can reference security groups of the other VPC. [See docs](https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-security-groups.html)
+
+## CLI
+
+Get VPCs info:
+
+```shell
+aws ec2 describe-vpcs
+```
+
+Save VPC id:
+
+```shell
+VPC_ID=$(aws ec2 describe-vpcs --query "Vpcs[].VpcId" --output text)
+echo $VPC_ID
+# vpc-083b8ad09b3deee44
+```
+
+List all subnets in a VPC:
+
+```shell
+aws ec2 describe-subnets \
+  --filters "Name=vpc-id,Values=$VPC_ID" \
+  --query 'Subnets[*].[SubnetId,CidrBlock,AvailabilityZone,MapPublicIpOnLaunch,Tags[?Key==`Name`].Value|[0]]' \
+  --output table
+```
+
+MapPublicIpOnLaunch is true for public subnets.

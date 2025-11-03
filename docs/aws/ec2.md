@@ -733,3 +733,9 @@ Add inbound rule to security group ([docs](https://awscli.amazonaws.com/v2/docum
 ```shell
 aws ec2 authorize-security-group-ingress --group-name SshAccess --protocol tcp --port 22 --cidr 0.0.0.0/0
 ```
+
+If you delete the default VPC, use [`create-default-vpc`](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-default-vpc.html) recreate it. See docs: https://docs.aws.amazon.com/vpc/latest/userguide/work-with-default-vpc.html#create-default-vpc.
+
+```shell
+aws ec2 create-default-vpc
+```
