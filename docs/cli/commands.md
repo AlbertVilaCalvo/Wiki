@@ -77,6 +77,20 @@ alias l='ls -la'
 
 Prints the architecture: i386 (Mac with Intel chip), arm64 (Apple Silicon)...
 
+## ls
+
+```shell
+ls -la
+ls -ltr some/folder
+```
+
+Options:
+
+- `l`: Long listing format - shows detailed information including permissions, owner, size, and modification date
+- `a`: Show all files, including hidden files (those starting with a dot `.`)
+- `t`: Sort by modification time, newest first
+- `r`: Reverse order - when combined with `-t`, shows oldest files first
+
 ## cd
 
 ```shell
@@ -190,7 +204,7 @@ docker compose up --build 2>&1 | tee docker.log
 
 `find . -type f -name "*.iml" -exec rm -rf {} +`
 
-Exclude: `find . -type d -name "dist" | grep -v 'node_modules'`
+Exclude (`-v` inverts the match): `find . -type d -name "dist" | grep -v 'node_modules'`
 
 Count files and directories:
 
@@ -221,6 +235,18 @@ tree -a | grep directories | grep files # just print the number of files and dir
 ```
 
 To ignore something (eg a folder) use `-I <wild-card-pattern>`. Eg `tree -I node_modules` or `tree -I venv`. There can be multiple -I options.
+
+## grep
+
+```shell
+kubectl get pods -A | grep Pending
+```
+
+Options:
+
+- `-i`, `--ignore-case`
+- `-v`, `--invert-match`
+- `-c`, `--count`
 
 ## fc
 

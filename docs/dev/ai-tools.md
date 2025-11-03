@@ -52,7 +52,7 @@ https://code.visualstudio.com/docs/copilot/language-models#_choose-the-right-mod
 
 OpenVLM Leaderboard - https://huggingface.co/spaces/opencompass/open_vlm_leaderboard
 
-GPT-4o -> o means omni. Is [multimodal](https://en.wikipedia.org/wiki/Multimodal_learning): it accepts as input any combination of text, audio, image and video and generates any combination of text, audio and image outputs.
+GPT-4o → o means omni. Is [multimodal](https://en.wikipedia.org/wiki/Multimodal_learning): it accepts as input any combination of text, audio, image and video and generates any combination of text, audio and image outputs.
 
 ## Prompts
 

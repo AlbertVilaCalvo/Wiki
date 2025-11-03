@@ -2,6 +2,8 @@
 title: Python Language
 ---
 
+https://www.python.org
+
 PEP 20 – The Zen of Python - https://peps.python.org/pep-0020/
 
 Cheatsheet - https://www.pythonsheets.com

@@ -143,8 +143,8 @@ https://microservices.io/patterns/data/saga.html
 
 Epic
 
-- All synchronous communication -> easy to communicate the end result (success/error) to the user.
-- Blocking calls -> long time to run.
+- All synchronous communication → easy to communicate the end result (success/error) to the user.
+- Blocking calls → long time to run.
   - If there are 3 calls to be done, and each call takes x time, it will take 3x.
   - If there's an error and we have to compensate, it's 5x.
 - Easy to understand because it mimics synchronous method calls, but difficult to implement.
@@ -163,7 +163,7 @@ Fantasy fiction story
 
 Fairy tale
 
-- Eventually consistent -> more responsive. We are doing an early return.
+- Eventually consistent → more responsive. We are doing an early return.
 - When an error happens, if compensating updates fail, we are in an inconsistent state.
   - If there is an error and I have to compensate, and there are 3 calls to be done, and each call takes x time this case, total is 3x.
 - Best simplicity and scalability.
@@ -184,7 +184,7 @@ Horror story
 
 Time travel
 
-- No concurrency -> easy to reason about.
+- No concurrency → easy to reason about.
 
 Anthology
 

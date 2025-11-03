@@ -248,7 +248,7 @@ From 'Terraform: Up and Running' (p. 68):
 
 > Launch configurations are immutable, so if you change any parameter, Terraform will try to replace it. Normally, when replacing a resource, Terraform would delete the old resource first and then creates its replacement, but because your ASG how has a reference to the old resource, Terraform won't be able to delete it.
 
-If you use `desired_capacity` attribute, when running `apply` Terraform will scale up or down the number of instances currently running to match the `desired_capacity` (~ desired_capacity = 2 -> 1). To avoid this, use the `ignore_changes` lifecycle ([source](https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#set-lifecycle-rule)):
+If you use `desired_capacity` attribute, when running `apply` Terraform will scale up or down the number of instances currently running to match the `desired_capacity` (~ desired_capacity = 2 → 1). To avoid this, use the `ignore_changes` lifecycle ([source](https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg#set-lifecycle-rule)):
 
 ```hcl
 resource "aws_autoscaling_group" "example" {

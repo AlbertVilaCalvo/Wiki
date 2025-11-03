@@ -549,6 +549,10 @@ docker exec -it <container> bash
 # Run 'exit' to quit
 ```
 
+:::tip
+You can use `docker debug <container>` to get a shell into any container or image, even if they don't contain a shell. [See docs](https://docs.docker.com/reference/cli/docker/debug).
+:::
+
 You can also run a container and shell into it (`--rm` to automatically removes the container and its associated anonymous volumes when it exits):
 
 ```shell
