@@ -448,12 +448,12 @@ See [Compare compute options](https://docs.aws.amazon.com/eks/latest/userguide/e
   - AWS handles EC2 provisioning, scaling, OS patching and security.
 
 <figure>
-  <img src="/img/EKS-without-Auto-Mode.png" alt="EKS without Auto Mode" title="EKS without Auto Mode" width="750" loading="lazy"/>
+  <img src="/img/EKS-without-Auto-Mode.png" alt="EKS without Auto Mode" title="EKS without Auto Mode" loading="lazy"/>
   <figcaption>Source: <a href="https://aws-experience.com/emea/iberia/learning-hub/media/446c94fd-5626-42e1-a96e-5dd327f0ae2b">AWS Experience</a></figcaption>
 </figure>
 
 <figure>
-  <img src="/img/EKS-with-Auto-Mode.png" alt="EKS with Auto Mode" title="EKS with Auto Mode" width="750" loading="lazy"/>
+  <img src="/img/EKS-with-Auto-Mode.png" alt="EKS with Auto Mode" title="EKS with Auto Mode" loading="lazy"/>
   <figcaption>Source: <a href="https://aws-experience.com/emea/iberia/learning-hub/media/446c94fd-5626-42e1-a96e-5dd327f0ae2b">AWS Experience</a></figcaption>
 </figure>
 

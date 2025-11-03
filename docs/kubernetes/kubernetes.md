@@ -150,7 +150,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-concepts.html
   - Names of resources need to be unique within a namespace, but not across namespaces.
 
 <figure>
-  <img src="/img/Kubernetes-objects.png" alt="Kubernetes objects" title="Kubernetes objects" width="750" loading="lazy"/>
+  <img src="/img/Kubernetes-objects.png" alt="Kubernetes objects" title="Kubernetes objects" width="850" loading="lazy"/>
   <figcaption>Source: <a href="https://aws-experience.com/emea/iberia/learning-hub/media/88a07ed3-47b4-459a-bbab-7527bd7c6497">AWS Experience</a></figcaption>
 </figure>
 
@@ -191,7 +191,7 @@ A cluster is managed by the control plane (called master in the past), which exp
 The control plane is responsible for maintaining the desired state of the cluster, such as which applications are running and which container images they use. ([source](https://www.redhat.com/en/topics/containers/what-is-kubernetes))
 
 <figure>
-  <img src="/img/Kubernetes-components.png" alt="Kubernetes components" title="Kubernetes components" width="750" loading="lazy"/>
+  <img src="/img/Kubernetes-components.png" alt="Kubernetes components" title="Kubernetes components" loading="lazy"/>
   <figcaption>Source: <a href="https://aws-experience.com/emea/iberia/learning-hub/media/88a07ed3-47b4-459a-bbab-7527bd7c6497">AWS Experience</a></figcaption>
 </figure>
 
