@@ -32,7 +32,7 @@ Refining permissions in AWS using last accessed information - https://docs.aws.a
 
 AWS Vault - https://github.com/99designs/aws-vault - Stores IAM credentials in your operating system's secure keystore
 
-IAM is a **global** service. Notice you cannot select any region at the top-right dropdown at the console. Any user, group, role etc. can be used on all regions, all around the world.
+IAM is a **global service**. Notice you cannot select any region at the top-right dropdown at the console. Any user, group, role etc. can be used on all regions, all around the world.
 
 ## Summary
 
@@ -40,7 +40,7 @@ IAM is a **global** service. Notice you cannot select any region at the top-righ
 - Group: collection of users with the same permissions. A user can be in many groups.
 - Role: set of permissions. Used to authenticate AWS entities such as EC2 instances.
 - Policy: JSON file. Permissions assigned to a user, group or role.
-- Principal: user, account, service, or other entity that is allowed or denied access to a resource. Can be ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying)):
+- Principal: user, account, service, or other entity that is allowed or denied access to a resource. Principals are authenticated IAM entities. Can be ([source](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying)):
   - AWS account and root user
   - IAM roles
   - Role sessions
@@ -48,6 +48,29 @@ IAM is a **global** service. Notice you cannot select any region at the top-righ
   - Federated user sessions
   - AWS services
   - All principals
+- Resource: the IAM service stores these resources. You can add, edit, and remove them from the Console.
+  - IAM user
+  - IAM group
+  - IAM role
+  - Permission policy
+  - Identity-provider object
+- Entity: IAM resources that AWS uses for authentication. A type of identity that represents a human user or programmatic workload that can be authenticated and then authorized to perform actions in AWS accounts. Specify the entity as a Principal in a resource-based policy.
+  - IAM users
+  - IAM roles
+- [Identity](https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html): the IAM resource that's authorized in policies to perform actions and to access resources. Can be associated with one or more policies, which determine what actions an identity is authorized to perform, on which AWS resources, and under what conditions.
+  - IAM root user
+  - IAM users
+  - IAM groups
+  - IAM roles
+
+<figure>
+  <img src="/img/aws-iam-terms-2.png" alt="AWS IAM terms" title="AWS IAM terms" loading="lazy"/>
+  <figcaption>Source: <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html#intro-structure-terms">AWS Documentation</a></figcaption>
+</figure>
+
+Terms - https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html#intro-structure-terms
+
+IAM Identities - https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html
 
 Nice summary - https://blog.awsfundamentals.com/aws-iam-roles-terms-concepts-and-examples
 
@@ -94,9 +117,11 @@ A user can be a member of zero, one or multiple groups (up to 10 groups maximum)
 
 A group can have up to 10 managed policies - [see quotas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html).
 
-Is not an identity, thus it cannot be used at the a `Principal` field of a policy. See https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html (this sentence also appears in [IAM user groups](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html)):
+Is an IAM identity (see [Terms](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html#intro-structure-terms) and [IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html), thus it can be associated with one or more policies, which determine what actions an identity is authorized to perform, on which AWS resources, and under what conditions.
 
-> You cannot identify a user group as a `Principal` in a policy (such as a resource-based policy) because groups relate to permissions, not authentication, and principals are authenticated IAM entities.
+Is not an entity, thus it cannot be used at the a `Principal` field of a policy.
+
+> You can attach an identity-based policy to a user group so that all of the users in the user group receive the policy's permissions. You cannot identify a user group as a `Principal` in a policy (such as a resource-based policy) because **groups relate to permissions, not authentication, and principals are authenticated IAM entities**. [source 1](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html) [source 2](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying)
 
 ## Role
 
@@ -1109,7 +1134,7 @@ Example of trust policy document:
 }
 ```
 
-Attach a Policy to a role [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-role-policy.html)
+Attach a Policy to a role [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html)
 
 ```shell
 aws iam put-role-policy --role-name <role-name> --policy-name <policy-name> --policy-document file://iam-role-policy.json
@@ -1130,15 +1155,23 @@ Example of policy document `iam-role-policy.json`:
 }
 ```
 
-Attach an _inline_ policy to a user [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-user-policy.html)
+Attach an AWS managed policy to a role [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/attach-role-policy.html)
+
+```shell
+aws iam attach-role-policy \
+  --role-name MyAmazonEKSClusterRole \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+```
+
+Attach an _inline_ policy to a user [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/put-user-policy.html)
 
 ```shell
 aws iam put-user-policy --user-name MyUser --policy-name MyUserPolicy --policy-document file://iam-user-policy.json
 ```
 
-Example of policy `iam-user-policy.json`:
+Example of inline policy:
 
-```json
+```json title="iam-user-policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [
