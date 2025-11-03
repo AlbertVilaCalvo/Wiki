@@ -87,6 +87,7 @@ const sidebars: SidebarsConfig = {
   ],
   kubernetes: [
     'kubernetes/kubernetes',
+    'kubernetes/kubectl',
     'kubernetes/minikube',
     'kubernetes/eks',
     'kubernetes/argocd',
