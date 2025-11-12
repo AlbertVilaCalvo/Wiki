@@ -497,7 +497,7 @@ Benchmark: https://benjdd.com/ec2-io/
 
 https://aws.amazon.com/efs
 
-A serverless filesystem that can be shared between multiple Linux virtual machines running in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Linux only. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front. You can connect instances from other VPCs ([docs](https://docs.aws.amazon.com/efs/latest/ug/mount-fs-different-vpc.html)), and from on-premises servers via Direct Connect or VPN.
+A serverless filesystem that can be shared between multiple Linux virtual machines running in different availability zones. Data is replicated among multiple AZ in a region, providing high availability in case there's an outage. Uses the NFS (Network File Server) v4.1 protocol. Linux only. Like S3, EFS grows with your storage needs; you don’t have to provision the storage up front. You don't need to provision throughput (IOPS), capacity scales automatically, and you pay only for what you use. You can connect instances from other VPCs ([docs](https://docs.aws.amazon.com/efs/latest/ug/mount-fs-different-vpc.html)), and from on-premises servers via Direct Connect or VPN.
 
 You need to create a mount target on each subnet, and the EC2 instance where you mount the filesystem must be in the same subnet as the EFS mount target. Each mount target is bound to an availability zone. You need at least two mount targets in different availability zones for high availability. Mount targets are protected by security groups.
 

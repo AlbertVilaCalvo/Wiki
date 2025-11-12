@@ -338,6 +338,8 @@ https://github.com/kubernetes-sigs/aws-load-balancer-controller
 
 https://kubernetes.io/docs/concepts/services-networking/ingress/
 
+https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
+
 Sits in front of a service. Application layer (7): HTTP and HTTPS.
 
 Acts as the entry point for your cluster. Lets you consolidate your routing rules into a single resource, so that you can expose multiple components of your workload, running separately in your cluster, behind a single listener.
@@ -351,6 +353,8 @@ https://www.f5.com/products/nginx/nginx-ingress-controller
 The Gateway API is going to replace the Ingress in the long term.
 
 https://gateway-api.sigs.k8s.io
+
+https://kubernetes.io/docs/concepts/services-networking/gateway/
 
 ## Network Policy
 
@@ -372,9 +376,9 @@ Use case: logging agents, node monitoring deamon, etc.
 
 https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
 
-Runs a group of Pods, and maintains a sticky identity for each of those Pods. Guarantees a unique network ID and startup order.
+Runs a group of Pods, and maintains a sticky identity for each of those Pods. Guarantees a unique network ID and startup order, and provides stable storage (PersistentVolume).
 
-Used to manage stateful workloads, for example a MySQL database that runs inside a Kubernetes cluster.
+Used to manage stateful workloads, for example a MySQL or Redis database that runs inside a Kubernetes cluster.
 
 ## Job
 
@@ -392,6 +396,12 @@ For performing regular scheduled actions such as backups, report generation, etc
 
 https://kubernetes.io/docs/concepts/security/service-accounts/
 
+Is an identity used by applications running inside Pods to authenticate and access Kubernetes API resources or, when configured, external cloud resources (eg AWS S3 or DynamoDB) without static credentials.
+
+It’s like a "user" account, but for workloads (Pods), not humans.
+
+Every namespace gets a `default` ServiceAccount upon creation (run `kubectl get serviceaccounts -n <namespace>` to see it). If you don't manually assign a ServiceAccount to a Pod, Kubernetes assigns the `default` ServiceAccount for that namespace to the Pod.
+
 ## ConfigMap
 
 https://kubernetes.io/docs/concepts/configuration/configmap/
@@ -408,7 +418,25 @@ To avoid including confidential data in application code or a container image.
 
 https://kubernetes.io/docs/concepts/storage/volumes/
 
-A directory accessible to the containers in a pod. Volumes provide data persistance and shared storage for pods.
+A directory accessible to the containers in a pod. Volumes provide data persistence and shared storage for pods.
+
+A volume can be:
+
+- [Ephemeral](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/). Lifetime linked to a specific pod. Data is lost when the pod stops, but survives container restarts.
+  - emptyDir
+  - configMap
+  - secret
+- [Persistent](https://kubernetes.io/docs/concepts/storage/persistent-volumes/). Data stays even after the pod ends, surviving pod restarts.
+  - csi
+  - nfs
+  - iscsi
+  - local
+  - hostPath
+  - awsElasticBlockStore
+  - azureDisk
+  - gcePersistentDisk
+
+[Provisioning](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#provisioning):
 
 - Static provisioning: done by the cluster administrator. Explicitly refers to physical storage.
 - Dynamic provisioning: done by the application developer. Requires a StorageClasses.
@@ -417,7 +445,15 @@ A directory accessible to the containers in a pod. Volumes provide data persista
 
 https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 
+As the name implies, persistent volumes are retained after the pod that uses them is deleted. They exist independently of pods.
+
 A `persistentVolumeClaim` volume is used to mount a PersistentVolume into a Pod. PersistentVolumeClaims are a way for users to "claim" durable storage (such as an iSCSI volume) without knowing the details of the particular cloud environment.
+
+Access modes:
+
+- ReadOnlyMany: the volume can be mounted as read-only by many nodes.
+- ReadWriteOnce: the volume can be mounted as read-write by a single node.
+- ReadWriteMany: the volume can be mounted as read-write by many nodes.
 
 ## RBAC
 

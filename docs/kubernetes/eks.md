@@ -26,11 +26,11 @@ https://github.com/kubernetes-sigs/aws-iam-authenticator - Use AWS IAM credentia
 
 What's New with Containers? https://aws.amazon.com/about-aws/whats-new/containers/?whats-new-content.sort-by=item.additionalFields.postDateTime&whats-new-content.sort-order=desc&awsf.whats-new-products=*all
 
-https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/
+https://github.com/awslabs/eksdemo - Application catalog (Argo, Cilium, Crossplane, Flux, Itio...)
 
-https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
+EKS Node Viewer - https://github.com/awslabs/eks-node-viewer/
 
-https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accounts
+Find Amazon EKS optimized AMI IDs - https://github.com/guessi/eks-ami-finder
 
 ## Features
 
@@ -93,6 +93,8 @@ Skill Builder: https://skillbuilder.aws/search?searchText=eks&page=1
 - Deploy a gRPC-based application on an Amazon EKS cluster and access it with an Application Load Balancer - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-a-grpc-based-application-on-an-amazon-eks-cluster-and-access-it-with-an-application-load-balancer.html
 - Access container applications privately on Amazon EKS using AWS PrivateLink and a Network Load Balancer - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/access-container-applications-privately-on-amazon-eks-using-aws-privatelink-and-a-network-load-balancer.html
 - Scaling Amazon EKS infrastructure to optimize compute, workloads, and network performance - https://docs.aws.amazon.com/prescriptive-guidance/latest/scaling-amazon-eks-infrastructure/introduction.html
+- https://github.com/guessi/eks-tutorials
+- https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices
 
 ### EKS Workshop
 
@@ -106,13 +108,13 @@ If the cluster is not functioning, run the command `prepare-environment` to rese
 
 AWS managed policies for Amazon Elastic Kubernetes Service - https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html
 
-| IAM Role              | Used On (EKS Mode)  | Assumed By                   | Principal                                                                                            | Purpose                                                              | Permissions Policy                                                                        |
-| --------------------- | ------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Cluster role          | All clusters        | EKS control plane            | `Service: eks.amazonaws.com`                                                                         | Allow EKS to manage cluster resources (EC2, Auto Scaling, ELB, ENIs) | `AmazonEKSClusterPolicy`, `AmazonEKSVPCResourceController`                                |
-| Node instance role    | EC2-based nodes     | Worker nodes (EC2 instances) | `Service: ec2.amazonaws.com`                                                                         | Allow EC2 instances to access AWS (pull ECR images, CNI, etc.)       | `AmazonEKSWorkerNodePolicy`, `AmazonEKS_CNI_Policy`, `AmazonEC2ContainerRegistryPullOnly` |
-| Fargate pod execution | Fargate profiles    | Fargate infrastructure       | `Service: eks-fargate-pods.amazonaws.com`                                                            | Pull images, CloudWatch logs, network setup                          | `AmazonEKSFargatePodExecutionRolePolicy`, `CloudWatchLogsFullAccess` (optional)           |
-| IRSA                  | EC2 or Fargate pods | Pods (via service accounts)  | `Federated: arn:aws:iam::<account-id>:oidc-provider/oidc.eks.<region>.amazonaws.com/id/<cluster-id>` | Allow pods (apps) fine-grained access to AWS services (S3, DynamoDB) | Custom (eg S3, DynamoDB)                                                                  |
-| EKS Pod Identity      | EC2 or Fargate pods | Pods (via EKS agent)         | `Service: pods.eks.amazonaws.com`                                                                    | App-level AWS API access without OIDC                                | Custom (eg S3, DynamoDB)                                                                  |
+| IAM Role              | Used On (EKS Mode)  | Assumed By                   | Principal                                                            | Purpose                                                              | Permissions Policy                                                                        |
+| --------------------- | ------------------- | ---------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Cluster role          | All clusters        | EKS control plane            | `Service: eks.amazonaws.com`                                         | Allow EKS to manage cluster resources (EC2, Auto Scaling, ELB, ENIs) | `AmazonEKSClusterPolicy`, `AmazonEKSVPCResourceController`                                |
+| Node instance role    | EC2-based nodes     | Worker nodes (EC2 instances) | `Service: ec2.amazonaws.com`                                         | Allow EC2 instances to access AWS (pull ECR images, CNI, etc.)       | `AmazonEKSWorkerNodePolicy`, `AmazonEKS_CNI_Policy`, `AmazonEC2ContainerRegistryPullOnly` |
+| Fargate pod execution | Fargate profiles    | Fargate infrastructure       | `Service: eks-fargate-pods.amazonaws.com`                            | Pull images, CloudWatch logs, network setup                          | `AmazonEKSFargatePodExecutionRolePolicy`, `CloudWatchLogsFullAccess` (optional)           |
+| IRSA                  | EC2 or Fargate pods | Pods (via service accounts)  | `Federated: arn:aws:iam::<account-id>:oidc-provider/<oidc-provider>` | Allow pods (apps) fine-grained access to AWS services (S3, DynamoDB) | Custom (eg S3, DynamoDB)                                                                  |
+| EKS Pod Identity      | EC2 or Fargate pods | Pods (via EKS agent)         | `Service: pods.eks.amazonaws.com`                                    | App-level AWS API access without OIDC                                | Custom (eg S3, DynamoDB)                                                                  |
 
 Note: to run Pods on Fargate you need a [Pod execution IAM role](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html).
 
@@ -131,7 +133,7 @@ The wizard attaches the AWS managed permission policy [AmazonEKSClusterPolicy](h
 
 Trust policy (trusted entities):
 
-```json
+```json title="eks-cluster-role-trust-policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -144,6 +146,20 @@ Trust policy (trusted entities):
     }
   ]
 }
+```
+
+To create this role using the CLI run ([source](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html#eks-create-cluster)):
+
+```shell
+aws iam create-role \
+  --role-name MyAmazonEKSClusterRole \
+  --assume-role-policy-document file://"eks-cluster-role-trust-policy.json"
+```
+
+```shell
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy \
+  --role-name MyAmazonEKSClusterRole
 ```
 
 ### Node role
@@ -168,7 +184,7 @@ Then filter by "ec2containerregistry" and attach the policy [AmazonEC2ContainerR
 
 Trust policy (trusted entities):
 
-```json
+```json title="node-role-trust-policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -183,6 +199,26 @@ Trust policy (trusted entities):
 }
 ```
 
+To create this role using the CLI run ([source](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html#eks-launch-workers)):
+
+```shell
+aws iam create-role \
+  --role-name MyAmazonEKSNodeRole \
+  --assume-role-policy-document file://"node-role-trust-policy.json"
+```
+
+```shell
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
+  --role-name MyAmazonEKSNodeRole
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly \
+  --role-name MyAmazonEKSNodeRole
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy \
+  --role-name MyAmazonEKSNodeRole
+```
+
 ### IRSA (IAM roles for service accounts)
 
 :::tip
@@ -191,11 +227,30 @@ Is recommended to use [pod identity](#pod-identity) instead.
 
 https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
 
+https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/
+
+https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accounts/
+
 Enables Kubernetes [service accounts](https://kubernetes.io/docs/concepts/security/service-accounts/) to assume IAM roles. Allows individual pods to assume IAM roles and securely access AWS services (like S3 or DynamoDB) without giving permissions to the node role, which would grant permissions to all nodes. Eliminates the need to store static credentials (access keys) inside containers.
 
-Uses an OIDC provider, which has a URL.
+Uses an OIDC provider, which has a URL like `https://oidc.eks.<region>.amazonaws.com/id/<id>`. You can find the URL at the EKS console → your cluster → Overview tab → Details section → OpenID Connect provider URL, or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text`.
 
-Trust policy (trusted entities):
+#### Setup using the Console
+
+First, you need to create an OIDC Identity Provider. This is done only once per cluster.
+
+See instructions at [Create an IAM OIDC provider for your cluster](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html).
+
+At the IAM console → Identity providers, click "Add provider" and set:
+
+- Provider type: OpenID Connect.
+- Provider URL: the OIDC provider URL of your cluster (`https://oidc.eks.<region>.amazonaws.com/id/<id>`).
+- Audience: `sts.amazonaws.com`.
+
+Next, create an IAM role to be used by a Kubernetes service account. Go to the IAM console → Roles and click "Create role". Set:
+
+- Trusted entity type: Custom trust policy.
+- Paste this trust policy (trusted entities), replacing `<account-id>`, `<oidc-provider>`, `<namespace>` and `<service-account-name>`:
 
 ```json
 {
@@ -204,12 +259,13 @@ Trust policy (trusted entities):
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::<account-id>:oidc-provider/oidc.eks.<region>.amazonaws.com/id/<cluster-id>"
+        "Federated": "arn:aws:iam::<account-id>:oidc-provider/<oidc-provider>"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "oidc.eks.<region>.amazonaws.com/id/<cluster-id>:sub": "system:serviceaccount:namespace:service-account-name"
+          "<oidc-provider>:aud": "sts.amazonaws.com",
+          "<oidc-provider>:sub": "system:serviceaccount:<namespace>:<service-account-name>"
         }
       }
     }
@@ -217,7 +273,23 @@ Trust policy (trusted entities):
 }
 ```
 
-Note that the `Principal` is `Federated`, not `Service`.
+Note that the `Principal` is `Federated`, not `Service`. The `<oidc-provider>` is `oidc.eks.<region>.amazonaws.com/id/<id>`. You can get it at the console, at the cluster Overview tab → Details section → OpenID Connect provider URL (remove `https://`), or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///"`.
+
+Select any permissions policy you need, eg to access S3.
+
+Once the role is created, annotate the service account to link it to the IAM role:
+
+```shell
+kubectl annotate serviceaccount <service-account-name> -n <namespace> eks.amazonaws.com/role-arn=arn:aws:iam::<account-id>:role/MyEKSServiceAccountRole
+```
+
+To see the annotation, run `kubectl get serviceaccount <service-account-name> -n kube-system -o yaml` or `kubectl describe serviceaccount <service-account-name> -n kube-system`.
+
+You may need to create a Kubernetes service account:
+
+```shell
+kubectl create serviceaccount <service-account-name> -n <namespace>
+```
 
 ### Pod Identity
 
@@ -238,6 +310,23 @@ EKS Pod Identity vs IRSA - https://www.youtube.com/watch?v=aUjJSorBE70
 You need to install the EKS Pod Identity Agent, an EKS Add-on, which is an agent pod that runs on each node. It's pre-installed on EKS Auto Mode clusters.
 
 Source code: https://github.com/aws/eks-pod-identity-agent
+
+Trust policy (trusted entities):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "pods.eks.amazonaws.com"
+      },
+      "Action": ["sts:AssumeRole", "sts:TagSession"]
+    }
+  ]
+}
+```
 
 ## Security groups
 
@@ -291,13 +380,15 @@ Used for:
 
 The node SG must allow outbound traffic on 443 to reach the control plane API server.
 
-## API server access
+## API server endpoint access
 
-Cluster API endpoint access:
+https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
 
-- Public: the API server is reachable over the Internet, from outside the VPC. Worker node traffic leaves the VPC to communicate to the endpoint.
-- Private: restrict API server to internal VPC traffic only. External access requires VPN, bastion host or private link. Worker node traffic to the endpoint will stay within your VPC.
-- Public and private: the API server is publicly accessible for admin tasks. Worker nodes communicate privately with the control plane, and communication stays within the VPC.
+Cluster API server endpoint access:
+
+- Public only (default): the API server is reachable over the Internet, from outside the VPC. Worker node traffic leaves the VPC (but not Amazon’s network) to communicate to the endpoint.
+- Private only: restrict API server to internal VPC traffic only. External access requires VPN, bastion host or private link. Worker node traffic to the endpoint will stay within your VPC.
+- Public and private: the API server is publicly accessible from outside your VPC, for example for admin tasks. Worker node traffic to the endpoint will stay within your VPC.
 
 ## Cluster access with kubectl
 
@@ -333,35 +424,175 @@ You can also give a principal administrator access using the management console.
 
 https://docs.aws.amazon.com/cli/latest/reference/eks/
 
+```shell
+aws eks describe-cluster --name MyCluster
+aws eks describe-cluster --name $EKS_CLUSTER_NAME --query 'cluster.accessConfig'
+```
+
+Get the OIDC provider URL (`--region` is optional if you have set a default region in your AWS CLI config file):
+
+```shell
+aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text
+```
+
+Save to a variable:
+
+```shell
+VPC_ID=$(aws eks describe-cluster --name $EKS_CLUSTER_NAME --query 'cluster.resourcesVpcConfig.vpcId' --output text)
+```
+
 List of available access policies (AmazonEKSAdminPolicy, AmazonEKSClusterAdminPolicy, etc.) in your account:
 
 ```shell
 aws eks list-access-policies
 ```
 
-```shell
-aws eks describe-cluster --name <name>
-aws eks describe-cluster --name $EKS_CLUSTER_NAME --query 'cluster.accessConfig'
-```
-
-```shell
-VPC_ID=$(aws eks describe-cluster --name $EKS_CLUSTER_NAME
-  --query 'cluster.resourcesVpcConfig.vpcId' --output text)
-```
-
 ## eksctl
 
 https://eksctl.io - https://github.com/eksctl-io/eksctl
 
-## Load Balancer Controller
+You can install it using a [script](https://docs.aws.amazon.com/eks/latest/eksctl/installation.html#_for_unix). To install with [Homebrew](https://docs.aws.amazon.com/eks/latest/eksctl/installation.html#_homebrew) there are 3 options:
 
-https://github.com/kubernetes-sigs/aws-load-balancer-controller
+- `brew tap weaveworks/tap` and `brew install weaveworks/tap/eksctl`: https://github.com/weaveworks/homebrew-tap/blob/master/Formula/eksctl.rb
+- `brew tap aws/tap` and `brew install aws/tap/eksctl`: https://github.com/aws/homebrew-tap/blob/master/Formula/eksctl.rb → Still not offering the latest release after 2 weeks of being out :/
+- `brew install eksctl`: https://formulae.brew.sh/formula/eksctl#default → I've used this
 
-https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
+ClusterConfig file examples: https://github.com/guessi/eks-tutorials/tree/main/cluster-config
 
-https://docs.aws.amazon.com/eks/latest/userguide/lbc-manifest.html
+```yaml title"cluster.yaml"
+# Adapted from https://github.com/guessi/eks-tutorials/blob/main/cluster-config/cluster-full.yaml
 
-You can define rules to route requests to different services based on URL paths.
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: My-EKS-Cluster
+  region: us-east-1
+  version: '1.34'
+
+availabilityZones:
+  - us-east-1a
+  - us-east-1b
+
+privateCluster:
+  enabled: false
+
+kubernetesNetworkConfig:
+  ipFamily: IPv4
+
+vpc:
+  cidr: 192.168.0.0/16
+  clusterEndpoints:
+    privateAccess: true
+    publicAccess: true
+  manageSharedNodeSecurityGroupRules: true
+  nat:
+    gateway: Single # Options: HighlyAvailable, Disable, Single (default)
+  publicAccessCIDRs: # you should configured a proper CIDR list here
+    - 0.0.0.0/0
+
+accessConfig:
+  authenticationMode: API_AND_CONFIG_MAP
+  bootstrapClusterCreatorAdminPermissions: true
+
+iam:
+  withOIDC: true
+
+managedNodeGroups:
+  - name: mng-1
+    amiFamily: AmazonLinux2023
+    minSize: 2
+    maxSize: 3
+    desiredCapacity: 2
+    volumeSize: 20
+    volumeType: gp3
+    instanceTypes:
+      - 't3.small'
+    enableDetailedMonitoring: true
+    privateNetworking: true
+    disableIMDSv1: true
+    disablePodIMDS: false
+    spot: true
+    ssh:
+      allow: false
+    # availabilityZones:
+    # - us-east-1a
+    iam:
+      attachPolicyARNs:
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        # (Optional) Only required if you need "EC2 Instance Connect"
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        # (Optional) Only required if you are using "SSM"
+        - arn:aws:iam::aws:policy/AmazonSSMPatchAssociation
+        # (Optional) Only required if you have "Amazon CloudWatch Observability" setup
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+        - arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess
+
+addonsConfig:
+  autoApplyPodIdentityAssociations: true
+
+addons:
+  - name: kube-proxy
+    version: latest
+  - name: vpc-cni
+    version: latest
+    useDefaultPodIdentityAssociations: true
+  - name: coredns
+    version: latest
+  - name: eks-pod-identity-agent
+    version: latest
+  - name: metrics-server
+    version: latest
+
+cloudWatch:
+  # ref: https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html
+  clusterLogging:
+    logRetentionInDays: 90
+    enableTypes:
+      - 'api'
+      - 'audit'
+      - 'authenticator'
+      - 'controllerManager'
+      - 'scheduler'
+```
+
+### `--dry-run`
+
+Use `--dry-run` to validate a cluster configuration file:
+
+```shell
+eksctl create cluster -f cluster.yaml --dry-run
+```
+
+You can also use `--dry-run` to generate a YAML file (note that there are options that cannot be represented in the ClusterConfig file, [see the docs](https://docs.aws.amazon.com/eks/latest/eksctl/dry-run.html)):
+
+```shell
+eksctl create cluster --name development --dry-run > cluster.yaml
+eksctl create cluster -f cluster.yaml
+```
+
+Create cluster:
+
+```shell
+eksctl create cluster --name MyCluster --region us-east-1 # Managed nodes
+eksctl create cluster --name MyCluster --region us-east-1 --fargate
+eksctl create cluster -f cluster.yaml
+```
+
+```shell
+eksctl delete cluster --name MyCluster --region us-east-1
+```
+
+## Add ons
+
+https://docs.aws.amazon.com/eks/latest/userguide/workloads-add-ons-available-eks.html
+
+See the required platform version:
+
+```shell
+aws eks describe-addon-versions --addon-name aws-ebs-csi-driver
+```
 
 ## Compute options
 
@@ -386,6 +617,10 @@ https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html#nodes
   - Only pay for what you use.
   - Fargate compute runs in AWS owned accounts (in contrast with EC2 worker nodes, which run in customer accounts).
   - Has limitations (eg no DaemonSets).
+
+:::info
+EKS suggests using private subnets for worker nodes. (From the console Info sidebar.)
+:::
 
 ## Node group
 
@@ -415,6 +650,8 @@ Run Kubernetes Clusters for Less with Amazon EC2 Spot and Karpenter - https://co
 https://github.com/aws-samples/karpenter-blueprints
 
 Karpenter vs Cluster Autoscaler - https://www.youtube.com/watch?v=FIBc8GkjFU0
+
+https://www.udemy.com/course/karpenter-masterclass-for-kubernetes
 
 ## Auto Mode
 
@@ -690,3 +927,832 @@ Events:
 ```
 
 At the [CloudWatch console](https://console.aws.amazon.com/cloudwatch) you'll find a new log group named `my-logs`.
+
+## Load Balancer Controller
+
+From https://kubectl.docs.kubernetes.io/guides/introduction/resources_controllers/#service-discovery-and-load-balancing
+
+- Services Resources (L4) may expose Pods internally within a cluster or externally through an HA proxy.
+- Ingress Resources (L7) may expose URI endpoints and route them to Services.
+
+https://github.com/kubernetes-sigs/aws-load-balancer-controller
+
+Route internet traffic with AWS Load Balancer Controller - https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+
+The Load Balancer Controller manages Elastic Load Balancers for a Kubernetes cluster.
+The controller continuously monitors the Kubernetes API for objects of type Ingress (for ALB) and Service of type LoadBalancer (for NLB).
+It provisions AWS load balancers that point to cluster Service or Ingress resources.
+In other words, the controller creates a single IP address or DNS name that points to multiple pods in your cluster.
+
+Correspondence:
+
+- Kubernetes [Service](https://kubernetes.io/docs/concepts/services-networking/service/): LBC provisions a [Classic Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html) (default) or [Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html)
+- Kubernetes [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/): LBC provisions an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
+- Kubernetes [Gateway](https://kubernetes.io/docs/concepts/services-networking/gateway/): LBC provisions an [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
+
+Note that at the [cluster role](#cluster-role) we have the policy [AmazonEKSClusterPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSClusterPolicy.html), which has many `elasticloadbalancing` permissions like `elasticloadbalancing:CreateLoadBalancer`. This allows EKS to create the load balancers.
+
+### Install using Helm
+
+Instructions:
+
+- https://docs.aws.amazon.com/eks/latest/userguide/lbc-helm.html
+- https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/installation/
+- https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
+
+Steps:
+
+1. Create IAM permissions policy `AWSLoadBalancerControllerIAMPolicy`.
+2. Create the IAM role that uses the IAM policy.
+3. Create the Kubernetes service account and annotate it with the IAM role ARN, so that the service account assumes the IAM role.
+4. Install the AWS Load Balancer Controller using Helm.
+   - Apply the CRDs if updating.
+
+The policy `AWSLoadBalancerControllerIAMPolicy` can be reused across multiple EKS clusters in the same AWS account. If you already have it, skip next steps.
+
+Go to the [IAM console](https://console.aws.amazon.com/iam/home#/policies) → Policies and click "Create policy". Switch to the JSON tab and paste this IAM policy: https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.14.1/docs/install/iam_policy.json. Name it `AWSLoadBalancerControllerIAMPolicy`.
+
+You can also do:
+
+```shell
+curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.14.1/docs/install/iam_policy.json
+aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam_policy.json
+```
+
+Make sure you use the latest tag, [see releases](https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/).
+
+If the cluster is new and you don't have an OIDC identity provider yet, create one following [this instructions](#irsa-iam-roles-for-service-accounts).
+
+Next, create an IAM role to be used by the Kubernetes service account. Go to the IAM console → Roles and click "Create role". Set:
+
+- Trusted entity type: Custom trust policy.
+- Paste this trust policy (trusted entities), replacing `<account-id>` and `<oidc-provider>` (`oidc.eks.<region>.amazonaws.com/id/<id>`):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<account-id>:oidc-provider/<oidc-provider>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "<oidc-provider>:aud": "sts.amazonaws.com",
+          "<oidc-provider>:sub": "system:serviceaccount:kube-system:aws-load-balancer-controller"
+        }
+      }
+    }
+  ]
+}
+```
+
+You can also choose Trusted entity type "Web identity" and select the OIDC IdP for your cluster from the list, but then you need to add the condition `sub` to the trust policy, for example by editing the trust policy JSON when the role is created.
+
+The `sub` condition ensures that only the service account `aws-load-balancer-controller` in the `kube-system` namespace can assume this role. The service account name (`aws-load-balancer-controller`) can be anything, but it must match the value used when deploying the controller.
+
+At the "Add permissions" page, attach the permissions policy `AWSLoadBalancerControllerIAMPolicy` created before. Name the role `AmazonEKSLoadBalancerControllerRole-<cluster-name>`.
+
+Now that the IAM role is created, create the Kubernetes service account that uses this IAM role:
+
+```shell
+kubectl create serviceaccount aws-load-balancer-controller -n kube-system
+```
+
+To tell Kubernetes which IAM role should the service account use, annotate the service account with the ARN of the IAM role created before:
+
+```shell
+kubectl annotate serviceaccount aws-load-balancer-controller -n kube-system \
+  eks.amazonaws.com/role-arn=arn:aws:iam::<account-id>:role/AmazonEKSLoadBalancerControllerRole-<cluster-name>
+```
+
+See the annotation with:
+
+```shell
+kubectl get serviceaccount aws-load-balancer-controller -n kube-system -o yaml
+kubectl describe serviceaccount aws-load-balancer-controller -n kube-system
+```
+
+Finally, install the AWS Load Balancer Controller using Helm. See details at:
+
+- https://docs.aws.amazon.com/eks/latest/userguide/lbc-helm.html#lbc-helm-install
+- https://github.com/aws/eks-charts/tree/master/stable/aws-load-balancer-controller
+
+```shell
+helm repo add eks https://aws.github.io/eks-charts
+helm repo update eks
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=<my-cluster> \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller \
+  --set region=<us-east-1> \
+  --set vpcId=<vpc-id>
+```
+
+Verify the installation with:
+
+```shell
+helm list -A
+# NAME                        	NAMESPACE  	REVISION	UPDATED                             	STATUS  	CHART                              	APP VERSION
+# aws-load-balancer-controller	kube-system	1       	2025-11-11 20:03:00.575674 +0100 CET	deployed	aws-load-balancer-controller-1.14.1	v2.14.1
+
+kubectl get ingressclass
+# NAME   CONTROLLER            PARAMETERS   AGE
+# alb    ingress.k8s.aws/alb   <none>       16m
+
+kubectl get deployment -n kube-system aws-load-balancer-controller
+# NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+# aws-load-balancer-controller   2/2     2            2           72m
+
+kubectl get pods -n kube-system | grep aws-load-balancer-controller
+# aws-load-balancer-controller-65dcc7d589-tt6sr   1/1     Running   0          76m
+# aws-load-balancer-controller-65dcc7d589-xtkpt   1/1     Running   0          76m
+```
+
+:::important
+The deployed chart doesn’t receive security updates automatically. You need to manually upgrade to a newer chart when it becomes available. When upgrading, change `install` to `upgrade` in the previous command.
+
+The `helm install` command automatically installs the custom resource definitions (CRDs) for the controller, but `helm upgrade` does not. When using `helm upgrade`, you must manually install the CRDs with:
+
+```shell
+wget https://raw.githubusercontent.com/aws/eks-charts/master/stable/aws-load-balancer-controller/crds/crds.yaml
+kubectl apply -f crds.yaml
+```
+
+The two CRDs are `ingressclassparams.elbv2.k8s.aws` and `targetgroupbindings.elbv2.k8s.aws`. See them with `kubectl get crd`.
+:::
+
+## Classic Load Balancer - Service
+
+Run this command to expose a deployment as a service and create a load balancer:
+
+```shell
+kubectl expose deployment <deployment> -n <namespace> --name myapp-service --port 8080 --type LoadBalancer
+# service/myapp-service exposed
+```
+
+By default, creating this service creates a Classic Load Balancer with an "Internet-facing" scheme. A the [EC2 console](https://console.aws.amazon.com/ec2/home#LoadBalancers) → Load Balancers, each EC2 instance registered at the "Target instances" tab are the EC2 nodes of the cluster. The CLB listens on TCP:8080 and forwards the request to registered EC2 instances using the instance protocol and port (eg TCP:30709) configured at the listener.
+
+You can open the "DNS name" at the browser, for example `http://ad4003564c7424c7a8991d29de4be1a7-2108949974.us-east-1.elb.amazonaws.com:8080/`.
+
+If you get this error when doing `kubectl describe service myapp-service`:
+
+```
+Events:
+  Type     Reason                  Age                From                Message
+  ----     ------                  ----               ----                -------
+  Normal   EnsuringLoadBalancer    28s (x4 over 63s)  service-controller  Ensuring load balancer
+  Warning  SyncLoadBalancerFailed  27s (x4 over 63s)  service-controller  Error syncing load balancer: failed to ensure load balancer: could not find any suitable subnets for creating the ELB
+```
+
+You need to tag subnets to tell EKS what subnets to use to deploy the load balancer. Add a tag to each subnet with the name `kubernetes.io/cluster/<cluster-name>` and value `shared`. See https://stackoverflow.com/questions/62468996/eks-could-not-find-any-suitable-subnets-for-creating-the-elb and https://repost.aws/knowledge-center/eks-vpc-subnet-discovery.
+
+Deleting the service (`kubectl delete service myapp-service -n <namespace>`) also deletes the load balancer.
+
+## Network Load Balancer - Service
+
+Route TCP and UDP traffic with Network Load Balancers - https://docs.aws.amazon.com/eks/latest/userguide/network-load-balancing.html
+
+Auto Mode - Use Service Annotations to configure Network Load Balancers - https://docs.aws.amazon.com/eks/latest/userguide/auto-configure-nlb.html
+
+By default, it creates a Classic Load Balancer. To create a Network Load Balancer instead, add this annotation to the Service manifest:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+```
+
+[Scheme](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/#lb-scheme) can be `internal` (default) or `internet-facing`. To create an Internet-facing NLB, add this annotation:
+
+```yaml
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+```
+
+[Target type](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/#nlb-target-type) can be `instance` (default) or `ip`. You can customize it using this annotation:
+
+```yaml
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+```
+
+With target type `ip`, the NLB routes traffic directly to the pod IP addresses, instead of the node IP addresses. Network plugin must use native AWS VPC networking configuration for pod IP, for example [Amazon VPC CNI plugin](https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html) or an [alternative CNI plugin](https://docs.aws.amazon.com/eks/latest/userguide/alternate-cni-plugins.html).
+
+## Application Load Balancer - Ingress
+
+Route application and HTTP traffic with Application Load Balancers - https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
+
+ALB with Auto Mode - https://docs.aws.amazon.com/eks/latest/userguide/auto-configure-alb.html - https://docs.aws.amazon.com/eks/latest/userguide/auto-elb-example.html
+
+You can define rules to route requests to different services based on URL paths and hostnames. For example, requests to `/api` can be routed to one service, while requests to `/web` go to another.
+
+It can route traffic to pods running on EC2 and Fargate.
+
+You can deploy an ALB to public or private subnets ([source](https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html)). Use public subnets to create an Internet-facing ALB, and private subnets to create an internal ALB.
+
+Ingress specification - https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/ingress/spec/
+
+Example: https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/v2.14.1/docs/examples/2048/2048_full.yaml
+
+How it works:
+
+1. The Load Balancer Controller watches the Kubernetes API for new Ingress resources with the annotation `kubernetes.io/ingress.class: alb` or `ingressClassName: alb`. When a new Ingress is created or updated, the controller reacts accordingly.
+2. Provisions a new Application Load Balancer (ALB) automatically. Based on the Ingress specification, it calls the AWS Elastic Load Balancing API to create or modify an ALB in your AWS account. It can reuse existing ALBs if configured (via Ingress annotations), or spin up new ones.
+3. Configures listeners. The ALB typically has two listeners on port 80 (HTTP) and port 443 (HTTPS, with ACM certificate). The controller can automatically handle HTTPS by attaching certificates from AWS Certificate Manager (ACM).
+4. Creates Target Groups for your backend services. For each backend service referenced in the Ingress, the controller creates an AWS Target Group, which is responsible for routing requests to the appropriate targets and health checking. The target group contains the pod IPs of your Kubernetes Service endpoints. It updates targets dynamically as pods scale up/down.
+5. Sets up routing rules (host/path-based). It translates the rules section of your Ingress spec (hostnames and paths) into ALB listener rules.
+
+Traffic modes (target types):
+
+- `alb.ingress.kubernetes.io/target-type: instance`. The default. Registers nodes as targets for the ALB. ALB routes traffic to your service NodePort and then is proxied to node IPs. The nodes then forward traffic to pods.
+- `alb.ingress.kubernetes.io/target-type: ip`. Registers pods as targets for the ALB. ALB routes traffic directly to pod IPs. Service NodePort is bypassed. More efficient. Requires VPC CNI plugin or compatible CNI. Required for Fargate or EKS Hybrid Nodes.
+
+You can add tags to the ALB with `alb.ingress.kubernetes.io/tags: Environment=dev,Team=test`.
+
+Setup:
+
+1. Install the AWS Load Balancer Controller using Helm [following these instructions](#install-using-helm).
+2. Deploy a sample application with a Service of type ClusterIP.
+3. Deploy an Ingress resource that points to the Service.
+
+Deploy an application. For example, create a deployment and service:
+
+```yaml title="alb-app.yaml"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  namespace: my-namespace
+  labels:
+    app: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: hashicorp/http-echo:1.0.0
+          args:
+            - '-text=Hello from my-app'
+          ports:
+            - containerPort: 5678
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  namespace: my-namespace
+  labels:
+    app: my-app
+spec:
+  type: ClusterIP
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+```
+
+Deploy an Ingress resource with the necessary annotations, rules and backend services. For example:
+
+```yaml title="alb-ingress.yaml"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  namespace: my-namespace
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/subnets: subnet-07a3aa527ccdabc36,subnet-05bc3627ccda7a3aa
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-service
+                port:
+                  number: 80
+```
+
+After creating it with `kubectl apply -f alb-ingress.yaml`, check the status with `kubectl get ingress -n my-namespace`:
+
+```shell
+NAME         CLASS   HOSTS   ADDRESS                                                                   PORTS   AGE
+my-ingress   alb     *       k8s-albingre-demoalbi-2062cf2532-1738990837.us-east-1.elb.amazonaws.com   80      14m
+```
+
+The `ADDRESS` column shows the DNS name of the ALB created. The `HOSTS` column `*` means it accepts requests for any hostname.
+
+At the [EC2 console](https://console.aws.amazon.com/ec2/home#LoadBalancers) → Load Balancers, you can see the ALB. The ALB was automatically created by the AWS Load Balancer Controller after deploying the Ingress resource with the appropriate annotations.
+
+The [Target Groups page](https://console.aws.amazon.com/ec2/home#TargetGroups) shows the target group created for the backend service, with the pod IPs registered as targets (use `kubectl get pods -o wide` to see the pod IPs). We can scale the deployment with `kubectl scale deployment my-app --replicas 3` and see the target group updated automatically, with the new pod IP added as a target.
+
+Delete the ingress (`kubectl delete ingress my-ingress -n my-namespace` or `kubectl delete -f alb-ingress.yaml`) to delete the ALB and target group. Delete the deployment and service with `kubectl delete -f alb-sample-app.yaml`.
+
+## Volumes
+
+https://docs.aws.amazon.com/eks/latest/userguide/storage.html
+
+You can use S3, EBS, EFS, FSX and Amazon File Cache using Container Storage Interface (CSI) drivers. CSI drivers allow you to expose storage systems to your Kubernetes cluster as persistent volumes. Each CSI driver is [an add-on](https://docs.aws.amazon.com/eks/latest/userguide/workloads-add-ons-available-eks.html) that you need to install.
+
+CSI driver needs AWS IAM Permissions. You can use IRSA or EKS Pod Identities.
+
+| Feature         | EBS                      | EFS                  |
+| --------------- | ------------------------ | -------------------- |
+| Type            | Block                    | File                 |
+| Pod attachment  | Single                   | Multiple             |
+| Access mode     | ReadWriteOnce            | ReadWriteMany        |
+| Fargate support | No                       | Yes                  |
+| Storage         | Provisioned upfront      | Scales automatically |
+| Performance     | High IOPS and throughput | Scalable performance |
+
+### EBS CSI driver with IRSA
+
+https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+
+https://github.com/kubernetes-sigs/aws-ebs-csi-driver
+
+Note that you can’t mount Amazon EBS volumes to Fargate Pods, only to EC2 worker nodes.
+
+Steps:
+
+1. Create the Identity Provider for your cluster.
+2. Create an IAM role for the EBS CSI driver with the permissions policy [AmazonEBSCSIDriverPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEBSCSIDriverPolicy.html).
+3. Install the EBS CSI Driver add-on at the cluster. This creates the service accounts used by the driver.
+4. Annotate the service account to link it to the IAM role.
+5. Create a PersistentVolumeClaim (PVC) that uses an EBS volume as storage for your pods.
+6. Create a pod that uses the PVC.
+
+If you haven't already, create an Identity provider. [See steps above at IRSA](#irsa-iam-roles-for-service-accounts).
+
+Then create the role that the CSI driver will use. Go to the IAM console → Roles and click "Create role". Set:
+
+- Trusted entity type: Custom trust policy.
+- Paste this trust policy, replacing `<account-id>` and `<oidc-provider>`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<account-id>:oidc-provider/<oidc-provider>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "<oidc-provider>:aud": "sts.amazonaws.com",
+          "<oidc-provider>:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+        }
+      }
+    }
+  ]
+}
+```
+
+The `<oidc-provider>` is `oidc.eks.<region>.amazonaws.com/id/<id>`. You can get it at the console, at the cluster Overview tab → Details section → OpenID Connect provider URL (remove `https://`), or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///"`.
+
+At the next page, attach the permissions policy [AmazonEBSCSIDriverPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEBSCSIDriverPolicy.html) to the role, which "allows the CSI driver service account to make calls to related services such as EC2 on your behalf". Name the role `AmazonEKS_EBS_CSI_DriverRole` as suggested in the docs.
+
+Install the EBS CSI Driver add-on. At the EKS console, go to your cluster → "Add-ons" tab → click "Get more add-ons". Select "Amazon EBS CSI Driver". Select the latest version. For "Add-on access", choose "IAM roles for service accounts (IRSA)". Select the role `AmazonEKS_EBS_CSI_DriverRole` just created.
+
+After installing the add-on, run `kubectl get serviceaccounts -n kube-system | grep ebs` to see the service account used by the driver, which is created automatically when installing the add-on. This returns `ebs-csi-controller-sa` and `ebs-csi-node-sa`.
+
+We need to annotate the service account to link it to the IAM role. Run:
+
+```shell
+kubectl annotate serviceaccount ebs-csi-controller-sa -n kube-system eks.amazonaws.com/role-arn=arn:aws:iam::<account-id>:role/AmazonEKS_EBS_CSI_DriverRole
+```
+
+To see the annotation, run `kubectl get serviceaccount ebs-csi-controller-sa -n kube-system -o yaml` or `kubectl describe serviceaccount ebs-csi-controller-sa -n kube-system`.
+
+This setup allows the service account used by the EBS CSI driver to assume the IAM role with the necessary permissions to manage EBS volumes on your behalf.
+
+Once the driver is installed and the service account is annotated, define a PersistentVolumeClaim (PVC) that uses an EBS volume as storage for your pods:
+
+```yaml title="ebs-pvc.yaml"
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-pvc
+spec:
+  storageClassName: gp2
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+EBS volumes can only be attached (mounted) to a single node at a time, so we set `accessModes: ReadWriteOnce`.
+
+We set `storageClassName: gp2`, which is the default StorageClass created by the EBS CSI driver add-on. You can check it with `kubectl get storageclass` or `kubectl get storageclasses.storage.k8s.io`:
+
+```
+NAME   PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+gp2    kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  7d17h
+```
+
+The reclaim policy `Delete` means that when the PVC is deleted, the underlying EBS volume is also deleted. The other option is `Retain`, which keeps the volume even after the PVC is deleted.
+
+The `WaitForFirstConsumer` volume binding mode ensures that the volume is not created until a pod that uses the PVC is scheduled. This is important for EBS volumes because they need to be created in the same availability zone as the node where the pod will run. We also avoid provisioning unnecessary volumes, to save costs (in EBS you pay for provisioned storage, even if unused).
+
+Create the PVC with `kubectl apply -f ebs-pvc.yaml`. Check it with `kubectl get pvc` or `kubectl describe pvc ebs-pvc`.
+
+```
+Name:          ebs-pvc
+Namespace:     my-namespace
+StorageClass:  gp2
+Status:        Pending
+Volume:
+Labels:        <none>
+Annotations:   <none>
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:
+Access Modes:
+VolumeMode:    Filesystem
+Used By:       <none>
+Events:
+  Type    Reason                Age                From                         Message
+  ----    ------                ----               ----                         -------
+  Normal  WaitForFirstConsumer  9s (x8 over 110s)  persistentvolume-controller  waiting for first consumer to be created before binding
+```
+
+Note that it says "waiting for first consumer to be created before binding". This is because no pod is using the PVC yet.
+
+Create this pod manifest that uses the PVC:
+
+```yaml title="ebs-pod.yaml"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ebs-app
+  namespace: my-namespace
+spec:
+  volumes:
+    - name: ebs-volume
+      persistentVolumeClaim:
+        claimName: ebs-pvc
+  containers:
+    - name: app
+      volumeMounts:
+        - name: ebs-volume
+          mountPath: /opt
+      image: ubuntu:24.04
+      command:
+        - sh
+        - -c
+        - while date; do echo "Hi at `date`" >> /opt/demo.out; sleep 30; done
+```
+
+The `claimName` needs to match the PVC name.
+
+Create the pod that uses the persistent volume claim with `kubectl apply -f ebs-pod.yaml`. If we do `kubectl get pvc ebs-pvc` we see that the PVC status changes from `Pending` to `Bound`:
+
+```
+NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+ebs-pvc   Bound    pvc-c223eab5-bad5-458a-af4b-0d16ecacd589   1Gi        RWO            gp2            <unset>                 107m
+```
+
+Now you can run `kubectl get pv` to see the created persistent volume that uses an EBS volume:
+
+```
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                  STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pvc-c223eab5-bad5-458a-af4b-0d16ecacd589   1Gi        RWO            Delete           Bound    my-namespace/ebs-pvc   gp2            <unset>                          25m
+```
+
+At the EC2 console → Elastic Block Store → Volumes, you see a new EBS volume created. From there you can go to the EC2 instance, by clicking the instance id at "Attached resources". At the instance Storage tab, you can see the root volume (20 GiB) and the new EBS volume (1 GiB) attached.
+
+You can also run this command to see the EBS volume details:
+
+```shell
+aws ec2 describe-volumes --filters Name=tag:kubernetes.io/created-for/pvc/name,Values=ebs-pvc
+```
+
+To clean up, delete the pod _and_ the PVC. Just deleting the pod leaves the PVC and the EBS volume intact. Because the PV reclaim policy is `Delete`, the EBS volume is deleted when the PVC is deleted.
+
+```shell
+kubectl delete -f ebs-pod.yaml
+
+kubectl get pvc
+# NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+# ebs-pvc   Bound    pvc-c223eab5-bad5-458a-af4b-0d16ecacd589   1Gi        RWO            gp2            <unset>                 175m
+kubectl get pv
+# NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                  STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+# pvc-c223eab5-bad5-458a-af4b-0d16ecacd589   1Gi        RWO            Delete           Bound    my-namespace/ebs-pvc   gp2            <unset>                          96m
+
+kubectl delete -f ebs-pvc.yaml
+
+kubectl get pvc
+# No resources found in my-namespace namespace.
+kubectl get pv
+# No resources found
+```
+
+Verify that the EBS volume is deleted with (response should be an empty array):
+
+```shell
+aws ec2 describe-volumes --filters Name=tag:kubernetes.io/created-for/pvc/name,Values=ebs-pvc
+```
+
+### Volume Claim Templates
+
+In the previous section [EBS CSI driver with IRSA](#ebs-csi-driver-with-irsa) we show how to _manually_ create a PersistentVolumeClaim (PVC) to use EBS storage for a _single_ pod. In this section we see how to use VolumeClaimTemplates to request dynamic storage for multiple pods in a StatefulSet.
+
+With StatefulSets, each pod has its own persistent storage. You can use VolumeClaimTemplates to request dynamic storage for each pod in the StatefulSet. Each pod gets its own PersistentVolumeClaim (PVC) based on the template, allowing for unique storage per pod. Even if the pod is deleted and recreated (rescheduled), it gets the same PVC and retains its data.
+
+Stateful set manifest example:
+
+```yaml title="ebs-statefulset.yaml"
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  serviceName: nginx
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.25
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: www
+              mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+    - metadata:
+        name: www
+      spec:
+        storageClassName: gp2
+        accessModes: ['ReadWriteOnce']
+        resources:
+          requests:
+            storage: 1Gi
+```
+
+Instead of creating a PVC manually and then referencing it at the pod manifest, we define a `volumeClaimTemplates` section in the StatefulSet spec. Each pod in the StatefulSet gets its own PVC based on this template. Each PVC will create a PV and provision an EBS volume.
+
+Note that the `volumeClaimTemplates` spec is the same than a regular PVC spec.
+
+Create the StatefulSet with `kubectl apply -f ebs-statefulset.yaml`. This creates 1 pod, 1 PVC and 1 PV. Use `kubectl get pod,pvc,pv` to see them. Use `aws ec2 describe-volumes --filters Name=tag:kubernetes.io/created-for/pvc/name,Values="www-web-*"` to see the created EBS volume.
+
+Scale the StatefulSet to 2 replicas with `kubectl scale statefulset web --replicas 2`. This creates one more pod, which dynamically creates a PVC, which in turns provisions an EBS volume for that pod using the CSI driver. Each pod has its own volume. The volume is attached to the node where the pod is running.
+
+Delete the StatefulSet set with `kubectl delete -f ebs-statefulset.yaml`. We are using persistent volumes, so deleting the StatefulSet deletes the pods but does not delete the PVCs, PVs and EBS volumes (that's the point of persistent volumes). However, note that after deleting the pods the state of EBS volumes is now "Available" at the EC2 console, because the volumes are no longer attached to a node. At the EC2 instance Storage tab, the EBS volumes are gone. You need to delete the PVCs manually with `kubectl delete pvc <pvc-name>` or `kubectl delete pvc --all`. Deleting the PVC deletes the PV and the underlying EBS volume, because the PV reclaim policy is `Delete`.
+
+### EFS CSI driver with Pod Identity
+
+https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html
+
+https://github.com/kubernetes-sigs/aws-efs-csi-driver
+
+EFS nodes can be shared across multiple pods simultaneously. We can set `accessModes: ReadWriteMany` in the PVC.
+
+Instead of using [IRSA](#irsa-iam-roles-for-service-accounts), we use [Pod Identity](#pod-identity) to grant the necessary IAM permissions to the EFS CSI driver.
+
+Unlike EBS, which can only be used in node groups, EFS can be mounted to Fargate pods.
+
+Unlike EBS, in EFS volume binding is immediate, so the volume is created as soon as the PVC is created, not when the pod is scheduled.
+
+Steps:
+
+1. Create the IAM role with the [`AmazonEFSCSIDriverPolicy`](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEFSCSIDriverPolicy.html) policy.
+2. Install the EFS CSI Driver add-on at the cluster.
+   - This creates the service accounts used by the driver.
+3. Use Pod Identity to bind the role to the service account.
+   - If using the console to install the add-on, this step is done automatically when installing the CSI driver, when selecting "EKS Pod Identity" as "Add-on access". Check the "Access" tab at the cluster, under "Pod Identity associations".
+4. Create the EFS file system.
+   - This is an important difference with EBS, where the volume is created dynamically when the PVC is created. With EFS we need to create the file system beforehand.
+5. Define a StorageClass that references the EFS file system.
+6. Create a PersistentVolume (PV) that uses the StorageClass and ReadWriteMany access mode.
+7. Create a PersistentVolumeClaim (PVC) that uses the StorageClass and ReadWriteMany access mode.
+8. Create a pod that uses the PVC.
+
+Create the role that the CSI driver will use. Go to the IAM console → Roles and click "Create role". Set:
+
+- Trusted entity type: AWS service.
+- Service or use case: EKS - Pod Identity. Allows pods running in Amazon EKS cluster to access AWS resources.
+
+Attach the AWS managed policy [`AmazonEFSCSIDriverPolicy`](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEFSCSIDriverPolicy.html), which "provides management access to EFS resources and read access to EC2". Name the role `AmazonEKS_EFS_CSI_DriverRole` as suggested in the docs.
+
+At the cluster, install the EFS CSI Driver add-on. At the EKS console, go to your cluster → "Add-ons" tab → click "Get more add-ons". Select "Amazon EFS CSI Driver". Select the latest version. For "Add-on access", choose "EKS Pod Identity". Select the role `AmazonEKS_EFS_CSI_DriverRole` just created.
+
+After installing the driver, run `kubectl get serviceaccounts -n kube-system | grep efs` to see the service account used by the driver, which is created automatically when installing the add-on. This returns `efs-csi-controller-sa` and `efs-csi-node-sa`.
+
+There is an important difference with EBS. In EBS the volumes are automatically created when the pods are scheduled with a PVC, but in EFS we need to create the file system beforehand, it won't be created automatically.
+
+You need to create the EFS file system in the same VPC as your EKS cluster (you can also use VPC peering). The EC2 nodes and the subnets used in the Fargate profile need to have network access to the EFS mount targets. You need to create a mount target for each subnet that your nodes are in. The security group used by the EFS mount targets must allow inbound NFS traffic (TCP port 2049) from the CIDR block of the cluster's VPC.
+
+You can create the EFS filesystem at the [EFS console](https://console.aws.amazon.com/efs/home), or using the AWS CLI, following these steps: https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/docs/efs-create-filesystem.md
+
+Check the current storage classes with `kubectl get storageclass` or `kubectl get storageclasses.storage.k8s.io`. There should be none related to EFS. Output is:
+
+```
+NAME   PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+gp2    kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  5h1m
+```
+
+Create a StorageClass that references the EFS file system:
+
+```yaml title="efs-storageclass.yaml"
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+```
+
+Create the StorageClass with `kubectl apply -f efs-storageclass.yaml`. Now there should be two storage classes:
+
+```
+NAME     PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+efs-sc   efs.csi.aws.com         Delete          Immediate              false                  6s
+gp2      kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  5h3m
+```
+
+The volume binding mode is `Immediate`, so the volume binding and dynamic provisioning occurs once the PersistentVolumeClaim is created. In contrast, `WaitForFirstConsumer` delays the binding and provisioning of a PersistentVolume until a Pod using the PersistentVolumeClaim is created.
+
+Create a PersistentVolume:
+
+```yaml title="efs-pv.yaml"
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efs-pv
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs-sc # StorageClass created earlier
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-02dc12e5f3d8805eb # Replace with your EFS file system ID
+```
+
+With `ReadWriteMany`, multiple nodes can access the volume simultaneously. With `Retain`, the PV and underlying EFS file system are retained when the PVC is deleted.
+
+Create the PV with `kubectl apply -f efs-pv.yaml`. Check it with `kubectl get pv` or `kubectl describe pv efs-pv`. The status is `Available`:
+
+```
+NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+efs-pv   5Gi        RWX            Retain           Available           efs-sc         <unset>                          6s
+```
+
+Create a PersistentVolumeClaim (PVC) that uses the StorageClass:
+
+```yaml title="efs-pvc.yaml"
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: efs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-sc
+  resources:
+    requests:
+      storage: 5Gi
+```
+
+Create the PVC with `kubectl apply -f efs-pvc.yaml`. Check it with `kubectl get pvc` or `kubectl describe pvc efs-pvc`. Now the status of the PV changes to `Bound`, since the PVC is bound to it:
+
+```shell
+kubectl get pvc
+# NAME      STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+# efs-pvc   Bound    efs-pv   5Gi        RWX            efs-sc         <unset>                 6s
+
+kubectl get pv
+# NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM          STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+# efs-pv   5Gi        RWX            Retain           Bound    demo/efs-pvc   efs-sc         <unset>                          4m30s
+```
+
+Create a Deployment to test that the EFS volume can be mounted on multiple pods:
+
+```yaml title="efs-deployment.yaml"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: efs-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: efs-app
+  template:
+    metadata:
+      labels:
+        app: efs-app
+    spec:
+      containers:
+        - name: app
+          image: busybox
+          command: ['/bin/sh']
+          args:
+            [
+              '-c',
+              'while true; do echo Hello at `date` from `hostname` >> /data/out1.txt; sleep 5; done',
+            ]
+          volumeMounts:
+            - name: efs-volume
+              mountPath: /data
+      volumes:
+        - name: efs-volume
+          persistentVolumeClaim:
+            claimName: efs-pvc
+```
+
+Create the Deployment with `kubectl apply -f efs-deployment.yaml`. Check the pods with `kubectl get pods`. Once the pods are running, shell into one of them and check that the file is being written:
+
+```shell
+kubectl exec -it <pod-name> -- /bin/sh
+cat /data/out1.txt
+# Hello at Tue Nov 11 11:07:30 UTC 2025 from efs-app-7b9b97ccbd-99jc5
+# Hello at Tue Nov 11 11:07:31 UTC 2025 from efs-app-7b9b97ccbd-7nb2x
+# Hello at Tue Nov 11 11:07:31 UTC 2025 from efs-app-7b9b97ccbd-2chds
+# ...
+df -ah /data
+# Filesystem                Size      Used Available Use% Mounted on
+# 127.0.0.1:/               8.0E         0      8.0E   0% /data
+```
+
+We can also launch pods on Fargate that use the same EFS PVC. The EFS file system can be shared between EC2 nodes and Fargate pods simultaneously.
+
+To clean up, delete the Deployment, the PVC, the PV and the EFS file system (the file system is not deleted automatically):
+
+```shell
+kubectl delete -f efs-deployment.yaml
+kubectl delete -f efs-pvc.yaml # Or kubectl delete pvc efs-pvc
+
+# Deleting the PVC changes the PV status from "Bound" to "Released", but the PV is not
+# deleted because the reclaim policy is "Retain".
+kubectl get pv
+# NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS     CLAIM          STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+# efs-pv   5Gi        RWX            Retain           Released   demo/efs-pvc   efs-sc         <unset>                          39m
+
+kubectl delete -f efs-pv.yaml # Or kubectl delete pv efs-pv
+# Deleting the PV does not delete the underlying EFS file system nor the StorageClass.
+# You can delete the StorageClass with `kubectl delete -f efs-storageclass.yaml` or `kubectl delete storageclass efs-sc`.
+```
+
+Finally, delete the EFS file system at the EFS console. If using the CLI, you need to delete the mount targets first (otherwise you get the error FileSystemInUse).
+
+## Autoscaling
+
+https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html
+
+https://docs.aws.amazon.com/eks/latest/userguide/vertical-pod-autoscaler.html
+
+https://docs.aws.amazon.com/eks/latest/userguide/horizontal-pod-autoscaler.html
+
+## Cluster Autoscaler
+
+https://docs.aws.amazon.com/eks/latest/best-practices/cas.html
+
+> If you are using the Kubernetes Cluster Autoscaler and running stateful pods, you should create one Node Group for each availability zone using a single subnet and enable the -\-balance-similar-node-groups feature in cluster autoscaler. (From the console Info sidebar.)
+
+## Amazon Managed Service for Prometheus
+
+https://medium.com/@galazkaryan/help-i-deleted-an-amazon-managed-prometheus-workspace-am-still-being-charged-for-it-92f9effaecdc
+
+https://repost.aws/questions/QUNH2lwf9xT9GbXEt4RGk7Cg/deciphering-aws-billing-understanding-charges-for-amazon-managed-service-for-prometheus
+
+```shell
+aws amp list-scrapers
+aws amp delete-scraper --scraper-id <scraper-id>
+```

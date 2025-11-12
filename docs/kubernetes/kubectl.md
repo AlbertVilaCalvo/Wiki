@@ -82,7 +82,7 @@ Fields:
 
 `kubectl config delete-context <context>`
 
-`kubectl config set-context --current --namespace=myns` → Set namespace for all subsequent kubectl commands in the current context. To see the namespace run `kubectl config view | grep namespace:`
+`kubectl config set-context --current --namespace myns` → Set namespace for all subsequent kubectl commands in the current context. To see the namespace run `kubectl config view | grep namespace:`
 
 `kubectl cluster-info`
 
@@ -105,7 +105,9 @@ kubectl auth can-i create pods --all-namespaces
 
 `kubectl get <resource-type> <resource-name>`
 
-`kubectl get all` → List all
+`kubectl get all` → List all in current (usually default) namespace
+
+`kubectl get all -n <namespace>`
 
 `kubectl get all -A` → List all of all namespaces
 
@@ -144,6 +146,8 @@ kubectl auth can-i create pods --all-namespaces
 `kubectl get services`
 
 `kubectl get events`
+
+`kubectl get serviceaccounts` or `kubectl get sa`
 
 `kubectl get ds`
 
@@ -197,6 +201,8 @@ Is declarative: we can apply the manifests multiple times and expect that, becau
 `kubectl delete -f deployment.yaml`
 
 `kubectl delete pod <pod-name> --now` → Force kill, no graceful deletion
+
+`kubectl delete pod --all -n <namespace>` → Kill all pods in namespace
 
 ## Describe
 
@@ -259,9 +265,7 @@ We can use `ns` instead of `namespace`.
 
 Create (imperative):
 
-```shell
-kubectl create ns h92
-```
+`kubectl create ns h92`
 
 `kubectl get namespace <namespace>` or `kubectl get ns <namespace>`
 
@@ -271,7 +275,7 @@ kubectl create ns h92
 
 Run a command in a container: `kubectl exec mypod -- <command>`
 
-Shell into a container: `kubectl exec mypod -it -- /bin/sh` or `kubectl exec --stdin --tty mypod -- bash`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`. If the conatiner does not provide shell access (is a [distroless container](https://github.com/GoogleContainerTools/distroless)), we get this error: "OCI runtime exec failed: exec failed: unable to start container process: exec: "env": executable file not found in $PATH: unknown command terminated with exit code 127". In this case, we can debug it with `kubectl debug -it <pod> --image=busybox --target=debian --share-processes` ([source](https://github.com/bmuschko/ckad-crash-course/blob/master/exercises/20-troubleshooting-pod/solution/solution.md)).
+Shell into a container: `kubectl exec mypod -it -- /bin/sh` or `kubectl exec --stdin --tty mypod -- bash`. For example: `kubectl exec nginx -it -n h92 -- /bin/sh`. If the container does not provide shell access (is a [distroless container](https://github.com/GoogleContainerTools/distroless)), we get this error: "OCI runtime exec failed: exec failed: unable to start container process: exec: "env": executable file not found in $PATH: unknown command terminated with exit code 127". In this case, we can debug it with `kubectl debug -it <pod> --image=busybox --target=debian --share-processes` ([source](https://github.com/bmuschko/ckad-crash-course/blob/master/exercises/20-troubleshooting-pod/solution/solution.md)).
 
 ```shell
 kubectl -n catalog exec -i \
@@ -280,10 +284,20 @@ kubectl -n catalog exec -i \
 
 ## Scale
 
-`kubectl scale -n catalog --replicas 3 deployment/catalog`
+```shell
+kubectl scale deployment/catalog -n catalog --replicas 3
+kubectl scale statefulset web --replicas 3
+```
 
 ## Wait
 
 `kubectl wait --for=condition=Ready pods --all -n catalog --timeout=180s`
 
 `kubectl wait --for=condition=Ready --timeout=180s pods -l app.kubernetes.io/created-by=eks-workshop -A`
+
+## Expose resource as a service
+
+```shell
+kubectl expose deployment <deployment> -n <namespace> --name <myapp-service> --port 8080 --type LoadBalancer
+# service/myapp-service exposed
+```

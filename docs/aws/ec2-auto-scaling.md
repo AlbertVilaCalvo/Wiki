@@ -134,6 +134,14 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.
 
 https://aws.amazon.com/elasticloadbalancing/features/#Product_comparisons
 
+Internet-facing ALBs and CLBs must have their nodes deployed in public subnets (subnets with an Internet Gateway route), and use dynamic public IPs behind DNS. Internet-facing NLBs can be deployed in either public or private subnets (they need a public IP or an Elastic IPs in public subnets, or a NAT Gateway in private subnets).
+
+| Load Balancer | Internet-facing LB subnet type                           | Can have static IPs?                                                                                       |
+| ------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| ALB           | Public                                                   | No. Uses dynamic public IPs managed by AWS. You access it via its DNS name.                                |
+| NLB           | Public (with public IP or EIP) and private (with NAT GW) | Yes. It needs one IP address per Availability Zone that you enable, which can optionally be an Elastic IP. |
+| CLB           | Public                                                   | No. Like ALB, uses dynamic public IPs and is accessed via its DNS name.                                    |
+
 #### Application Load Balancer (ALB)
 
 https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html
@@ -147,6 +155,12 @@ Targets can be EC2 instances, containers, a single lambda function and IP addres
 Supports WebSockets, HTTP/2 and gRPC.
 
 You must enable at least two AZs. Cross-zone load balancing is always enabled, but you can disable it at the target group.
+
+ALBs (and CLBs) cannot have a static IP (public or Elastic IP) like NLBs can.
+When you create an Internet-facing ALB, AWS automatically assigns it public IP addresses from Amazon’s public IP pool for each Availability Zone where you have a subnet.
+An ALB is reachable using a DNS name like `my-app-1234567890.us-east-1.elb.amazonaws.com`.
+This DNS name resolves to multiple IP addresses, which may change over time.
+Because of that dynamic behavior, AWS does not support associating static Elastic IPs with ALBs.
 
 #### Network Load Balancer (NLB)
 
