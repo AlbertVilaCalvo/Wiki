@@ -30,6 +30,8 @@ https://github.com/dapr/dapr - https://dapr.io
 
 Virtual Waiting Room on AWS - To sell concert tickets. Uses an SQS queue - https://aws.amazon.com/solutions/implementations/virtual-waiting-room-on-aws/
 
+https://www.linkedin.com/posts/raul-junco_system-design-is-the-art-of-making-scale-activity-7392184373762162688-TQ5E/
+
 ## System Design
 
 System Design Staircase - https://www.linkedin.com/posts/raul-junco_system-design-isnt-one-big-concept-it-activity-7386008937277472768-Xfnq/
@@ -369,3 +371,51 @@ https://github.com/netflix/hystrix
 ## DDD
 
 DDD - https://github.com/github/awesome-copilot/blob/main/instructions/dotnet-architecture-good-practices.instructions.md
+
+## Queue
+
+https://www.linkedin.com/posts/raul-junco_you-dont-pick-tools-based-on-whats-cool-activity-7393634074793521152-ITB_/
+
+> You don’t pick tools based on what’s cool. You pick based on constraints.
+>
+> Topics vs Queues
+>
+> Here are the 5 questions that decide the right one:
+>
+> 1. One worker or many?
+>
+> If one consumer should process a message -> Queue.<br />
+> If many consumers need the same message -> Topic.
+>
+> Simple rule:
+>
+> Queue = throughput.<br />
+> Topic = fan-out.
+>
+> 2. Can you lose messages?
+>
+> If losing a message is unacceptable -> Queue wins.<br />
+> Topics need more config to get the same safety guarantees.
+>
+> 3. Are you scaling workload or audience?
+>
+> Queues scale workload (parallelism).<br />
+> Topics scale audience (more listeners).<br />
+> Most engineers confuse the two.
+>
+> 4. What if a consumer dies?
+>
+> Queues handle tracking for you.<br />
+> Topics make you handle offsets + state.
+>
+> This complexity hurts when volume explodes.
+>
+> 5. How fast is the system evolving?
+>
+> New system, changing requirements? -> Topic gives you flexibility.<br />
+> Stable system, clear workflow? -> Queue gives you simplicity.
+>
+> My recommendation:
+>
+> Start with a Queue.<br />
+> When you actually need fan-out, evolve to a Topic.

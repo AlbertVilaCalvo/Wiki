@@ -37,7 +37,7 @@ If you don't specify an email, alerts will be sent the to the root user email.
 
 Navigate to [Billing preferences](https://console.aws.amazon.com/billing/home#/preferences) (click 'Billing and Cost Management home' at the top right drop-down → 'Billing Preferences' at the left menu), and enable 'Receive CloudWatch billing alerts'.
 
-Afterwards, navigate to 'Budgets' (at the left menu) and click 'Create a budget'. Choose 'Monthly cost budget'. Set the budget name, the 'budgeted amount ($)' and the 'Email recipients'. Finally click 'Create budget'.
+Afterwards, navigate to 'Budgets' (at the left menu) and click 'Create a budget'. Choose 'Monthly cost budget'. Set the budget name (eg "$30 Monthly Cost Budget"), the 'budgeted amount ($)' and the 'Email recipients'. Finally click 'Create budget'.
 
 :::tip
 Is better to create multiple alarms, like $10, $15, $20…

@@ -44,6 +44,8 @@ Detailed monitoring - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monito
 
 > In different AWS services, detailed monitoring also has different names. For example, in Amazon EC2 it is called detailed monitoring, in AWS Elastic Beanstalk it is called enhanced monitoring, and in Amazon S3 it is called request metrics.
 
+You are charged $0.10 per alarm metric month (first 10 alarm metrics are free). If you have alarms like `TargetTracking-table/Customer-ProvisionedCapacityHigh-a53f2f67-9477-45a6-8197-788d2c7462b3` is because of DynamoDB auto scaling. To get rid of these alarms, go to the DynamoDB table and do Actions → Edit capacity, and at "Capacity mode", change from "Provisioned" to "On-demand". See [Unexpected CloudWatch In The Billing Area](https://amazonwebshark.com/unexpected-cloudwatch-in-the-billing-area/).
+
 ## Learning resources
 
 (Packt) Infrastructure Monitoring with Amazon CloudWatch - https://www.packtpub.com/product/infrastructure-monitoring-with-amazon-cloudwatch/9781800566057 - https://github.com/PacktPublishing/Infrastructure-Monitoring-with-Amazon-CloudWatch - https://www.youtube.com/playlist?list=PLeLcvrwLe186RQpGRXrruQ-zWFPYrFS5E

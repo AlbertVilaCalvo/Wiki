@@ -42,6 +42,8 @@ https://www.blackbox.ai
 
 https://github.com/spark - https://docs.github.com/en/copilot/tutorials/easy-apps-with-spark - https://docs.github.com/en/copilot/tutorials/build-apps-with-spark
 
+Why I'm Betting Against AI Agents in 2025 (Despite Building Them) - https://utkarshkanwat.com/writing/betting-against-agents
+
 ## Models
 
 **AI model comparison** - https://docs.github.com/en/copilot/reference/ai-models/model-comparison
@@ -63,6 +65,12 @@ https://www.promptingguide.ai
 Examples of prompts - https://docs.github.com/en/copilot/tutorials/copilot-chat-cookbook
 
 https://github.com/github/awesome-copilot/tree/main/prompts
+
+Effective Prompt Engineering in 2025 - Igor Kupczyński - https://kupczynski.info/posts/prompt-engineering-in-2025/Effective%20Prompt%20Engineering%20in%202025.pdf
+
+Everything I'll forget about prompting LLMs - https://olickel.com/everything-i-know-about-prompting-llms
+
+Prompt engineering - https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview
 
 Prompt engineering for GitHub Copilot Chat - https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering
 

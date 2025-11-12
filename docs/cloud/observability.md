@@ -30,6 +30,8 @@ https://last9.io
 
 AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-US - https://github.com/aws-samples/one-observability-demo
 
+https://github.com/aws-observability
+
 Observability 2.0 - https://www.thoughtworks.com/radar/techniques/observability-2-0
 
 Monitoring in the time of Cloud Native - https://copyconstruct.medium.com/monitoring-in-the-time-of-cloud-native-c87c7a5bfa3e

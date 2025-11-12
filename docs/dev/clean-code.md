@@ -55,6 +55,14 @@ Large functions are really classes.
 
 Boolean arguments sign that the function does more than one thing.
 
+https://newsletter.pragmaticengineer.com/p/the-philosophy-of-software-design
+
+> (55:48) Why John disagrees with Robert Martin on short methods
+
+> John’s disagreements with practices outlined in the book Clean Code by Robert C. Martin
+
+https://github.com/johnousterhout/aposd-vs-clean-code
+
 ## Comments
 
 Write Javadoc in public API functions (eg libraries), but not for internal code consumed by yourself.

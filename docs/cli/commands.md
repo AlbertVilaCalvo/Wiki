@@ -77,6 +77,15 @@ alias l='ls -la'
 
 Prints the architecture: i386 (Mac with Intel chip), arm64 (Apple Silicon)...
 
+## hostname
+
+Prints the machine's hostname. For example, in a Kubernetes pod it prints the pod's name:
+
+```shell
+echo "My machine's hostname is `hostname`"
+# My machine's hostname is my-app-7b9b97ccbd-2chds
+```
+
 ## ls
 
 ```shell
@@ -294,6 +303,13 @@ echo "command_to_be_run" | at now + 10 minutes
 ```
 
 Example: terminate EC2 instance at N minutes: https://github.com/AWSinAction/code3/blob/e8131b2a740d22cd5d487aa30d242336421c496e/chapter05/ec2-iam-role.yaml#L111
+
+## date
+
+```shell
+echo "Hi at `date`"
+# Hi at Thu Nov  6 13:32:04 CET 2025
+```
 
 ## envsubst
 

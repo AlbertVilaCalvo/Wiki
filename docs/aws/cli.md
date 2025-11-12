@@ -151,6 +151,8 @@ output = json
 
 Note that we only add "profile" at the `config` file, not the `credentials` file, see [this](https://stackoverflow.com/questions/593334/how-to-use-multiple-aws-accounts-from-the-command-line) and [this](https://dev.to/hmintoh/how-to-use-multiple-aws-accounts-with-the-aws-cli-3lge).
 
+If we add a region, then we can omit `--region <region>` on commands.
+
 Comments are written with `#`.
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
@@ -170,6 +172,8 @@ aws configure set aws_access_key_id <access-key-id> --profile <profile-name>
 aws configure set aws_secret_access_key <secret-access-key> --profile <profile-name>
 aws configure set aws_session_token <session-token> --profile <profile-name>
 ```
+
+`aws configure get region`
 
 `aws configure list-profiles`
 
