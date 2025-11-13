@@ -1038,6 +1038,16 @@ https://www.netskope.com/blog/a-real-world-look-at-aws-best-practices-password-p
 
 ## ARN
 
+:::tip
+Use `https://console.aws.amazon.com/go/view?arn=<arn>` to navigate to the AWS console page of the resource. There are more links supported, see https://wut.dev/blog/2025/06/21/hidden-aws-console-go-urls.html.
+
+If you use Firefox, you can create a bookmark with a URL `https://console.aws.amazon.com/go/view?arn=%s` and a keyword `arn`. Then you can type `arn arn:aws:s3:::my-bucket` at the address bar and it navigates to the S3 bucket page.
+
+You can also use https://link2aws.github.io. It can be used to redirect to the AWS console by appending the ARN with `#<arn>`, for example: `https://link2aws.github.io/#arn:aws:s3:::my-bucket`
+
+Sources: [Tweet](https://x.com/matthewdfuller/status/1936602034351845844), [StackOverflow](https://stackoverflow.com/questions/48133991/generating-a-link-to-aws-mangement-console-from-arn), [CLI script](https://x.com/DavidWells/status/1936144729194086507)
+:::
+
 https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html
 
 A unique identifier of a resource.

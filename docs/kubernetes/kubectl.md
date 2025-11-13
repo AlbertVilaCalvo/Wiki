@@ -121,7 +121,7 @@ kubectl auth can-i create pods --all-namespaces
 
 `kubectl get pods`
 
-`kubectl get pods -A` → List pods of all namespaces
+`kubectl get pods -A` → List pods of all namespaces. Short version of `--all-namespaces`
 
 `kubectl get pods -o wide`
 
@@ -140,6 +140,8 @@ kubectl auth can-i create pods --all-namespaces
 `kubectl get pods -n <namespace> --show-labels -o wide`
 
 `kubectl get pods -l <label>=<value>`
+
+`kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=<node>` → Get pods running on a specific node. You can also check the section "Non-terminated Pods" of `kubectl describe node <node>`
 
 `kubectl get deployments` → Verify the deployment
 

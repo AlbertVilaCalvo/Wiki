@@ -726,7 +726,7 @@ https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to
 
 Create an IAM Identity Provider (IdP) that trusts GitHub's OIDC endpoint.
 
-- Using the management console ([docs](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html#manage-oidc-provider-console)). Go to the [IAM console](https://console.aws.amazon.com/iam) → Identity providers, click **Add provider** and set:
+- Using the management console ([docs](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html#manage-oidc-provider-console)). Go to the [IAM console](https://console.aws.amazon.com/iam#/identity_providers) → Identity providers, click **Add provider** and set:
   - Provider type: OpenID Connect.
   - Provider URL: `https://token.actions.githubusercontent.com`
   - Audience: `sts.amazonaws.com`. This allows the AWS Security Token Service (STS) API to be called by this IdP.
@@ -761,7 +761,7 @@ Note: OIDC IdPs used in a role trust policy must be in the same account as the r
 
 > After you create an IAM OIDC identity provider, you must create one or more IAM roles. A role is an identity in AWS that doesn't have its own credentials (as a user does). But in this context, a role is dynamically assigned to an OIDC federated principal that is authenticated by your organization's IdP. The role permits your organization's IdP to request temporary security credentials for access to AWS. The policies assigned to the role determine what users are allowed to do in AWS. [source](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
 
-To create the role using the management console, go to the [IAM console](https://console.aws.amazon.com/iam) → Roles, click **Create role** and set:
+To create the role using the management console, go to the [IAM console](https://console.aws.amazon.com/iam#/roles) → Roles, click **Create role** and set:
 
 - Trusted entity type: Web identity (Allows users federated by the specified external web identity provider to assume this role to perform actions in this account.)
 - Identity provider: `token.actions.githubusercontent.com`

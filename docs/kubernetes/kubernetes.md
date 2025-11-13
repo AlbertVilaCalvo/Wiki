@@ -400,6 +400,13 @@ Is an identity used by applications running inside Pods to authenticate and acce
 
 It’s like a "user" account, but for workloads (Pods), not humans.
 
+Use cases:
+
+- Pod-to-K8s API access. Give an app permission to list/watch ConfigMaps, Secrets, or Pods.
+- Pod-to-cloud access. For example, with AWS IRSA, access AWS resources securely (S3, DynamoDB, Secrets Manager, etc.) without embedding static credentials.
+- Fine-grained security. Restrict what workloads can do in Kubernetes (eg read-only, namespace-limited).
+- Automation tools. CI/CD or monitoring agents (eg ArgoCD, Prometheus) use ServiceAccounts for scoped permissions.
+
 Every namespace gets a `default` ServiceAccount upon creation (run `kubectl get serviceaccounts -n <namespace>` to see it). If you don't manually assign a ServiceAccount to a Pod, Kubernetes assigns the `default` ServiceAccount for that namespace to the Pod.
 
 ## ConfigMap

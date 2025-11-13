@@ -47,3 +47,9 @@ https://opentelemetry.io/docs/concepts/observability-primer/#what-is-observabili
 https://www.ibm.com/cloud/blog/observability-vs-monitoring
 
 https://www.servicenow.com/products/it-operations-management/what-is-observability.html
+
+## Distributed Tracing
+
+- Jaeger - https://www.jaegertracing.io - https://github.com/jaegertracing/jaeger
+- Zipkin - https://zipkin.io - https://github.com/openzipkin/zipkin
+- SigNoz - https://signoz.io - https://github.com/SigNoz/signoz
