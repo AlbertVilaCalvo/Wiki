@@ -231,6 +231,8 @@ https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-servi
 
 https://aws.amazon.com/blogs/containers/diving-into-iam-roles-for-service-accounts/
 
+https://www.eksworkshop.com/docs/security/iam-roles-for-service-accounts/
+
 Enables Kubernetes [service accounts](https://kubernetes.io/docs/concepts/security/service-accounts/) to assume IAM roles. Allows individual pods to assume IAM roles and securely access AWS services (like S3 or DynamoDB) without giving permissions to the node role, which would grant permissions to all nodes. Eliminates the need to store static credentials (access keys) inside containers.
 
 Uses an OIDC provider, which has a URL like `https://oidc.eks.<region>.amazonaws.com/id/<id>`. You can find the URL at the EKS console → your cluster → Overview tab → Details section → OpenID Connect provider URL, or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text`.
@@ -300,6 +302,8 @@ https://aws.amazon.com/about-aws/whats-new/2023/11/amazon-eks-pod-identity/
 > Makes it easy to use an IAM role across multiple clusters without the need to update the role trust policy and simplifies policy management by enabling the reuse of permission policies across IAM roles
 
 https://aws.amazon.com/blogs/containers/amazon-eks-pod-identity-a-new-way-for-applications-on-eks-to-obtain-iam-credentials/
+
+https://www.eksworkshop.com/docs/security/amazon-eks-pod-identity/
 
 Does the same than service accounts, but with less config and doesn't require OIDC.
 
@@ -383,6 +387,8 @@ The node SG must allow outbound traffic on 443 to reach the control plane API se
 ## API server endpoint access
 
 https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
+
+https://www.eksworkshop.com/docs/security/cluster-access-management/
 
 Cluster API server endpoint access:
 
@@ -622,13 +628,17 @@ https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html#nodes
 EKS suggests using private subnets for worker nodes. (From the console Info sidebar.)
 :::
 
-## Node group
+## Managed node groups
+
+https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
+
+https://www.eksworkshop.com/docs/fundamentals/compute/managed-node-groups/
 
 A node group is a group of EC2 instances that supply compute capacity to your Amazon EKS cluster. You can add multiple node groups to your cluster. Node groups implement basic compute scaling through EC2 Auto Scaling groups.
 
 > Amazon EKS managed node groups make it easy to provision compute capacity for your cluster. managed node groups consist of one or more Amazon EC2 instances running the latest EKS-optimized AMIs. All nodes are provisioned as part of an Amazon EC2 Auto Scaling group that is managed for you by Amazon EKS and all resources including EC2 instances and autoscaling groups run within your AWS account.
 
-Think of a node group like an EC2 Auto Scaling group. Indeed, when you create a node group using the console, it automatically creates an Auto Scaling group and a launch template (you can see them at the EC2 console).
+Think of a node group like an EC2 Auto Scaling group. Indeed, when you create a node group using the console, it automatically creates an Auto Scaling group and a launch template (you can see both at the EC2 console).
 
 You can define a custom launch template to customize the configuration of the EC2 instances.
 
@@ -642,6 +652,10 @@ kubectl get nodes --show-labels
 ## Karpenter
 
 https://karpenter.sh
+
+https://github.com/aws/karpenter-provider-aws
+
+https://github.com/kubernetes-sigs/karpenter
 
 Optimize node usage.
 
@@ -657,11 +671,15 @@ https://www.udemy.com/course/karpenter-masterclass-for-kubernetes
 
 https://docs.aws.amazon.com/eks/latest/userguide/automode.html
 
+https://docs.aws.amazon.com/eks/latest/best-practices/automode.html
+
 https://catalog.workshops.aws/eks-auto-mode/en-US
 
 https://www.youtube.com/watch?v=IQjsFlkqWQY
 
-EKS automates routine cluster tasks for compute, storage, and networking. When a new pod can't fit onto existing nodes, EKS creates a new node.
+Auto Mode automates routine cluster tasks for compute, storage, and networking.
+
+Amazon EKS Auto Mode automatically scales cluster compute resources. If a pod can’t fit onto existing nodes, EKS Auto Mode creates a new one. EKS Auto Mode also consolidates workloads and deletes nodes. EKS Auto Mode builds upon Karpenter. [source](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html)
 
 Capabilities:
 
@@ -706,6 +724,8 @@ And the cluster role trust policy needs to have the action `sts:TagSession`.
 ## Fargate
 
 https://docs.aws.amazon.com/eks/latest/userguide/fargate.html
+
+https://www.eksworkshop.com/docs/fundamentals/compute/fargate/
 
 No need to manage nodes. AWS manages everything below the pod. You simply define the CPU and memory, and AWS takes care of the rest.
 
@@ -1169,7 +1189,7 @@ How it works:
 1. The Load Balancer Controller watches the Kubernetes API for new Ingress resources with the annotation `kubernetes.io/ingress.class: alb` or `ingressClassName: alb`. When a new Ingress is created or updated, the controller reacts accordingly.
 2. Provisions a new Application Load Balancer (ALB) automatically. Based on the Ingress specification, it calls the AWS Elastic Load Balancing API to create or modify an ALB in your AWS account. It can reuse existing ALBs if configured (via Ingress annotations), or spin up new ones.
 3. Configures listeners. The ALB typically has two listeners on port 80 (HTTP) and port 443 (HTTPS, with ACM certificate). The controller can automatically handle HTTPS by attaching certificates from AWS Certificate Manager (ACM).
-4. Creates Target Groups for your backend services. For each backend service referenced in the Ingress, the controller creates an AWS Target Group, which is responsible for routing requests to the appropriate targets and health checking. The target group contains the pod IPs of your Kubernetes Service endpoints. It updates targets dynamically as pods scale up/down.
+4. For each `backend` `service` declared at the Ingress, the controller creates a Target Group, which is responsible for routing requests to the appropriate targets and health checking. The target group contains the pod IPs of your Kubernetes Service endpoints. It updates targets dynamically as pods scale up/down.
 5. Sets up routing rules (host/path-based). It translates the rules section of your Ingress spec (hostnames and paths) into ALB listener rules.
 
 Traffic modes (target types):
@@ -1256,6 +1276,8 @@ spec:
                 port:
                   number: 80
 ```
+
+Note: don't use `kubernetes.io/ingress.class: alb` because is deprecated, use `ingressClassName: alb`.
 
 After creating it with `kubectl apply -f alb-ingress.yaml`, check the status with `kubectl get ingress -n my-namespace`:
 
@@ -1736,15 +1758,212 @@ Finally, delete the EFS file system at the EFS console. If using the CLI, you ne
 
 https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html
 
-https://docs.aws.amazon.com/eks/latest/userguide/vertical-pod-autoscaler.html
+https://www.eksworkshop.com/docs/fundamentals/workloads/
 
-https://docs.aws.amazon.com/eks/latest/userguide/horizontal-pod-autoscaler.html
+https://kubernetes.io/docs/concepts/cluster-administration/node-autoscaling/
 
 ## Cluster Autoscaler
 
+https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler
+
 https://docs.aws.amazon.com/eks/latest/best-practices/cas.html
 
-> If you are using the Kubernetes Cluster Autoscaler and running stateful pods, you should create one Node Group for each availability zone using a single subnet and enable the -\-balance-similar-node-groups feature in cluster autoscaler. (From the console Info sidebar.)
+Cluster Autoscaler on AWS - https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/README.md
+
+When you create a node group, it creates an Auto Scaling group (and its corresponding launch template). The node group has a desired, minimum, and maximum size. The Auto Scaling group simply maintains the number of EC2 nodes in the group based on the desired size, replacing any unhealthy instances, but it doesn't do any scaling based on workload, because there are no scaling policies in the Auto Scaling group.
+
+We want to scale up the number of nodes when new pods are scheduled and there are not enough resources in the cluster, and scale down the number of nodes when there are idle nodes. This is done with the Kubernetes Cluster Autoscaler, which adjusts the desired size of the Auto Scaling group.
+
+Nodes are not terminated abruptly. The Cluster Autoscaler first cordons and drains the node, evicting the pods running on it by rescheduling them to other nodes. Once the node is empty, it is terminated.
+
+The Cluster Autoscaler runs as a **Deployment** in the `kube-system` namespace. Only 1 replica (ie one pod) runs. It needs an IAM role with the necessary permissions to manage the Auto Scaling groups. You can use IRSA to assign the role to the Cluster Autoscaler service account.
+
+> If you are using the Kubernetes Cluster Autoscaler and running stateful pods, you should create one Node Group for each availability zone using a single subnet and enable the `--balance-similar-node-groups` feature in cluster autoscaler. (From the console Info sidebar.)
+
+### Setup Cluster Autoscaler with IRSA and Auto-Discovery
+
+Resources:
+
+- https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/CA_with_AWS_IAM_OIDC.md
+- https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/README.md#auto-discovery-setup
+- https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+
+> Auto-Discovery Setup is the preferred method to configure Cluster Autoscaler.
+
+The Auto Scaling group has 2 tags that allow the Cluster Autoscaler to discover and manage it:
+
+- Key: `k8s.io/cluster-autoscaler/enabled` - Value: `true`
+- Key: `k8s.io/cluster-autoscaler/<cluster-name>` - Value: `owned`
+
+You use the CLI flag `--node-group-auto-discovery` to set these tags. Note that the value will be ignored, only the tag name matters.
+
+Create the permissions policy. At the [IAM console](https://console.aws.amazon.com/iam#/policies) → Policies, click "Create policy". Switch to the JSON tab and paste the policy from https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/README.md#full-cluster-autoscaler-features-policy-recommended, replacing `<asg-arn>` and `<my-cluster>`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:DescribeAutoScalingGroups",
+        "autoscaling:DescribeAutoScalingInstances",
+        "autoscaling:DescribeLaunchConfigurations",
+        "autoscaling:DescribeScalingActivities",
+        "ec2:DescribeImages",
+        "ec2:DescribeInstanceTypes",
+        "ec2:DescribeLaunchTemplateVersions",
+        "ec2:GetInstanceTypesFromInstanceRequirements",
+        "eks:DescribeNodegroup"
+      ],
+      "Resource": ["*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:SetDesiredCapacity",
+        "autoscaling:TerminateInstanceInAutoScalingGroup"
+      ],
+      "Resource": ["<asg-arn>"],
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/k8s.io/cluster-autoscaler/enabled": "true",
+          "aws:ResourceTag/k8s.io/cluster-autoscaler/<my-cluster>": "owned"
+        }
+      }
+    }
+  ]
+}
+```
+
+Important: I've modified the _second_ `"Resource": ["*"]` by setting the ASG ARN to restrict access to only a specific Auto Scaling group, as suggested in the docs (_only the second block of actions should be updated to restrict the resources/add conditionals_). I've also added the Condition block, as shown at https://docs.aws.amazon.com/eks/latest/best-practices/cas.html, which _prevents a Cluster Autoscaler running in one cluster from modifying nodegroups in a different cluster even if the `--node-group-auto-discovery` argument wasn’t scoped down to the nodegroups of the cluster using tags_.
+
+Name the permissions policy `AmazonEKS_ClusterAutoscalerPolicy-<cluster-name>`.
+
+Create a Role with "Trusted entity type" "Custom trust policy". Set this trust policy, replacing `<account-id>` and `<oidc-provider>` (`oidc.eks.<region>.amazonaws.com/id/<id>`):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<account-id>:oidc-provider/<oidc-provider>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "<oidc-provider>:aud": "sts.amazonaws.com",
+          "<oidc-provider>:sub": "system:serviceaccount:kube-system:cluster-autoscaler"
+        }
+      }
+    }
+  ]
+}
+```
+
+The service account name (`cluster-autoscaler`) in the policy needs to match the value in the Kubernetes manifest. Attach the permissions policy just created (`AmazonEKS_ClusterAutoscalerPolicy-<cluster-name>`) to the role. Name the role `AmazonEKS_ClusterAutoscalerRole-<cluster-name>`.
+
+To deploy the Cluster Autoscaler, download the file from https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml, then make the following changes:
+
+1. At the Deployment, at the `--node-group-auto-discovery` command line flag, replace `<YOUR CLUSTER NAME>` for the tag `k8s.io/cluster-autoscaler/<cluster-name>`.
+2. At the ServiceAccount, add this annotation so that the service account uses the IAM role just created:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::<account-id>:role/AmazonEKS_ClusterAutoscalerRole-<cluster-name>
+```
+
+Deploy the Cluster Autoscaler with `kubectl apply -f cluster-autoscaler-autodiscover.yaml`.
+
+- View the pod with `kubectl get pods -n kube-system | grep cluster-autoscaler`.
+- Inspect the pod with `kubectl describe pod -n kube-system cluster-autoscaler-<xyz>`.
+- Check the logs with `kubectl logs -n kube-system deployment/cluster-autoscaler` or `kubectl logs -n kube-system cluster-autoscaler-<xyz>`.
+
+To test the Cluster Autoscaler, create a deployment and then scale it to many pods that request enough resources to require more nodes than currently available. The Cluster Autoscaler will then scale up the Auto Scaling group by increasing the desired capacity, launching new EC2 nodes. Once the new nodes are ready, the pending pods will be scheduled.
+
+```yaml title="cluster-autoscaler-test-deployment.yaml"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cluster-autoscaler-test
+  labels:
+    app: cluster-autoscaler-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cluster-autoscaler-test
+  template:
+    metadata:
+      labels:
+        app: cluster-autoscaler-test
+    spec:
+      containers:
+        - name: httpd
+          image: httpd
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 500m
+```
+
+Do the following:
+
+- Check the current number of nodes and pods with `kubectl get nodes` and `kubectl get pods`.
+- Open two terminal windows and watch new nodes and pods being created with `kubectl get nodes -w` and `kubectl get pods -w`.
+- Apply the deployment with `kubectl apply -f cluster-autoscaler-test-deployment.yaml`.
+- Scale up the deployment to 5 or 10 replicas with `kubectl scale deployment cluster-autoscaler-test --replicas=5`.
+- Check the Cluster Autoscaler logs to see the scaling activity with `kubectl logs [--follow] -n kube-system deployment/cluster-autoscaler`. You can see logs like "Scale up in group eks-My-EKS-Node-Group-d6cd375e-e065-401f-769b-58cdc5869a47 finished successfully in 50.165152427s".
+
+Initially the new pods will be in `Pending` state because there are not enough resources. When new nodes are ready (its status changes from `NotReady` to `Ready`), the pod state changes from `Pending` to `ContainerCreating` and then `Running`.
+
+Doing `kubectl describe pod cluster-autoscaler-test-<xyz>` shows the `TriggeredScaleUp` event due to "Insufficient memory":
+
+```
+Events:
+  Type     Reason            Age    From                Message
+  ----     ------            ----   ----                -------
+  Warning  FailedScheduling  2m53s  default-scheduler   0/4 nodes are available: 1 Too many pods, 4 Insufficient memory. no new claims to deallocate, preemption: 0/4 nodes are available: 4 No preemption victims found for incoming pod.
+  Warning  FailedScheduling  2m19s  default-scheduler   0/5 nodes are available: 1 Too many pods, 1 node(s) had untolerated taint {node.cloudprovider.kubernetes.io/uninitialized: true}, 4 Insufficient memory. no new claims to deallocate, preemption: 0/5 nodes are available: 1 Preemption is not helpful for scheduling, 4 No preemption victims found for incoming pod.
+  Warning  FailedScheduling  2m18s  default-scheduler   0/5 nodes are available: 1 Too many pods, 1 node(s) had untolerated taint {node.kubernetes.io/not-ready: }, 4 Insufficient memory. no new claims to deallocate, preemption: 0/5 nodes are available: 1 Preemption is not helpful for scheduling, 4 No preemption victims found for incoming pod.
+  Warning  FailedScheduling  2m14s  default-scheduler   0/5 nodes are available: 1 Too many pods, 1 node(s) had untolerated taint {node.kubernetes.io/not-ready: }, 4 Insufficient memory. no new claims to deallocate, preemption: 0/5 nodes are available: 1 Preemption is not helpful for scheduling, 4 No preemption victims found for incoming pod.
+  Normal   Scheduled         2m     default-scheduler   Successfully assigned demo/cluster-autoscaler-test-5cf8cdc587-jvzrj to ip-172-31-46-244.ec2.internal
+  Normal   TriggeredScaleUp  2m48s  cluster-autoscaler  pod triggered scale-up: [{eks-My-EKS-Node-Group-d6cd375e-e065-401f-769b-58cdc5869a47 4->5 (max: 5)}]
+  Normal   Pulling           119s   kubelet             Pulling image "httpd"
+```
+
+Test the scale down/in by scaling down the deployment to 1 replica with `kubectl scale deployment cluster-autoscaler-test --replicas=1`.
+
+Pods are terminated immediately, in a few seconds, but nodes are not, it takes about 10 minutes. There is a **cool down period** before idle nodes are terminated, which can be configured with the `--scale-down-unneeded-time` flag.
+
+Check the Cluster Autoscaler logs to see the scale down activity. You should see logs like "node ip-172-31-46-244.ec2.internal may be removed", "Starting scale down" and "Considering node ip-172-31-46-244.ec2.internal for standard scale down".
+
+The node status changes from `Ready` to `Ready,SchedulingDisabled` and then `NotReady,SchedulingDisabled`. At the state `Ready,SchedulingDisabled`, the node is cordoned (which prevents new pods from being scheduled on it) and drained. Once all pods are evicted, the node is terminated.
+
+Delete the deployment with `kubectl delete -f cluster-autoscaler-test-deployment.yaml`. Optionally delete the Cluster Autoscaler with `kubectl delete -f cluster-autoscaler-autodiscover.yaml`.
+
+## Horizontal Pod Autoscaler
+
+https://docs.aws.amazon.com/eks/latest/userguide/horizontal-pod-autoscaler.html
+
+https://www.eksworkshop.com/docs/fundamentals/workloads/horizontal-pod-autoscaler/
+
+## Cluster Proportional Autoscaler
+
+https://www.eksworkshop.com/docs/fundamentals/workloads/cluster-proportional-autoscaler/
+
+## Vertical Pod Autoscaler
+
+https://docs.aws.amazon.com/eks/latest/userguide/vertical-pod-autoscaler.html
+
+## Kubernetes Event-Driven Autoscaler (KEDA)
+
+https://www.eksworkshop.com/docs/fundamentals/workloads/keda/
 
 ## Amazon Managed Service for Prometheus
 
