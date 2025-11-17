@@ -193,6 +193,35 @@ Use `/Whatever` for searching.
 
 You can also use `more`, but has less features than `less` and it's slower. Also see [`bat`](https://github.com/sharkdp/bat), which pages the output too.
 
+## head / tail
+
+https://www.gnu.org/software/coreutils/manual/html_node/head-invocation.html
+
+https://www.gnu.org/software/coreutils/manual/html_node/tail-invocation.html
+
+```shell
+head file.txt       # First 10 lines
+head -n 20 file.txt # First 20 lines
+tail file.txt       # Last 10 lines
+tail -n 20 file.txt # Last 20 lines
+```
+
+You can also use `sed 5q file.txt` to print the first 5 lines.
+
+Use `head` to truncate a large output of a command:
+
+```shell
+helm search hub nginx | wc -l      # Would print 249 lines
+helm search hub nginx | head       # Limit to first 10 lines
+helm search hub nginx | head -n 20 # Limit to first 20 lines
+```
+
+Follow the file (eg a log file):
+
+```shell
+tail -f logs.txt
+```
+
 ## tee
 
 Use it to both display output in the terminal and save it to a file.

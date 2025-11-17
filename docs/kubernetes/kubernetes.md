@@ -237,6 +237,13 @@ https://kubernetes.io/docs/concepts/overview/components/#addons
 
 - [CoreDNS](https://coredns.io): internal DNS.
 
+## Service Mesh
+
+- https://linkerd.io - https://github.com/linkerd/linkerd2
+- https://istio.io
+- https://kuma.io
+- Cilium Service Mesh - https://isovalent.com/blog/post/cilium-service-mesh/
+
 ## Kustomize
 
 https://kustomize.io

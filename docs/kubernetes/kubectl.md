@@ -111,6 +111,10 @@ kubectl auth can-i create pods --all-namespaces
 
 `kubectl get all -A` → List all of all namespaces
 
+`kubectl get deployment,rs,pods`
+
+`kubectl get configmap app-config -o yaml` → Adding `-o yaml` shows the details
+
 `kubectl get nodes`
 
 `kubectl get nodes --show-labels`
@@ -121,7 +125,7 @@ kubectl auth can-i create pods --all-namespaces
 
 `kubectl get pods`
 
-`kubectl get pods -A` → List pods of all namespaces. Short version of `--all-namespaces`
+`kubectl get pods -A` → List pods of all namespaces (`--all-namespaces`)
 
 `kubectl get pods -o wide`
 
@@ -159,9 +163,7 @@ kubectl auth can-i create pods --all-namespaces
 
 `kubectl get configmaps`
 
-`kubectl get deployment,rs,pods`
-
-`kubectl get configmap app-config -o yaml` → Adding `-o yaml` shows the details
+`kubectl get secrets`
 
 ## Create vs Apply
 

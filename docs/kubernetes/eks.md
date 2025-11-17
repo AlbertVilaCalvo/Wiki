@@ -166,9 +166,9 @@ aws iam attach-role-policy \
 
 https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html
 
-The node role is assumed by EC2 instances, the worker nodes. Is like an [EC2 instance profile](/aws/iam#ec2-instance-profile).
+The node role is assumed by EC2 instances, the worker nodes. Is like an [EC2 instance profile](../aws/iam#ec2-instance-profile). You can see the role at the [EC2 console](https://console.aws.amazon.com/ec2/home#Instances) → Instances → select an instance → IAM Role.
 
-Gives permissions to the kubelet running on the node to make calls to the Kubernetes API and other AWS APIs on your behalf. This includes permissions to access container registries where your application containers are stored.
+Gives permissions to the kubelet running on the node to make calls to the Kubernetes API and other AWS APIs on your behalf. This includes permissions to access container registries like ECR where your application container images are stored.
 
 To create this role using the console, go to IAM → Roles, click "Create role" and set:
 
@@ -180,7 +180,7 @@ At the "Add permissions" page, filter by "EKS" and attach these policies:
 - [AmazonEKSWorkerNodePolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSWorkerNodePolicy.html). Allows Amazon EKS worker nodes to connect to Amazon EKS Clusters. [See explanation](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-amazoneksworkernodepolicy).
 - [AmazonEKS_CNI_Policy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKS_CNI_Policy.html). Allows the nodes to configure the Elastic Network Interfaces and IP addresses on your EKS worker nodes. [See explanation](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-amazoneks-cni-policy) (optional).
 
-Then filter by "ec2containerregistry" and attach the policy [AmazonEC2ContainerRegistryPullOnly](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2ContainerRegistryPullOnly.html), which allows the nodes to pull images from ECR. You can also use [AmazonEC2ContainerRegistryReadOnly](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2ContainerRegistryReadOnly.html), which allows to list repositories, describe images, ect.
+Then filter by "ec2containerregistry" and attach the policy [AmazonEC2ContainerRegistryPullOnly](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2ContainerRegistryPullOnly.html), which allows the nodes to pull images from ECR. You can also use [AmazonEC2ContainerRegistryReadOnly](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2ContainerRegistryReadOnly.html), which allows to list repositories, describe images, ect. By adding this permission policy, we can use private ECR repositories without having to [specify `imagePullSecrets`](https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) in the Kubernetes pod spec.
 
 Trust policy (trusted entities):
 
@@ -430,6 +430,16 @@ You can also give a principal administrator access using the management console.
 
 https://docs.aws.amazon.com/cli/latest/reference/eks/
 
+List available commands: `aws eks help`
+
+[List clusters](https://docs.aws.amazon.com/cli/latest/reference/eks/list-clusters.html):
+
+```shell
+aws eks list-clusters
+```
+
+[Describe a cluster](https://docs.aws.amazon.com/cli/latest/reference/eks/describe-cluster.html):
+
 ```shell
 aws eks describe-cluster --name MyCluster
 aws eks describe-cluster --name $EKS_CLUSTER_NAME --query 'cluster.accessConfig'
@@ -447,11 +457,13 @@ Save to a variable:
 VPC_ID=$(aws eks describe-cluster --name $EKS_CLUSTER_NAME --query 'cluster.resourcesVpcConfig.vpcId' --output text)
 ```
 
-List of available access policies (AmazonEKSAdminPolicy, AmazonEKSClusterAdminPolicy, etc.) in your account:
+[List the available access policies](https://docs.aws.amazon.com/cli/latest/reference/eks/list-access-policies.html) (AmazonEKSAdminPolicy, AmazonEKSClusterAdminPolicy, etc.) in your account:
 
 ```shell
 aws eks list-access-policies
 ```
+
+All the policies ARN are `arn:aws:eks::aws:cluster-access-policy/XYZ`.
 
 ## eksctl
 
