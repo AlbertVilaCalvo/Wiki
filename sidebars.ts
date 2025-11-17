@@ -90,6 +90,7 @@ const sidebars: SidebarsConfig = {
     'kubernetes/kubectl',
     'kubernetes/minikube',
     'kubernetes/eks',
+    'kubernetes/helm',
     'kubernetes/argocd',
     'kubernetes/certifications',
   ],
