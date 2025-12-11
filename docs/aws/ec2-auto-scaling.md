@@ -116,7 +116,7 @@ A load balancer consists of multiple servers that can run in different subnets (
 :::info Important
 Place the EC2 instances in private subnets (so they aren't directly accessible from the public internet) and the ALBs in public subnets (so users can access them directly).
 
-See [Place your servers in private subnets, and load balancers in public subnets](/aws/vpc#place-your-servers-in-private-subnets-and-load-balancers-in-public-subnets).
+See [Place your servers in private subnets, and load balancers in public subnets](vpc#place-your-servers-in-private-subnets-and-load-balancers-in-public-subnets).
 :::
 
 :::info

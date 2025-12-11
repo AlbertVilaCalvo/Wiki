@@ -137,13 +137,13 @@ You can use either an interactive one-click browser-based shell or the AWS Comma
 Requirements:
 
 - The SSM agent needs to be installed. It is on Amazon Linux, Ubuntu and some other AMIs.
-- The EC2 instance needs to be launched with an [IAM instance profile](/aws/iam#ec2-instance-profile) role having the permission policy `AmazonSSMManagedInstanceCore`, which "Allows EC2 instances to call AWS services like CloudWatch and Systems Manager on your behalf.".
+- The EC2 instance needs to be launched with an [IAM instance profile](iam#ec2-instance-profile) role having the permission policy `AmazonSSMManagedInstanceCore`, which "Allows EC2 instances to call AWS services like CloudWatch and Systems Manager on your behalf.".
 
 When launching an EC2 instance using the console do:
 
 - At "Key pair (login)", choose "Proceed without a key pair (Not recommended)".
 - At "Network settings", choose "Create security group" and uncheck "Allow SSH traffic fom".
-- At "Advanced details" → "IAM instance profile", choose a role that has the permission policy `AmazonSSMManagedInstanceCore`. (You need the trust policy `sts:AssumeRole` as well, [see this](/aws/iam#ec2-instance-profile).)
+- At "Advanced details" → "IAM instance profile", choose a role that has the permission policy `AmazonSSMManagedInstanceCore`. (You need the trust policy `sts:AssumeRole` as well, [see this](iam#ec2-instance-profile).)
 
 :::info
 The default user on Amazon Linux 2 is the `ec2-user`. But when using the Session Manager via the AWS Management Console, you are logged in with another user named `ssm-user`. (Doing `whoami` prints `ssm-user`.)

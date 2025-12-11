@@ -208,19 +208,19 @@ Run resources in dense metropolitan areas, close to the users.
 
 With the root user.
 
-- Enable MFA for the root user [link](/aws/root-user#multi-factor-authentication-mfa)
+- Enable MFA for the root user [link](root-user#multi-factor-authentication-mfa)
 - Set the account alias (at the IAM dashboard). It's easier to remember than the account id
   - Note that the account alias must be globally unique, since it's used to generate the sign-in URL (eg `https://albert.signin.aws.amazon.com/console`). It can be changed later.
   - Do not confuse the account alias with the account name, which is defined when you create the AWS account, and it helps you identify the account. The account name can also be changed.
-- Enable IAM access to billing (so that non-root users can have access to billing) [link](/aws/billing-pricing#enable-iam-access-to-billing)
-- Enable PDF invoices delivery by email [link](/aws/billing-pricing#enable-pdf-invoices-delivery-by-email)
-- Enable free tier alerts [link](/aws/billing-pricing#enable-free-tier-alerts)
-- Enable CloudWatch billing alerts and create one or more budgets [link](/aws/billing-pricing#create-budget-and-enable-cloudwatch-billing-alarmalert)
-- Create the first IAM admin user [link](/aws/iam#create-the-first-iam-admin-user)
-  - Once the admin is created, enable MFA for it using the root account [link](/aws/iam#add-mfa-to-other-users)
-- Enforce MFA to users [link](/aws/iam#enforce-mfa-to-users)
-- Set an account password policy [link](/aws/iam#password-policy)
-- At the S3 dashboard, at the "Block Public Access settings for this account" page, enable "Block _all_ public access" to disable public access for _all_ S3 buckets in the account [link](/aws/s3#block-all-public-access-for-all-buckets-in-the-account)
+- Enable IAM access to billing (so that non-root users can have access to billing) [link](billing-pricing#enable-iam-access-to-billing)
+- Enable PDF invoices delivery by email [link](billing-pricing#enable-pdf-invoices-delivery-by-email)
+- Enable free tier alerts [link](billing-pricing#enable-free-tier-alerts)
+- Enable CloudWatch billing alerts and create one or more budgets [link](billing-pricing#create-budget-and-enable-cloudwatch-billing-alarmalert)
+- Create the first IAM admin user [link](iam#create-the-first-iam-admin-user)
+  - Once the admin is created, enable MFA for it using the root account [link](iam#add-mfa-to-other-users)
+- Enforce MFA to users [link](iam#enforce-mfa-to-users)
+- Set an account password policy [link](iam#password-policy)
+- At the S3 dashboard, at the "Block Public Access settings for this account" page, enable "Block _all_ public access" to disable public access for _all_ S3 buckets in the account [link](s3#block-all-public-access-for-all-buckets-in-the-account)
 - Enable regions that are not enabled by default, eg "Europe (Spain)". This is done by clicking Account at the top right
 
 ## Tags
@@ -235,7 +235,7 @@ Tag policies: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_ma
 
 Resource groups: a collection of resources that shares one or more tags. https://docs.aws.amazon.com/ARG/latest/userguide/resource-groups.html
 
-[Cost allocation tags](/aws/billing-pricing#cost-allocation-tags)
+[Cost allocation tags](billing-pricing#cost-allocation-tags)
 
 ## re:Invent
 

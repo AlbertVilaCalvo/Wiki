@@ -43,7 +43,7 @@ To manage a member account using the console, log in to the console using the ma
 ## Service control policies (SCPs)
 
 :::info
-SCP is a limit, not a permission, like [permissions boundaries](/aws/iam#permissions-boundaries).
+SCP is a limit, not a permission, like [permissions boundaries](iam#permissions-boundaries).
 
 Users and roles in the management account are not affected by SCPs.
 :::

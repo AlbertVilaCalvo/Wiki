@@ -23,6 +23,8 @@ https://docusaurus.io/docs/markdown-features/links
 
 Important: when using the first option you need to add `.md`, otherwise you get `/dev/javascript/eslint#setup` instead of `/javascript/eslint#setup`.
 
+The docs recommend using relative _file_ paths (with `.md` extensions) instead of relative _URL_ links (no `.md` extensions, that is, the page's URL location, rather than its file-system location).
+
 ## Sidebar
 
 https://docusaurus.io/docs/sidebar
