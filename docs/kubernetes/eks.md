@@ -8,9 +8,9 @@ https://aws.amazon.com/eks
 
 Console: https://console.aws.amazon.com/eks/home
 
-The control plane components (etcd, API server, Scheduler...) runs in AWS-owned accounts. Worker nodes run in customer accounts.
+Best practices - https://docs.aws.amazon.com/eks/latest/best-practices/introduction.html
 
-Terraform infrastructure for building an EKS cluster. Infrastructure includes a VPC, EKS cluster, and EC2 worker nodes: https://github.com/AJarombek/global-aws-infrastructure/tree/master/eks
+Blog - https://aws.amazon.com/blogs/containers/category/compute/amazon-kubernetes-service/
 
 Amazon EKS Blueprints for Terraform - https://github.com/aws-ia/terraform-aws-eks-blueprints - https://www.youtube.com/watch?v=DhoZMbqwwsw
 
@@ -52,7 +52,20 @@ Amazon EKS Explained - https://www.youtube.com/watch?v=E956xeOt050
 
 ## Concepts
 
-The control plane runs in a VPC managed by AWS, in an AWS-owned account. The data plane runs in your VPC, in a customer account.
+EKS manages Kubernetes clusters. Kubernetes manages Kubernetes objects.
+
+The control plane (API, etcd servers, scheduler...) runs in a VPC managed by AWS, in an AWS-owned account. The data plane (worker nodes) runs in your VPC, in your customer account.
+
+For the control plane:
+
+- AWS will provision and manage at least two API servers spread in two distinct Availability Zones. API servers are exposed through a public Network Load Balancer.
+- AWS will provision and manage etcd servers spread across three Availability Zones, using an autoscaling group.
+- See "Mastering Elastic Kubernetes Service on AWS" pages 13 and 19. and [Understand resilience in Amazon EKS clusters](https://docs.aws.amazon.com/eks/latest/userguide/disaster-recovery-resiliency.html).
+
+Communication:
+
+- Control plane → worker nodes. The control plane is connected to your VPC through cross-account Elastic Network Interfaces (ENIs) that allow traffic from the control plane to the worker nodes. ENIs are deployed to your VPC, to the data plane subnets you specify. See [VPC and subnets](#vpc-and-subnets).
+- Worker nodes → control plane. Traffic from the worker nodes to the control plane API server can stay within the customer VPC using a VPC endpoint (PrivateLink), or leave the customer VPC through a Network Load Balancer, see [API server endpoint access](#api-server-endpoint-access).
 
 ## Learn
 
@@ -122,7 +135,9 @@ Note: to run Pods on Fargate you need a [Pod execution IAM role](https://docs.aw
 
 https://docs.aws.amazon.com/eks/latest/userguide/cluster-iam-role.html
 
-Allows the cluster Kubernetes control plane to manage AWS resources on your behalf. Clusters use this role to manage nodes. The role has the AWS managed permission policy [AmazonEKSClusterPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSClusterPolicy.html), which allows the control plane to interact with the following AWS services: EC2, Elastic Load Balancing, Auto Scaling and KMS ([see explanation](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-amazoneksclusterpolicy)). We can optionally attach [AmazonEKSVPCResourceController](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSVPCResourceController.html) to manage ENIs and IP addresses for worker nodes ([see explanation](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-amazoneksvpcresourcecontroller)).
+Allows the cluster Kubernetes control plane to manage AWS resources on your behalf. Clusters use this role to manage nodes.
+
+The role has the AWS managed permission policy [AmazonEKSClusterPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSClusterPolicy.html), which allows the control plane to interact with the following AWS services: EC2, Elastic Load Balancing, Auto Scaling and KMS ([see explanation](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-amazoneksclusterpolicy)). We can optionally attach [AmazonEKSVPCResourceController](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSVPCResourceController.html) to manage ENIs and IP addresses for worker nodes ([see explanation](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-amazoneksvpcresourcecontroller)). If using Auto Mode, you must also attach AmazonEKSBlockStoragePolicy, AmazonEKSComputePolicy, AmazonEKSLoadBalancingPolicy, AmazonEKSNetworkingPolicy ([see below](#enable-auto-mode)).
 
 To create this role using the console, go to IAM → Roles, click "Create role" and set:
 
@@ -182,6 +197,8 @@ At the "Add permissions" page, filter by "EKS" and attach these policies:
 
 Then filter by "ec2containerregistry" and attach the policy [AmazonEC2ContainerRegistryPullOnly](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2ContainerRegistryPullOnly.html), which allows the nodes to pull images from ECR. You can also use [AmazonEC2ContainerRegistryReadOnly](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2ContainerRegistryReadOnly.html), which allows to list repositories, describe images, ect. By adding this permission policy, we can use private ECR repositories without having to [specify `imagePullSecrets`](https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) in the Kubernetes pod spec.
 
+Optional: If you want to access the nodes using Session Manager, attach [AmazonSSMManagedInstanceCore](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonSSMManagedInstanceCore.html). The SSM Agent is installed automatically on Amazon EKS optimized AMIs ([source](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/install-ssm-agent-on-amazon-eks-worker-nodes-by-using-kubernetes-daemonset.html)).
+
 Trust policy (trusted entities):
 
 ```json title="node-role-trust-policy.json"
@@ -235,7 +252,7 @@ https://www.eksworkshop.com/docs/security/iam-roles-for-service-accounts/
 
 Enables Kubernetes [service accounts](https://kubernetes.io/docs/concepts/security/service-accounts/) to assume IAM roles. Allows individual pods to assume IAM roles and securely access AWS services (like S3 or DynamoDB) without giving permissions to the node role, which would grant permissions to all nodes. Eliminates the need to store static credentials (access keys) inside containers.
 
-Uses an OIDC provider, which has a URL like `https://oidc.eks.<region>.amazonaws.com/id/<id>`. You can find the URL at the EKS console → your cluster → Overview tab → Details section → OpenID Connect provider URL, or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text`.
+Uses an OIDC provider, which has a URL like `https://oidc.eks.<region>.amazonaws.com/id/<id>`. You can find the URL at the EKS console → your cluster → Overview tab → Details section → OpenID Connect provider URL, or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query cluster.identity.oidc.issuer --output text`.
 
 #### Setup using the Console
 
@@ -275,7 +292,7 @@ Next, create an IAM role to be used by a Kubernetes service account. Go to the I
 }
 ```
 
-Note that the `Principal` is `Federated`, not `Service`. The `<oidc-provider>` is `oidc.eks.<region>.amazonaws.com/id/<id>`. You can get it at the console, at the cluster Overview tab → Details section → OpenID Connect provider URL (remove `https://`), or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///"`.
+Note that the `Principal` is `Federated`, not `Service`. The `<oidc-provider>` is `oidc.eks.<region>.amazonaws.com/id/<id>`. You can get it at the console, at the cluster Overview tab → Details section → OpenID Connect provider URL (remove `https://`), or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query cluster.identity.oidc.issuer --output text | sed -e "s/^https:\/\///"`.
 
 Select any permissions policy you need, eg to access S3.
 
@@ -293,6 +310,10 @@ You may need to create a Kubernetes service account:
 kubectl create serviceaccount <service-account-name> -n <namespace>
 ```
 
+#### Setup using Terraform
+
+https://github.com/aws-samples/eks-workshop-v2/tree/stable/manifests/modules/security/irsa/.workshop/terraform
+
 ### Pod Identity
 
 https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html
@@ -306,6 +327,8 @@ https://aws.amazon.com/blogs/containers/amazon-eks-pod-identity-a-new-way-for-ap
 https://www.eksworkshop.com/docs/security/amazon-eks-pod-identity/
 
 Does the same than service accounts, but with less config and doesn't require OIDC.
+
+To grant workloads access to AWS resources using AWS APIs, you use Pod Identity to associate an AWS IAM Role to a Kubernetes Service Account.
 
 Roles can be used in multiple clusters. Is backwards compatible with IRSA.
 
@@ -332,9 +355,29 @@ Trust policy (trusted entities):
 }
 ```
 
+Associate an IAM role with a Kubernetes service account:
+
+```shell
+aws eks create-pod-identity-association \
+  --clusterName my-cluster \
+  --namespace my-namespace \
+  --serviceAccount my-service-account \
+  --roleARN my-iam-role-arn
+```
+
+#### Setup with Terraform
+
+https://github.com/aws-samples/eks-workshop-v2/tree/stable/manifests/modules/security/eks-pod-identity/.workshop/terraform
+
 ## Security groups
 
+https://www.eksworkshop.com/docs/networking/vpc-cni/security-groups-for-pods/
+
 ### Cluster security group
+
+https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html
+
+https://aws.amazon.com/blogs/containers/enhanced-vpc-flexibility-modify-subnets-and-security-groups-in-amazon-eks/
 
 Allows communication between the control plane (API server) and worker nodes:
 
@@ -344,6 +387,15 @@ Allows communication between the control plane (API server) and worker nodes:
 Is created by EKS automatically when you create a cluster (unless you specify one).
 
 Name is like: `eks-cluster-sg-<cluster-name>-<random-id>`. For example, `eks-cluster-sg-MyCluster-303637302`.
+
+EKS automatically associates this security group to the following resources that it also creates:
+
+- 2–4 elastic network interfaces (ENIs) that are created when you create a cluster.
+- Network interfaces of the **nodes** in any managed node group that you create.
+
+The SG description is: "EKS created security group applied to ENI that is attached to EKS Control Plane master nodes, as well as any managed workloads.".
+
+Allows all outbound traffic to any destination (0.0.0.0/0). You can restrict it but you must allow outbound traffic TCP 443 to reach the worker nodes, TCP 10250 for the kubelet API and TCP UDP 53 for DNS.
 
 Inbound rules:
 
@@ -372,9 +424,19 @@ The cluster SG it's used as the source in an inbound rule on the node's SG. EKS 
           from Cluster SG
 ```
 
+The outbound rules can be modified, but the inbound not. From https://aws.amazon.com/blogs/containers/enhanced-vpc-flexibility-modify-subnets-and-security-groups-in-amazon-eks/
+
+> The default **inbound** rules include all access from within the security group and shared node security group, which enables bi-directional communication between the control plane and the nodes. Today, these rules can’t be deleted or modified. If you remove the default inbound rule, then Amazon EKS recreates it whenever the cluster is updated.
+
+> The default **outbound** rule of the cluster security group allows all traffic. Optionally, users can remove this egress rule and limit the open ports between the cluster and nodes. You can remove the default outbound rule and add the [minimum rules](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html#security-group-default-rules:~:text=cluster.resourcesVpcConfig.clusterSecurityGroupId-,Restricting%20cluster%20traffic,-If%20you%20need) required for the cluster.
+
+Revoke EKS Cluster Security Group Egress Rule https://github.com/aws-samples/revoke-eks-cluster-security-group-egress-rule
+
 ### Node security group
 
 Controls inbound/outbound traffic for worker nodes (EC2 instances). Attached to all EC2 instances in your EKS managed node group or self-managed node group.
+
+By default, EKS uses the cluster security group as the node security group.
 
 Used for:
 
@@ -384,25 +446,150 @@ Used for:
 
 The node SG must allow outbound traffic on 443 to reach the control plane API server.
 
+## VPC and subnets
+
+https://docs.aws.amazon.com/eks/latest/userguide/network-reqs.html - Networking requirements for VPC and subnets
+
+https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html
+
+https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
+
+https://docs.aws.amazon.com/eks/latest/best-practices/subnets.html
+
+https://www.eksworkshop.com/docs/networking/vpc-cni/custom-networking/
+
+https://aws.amazon.com/blogs/containers/optimize-ip-addresses-usage-by-pods-in-your-amazon-eks-cluster/
+
+https://www.reddit.com/r/aws/comments/12bdyj5/eks_changingadding_subnets/
+
+https://aws.amazon.com/blogs/containers/enhanced-vpc-flexibility-modify-subnets-and-security-groups-in-amazon-eks/
+
+Don't use the default VPC, use a custom VPC with private subnets. Deploy nodes in private subnets and use public subnets for load balancers and ingress.
+
+Control plane → worker node communication. The control plane is connected to your VPC through cross-account Elastic Network Interfaces (ENIs) that allow traffic from the control plane to the worker nodes. ENIs are deployed to your VPC, to the subnets of the data plane you specify when you create a new cluster (_Choose the subnets in your VPC where the control plane may place elastic network interfaces (ENIs) to facilitate communication with your cluster._). These subnets are known as the **cluster subnets**.
+
+These network interfaces also enable Kubernetes features that use the kubelet API such as `kubectl attach`, `kubectl cp`, `kubectl exec`, `kubectl logs` and `kubectl port-forward` commands.
+
+There are two to four ENIs, so you must specify at least two subnets, which must be in at least two different Availability Zones. ENIs can be deployed to public and private subnets, but it is recommended to use private subnets.
+
+You can see the EKS created ENIs at the EC2 console. They have the description `Amazon EKS ${clusterName}`. You can see the subnets at the field `cluster.resourcesVpcConfig.subnetIds` of `aws eks describe-cluster`, or at the EKS console (Networking tab). You can change them at the Networking tab → Manage → VPC Resources.
+
+Note that the ENIs that allow control plane to worker nodes communication are always deployed. In contrast, the VPC endpoint (AWS PrivateLink) that allows private communication from worker nodes to the control plane API server is only deployed if you configure endpoint private access, see [API server endpoint access](#api-server-endpoint-access).
+
+You can't use subnets in AZ `use1-az3` (us-east-1), `usw1-az2` (us-west-1) and `cac1-az3` (ca-central-1) ([source](https://docs.aws.amazon.com/eks/latest/userguide/network-reqs.html#network-requirements-subnets)). You get this error: _UnsupportedAvailabilityZoneException: Cannot create cluster 'kubernetes-example' because EKS does not support creating control plane instances in us-east-1e, the targeted availability zone. Retry cluster creation using control plane subnets that span at least two of these availability zones: us-east-1a, us-east-1b, us-east-1c, us-east-1d, us-east-1f. Note, post cluster creation, you can run worker nodes in separate subnets/availability zones from control plane subnets/availability zones passed during cluster creation_. Use `aws ec2 describe-availability-zones` to see the mapping of AZ identifiers (us-east-1e) to different AZ data centers (use1-az3).
+
+### Control subnets
+
+Explained at https://docs.aws.amazon.com/eks/latest/userguide/network-reqs.html#network-requirements-subnets
+
+From https://aws.amazon.com/blogs/containers/enhanced-vpc-flexibility-modify-subnets-and-security-groups-in-amazon-eks/
+
+> To control which subnets network interfaces are created in, you can limit the number of subnets you specify to only two when you create a cluster.
+
+From Apress AWS EKS Essentials page 22:
+
+> During K8s version updates, EKS deletes and recreates new ENIs. Unfortunately, there is no guarantee that EKS will create the ENIs in the same subnets as your preferred subnets except you limit the number of subnets for the ENIs to only two during or after cluster creation.
+
+### IP address exhaustion
+
+It is recommended to place the ENIs in dedicated cluster subnets with /28 netmask, different from the worker node subnets, to reduce the odds of IP address exhaustion within the cluster network.
+
+Note that /28 is 16 IP addresses, but the first four and the last IP addresses in each CIDR block are reserved ([source](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html#subnet-sizing-ipv4)).
+
+From https://simyung.github.io/aws-eks-best-practices/networking/subnets/#vpc-configurations
+
+> Kubernetes worker nodes can run in the cluster subnets, but it is not recommended. During cluster upgrades Amazon EKS provisions additional ENIs in the cluster subnets. When your cluster scales out, worker nodes and pods may consume the available IPs in the cluster subnet. Hence in order to make sure there are enough available IPs you might want to consider using dedicated cluster subnets with /28 netmask.
+
+From Apress AWS EKS Essentials pages 22 and 70:
+
+> In production environments, ENIs are often deployed in their own subnets such that they do not coexist with the worker nodes. This is necessary to decouple the ENIs subnets from the worker nodes and to reduce the odds of IPv4 **address exhaustion** within the cluster network.
+
+> The ENIs subnets are often allocated the /28 CIDR block within the data plane VPC. We should have deployed the ENIs in the 10.0.1.0/28 and 10.0.2.0/28 subnets if we were to follow the best practices.
+
+> It is recommended to decouple the ENIs from the subnets of the worker nodes by deploying them in their separate /28 subnets. For example, in Figure 2-1 both worker nodes and ENIs share the same subnets, creating a highly coupled architecture and contributing to IPv4 **address exhaustion**.
+
+From https://aws.amazon.com/blogs/containers/enhanced-vpc-flexibility-modify-subnets-and-security-groups-in-amazon-eks/
+
+> One common misconception is that cluster subnets chosen when creating an Amazon EKS cluster serve as the primary targets for nodes and users can only use these subnets for creating the nodes (i.e., Kubernetes nodes). Instead of being the designated subnets for nodes, cluster subnets have a distinct role of hosting cross-account ENIs as specified above.
+
+> If you don’t specify separate subnets for nodes, then they may be deployed in the same subnets as your cluster subnets. Nodes and Kubernetes resources can run in the cluster subnets, but it isn’t recommended. During cluster upgrades, Amazon EKS provisions additional ENIs in the cluster subnets. When your cluster scales out, nodes and pods may consume the available IPs in the cluster subnet. Hence, in order to make sure there are enough available Ips, you might want to consider using dedicated cluster subnets with /28 netmask.
+
+> With the AWS Load Balancer Controller, you can choose the specific subnets where load balancers can be deployed, or you can use the auto-discovery feature by tagging the subnets. Cluster subnets can still be used for load balancers, but this is not a best practice, as it can lead to IP exhaustion, similar to the previous case.
+
+> Amazon EKS doesn’t automatically create new ENIs in subnets that weren’t designated as cluster subnets during the initial cluster setup. If you have worker nodes in subnets other than your original cluster subnets (i.e., where the cross-account ENIs are located), then they can still communicate with the Amazon EKS control plane if there are local routes in place within the VPC that allow this traffic. Essentially, the worker nodes need to be able to resolve and reach the Amazon EKS API server endpoint. This setup might involve transit through the subnets with the ENIs, but it’s the VPC’s internal routing that makes this possible.
+
+### VPC examples
+
+Use shared VPC subnets in Amazon EKS - https://aws.amazon.com/blogs/containers/use-shared-vpcs-in-amazon-eks/ - https://github.com/aws-samples/eks-shared-subnets/ - See AI docs at https://deepwiki.com/aws-samples/eks-shared-subnets - There are two accounts, workload and networking. There are public, private and control plane subnets.
+
+Examples of VPC for EKS ([source](https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html)):
+
+- 2 public and 2 private subnets for EKS at https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml
+- Only public subnets: https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-vpc-sample.yaml
+- Only private subnets: https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-fully-private-vpc.yaml
+
 ## API server endpoint access
 
 https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html
 
-https://www.eksworkshop.com/docs/security/cluster-access-management/
+Enable Private Access to the Amazon EKS Kubernetes API with AWS PrivateLink - https://aws.amazon.com/blogs/containers/enable-private-access-to-the-amazon-eks-kubernetes-api-with-aws-privatelink
+
+Communication from the control plane to worker nodes always uses the ENIs in the data plane, and the ENIs are always deployed. In contrast, communication from worker nodes or external clients to the control plane API server can be configured. If you configure private access, EKS deploys an interface VPC endpoint (AWS PrivateLink) in your VPC to allow private communication from worker nodes to the control plane API server. If you configure public access, EKS deploys a public Network Load Balancer (NLB) to allow communication from external clients and worker nodes to the control plane API server.
 
 Cluster API server endpoint access:
 
 - Public only (default): the API server is reachable over the Internet, from outside the VPC. Worker node traffic leaves the VPC (but not Amazon’s network) to communicate to the endpoint.
-- Private only: restrict API server to internal VPC traffic only. External access requires VPN, bastion host or private link. Worker node traffic to the endpoint will stay within your VPC.
-- Public and private: the API server is publicly accessible from outside your VPC, for example for admin tasks. Worker node traffic to the endpoint will stay within your VPC.
+- Private only: restrict API server to internal VPC traffic only. Access to a private API server is restricted to your VPC, so cluster administrators need to use a VPN like Direct Connect, a bastion host or PrivateLink. Worker node traffic to the endpoint will stay within your VPC, using the private VPC endpoint.
+- Public and private: the API server is publicly accessible from outside your VPC, for example for admin tasks. Worker node traffic to the endpoint will stay within your VPC, using the private VPC endpoint.
 
-## Cluster access with kubectl
+See `cluster.resourcesVpcConfig.endpointPublicAccess` and `cluster.resourcesVpcConfig.endpointPrivateAccess` in the output of `aws eks describe-cluster --name $EKS_CLUSTER_NAME`.
+
+You can define a CIDR block for the public API server endpoint access, to restrict which IPs can access the endpoint. See `cluster.resourcesVpcConfig.publicAccessCidrs` in the output of `aws eks describe-cluster --name $EKS_CLUSTER_NAME`. From the console:
+
+> You can, optionally, limit the CIDR blocks that can access the public endpoint. If you limit access to specific CIDR blocks, then it is recommended that you also enable the private endpoint, or ensure that the CIDR blocks that you specify include the addresses that worker nodes and Fargate pods (if you use them) access the public endpoint from.
+
+## Cluster Access Management API
+
+https://docs.aws.amazon.com/eks/latest/userguide/grant-k8s-access.html
 
 https://www.eksworkshop.com/docs/security/cluster-access-management/
 
+The Cluster Access Management API is used to to provide authentication and authorization for AWS IAM principals to Amazon EKS Clusters. It simplifies identity mapping between AWS IAM and Kubernetes RBAC, eliminating the need to switch between AWS and Kubernetes APIs for access management.
+
+Before the Cluster Access Management API was available, Amazon EKS relied on the aws-auth ConfigMap.
+
+Initially, the AWS user account used to create the cluster is the only user account that will have access.
+
+Cluster authentication modes (`accessConfig`):
+
+- `aws-auth` ConfigMap only (`CONFIG_MAP`). The original, old method. _Will be deprecated in the future_.
+- Both EKS API and `aws-auth` ConfigMap (`API_AND_CONFIG_MAP`).
+- EKS API - Access entries only (`API`). Recommended. What you get if you create a cluster using the management console. Required by Auto Mode.
+
+See which cluster authentication mode you are using: `aws eks describe-cluster --name $EKS_CLUSTER_NAME --query cluster.accessConfig`. With EKS API it returns `{ "authenticationMode": "API" }`.
+
+You can update your cluster configuration from `CONFIG_MAP` to `API_AND_CONFIG_MAP`, and from `API_AND_CONFIG_MAP` to `API`, but not the other way around.
+
+- Access entries: IAM principals (users or roles) that are granted access to the cluster using the Cluster Access Management API. They are bound to a cluster.
+  - [List access entries ](https://docs.aws.amazon.com/cli/latest/reference/eks/list-access-entries.html) in your cluster: `aws eks list-access-entries --cluster $EKS_CLUSTER_NAME`.
+  - You can view them at the console, at the cluster → "Access" tab → "IAM access entries".
+- Access policies: predefined sets of EKS specific permission policies that can be assigned to access entries. They exist in your AWS account even if you don't have any cluster.
+  - AmazonEKSAdminPolicy, AmazonEKSClusterAdminPolicy, AmazonEKSAdminViewPolicy, etc.
+  - See policy description at https://www.eksworkshop.com/docs/security/cluster-access-management/understanding
+  - All the policies ARNs are `arn:aws:eks::aws:cluster-access-policy/XYZ`.
+  - [List access policies](https://docs.aws.amazon.com/cli/latest/reference/eks/list-access-policies.html) in your account: `aws eks list-access-policies`.
+
+To see an access entry use [`describe-access-entry`](https://docs.aws.amazon.com/cli/latest/reference/eks/describe-access-entry.html), where `<principal-arn>` is the ARN of the IAM user or role from `aws eks list-access-entries --cluster $EKS_CLUSTER_NAME`:
+
+```shell
+aws eks describe-access-entry --cluster $EKS_CLUSTER_NAME --principal-arn <principal-arn>
+```
+
+## Cluster access with kubectl
+
 Connect kubectl to an EKS cluster by creating a kubeconfig file - https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
 
-Use [update-kubeconfig docs](https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html) to configure kubectl so that you can connect to an EKS cluster:
+Use [update-kubeconfig docs](https://docs.aws.amazon.com/cli/latest/reference/eks/update-kubeconfig.html) to configure kubectl to talk to an EKS cluster using AWS Credentials:
 
 ```shell
 aws eks update-kubeconfig --name <cluster>
@@ -426,11 +613,17 @@ To fix access see:
 
 You can also give a principal administrator access using the management console. To configure a new IAM access entry, go to the cluster → "Access" tab → "IAM access entries" and click "Create". Select the "IAM principal ARN". Set "Type" to "Standard". Select the access policy [AmazonEKSClusterAdminPolicy](https://docs.aws.amazon.com/eks/latest/userguide/access-policy-permissions.html#access-policy-permissions-amazoneksclusteradminpolicy).
 
+## Cluster upgrades
+
+https://docs.aws.amazon.com/eks/latest/best-practices/cluster-upgrades.html
+
 ## CLI
 
 https://docs.aws.amazon.com/cli/latest/reference/eks/
 
 List available commands: `aws eks help`
+
+[Update kubeconfig file to access the cluster with kubectl](#cluster-access-with-kubectl)
 
 [List clusters](https://docs.aws.amazon.com/cli/latest/reference/eks/list-clusters.html):
 
@@ -438,32 +631,65 @@ List available commands: `aws eks help`
 aws eks list-clusters
 ```
 
+Provides similar information than `kubectl cluster-info` and `kubectl version`.
+
 [Describe a cluster](https://docs.aws.amazon.com/cli/latest/reference/eks/describe-cluster.html):
 
 ```shell
 aws eks describe-cluster --name MyCluster
-aws eks describe-cluster --name $EKS_CLUSTER_NAME --query 'cluster.accessConfig'
+aws eks describe-cluster --name $EKS_CLUSTER_NAME --query cluster.accessConfig
 ```
 
 Get the OIDC provider URL (`--region` is optional if you have set a default region in your AWS CLI config file):
 
 ```shell
-aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text
+aws eks describe-cluster --name MyCluster --region us-east-1 --query cluster.identity.oidc.issuer --output text
 ```
 
 Save to a variable:
 
 ```shell
-VPC_ID=$(aws eks describe-cluster --name $EKS_CLUSTER_NAME --query 'cluster.resourcesVpcConfig.vpcId' --output text)
+VPC_ID=$(aws eks describe-cluster --name $EKS_CLUSTER_NAME --query cluster.resourcesVpcConfig.vpcId --output text)
 ```
 
-[List the available access policies](https://docs.aws.amazon.com/cli/latest/reference/eks/list-access-policies.html) (AmazonEKSAdminPolicy, AmazonEKSClusterAdminPolicy, etc.) in your account:
+Wait for a cluster to have status ACTIVE:
+
+```shell
+aws eks wait cluster-active --name $EKS_CLUSTER_NAME
+# When done doing
+aws eks describe-cluster --name $EKS_CLUSTER_NAME --query cluster.status
+# Will print "ACTIVE"
+```
+
+[Update cluster configuration](https://docs.aws.amazon.com/cli/latest/reference/eks/update-cluster-config.html):
+
+```shell
+aws eks update-cluster-config \
+    --name $EKS_CLUSTER_NAME \
+    --resources-vpc-config endpointPrivateAccess=true,endpointPublicAccess=false
+```
+
+[List available access policies](https://docs.aws.amazon.com/cli/latest/reference/eks/list-access-policies.html) (AmazonEKSAdminPolicy, AmazonEKSClusterAdminPolicy, etc.) in your account:
 
 ```shell
 aws eks list-access-policies
 ```
 
-All the policies ARN are `arn:aws:eks::aws:cluster-access-policy/XYZ`.
+All the policies ARNs are `arn:aws:eks::aws:cluster-access-policy/XYZ`.
+
+[List access entries ](https://docs.aws.amazon.com/cli/latest/reference/eks/list-access-entries.html) in your cluster:
+
+```shell
+aws eks list-access-entries --cluster $EKS_CLUSTER_NAME
+```
+
+[List associated access policies](https://docs.aws.amazon.com/cli/latest/reference/eks/list-associated-access-policies.html) for an IAM principal (user or role):
+
+```shell
+aws eks list-associated-access-policies \
+    --cluster-name $EKS_CLUSTER_NAME \
+    --principal-arn <iam_principal_arn>
+```
 
 ## eksctl
 
@@ -575,7 +801,11 @@ cloudWatch:
       - 'scheduler'
 ```
 
-### `--dry-run`
+Get command options (get help):
+
+```shell
+eksctl create cluster --help
+```
 
 Use `--dry-run` to validate a cluster configuration file:
 
@@ -618,6 +848,8 @@ https://docs.aws.amazon.com/eks/latest/userguide/eks-compute.html
 
 https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html#nodes
 
+https://docs.aws.amazon.com/eks/latest/best-practices/reliability.html
+
 - Self-managed nodes
   - Managed EC2 instances for total control.
   - You are responsible of the OS, kubelet, CRI and AMI configuration.
@@ -630,6 +862,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html#nodes
 - Auto Mode
   - AWS manages both control plane and worker nodes.
   - AWS handles EC2 provisioning, scaling, patching, and security.
+  - The most managed option.
 - Fargate serverless compute
   - No need to manage EC2 nodes, even managed node groups.
   - Only pay for what you use.
@@ -639,6 +872,32 @@ https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html#nodes
 :::info
 EKS suggests using private subnets for worker nodes. (From the console Info sidebar.)
 :::
+
+## EC2 instance types
+
+https://docs.aws.amazon.com/eks/latest/userguide/choosing-instance-type.html
+
+:::important
+In general, fewer, larger instances are better, especially if you have a lot of Daemonsets. Each instance requires API calls to the API server, so the more instances you have, the more load on the API server.
+:::
+
+https://stackoverflow.com/questions/62060942/what-ec2-instance-types-does-eks-support
+
+Due to the way EKS works with ENIs, t3.small is the smallest instance type that can be used for worker nodes. If you try something smaller like t2.micro, which only has 4 ENIs, they'll all be used up by system services (e.g., kube-proxy) and you won't be able to deploy your own Pods. [source](https://github.com/brikis98/terraform-up-and-running-code/blob/27a3beaf842dbe2a582e29f64373dfb793374ba8/code/terraform/07-working-with-multiple-providers/examples/kubernetes-eks/main.tf#L46-L51)
+
+See number of ENIS available for each instance type here: https://github.com/aws/amazon-vpc-cni-k8s/blob/334cab5070396d914b80855add84ad7f7e2b8ed1/pkg/awsutils/vpc_ip_resource_limit.go#L19-L21
+
+https://www.reddit.com/r/kubernetes/comments/baxrtj/eks_which_instance_types_and_why/
+
+> If you still want to use the t3 from a cost perspective, I would suggest you enable the T2/T3 Unlimited option for you instant. Where it will provide you with instant CPU cycles and you will never be throttled. However, AWS charges for these additional CPU cycles.
+>
+> You need to keep a close watch on these additional CPU cycles consumption using CloudWatch. If it's continuously happening, upgrading to the M5 would be the right choice.
+
+Note that there is a maximum number of pods for each EC2 instance type, see:
+
+- https://docs.aws.amazon.com/eks/latest/userguide/choosing-instance-type.html#determine-max-pods
+- https://aws.amazon.com/blogs/containers/amazon-vpc-cni-increases-pods-per-node-limits/
+- Calculator: https://github.com/awslabs/amazon-eks-ami/blob/main/templates/al2/runtime/max-pods-calculator.sh
 
 ## Managed node groups
 
@@ -679,19 +938,25 @@ Karpenter vs Cluster Autoscaler - https://www.youtube.com/watch?v=FIBc8GkjFU0
 
 https://www.udemy.com/course/karpenter-masterclass-for-kubernetes
 
+https://github.com/aws-samples/eks-workshop-v2/tree/stable/manifests/modules/autoscaling/compute/karpenter/.workshop/terraform
+
 ## Auto Mode
 
 https://docs.aws.amazon.com/eks/latest/userguide/automode.html
 
 https://docs.aws.amazon.com/eks/latest/best-practices/automode.html
 
-https://catalog.workshops.aws/eks-auto-mode/en-US
+Workshop - https://catalog.workshops.aws/eks-auto-mode/en-US
+
+Tutorial - https://aws.amazon.com/blogs/containers/getting-started-with-amazon-eks-auto-mode
 
 https://www.youtube.com/watch?v=IQjsFlkqWQY
 
-Auto Mode automates routine cluster tasks for compute, storage, and networking.
+Auto Mode automates routine cluster tasks for compute, load balancing, storage and networking. We don't need to do any additional cluster configuration before launching our workloads. When using EKS Auto Mode, EC2 nodes are automatically provisioned and managed by EKS.
 
-Amazon EKS Auto Mode automatically scales cluster compute resources. If a pod can’t fit onto existing nodes, EKS Auto Mode creates a new one. EKS Auto Mode also consolidates workloads and deletes nodes. EKS Auto Mode builds upon Karpenter. [source](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html)
+Auto Mode automatically scales cluster compute resources. If a pod can’t fit onto existing nodes, EKS Auto Mode creates a new one. EKS Auto Mode also consolidates workloads and deletes nodes. EKS Auto Mode builds upon Karpenter. [source](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html)
+
+EKS Auto Mode, which is the most managed option, handles provisioning, scaling and updates of the data plane along with providing managed Compute, Networking, and Storage capabilities. Auto Mode AMIs are released frequently and clusters are updated to the latest AMI automatically to deploy CVE fixes and security patches. You have the ability to control when this occurs by configuring disruption controls on your Auto Mode NodePools. [source](https://docs.aws.amazon.com/eks/latest/best-practices/reliability.html)
 
 Capabilities:
 
@@ -715,6 +980,11 @@ See [Compare compute options](https://docs.aws.amazon.com/eks/latest/userguide/e
   - AWS handles EC2 provisioning, scaling, OS patching and security.
 
 <figure>
+  <img src="/img/EKS-Auto-Mode-comparison.png" alt="EKS standard vs Auto Mode" title="EKS standard vs Auto Mode" loading="lazy"/>
+  <figcaption>Source: <a href="https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html">AWS</a></figcaption>
+</figure>
+
+<figure>
   <img src="/img/EKS-without-Auto-Mode.png" alt="EKS without Auto Mode" title="EKS without Auto Mode" loading="lazy"/>
   <figcaption>Source: <a href="https://aws-experience.com/emea/iberia/learning-hub/media/446c94fd-5626-42e1-a96e-5dd327f0ae2b">AWS Experience</a></figcaption>
 </figure>
@@ -724,14 +994,160 @@ See [Compare compute options](https://docs.aws.amazon.com/eks/latest/userguide/e
   <figcaption>Source: <a href="https://aws-experience.com/emea/iberia/learning-hub/media/446c94fd-5626-42e1-a96e-5dd327f0ae2b">AWS Experience</a></figcaption>
 </figure>
 
-To use Auto Mode, the cluster role permissions policy needs to have the following managed policies (or equivalent permissions):
+### Node Class
 
-- AmazonEKSBlockStoragePolicy
-- AmazonEKSComputePolicy
-- AmazonEKSLoadBalancingPolicy
-- AmazonEKSNetworkingPolicy
+https://docs.aws.amazon.com/eks/latest/userguide/create-node-class.html
 
-And the cluster role trust policy needs to have the action `sts:TagSession`.
+Defines infrastructure-level settings that apply to groups of nodes in your EKS cluster, including network configuration, storage settings, and resource tagging.
+
+### Node Pool
+
+https://docs.aws.amazon.com/eks/latest/userguide/create-node-pool.html
+
+Defines EC2 instance categories, CPU configurations, availability zones, architectures (ARM64/AMD64), and capacity types (spot or on-demand). You can also set resource limits for CPU and memory usage.
+
+There are two default managed node pools: `general-purpose` and `system`. The `general-purpose` node pool handles user-deployed applications and services, while the `system` node pool is dedicated to critical system-level components managing cluster operations. Custom node pools can be created for specific compute or configuration requirements.
+
+View the node pools:
+
+```shell
+kubectl get nodepools
+kubectl get nodepools general-purpose -o yaml
+```
+
+View nodes of each node pool:
+
+```shell
+kubectl get nodes -l karpenter.sh/nodepool=general-purpose
+kubectl get nodes -l karpenter.sh/nodepool=system
+```
+
+View pods on each `general-purpose` EC2 node:
+
+```shell
+for node in $(kubectl get nodes -l karpenter.sh/nodepool=general-purpose -o custom-columns=NAME:.metadata.name --no-headers); do
+  echo "Pods on $node:"
+  kubectl get pods --all-namespaces --field-selector spec.nodeName=$node
+done
+```
+
+View pods on each node, showing the availability zone:
+
+```shell
+kubectl get node -L topology.kubernetes.io/zone --no-headers | while read node status roles age version zone; do
+echo "Pods on node $node (Zone: $zone):"
+  kubectl get pods --all-namespaces --field-selector spec.nodeName=$node -l app.kubernetes.io/instance=retail-store-app-ui
+echo "-----------------------------------"
+done
+```
+
+### Enable Auto Mode
+
+- https://catalog.workshops.aws/eks-auto-mode/en-US/10-enable-eks-auto-mode/10-enable-auto-mode
+- https://catalog.workshops.aws/eks-auto-mode/en-US/40-migrations/20-enabling-eks-auto-mode
+
+To use Auto Mode, the cluster role permissions policy needs to have the following managed policies or equivalent permissions ([see docs](https://docs.aws.amazon.com/eks/latest/userguide/auto-cluster-iam-role.html)):
+
+- [AmazonEKSComputePolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSComputePolicy.html) - [See description](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonEKSComputePolicy)
+- [AmazonEKSBlockStoragePolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSBlockStoragePolicy.html) - [See description](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonEKSBlockStoragePolicy)
+- [AmazonEKSLoadBalancingPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSLoadBalancingPolicy.html) - [See description](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonEKSLoadBalancingPolicy)
+- [AmazonEKSNetworkingPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSNetworkingPolicy.html) - [See description](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonEKSNetworkingPolicy)
+- And the usual cluster role policy [AmazonEKSClusterPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSClusterPolicy.html) ([see description](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-amazoneksclusterpolicy) and [Cluster role](#cluster-role)).
+
+Run this to attach the policies:
+
+```shell
+for POLICY in \
+  "arn:aws:iam::aws:policy/AmazonEKSComputePolicy" \
+  "arn:aws:iam::aws:policy/AmazonEKSBlockStoragePolicy" \
+  "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy" \
+  "arn:aws:iam::aws:policy/AmazonEKSNetworkingPolicy" \
+  "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+do
+  echo "Attaching policy ${POLICY} to IAM role ${CLUSTER_ROLE_NAME}..."
+  aws iam attach-role-policy --role-name ${CLUSTER_ROLE_NAME} --policy-arn ${POLICY}
+done
+```
+
+Verify the policies are attached:
+
+```shell
+aws iam list-attached-role-policies --role-name $CLUSTER_ROLE_NAME
+```
+
+And the cluster role trust policy needs to have the action `sts:TagSession`. Add it with:
+
+```shell
+aws iam update-assume-role-policy --role-name $CLUSTER_ROLE_NAME --policy-document '{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "eks.amazonaws.com"
+      },
+      "Action": [
+        "sts:AssumeRole",
+        "sts:TagSession"
+      ]
+    }
+  ]
+}'
+```
+
+Verify the role has the action `sts:TagSession` in the trust policy:
+
+```shell
+aws iam get-role --role-name $CLUSTER_ROLE_NAME | \
+  jq -r '.Role.AssumeRolePolicyDocument.Statement[].Action[]'
+```
+
+Enable Auto Mode on an existing cluster:
+
+```shell
+aws eks update-cluster-config \
+    --name $CLUSTER_NAME \
+    --compute-config enabled=true,nodeRoleArn=$CLUSTER_NODE_ROLE_ARN,nodePools=system,general-purpose \
+    --kubernetes-network-config '{"elasticLoadBalancing":{"enabled": true}}' \
+    --storage-config '{"blockStorage":{"enabled": true}}'
+```
+
+Enabling Auto Mode adds some CRDs. Before:
+
+```shell
+$ kubectl get crds
+NAME                                            CREATED AT
+applicationnetworkpolicies.networking.k8s.aws   2025-11-18T07:33:34Z
+clusternetworkpolicies.networking.k8s.aws       2025-11-18T07:33:34Z
+clusterpolicyendpoints.networking.k8s.aws       2025-11-18T07:33:34Z
+cninodes.vpcresources.k8s.aws                   2025-11-18T07:33:34Z
+policyendpoints.networking.k8s.aws              2025-11-18T07:33:34Z
+securitygrouppolicies.vpcresources.k8s.aws      2025-11-18T07:33:34Z
+```
+
+After:
+
+```shell
+$ kubectl get crds
+NAME                                            CREATED AT
+applicationnetworkpolicies.networking.k8s.aws   2025-11-18T07:33:34Z
+clusternetworkpolicies.networking.k8s.aws       2025-11-18T07:33:34Z
+clusterpolicyendpoints.networking.k8s.aws       2025-11-18T07:33:34Z
+cninodes.eks.amazonaws.com                      2025-11-19T10:13:05Z
+cninodes.vpcresources.k8s.aws                   2025-11-18T07:33:34Z
+ingressclassparams.eks.amazonaws.com            2025-11-19T10:13:00Z
+nodeclaims.karpenter.sh                         2025-11-19T10:12:46Z
+nodeclasses.eks.amazonaws.com                   2025-11-19T10:12:46Z
+nodediagnostics.eks.amazonaws.com               2025-11-19T10:12:46Z
+nodepools.karpenter.sh                          2025-11-19T10:12:46Z
+policyendpoints.networking.k8s.aws              2025-11-18T07:33:34Z
+securitygrouppolicies.vpcresources.k8s.aws      2025-11-18T07:33:34Z
+targetgroupbindings.eks.amazonaws.com           2025-11-19T10:13:00Z
+```
+
+- `nodepools` support provisioning compute
+- `ingressclassparams` and `targetgroupbinding` allow exposing applications, and
+- `nodediagnostics` provide diagnostics capabilities
 
 ## Fargate
 
@@ -1306,6 +1722,10 @@ The [Target Groups page](https://console.aws.amazon.com/ec2/home#TargetGroups) s
 
 Delete the ingress (`kubectl delete ingress my-ingress -n my-namespace` or `kubectl delete -f alb-ingress.yaml`) to delete the ALB and target group. Delete the deployment and service with `kubectl delete -f alb-sample-app.yaml`.
 
+### Ingress with Terraform
+
+https://github.com/aws-samples/eks-workshop-v2/tree/stable/manifests/modules/exposing/ingress/.workshop/terraform
+
 ## Volumes
 
 https://docs.aws.amazon.com/eks/latest/userguide/storage.html
@@ -1368,7 +1788,7 @@ Then create the role that the CSI driver will use. Go to the IAM console → Rol
 }
 ```
 
-The `<oidc-provider>` is `oidc.eks.<region>.amazonaws.com/id/<id>`. You can get it at the console, at the cluster Overview tab → Details section → OpenID Connect provider URL (remove `https://`), or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///"`.
+The `<oidc-provider>` is `oidc.eks.<region>.amazonaws.com/id/<id>`. You can get it at the console, at the cluster Overview tab → Details section → OpenID Connect provider URL (remove `https://`), or by running `aws eks describe-cluster --name MyCluster --region us-east-1 --query cluster.identity.oidc.issuer --output text | sed -e "s/^https:\/\///"`.
 
 At the next page, attach the permissions policy [AmazonEBSCSIDriverPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEBSCSIDriverPolicy.html) to the role, which "allows the CSI driver service account to make calls to related services such as EC2 on your behalf". Name the role `AmazonEKS_EBS_CSI_DriverRole` as suggested in the docs.
 
@@ -1792,6 +2212,8 @@ The Cluster Autoscaler runs as a **Deployment** in the `kube-system` namespace. 
 
 > If you are using the Kubernetes Cluster Autoscaler and running stateful pods, you should create one Node Group for each availability zone using a single subnet and enable the `--balance-similar-node-groups` feature in cluster autoscaler. (From the console Info sidebar.)
 
+Terraform - https://github.com/aws-samples/eks-workshop-v2/tree/stable/manifests/modules/autoscaling/compute/cluster-autoscaler/.workshop/terraform
+
 ### Setup Cluster Autoscaler with IRSA and Auto-Discovery
 
 Resources:
@@ -1928,6 +2350,8 @@ Do the following:
 
 - Check the current number of nodes and pods with `kubectl get nodes` and `kubectl get pods`.
 - Open two terminal windows and watch new nodes and pods being created with `kubectl get nodes -w` and `kubectl get pods -w`.
+  - You can also wait for all nodes and pods to have status Ready with `kubectl wait --for=condition=Ready nodes --all` and `kubectl wait --for=condition=Ready pods --all`.
+  - You can also use the `watch` command: `watch kubectl get nodes` and `watch kubectl get pods`.
 - Apply the deployment with `kubectl apply -f cluster-autoscaler-test-deployment.yaml`.
 - Scale up the deployment to 5 or 10 replicas with `kubectl scale deployment cluster-autoscaler-test --replicas=5`.
 - Check the Cluster Autoscaler logs to see the scaling activity with `kubectl logs [--follow] -n kube-system deployment/cluster-autoscaler`. You can see logs like "Scale up in group eks-My-EKS-Node-Group-d6cd375e-e065-401f-769b-58cdc5869a47 finished successfully in 50.165152427s".
