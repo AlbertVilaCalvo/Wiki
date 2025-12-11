@@ -2,13 +2,23 @@
 title: CLI
 ---
 
-:::info
-If installed with [Brew](https://formulae.brew.sh/formula/awscli#default), the "examples" directory is located at `$HOMEBREW_PREFIX/share/awscli/examples`. (There are also completions and functions at `$HOMEBREW_PREFIX/share/zsh/site-functions`.)
-:::
-
 https://aws.amazon.com/cli
 
 https://github.com/aws/aws-cli
+
+:::tip
+You can make requests idempotent by adding `--client-token` with a unique value. See:
+
+- [Ensuring idempotency in Amazon EC2 API requests](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html)
+- https://serverfault.com/questions/818956/how-to-you-get-an-aws-client-token-to-use-with-aws-ec2-run-instances
+- [New Amazon EC2 Feature: Idempotent Instance Creation](https://aws.amazon.com/blogs/aws/new-amazon-ec2-feature-idempotent-instance-creation/)
+- [Making retries safe with idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/)
+
+:::
+
+:::info
+If installed with [Brew](https://formulae.brew.sh/formula/awscli#default), the "examples" directory is located at `$HOMEBREW_PREFIX/share/awscli/examples`. (There are also completions and functions at `$HOMEBREW_PREFIX/share/zsh/site-functions`.)
+:::
 
 **Command reference**:
 

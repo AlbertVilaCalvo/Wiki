@@ -214,7 +214,7 @@ Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → 
   - `find . -type d -name ".venv" -exec rm -rf {} +`
 - Delete unused Node.js versions. Run `fnm list`. They are stored at `~/.local/share/fnm/node-versions`.
 - Delete unused Ruby versions. Run `rbenv versions`. They are stored at `~/.rbenv/versions`.
-- Delete `.terraform` folders. The aws provider is 580 MB. [See instructions](/cloud/terraform#free-up-disk-space)
+- Delete `.terraform` folders. The aws provider is 580 MB. [See instructions](../cloud/terraform#free-up-disk-space)
 - Xcode
   - Delete unused simulators data in `~/Library/Developer/CoreSimulator/Devices`: `xcrun simctl delete unavailable`. From https://stackoverflow.com/a/42703818/4034572.
   - Delete Xcode caches with 'DevCleaner for Xcode' - https://apps.apple.com/us/app/devcleaner/id1388020431.

@@ -716,6 +716,16 @@ aws ec2 run-instances \
  --security-group-ids sg-0ad454bc3945c3bf8
 ```
 
+:::tip
+You can make the `RunInstances` request idempotent by adding `--client-token` with a unique value. See:
+
+- [Ensuring idempotency in Amazon EC2 API requests](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html)
+- https://serverfault.com/questions/818956/how-to-you-get-an-aws-client-token-to-use-with-aws-ec2-run-instances
+- [New Amazon EC2 Feature: Idempotent Instance Creation](https://aws.amazon.com/blogs/aws/new-amazon-ec2-feature-idempotent-instance-creation/)
+- [Making retries safe with idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/)
+
+:::
+
 [Terminate instance](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/terminate-instances.html)
 
 ```shell

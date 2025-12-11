@@ -24,6 +24,8 @@ Linter: https://github.com/aws-cloudformation/cfn-lint
 
 Test AWS CloudFormation templates - https://github.com/aws-ia/taskcat - https://aws-ia.github.io/taskcat
 
+https://github.com/cloudtools/troposphere - Python library to create AWS CloudFormation descriptions
+
 Generate CloudFormation / Terraform / Troposphere templates from your existing AWS resources - https://github.com/iann0036/former2
 
 CloudFormation vs Terraform in 2022 - https://cloudonaut.io/cloudformation-vs-terraform
@@ -217,6 +219,13 @@ aws cloudformation update-stack --stack-name myStackName \
  --template-url https://s3.amazonaws.com/bucket/folder/template.yaml \
  --parameters ParameterKey=SomeParameter,UsePreviousValue=true  \
  --capabilities CAPABILITY_IAM
+```
+
+[List stacks](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/list-stacks.html):
+
+```shell
+aws cloudformation list-stacks
+aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE
 ```
 
 [Describe stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/describe-stacks.html):

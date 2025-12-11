@@ -151,6 +151,8 @@ exit 0
 
 https://pre-commit.com
 
+https://github.com/antonbabenko/pre-commit-terraform
+
 ## lint-staged
 
 https://github.com/lint-staged/lint-staged

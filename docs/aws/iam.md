@@ -93,7 +93,7 @@ Authentication options:
 - CLI, SDK & API: access key ID and secret access key. You can additionally require MFA.
   - Only a user can have access keys (not a group nor role).
   - Best practice: use roles for applications that run on EC2 instances or lambda functions. See [Require workloads to use temporary credentials with IAM roles to access AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-workloads-use-roles)
-  - Access keys are long term credentials. You can use the Security Token Service (STS) to generate temporary credentials, eg with [`assume-role`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/assume-role.html) and [`get-session-token`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-session-token.html). See [Temporary security credentials in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html).
+  - Access keys are long term credentials. You can use the Security Token Service (STS) to generate temporary credentials, eg with [`assume-role`](https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html) and [`get-session-token`](https://docs.aws.amazon.com/cli/latest/reference/sts/get-session-token.html). See [Temporary security credentials in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html).
 
 You should set up a unique IAM user for every person who needs access to the AWS account, and grant access only to the resources each person needs, following the least-privilege principle.
 
@@ -154,12 +154,12 @@ https://classroom.udacity.com/nanodegrees/nd0044/parts/8fc72c65-158a-429d-a08f-f
 
 From AWS in Action, page 144.
 
-|                                                                        | Root user                                                                              | User | Role |
-| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ---- | ---- |
-| Can have a password to log in to the web console                       | Must                                                                                   | Yes  | No   |
-| Can have access keys to send requests to the API with the CLI or SDKs  | Yes, [but not recommended](/aws/root-user#dont-generate-access-keys-for-the-root-user) | Yes  | No   |
-| Can belong to a group                                                  | No                                                                                     | Yes  | No   |
-| Can be associated with an EC2 instance, Lambda function, ECS container | No                                                                                     | No   | Yes  |
+|                                                                        | Root user                                                                         | User | Role |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ---- | ---- |
+| Can have a password to log in to the web console                       | Must                                                                              | Yes  | No   |
+| Can have access keys to send requests to the API with the CLI or SDKs  | Yes, [but not recommended](root-user#dont-generate-access-keys-for-the-root-user) | Yes  | No   |
+| Can belong to a group                                                  | No                                                                                | Yes  | No   |
+| Can be associated with an EC2 instance, Lambda function, ECS container | No                                                                                | No   | Yes  |
 
 By default, users and roles can't do anything (except for the root user, which can do everything). You need an identity policy to allow them to perform actions. Users and roles use identity policies.
 
@@ -171,7 +171,7 @@ On a trust policy the `Action` is `sts:AssumeRole`.
 
 https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html
 
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/assume-role.html
+https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html
 
 https://stackoverflow.com/questions/63241009/aws-sts-assume-role-in-one-command
 
@@ -187,7 +187,7 @@ Whenever you need to authenticate AWS resources like EC2 instancesI, instead of 
 
 A way to attach a role to an EC2 instance, for example to access other services like S3.
 
-If you want to [connect to an EC2 instance using Session Manager](/aws/ec2#session-manager-aws-systems-manager), you need to attach an instance profile role with the permission policy `AmazonSSMManagedInstanceCore` to the EC2 instance.
+If you want to [connect to an EC2 instance using Session Manager](ec2#session-manager-aws-systems-manager), you need to attach an instance profile role with the permission policy `AmazonSSMManagedInstanceCore` to the EC2 instance.
 
 In addition to the permission policies, the role needs a trust policy with `sts:AssumeRole` to allow the EC2 instance to assume the role.
 
@@ -455,7 +455,7 @@ For example, to allow the S3 service to replicate two buckets, we create a Role 
 }
 ```
 
-A Lambda function's [execution role](/aws/lambda#execution-role) also needs a trust policy to assume the role.
+A Lambda function's [execution role](lambda#execution-role) also needs a trust policy to assume the role.
 
 ### Identity-based vs resource-based policy
 
@@ -691,7 +691,7 @@ In both cases, the `Resource` specifies the bucket.
 }
 ```
 
-Attach the IAM policy to the a user with [`put-user-policy`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/put-user-policy.html):
+Attach the IAM policy to the a user with [`put-user-policy`](https://docs.aws.amazon.com/cli/latest/reference/iam/put-user-policy.html):
 
 ```shell
 aws iam put-user-policy --user-name MyUser --policy-name S3AccessUserPolicy --policy-document file://iam_policy.json
@@ -715,7 +715,7 @@ aws iam put-user-policy --user-name MyUser --policy-name S3AccessUserPolicy --po
 }
 ```
 
-Attach the bucket policy to an S3 bucket with [`put-bucket-policy`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/put-bucket-policy.html):
+Attach the bucket policy to an S3 bucket with [`put-bucket-policy`](https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-policy.html):
 
 ```shell
 aws s3api put-bucket-policy --bucket my-bucket --policy file://bucket_policy.json
@@ -977,7 +977,7 @@ Returns an `AccessKeyId`, `SecretAccessKey` and `SessionToken`.
 
 Documentation:
 
-- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-session-token.html
+- https://docs.aws.amazon.com/cli/latest/reference/sts/get-session-token.html
 - https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html
 - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getsessiontoken
 
@@ -1075,45 +1075,55 @@ arn:aws:ec2:us-east-1:123456789012:instance/i-0e9801d129f56c97
 
 ## CLI
 
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
+https://docs.aws.amazon.com/cli/latest/reference/iam/
 
 Examples - https://github.com/aws/aws-cli/tree/develop/awscli/examples/iam
 
 ### User
 
-[Create user](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-user.html)
+[Create user](https://docs.aws.amazon.com/cli/latest/reference/iam/create-user.html)
 
 ```shell
 aws iam create-user --user-name MyUser
 ```
 
-Set a password so that the user can login to the web management console [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-login-profile.html)
+You should enable MFA for the user after creating it. See [Add MFA to other users](#add-mfa-to-other-users).
+
+Set a password so that the user can login to the web management console [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/create-login-profile.html)
 
 ```shell
 aws iam create-login-profile --user-name MyUser --password 'XB5j8stK4YVW3b'
 ```
 
-[List users](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/list-users.html)
+[List users](https://docs.aws.amazon.com/cli/latest/reference/iam/list-users.html)
 
 ```shell
 aws iam list-users
 ```
 
+[Create access keys](https://docs.aws.amazon.com/cli/latest/reference/iam/create-access-key.html) for a user to allow access using the CLI or SDKs:
+
+```shell
+aws iam create-access-key --user-name MyUser
+```
+
+Copy the `AccessKeyId` and `SecretAccessKey` from the output and run `aws configure --profile MyUser` to set up the CLI for the user.
+
 ### Group
 
-[Create group](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-group.html)
+[Create group](https://docs.aws.amazon.com/cli/latest/reference/iam/create-group.html)
 
 ```shell
 aws iam create-group --group-name Administrators
 ```
 
-Attach a Policy to a group [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/attach-group-policy.html)
+Attach a Policy to a group [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/attach-group-policy.html)
 
 ```shell
 aws iam attach-group-policy --group-name Administrators --policy-arn "arn:aws:iam::aws:policy/AdministratorAccess"
 ```
 
-Add user to group [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/add-user-to-group.html)
+Add user to group [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/add-user-to-group.html)
 
 ```shell
 aws iam add-user-to-group --group-name Administrators --user-name MyUser
@@ -1121,22 +1131,44 @@ aws iam add-user-to-group --group-name Administrators --user-name MyUser
 
 ### Role
 
-[Create role](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-role.html)
+[Get role](https://docs.aws.amazon.com/cli/latest/reference/iam/get-role.html):
 
 ```shell
-aws iam create-role --role-name <role-name> --assume-role-policy-document file://trust.json --output text --query 'Role.Arn'
+aws iam get-role --role-name <role-name>
+aws iam get-role --role-name <role-name> | \
+  jq -r '.Role.AssumeRolePolicyDocument.Statement[].Action[]'
+```
+
+Get _inline_ permissions policies attached to a role [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/list-role-policies.html):
+
+```shell
+aws iam list-role-policies --role-name <role-name>
+```
+
+Get _managed_ permissions policies attached to a role [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/list-attached-role-policies.html):
+
+```shell
+aws iam list-attached-role-policies --role-name <role-name>
+aws iam list-attached-role-policies --role-name <role-name> | \
+  jq -r '.AttachedPolicies[].PolicyName'
+```
+
+[Create role](https://docs.aws.amazon.com/cli/latest/reference/iam/create-role.html)
+
+```shell
+aws iam create-role --role-name <role-name> --assume-role-policy-document file://trust-policy.json --output text --query 'Role.Arn'
 ```
 
 Example of trust policy document:
 
-```json title="trust.json"
+```json title="trust-policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::<ACCOUNT_ID>:root"
+        "AWS": "arn:aws:iam::111222333444:user/Albert"
       },
       "Action": "sts:AssumeRole"
     }
@@ -1144,15 +1176,15 @@ Example of trust policy document:
 }
 ```
 
-Attach a Policy to a role [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html)
+Attach or update an inline permissions policy to a role [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/put-role-policy.html)
 
 ```shell
-aws iam put-role-policy --role-name <role-name> --policy-name <policy-name> --policy-document file://iam-role-policy.json
+aws iam put-role-policy --role-name <role-name> --policy-name <policy-name> --policy-document file://permissions-policy.json
 ```
 
-Example of policy document `iam-role-policy.json`:
+Example of permissions policy document:
 
-```json
+```json title="permissions-policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1199,7 +1231,31 @@ Example of inline policy:
 }
 ```
 
-Delete role
+Change the trust policy of a role [docs](https://docs.aws.amazon.com/cli/latest/reference/iam/update-assume-role-policy.html)
+
+```shell
+aws iam update-assume-role-policy --role-name <role-name> --policy-document file://new-trust-policy.json
+```
+
+```shell
+aws iam update-assume-role-policy --role-name <role-name> --policy-document '{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "eks.amazonaws.com"
+      },
+      "Action": [
+        "sts:AssumeRole",
+        "sts:TagSession"
+      ]
+    }
+  ]
+}'
+```
+
+Delete role:
 
 - https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html
 - First remove the role from instance profile: `aws iam remove-role-from-instance-profile --instance-profile-name <instance-profile-name> --role-name <role-name>`
@@ -1208,6 +1264,22 @@ Delete role
   - https://docs.aws.amazon.com/cli/latest/reference/iam/delete-role-policy.html
 - Finally, remove the role: `aws iam delete-role --role-name <role-name>`
 - If you get the error "Cannot delete entity, must remove roles from instance profile first" on the console when trying to delete a role, use the CLI instead.
+
+### Policy
+
+[Create policy](https://docs.aws.amazon.com/cli/latest/reference/iam/create-policy.html)
+
+```shell
+aws iam create-policy --policy-name MyPolicy --policy-document file://my-policy.json
+```
+
+Get the ARN of a policy by name:
+
+```shell
+aws iam list-policies --query 'Policies[?PolicyName==`AdministratorAccess`].{ARN:Arn}' --output text
+# arn:aws:iam::aws:policy/AdministratorAccess
+POLICY_ARN=$(aws iam list-policies --query 'Policies[?PolicyName==`AdministratorAccess`].{ARN:Arn}' --output text)
+```
 
 ## Permissions boundaries
 
@@ -1239,7 +1311,7 @@ Example - https://github.com/aws-samples/example-permissions-boundary
 
 Provides **temporary**, short lived credentials to be used with identity federation, delegation, cross-account access, and IAM roles.
 
-CLI Reference - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/index.html
+CLI Reference - https://docs.aws.amazon.com/cli/latest/reference/sts/
 
 API Reference - https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html
 

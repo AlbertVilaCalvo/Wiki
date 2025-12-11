@@ -4,6 +4,8 @@ title: AI Tools
 
 https://github.com/open-webui/open-webui
 
+https://opencode.ai - https://github.com/sst/opencode - The open source coding agent.
+
 https://www.cursor.com - Standalone editor based on VSCode
 
 https://windsurf.com - Standalone editor based on VSCode, but you can use the Cascade agentic AI on JetBrains and VSCode with plugins:

@@ -261,6 +261,29 @@ https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-
 a=$([ "$b" == 5 ] && echo "$c" || echo "$d")
 ```
 
+## for loop
+
+```shell
+for i in {1..5}; do
+  echo "Iteration $i"
+done
+```
+
+Example to attach the required IAM policies to the EKS cluster role for Auto Mode ([see docs](https://docs.aws.amazon.com/eks/latest/userguide/auto-cluster-iam-role.html)):
+
+```shell
+for POLICY in \
+  "arn:aws:iam::aws:policy/AmazonEKSComputePolicy" \
+  "arn:aws:iam::aws:policy/AmazonEKSBlockStoragePolicy" \
+  "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy" \
+  "arn:aws:iam::aws:policy/AmazonEKSNetworkingPolicy" \
+  "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+do
+  echo "Attaching policy ${POLICY} to IAM role ${CLUSTER_ROLE_NAME}..."
+  aws iam attach-role-policy --role-name ${CLUSTER_ROLE_NAME} --policy-arn ${POLICY}
+done
+```
+
 ## Test
 
 https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html

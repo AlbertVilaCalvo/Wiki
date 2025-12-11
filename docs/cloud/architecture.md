@@ -32,6 +32,8 @@ Virtual Waiting Room on AWS - To sell concert tickets. Uses an SQS queue - https
 
 https://www.linkedin.com/posts/raul-junco_system-design-is-the-art-of-making-scale-activity-7392184373762162688-TQ5E/
 
+Every system has a hot path - https://www.linkedin.com/posts/raul-junco_every-system-has-a-hot-path-and-its-the-activity-7396182757405638656-lpWS/
+
 ## System Design
 
 System Design Staircase - https://www.linkedin.com/posts/raul-junco_system-design-isnt-one-big-concept-it-activity-7386008937277472768-Xfnq/
@@ -419,3 +421,43 @@ https://www.linkedin.com/posts/raul-junco_you-dont-pick-tools-based-on-whats-coo
 >
 > Start with a Queue.<br />
 > When you actually need fan-out, evolve to a Topic.
+
+https://www.linkedin.com/posts/raul-junco_most-engineering-teams-screw-up-messaging-activity-7401244415689871361-tUEn/
+
+- Streams = work already done
+- Queues = work to be done
+
+“Is this something that happened… or something we need to do?”
+
+> Streams hold truth.
+> Queues do work.
+>
+> When you get this wrong, your system bleeds.
+>
+> I’ve seen $10M mistakes from teams who dump everything into queues:
+> “Just push the order to a queue and process it!”
+>
+> Most Queues delete messages after work is done.
+> No history. No replay. No audit.
+> Just pain and guesswork.
+>
+> On the other side, some teams fall in love with Kafka:
+> “We’ll stream EVERYTHING!”
+>
+> Here’s the rule I wish someone told me early:
+>
+> If the event changes the business → Stream
+> If the message is an action to perform → Queue
+>
+> Streams = OrderPlaced, PaymentAuthorized, InventoryReserved
+> These are immutable facts.
+> They must be durable, replayable, ordered, and auditable.
+>
+> Queues = SendEmail, CapturePayment, GenerateInvoice
+> These tasks exist temporarily.
+> They matter NOW, not 6 months from now.
+>
+> Event enters the stream → workers derive jobs → queues execute tasks
+>
+> Ledger first.
+> Assembly line second.

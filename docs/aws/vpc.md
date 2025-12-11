@@ -56,6 +56,8 @@ https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing
 
 See [What is CIDR?](https://aws.amazon.com/what-is/cidr/)
 
+https://www.freecodecamp.org/news/subnet-cheat-sheet-24-subnet-mask-30-26-27-29-and-other-ip-address-cidr-network-references/
+
 Is a concise way to specify IP address ranges and network masks. For example:
 
 - `10.0.0.0/8`: all IP addresses from `10.0.0.0` to `10.255.255.255`.
@@ -114,6 +116,11 @@ https://www.site24x7.com/tools/ipv4-subnetcalculator.html
   - 172.31.48.0/20
   - 172.31.64.0/20
   - 172.31.80.0/20
+- 192.168.0.0/16 (https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml). Example of VPC for EKS with 2 public and 2 private subnets in two different AZs.
+  - 192.168.0.0/18 public subnet in AZ 1
+  - 192.168.64.0/18 public subnet in AZ 2
+  - 192.168.128.0/18 private subnet in AZ 1
+  - 192.168.192.0/18 private subnet in AZ 2
 
 To calculate the number of addresses do: 2<sup>32 - mask bits</sup>. For example, for 10.0.0.0/20 we do: 2<sup>32 - 20</sup> = 2<sup>12</sup> = 4096 addresses. (Remember that the first four IPs and the last IP are not usable.) See [How to calculate IPv4 CIDR blocks for VPCs and Subnets](https://medium.com/@kylerloucks/how-to-calculate-ipv4-cidr-blocks-for-vpcs-and-subnets-cd9f4779558e).
 
@@ -185,6 +192,12 @@ https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html#subnet-ro
 https://docs.aws.amazon.com/vpc/latest/userguide/RouteTables.html
 
 > Main route table: The route table that automatically comes with your VPC. It controls the routing for all subnets that are not explicitly associated with any other route table.
+
+## IPv6
+
+From https://simyung.github.io/aws-eks-best-practices/networking/subnets/#vpc-configurations:
+
+> In the IPv6 world, every address is internet routable. The IPv6 addresses associated with the nodes and pods are public. Private subnets are supported by implementing an [egress-only internet gateways](https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html) (EIGW) in a VPC, allowing outbound traffic while blocking all incoming traffic. Best practices for implementing IPv6 subnets can be found in the [VPC user guide](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html).
 
 ## Network Address Translation (NAT)
 
@@ -282,9 +295,11 @@ You can use a NAT gateway to connect to other VPCs or an on-premises network. In
 
 A NAT gateway has a limit in bandwidth (100 Gbps) and number of packets it can process (10 million packets per second). You can split your resources into multiple subnets and create a NAT gateway in each subnet. [source](https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-basics.html)
 
-An Internet Gateway applies to an entire VPC and there's only one per VPC, whereas NAT Gateways reside within a (public) subnet and thus within an availability zone, so you need a NAT Gateway in each AZ in which you have private subnets. See https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid/#NAT-Gateway-or-Public-Subnet
+An Internet Gateway applies to an entire VPC and there's only one per VPC, whereas NAT Gateways reside within a (public) subnet and thus within an availability zone. A NAT Gateway in one AZ can be used by instances in other AZs, but you have to pay for the cross-AZ data transfer costs ($0.01/GB), and there's a single point of failure. The best practice is to have a NAT Gateway in each AZ where you have private subnets. From https://cloudonaut.io/advanved-aws-networking-pitfalls-that-you-should-avoid/#NAT-Gateway-or-Public-Subnet:
 
 > You need to create a NAT Gateway for every Availability Zone that you have created private subnets to achieve high availability.
+
+If you have very little outgoing internet traffic, it may be cheaper to deploy a single NAT Gateway in one AZ and route all outgoing traffic from private subnets in other AZs to that NAT Gateway, accepting the risk of a single point of failure and paying cross-AZ data transfer costs. If you have meaningful outgoing traffic, deploy one NAT Gateway per AZ when you have private subnets to reduce cross-AZ charges and have high availability.
 
 Example: VPC with servers in private subnets and NAT - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-example-private-subnets-nat.html
 

@@ -25,3 +25,9 @@ https://github.com/sw-yx/spark-joy#responsive-layout-breakpoints
 ## Range media queries
 
 https://developer.chrome.com/blog/media-query-range-syntax/
+
+## `@custom-media`
+
+Experimental.
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@custom-media

@@ -6,6 +6,8 @@ https://docs.aws.amazon.com/cdk/
 
 https://github.com/aws/aws-cdk-rfcs
 
+https://cdkworkshop.com
+
 https://constructs.dev
 
 https://cdk.dev

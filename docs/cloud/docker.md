@@ -202,7 +202,7 @@ When you run a container from an image, Docker adds a thin writable layer on top
 
 [See the `commit` command below](#commit) for details of how changes done in a container filesystem are recorded into an immutable image layer.
 
-This layered architecture is made possible by a Union File System (like OverlayFS or AUFS), which merges these layers into a single, coherent filesystem for the container.
+This layered architecture is made possible by a Union File System (like [OverlayFS](https://en.wikipedia.org/wiki/OverlayFS), which is included in the Linux kernel and used by default by Docker, or AUFS), which merges these layers into a single, coherent filesystem for the container.
 
 The benefits of this layered system are:
 
@@ -410,7 +410,7 @@ List commands: `docker help`
 
 Command help: `docker <command> --help`, eg `docker run --help`
 
-Display system-wide information: `docker info`
+Display system-wide information: `docker info` → Shows the containerd and runc versions, OS, number of images and containers, storage driver and many other details.
 
 Version: `docker version`
 
@@ -502,7 +502,7 @@ docker run -p <host-port>:<container-port> <image>
 docker run -p 3000:3000 <image>
 docker run -p 127.0.0.1:80:8080/tcp <image>
 
-# Run the container and shell into it. Run 'exit' to quit
+# Run the container and shell into it. Run 'exit' or Ctrl+D (not Ctrl+C) to quit
 docker run --rm -it ubuntu:22.04 bash
 ```
 
@@ -512,7 +512,7 @@ docker run --rm -it ubuntu:22.04 bash
 - `--name`: assign a name to reference the container, eg `--name myapp`.
 - `-e`/`--env`: pass environment variables, eg `-e SOME_VAR=xyz`.
 - `-p`/`--publish`: publish a container's port to the host, eg `-p 5433:5432` or `-p 80:8080`.
-- `-rm`: automatically remove the container when it exits. No need to run `docker container rm <container>` afterwards.
+- `-rm`: automatically remove the container and its associated anonymous volumes when it exits. No need to run `docker container rm <container>` afterwards.
 
 [List](https://docs.docker.com/reference/cli/docker/container/ls/) running containers:
 
@@ -528,6 +528,8 @@ docker ps --all
 ```
 
 [Start](https://docs.docker.com/reference/cli/docker/container/start/) a stopped container: `docker start <container-id>` or `docker start <container-name>`
+
+If we used `docker run -it <image> bash` to run the container, use `docker start -ia <container-id>` to start it again with an interactive terminal.
 
 [Stop](https://docs.docker.com/reference/cli/docker/container/stop/) a running container: `docker stop <container-id>` or `docker stop <container-name>` (get the container id/name with `docker ps`)
 
