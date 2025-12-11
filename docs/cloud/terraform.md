@@ -319,6 +319,8 @@ https://developer.hashicorp.com/terraform/language/providers
 
 Providers are what we use to interact with cloud vendors. It provides implementations of resources and data sources. Without providers, Terraform can't manage any kind of infrastructure.
 
+See [Providers](#providers) below.
+
 The `provider` block is **optional** and allows us to specify additional configuration.
 
 ```hcl
@@ -371,14 +373,13 @@ resource "aws_vpc" "web_vpc" {
 }
 ```
 
-:::note
 The resource type (`aws_vpc` or `aws_instance`) always starts with the name of the provider and an underscore (`aws_`).
 
 > By default, Terraform interprets the initial word in the resource type name (separated by underscores) as the local name of a provider, and uses that provider's default configuration. [source](https://developer.hashicorp.com/terraform/language/meta-arguments/resource-provider)
 
 > By convention, resource type names start with their provider's preferred local name. [source](https://developer.hashicorp.com/terraform/language/resources/syntax#providers)
 
-:::
+Resource names are scoped to the module where they are defined, and not visible outside of it. To expose data from a module, use `output` blocks.
 
 ### `data` source
 
@@ -777,11 +778,24 @@ terraform apply -replace=random_string.s3_bucket_suffix
 
 https://developer.hashicorp.com/terraform/language/providers
 
-Providers are plugins of the Terraform core. They talk to cloud providers using their APIs. They define the resources and data sources available. Are written in Go.
+A provider is a cloud platform (AWS, Azure, GCP...), a service (Cloudflare, Akamai, CockroachDB, GitLab, DataDog...) or a tool (Kubernetes, Helm...).
 
+Without providers, Terraform can't manage any kind of infrastructure.
+
+Providers are plugins of the Terraform core (the `terraform` binary). The core installs the provider binaries (with `terraform init`) and communicates with providers using RPC. In turn, providers talk to cloud services using their APIs.
+
+<figure>
+  <img src="/img/terraform-plugin-overview.png" alt="Terraform providers" title="Terraform providers" width="850" loading="lazy"/>
+  <figcaption>Source: <a href="https://developer.hashicorp.com/terraform/plugin">HashiCorp</a></figcaption>
+</figure>
+
+Providers written in Go using the [Terraform Plugin Framework SDK](https://developer.hashicorp.com/terraform/plugin/framework) or the old [Terraform Plugin SDKv2](https://developer.hashicorp.com/terraform/plugin/sdkv2).
+
+Providers define the resources and data sources available.
 Data sources are read only, whereas the resources support [CRUD operations](https://developer.hashicorp.com/terraform/plugin/framework/resources).
-
 When a provider implements a resource, it needs to implement a set of functions in Go (Create, Read, Update, Delete...) - [see docs](https://developer.hashicorp.com/terraform/plugin/framework/getting-started/code-walkthrough#resource).
+
+Each provider has a prefix used in its resources and data sources. For example, the AWS provider uses the prefix `aws_` (`aws_instance`, `aws_vpc`), the Azure provider uses `azurerm_` (`azurerm_virtual_machine`, `azurerm_resource_group`).
 
 Usually providers are pulled from the [Terraform Registry](https://registry.terraform.io/), where you have the documentation and versions available. There are other provider registries. At this registry there are 4 provider tiers ([source](https://developer.hashicorp.com/terraform/docs/partnerships#terraform-provider-integrations)):
 
@@ -1167,6 +1181,8 @@ You can format a file with Code → Terraform tools → Format file, but is not 
 
 ## Tools
 
+What are the tools I should be aware of and consider using? - https://www.terraform-best-practices.com/faq#what-are-the-tools-i-should-be-aware-of-and-consider-using
+
 **Pre-commit Git hook** - https://github.com/antonbabenko/pre-commit-terraform
 
 Terraform tools review playlist - https://www.youtube.com/playlist?list=PLvz1V_9d3uivwNgADT_eB-wKEWOzOOQXy
@@ -1194,6 +1210,8 @@ Checkov - Static analysis to find misconfigurations and vulnerabilities - https:
 https://www.brainboard.co
 
 https://spacelift.io - IaC Orchestration Platform
+
+Atlantis - https://www.runatlantis.io - Terraform Pull Request Automation
 
 ### tfenv
 

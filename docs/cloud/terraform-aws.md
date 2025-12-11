@@ -45,11 +45,12 @@ Difference between aws_iam_policy and aws_iam_role_policy - https://stackoverflo
 [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) (recommended)
 
 - Managed IAM policy that exists independently and can be reused.
-- Can be attached to multiple roles, users, or groups.
+- Can be attached to multiple roles, users or groups.
 - Has its own ARN and lifecycle.
 - Reusable across different IAM principals.
 - Requires a separate `aws_iam_role_policy_attachment` resource to attach it to a role.
 - Managed policies are recommended by AWS for better policy management.
+- Better visibility: managed policies appear separately in the IAM console.
 
 [aws_iam_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy)
 
@@ -57,6 +58,97 @@ Difference between aws_iam_policy and aws_iam_role_policy - https://stackoverflo
 - Tied to the lifecycle of the role (deleted when the role is deleted).
 - Cannot be reused or attached to other roles.
 - More concise - no need for a separate attachment resource.
+
+### Examples
+
+```hcl
+resource "aws_iam_role" "lambda" {
+  name = "${var.tag}-lambda"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      },
+    ]
+  })
+}
+
+resource "aws_iam_policy" "lambda" {
+  name = "${var.tag}-lambda"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject"
+        ]
+        Resource = [
+          aws_s3_bucket.images.arn,
+          "${aws_s3_bucket.images.arn}/*"
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:PutItem"
+        ]
+        Resource = aws_dynamodb_table.images.arn
+      },
+      {
+        Effect   = "Allow"
+        Action   = "logs:CreateLogGroup"
+        Resource = "arn:aws:logs:${var.region}:${local.account_id}:*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+        ]
+        Resource = [
+          "arn:aws:logs:${var.region}:${local.account_id}:log-group:/aws/lambda/${aws_lambda_function.image_extract.function_name}:*"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda" {
+  role       = aws_iam_role.lambda.name
+  policy_arn = aws_iam_policy.lambda.arn
+}
+```
+
+```hcl
+resource "aws_iam_role" "cluster_role" {
+  name = "${var.cluster_name}-role"
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "eks.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+POLICY
+}
+
+resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.cluster_role.name
+}
+```
 
 ## Get AWS account id
 
@@ -228,6 +320,27 @@ resource "aws_launch_template" "example" {
 - https://github.com/dustindortch/terraform-aws-vpcpublish
 - https://github.com/aws-ia/terraform-aws-vpc
 
+Get the subnets in the default VPC:
+
+```hcl
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+  # Optional: select subnets by AZs
+  # This is needed to create an EKS cluster, which can't be done in us-east-1e
+  filter {
+    name   = "availability-zone"
+    values = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  }
+}
+```
+
 ## Auto Scaling
 
 - Auto Scaling Groups tutorial - https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg - https://github.com/hashicorp/learn-terraform-aws-asg
@@ -271,11 +384,11 @@ resource "aws_autoscaling_group" "example" {
 ## EKS
 
 - https://www.eksworkshop.com/docs/introduction/setup/your-account/using-terraform
+- https://github.com/hashicorp-education/learn-terraform-provision-eks-cluster - https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
 - https://github.com/aws-containers/retail-store-sample-app/tree/main/terraform/eks
 - https://github.com/aws-samples/karpenter-blueprints/tree/main/cluster/terraform
 - https://github.com/aws-samples/amazon-eks-security-immersion-day/tree/mainline/terraform/common
 - https://github.com/aws-samples/eks-saas-gitops/tree/main/terraform
-- https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
 - https://github.com/stacksimplify/aws-eks-kubernetes-masterclass - https://www.udemy.com/course/aws-eks-kubernetes-masterclass-devops-microservices
 - https://github.com/aws-ia/terraform-aws-eks-blueprints - https://aws-ia.github.io/terraform-aws-eks-blueprints
 - https://github.com/aws-ia/terraform-aws-eks-blueprints-addons
@@ -283,11 +396,15 @@ resource "aws_autoscaling_group" "example" {
 - https://github.com/aws-ia/terraform-aws-eks-ack-addons
 - https://medium.com/devops-mojo/terraform-provision-amazon-eks-cluster-using-terraform-deploy-create-aws-eks-kubernetes-cluster-tf-4134ab22c594
 - https://github.com/jcolemorrison/hashistack-on-aws
-- https://www.udemy.com/course/terraform-on-aws-eks-kubernetes-iac-sre-50-real-world-demos
 - https://github.com/terraform-aws-modules/terraform-aws-eks
 - https://github.com/maddevsio/aws-eks-base
 - https://blog.raftech.nl/building-robust-platform-for-containers-part-1-terraform-eks-cillium-5822a13d3113 - https://github.com/RaftechNL/blog/tree/part-1 and https://github.com/RaftechNL/blog/tree/building-robust-container-platform-1
 - https://blog.raftech.nl/building-robust-platform-for-containers-part-2-terraform-eks-with-karpenter-d7050c9cedd9 - https://github.com/RaftechNL/blog/tree/building-robust-container-platform-2
+- https://github.com/stacksimplify/terraform-on-aws-eks - https://www.udemy.com/course/terraform-on-aws-eks-kubernetes-iac-sre-50-real-world-demos/ → Molt complet
+- https://github.com/Apress/AWS-EKS-Essentials - https://link.springer.com/book/10.1007/979-8-8688-1331-3 → Many examples
+- https://github.com/AJarombek/global-aws-infrastructure/tree/main/eks-v2 - See v1 (includes a VPC, EKS cluster, and EC2 worker nodes): https://github.com/AJarombek/global-aws-infrastructure/tree/0e23def69ad9c699ee9f2c4248130f935fda0057/eks
+- https://github.com/hashicorp-education/learn-terraform-stacks-eks-deferred - https://developer.hashicorp.com/terraform/tutorials/cloud/stacks-eks-deferred
+- https://github.com/PacktPublishing/Mastering-Terraform/tree/main/Chapter%2008%20-%20Building%20Container-based%20Cloud%20Solutions%20with%20AWS%20EKS - Mastering TerraformChapter 08 - Building Container-based Cloud Solutions with AWS EKS
 
 ## Lambda
 
@@ -303,6 +420,7 @@ resource "aws_autoscaling_group" "example" {
 - Tutorial 'Upgrade RDS major version' - https://developer.hashicorp.com/terraform/tutorials/aws/rds-upgrade
 - https://github.com/terraform-aws-modules/terraform-aws-rds
 - https://github.com/lm-academy/terraform-course/tree/main/proj04-rds-module
+- https://github.com/PacktPublishing/Mastering-Terraform/tree/main/Chapter%2009%20-%20Building%20Serverless%20Cloud%20Solutions%20with%20AWS%20Lambda - Mastering Terraform Chapter 09 - Building Serverless Cloud Solutions with AWS Lambda
 
 ## Multiple AWS accounts
 
