@@ -28,7 +28,7 @@ Pushing images - https://minikube.sigs.k8s.io/docs/handbook/pushing/
 
 Push images from Docker to minikube’s registry - https://minikube.sigs.k8s.io/docs/handbook/registry/#docker-on-macos
 
-### docker-env
+## docker-env
 
 Docs: https://minikube.sigs.k8s.io/docs/commands/docker-env/
 

@@ -14,6 +14,13 @@ Docs:
 - https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
 - https://kubectl.docs.kubernetes.io/references/kubectl/
 
+## Plugins
+
+Plugin manager - https://krew.sigs.k8s.io - https://github.com/kubernetes-sigs/krew
+
+- https://github.com/ahmetb/kubectx - Switch between clusters (kubectx) and namespaces (kubens)
+- https://github.com/ahmetb/kubectl-tree
+
 ## Command families
 
 From https://kubectl.docs.kubernetes.io/guides/introduction/kubectl/#command-families but modified:
@@ -46,6 +53,8 @@ export KUBE_EDITOR="vim"
 
 `kubectl api-resources --namespaced=false` → Cluster-scoped objects
 
+`kubectl api-versions` → List supported API versions
+
 `kubectl explain pod.spec.restartPolicy` → Get documentation for a resource - [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
 
 `kubectl version`
@@ -72,15 +81,21 @@ Fields:
 
 `kubectl config view`
 
+`kubectl config get-contexts`
+
 `kubectl config get-clusters`
 
-`kubectl config get-contexts`
+`kubectl config get-users`
 
 `kubectl config current-context` → What cluster we are connected to. Prints "minikube" or "error: current-context is not set" if we are not connected to a cluster
 
 `kubectl config use-context <context>` → Connect to a cluster, eg a remote cluster, or local cluster like `minikube` or `docker-desktop`
 
 `kubectl config delete-context <context>`
+
+`kubectl config delete-cluster <cluster>`
+
+`kubectl config delete-user <user>`
 
 `kubectl config set-context --current --namespace myns` → Set namespace for all subsequent kubectl commands in the current context. To see the namespace run `kubectl config view | grep namespace:`
 
@@ -137,7 +152,7 @@ kubectl auth can-i create pods --all-namespaces
 
 `kubectl get pods -n <namespace> -o wide` → Get the IP
 
-`kubectl get pods -n <namespace> -o wide -w` → Watch for changes (`--watch`)
+`kubectl get pods -n <namespace> -o wide -w` → Watch for changes (`--watch`). You can also use the `watch` command: `watch kubectl get nodes` and `watch kubectl get pods`.
 
 `kubectl get pods -n <namespace> --show-labels`
 
@@ -147,11 +162,15 @@ kubectl auth can-i create pods --all-namespaces
 
 `kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=<node>` → Get pods running on a specific node. You can also check the section "Non-terminated Pods" of `kubectl describe node <node>`
 
+`kubectl get pv --sort-by=.spec.capacity.storage` → List Persistent Volumes sorted by size
+
 `kubectl get deployments` → Verify the deployment
 
 `kubectl get services`
 
-`kubectl get events`
+`kubectl get services <service-name> -o wide` → Get external IP address
+
+`kubectl get events -w` → Watch events
 
 `kubectl get serviceaccounts` or `kubectl get sa`
 
@@ -164,6 +183,12 @@ kubectl auth can-i create pods --all-namespaces
 `kubectl get configmaps`
 
 `kubectl get secrets`
+
+`kubectl get crds`
+
+`kubectl get componentstatuses` (Deprecated in 1.19)
+
+`kubectl get apiservices` or `kubectl get apiservices.apiregistration.k8s.io`
 
 ## Create vs Apply
 
@@ -295,9 +320,11 @@ kubectl scale statefulset web --replicas 3
 
 ## Wait
 
+`kubectl wait --for=condition=Ready nodes --all` → Wait for all nodes to be Ready
+
 `kubectl wait --for=condition=Ready pods --all -n catalog --timeout=180s`
 
-`kubectl wait --for=condition=Ready --timeout=180s pods -l app.kubernetes.io/created-by=eks-workshop -A`
+`kubectl wait --for=condition=available deployments --all`
 
 ## Expose resource as a service
 
@@ -305,3 +332,29 @@ kubectl scale statefulset web --replicas 3
 kubectl expose deployment <deployment> -n <namespace> --name <myapp-service> --port 8080 --type LoadBalancer
 # service/myapp-service exposed
 ```
+
+## Port forward
+
+Expose an internal pod locally. Use this when the service is of type `ClusterIP`, which is only accessible from within the cluster.
+
+`kubectl port-forward <pod-name> 6000:80` → We can access the service locally at http://localhost:6000, and requests are forwarded to port 80 on the pod in our cluster
+
+`kubectl port-forward <pod-name> [<local-port>:]<pod-port>`
+
+```shell
+kubectl port-forward $(kubectl get pods \
+ --selector=app.kubernetes.io/name=ui -o jsonpath='{.items[0].metadata.name}') 8080:8080
+```
+
+## RBAC
+
+```shell
+kubectl get roles -A
+kubectl get clusterroles -A
+kubectl get rolebindings -A
+kubectl get clusterrolebindings -A
+```
+
+## Rollout
+
+Check the rollout status: `kubectl rollout status deployment/simple-flask-deployment`

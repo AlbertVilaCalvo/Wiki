@@ -22,6 +22,8 @@ https://github.com/bmuschko/ckad-crash-course/tree/master/exercises/15-helm-buil
 
 https://github.com/arttor/helmify - Creates Helm chart from Kubernetes yaml
 
+See comments at https://news.ycombinator.com/item?id=45902604 about using CUE or Terraform
+
 ## Commands
 
 https://docs.helm.sh/docs/helm/
@@ -274,3 +276,9 @@ https://helm.sh/docs/overview/
 https://www.terraform.io/docs/providers/helm/
 
 https://github.com/hashicorp/terraform-provider-helm
+
+From https://news.ycombinator.com/item?id=45902604
+
+> It might feels natural to try and use terraform to deploy kubernetes resources since you’ve likely configured the cluster using it, but the helm/kubeneters/kubectl providers are limited by terraform’s way of working. So whilst the providers try to marry the two when deploying anything complex it generally ends up feels like a hack and you lose a lot of the benefits of using terraform in the first place.
+>
+> In my experience, it’s best to bootstrap ArgoCD/flux, rbac and cloud permissions those services need in Terraform and then move on to do everything else can via Kustomize via gitop. This keeps everything sane and relatively easy to debug on the fly, using the right tool for the job.

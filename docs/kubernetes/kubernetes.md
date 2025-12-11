@@ -29,10 +29,6 @@ OWASP Kubernetes Top 10 - https://github.com/OWASP/www-project-kubernetes-top-te
 
 Deploy a Production Ready Kubernetes Cluster - https://github.com/kubernetes-sigs/kubespray - https://kubespray.io
 
-minikube - https://minikube.sigs.k8s.io/docs
-
-Local Kubernetes Development - https://github.com/GoogleContainerTools/skaffold - https://skaffold.dev
-
 Examples - https://github.com/AdminTurnedDevOps/kubernetes-examples
 
 https://github.com/nigelpoulton/TheK8sBook
@@ -202,7 +198,10 @@ Components:
   - etcd can run on a different server than the control plane, and communicate with it.
   - https://github.com/spurin/etcd-snapshot-to-json
 - [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/): watches for newly created Pods with no assigned node, and selects a worker node for them to run on.
-- [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/): runs controller processes, which confirms that the current state is the desired state for all the running workloads.
+- [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/): runs controller processes, a control loop that ensures that the current state is the desired state for all the running workloads.
+  - Controller types: node, replication, endpoints, job, namespace, service accounts, token...
+  - https://kubernetes.io/docs/concepts/architecture/controller/
+  - Note: There are also [admission controllers](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/), but it is an interceptor in the API server.
 - cloud-controller-manager (optional): embeds cloud-specific control logic. Lets you link your cluster into your cloud provider's API.
 
 See https://kubernetes.io/docs/concepts/architecture/#control-plane-components and https://kubernetes.io/docs/concepts/overview/components/#control-plane-components.
@@ -211,11 +210,15 @@ You want to have a minimum of 3 control planes, since etcd uses the RAFT consens
 
 ### API Server
 
+https://kubernetes.io/docs/concepts/overview/kubernetes-api/
+
 https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
 
 What you use to interact with Kubernetes.
 
 What you will be working with the most, since the operations you do with `kubectl` interact with this API. For example, when you run `kubectl apply -f manifest.yaml`, you are doing a POST request that sends the `manifest.yaml` to the API server. And when you run `kubectl get pods` you are doing a GET request.
+
+All operations on the cluster go through the API server, which reads and updates the objects in etcd. The cluster components can only communicate with each other through the API server.
 
 ## Worker Nodes
 
@@ -250,36 +253,13 @@ https://kustomize.io
 
 https://www.eksworkshop.com/docs/introduction/kustomize/
 
-## Port forward
-
-Expose an internal pod locally.
-
-`kubectl port-forward <pod-name> 6000:80` → We can access the service locally at http://localhost:6000, and requests are forwarded to port 80 on the pod in our cluster
-
-`kubectl port-forward <pod-name> [<local-port>:]<pod-port>`
-
-### Other
-
-Show all events: `kubectl get events -w`
-
-Show component status (deprecated in 1.19): `kubectl get componentstatuses`
-
-Check the rollout status: `kubectl rollout status deployment/simple-flask-deployment`
-
-Get external IP address: `kubectl get services <service-name> -o wide`
-
-### kubectl plugins
-
-Plugin manager - https://krew.sigs.k8s.io - https://github.com/kubernetes-sigs/krew
-
-- https://github.com/ahmetb/kubectx
-- https://github.com/ahmetb/kubectl-tree
-
 ## Pod
 
 https://kubernetes.io/docs/concepts/workloads/pods/
 
 Lifecycle - https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
+
+A pod is one or more containers that share the same Linux namespace (process isolation), cgroups (host resource limits), storage (volumes), IP address, port space and other resources. Containers in a pod run on the same node.
 
 ### Container probes
 
@@ -294,6 +274,12 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-read
 https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
 Requests a specific amount of CPU and memory so the Kubernetes scheduler can place it on a node with enough available resources.
+
+### Topology spread constraints
+
+https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+
+Use topology spread constraints to distribute pods across failure domains, for example multiple AWS AZs and EC2 nodes. This helps achieve high availability.
 
 ## Deployment
 
@@ -475,19 +461,46 @@ https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 
 ClusterRole is a non-namespaced resource, it applies to all namespaces.
 
+`system:masters` is a group which allows for unrestricted access to the Kubernetes API server without the need for any roles or rolebindings. [source](https://medium.com/@JoooostB/kubernetes-how-to-create-a-system-masters-user-and-why-you-really-shouldnt-8c17d19e7b8e)
+
+https://github.com/kubernetes/kubernetes/blob/8d450ef773127374148abad4daaf28dac6cb2625/staging/src/k8s.io/apiserver/pkg/authentication/user/user.go#L70
+
+https://github.com/kubernetes/kubernetes/blob/8d450ef773127374148abad4daaf28dac6cb2625/pkg/registry/rbac/escalation_check.go#L38-L39
+
 ## Tools
 
 https://collabnix.github.io/kubetools
 
 https://velero.io - Backup and migrate Kubernetes resources and persistent volumes
 
-Lens (GUI) - https://k8slens.dev - https://www.mirantis.com/blog/getting-started-with-lens
-
 Secrets management - https://external-secrets.io/latest
 
 TLS certificates management - https://cert-manager.io
 
 https://github.com/stern/stern - Logs
+
+### Local Kubernetes clusters
+
+https://kubernetes.io/docs/tasks/tools/
+
+- minikube - https://minikube.sigs.k8s.io/docs - [See minikube](./minikube.md)
+- kind - https://kind.sigs.k8s.io - https://github.com/kubernetes-sigs/kind/
+  - Brew formula: https://formulae.brew.sh/formula/kind#default
+- k3s - https://k3s.io - https://github.com/k3s-io/k3s (winner)
+  - Does not support macOS
+- Skaffold - https://skaffold.dev - https://github.com/GoogleContainerTools/skaffold
+
+### Lens (GUI)
+
+https://k8slens.dev
+
+https://www.mirantis.com/blog/getting-started-with-lens
+
+```shell
+open -a lens
+```
+
+Extensions - Not working in latest Lens version - https://github.com/lensapp/lens-extensions - Lens Resource Map - https://github.com/nevalla/lens-resource-map-extension
 
 ### Dashboard
 
