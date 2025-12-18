@@ -22,6 +22,8 @@ Use VSCode, it has the latest features. Other editors are behind.
 
 ## Custom instructions
 
+https://github.com/github/awesome-copilot/blob/main/instructions/instructions.instructions.md
+
 :::tip
 GitHub Copilot can understand code files as custom instructions too. See https://code.visualstudio.com/blogs/2025/03/26/custom-instructions#_one-more-thing
 
@@ -31,7 +33,7 @@ Note that `github.copilot.chat.codeGeneration.instructions` is deprecated as of 
 - Workspace instructions:
   - Repository-wide instructions: `.github/copilot-instructions.md`
   - Path-specific instructions: `.github/instructions/NAME.instructions.md`
-    - See an example at https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results#path-specific-instructions
+    - See example at https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results#path-specific-instructions
     - By using path-specific instructions you can avoid overloading your repository-wide instructions with information that only applies to files of certain types, or in certain directories. [source](https://docs.github.com/en/copilot/concepts/prompting/response-customization#about-repository-custom-instructions-1)
 - User instructions: available across multiple workspaces. They are stored in the current [VS Code profile](https://code.visualstudio.com/docs/configure/profiles), so they are synced with Settings Sync.
 
@@ -139,6 +141,202 @@ https://code.visualstudio.com/blogs/2025/03/26/custom-instructions#_introducing-
 https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions?tool=vscode#enabling-and-using-prompt-files
 
 https://docs.github.com/en/copilot/concepts/prompting/response-customization#about-prompt-files
+
+## Ask, Edit and Agent modes
+
+From https://github.com/orgs/community/discussions/114471#discussioncomment-13053118
+
+Ask Mode:
+
+- `/` Slash commands
+- `@` Chat participants
+- `#` Chat variables (Context)
+
+Edit Mode:
+
+- `#` Chat variables (Context)
+
+Agent Mode:
+
+- `#` Tools (MCP etc.)
+
+## Chat participants
+
+:::warning
+A chat prompt can only contain a single chat `@participant`, but can contain multiple `#tools`. [source](https://code.visualstudio.com/docs/copilot/reference/workspace-context#_what-is-the-difference-between-atworkspace-and-hashcodebase)
+:::
+
+https://docs.github.com/en/copilot/reference/cheat-sheet#chat-participants
+
+https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context#_atmentions
+
+> Chat participants are specialized assistants that enable you to ask domain-specific questions in chat. Imagine a chat participant as a domain expert to whom you hand off your chat request and it takes care of the rest.
+>
+> Chat participants are different from [tools](https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context#_reference-tools) that are invoked as part of an agent flow to contribute and perform specific tasks.
+>
+> VS Code has several built-in chat participants like `@vscode`, `@terminal`, or `@workspace`. They are optimized to answer questions about their respective domains.
+
+### `@terminal`
+
+https://docs.github.com/en/copilot/how-tos/chat-with-copilot/get-started-with-chat#ask-questions-about-the-command-line
+
+- `@terminal what are the top 5 largest files in the current directory`
+- `@terminal #terminalLastCommand explain the last command and any errors`
+- **`@terminal how to update an npm package`**
+
+### `@vscode`
+
+https://docs.github.com/en/copilot/how-tos/chat-with-copilot/get-started-with-chat#ask-questions-about-visual-studio-code
+
+- `@vscode how to enable word wrapping`
+- `@vscode tell me how to debug a node.js app`
+- `@vscode how do I change my Visual Studio Code colors`
+- `@vscode how can I change key bindings`
+
+### `@workspace`
+
+:::warning
+It's recommended to use `#codebase` in your chat prompts, as it provides more flexibility. [source](https://code.visualstudio.com/docs/copilot/reference/workspace-context#_what-is-the-difference-between-atworkspace-and-hashcodebase)
+:::
+
+Ask about your workspace. Available only for Ask mode.
+
+> The `@workspace` chat participant in VS Code and Visual Studio provides Copilot with context about all of the code in your workspace. You can use `@workspace` when you want Copilot to consider the structure of your project and how different parts of your code interact. If you're using a JetBrains IDE, use `@project` rather than `@workspace`.
+
+From https://docs.github.com/en/copilot/tutorials/migrate-a-project
+
+`@workspace I want to migrate this project from PHP to Python. Give me a high-level overview of the steps I need to take. Don't go into detail at this stage.`
+
+From https://docs.github.com/en/copilot/tutorials/modernize-legacy-code
+
+`@workspace Create a sequence diagram of the app showing the data flow of the app. Create this in mermaid format so that I can render this in a markdown file.`
+
+`@workspace - analyze test failures in operations.test.js and suggest fixes to match the expected behavior.`
+
+You can use `@workspace` to generate a test plan that covers all of the files in the project.
+
+`@workspace I would like to create unit and integration tests cases from the test plan mentioned in #file:TESTPLAN.md file. The node.js code is in the node-accounting-app folder and I am looking to generate tests for #file:operations.js file. Use a popular testing framework and also provide all the dependencies required to run the tests.`
+
+## Difference between `@workspace` and `#codebase`
+
+From https://code.visualstudio.com/docs/copilot/reference/workspace-context#_what-is-the-difference-between-atworkspace-and-hashcodebase:
+
+Conceptually, both `@workspace` and `#codebase` enable you to ask questions about your entire codebase. However, there are some differences in how you can use them:
+
+- `@workspace` is a [chat participant](https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context#_atmentions)
+
+The `@workspace` participant is subject matter expert that is specialized to answering questions about your codebase. The language model hands off the entire chat prompt to the participant, which uses its knowledge of the codebase to provide an answer. The language model can't perform any additional processing or invoke other tools when using a chat participant. **A chat prompt can only contain a single chat participant.**
+
+- `#codebase` is a [chat tool](https://code.visualstudio.com/docs/copilot/chat/chat-tools)
+
+The `#codebase` tool is specialized in searching your codebase for relevant information. It is one of many tools that the language model can choose to invoke when answering your chat prompt. The language model can decide to invoke the `#codebase` tool multiple times, interleaved with other tools, to gather the information it needs to answer your question. **A chat prompt can contain multiple tools.**
+
+**It's recommended to use `#codebase` in your chat prompts, as it provides more flexibility.**
+
+From https://github.com/orgs/community/discussions/114471#discussioncomment-13123705
+
+Conceptually, both `@workspace` and `#codebase` enable you to ask questions about your entire codebase. However, there are some differences in how you can use them:
+
+`@workspace`
+
+- Chat participant, dedicated to answering questions about your codebase.
+- Takes control of the user prompt and uses the codebase to provide an answer.
+- **Can't invoke other tools.**
+- **Can only be used in ask mode.**
+- Example: "`@workspace` how can I validate a date?"
+
+`#codebase`
+
+- Tool that performs a codebase search based on the user prompt and adds the relevant code as context to the chat prompt.
+- The LLM remains in control and can combine it with other tools for editing scenarios.
+- **Can be used in all chat modes (ask, edit, and agent).**
+- Examples: "add a tooltip to this button, consistent with other button #codebase", "add unit tests and run them #codebase"
+
+## Chat tools
+
+https://code.visualstudio.com/docs/copilot/reference/copilot-vscode-features#_chat-tools
+
+### `#codebase`
+
+Perform a code search in the current workspace to automatically find relevant context for the chat prompt.
+
+From https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context#_perform-a-codebase-search
+
+- `Explain how authentication works in #codebase`
+- `Where is the database connecting string configured? #codebase`
+- `Add a new API route for updating the address #codebase`
+
+### `#fetch` website content
+
+https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context#_reference-content-from-the-web
+
+`What are the highlights of VS Code 1.100 #fetch https://code.visualstudio.com/updates/v1_100`
+
+## Chat variables
+
+https://docs.github.com/en/copilot/reference/cheat-sheet#chat-variables
+
+https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context#_hashmentions
+
+- `#project` - Includes the project context in the prompt.
+- `#selection` - Includes the currently selected text in the prompt.
+- `#block` - Includes the current block of code in the prompt.
+
+### `#file`
+
+Includes the current file's content in the prompt.
+
+`Convert the code in #file:main.cob to node.js`
+
+See examples at https://docs.github.com/en/copilot/tutorials/modernize-legacy-code#step-8-generate-unit-and-integration-tests
+
+## Slash commands
+
+https://docs.github.com/en/copilot/reference/cheat-sheet#slash-commands-1
+
+https://code.visualstudio.com/docs/copilot/reference/copilot-vscode-features#_slash-commands
+
+https://github.com/timothywarner-org/copilot-cert-prep/blob/main/copilot/CHAT_EXAMPLES.md
+
+### `/explain`
+
+Example from https://docs.github.com/en/copilot/tutorials/modernize-legacy-code
+
+`/explain #file:main.cob #file:operations.cob #file:data.cob. Create a high level overview of the app. Explain each file in detail and how they are linked.`
+
+### `/fix`
+
+Propose a fix for problems _in the selected code_.
+
+### `/fixTestFailure`
+
+### `/tests`
+
+Generate unit tests _for the selected code_.
+
+https://docs.github.com/en/copilot/tutorials/copilot-chat-cookbook/testing-code/generate-unit-tests
+
+https://docs.github.com/en/copilot/how-tos/chat-with-copilot/get-started-with-chat#write-tests
+
+- `/tests Generate unit tests for this function. Validate both success and failure, and include edge cases.`
+- `/tests using the Jest framework`
+- `/tests ensure the function rejects an empty list`
+
+## `/new`
+
+https://docs.github.com/en/copilot/how-tos/chat-with-copilot/get-started-with-chat#set-up-a-new-project
+
+- `/new react app with typescript`
+- `/new python django web application`
+- `/new node.js express server`
+
+## JetBrains IDEs
+
+https://plugins.jetbrains.com/plugin/17718-github-copilot--your-ai-pair-programmer
+
+https://github.com/microsoft/copilot-intellij-feedback
+
+If you're using a JetBrains IDE, use `@project` rather than `@workspace`.
 
 ## copilot-debug
 

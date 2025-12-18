@@ -4,6 +4,8 @@ title: AI Tools
 
 https://github.com/open-webui/open-webui
 
+https://github.com/openai/codex
+
 https://opencode.ai - https://github.com/sst/opencode - The open source coding agent.
 
 https://www.cursor.com - Standalone editor based on VSCode
@@ -186,6 +188,13 @@ VSCode extension - https://marketplace.visualstudio.com/items?itemName=anthropic
 - Sonnet: lower cost. Lower latency, more efficient. Good for general use.
 - Opus: higher cost. Slower for complex tasks, more compute-intensive. For deeper reasoning. Better at agentic tasks and long workflows.
 
+https://news.ycombinator.com/item?id=46256606 - Hey, Boris from the Claude Code team here. A few tips:
+
+1. If there is anything Claude tends to repeatedly get wrong, not understand, or spend lots of tokens on, put it in your CLAUDE.md. Claude automatically reads this file and it’s a great way to avoid repeating yourself. I add to my team’s CLAUDE.md multiple times a week.
+2. Use Plan mode (press shift-tab 2x). Go back and forth with Claude until you like the plan before you let Claude execute. This easily 2-3x’s results for harder tasks.
+3. Give the model a way to check its work. For svelte, consider using the Puppeteer MCP server and tell Claude to check its work in the browser. This is another 2-3x.
+4. Use Opus 4.5. It’s a step change from Sonnet 4.5 and earlier models.
+
 ## ChatGPT
 
 Canvas - https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it
@@ -194,7 +203,13 @@ To open the app in the Canvas use `/canvas`, eg:
 
 > Use the /canvas feature and build a simple HTML page that says "Hello world!".
 
-## Junie
+## JetBrains
+
+https://www.jetbrains.com/help/ai-assistant/
+
+https://www.jetbrains.com/help/junie/
+
+When using GitHub Copilot, use `@project` instead of `@workspace`.
 
 https://github.com/kousen/junie-training
 
@@ -202,3 +217,5 @@ Guidelines (`.junie/guidelines.md`):
 
 - Docs: https://www.jetbrains.com/help/junie/customize-guidelines.html
 - Examples: https://github.com/JetBrains/junie-guidelines
+
+Use `.aiignore` file to restrict Junie from processing the contents of specific files or folders ([docs](https://www.jetbrains.com/help/junie/aiignore.html)).
