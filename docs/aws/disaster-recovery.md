@@ -12,6 +12,12 @@ Plan for Disaster Recovery (DR) - https://docs.aws.amazon.com/wellarchitected/la
 
 Summary of the AWS Service Event in the US East Region - https://aws.amazon.com/message/67457/
 
+Seth Eliot:
+
+- https://linktr.ee/setheliot
+- https://aws.amazon.com/blogs/architecture/tag/disaster-recovery-series/
+- SERIES: Resilient architectures at scale: Real-world use cases from Amazon.com - https://www.youtube.com/playlist?list=PLmxQVeKHuhleL2Dic2iwFnvSQxVsvzNci
+
 ## RPO and RTO
 
 Disaster Recovery (DR) objectives - https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/disaster-recovery-dr-objectives.html

@@ -315,6 +315,8 @@ Also see [Deployments and environments](https://docs.github.com/en/actions/refer
 
 ## Status check functions
 
+Fan-in to a single required GitHub Action - https://jakewharton.com/fan-in-to-a-single-required-github-action/
+
 https://docs.github.com/en/actions/reference/evaluate-expressions-in-workflows-and-actions#status-check-functions
 
 - `success()`

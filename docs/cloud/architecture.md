@@ -372,7 +372,9 @@ https://github.com/netflix/hystrix
 
 ## DDD
 
-DDD - https://github.com/github/awesome-copilot/blob/main/instructions/dotnet-architecture-good-practices.instructions.md
+https://github.com/github/awesome-copilot/blob/main/instructions/dotnet-architecture-good-practices.instructions.md
+
+https://frontendmasters.com/courses/domain-modeling/
 
 ## Queue
 

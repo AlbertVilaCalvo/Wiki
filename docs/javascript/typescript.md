@@ -6,6 +6,8 @@ Docs: https://www.typescriptlang.org/docs
 
 Handbook: https://www.typescriptlang.org/docs/handbook/intro.html
 
+Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/typescript-5-es2022.instructions.md
+
 :::tip
 
 To make compilation faster, enable incremental compilation with `"incremental": true` (at the `compilerOptions` of `tsconfig.json`). See https://www.typescriptlang.org/tsconfig#incremental. You can also set `"tsBuildInfoFile": "./tsconfig.tsbuildinfo"` to control the file name and location.
