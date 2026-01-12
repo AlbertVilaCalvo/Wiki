@@ -22,6 +22,7 @@ const sidebars: SidebarsConfig = {
     'dev/ai-tools',
     'dev/github-copilot',
     'dev/testing',
+    'dev/netlify',
     'dev/astro',
     'dev/docusaurus',
     'dev/strapi',
