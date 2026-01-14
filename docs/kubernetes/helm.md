@@ -173,10 +173,10 @@ https://docs.helm.sh/docs/intro/using_helm/
 
 A chart is a package (an archive file, `.tgz`) that contains all of the Kubernetes resource definitions necessary to run an application, tool or service inside a Kubernetes cluster.
 
-A release is an instance of a chart running in a Kubernetes cluster. tYou can have multiple releases with the same name as long they are stored in different namespaces.
+A release is an instance of a chart running in a Kubernetes cluster. You can have multiple releases with the same name as long they are stored in different namespaces.
 
 The state of a Helm release is stored in the cluster as a Secret or ConfigMap in the namespace where the chart is deployed.
-For example, if we [install the Load Balancer Controller using Helm](./eks.md#install-using-helm) and we do `kubectl describe secret -n kube-system`, we get two secrets:
+For example, if we [install the Load Balancer Controller using Helm](./eks.md#install-using-helm-and-irsa) and we do `kubectl describe secret -n kube-system`, we get two secrets:
 
 ```
 Name:         aws-load-balancer-tls
