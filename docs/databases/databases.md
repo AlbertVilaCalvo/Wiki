@@ -93,6 +93,92 @@ From https://news.ycombinator.com/item?id=32414172
 
 https://en.wikipedia.org/wiki/ACID
 
+## Replication vs Partitioning vs Sharding
+
+- Replication: same data, many copies. Use when reads and availability are your problem.
+- Partitioning: split data, same machine. Use when tables are huge but one server is still enough.
+- Sharding: split data, many machines. Use when one server is no longer enough for data size or write load.
+
+| Technique    | Main Goal           | Scale Reads | Scale Writes | Scale Data Size | Multiple Machines |
+| ------------ | ------------------- | ----------- | ------------ | --------------- | ----------------- |
+| Replication  | Availability, reads | Yes         | No (mostly)  | No              | Yes               |
+| Partitioning | Performance, manage | Indirect    | No           | No              | No (usually)      |
+| Sharding     | Horizontal scaling  | Yes         | Yes          | Yes             | Yes               |
+
+[See image](https://www.linkedin.com/posts/adnan-maqbool-khan-0b4531a1_%F0%9D%90%91%F0%9D%90%9E%F0%9D%90%A9%F0%9D%90%A5%F0%9D%90%A2%F0%9D%90%9C%F0%9D%90%9A%F0%9D%90%AD%F0%9D%90%A2%F0%9D%90%A8%F0%9D%90%A7-%F0%9D%90%AF%F0%9D%90%AC-%F0%9D%90%8F%F0%9D%90%9A%F0%9D%90%AB%F0%9D%90%AD%F0%9D%90%A2%F0%9D%90%AD%F0%9D%90%A2%F0%9D%90%A8%F0%9D%90%A7%F0%9D%90%A2%F0%9D%90%A7%F0%9D%90%A0-activity-7414929321343221760-BOOs/)
+
+### Replication
+
+Keeping multiple copies (replicas) of the same data on different servers.
+
+One primary (leader) handles writes. One or more replicas (followers) copy data from the primary and handle reads.
+
+What it solves:
+
+- Read scalability: Spread read queries across replicas.
+- High availability: If the primary fails, a replica can be promoted.
+- Disaster recovery: Data exists in multiple locations.
+
+What it does NOT solve:
+
+- Write throughput (all writes still go to one primary in most setups).
+- Dataset size (each replica stores the full dataset).
+
+When to use it:
+
+- Your workload is read-heavy.
+- You need fault tolerance and fast failover.
+- You want low-latency reads in multiple regions.
+
+### Partitioning
+
+Dividing a large table into smaller pieces called partitions, usually within the same database instance.
+
+For example, partition users by signup date (users_2023, users_2024, users_2025) or by range of IDs.
+
+What it solves:
+
+- Manageability: Smaller chunks are easier to maintain, index, and back up.
+- Query performance: Queries can scan only relevant partitions (partition pruning).
+- Data lifecycle: Drop old partitions easily.
+
+What it does NOT solve:
+
+- Machine limits: All partitions still live on the same server.
+- Horizontal write scaling across nodes.
+
+When to use it:
+
+- Tables are very large.
+- Queries often target specific ranges (time, ID ranges, regions).
+- You want better performance and maintenance, but a single server is still enough.
+
+### Sharding
+
+A special kind of partitioning where partitions (called shards) are distributed across multiple servers. Each shard is an independent database with only a subset of the data. For example:
+
+- Users with ID 1–1M → Shard A
+- Users with ID 1M–2M → Shard B
+- Users with ID 2M–3M → Shard C
+
+What it solves:
+
+- Horizontal write scalability: Writes go to different shards.
+- Storage scalability: Total data grows beyond one machine.
+- Compute scalability: Load is spread across many nodes.
+
+What it complicates:
+
+- Cross-shard joins and transactions.
+- Rebalancing data when shards grow.
+- Global constraints (unique keys, foreign keys).
+
+When to use it:
+
+- Your dataset no longer fits on one machine.
+- Write throughput exceeds what a single primary can handle.
+- You need true horizontal scaling.
+
 ## Database types
 
 - Relational: https://db-engines.com/en/ranking/relational+dbms
