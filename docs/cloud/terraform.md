@@ -127,6 +127,14 @@ Actions are colored (green, red, yellow) and use a symbol:
 
 You can optionally save the plan to a file with `terraform plan -out=tfplan`, and pass it to `apply` later. The file is not human-readable, but you can use the [`show` command](https://developer.hashicorp.com/terraform/cli/commands/show) (`terraform show tfplan`) to inspect the plan.
 
+Note that `terraform plan` is not just a dry-run of `apply`, see _unknown values_ ("known after apply"):
+
+- https://log.martinatkins.me/2021/06/14/terraform-plan-unknown-values/
+- https://github.com/hashicorp/terraform/issues/30937 (blocker of https://github.com/hashicorp/terraform-provider-kubernetes/issues/1775)
+- https://github.com/opentofu/opentofu/pull/3539
+
+> The design goal for unknown values is that Terraform should always be able to produce some sort of plan, even if parts of it are not yet known, and then it's up to the user to review the plan and decide either to accept the risk that the unknown values might not be what's expected, or to apply changes from a smaller part of the configuration (e.g. using `-target`) in order to learn more final values and thus produce a plan with fewer unknowns.
+
 ### `apply`
 
 - Doc: https://developer.hashicorp.com/terraform/cli/commands/apply
@@ -467,6 +475,8 @@ variable "min_size" {
 }
 ```
 
+See [Variable validation examples below](#variable-validation-examples).
+
 ### `output`
 
 https://developer.hashicorp.com/terraform/language/values/outputs
@@ -479,7 +489,13 @@ output "instance_ip_addr" {
 }
 ```
 
-We can set the argument `sensitive` to true to avoid displaying it. In this case, we can use `terraform output my_var` to display it. Note that it is still stored in state, see [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data).
+#### `sensitive`
+
+We can set the argument `sensitive` to `true` to avoid displaying it. In this case, we can use `terraform output my_var` to display it.
+
+Important: the value is still stored in the state file, see [Manage sensitive data in your configuration](https://developer.hashicorp.com/terraform/language/manage-sensitive-data):
+
+> Terraform stores values with the `sensitive` argument in both state and plan files, and anyone who can access those files can access your sensitive values. Additionally, if you use the [`terraform output` CLI command](https://developer.hashicorp.com/terraform/cli/commands/output) with the `-json` or `-raw` flags, Terraform displays sensitive variables and outputs in plain text.
 
 If the output references a `sensitive` input variable or resource, you need to add `sensitive = true` to indicate that you are intentionally outputting a secret, or use the [`nonsensitive` function](https://developer.hashicorp.com/terraform/language/functions/nonsensitive) ([see example](https://stackoverflow.com/a/69001111/4034572)), otherwise you get this error:
 
@@ -495,6 +511,10 @@ If the output references a `sensitive` input variable or resource, you need to a
 │ If you do intend to export this data, annotate the output value as sensitive by adding the following argument:
 │ sensitive = true
 ```
+
+#### `ephemeral`
+
+https://developer.hashicorp.com/terraform/language/manage-sensitive-data#add-the-ephemeral-argument-to-a-variable-or-output
 
 ### `locals`
 
@@ -513,6 +533,115 @@ https://developer.hashicorp.com/terraform/language/modules
 Other code written in HCL that's reusable and we call from our code. A library.
 
 [See Modules below](#modules)
+
+### `ephemeral` resources
+
+https://developer.hashicorp.com/terraform/language/block/ephemeral
+
+https://developer.hashicorp.com/terraform/language/manage-sensitive-data#use-the-ephemeral-block
+
+https://developer.hashicorp.com/terraform/language/manage-sensitive-data/ephemeral
+
+https://developer.hashicorp.com/terraform/language/manage-sensitive-data/write-only
+
+Ephemeral values are available at the run time of an operation, but Terraform omits them from state and plan files. Because Terraform does not store ephemeral values, you must capture any generated values you want to preserve in another resource or output in your configuration.
+
+You can only reference an `ephemeral` resource in other ephemeral contexts, such as a write-only argument in a managed resource or `provider` blocks (see [this](https://developer.hashicorp.com/terraform/language/block/ephemeral#refer-to-ephemeral-resources) and [this](https://developer.hashicorp.com/terraform/language/manage-sensitive-data#omit-values-from-state-and-plan-files)). The provider uses the write-only argument value to configure the resource, then Terraform discards the value without storing it. Note that write-only arguments accept both ephemeral and non-ephemeral values.
+
+Terraform does not store write-only arguments in state files, so Terraform has no way of knowing if a write-only argument value has changed. However, providers typically include version arguments alongside write-only arguments. Terraform stores version arguments in state, and can track if a version argument changes and trigger an update of a write-only argument.
+
+Example from https://developer.hashicorp.com/terraform/language/manage-sensitive-data/write-only#set-and-store-an-ephemeral-password-in-aws-secrets-manager:
+
+```hcl
+# Used to create the password without storing it in state, passing the value to
+# the write-only argument secret_string_wo of the aws_secretsmanager_secret_version
+# resource only during the apply phase.
+ephemeral "random_password" "db_password" {
+  length           = 16
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource "aws_secretsmanager_secret" "db_password" {
+  name = "db_password"
+}
+
+resource "aws_secretsmanager_secret_version" "db_password" {
+  secret_id                = aws_secretsmanager_secret.db_password.id
+  secret_string_wo         = ephemeral.random_password.db_password.result
+  secret_string_wo_version = 1
+}
+
+# Used to retrieve the password from AWS Secrets Manager and pass it to the password_wo
+# argument of the aws_db_instance.
+ephemeral "aws_secretsmanager_secret_version" "db_password" {
+  secret_id = aws_secretsmanager_secret_version.db_password.secret_id
+}
+
+resource "aws_db_instance" "example" {
+  password_wo         = ephemeral.aws_secretsmanager_secret_version.db_password.secret_string
+  # Terraform stores the password_wo_version argument value in state and can track if it changes.
+  # Increment the password_wo_version value when an update to password_wo is required.
+  password_wo_version = aws_secretsmanager_secret_version.db_password.secret_string_wo_version
+}
+```
+
+If you reference an `ephemeral` resource in `locals` block that value is also not stored in state or plan files because Terraform intuitively understands you do not want that. Example from https://developer.hashicorp.com/terraform/language/block/ephemeral#fundamental-ephemeral-resource:
+
+```hcl
+ephemeral "aws_secretsmanager_secret_version" "db_master" {
+  secret_id = aws_secretsmanager_secret_version.db_password.secret_id
+}
+
+locals {
+  credentials = jsondecode(ephemeral.aws_secretsmanager_secret_version.db_master.secret_string)
+}
+
+provider "postgresql" {
+  username = local.credentials["username"]
+  password = local.credentials["password"]
+}
+```
+
+Each provider defines the available `ephemeral` resource blocks and write-only arguments:
+
+- Random provider
+  - https://registry.terraform.io/providers/hashicorp/random/latest/docs/ephemeral-resources/password
+- AWS provider
+  - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/ephemeral-resources/ecr_authorization_token
+  - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/ephemeral-resources/kms_secrets
+  - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/ephemeral-resources/lambda_invocation
+  - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/ephemeral-resources/ssm_parameter
+  - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/ephemeral-resources/secretsmanager_random_password
+  - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/ephemeral-resources/secretsmanager_secret_version
+
+### `list` resources
+
+New in Terraform 1.14 (November 2025): https://github.com/hashicorp/terraform/releases/tag/v1.14.0
+
+https://developer.hashicorp.com/terraform/plugin/framework/list-resources
+
+https://developer.hashicorp.com/terraform/language/block/tfquery/list
+
+List resources allow to search for a specific resource like VPCs, subnets and EC2 instances. You can only add `list` blocks to configuration files with `.tfquery.hcl` extensions. Searching is invoked via the `terraform query` command.
+
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/list-resources/cloudwatch_log_group
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/list-resources/instance
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/list-resources/subnet
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/list-resources/vpc
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/list-resources/iam_policy
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/list-resources/iam_role
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/list-resources/iam_role_policy_attachment
+
+### `action`
+
+New in Terraform 1.14 (November 2025): https://github.com/hashicorp/terraform/releases/tag/v1.14.0
+
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/actions/cloudfront_create_invalidation
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/actions/dynamodb_create_backup
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/actions/ec2_stop_instance
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/actions/events_put_events (EventBridge)
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/actions/lambda_invoke
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/actions/sns_publish
 
 ## Meta-arguments
 
@@ -774,6 +903,8 @@ terraform plan -replace=random_string.s3_bucket_suffix
 terraform apply -replace=random_string.s3_bucket_suffix
 ```
 
+See example of replacing an EC2 instance to launch a new instance with tags here (`terraform apply -replace aws_autoscaling_group.example`): https://developer.hashicorp.com/terraform/tutorials/aws/aws-default-tags#propagate-default-tags-to-auto-scaling-group
+
 ## Providers
 
 https://developer.hashicorp.com/terraform/language/providers
@@ -857,7 +988,7 @@ https://www.gruntwork.io/blog/how-to-create-reusable-infrastructure-with-terrafo
 
 > When creating a module, you should always prefer using separate resources. The advantage of using separate resources is that they can be added anywhere, whereas an inline block can only be added within the module that creates a resource. So using solely separate resources makes your module more flexible and configurable.
 
-Google Cloud - Best practices for reusable modules - https://cloud.google.com/docs/terraform/best-practices/reusable-modules
+Google Cloud - Best practices for reusable modules - https://docs.cloud.google.com/docs/terraform/best-practices/reusable-modules
 
 ### Source
 
@@ -976,6 +1107,107 @@ output "web_server_public_ip" {
 }
 ```
 
+### Define providers in root modules
+
+https://developer.hashicorp.com/terraform/language/modules/develop/providers
+
+From https://docs.cloud.google.com/docs/terraform/best-practices/reusable-modules#providers-backends
+
+> Shared modules must not configure providers or backends. Instead, configure providers and backends in root modules.
+>
+> For shared modules, define the minimum required provider versions in a `required_providers` block.
+
+Modules which contain their own local `provider` configuration blocks are considered legacy modules. Legacy modules can't use the `count`, `for_each`, or `depends_on` arguments ([source 1](https://support.hashicorp.com/hc/en-us/articles/21807317486995-Error-Module-is-incompatible-with-count-for-each-and-depends-on), [source 2](https://github.com/hashicorp/terraform-provider-helm/issues/1105#issuecomment-1497385759), [source 3](https://developer.hashicorp.com/terraform/language/modules/develop/providers#legacy-shared-modules-with-provider-configurations)). You get this error:
+
+│ The module at module.lb_controller is a legacy module which contains its own local provider configurations, and so calls to it may not use the count, for_each, or depends_on arguments.
+│
+│ If you also control the module "../../modules/lb-controller", consider updating this module to instead expect provider configurations to be passed by its caller.
+
+There are two ways to pass a provider from a root module to a child module:
+
+- **Implicit**: by not defining any `provider` block in the child module. The child module automatically inherits the provider configuration from the root module.
+- **Explicit**: by using the `providers` argument in the `module` block. This is needed when the root module has multiple instances of a provider (with `alias`), and we want to specify which one to use in the child module.
+  - Setting a `providers` argument within a `module` block overrides the default inheritance.
+  - Additional provider configurations (those with the `alias`) are never inherited automatically by child modules, and so must always be passed explicitly using the `providers` map.
+
+:::important
+Only provider configurations (eg AWS region) are inherited by child modules, not provider source or version requirements. Each module must [declare its own provider requirements](https://developer.hashicorp.com/terraform/language/providers/requirements) using a `required_providers` block. This is especially important for non-HashiCorp providers. [source](https://developer.hashicorp.com/terraform/language/modules/develop/providers#implicit-provider-inheritance)
+:::
+
+#### Implicit
+
+```hcl title="environments/prod/main.tf"
+terraform {
+  required_version = "~> 1.14"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.26.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+  default_tags {
+    tags = var.default_tags
+  }
+}
+```
+
+```hcl title="modules/eks/versions.tf"
+terraform {
+  required_version = ">= 1.14"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 6.26.0"
+    }
+  }
+}
+```
+
+Note that the root module specifies the maximum version using `~>`, whereas the child module declares the minimum provider version it is known to work with using `>=`. From [Best Practices for Provider Versions](https://developer.hashicorp.com/terraform/language/providers/requirements#best-practices-for-provider-versions):
+
+> A module intended to be used as the root of a configuration — that is, as the directory where you'd run `terraform apply` — should also specify the maximum provider version it is intended to work with, to avoid accidental upgrades to incompatible new versions.
+
+> Do not use `~>` (or other maximum-version constraints) for modules you intend to reuse across many configurations, even if you know the module isn't compatible with certain newer versions. Doing so can sometimes prevent errors, but more often it forces users of the module to update many modules simultaneously when performing routine upgrades. Specify a minimum version, document any known incompatibilities, and let the root module manage the maximum version.
+
+#### Explicit
+
+```hcl title="environments/prod/main.tf"
+terraform {
+  required_version = ">= 1.14"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.26.0"
+    }
+  }
+}
+
+# The default configuration is used when no explicit provider instance is set
+provider "aws" {
+  region = "us-east-1"
+}
+
+provider "aws" {
+  alias  = "us-west-1"
+  region = "us-west-1"
+}
+
+module "bucket_us_east_1" {
+  source    = "./modules/s3_bucket"
+}
+
+module "bucket_us_west_1" {
+  source    = "./modules/s3_bucket"
+  providers = {
+    aws = aws.us-west-1
+  }
+}
+```
+
 ### Publish a module at the registry
 
 The repository needs to be hosted in GitHub. The repository name needs to follow this pattern: `terraform-<provider>-<name>`, for example `terraform-aws-ec2`. The `<provider>` is the main provider that the module uses in case that there is more than one.
@@ -985,7 +1217,7 @@ The repository needs to be hosted in GitHub. The repository name needs to follow
 :::tip
 It's recommended to pin modules to a specific major and minor version, and to set a minimum required version of the Terraform binary, see https://developer.hashicorp.com/terraform/language/style#version-pinning
 
-From https://cloud.google.com/docs/terraform/best-practices/root-modules#minor-provider-versions:
+From https://docs.cloud.google.com/docs/terraform/best-practices/root-modules#minor-provider-versions:
 
 > In root modules, declare each provider and pin to a minor version (eg `version = "~> 4.0.0"`). This allows automatic upgrade to new patch releases while still keeping a solid target. For consistency, name the versions file `versions.tf`.
 
@@ -1026,6 +1258,76 @@ To upgrade provider versions use `terraform init -upgrade`. It picks the latest 
 
 If we don't specify a `version` it uses the latest one.
 
+## Variable validation examples
+
+Examples here are general, see [AWS-specific examples here](terraform-aws.md#variable-validation-examples).
+
+https://dev.to/drewmullen/terraform-variable-validation-with-samples-1ank
+
+String that allows only specific values:
+
+```hcl
+variable "node_capacity_type" {
+  description = "Capacity type for the node group (ON_DEMAND or SPOT)"
+  type        = string
+
+  validation {
+    condition     = contains(["ON_DEMAND", "SPOT"], var.node_capacity_type)
+    error_message = "node_capacity_type must be ON_DEMAND or SPOT"
+  }
+}
+
+# Using regex
+variable "node_capacity_type" {
+  description = "Capacity type for the node group (ON_DEMAND or SPOT)"
+  type        = string
+
+  validation {
+    condition     = can(regex("^(ON_DEMAND|SPOT)$", var.node_capacity_type))
+    error_message = "node_capacity_type must be ON_DEMAND or SPOT"
+  }
+}
+```
+
+List of strings that allows only specific values:
+
+```hcl
+variable "allowed_instance_types" {
+  description = "List of allowed instance types (t2.micro, t3.micro, t3a.micro)"
+  type        = list(string)
+  validation {
+    condition = alltrue([
+      for t in var.allowed_instance_types : contains(["t2.micro", "t3.micro", "t3a.micro"], t)
+    ])
+    error_message = "allowed_instance_types can only contain t2.micro, t3.micro or t3a.micro"
+  }
+}
+```
+
+Array length:
+
+```hcl
+variable "private_eni_subnet_ids" {
+  description = "List of private subnet IDs for EKS control plane ENIs"
+  type        = list(string)
+
+  validation {
+    condition     = length(var.private_eni_subnet_ids) >= 2
+    error_message = "At least 2 private subnets are required for EKS control plane ENIs"
+  }
+}
+
+variable "node_group_max_size" {
+  description = "Maximum number of nodes in the node group"
+  type        = number
+
+  validation {
+    condition     = var.node_group_max_size >= 1 && var.node_group_max_size <= 10
+    error_message = "node_group_max_size must be between 1 and 10"
+  }
+}
+```
+
 ## Templates
 
 - https://github.com/aws-ia/terraform-repo-template
@@ -1058,13 +1360,13 @@ From https://www.fundamentals-of-devops.com/resources/2025/01/28/how-to-manage-s
 | Work with multiple modules concurrently |   □□□□□    |  □□□□□   |   ■■■■■    |
 | No extra tooling to learn or use        |   ■■■■■    |  ■■■■■   |   □□□□□    |
 
-https://cloud.google.com/docs/terraform/best-practices/root-modules#separate-directories
+https://docs.cloud.google.com/docs/terraform/best-practices/root-modules#separate-directories
 
 > Use separate directories for each application
 >
 > To manage applications and projects independently of each other, put resources for each application and project in their own Terraform directories. A service might represent a particular application or a common service such as shared networking. Nest all Terraform code for a particular service under one directory (including subdirectories).
 
-https://cloud.google.com/docs/terraform/best-practices/root-modules#subdirectories
+https://docs.cloud.google.com/docs/terraform/best-practices/root-modules#subdirectories
 
 > When deploying services in Google Cloud, split the Terraform configuration for the service into two top-level directories: a `modules` directory that contains the actual configuration for the service, and an `environments` directory that contains the root configurations for each environment.
 
@@ -1093,7 +1395,7 @@ https://cloud.google.com/docs/terraform/best-practices/root-modules#subdirectori
          -- main.tf
 ```
 
-https://cloud.google.com/docs/terraform/best-practices/root-modules#environment-directories
+https://docs.cloud.google.com/docs/terraform/best-practices/root-modules#environment-directories
 
 > To share code across environments, reference modules. Typically, this might be a service module that includes the base shared Terraform configuration for the service. In service modules, hard-code common inputs and only require environment-specific inputs as variables.
 >
@@ -1102,7 +1404,7 @@ https://cloud.google.com/docs/terraform/best-practices/root-modules#environment-
 > - A `backend.tf` file, declaring the Terraform backend state location (typically, Cloud Storage)
 > - A `main.tf` file that instantiates the service module
 
-https://cloud.google.com/docs/terraform/best-practices/root-modules#tfvars
+https://docs.cloud.google.com/docs/terraform/best-practices/root-modules#tfvars
 
 > For root modules, provide variables by using a `.tfvars` variables file. For consistency, name variable files `terraform.tfvars`.
 
@@ -1130,7 +1432,7 @@ terraform workspace list
 terraform workspace delete staging
 ```
 
-https://cloud.google.com/docs/terraform/best-practices/root-modules#environment-directories
+https://docs.cloud.google.com/docs/terraform/best-practices/root-modules#environment-directories
 
 > Having multiple [CLI workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces) within an environment isn't recommended for the following reasons:
 >
@@ -1272,8 +1574,8 @@ https://www.terraform-best-practices.com
 
 Google Cloud:
 
-- General style and structure: https://cloud.google.com/docs/terraform/best-practices/general-style-structure
-- Root modules: https://cloud.google.com/docs/terraform/best-practices/root-modules
+- General style and structure: https://docs.cloud.google.com/docs/terraform/best-practices/general-style-structure
+- Root modules: https://docs.cloud.google.com/docs/terraform/best-practices/root-modules
 
 > _All_ resources in a particular root configuration are refreshed every time Terraform is run. This can cause slow execution if too many resources are included in a single state. **A general rule: Don't include more than 100 resources (and ideally only a few dozen) in a single state.**
 
@@ -1361,6 +1663,10 @@ https://github.com/allister-grange/terraform-associate-guide-003
 https://www.packtpub.com/en-es/product/hashicorp-terraform-associate-003-exam-guide-9781804618844
 
 https://github.com/stacksimplify/hashicorp-certified-terraform-associate - https://www.udemy.com/course/hashicorp-certified-terraform-associate-step-by-step - https://terraformguru.com/terraform-certification-using-aws-cloud
+
+https://mattias.engineer/courses/terraform/
+
+https://leanpub.com/terraform-professional-certification - https://github.com/mattias-fjellstrom/terraform-professional-book-changelog - https://github.com/mattias-fjellstrom/terraform-professional-book-sample-code
 
 ## Internals
 

@@ -237,6 +237,24 @@ Resource groups: a collection of resources that shares one or more tags. https:/
 
 [Cost allocation tags](billing-pricing#cost-allocation-tags)
 
+https://docs.aws.amazon.com/pdfs/tag-editor/latest/userguide/tag-editor-userguide.pdf → See section "Best practices and strategies"
+
+https://theagileadmin.com/2025/01/29/the-right-way-to-use-tagging-in-the-cloud/
+
+- Who owns it
+- Who’s paying for it
+
+### Enforce tags
+
+https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/implementing-and-enforcing-tagging.html#enforcement
+
+There are various ways:
+
+- AWS Config `required_tags` rule: https://docs.aws.amazon.com/config/latest/developerguide/required-tags.html
+- Service control policies (SCPs) in AWS Organizations
+
+See [Terraform AWS enforce tags](../cloud/terraform-aws.md#enforce-tags).
+
 ## re:Invent
 
 https://roadtoaws.com/2024/10/03/navigating-aws-reinvent-2024-a-first-time-speakers-guide/

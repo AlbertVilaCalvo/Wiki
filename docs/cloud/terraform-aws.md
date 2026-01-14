@@ -17,6 +17,8 @@ Tutorials:
 - Get started: https://developer.hashicorp.com/terraform/tutorials/aws-get-started
 - Use cases: https://developer.hashicorp.com/terraform/tutorials/aws
 
+## Provider
+
 ```hcl
 provider "aws" {
   region  = "us-east-1"
@@ -24,15 +26,47 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project = "my-app"
+      Project     = "my-app"
+      Environment = "dev"
     }
   }
 }
 ```
 
+## Backend
+
 Since [version 1.11](https://github.com/hashicorp/terraform/releases/tag/v1.11.0), there's no need to have a DynamoDB table to do state locking:
 
 > S3 native state locking is now generally available. The `use_lockfile` argument enables users to adopt the S3-native mechanism for state locking. As part of this change, we've deprecated the DynamoDB-related arguments in favor of this new locking mechanism. While you can still use DynamoDB alongside S3-native state locking for migration purposes, we encourage migrating to the new state locking mechanism.
+
+## Tags
+
+https://developer.hashicorp.com/terraform/tutorials/aws/aws-default-tags
+
+```hcl
+provider "aws" {
+  region  = "us-east-1"
+
+  default_tags {
+    tags = {
+      Project     = "my-app"
+      Environment = "dev"
+    }
+  }
+}
+```
+
+When you define the same tag in both the `default_tags` configuration in the provider and on a resource (using `tags`), the resource-specific tag overwrites the default setting. When running `terraform apply`, the `tags` attribute represents the resource-specific tags in Terraform state, while `tags_all` is the total of the resource tags and the default tags specified on the provider.
+
+:::important
+The `default_tags` block applies tags to all resources managed by this provider, except for the Auto Scaling groups (ASG). See [Propagate default tags to Auto Scaling group](https://developer.hashicorp.com/terraform/tutorials/aws/aws-default-tags#propagate-default-tags-to-auto-scaling-group).
+:::
+
+### Enforce tags
+
+https://mattias.engineer/blog/2025/managing-aws-tags/#enforcing-tags-on-your-aws-resources
+
+https://github.com/terratags/terratags
 
 ## IAM
 
@@ -59,11 +93,39 @@ Difference between aws_iam_policy and aws_iam_role_policy - https://stackoverflo
 - Cannot be reused or attached to other roles.
 - More concise - no need for a separate attachment resource.
 
-### Examples
+### Policy document
+
+There are 4 ways to define a policy document JSON in Terraform:
+
+1. [`jsonencode()`](https://developer.hashicorp.com/terraform/language/functions/jsonencode) function to convert a map to JSON.
+
+- Validation of the structure at terraform plan.
+- Easier to interpolate variables and use conditional logic.
+- Better IDE syntax support.
+- Harder to read.
+
+2. [`aws_iam_policy_document`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) data source.
+
+- Allows interpolation of Terraform variables with `${}`.
+- Allows interpolation of [AWS variables](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#policy-vars-using-variables) with `&{}`.
+
+3. Heredoc inline JSON.
+
+- Not recommended by HashiCorp ([source](https://developer.hashicorp.com/terraform/language/expressions/strings#heredoc-strings)): Don't use "heredoc" strings to generate JSON or YAML. Instead, use [the jsonencode function](https://developer.hashicorp.com/terraform/language/functions/jsonencode) or [the yamlencode function](https://developer.hashicorp.com/terraform/language/functions/yamlencode) so that Terraform can be responsible for guaranteeing valid JSON or YAML syntax.
+- Same syntax. Can copy-paste.
+- No validation. Higher risk of errors.
+
+4. External JSON file with [`file()`](https://developer.hashicorp.com/terraform/language/functions/file) function.
+
+See examples below.
+
+### Policy examples
+
+`jsonencode()` - Role for a Lambda function:
 
 ```hcl
 resource "aws_iam_role" "lambda" {
-  name = "${var.tag}-lambda"
+  name = "${var.project_name}-lambda"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -79,7 +141,7 @@ resource "aws_iam_role" "lambda" {
 }
 
 resource "aws_iam_policy" "lambda" {
-  name = "${var.tag}-lambda"
+  name = "${var.project_name}-lambda"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -125,9 +187,62 @@ resource "aws_iam_role_policy_attachment" "lambda" {
 }
 ```
 
+`aws_iam_policy_document` - Role to read a secret from Secrets Manager:
+
+```hcl
+data "aws_iam_policy_document" "read_db_secret" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "secretsmanager:GetSecretValue"
+    ]
+    resources = [aws_secretsmanager_secret.db_credentials.arn]
+  }
+}
+
+resource "aws_iam_policy" "read_db_secret" {
+  name_prefix = "${var.app_name}-read-db-secret-${var.environment}"
+  description = "Allow reading database credentials from Secrets Manager"
+  policy      = data.aws_iam_policy_document.read_db_secret.json
+}
+
+resource "aws_iam_role_policy_attachment" "read_db_secret" {
+  role       = aws_iam_role.lambda.name
+  policy_arn = aws_iam_policy.read_db_secret.arn
+}
+```
+
+`aws_iam_policy_document` - Bucket policy for CloudFront to access S3:
+
+```hcl
+data "aws_iam_policy_document" "website_s3_policy" {
+  statement {
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+    effect    = "Allow"
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.website.arn}/*"]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [aws_cloudfront_distribution.website_distribution.arn]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "website" {
+  bucket = aws_s3_bucket.website.id
+  policy = data.aws_iam_policy_document.website_s3_policy.json
+}
+```
+
+Heredoc - Role for an EKS cluster:
+
 ```hcl
 resource "aws_iam_role" "cluster_role" {
-  name = "${var.cluster_name}-role"
+  name = "${var.cluster_name}-eks-cluster-role"
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -147,6 +262,34 @@ POLICY
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.cluster_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "cluster_vpc_resource_controller" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
+  role       = aws_iam_role.cluster_role.name
+}
+```
+
+`file()` - IAM policy for AWS Load Balancer Controller:
+
+```hcl
+resource "aws_iam_role" "lb_controller" {
+  name = "${var.app_name}-lb-controller-role-${var.environment}"
+  assume_role_policy = jsonencode({
+    # ...
+  })
+}
+
+resource "aws_iam_policy" "lb_controller" {
+  name        = "${var.app_name}-lb-controller-policy-${var.environment}"
+  description = "IAM policy for AWS Load Balancer Controller for ${var.app_name} in ${var.environment} environment"
+  # From https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.17.0/docs/install/iam_policy.json
+  policy = file("${path.module}/lb_controller_iam_policy.json")
+}
+
+resource "aws_iam_role_policy_attachment" "lb_controller" {
+  role       = aws_iam_role.lb_controller.name
+  policy_arn = aws_iam_policy.lb_controller.arn
 }
 ```
 
@@ -210,6 +353,77 @@ resource "aws_launch_configuration" "example" {
   image_id = data.aws_ami.amazon-linux.id
 }
 ```
+
+## Variable validation examples
+
+These examples are AWS-specific, [see general examples here](terraform.md#variable-validation-examples).
+
+https://dev.to/drewmullen/terraform-variable-validation-with-samples-1ank
+
+AWS region:
+
+```hcl
+variable "aws_region" {
+  description = "The AWS region to deploy the resources to"
+  type        = string
+
+  validation {
+    condition     = can(regex("^(us|eu|ap|sa|ca|me|af)-(east|west|north|south|central|northeast|southeast|northwest|southwest)-[1-3]$", var.aws_region))
+    error_message = "The region must be a valid AWS region (e.g., us-east-1, eu-west-2)."
+  }
+}
+```
+
+CIDR block:
+
+```hcl
+variable "vpc_cidr" {
+  type    = string
+  default = "10.0.0.0/16"
+
+  validation {
+    condition     = can(cidrhost(var.vpc_cidr, 0))
+    error_message = "Must be valid CIDR."
+  }
+}
+```
+
+## VPC
+
+- https://github.com/dustindortch/terraform-aws-vpcpublish
+- https://github.com/aws-ia/terraform-aws-vpc
+
+Get the subnets in the default VPC:
+
+```hcl
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+  # Optional: select subnets by AZs
+  # This is needed to create an EKS cluster, which can't be done in us-east-1e
+  filter {
+    name   = "availability-zone"
+    values = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  }
+}
+```
+
+Ways to define subnet CIDR blocks:
+
+- https://github.com/terraform-aws-modules/terraform-aws-eks/blob/d57cdac936efe7ae3b0edbb75340b70c6774d4f3/examples/eks-managed-node-group/main.tf#L39-L41
+- https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/05d32bb2fff08959674c1d4cfe5e34ebc723049e/patterns/karpenter-mng/vpc.tf#L9-L10
+
+### Use `aws_vpc_security_group_egress_rule`
+
+From https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule:
+
+> Using `aws_vpc_security_group_egress_rule` and `aws_vpc_security_group_ingress_rule` resources is the current best practice. Avoid using the `aws_security_group_rule` resource and the `ingress` and `egress` arguments of the `aws_security_group` resource for configuring in-line rules, as they struggle with managing multiple CIDR blocks, and tags and descriptions due to the historical lack of unique IDs.
 
 ## S3
 
@@ -315,32 +529,6 @@ resource "aws_launch_template" "example" {
 - https://github.com/aws-ia/terraform-aws-iam-identity-center
 - Terraform module for building and deploying Next.js apps to AWS. Supports SSR (Lambda), Static (S3) and API (Lambda) pages. - https://github.com/milliHQ/terraform-aws-next-js
 
-## VPC
-
-- https://github.com/dustindortch/terraform-aws-vpcpublish
-- https://github.com/aws-ia/terraform-aws-vpc
-
-Get the subnets in the default VPC:
-
-```hcl
-data "aws_vpc" "default" {
-  default = true
-}
-
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
-  # Optional: select subnets by AZs
-  # This is needed to create an EKS cluster, which can't be done in us-east-1e
-  filter {
-    name   = "availability-zone"
-    values = ["us-east-1a", "us-east-1b", "us-east-1c"]
-  }
-}
-```
-
 ## Auto Scaling
 
 - Auto Scaling Groups tutorial - https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg - https://github.com/hashicorp/learn-terraform-aws-asg
@@ -405,6 +593,7 @@ resource "aws_autoscaling_group" "example" {
 - https://github.com/AJarombek/global-aws-infrastructure/tree/main/eks-v2 - See v1 (includes a VPC, EKS cluster, and EC2 worker nodes): https://github.com/AJarombek/global-aws-infrastructure/tree/0e23def69ad9c699ee9f2c4248130f935fda0057/eks
 - https://github.com/hashicorp-education/learn-terraform-stacks-eks-deferred - https://developer.hashicorp.com/terraform/tutorials/cloud/stacks-eks-deferred
 - https://github.com/PacktPublishing/Mastering-Terraform/tree/main/Chapter%2008%20-%20Building%20Container-based%20Cloud%20Solutions%20with%20AWS%20EKS - Mastering TerraformChapter 08 - Building Container-based Cloud Solutions with AWS EKS
+- Auto Mode - https://github.com/setheliot/eks_auto_mode - https://builder.aws.com/content/2sV2SNSoVeq23OvlyHN2eS6lJfa/amazon-eks-auto-mode-enabled-build-your-super-powered-cluster
 
 ## Lambda
 
@@ -416,11 +605,42 @@ resource "aws_autoscaling_group" "example" {
 
 ## RDS
 
-- Tutorial 'Manage AWS RDS instances' - https://developer.hashicorp.com/terraform/tutorials/aws/aws-rds
-- Tutorial 'Upgrade RDS major version' - https://developer.hashicorp.com/terraform/tutorials/aws/rds-upgrade
+- Tutorial 'Manage AWS RDS instances' - https://developer.hashicorp.com/terraform/tutorials/aws/aws-rds - https://github.com/hashicorp-education/learn-terraform-rds
+- Tutorial 'Upgrade RDS major version' - https://developer.hashicorp.com/terraform/tutorials/aws/rds-upgrade - https://github.com/hashicorp-education/learn-terraform-rds-upgrade
 - https://github.com/terraform-aws-modules/terraform-aws-rds
 - https://github.com/lm-academy/terraform-course/tree/main/proj04-rds-module
 - https://github.com/PacktPublishing/Mastering-Terraform/tree/main/Chapter%2009%20-%20Building%20Serverless%20Cloud%20Solutions%20with%20AWS%20Lambda - Mastering Terraform Chapter 09 - Building Serverless Cloud Solutions with AWS Lambda
+
+The [subnet group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) is the collection of subnets in which the RDS instances can be provisioned. Usually, these are private subnets. If you don't specify a subnet group, the RDS instances will be created in the default VPC.
+
+The [parameter group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group) is used to configure database engine settings. If you don't specify a custom parameter group, the default one will be used.
+
+```hcl
+resource "aws_db_parameter_group" "main" {
+  name   = "${var.app_name}-rds-params-${var.environment}"
+  family = "postgres14"
+
+  parameter {
+    name  = "rds.force_ssl"
+    value = "1"
+  }
+
+  # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.Concepts.PostgreSQL.Query_Logging.html
+  parameter {
+    name  = "log_connections"
+    value = "1"
+  }
+}
+```
+
+Some (not all) available parameters for PostgreSQL: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.Parameters.html#Appendix.PostgreSQL.CommonDBATasks.Parameters.parameters-list
+
+To list all available parameter names for a specific family run:
+
+```shell
+aws rds describe-db-parameters --db-parameter-group-name default.postgres13
+aws rds describe-db-parameters --db-parameter-group-name default.postgres14 --query 'Parameters[].ParameterName'
+```
 
 ## Multiple AWS accounts
 
