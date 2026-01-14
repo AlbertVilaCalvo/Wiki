@@ -187,6 +187,206 @@ aws rds delete-db-instance --db-instance-identifier <db-id>
 
 If you don't want to create a final snapshot before deleting the instance, add `--skip-final-snapshot`.
 
+Get engine versions with [describe-db-engine-versions](https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-engine-versions.html):
+
+```shell
+aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"
+aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].DBParameterGroupFamily"
+```
+
+See more commands at https://docs.amazonaws.cn/en_us/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.PostgreSQL.UpgradeVersion.html
+
+List all available parameters of a [parameter group](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html):
+
+```shell
+aws rds describe-db-parameters --db-parameter-group-name default.postgres13
+aws rds describe-db-parameters --db-parameter-group-name default.postgres14 --query 'Parameters[].ParameterName'
+```
+
+Some (not all) available parameters for PostgreSQL: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.Parameters.html#Appendix.PostgreSQL.CommonDBATasks.Parameters.parameters-list
+
+## Connect
+
+There are 2 ways to connect to an RDS database:
+
+1. Username + password
+2. IAM Authentication
+
+### Username + password
+
+Store the password at Secrets Manager.
+
+For EKS:
+
+- Pod assumes an IAM role (via Pod Identity)
+- IAM role is allowed to read a secret from Secrets Manager that contains the DB username/password
+- App gets the secret and connects normally
+
+Flow: Pod → STS → Secrets Manager → RDS
+
+#### Terraform example
+
+```hcl
+resource "aws_secretsmanager_secret" "master_password" {
+  name = "app/postgres"
+}
+
+resource "aws_secretsmanager_secret_version" "master_password" {
+  secret_id = aws_secretsmanager_secret.master_password.id
+  secret_string = jsonencode({
+    username = var.rds_db_username
+    password = var.rds_db_password
+    host     = aws_db_instance.postgres.address
+    port     = 5432
+    database = var.rds_db_name
+  })
+}
+
+resource "aws_iam_role" "server_pod" {
+  name = "${var.app_name}-server-pod-role-${var.environment}"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "pods.eks.amazonaws.com"
+        }
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_eks_pod_identity_association" "server" {
+  # ...
+}
+
+resource "aws_iam_policy" "secrets_manager" {
+  name        = "${var.app_name}-secrets-manager-policy-${var.environment}"
+  description = "Allow Secrets Manager access for ${var.app_name} in ${var.environment} environment"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue"
+        ]
+        Resource = [
+          aws_secretsmanager_secret.master_password.arn
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "secrets_manager" {
+  role       = aws_iam_role.server_pod.name
+  policy_arn = aws_iam_policy.secrets_manager.arn
+}
+```
+
+### IAM Authentication
+
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html
+
+- Connects to RDS using a token instead of a password.
+- The app generates a temporary auth token using an AWS SDK.
+- Short-lived credentials (tokens expire every 15 minutes). No database password stored anywhere.
+- Your app must support IAM authentication, or you implement token generation. You must control the application code.
+- Requires SSL/TLS.
+- Works with MariaDB, MySQL and PostgreSQL.
+- You can use IAM to centrally manage access to your database resources, instead of managing access individually on each DB instance.
+- See [limitations](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html#UsingWithRDS.IAMDBAuth.Limitations) and [recommendations](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html#UsingWithRDS.IAMDBAuth.ConnectionsPerSecond).
+
+> In general, consider using IAM database authentication when your applications create fewer than 200 connections per second, and you don't want to manage usernames and passwords directly in your application code.
+
+For EKS:
+
+- Pod assumes an IAM role (via Pod Identity)
+- App generates a temporary auth token using AWS SDK
+- Connects to RDS using that token instead of a password
+
+Flow: Pod → STS → RDS
+
+Enable IAM authentication with [`aws rds modify-db-instance`](https://docs.aws.amazon.com/cli/latest/reference/rds/modify-db-instance.html):
+
+```shell
+aws rds modify-db-instance \
+ --db-instance-identifier <db-id> \
+ --enable-iam-database-authentication \
+ --apply-immediately
+```
+
+Generate an authentication token with [`generate-db-auth-token`](https://docs.aws.amazon.com/cli/latest/reference/rds/generate-db-auth-token.html):
+
+```shell
+aws rds generate-db-auth-token \
+ --hostname <db-endpoint> \
+ --port 5432 \
+ --region <region> \
+ --username <db-username>
+```
+
+#### Terraform example
+
+```hcl
+resource "aws_iam_role" "server_pod" {
+  name = "${var.app_name}-server-pod-role-${var.environment}"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "pods.eks.amazonaws.com"
+        }
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_eks_pod_identity_association" "server" {
+  # ...
+}
+
+resource "aws_iam_policy" "rds_connect" {
+  name        = "${var.app_name}-rds-connect-policy-${var.environment}"
+  description = "Allow RDS IAM authentication for ${var.app_name} in ${var.environment} environment"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "rds-db:connect"
+        ]
+        Resource = [
+          "arn:aws:rds-db:${var.aws_region}:${data.aws_caller_identity.current.account_id}:dbuser:${var.rds_db_resource_id}/${var.rds_db_username}"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "rds_connect" {
+  role       = aws_iam_role.server_pod.name
+  policy_arn = aws_iam_policy.rds_connect.arn
+}
+```
+
 ## Monitoring with CloudWatch
 
 https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/monitoring-cloudwatch.html
