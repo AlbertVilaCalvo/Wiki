@@ -20,4 +20,6 @@ Event examples (from AWS in Action p. 191):
 - EC2 emits events whenever the state of an EC2 instances changes (eg from `Pending` to `Running`).
 - AWS emits an event to notify you of service degradations or downtimes.
 
+Karpenter uses EventBridge events to respond to EC2 Spot Instance interruptions. Events are sent to an SQS queue. See https://karpenter.sh/docs/reference/cloudformation/#interruption-handling and https://github.com/aws/karpenter-provider-aws/blob/c9c3a48888bceee4d01e0fec80a03a6379ca928f/website/content/en/preview/getting-started/getting-started-with-karpenter/cloudformation.yaml#L302-L374.
+
 [Global endpoints](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html) allow you to fail over event ingestion automatically to a secondary Region during service disruptions, without the need for manual intervention. See workshop https://catalog.workshops.aws/building-event-driven-architectures-on-aws/en-US/eventbridge/global-endpoint

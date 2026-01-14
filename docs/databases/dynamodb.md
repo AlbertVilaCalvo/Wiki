@@ -81,6 +81,8 @@ The more distinct are partition key values, the more those requests will be spre
 
 ## Secondary indexes
 
+New in Re:Invent 2025: Global Secondary Index Multi Attribute - https://www.youtube.com/watch?v=Q6ov_odadg0
+
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
 
 Best practices for using secondary indexes in DynamoDB - https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-indexes.html

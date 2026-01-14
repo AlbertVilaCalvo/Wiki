@@ -354,6 +354,8 @@ Switching Pip to Uv in a Dockerized Flask / Django App (nickjanetakis.com) - htt
 
 uv: running a script with dependencies - https://news.ycombinator.com/item?id=44641521
 
+uv is the best thing to happen to the Python ecosystem in a decade - https://news.ycombinator.com/item?id=45751400
+
 ## Black
 
 https://github.com/psf/black

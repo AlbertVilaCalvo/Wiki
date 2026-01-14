@@ -19,3 +19,7 @@ https://developers.redhat.com/devnation/devops-gitops
 https://training.linuxfoundation.org/training/devops-and-workflow-management-with-argo-lfs256/
 
 https://kodekloud.com/courses/argocd
+
+https://leanpub.com/gitops-argocd
+
+https://github.com/aws-ia/terraform-aws-eks-blueprints/tree/main/patterns/gitops/getting-started-argocd

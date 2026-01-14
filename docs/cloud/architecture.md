@@ -38,9 +38,52 @@ Every system has a hot path - https://www.linkedin.com/posts/raul-junco_every-sy
 
 System Design Staircase - https://www.linkedin.com/posts/raul-junco_system-design-isnt-one-big-concept-it-activity-7386008937277472768-Xfnq/
 
+https://algomaster.io/learn/system-design/course-introduction
+
+https://algomaster.io/learn/system-design-interviews/introduction
+
 Databases - https://www.linkedin.com/posts/raul-junco_in-one-system-design-interview-i-used-kafka-activity-7384919515282817024-wcFP/
 
 > Every system eventually fails or scales at its data layer first, not its API or cache. That's why strong database design, indexing, and query optimization are the real foundations of scalability. [source](https://www.linkedin.com/feed/update/urn:li:activity:7384919515282817024?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7384919515282817024%2C7384924552562376705%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287384924552562376705%2Curn%3Ali%3Aactivity%3A7384919515282817024%29)
+
+System design checklist - https://www.linkedin.com/posts/raul-junco_i-treat-system-design-like-a-checklist-activity-7415014883634905088-RpTW/
+
+Fundamentals
+
+- What are the read patterns?
+- What are the write patterns?
+- Who owns the source of truth?
+- Is consistency or availability more critical?
+- Single writer or multiple writers?
+
+Architecture
+
+- Synchronous or async?
+- Do I need a queue, or is a cron job enough?
+- Can I separate the compute from storage?
+- Stateless or stateful services?
+- Contracts versioned?
+
+Reliability
+
+- What happens when this fails?
+- Where’s the retry logic, and is it idempotent?
+- Are we alerting to symptoms or root causes?
+- Timeouts configured?
+
+Scaling
+
+- How do reads scale?
+- How do writes scale?
+- Will this design hold up at 10x traffic?
+- What’s the hot path, and how do we optimize it?
+
+Observability
+
+- Do we log what we need to debug in production?
+- Can we trace a request across services?
+- What metrics define “healthy”?
+- Debuggable without redeploy?
 
 ## Coupling
 

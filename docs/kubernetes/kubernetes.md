@@ -400,7 +400,13 @@ Use cases:
 - Fine-grained security. Restrict what workloads can do in Kubernetes (eg read-only, namespace-limited).
 - Automation tools. CI/CD or monitoring agents (eg ArgoCD, Prometheus) use ServiceAccounts for scoped permissions.
 
-Every namespace gets a `default` ServiceAccount upon creation (run `kubectl get serviceaccounts -n <namespace>` to see it). If you don't manually assign a ServiceAccount to a Pod, Kubernetes assigns the `default` ServiceAccount for that namespace to the Pod.
+Every namespace gets a `default` ServiceAccount upon creation (run `kubectl get serviceaccounts -n <namespace>` and `kubectl describe sa default` to see it). If you don't manually assign a ServiceAccount to a Pod, Kubernetes assigns the `default` ServiceAccount for that namespace to the Pod.
+
+Kubernetes automatically mounts a JWT token for the ServiceAccount into the Pod at `/var/run/secrets/kubernetes.io/serviceaccount`, which the application can use to authenticate to the Kubernetes API server. To see it run:
+
+```shell
+kubectl exec -n <namespace> <pod-name> -- cat /var/run/secrets/kubernetes.io/serviceaccount/token
+```
 
 ## ConfigMap
 

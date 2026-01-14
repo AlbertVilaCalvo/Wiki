@@ -26,6 +26,8 @@ Tutorial: Send Messages Between Distributed Applications with Amazon Simple Queu
 
 https://stackoverflow.com/questions/2336438/emulating-amazon-sqs-during-development
 
+Karpenter uses EventBridge events to respond to EC2 Spot Instance interruptions. Events are sent to an SQS queue. See https://karpenter.sh/docs/reference/cloudformation/#interruption-handling and https://github.com/aws/karpenter-provider-aws/blob/c9c3a48888bceee4d01e0fec80a03a6379ca928f/website/content/en/preview/getting-started/getting-started-with-karpenter/cloudformation.yaml#L302-L374.
+
 ## SQS vs SNS vs MQ
 
 Differences between Amazon SQS, Amazon MQ, and Amazon SNS - https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html#sqs-difference-from-amazon-mq-sns

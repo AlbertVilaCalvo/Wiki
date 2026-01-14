@@ -195,6 +195,8 @@ https://news.ycombinator.com/item?id=46256606 - Hey, Boris from the Claude Code 
 3. Give the model a way to check its work. For svelte, consider using the Puppeteer MCP server and tell Claude to check its work in the browser. This is another 2-3x.
 4. Use Opus 4.5. It’s a step change from Sonnet 4.5 and earlier models.
 
+https://x.com/bcherny/status/2007179832300581177 - I'm Boris and I created Claude Code. Lots of people have asked how I use Claude Code
+
 ## ChatGPT
 
 Canvas - https://help.openai.com/en/articles/9930697-what-is-the-canvas-feature-in-chatgpt-and-how-do-i-use-it

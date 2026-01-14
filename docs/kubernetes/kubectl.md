@@ -1,4 +1,6 @@
-# kubectl
+---
+title: kubectl
+---
 
 Allows you to interact with the cluster, eg to get the status of nodes, pods, and services.
 
@@ -133,6 +135,8 @@ kubectl auth can-i create pods --all-namespaces
 `kubectl get nodes`
 
 `kubectl get nodes --show-labels`
+
+`kubectl get nodes -l type=karpenter`
 
 `kubectl get namespaces`
 
