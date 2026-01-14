@@ -95,7 +95,7 @@ The AWS managed policy [`AWSLambdaBasicExecutionRole`](https://docs.aws.amazon.c
 
 See comparison at https://youtu.be/z8wGSykEauI?feature=shared&t=2680
 
-From [invoke](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/invoke.html):
+From [invoke](https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html):
 
 > You can invoke a function synchronously (and wait for the response), or asynchronously. By default, Lambda invokes your function synchronously (i.e. the `InvocationType` is `RequestResponse`). To invoke a function asynchronously, set `InvocationType` to `Event`.
 
@@ -176,9 +176,9 @@ You'll immediately receive an email to confirm the subscription (AWS Notificatio
 
 ## CLI
 
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/index.html
+https://docs.aws.amazon.com/cli/latest/reference/lambda/index.html
 
-[Invoke](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/invoke.html):
+[Invoke](https://docs.aws.amazon.com/cli/latest/reference/lambda/invoke.html):
 
 ```json title="payload.json"
 {

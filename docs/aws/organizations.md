@@ -139,4 +139,4 @@ See [Centrally manage root access for member accounts](https://docs.aws.amazon.c
 
 API reference: https://docs.aws.amazon.com/organizations/latest/APIReference/Welcome.html
 
-CLI command reference: https://awscli.amazonaws.com/v2/documentation/api/latest/reference/organizations/index.html
+CLI command reference: https://docs.aws.amazon.com/cli/latest/reference/organizations/index.html

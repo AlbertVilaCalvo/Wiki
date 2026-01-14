@@ -94,7 +94,7 @@ You can use AWS Backup to create a backup plan that automates RDS backups on a s
 
 ### Create a manual snapshot
 
-Create a manual snapshot with [`create-db-snapshot`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/create-db-snapshot.html):
+Create a manual snapshot with [`create-db-snapshot`](https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-snapshot.html):
 
 ```shell
 aws rds create-db-snapshot \
@@ -112,7 +112,7 @@ aws rds describe-db-snapshots --db-snapshot-identifier prod-2024-12-11-manual
 
 ### Restore a snapshot
 
-You can't restore an snapshot to an existing database. To restore a database from a snapshot, you need to **create a new database instance** with [`restore-db-instance-from-db-snapshot`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/restore-db-instance-from-db-snapshot.html):
+You can't restore an snapshot to an existing database. To restore a database from a snapshot, you need to **create a new database instance** with [`restore-db-instance-from-db-snapshot`](https://docs.aws.amazon.com/cli/latest/reference/rds/restore-db-instance-from-db-snapshot.html):
 
 ```shell
 aws rds restore-db-instance-from-db-snapshot \
@@ -123,7 +123,7 @@ aws rds restore-db-instance-from-db-snapshot \
 
 Get the Subnet group from the console (first tab, "Connectivity & security").
 
-If you are restoring from an _automated_ snapshot, you can also restore the database in a specific **point in time** with [`restore-db-instance-to-point-in-time`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/restore-db-instance-to-point-in-time.html):
+If you are restoring from an _automated_ snapshot, you can also restore the database in a specific **point in time** with [`restore-db-instance-to-point-in-time`](https://docs.aws.amazon.com/cli/latest/reference/rds/restore-db-instance-to-point-in-time.html):
 
 ```shell
 aws rds restore-db-instance-to-point-in-time \
@@ -154,7 +154,7 @@ aws rds copy-db-snapshot \
 
 ### Delete a snapshot
 
-[docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/delete-db-snapshot.html)
+[docs](https://docs.aws.amazon.com/cli/latest/reference/rds/delete-db-snapshot.html)
 
 ```shell
 aws rds delete-db-snapshot --db-snapshot-identifier <snapshot-id>
@@ -162,11 +162,11 @@ aws rds delete-db-snapshot --db-snapshot-identifier <snapshot-id>
 
 ## CLI
 
-Reference - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/index.html
+Reference - https://docs.aws.amazon.com/cli/latest/reference/rds/
 
 Examples - https://github.com/aws/aws-cli/tree/develop/awscli/examples/rds
 
-Get instance information with [describe-db-instances](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/describe-db-instances.html):
+Get instance information with [describe-db-instances](https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-instances.html):
 
 ```shell
 aws rds describe-db-instances
@@ -179,7 +179,7 @@ aws rds describe-db-instances --query "DBInstances[0].Endpoint"
 aws rds describe-db-instances --query "DBInstances[0].Endpoint.Address" --output text
 ```
 
-Delete a database instance with [`delete-db-instance`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/delete-db-instance.html):
+Delete a database instance with [`delete-db-instance`](https://docs.aws.amazon.com/cli/latest/reference/rds/delete-db-instance.html):
 
 ```shell
 aws rds delete-db-instance --db-instance-identifier <db-id>

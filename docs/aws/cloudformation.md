@@ -185,10 +185,10 @@ Resources:
 
 CLI Reference:
 
-- v2: https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/index.html
+- v2: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
 - v1: https://docs.aws.amazon.com/cli/latest/reference/cloudformation/index.html
 
-[Create stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/create-stack.html):
+[Create stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html):
 
 ```shell
 aws cloudformation create-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml
@@ -202,7 +202,7 @@ aws cloudformation create-stack --stack-name myStackName \
 
 To check if the stack creation has completed, run `aws cloudformation describe-stacks --stack-name myStackName` and check if `StackStatus` is `CREATE_COMPLETE`.
 
-[Update stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/update-stack.html):
+[Update stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/update-stack.html):
 
 ```shell
 aws cloudformation update-stack --stack-name myStackName --region us-east-1 --template-body file://myTemplate.yml
@@ -228,7 +228,7 @@ aws cloudformation list-stacks
 aws cloudformation list-stacks --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE
 ```
 
-[Describe stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/describe-stacks.html):
+[Describe stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stacks.html):
 
 ```shell
 aws cloudformation describe-stacks --stack-name myStackName
@@ -244,25 +244,25 @@ aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].O
 aws cloudformation describe-stacks --stack-name myStackName --query "Stacks[0].Outputs[0].OutputValue" --output text
 ```
 
-[Delete stack](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/delete-stack.html):
+[Delete stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/delete-stack.html):
 
 ```shell
 aws cloudformation delete-stack --stack-name myStackName
 ```
 
-[Wait for stack deletion](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/wait/stack-delete-complete.html):
+[Wait for stack deletion](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/wait/stack-delete-complete.html):
 
 ```shell
 aws cloudformation wait stack-delete-complete --stack-name myStackName
 ```
 
-[Get stack resources](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/describe-stack-resources.html) (only the first 100):
+[Get stack resources](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stack-resources.html) (only the first 100):
 
 ```shell
 aws cloudformation describe-stack-resources --stack-name myStackName
 ```
 
-[Get stack resource](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/describe-stack-resource.html):
+[Get stack resource](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stack-resource.html):
 
 ```shell
 aws cloudformation describe-stack-resource --stack-name myStackName \

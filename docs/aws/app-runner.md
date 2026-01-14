@@ -14,7 +14,7 @@ https://aws.github.io/copilot-cli
 
 ## CLI
 
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/apprunner/index.html
+https://docs.aws.amazon.com/cli/latest/reference/apprunner/index.html
 
 ```shell
 aws apprunner create-service \

@@ -23,7 +23,7 @@ If installed with [Brew](https://formulae.brew.sh/formula/awscli#default), the "
 **Command reference**:
 
 - https://awscli.amazonaws.com/v2/documentation/api/latest/index.html
-- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/index.html
+- https://docs.aws.amazon.com/cli/latest/reference/index.html
 
 V1 reference: https://docs.aws.amazon.com/cli/latest/reference
 
@@ -125,7 +125,7 @@ Doing `aws s3 ls` should give a response (will be empty if there are no buckets,
 aws sts get-caller-identity
 ```
 
-Returns details (UserId, Account and Arn) about the IAM user or role whose credentials are used to call the operation - [docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sts/get-caller-identity.html).
+Returns details (UserId, Account and Arn) about the IAM user or role whose credentials are used to call the operation - [docs](https://docs.aws.amazon.com/cli/latest/reference/sts/get-caller-identity.html).
 
 Get the **account ID**:
 
@@ -167,7 +167,7 @@ Comments are written with `#`.
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/configure/index.html
+https://docs.aws.amazon.com/cli/latest/reference/configure/index.html
 
 `aws configure help`
 
@@ -193,7 +193,7 @@ aws configure set aws_session_token <session-token> --profile <profile-name>
 
 You can create access keys for a user with: `aws iam create-access-key --user-name MyUser`
 
-[Set](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/configure/set.html) value: `aws configure set <varname> <value> [--profile profile-name]`, eg `aws configure set region us-east-1 --profile default`
+[Set](https://docs.aws.amazon.com/cli/latest/reference/configure/set.html) value: `aws configure set <varname> <value> [--profile profile-name]`, eg `aws configure set region us-east-1 --profile default`
 
 ### Multiple accounts
 

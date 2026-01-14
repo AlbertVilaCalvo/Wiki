@@ -67,9 +67,9 @@ A queue to store messages that are not processed successfully, that is, messages
 
 ## CLI
 
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sqs/index.html
+https://docs.aws.amazon.com/cli/latest/reference/sqs/index.html
 
-[get-queue-attributes](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sqs/get-queue-attributes.html)
+[get-queue-attributes](https://docs.aws.amazon.com/cli/latest/reference/sqs/get-queue-attributes.html)
 
 ```shell
 aws sqs get-queue-attributes \
@@ -83,7 +83,7 @@ aws sqs get-queue-attributes \
  --attribute-names ApproximateNumberOfMessages
 ```
 
-[Send message](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sqs/send-message.html):
+[Send message](https://docs.aws.amazon.com/cli/latest/reference/sqs/send-message.html):
 
 ```shell
 aws sqs send-message \

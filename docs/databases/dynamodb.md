@@ -103,9 +103,9 @@ Local secondary indexes use the same partition (hash) key, but a different range
 
 ## CLI
 
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/index.html
+https://docs.aws.amazon.com/cli/latest/reference/dynamodb/index.html
 
-[Create table](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/create-table.html) with single primary key (aka partition key) `uid`:
+[Create table](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/create-table.html) with single primary key (aka partition key) `uid`:
 
 ```shell
 aws dynamodb create-table --table-name todo-user \
@@ -125,19 +125,19 @@ aws dynamodb create-table --table-name todo-task \
  --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
 ```
 
-Creating a table can take some time. To check the table status use [describe-table](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/describe-table.html) (the value of `TableStatus` should be `ACTIVE`):
+Creating a table can take some time. To check the table status use [describe-table](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/describe-table.html) (the value of `TableStatus` should be `ACTIVE`):
 
 ```shell
 aws dynamodb describe-table --table-name todo-user
 ```
 
-[Put item](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/put-item.html):
+[Put item](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/put-item.html):
 
 ```shell
 aws dynamodb put-item --table-name Users --item '{"Name": {"S": "Albert Einstein"}, "DOB": {"S": "1879-03-14"}}'
 ```
 
-[Batch write items](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/batch-write-item.html). To put or delete (not update) multiple items in one or more tables.
+[Batch write items](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/batch-write-item.html). To put or delete (not update) multiple items in one or more tables.
 
 ```shell
 aws dynamodb batch-write-item --request-items file://users.json
@@ -176,7 +176,7 @@ The json file is something like:
 
 There's an example [here](https://github.com/nealdct/aws-clf-code/blob/main/amazon-dynamodb/batch-write.json).
 
-[Scan](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/scan.html):
+[Scan](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/scan.html):
 
 ```shell
 aws dynamodb scan --table-name users
@@ -196,7 +196,7 @@ aws dynamodb scan \
     --expression-attribute-values '{":a":{"N":"18"}}'
 ```
 
-[Query](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/dynamodb/query.html):
+[Query](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/query.html):
 
 ```shell
 aws dynamodb query \

@@ -472,7 +472,7 @@ See similar instructions here: https://github.com/nealdct/aws-clf-code/blob/main
 
 Some EC2 instance types are EBS-optimized, others optionally support EBS optimization, an some do not support EBS optimization; see [Amazon EBS-optimized instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html) and [Amazon EBS optimization](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-optimization.html).
 
-You can back up EBS volumes with [EBS snapshots](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html). Snapshots are incremental. Snapshots are stored in S3, which is regional, so they are available in all AZs. Thus, we can launch a volume from a snapshot in a different AZ than the AZ of the source volume. To create a snapshot with the CLI use [`create-snapshot`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-snapshot.html): `aws ec2 create-snapshot --volume-id <volume-id>`.
+You can back up EBS volumes with [EBS snapshots](https://docs.aws.amazon.com/ebs/latest/userguide/ebs-snapshots.html). Snapshots are incremental. Snapshots are stored in S3, which is regional, so they are available in all AZs. Thus, we can launch a volume from a snapshot in a different AZ than the AZ of the source volume. To create a snapshot with the CLI use [`create-snapshot`](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-snapshot.html): `aws ec2 create-snapshot --volume-id <volume-id>`.
 
 Durability vs availability:
 
@@ -646,7 +646,7 @@ You choose it when you launch the instance.
 
 ## CLI
 
-https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/index.html
+https://docs.aws.amazon.com/cli/latest/reference/ec2/index.html
 
 Examples - https://github.com/aws/aws-cli/tree/develop/awscli/examples/ec2
 
@@ -698,7 +698,7 @@ aws ec2 describe-regions
 aws ec2 describe-availability-zones --region eu-west-1
 ```
 
-[Launch instance](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/run-instances.html)
+[Launch instance](https://docs.aws.amazon.com/cli/latest/reference/ec2/run-instances.html)
 
 ```shell
 aws ec2 run-instances \
@@ -726,19 +726,19 @@ You can make the `RunInstances` request idempotent by adding `--client-token` wi
 
 :::
 
-[Terminate instance](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/terminate-instances.html)
+[Terminate instance](https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html)
 
 ```shell
 aws ec2 terminate-instances --instance-ids i-001b89bdc08ba65f7
 ```
 
-[Create security group](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-security-group.html):
+[Create security group](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-security-group.html):
 
 ```shell
 aws ec2 create-security-group --group-name SshAccess --description "Allow SSH"
 ```
 
-Add inbound rule to security group ([docs](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/authorize-security-group-ingress.html)):
+Add inbound rule to security group ([docs](https://docs.aws.amazon.com/cli/latest/reference/ec2/authorize-security-group-ingress.html)):
 
 ```shell
 aws ec2 authorize-security-group-ingress --group-name SshAccess --protocol tcp --port 22 --cidr 0.0.0.0/0
