@@ -247,12 +247,6 @@ https://kubernetes.io/docs/concepts/overview/components/#addons
 - https://kuma.io
 - Cilium Service Mesh - https://isovalent.com/blog/post/cilium-service-mesh/
 
-## Kustomize
-
-https://kustomize.io
-
-https://www.eksworkshop.com/docs/introduction/kustomize/
-
 ## Pod
 
 https://kubernetes.io/docs/concepts/workloads/pods/
