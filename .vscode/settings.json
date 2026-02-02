@@ -1,0 +1,14 @@
+{
+  "cSpell.words": [
+    "ADOT",
+    "containerregistry",
+    "Distro",
+    "eksctl",
+    "EKSVPC",
+    "IMDS",
+    "kubeconfig",
+    "kubelet",
+    "serviceaccount",
+    "tolerations"
+  ]
+}
