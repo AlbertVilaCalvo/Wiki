@@ -261,13 +261,99 @@ Lifecycle - https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
 
 A pod is one or more containers that share the same Linux namespace (process isolation), cgroups (host resource limits), storage (volumes), IP address, port space and other resources. Containers in a pod run on the same node.
 
-### Container probes
+### Probes
 
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 
-- Readiness probe: the container is ready to accept requests
-- Liveness probe: the container is still accepting requests
-- Startup probe: the application is started
+https://stackoverflow.com/questions/65858309/why-do-i-need-3-different-kind-of-probes-in-kubernetes-startupprobe-readinessp
+
+| Probe          | Question it answers                                                      | What Kubernetes does                                                                                   |
+| -------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| startupProbe   | “Has the app _finished starting_?”                                       | Until it succeeds, other probes are ignored. If it fails too long → container is killed and restarted. |
+| readinessProbe | “Can this pod _serve traffic right now_?”                                | If it fails → pod is removed from Service endpoints (no traffic), but not restarted.                   |
+| livenessProbe  | “Is this container _still alive / not stuck_? Should it be _restarted_?” | If it fails → container is restarted.                                                                  |
+
+Never restart just because dependency is down → that’s readiness, not liveness.
+
+#### startupProbe - slow startup
+
+Use when your app needs a long time to boot (database migrations, JVM apps, large ML models, etc.).
+
+Without it, liveness checks can fail during startup, and Kubernetes may think the app is dead and restart it before it finishes starting.
+
+Once startupProbe succeeds, liveness and readiness probes start working.
+
+For fast startup apps, you may skip it.
+
+`/health/startup` waits for migrations and to connect to DB and Redis, returns 503 while not ready. Once connected, returns 200 OK.
+
+#### readinessProbe - traffic routing control
+
+Tells Kubernetes whether the pod should receive requests.
+
+If it fails, the Pod is removed from Service/LoadBalancer but stays running, not restarted.
+
+Use cases:
+
+- App depends on a database, cache or queue which is temporarily down.
+- App is overloaded and wants to stop taking traffic.
+- During rolling updates.
+
+`/health/ready` checks DB, cache, message broker connectivity.
+
+#### livenessProbe - crash recovery
+
+Detects if the process is stuck: app hangs but not crashes, thread pool deadlock, infinite loop, event loop frozen, memory corruption, unrecoverable state, etc.
+
+If it fails, Kubernetes restarts the container.
+
+`/health/live` should be very cheap and simple. Never put heavy external dependency checks (DB, Kafka), it will cause many restarts.
+
+#### Example
+
+```yaml
+startupProbe:
+  httpGet:
+    path: /health/startup
+    port: 8080
+  failureThreshold: 20
+  periodSeconds: 5
+
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: 8080
+  periodSeconds: 5
+  failureThreshold: 2
+  successThreshold: 2
+
+livenessProbe:
+  httpGet:
+    path: /health/live
+    port: 8080
+  periodSeconds: 10
+  failureThreshold: 3
+```
+
+1. Startup phase
+
+- Loads config, warms cache, connects to DB (takes 60s)
+- `startupProbe` prevents liveness from killing it
+
+2. Normal operation
+
+- `readinessProbe` checks DB + Redis
+- `livenessProbe` checks internal heartbeat
+
+3. DB goes down
+
+- readiness fails → traffic stops
+- liveness still OK → pod not restarted
+
+4. App deadlocks
+
+- readiness might still say OK
+- liveness fails → pod restarted
 
 ### Resource limits
 
@@ -417,6 +503,10 @@ Used to store non-confidential data in key-value pairs, and expose it to a pod.
 ## Secrets
 
 https://kubernetes.io/docs/concepts/configuration/secret/
+
+https://github.com/bitnami-labs/sealed-secrets
+
+https://external-secrets.io/latest/
 
 To avoid including confidential data in application code or a container image.
 

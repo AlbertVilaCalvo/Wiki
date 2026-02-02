@@ -705,6 +705,27 @@ From https://aws.amazon.com/blogs/containers/enhanced-vpc-flexibility-modify-sub
 
 > Amazon EKS doesn’t automatically create new ENIs in subnets that weren’t designated as cluster subnets during the initial cluster setup. If you have worker nodes in subnets other than your original cluster subnets (i.e., where the cross-account ENIs are located), then they can still communicate with the Amazon EKS control plane if there are local routes in place within the VPC that allow this traffic. Essentially, the worker nodes need to be able to resolve and reach the Amazon EKS API server endpoint. This setup might involve transit through the subnets with the ENIs, but it’s the VPC’s internal routing that makes this possible.
 
+### Subnet tags
+
+Public Subnets - For ALB/Ingress and NAT Gateways (/24 = 256 IPs each)
+
+- `"kubernetes.io/role/elb" = "1"` → Used by Load Balancer Controller to discover subnets for internet-facing load balancers
+- `"kubernetes.io/cluster/${var.cluster_name}" = "shared"` → Used by Load Balancer Controller to discover cluster subnets
+
+Private Subnets - For Worker Nodes (/22 = 1024 IPs each)
+
+- `"kubernetes.io/role/internal-elb" = "1"` → Used by Load Balancer Controller to discover subnets for internal load balancers
+- `"kubernetes.io/cluster/${var.cluster_name}" = "shared"` → Used by Load Balancer Controller to discover cluster subnets
+- `"karpenter.sh/discovery" = var.cluster_name` → Used by Karpenter to discover subnets for provisioning EC2 instances, see nodeSelector
+
+Private Subnets - For EKS Control Plane ENIs (/28 = 16 IPs each)
+
+- ENI subnets don't need discovery tags since EKS uses the subnets you explicitly specify in the EKS cluster configuration to place ENIs. See [`subnet_ids`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster#subnet_ids-1).
+
+Private Subnets - For RDS (/24 = 256 IPs each)
+
+- No discovery tags needed since these subnets are used only by RDS database instances.
+
 ### VPC examples
 
 Use shared VPC subnets in Amazon EKS - https://aws.amazon.com/blogs/containers/use-shared-vpcs-in-amazon-eks/ - https://github.com/aws-samples/eks-shared-subnets/ - See AI docs at https://deepwiki.com/aws-samples/eks-shared-subnets - There are two accounts, workload and networking. There are public, private and control plane subnets.
@@ -1152,6 +1173,8 @@ https://docs.aws.amazon.com/eks/latest/best-practices/karpenter.html
 
 https://www.eksworkshop.com/docs/fundamentals/compute/karpenter/
 
+Karpenter Workshop - https://catalog.workshops.aws/karpenter/en-US
+
 https://www.udemy.com/course/karpenter-masterclass-for-kubernetes
 
 https://github.com/aws-samples/eks-workshop-v2/tree/stable/manifests/modules/autoscaling/compute/karpenter/.workshop/terraform
@@ -1229,6 +1252,7 @@ See:
 - https://aws-ia.github.io/terraform-aws-eks-blueprints/patterns/karpenter-mng/#cluster
 - https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/05d32bb2fff08959674c1d4cfe5e34ebc723049e/patterns/karpenter-mng/eks.tf#L48-L61
 - https://github.com/terraform-aws-modules/terraform-aws-eks/blob/d57cdac936efe7ae3b0edbb75340b70c6774d4f3/examples/karpenter/main.tf#L89-L92
+- https://github.com/terraform-aws-modules/terraform-aws-eks/blob/d57cdac936efe7ae3b0edbb75340b70c6774d4f3/examples/karpenter/main.tf#L151-L152
 - https://github.com/Apress/AWS-EKS-Essentials/blob/2a1965d3140df4c076ca89bf7f2909e52c94876b/chapter19-karpenter/control-plane/addons.tf#L23-L32
 
 Note that you need to apply the toleration to the AWS Load Balancer Controller if you are using it, otherwise the controller pods won't be scheduled (you'll get the error `0/2 nodes are available: 2 node(s) had untolerated taint(s)`):
@@ -1257,7 +1281,7 @@ kubectl patch deployment aws-load-balancer-controller -n kube-system --type='jso
 
 #### Tags
 
-You need to tag the subnets Karpenter will use to create the nodes with `karpenter.sh/discovery=<cluster-name>`. The security group must also be tagged with `karpenter.sh/discovery=<cluster-name>`. Then at the EC2NodeClass you use `spec.subnetSelector` to select those subnets by tag:
+You need to tag the subnets Karpenter will use to create the nodes with `karpenter.sh/discovery=<cluster-name>`. The security group must also be tagged with `karpenter.sh/discovery=<cluster-name>`. Then at the EC2NodeClass you use [`spec.subnetSelectorTerms`](https://karpenter.sh/docs/concepts/nodeclasses/#specsubnetselectorterms) and [`spec.securityGroupSelectorTerms`](https://karpenter.sh/docs/concepts/nodeclasses/#specsecuritygroupselectorterms) to select those subnets and security groups by tag:
 
 ```yaml
 apiVersion: karpenter.k8s.aws/v1
@@ -1265,14 +1289,20 @@ kind: EC2NodeClass
 metadata:
   name: default
 spec:
-  subnetSelector:
-    karpenter.sh/discovery: <cluster-name>
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: <cluster-name>
   securityGroupSelectorTerms:
     - tags:
         karpenter.sh/discovery: <cluster-name>
 ```
 
-See https://karpenter.sh/docs/getting-started/migrating-from-cas/#add-tags-to-subnets-and-security-groups
+See:
+
+- https://karpenter.sh/docs/getting-started/migrating-from-cas/#add-tags-to-subnets-and-security-groups
+- https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/05d32bb2fff08959674c1d4cfe5e34ebc723049e/patterns/karpenter-mng/vpc.tf#L19-L23
+- https://github.com/aws-ia/terraform-aws-eks-blueprints/blob/05d32bb2fff08959674c1d4cfe5e34ebc723049e/patterns/karpenter-mng/eks.tf#L65-L70
+- https://github.com/aws-samples/eks-workshop-v2/blob/stable/manifests/modules/autoscaling/compute/karpenter/nodepool/nodeclass.yaml
 
 ### Karpenter installation
 
@@ -1294,6 +1324,48 @@ NodePool and NodeClass examples:
 - https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/examples/karpenter/karpenter.yaml
 - https://www.eksworkshop.com/docs/fundamentals/compute/karpenter/setup-provisioner
 - https://karpenter.sh/docs/getting-started/getting-started-with-karpenter/#5-create-nodepool
+
+### CLI commands
+
+See if karpenter is creating nodes when there are pods with status Pending:
+
+```shell
+kubectl get nodeclaim -o wide
+```
+
+Describe a nodeclaim to see details (replace `default-prg7v`):
+
+```shell
+kubectl describe nodeclaim default-prg7v | tail -50
+```
+
+If you make changes, force delete a nodeclaim to have Karpenter recreate it:
+
+```shell
+kubectl delete nodeclaim default-mfww4
+```
+
+View Karpenter controller logs:
+
+```shell
+kubectl logs -n kube-system -l app.kubernetes.io/name=karpenter --tail=20
+kubectl logs -n kube-system -l app.kubernetes.io/name=karpenter --tail=50 --since=10m
+kubectl logs -n kube-system -l app.kubernetes.io/name=karpenter --tail=100 | grep -i "error\|fail\|unable" | tail -20
+```
+
+From https://www.eksworkshop.com/docs/fundamentals/compute/karpenter/consolidation
+
+```shell
+kubectl logs -l app.kubernetes.io/instance=karpenter -n karpenter -f | jq '.'
+kubectl logs -l app.kubernetes.io/instance=karpenter -n karpenter | grep 'launched nodeclaim' | jq '.'
+kubectl logs -l app.kubernetes.io/instance=karpenter -n karpenter | grep 'disrupting node(s)' | jq '.'
+```
+
+Get nodes created by Karpenter:
+
+```shell
+kubectl get nodes -l karpenter.sh/nodepool=default
+```
 
 ## Auto Mode
 
@@ -1991,7 +2063,7 @@ Example: https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/v2
 
 How it works:
 
-1. The Load Balancer Controller watches the Kubernetes API for new Ingress resources with the annotation `kubernetes.io/ingress.class: alb` or `ingressClassName: alb`. When a new Ingress is created or updated, the controller reacts accordingly.
+1. The Load Balancer Controller watches the Kubernetes API for new Ingress resources with the annotation `kubernetes.io/ingress.class: alb` ([deprecated](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/ingress/ingress_class/#deprecated-kubernetesioingressclass-annotation)) or `ingressClassName: alb`. When a new Ingress is created or updated, the controller reacts accordingly.
 2. Provisions a new Application Load Balancer (ALB) automatically. Based on the Ingress specification, it calls the AWS Elastic Load Balancing API to create or modify an ALB in your AWS account. It can reuse existing ALBs if configured (via Ingress annotations), or spin up new ones.
 3. Configures listeners. The ALB typically has two listeners on port 80 (HTTP) and port 443 (HTTPS, with ACM certificate). The controller can automatically handle HTTPS by attaching certificates from AWS Certificate Manager (ACM).
 4. For each `backend` `service` declared at the Ingress, the controller creates a Target Group, which is responsible for routing requests to the appropriate targets and health checking. The target group contains the pod IPs of your Kubernetes Service endpoints. It updates targets dynamically as pods scale up/down.
@@ -2082,7 +2154,7 @@ spec:
                   number: 80
 ```
 
-Note: don't use `kubernetes.io/ingress.class: alb` because is deprecated, use `ingressClassName: alb`.
+Note: don't use `kubernetes.io/ingress.class: alb` because is deprecated (see [this](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/ingress/ingress_class/#deprecated-kubernetesioingressclass-annotation) and [this](https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation)), use `ingressClassName: alb`.
 
 After creating it with `kubectl apply -f alb-ingress.yaml`, check the status with `kubectl get ingress -n my-namespace`:
 

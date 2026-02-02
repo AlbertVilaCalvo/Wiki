@@ -138,6 +138,8 @@ kubectl auth can-i create pods --all-namespaces
 
 `kubectl get nodes -l type=karpenter`
 
+`kubectl get nodes -o custom-columns=NAME:.metadata.name,TAINTS:.spec.taints`
+
 `kubectl get namespaces`
 
 `kubectl get pod <pod-name> -n <namespace>`
@@ -193,6 +195,8 @@ kubectl auth can-i create pods --all-namespaces
 `kubectl get componentstatuses` (Deprecated in 1.19)
 
 `kubectl get apiservices` or `kubectl get apiservices.apiregistration.k8s.io`
+
+`kubectl get nodeclaim -o wide` → If using Karpenter
 
 ## Create vs Apply
 
@@ -282,6 +286,10 @@ Use [stern](https://github.com/stern/stern) to get the logs of multiple pods. In
 
 `kubectl logs <pod-name>`
 
+`kubectl logs -n catalog <pod-name> --tail=50` (`--tail 50` also works)
+
+`kubectl logs <pod-name> --since=1h` - `kubectl logs <pod-name> --since=10m`
+
 `kubectl logs -n catalog deployment/catalog`
 
 Follow logs:
@@ -314,6 +322,12 @@ Shell into a container: `kubectl exec mypod -it -- /bin/sh` or `kubectl exec --s
 kubectl -n catalog exec -i \
   deployment/catalog -- curl catalog.catalog.svc/catalog/products | jq .
 ```
+
+View pod environment variables:
+
+- `kubectl exec <pod-name> -- printenv`
+- `kubectl exec <pod-name> -- env`
+- `kubectl get pods -n <namespace> -l app=<my-app> | grep Running | head -1 | awk '{print $1}' | xargs -I {} kubectl exec {} -n <namespace> -- printenv | grep -E "DB_|SERVER_|JWT_|EMAIL_|NODE_ENV" | sort`
 
 ## Scale
 
