@@ -67,6 +67,39 @@ Finder
 defaults write com.apple.finder ShowPathbar -bool true
 ```
 
+## `caffeinate` - Prevent Mac from sleeping
+
+Man page - https://ss64.com/osx/caffeinate.html
+
+https://commandmasters.com/commands/caffeinate-osx/
+
+```shell
+caffeinate -i terraform apply -auto-approve
+caffeinate -i ./scripts/server/create-aws-infrastructure.sh dev
+caffeinate -u -t 3600 # Prevent display sleep for 1 hour
+caffeinate -i -t 7200 # Prevent system sleep for 2 hours
+```
+
+If your script spawns background processes and exits early (rare), then you’d instead do:
+
+```shell
+caffeinate -i bash -c "./scripts/server/delete-aws-infrastructure.sh dev"
+```
+
+`-i` — prevent idle sleep
+
+- This is the one you usually want.
+- The Mac will not go to sleep due to user inactivity.
+- Allows display to turn off (saves screen, power).
+- The system stays fully awake and networking stays up.
+- Works on battery or AC power.
+
+`-s` — prevent system sleep while on AC power
+
+- Only works while plugged into power.
+- The Mac will not enter system sleep at all.
+- More aggressive than `-i`.
+
 ## Keyboard Shortcuts
 
 [Mac keyboard shortcuts](https://support.apple.com/en-au/HT201236)

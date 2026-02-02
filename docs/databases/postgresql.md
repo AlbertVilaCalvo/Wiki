@@ -133,3 +133,15 @@ At the home, click 'Add New Server', then fill the dialog with this data:
   - Host name/address: localhost
   - Port: 5432
   - Username: albertvilacalvo
+
+## Data type extensions
+
+https://www.postgresql.org/docs/current/citext.html - case-insensitive character string type
+
+https://docs.cloud.google.com/sql/docs/postgres/extensions#data-type-extensions
+
+https://github.com/kriasoft/node-starter-kit/blob/b3fd3ec4532481fa5ffe43ed35e9e24bc9fdb6a9/migrations/001_initial.js#L26-L30
+
+## Custom data types
+
+https://github.com/kriasoft/node-starter-kit/blob/b3fd3ec4532481fa5ffe43ed35e9e24bc9fdb6a9/migrations/001_initial.js#L32-L36

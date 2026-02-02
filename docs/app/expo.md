@@ -17,6 +17,8 @@ Why did your app crash? How to use Logcat & macOS Console to debug - https://www
 
 React Conf app - https://github.com/expo/react-conf-app
 
+https://github.com/expo/skills - Claude Code skills
+
 ## Sample code
 
 https://github.com/expo/react-conf-app
@@ -326,6 +328,8 @@ https://docs.expo.dev/eas
 
 https://blog.expo.dev/expo-application-services-eas-build-and-submit-fc1d1476aa2e
 
+How to integrate EAS Workflows with GitHub Actions for faster mobile CI - https://expo.dev/blog/how-to-integrate-eas-workflows-with-github-actions
+
 Install the CLI: `npm install -g eas-cli` ([npm is recommended instead of yarn](https://docs.expo.dev/build/setup/#1-install-the-latest-eas-cli))
 
 Login: `eas login`
@@ -489,8 +493,12 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 - [SDK 48](https://blog.expo.dev/expo-sdk-48-ccb8302e231) - 2023-02 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#4800--2023-02-09)
 - [SDK 49](https://blog.expo.dev/expo-sdk-49-c6d398cdf740) - 2023-07 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#4900--2023-06-27)
   - Network debugging in the JS debugger. See https://blog.expo.dev/three-ways-to-use-network-debugging-75fa6118fac6 for more
-- [SDK 50](https://expo.dev/changelog/2024/01-18-sdk-50) - 2024-01 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#5000--2023-12-12)
+- [SDK 50](https://expo.dev/changelog/2024-01-18-sdk-50) - 2024-01 - [CHANGELOG](https://github.com/expo/expo/blob/main/CHANGELOG.md#5000--2023-12-12)
   - Highlights https://www.youtube.com/watch?v=cKFSVUo3AnI
+- [SDK 51](https://expo.dev/changelog/2024-05-07-sdk-51) - 2024-05
+- [SDK 52](https://expo.dev/changelog/2024-11-12-sdk-52) - 2024-11
+- [SDK 53](https://expo.dev/changelog/sdk-53) - 2025-04
+- [SDK 54](https://expo.dev/changelog/sdk-54) - 2025-09
 
 ## Unimodules → Expo modules
 

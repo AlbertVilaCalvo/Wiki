@@ -63,6 +63,7 @@ Self-Hosting Next.js - https://www.youtube.com/watch?v=sIVL4JMqRfc - Learn how t
 - Next.js: Authentication (Best Practices for Server Components, Actions, Middleware) - https://www.youtube.com/watch?v=N_sUsq_y10U
 - Next.js App Router Authentication (Sessions, Cookies, JWTs) - https://www.youtube.com/watch?v=DJvM2lSPn6w
 - https://www.sanity.io/learn/track/work-ready-next-js
+- https://fireship.dev/nextjs
 
 ## MDX
 

@@ -47,6 +47,14 @@ MySQL:
 
 - https://www.mysql.com/products/workbench
 
+## Migration tools
+
+- https://github.com/amacneil/dbmate
+- https://github.com/pressly/goose - Go
+- https://github.com/sequelize/umzug - Node.js
+
+See [Migration](#migration) below.
+
 ## Length and data type for common fields
 
 List of standard lengths for database fields - https://stackoverflow.com/questions/20958/list-of-standard-lengths-for-database-fields
@@ -253,3 +261,7 @@ https://www.pinecone.io/learn/vector-database/
 ## Migration
 
 https://www.rainforestqa.com/blog/2014-06-27-zero-downtime-database-migrations
+
+## Multitenant
+
+https://www.linkedin.com/posts/raul-junco_every-developer-should-know-that-tenant-isolation-activity-7421539086454169600-vB_l/

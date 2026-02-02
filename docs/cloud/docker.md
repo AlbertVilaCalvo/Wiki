@@ -444,6 +444,8 @@ docker images --filter "dangling=true"
 # Print exact timestamps, instead of "2 hours ago"
 docker image ls --format "table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedAt}}\t{{.Size}}"
 
+docker images --format "{{.Repository}}:{{.Tag}}"
+
 # Only show image ids (-q, --quiet)
 docker images -q # 553707c4889c
 # Useful for scripts, for example:
