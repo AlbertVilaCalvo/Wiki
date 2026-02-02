@@ -39,6 +39,30 @@ Since [version 1.11](https://github.com/hashicorp/terraform/releases/tag/v1.11.0
 
 > S3 native state locking is now generally available. The `use_lockfile` argument enables users to adopt the S3-native mechanism for state locking. As part of this change, we've deprecated the DynamoDB-related arguments in favor of this new locking mechanism. While you can still use DynamoDB alongside S3-native state locking for migration purposes, we encourage migrating to the new state locking mechanism.
 
+The same S3 bucket (and DynamoDB table) can be used to store multiple state so as long as the `key` is different. For example:
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket       = "my-app-terraform-state"
+    key          = "frontend/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
+  }
+}
+
+terraform {
+  backend "s3" {
+    bucket       = "my-app-terraform-state"
+    key          = "backend/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
+  }
+}
+```
+
 ## Tags
 
 https://developer.hashicorp.com/terraform/tutorials/aws/aws-default-tags
@@ -643,6 +667,8 @@ aws rds describe-db-parameters --db-parameter-group-name default.postgres14 --qu
 ```
 
 ## Multiple AWS accounts
+
+https://cloudposse.com
 
 - You should have lots of AWS accounts - https://news.ycombinator.com/item?id=33069547 - https://www.reddit.com/r/aws/comments/xuq73y/you_should_have_lots_of_aws_accounts/ - https://src-bin.com/you-should-have-lots-of-aws-accounts/
 - https://www.gruntwork.io/products/account-factory

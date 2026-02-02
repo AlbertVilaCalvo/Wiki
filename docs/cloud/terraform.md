@@ -25,6 +25,8 @@ Cheatsheet: https://cheat-sheets.nicwortel.nl/terraform-cheat-sheet.pdf
 
 > Terraform's primary function is to create, modify, and destroy infrastructure resources to match the desired state described in a Terraform configuration. [source](https://developer.hashicorp.com/terraform/cli/run)
 
+https://cloudposse.com
+
 ## Characteristics
 
 - Cross platform: works on Windows, macOS and Linux.
@@ -127,7 +129,7 @@ Actions are colored (green, red, yellow) and use a symbol:
 
 You can optionally save the plan to a file with `terraform plan -out=tfplan`, and pass it to `apply` later. The file is not human-readable, but you can use the [`show` command](https://developer.hashicorp.com/terraform/cli/commands/show) (`terraform show tfplan`) to inspect the plan.
 
-Note that `terraform plan` is not just a dry-run of `apply`, see _unknown values_ ("known after apply"):
+Note that `terraform plan` is not just a dry-run of `apply`, see _unknown values_ (values with "known after apply" at the plan):
 
 - https://log.martinatkins.me/2021/06/14/terraform-plan-unknown-values/
 - https://github.com/hashicorp/terraform/issues/30937 (blocker of https://github.com/hashicorp/terraform-provider-kubernetes/issues/1775)
@@ -544,6 +546,8 @@ https://developer.hashicorp.com/terraform/language/manage-sensitive-data/ephemer
 
 https://developer.hashicorp.com/terraform/language/manage-sensitive-data/write-only
 
+Example: https://github.com/hashicorp-education/learn-terraform-rds-upgrade/blob/main/main.tf - Tutorial https://developer.hashicorp.com/terraform/tutorials/aws/rds-upgrade - Uses Systems Manager Parameter Store (SSM)
+
 Ephemeral values are available at the run time of an operation, but Terraform omits them from state and plan files. Because Terraform does not store ephemeral values, you must capture any generated values you want to preserve in another resource or output in your configuration.
 
 You can only reference an `ephemeral` resource in other ephemeral contexts, such as a write-only argument in a managed resource or `provider` blocks (see [this](https://developer.hashicorp.com/terraform/language/block/ephemeral#refer-to-ephemeral-resources) and [this](https://developer.hashicorp.com/terraform/language/manage-sensitive-data#omit-values-from-state-and-plan-files)). The provider uses the write-only argument value to configure the resource, then Terraform discards the value without storing it. Note that write-only arguments accept both ephemeral and non-ephemeral values.
@@ -568,6 +572,8 @@ resource "aws_secretsmanager_secret" "db_password" {
 resource "aws_secretsmanager_secret_version" "db_password" {
   secret_id                = aws_secretsmanager_secret.db_password.id
   secret_string_wo         = ephemeral.random_password.db_password.result
+  # Terraform stores the aws_db_instance's password_wo_version argument value in state and can
+  # track if it changes. Increment this value when an update to the password is required
   secret_string_wo_version = 1
 }
 
@@ -582,6 +588,32 @@ resource "aws_db_instance" "example" {
   # Terraform stores the password_wo_version argument value in state and can track if it changes.
   # Increment the password_wo_version value when an update to password_wo is required.
   password_wo_version = aws_secretsmanager_secret_version.db_password.secret_string_wo_version
+}
+```
+
+If you get this error:
+
+```
+│ Error: reading AWS Secrets Manager Secret Versions Data Source (<null>): couldn't find resource
+│
+│   with module.rds.ephemeral.aws_secretsmanager_secret_version.db_password,
+│   on ../../modules/rds/password.tf line 27, in ephemeral "aws_secretsmanager_secret_version" "db_password":
+│   27: ephemeral "aws_secretsmanager_secret_version" "db_password" {
+│
+│ couldn't find resource
+```
+
+The issue is that we're trying to read the secret from AWS Secrets Manager (with `ephemeral "aws_secretsmanager_secret_version"`) immediately after creating it.
+The solution is to delete the `ephemeral "aws_secretsmanager_secret_version"` resource and use the `ephemeral "random_password"` result directly instead of reading it back from Secrets Manager:
+
+```hcl
+# Remove ephemeral "aws_secretsmanager_secret_version" "db_password"
+
+resource "aws_db_instance" "example" {
+  # Change this:
+  password_wo = ephemeral.aws_secretsmanager_secret_version.db_password.secret_string
+  # To this:
+  password_wo = ephemeral.random_password.db_password.result
 }
 ```
 
@@ -1173,11 +1205,11 @@ Note that the root module specifies the maximum version using `~>`, whereas the 
 
 > Do not use `~>` (or other maximum-version constraints) for modules you intend to reuse across many configurations, even if you know the module isn't compatible with certain newer versions. Doing so can sometimes prevent errors, but more often it forces users of the module to update many modules simultaneously when performing routine upgrades. Specify a minimum version, document any known incompatibilities, and let the root module manage the maximum version.
 
-#### Explicit
+#### Explicit with a single provider in the child module
 
 ```hcl title="environments/prod/main.tf"
 terraform {
-  required_version = ">= 1.14"
+  required_version = "~> 1.14"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -1203,7 +1235,111 @@ module "bucket_us_east_1" {
 module "bucket_us_west_1" {
   source    = "./modules/s3_bucket"
   providers = {
+    # Set the default (unaliased) provider
+    # All resources defined in the module will use this provider
     aws = aws.us-west-1
+  }
+}
+```
+
+#### Explicit with multiple providers in the child module
+
+Using an alternate provider configuration in a child module - https://developer.hashicorp.com/terraform/language/block/provider#using-an-alternate-provider-configuration-in-a-child-module
+
+```hcl title="environments/prod/main.tf"
+terraform {
+  required_version = "~> 1.14"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.26.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+
+# Provider for ACM certificate (must be in us-east-1 for CloudFront)
+provider "aws" {
+  alias  = "us_east_1"
+  region = "us-east-1"
+}
+
+module "web_hosting" {
+  source = "../../modules/web-hosting"
+  providers = {
+    # We only set the aliased provider, the default is inherited implicitly.
+    # Inside the module, the resources that don't specify a provider explicitly
+    # will use the default one
+    aws.us_east_1 = aws.us_east_1
+  }
+}
+
+module "github_actions_oidc" {
+  source = "../../modules/github-actions-oidc"
+  # No need to pass the default provider, it is inherited implicitly
+}
+```
+
+```hcl title="modules/web-hosting/main.tf"
+terraform {
+  required_version = ">= 1.14"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 6.26.0"
+      configuration_aliases = [ aws.us_east_1 ] # <-- important
+    }
+  }
+}
+
+resource "aws_s3_bucket" "web_hosting" {
+  # Uses the default provider inherited from the root module
+  bucket = "${var.app_name}-web-hosting-${local.account_id}-${var.environment}"
+}
+
+# ACM certificate must be created in us-east-1 for CloudFront
+resource "aws_acm_certificate" "web_hosting" {
+  # We only set the provider explicitly when we need a different one than the default
+  provider    = aws.us_east_1
+  domain_name = var.domain_name
+}
+```
+
+`configuration_aliases` is used in a child module to declare that it requires multiple configurations for the same provider. It forces the parent module to pass a specific provider instance for that alias.
+
+We can define multiple provider alias in `configuration_aliases` if needed, like in this example from https://developer.hashicorp.com/terraform/language/modules/develop/providers#passing-providers-explicitly:
+
+```hcl title="environments/prod/main.tf"
+provider "aws" {
+  alias  = "usw1"
+  region = "us-west-1"
+}
+
+provider "aws" {
+  alias  = "usw2"
+  region = "us-west-2"
+}
+
+module "tunnel" {
+  source    = "../../modules/tunnel"
+  providers = {
+    aws.src = aws.usw1
+    aws.dst = aws.usw2
+  }
+}
+```
+
+```hcl title="modules/tunnel/main.tf"
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 6.26.0"
+      configuration_aliases = [ aws.src, aws.dst ]
+    }
   }
 }
 ```
@@ -1211,6 +1347,71 @@ module "bucket_us_west_1" {
 ### Publish a module at the registry
 
 The repository needs to be hosted in GitHub. The repository name needs to follow this pattern: `terraform-<provider>-<name>`, for example `terraform-aws-ec2`. The `<provider>` is the main provider that the module uses in case that there is more than one.
+
+### Module composition
+
+https://developer.hashicorp.com/terraform/language/modules/develop/composition
+
+> When we introduce `module` blocks, our configuration becomes hierarchical rather than flat: each module contains its own set of resources, and possibly its own child modules, which can potentially create a deep, complex tree of resource configurations.
+>
+> However, in most cases **we strongly recommend keeping the module tree flat, with only one level of child modules**
+
+### Share data between modules
+
+Dependency Inversion - https://developer.hashicorp.com/terraform/language/modules/develop/composition#dependency-inversion
+
+#### Data-only modules
+
+https://developer.hashicorp.com/terraform/language/modules/develop/composition#data-only-modules
+
+> It may sometimes be useful to write modules that do not describe any new infrastructure at all, but merely retrieve information about existing infrastructure that was created elsewhere using [data sources](https://developer.hashicorp.com/terraform/language/data-sources).
+
+> A common use of this technique is when a system has been decomposed into several subsystem configurations but there is certain infrastructure that is shared across all of the subsystems, such as a common IP network.
+
+#### terraform_remote_state
+
+https://developer.hashicorp.com/terraform/language/state/remote-state-data
+
+You can use the `terraform_remote_state` data source to read outputs from another module's state file. This is useful when modules are deployed separately. The other module can be in a different Git repository.
+
+```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
+data "terraform_remote_state" "networking" {
+  backend = "s3"
+  config = {
+    bucket = "my-terraform-states"
+    key    = "networking/dev/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
+module "payments" {
+  source            = "../../modules/payments"
+  environment       = "dev"
+  region            = "us-east-1"
+  db_instance_class = "db.t3.micro"
+
+  vpc_id             = data.terraform_remote_state.networking.outputs.vpc_id
+  private_subnet_ids = data.terraform_remote_state.networking.outputs.private_subnet_ids
+}
+```
+
+Note that you have access to _all_ the state:
+
+> Sharing data with root module outputs is convenient, but it has drawbacks. Although `terraform_remote_state` only exposes output values, its user must have access to the entire state snapshot, which often includes some sensitive information.
+
+Docs recommend publishing the data somewhere else:
+
+> When possible, we recommend explicitly publishing data for external consumption to a separate location instead of accessing it via remote state.
+
+> A key advantage of using a separate explicit configuration store instead of `terraform_remote_state` is that the data can potentially also be read by systems other than Terraform...
+
+And also recommend using data sources (like [aws_ssm_parameter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter)) and a data-only module:
+
+> You can encapsulate the implementation details of retrieving your published configuration data by writing a [data-only module](https://developer.hashicorp.com/terraform/language/modules/develop/composition#data-only-modules) containing the necessary data source configuration and any necessary post-processing such as JSON decoding. You can then change that module later if you switch to a different strategy for sharing data between multiple Terraform configurations.
 
 ## Version constraints
 
@@ -1341,6 +1542,8 @@ How to manage multiple environments with Terraform (Yevgeniy Brikman) - https://
 2. [Using branches](https://www.gruntwork.io/blog/how-to-manage-multiple-environments-with-terraform-using-branches) ([Old URL](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-branches-875d1a2ee647))
 3. [Using Terragrunt](https://www.gruntwork.io/blog/how-to-manage-multiple-environments-with-terraform-using-terragrunt) ([Old URL](https://blog.gruntwork.io/how-to-manage-multiple-environments-with-terraform-using-terragrunt-2c3e32fc60a8))
 
+Important: HashiCorp doesn't recommend using workspaces for multiple environments, [see below](#workspaces).
+
 https://dustindortch.com/2024/03/11/github-actions-release-flow/
 
 > There are a number of practices that have been in place within the community, some of which I will proclaim are bad. The practice described in “Terraform Up and Running” whereby repositories hold subdirectories for each deployment...
@@ -1424,6 +1627,8 @@ https://developer.hashicorp.com/terraform/cli/workspaces
 
 > Every initialized working directory starts with one workspace named `default`.
 
+Note that all state is stored in a single backend (eg a single S3 bucket).
+
 ```shell
 terraform workspace new development
 terraform workspace new staging
@@ -1434,6 +1639,8 @@ terraform workspace delete staging
 
 https://docs.cloud.google.com/docs/terraform/best-practices/root-modules#environment-directories
 
+> Use only the default workspace.
+
 > Having multiple [CLI workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces) within an environment isn't recommended for the following reasons:
 >
 > - It can be difficult to inspect the configuration in each workspace.
@@ -1442,7 +1649,13 @@ https://docs.cloud.google.com/docs/terraform/best-practices/root-modules#environ
 
 Don't do this: `instance_type = terraform.workspace == "production" ? "t3.large" : "t3.micro"`
 
+From HashiCorp [When Not to Use Multiple Workspaces](https://developer.hashicorp.com/terraform/cli/workspaces#when-not-to-use-multiple-workspacese):
+
+> In particular, organizations commonly want to create a strong separation between multiple deployments of the same infrastructure serving different development stages or different internal teams. In this case, the backend for each deployment often has different credentials and access controls. CLI workspaces within a working directory use the same backend, so they are not a suitable isolation mechanism for this scenario.
+
 https://www.gruntwork.io/blog/how-to-manage-multiple-environments-with-terraform-using-workspaces
+
+> all of your state for all of your environments ends up in the same (S3) bucket. This is one of the reasons that even HashiCorp’s own documentation does not recommend using Terraform workspaces for managing environments
 
 ## VSCode extension
 
