@@ -94,6 +94,7 @@ const sidebars: SidebarsConfig = {
     'kubernetes/helm',
     'kubernetes/kustomize',
     'kubernetes/argocd',
+    'kubernetes/external-dns',
     'kubernetes/certifications',
   ],
   aws: [

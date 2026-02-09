@@ -55,10 +55,17 @@ When you configure a domain to be used with CloudFront with an ACM SSL/TLS Certi
 | www.recipemanager.link                                    | A     | Simple  | Yes   | d36iaepzett3qz.cloudfront.net.                                                              | -             |
 | recipemanager.link                                        | AAAA  | Simple  | Yes   | d36iaepzett3qz.cloudfront.net.                                                              | -             |
 | www.recipemanager.link                                    | AAAA  | Simple  | Yes   | d36iaepzett3qz.cloudfront.net.                                                              | -             |
-| \_51ae72618dcab944c2a8886846f32724.recipemanager.link     | CNAME | Simple  | No    | d36iaepzett3qz.cloudfront.net.                                                              | 60            |
-| \_0df33b75b26b881e3e7bb0257f35b27e.www.recipemanager.link | CNAME | Simple  | No    | d36iaepzett3qz.cloudfront.net.                                                              | 60            |
+| \_51ae72618dcab944c2a8886846f32724.recipemanager.link     | CNAME | Simple  | No    | \_b3c3550f933f1cd4370bb19046985d96.xlfgrmvvlj.acm-validations.aws.                          | 60            |
+| \_0df33b75b26b881e3e7bb0257f35b27e.www.recipemanager.link | CNAME | Simple  | No    | \_2ade2bbf2c28e5afd54c1e99bd7c23c8.xlfgrmvvlj.acm-validations.aws.                          | 60            |
 | recipemanager.link                                        | NS    | Simple  | No    | ns-314.awsdns-39.com. ns-1822.awsdns-35.co.uk. ns-524.awsdns-01.net. ns-1029.awsdns-00.org. | 172800        |
 | recipemanager.link                                        | SOA   | Simple  | No    | ns-314.awsdns-39.com. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400                | 900           |
+
+When you configure a domain (for example `api.recipemanager.link`, no AAAA records) to point to an Application Load Balancer with an ACM SSL/TLS Certificate you have these two records:
+
+| Record name                                               | Type  | Routing | Alias | Value/Route traffic to                                             | TTL (seconds) |
+| --------------------------------------------------------- | ----- | ------- | ----- | ------------------------------------------------------------------ | ------------- |
+| api.recipemanager.link                                    | A     | Simple  | Yes   | recipe-manager-api-lb-dev-1822519741.us-east-1.elb.amazonaws.com.  | -             |
+| \_3c98e5370cf62060b81f5bd17eafc052.api.recipemanager.link | CNAME | Simple  | No    | \_3322ee2e90f17275c5faac39c491ac49.jkddzztszm.acm-validations.aws. | 60            |
 
 Notes:
 
@@ -70,6 +77,39 @@ Notes:
 > - If you use Amazon Route 53 to manage your public DNS records, you can update your records through ACM directly.
 > - ACM automatically renews DNS-validated certificates for as long as a certificate remains in use and the DNS record is in place.
 > - To be renewed, email-validated certificates require an action by the domain owner. ACM begins sending renewal notices 45 days before expiration, using the domain's WHOIS mailbox addresses and five common administrator addressess. The notifications contain a link that the domain owner can click for easy renewal. Once all listed domains are validated, ACM issues a renewed certificate with the same ARN.
+
+### Alias column
+
+The Alias column (Yes/No) in the Records table of a Route 53 hosted zone indicates whether a DNS record is an alias record or a non-alias record.
+
+Alias Record (Yes):
+
+- The record is an AWS-specific alias record that routes traffic directly to AWS resources
+- Can point to resources like CloudFront distributions, Application Load Balancers, S3 website endpoints, or other Route 53 records in the same hosted zone
+- Route 53 automatically resolves the IP address of the target resource
+- No TTL (Time To Live) can be set - Route 53 uses the default TTL from the target resource
+- Queries to AWS resources through alias records are free of charge
+- Can be created at the zone apex (root domain like example.com), unlike CNAME records
+- Route 53 automatically recognizes changes in the target resource and updates responses accordingly
+
+Non-Alias Record (No):
+
+- The record is a standard DNS record (A, AAAA, CNAME, MX, etc.)
+- Contains static values like IP addresses or domain names that you specify
+- You can set a custom TTL value
+- Standard Route 53 query charges apply
+- CNAME records cannot be created at the zone apex
+- You must manually update the record if the target resource's IP address changes
+
+Key Benefits of Alias Records:
+
+- Automatic resolution of AWS resource IP addresses
+- Better performance since there's no additional DNS lookup required
+- Cost savings for queries to AWS resources
+- Ability to use them at the zone apex
+- Built-in health checking capabilities when "Evaluate Target Health" is enabled
+
+The alias functionality is particularly useful when you want to route traffic to AWS resources whose IP addresses might change over time, as Route 53 handles the resolution automatically.
 
 ## Routing policies
 
@@ -92,3 +132,35 @@ Choosing a routing policy - https://docs.aws.amazon.com/Route53/latest/Developer
 [Weighted](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-weighted.html): eg send 10%/90%. For load balancing or A/B testing (eg testing new versions of software).
 
 AWS Route 53 Routing Policies explained with diagrams - https://cloudly.engineer/2019/aws-route-53-routing-policies-explained-with-diagrams/aws/
+
+## CLI
+
+https://docs.aws.amazon.com/cli/latest/reference/route53/
+
+List hosted zones:
+
+```shell
+aws route53 list-hosted-zones
+aws route53 list-hosted-zones-by-name
+aws route53 list-hosted-zones-by-name --dns-name "mydomain.com."
+```
+
+Get hosted zone id:
+
+```shell
+ZONE_ID=$(aws route53 list-hosted-zones-by-name --output json --dns-name "mydomain.com." --query "HostedZones[0].Id" --out text)
+```
+
+Get records:
+
+```shell
+aws route53 list-resource-record-sets --hosted-zone-id $ZONE_ID
+aws route53 list-resource-record-sets --hosted-zone-id $ZONE_ID --output text
+aws route53 list-resource-record-sets --hosted-zone-id $ZONE_ID --output text --query "ResourceRecordSets[?Type == 'A']"
+```
+
+Get name servers:
+
+```shell
+aws route53 list-resource-record-sets --hosted-zone-id $ZONE_ID --query "ResourceRecordSets[?Type == 'NS'].ResourceRecords[*].Value | []" | tr '\t' '\n'
+```
