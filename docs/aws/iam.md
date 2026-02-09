@@ -10,6 +10,8 @@ FAQs: https://aws.amazon.com/iam/faqs/
 
 https://github.com/topics/iam
 
+https://www.awsiamactions.io
+
 **Security best practices in IAM** - https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
 
 :::tip
@@ -263,6 +265,8 @@ List of all `Action`s available for a service: [Actions, resources, and conditio
 ](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html). You need to click on a service.
 
 _Not all API operations that are defined by a service can be used as an action in an IAM policy. Some services include permission-only actions that don't directly correspond to an API operation. These actions are indicated with **[permission only]**. Use this list to determine which actions you can use in an IAM policy._
+
+Also see https://www.awsiamactions.io. (Tip: you can filter by service, by typing for example `route53:`: https://www.awsiamactions.io/?o=route53%3A)
 :::
 
 Console: https://console.aws.amazon.com/iamv2/home?#/policies

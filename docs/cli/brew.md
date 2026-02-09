@@ -23,6 +23,8 @@ brew cleanup
 
 Stop certain formulae from being updated: `brew pin <formula>`. To allow that formulae to update again do: `brew unpin <formula>`.
 
+Show information about formula: `brew info <formula>`
+
 Install: `brew install git`
 
 Uninstall: `brew uninstall git`

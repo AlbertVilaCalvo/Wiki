@@ -4,6 +4,8 @@ title: Shell Scripts
 
 https://www.shellcheck.net - finds bugs in your shell scripts
 
+https://github.com/mvdan/sh - A shell parser, formatter, and interpreter with bash support; includes shfmt
+
 Google Shell Style Guide: https://google.github.io/styleguide/shellguide.html
 
 Bash Reference Manual: https://www.gnu.org/software/bash/manual/html_node/index.html
@@ -15,6 +17,30 @@ Reusable Bash functions: https://github.com/gruntwork-io/bash-commons
 Bash Guide: https://mywiki.wooledge.org/BashGuide - New version: https://guide.bash.academy - https://github.com/lhunath/guide.bash.academy
 
 https://github.com/sandervanvugt/bash-scripting - https://learning.oreilly.com/course/bash-shell-scripting/9780137689064/
+
+:::tip
+Validate the syntax of a Bash script without running it with the "noexec" option: `bash -n myscript.sh`
+:::
+
+:::tip
+Use `caffeinate` to prevent a Mac from sleeping while a script is running:
+
+```shell
+caffeinate -i ./myscript.sh
+```
+
+[See how to use `caffeinate`](../misc/macos.md#caffeinate---prevent-mac-from-sleeping)
+:::
+
+:::important
+Never edit a shell script while is executing, you'll get errors like:
+
+```shell
+./myscript.sh: line 35: syntax error near unexpected token `('
+```
+
+See [Edit shell script while it's running](https://stackoverflow.com/questions/3398258/edit-shell-script-while-its-running) and [What’s the Effect of Editing a Shell Script While It’s Running?](https://www.baeldung.com/linux/modify-running-script).
+:::
 
 ## Run script
 

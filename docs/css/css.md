@@ -26,6 +26,12 @@ https://frontendmasters.com/courses/pro-css/
 
 Math for Frontend Web Dev - https://www.manning.com/books/math-for-frontend-web-dev
 
+CSS Wrapped (new CSS features):
+
+- https://developer.chrome.com/blog/css-wrapped-2023
+- https://chrome.dev/css-wrapped-2024/
+- https://chrome.dev/css-wrapped-2025/
+
 ## Cascade
 
 https://css-tricks.com/dont-fight-the-cascade-control-it/

@@ -4,6 +4,22 @@ title: fnm
 
 https://github.com/Schniz/fnm
 
+## Commands
+
+https://github.com/Schniz/fnm/blob/master/docs/commands.md
+
+`fnm help` → List available commands
+
+`fnm list` → List installed
+
+`fnm list-remote` → List all versions available to install
+
+`fnm install v24.13.0` → Install a version
+
+`fnm default v24.13.0` → Set default version (use `node -v` to check afterwards)
+
+`fnm uninstall v24.1.0` → Uninstall a version
+
 ## Install
 
 Run `curl -fsSL https://fnm.vercel.app/install | bash`. It installs with Homebrew. It says:

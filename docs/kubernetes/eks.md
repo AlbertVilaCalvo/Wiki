@@ -726,6 +726,8 @@ Private Subnets - For RDS (/24 = 256 IPs each)
 
 - No discovery tags needed since these subnets are used only by RDS database instances.
 
+Documentation: see AWS Load Balancer Controller Subnet Auto-Discovery - https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/deploy/subnet_discovery/
+
 ### VPC examples
 
 Use shared VPC subnets in Amazon EKS - https://aws.amazon.com/blogs/containers/use-shared-vpcs-in-amazon-eks/ - https://github.com/aws-samples/eks-shared-subnets/ - See AI docs at https://deepwiki.com/aws-samples/eks-shared-subnets - There are two accounts, workload and networking. There are public, private and control plane subnets.

@@ -22,6 +22,12 @@ https://regex101.com
 
 https://checkip.amazonaws.com
 
+https://ifconfig.me
+
+```shell
+curl ifconfig.me
+```
+
 ## API clients
 
 - https://www.usebruno.com - https://github.com/usebruno/bruno
