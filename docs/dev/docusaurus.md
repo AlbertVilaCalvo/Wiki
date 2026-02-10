@@ -72,7 +72,15 @@ const sidebars = {
       link: {
         type: 'generated-index',
         title: 'AWS',
+        // Appears at the generated index page, below the title
         description: 'Amazon Web Services',
+        // Change URL /category/aws to /cloud/aws
+        // Note that it clashes with the doc 'cloud/aws/aws' below, so we can't do this
+        // slug: '/cloud/aws',
+        // Used for search, eg when you search "amazon" you will see the AWS category in the results
+        // See https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#keywords
+        // keywords: ['aws', 'amazon'],
+        // image: '/img/docusaurus.png',
       },
       collapsed: false,
       items: [
@@ -102,6 +110,46 @@ const sidebars = {
       'docs/markdown-features',
     ],
   },
+}
+```
+
+### HTML
+
+https://docusaurus.io/docs/sidebar/items#sidebar-item-html
+
+You can use any HTML in the sidebar, for example to add dividers:
+
+```js
+const sidebars = {
+  docs: [
+    'docs/doc1',
+    'docs/doc2',
+    // Normal divider
+    {
+      type: 'html',
+      value: '<hr />',
+      defaultStyle: true, // Looks nicer
+    },
+    'docs/doc3',
+    'docs/doc4',
+    // Custom divider - From https://github.com/facebook/docusaurus/issues/9589
+    {
+      type: 'html',
+      value:
+        '<span style="border-top: 1px solid var(--ifm-color-gray-300); display: block;" />',
+      defaultStyle: true,
+    },
+    'docs/doc5',
+    'docs/doc6',
+    // Text also works, is wrapped in the <li></li> tag
+    {
+      type: 'html',
+      value: 'Some text', // Use <b>Text</b> for bold, <i>Text</i> for italic...
+      defaultStyle: true,
+    },
+    'docs/doc7',
+    'docs/doc8',
+  ],
 }
 ```
 

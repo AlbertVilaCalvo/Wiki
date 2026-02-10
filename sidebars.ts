@@ -53,9 +53,21 @@ const sidebars: SidebarsConfig = {
     'javascript/node',
     'javascript/express',
     'javascript/jest',
+    {
+      type: 'html',
+      value:
+        '<span style="border-top: 1px solid var(--ifm-color-gray-300); display: block;" />',
+      defaultStyle: true,
+    },
     'javascript/npm',
     'javascript/yarn',
     'javascript/pnpm',
+    {
+      type: 'html',
+      value:
+        '<span style="border-top: 1px solid var(--ifm-color-gray-300); display: block;" />',
+      defaultStyle: true,
+    },
     'javascript/nvm',
     'javascript/fnm',
   ],
@@ -150,9 +162,12 @@ const sidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'AWS Certifications',
+        // Appears at the generated index page, below the title
         // description: 'Some description',
+        // Change URL /category/certifications to /aws/certifications
         slug: '/aws/certifications',
-        // keywords: ['aws'],
+        // Used for search, eg when you search "amazon" you will see the AWS Certifications category in the results
+        // keywords: ['aws', 'amazon', 'certifications'],
         // image: '/img/logo.svg',
       },
       items: [
