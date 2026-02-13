@@ -20,6 +20,8 @@ Analyze your Amazon Web Services (AWS) environments - https://github.com/duo-lab
 
 https://infosec.mozilla.org/guidelines/aws_security.html
 
+https://www.wiz.io - Cloud Security Platform
+
 ¿Es AWS seguro? - https://dev.to/aws-espanol/es-aws-seguro-4gfp
 
 flAWS challenge (discover AWS-specific vulnerabilities) - http://flaws.cloud - http://flaws2.cloud

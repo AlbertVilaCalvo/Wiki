@@ -787,7 +787,7 @@ You can update your cluster configuration from `CONFIG_MAP` to `API_AND_CONFIG_M
   - AmazonEKSAdminPolicy, AmazonEKSClusterAdminPolicy, AmazonEKSAdminViewPolicy, etc.
   - See policy description at https://www.eksworkshop.com/docs/security/cluster-access-management/understanding
   - All the policies ARNs are `arn:aws:eks::aws:cluster-access-policy/XYZ`.
-  - [List access policies](https://docs.aws.amazon.com/cli/latest/reference/eks/list-access-policies.html) in your account: `aws eks list-access-policies`.
+  - [List access policies](https://docs.aws.amazon.com/cli/latest/reference/eks/list-access-policies.html) in your account: `aws eks list-access-policies` or `aws eks list-access-policies --output table`.
 
 To see an access entry use [`describe-access-entry`](https://docs.aws.amazon.com/cli/latest/reference/eks/describe-access-entry.html), where `<principal-arn>` is the ARN of the IAM user or role from `aws eks list-access-entries --cluster $EKS_CLUSTER_NAME`:
 
@@ -1326,6 +1326,11 @@ NodePool and NodeClass examples:
 - https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/examples/karpenter/karpenter.yaml
 - https://www.eksworkshop.com/docs/fundamentals/compute/karpenter/setup-provisioner
 - https://karpenter.sh/docs/getting-started/getting-started-with-karpenter/#5-create-nodepool
+
+### Spread pods across AZs & nodes for high availability
+
+- https://github.com/aws-samples/karpenter-blueprints/blob/main/blueprints/ha-az-nodes/README.md
+- https://github.com/aws/karpenter-provider-aws/blob/main/examples/workloads/spread-zone.yaml
 
 ### CLI commands
 

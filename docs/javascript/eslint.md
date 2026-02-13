@@ -91,6 +91,7 @@ npx eslint src/**/*.js
 npx eslint './**/*.{js,jsx,ts,tsx}'
 npx eslint 'src/**/*.{js,jsx,ts,tsx}'
 npx eslint . --ext ts --ext tsx --ext js
+npx eslint . --ext .js,.jsx,.ts,.tsx
 
 # global install
 eslint --cache --fix
@@ -102,6 +103,14 @@ On a npm `package.json` script we don't need the `npx` prefix:
 {
   "scripts": {
     "eslint": "eslint 'src/**/*.{js,jsx,ts,tsx}'"
+  }
+}
+```
+
+```json title="package.json"
+{
+  "scripts": {
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   }
 }
 ```

@@ -35,6 +35,8 @@ provider "aws" {
 
 ## Backend
 
+https://developer.hashicorp.com/terraform/language/backend/s3
+
 Since [version 1.11](https://github.com/hashicorp/terraform/releases/tag/v1.11.0), there's no need to have a DynamoDB table to do state locking:
 
 > S3 native state locking is now generally available. The `use_lockfile` argument enables users to adopt the S3-native mechanism for state locking. As part of this change, we've deprecated the DynamoDB-related arguments in favor of this new locking mechanism. While you can still use DynamoDB alongside S3-native state locking for migration purposes, we encourage migrating to the new state locking mechanism.

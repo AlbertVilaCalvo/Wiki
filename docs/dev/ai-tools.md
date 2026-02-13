@@ -215,9 +215,9 @@ When using GitHub Copilot, use `@project` instead of `@workspace`.
 
 https://github.com/kousen/junie-training
 
-Guidelines (`.junie/guidelines.md`):
+Guidelines file is `.junie/guidelines.md`, but you can change it to `.github/copilot-instructions.md` at Settings → Tools → Junie → Project Settings. Doing this creates or updates the file `.idea/junie.xml`.
 
-- Docs: https://www.jetbrains.com/help/junie/customize-guidelines.html
-- Examples: https://github.com/JetBrains/junie-guidelines
+- `.junie/guidelines.md` Docs: https://www.jetbrains.com/help/junie/customize-guidelines.html
+- `.junie/guidelines.md` Examples: https://github.com/JetBrains/junie-guidelines
 
 Use `.aiignore` file to restrict Junie from processing the contents of specific files or folders ([docs](https://www.jetbrains.com/help/junie/aiignore.html)).

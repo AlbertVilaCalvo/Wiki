@@ -826,7 +826,7 @@ Usually you need to install a provider to talk to a cloud provider like AWS or A
 
 ### Migrate backend state
 
-- https://developer.hashicorp.com/terraform/tutorials/cloud/migrate-remote-s3-backend-hcp-terraform
+https://developer.hashicorp.com/terraform/tutorials/cloud/migrate-remote-s3-backend-hcp-terraform
 
 If we change the backend (eg from local to S3) we need to run `terraform init`. Terraform will ask us to move any existing local state to the new backend, and we need to answer 'yes':
 

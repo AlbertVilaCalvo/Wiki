@@ -387,6 +387,12 @@ resource "aws_iam_role_policy_attachment" "rds_connect" {
 }
 ```
 
+## Password management with AWS Secrets Manager
+
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html
+
+In Terraform, use the attribute [`manage_master_user_password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#manage_master_user_password-1) to enable managing the master password with Secrets Manager.
+
 ## Monitoring with CloudWatch
 
 https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/monitoring-cloudwatch.html

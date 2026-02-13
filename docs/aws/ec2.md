@@ -749,3 +749,15 @@ If you delete the default VPC, use [`create-default-vpc`](https://docs.aws.amazo
 ```shell
 aws ec2 create-default-vpc
 ```
+
+View the ENIs (Elastic Network Interfaces) attached to a subnet with [`describe-network-interfaces`](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-network-interfaces.html):
+
+```shell
+aws ec2 describe-network-interfaces --region us-east-1 --filters Name=subnet-id,Values=subnet-0eb3dfb352a9a3fd6
+```
+
+Delete ENI with [`delete-network-interface`](https://docs.aws.amazon.com/cli/latest/reference/ec2/delete-network-interface.html):
+
+```shell
+aws ec2 delete-network-interface --region us-east-1 --network-interface-id eni-086eca664a8ba5ddc
+```

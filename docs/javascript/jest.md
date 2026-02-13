@@ -37,6 +37,7 @@ npx jest src/auth
 # Test name - see https://jestjs.io/docs/cli#--testnamepatternregex
 npx jest -t=^GET /products
 npx jest --testNamePattern=^GET /products
+npx jest -t 'RecipeController.createRecipe should save the recipe to the database'
 
 # Git changed/uncommitted files - see https://jestjs.io/docs/cli#--onlychanged
 npx jest -o
