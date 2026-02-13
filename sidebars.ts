@@ -92,6 +92,7 @@ const sidebars: SidebarsConfig = {
     'cloud/terraform-aws',
     'cloud/service-discovery',
     'cloud/observability',
+    'cloud/prometheus',
     'cloud/grpc',
     'cloud/kafka',
     'cloud/gcp',
