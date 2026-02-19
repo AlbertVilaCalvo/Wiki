@@ -33,6 +33,12 @@ Finally, edit your `.eslintrc.js` so that it extends 'prettier' - see [ESLint](/
 
 Note that it ignores files located in `node_modules` directory - [docs](https://prettier.io/docs/en/cli.html#--with-node-modules)
 
+Upgrade prettier:
+
+```shell
+npm i -D -E prettier@latest
+```
+
 ## Commands
 
 https://prettier.io/docs/en/cli.html
