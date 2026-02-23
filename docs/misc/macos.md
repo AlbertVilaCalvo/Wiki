@@ -53,13 +53,13 @@ https://ss64.com/mac/defaults.html
 
 https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
 
-https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+Examples:
 
-Fork with changes: https://github.com/mathiasbynens/dotfiles/compare/master...junjizhi:dotfiles-2:master
-
-https://github.com/driesvints/dotfiles/blob/main/.macos
-
-https://github.com/pawelgrzybek/dotfiles/blob/master/setup-macos.sh
+- https://github.com/pawelgrzybek/dotfiles/blob/master/setup-macos.sh
+- https://github.com/driesvints/dotfiles/blob/main/.macos
+- https://github.com/mathiasbynens/dotfiles/blob/main/.macos (not updated)
+  - Fork with changes: https://github.com/junjizhi/dotfiles-2 - [diff](https://github.com/mathiasbynens/dotfiles/compare/master...junjizhi:dotfiles-2:master)
+- https://github.com/Sloy/dotfiles/blob/master/macos/set-defaults.sh (not updated)
 
 Finder
 

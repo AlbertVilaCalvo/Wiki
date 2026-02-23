@@ -142,6 +142,16 @@ https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-rep
 
 https://docs.github.com/en/copilot/concepts/prompting/response-customization#about-prompt-files
 
+Examples:
+
+- https://github.com/microsoft/vscode/tree/main/.github/prompts
+
+## Agents
+
+Examples:
+
+- https://github.com/microsoft/vscode/tree/main/.github/agents
+
 ## Ask, Edit and Agent modes
 
 From https://github.com/orgs/community/discussions/114471#discussioncomment-13053118

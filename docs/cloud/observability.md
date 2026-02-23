@@ -30,6 +30,8 @@ https://last9.io
 
 https://coralogix.com
 
+https://victoriametrics.com
+
 AWS One Observability Workshop - https://catalog.workshops.aws/observability/en-US - https://github.com/aws-samples/one-observability-demo
 
 https://github.com/aws-observability

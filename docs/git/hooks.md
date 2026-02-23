@@ -7,6 +7,20 @@ Customizing Git - Git Hooks: https://git-scm.com/book/en/v2/Customizing-Git-Git-
 
 Prettier docs show a few options: https://prettier.io/docs/en/precommit.html
 
+Why We Abandoned Git Hooks for Quality Gating (and What We Use Instead) - https://iaindavis.dev/blog/2025/06/17/2025-06-17-why-i-backed-away-from-githooks/why-i-backed-away-from-githooks/
+
+> In practice, Git hooks can fall short, and create a frustrating drag on DevX
+>
+> With all of that in mind, we've arrived at the following strategy.
+>
+> - Code changes live in two states: vetted and unvetted
+> - The boundary between these states exists only in the origin repository on GitHub, and is the boundary between a feature branch and a trunk branch (`develop`)
+> - The boundary between `local` and `remote` is irrelevant for the purposes of vetting code changes
+> - The PR is the sole quality gate between feature branches and trunk branches
+> - branch protection rules protect canonical branches on `origin`
+> - any checks in the local environment are advisory only and do not prevent commits/pushes
+> - we will rely on the developer to use other tools (like the `--watch` flag in vitest) to provide ongoing or periodic feedback on quality checks, as needed.
+
 ## Apply a git hook to all repositories
 
 https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath

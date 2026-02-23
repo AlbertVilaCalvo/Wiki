@@ -666,11 +666,15 @@ Extra info:
 
 ## Shell script execution permissions
 
-Make a shell script executable when you pull a repository.
-
 https://stackoverflow.com/questions/40978921/how-to-add-chmod-permissions-to-file-in-git
 
-Note: after running `git update-index --chmod=+x path/to/file`, then you need to commit.
+Make a shell script executable when you pull a repository:
+
+```shell
+git update-index --chmod=+x path/to/file
+```
+
+After running the command, then you need to commit.
 
 After making the file executable, when doing `git ls-files --stage` it should have 100755.
 

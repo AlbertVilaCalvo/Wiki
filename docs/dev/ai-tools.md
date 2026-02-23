@@ -26,6 +26,8 @@ https://aws.amazon.com/q/developer
 
 https://aistudio.google.com/prompts/new_chat - https://gemini.google.com/?hl=en - https://ai.google.dev
 
+https://www.moderne.ai - Agents for refactors, technical debt,
+
 https://devin.ai
 
 https://cline.bot - https://github.com/cline/cline - VSCode plugin
@@ -183,6 +185,8 @@ Announcements
 
 https://github.com/timothywarner-org/prompt-pro/blob/main/CLAUDE.md
 
+You can simlink the file `CLAUDE.md` to your `.github/copilot-instructions.md`, see https://github.com/microsoft/vscode/tree/main/.claude.
+
 VSCode extension - https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code
 
 - Sonnet: lower cost. Lower latency, more efficient. Good for general use.
@@ -196,6 +200,12 @@ https://news.ycombinator.com/item?id=46256606 - Hey, Boris from the Claude Code 
 4. Use Opus 4.5. It’s a step change from Sonnet 4.5 and earlier models.
 
 https://x.com/bcherny/status/2007179832300581177 - I'm Boris and I created Claude Code. Lots of people have asked how I use Claude Code
+
+### Skills
+
+Examples:
+
+- https://github.com/microsoft/vscode/tree/main/.github/skills
 
 ## ChatGPT
 

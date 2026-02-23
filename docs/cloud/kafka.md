@@ -24,6 +24,16 @@ Best practices for cost-efficient Kafka clusters - https://stackoverflow.blog/20
 
 Build your own Kafka - https://app.codecrafters.io/courses/kafka/overview
 
+What Every Software Engineer Should Know about Apache Kafka: Events, Streams, Tables, Storage, Processing, And More - https://news.ycombinator.com/item?id=23206566 - https://www.michael-noll.com/blog/2020/01/16/what-every-software-engineer-should-know-about-apache-kafka-fundamentals/
+
+I wrote a children's book / illustrated guide to Apache Kafka - https://news.ycombinator.com/item?id=27541339 - https://www.gentlydownthe.stream
+
+Kafka is fast -- I'll use Postgres - https://news.ycombinator.com/item?id=45747018 - https://topicpartition.io/blog/postgres-pubsub-queue-benchmarks
+
+RabbitMQ vs Kafka: Which Platform to Choose in 2023? - https://news.ycombinator.com/item?id=37574552 - https://eranstiller.com/rabbitmq-vs-kafka
+
+RabbitMQ vs Kafka - ¿Cuál escoger? - https://www.youtube.com/watch?v=IZh8wB9PSqo
+
 [Kafka at the low end: how bad can it get?](https://broot.ca/kafka-at-the-low-end.html) - https://news.ycombinator.com/item?id=43095070
 
 > Kafka is not a good job queue, especially not at particularly low volumes, at least until [Queues for Kafka (KIP-932)](https://www.confluent.io/blog/queues-on-kafka/) comes along.

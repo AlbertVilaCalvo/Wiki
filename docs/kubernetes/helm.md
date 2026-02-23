@@ -30,7 +30,7 @@ https://docs.helm.sh/docs/helm/
 
 Cheatsheet - https://helm.sh/docs/intro/cheatsheet/
 
-To get **help** on a command just run the command, for example `helm get`. Adding `-h` or `--help` also works, eg `helm get -h`.
+To get **help** on a command just run the command, for example `helm get`. Adding `-h` or `--help` also works (eg `helm get -h`).
 
 ```shell
 helm version
@@ -58,6 +58,8 @@ helm install <release> <chart> [-n <namespace>] [--create-namespace]
 helm install <release> <chart> -f <values-file.yaml> [-n <namespace>] [--create-namespace]
 helm install <release> <chart> --set <key1>=<value1> --set <key2>=<value2> [-n <namespace>] [--create-namespace]
 helm install <release> <chart> --set <key1>=<value1>,<key2>=<value2> [-n <namespace>] [--create-namespace]
+# Example: install https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack
+helm install my-kube-prometheus-stack prometheus-community/kube-prometheus-stack --version 82.2.0 -n monitoring --create-namespace --set prometheus.service.type=LoadBalancer
 
 # Installing can take some time. Check the installation status
 helm status -n <namespace> <release>
@@ -66,6 +68,7 @@ helm status -n <namespace> <release>
 helm list # Current namespace
 helm list -A # --all-namespaces
 helm list -n <namespace>
+helm ls # Alias for list
 
 # Check the deployments created by the release
 kubectl get deployment -n <namespace> -l app.kubernetes.io/instance=<release> -o wide
@@ -173,7 +176,7 @@ https://docs.helm.sh/docs/intro/using_helm/
 
 A chart is a package (an archive file, `.tgz`) that contains all of the Kubernetes resource definitions necessary to run an application, tool or service inside a Kubernetes cluster.
 
-A release is an instance of a chart running in a Kubernetes cluster. You can have multiple releases with the same name as long they are stored in different namespaces.
+A release is an instance of a chart running in a Kubernetes cluster. You can have multiple releases with the same name as long as they are stored in different namespaces.
 
 The state of a Helm release is stored in the cluster as a Secret or ConfigMap in the namespace where the chart is deployed.
 For example, if we [install the Load Balancer Controller using Helm](./eks.md#install-using-helm-and-irsa) and we do `kubectl describe secret -n kube-system`, we get two secrets:
@@ -216,10 +219,35 @@ release:  79768 bytes
 
 ## Create a chart
 
+Examples:
+
+- https://github.com/argoproj/argocd-example-apps/tree/master/helm-guestbook
+
 Create a directory with the chart files:
 
 ```shell
 helm create <chart-name>
+```
+
+This generates:
+
+```shell
+<chart-name>/
+├── .helmignore  # Files to ignore when packaging the chart
+├── Chart.yaml   # Chart metadata (name, version, description, etc)
+├── values.yaml  # Default values for the chart (can be overridden during install/upgrade)
+├── charts/      # Subcharts (dependencies)
+└── templates/   # Kubernetes resources
+    ├── _helpers.tpl     # Template helper functions
+    ├── deployment.yaml
+    ├── hpa.yaml
+    ├── httproute.yaml
+    ├── ingress.yaml
+    ├── NOTES.txt
+    ├── service.yaml
+    ├── serviceaccount.yaml
+    └── tests/
+        └── test-connection.yaml
 ```
 
 Package the chart into a versioned chart archive file (`.tgz`):

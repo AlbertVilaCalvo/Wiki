@@ -75,7 +75,16 @@ alias l='ls -la'
 
 ## arch
 
-Prints the architecture: i386 (Mac with Intel chip), arm64 (Apple Silicon)...
+Prints the architecture: i386 (Mac with Intel chip), arm64 (Apple Silicon)... You can also use `uname -m`.
+
+## uname
+
+Display information about the system. For example, on a Mac with Apple Silicon it prints:
+
+```shell
+uname -a
+# Darwin MacBook-Pro-de-Albert.local 24.6.0 Darwin Kernel Version 24.6.0: Mon Jan 19 22:00:55 PST 2026; root:xnu-11417.140.69.708.3~1/RELEASE_ARM64_T6000 arm64
+```
 
 ## hostname
 
@@ -282,9 +291,13 @@ kubectl get pods -A | grep Pending
 
 Options:
 
-- `-i`, `--ignore-case`
-- `-v`, `--invert-match`
-- `-c`, `--count`
+- `-i` - `--ignore-case`
+- `-v` - `--invert-match`
+- `-c` - `--count`
+- `-n` - `--line-number`
+- `-A <num>` - `--after-context=<num>`. For example, `grep -A 3 "pattern" file.txt` → Show 3 lines after the match
+- `-B <num>` - `--before-context=<num>`
+- `-C <num>` - `--context=<num>` (before and after)
 
 ## fc
 

@@ -317,11 +317,74 @@ terraform {
 }
 ```
 
-Note that you can't reference any input variable inside the `terraform` block ([source](https://developer.hashicorp.com/terraform/language/terraform#specification)):
+#### Using variables in the `terraform` block
+
+https://nulldog.com/terraform-s3-backend-variables-a-complete-guide
+
+You can't reference any input variable inside the `terraform` block ([source](https://developer.hashicorp.com/terraform/language/terraform#specification)):
 
 > You can only use constant values in the `terraform` block. Arguments in the `terraform` block cannot refer to named objects, such as resources and input variables. Additionally, you cannot use built-in Terraform language functions in the block.
 
+So this is _not_ allowed:
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket = var.state_bucket # Not allowed
+  }
+}
+```
+
 However, you can have multiple `terraform` blocks, which helps overcoming this limitation, since you can create a file on the fly (using HereDoc for example) that contains an extra `terraform` block, in which you set the values.
+
+You can also use environment variables with `TF_VAR_` prefix to set the values of the variables (`var.state_bucket`) used in the `terraform` block:
+
+```shell
+export TF_VAR_state_bucket=mybucket
+terraform init
+```
+
+You can also use [Partial configuration](https://developer.hashicorp.com/terraform/language/backend#partial-configuration):
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket = ""
+    key    = ""
+    region = ""
+    profile= ""
+  }
+}
+```
+
+With partial configuration you have 3 options to set the values.
+
+1. Use a configuration file (same format as `terraform.tfvars`):
+
+```shell
+terraform init -backend-config="./state.config"
+```
+
+```shell title="state.config"
+bucket  = "your-bucket"
+key     = "your-state.tfstate"
+region  = "eu-central-1"
+profile = "Your_Profile"
+```
+
+2. Command-line key/value pairs:
+
+```shell
+terraform init \
+  -backend-config="bucket=your-bucket" \
+  -backend-config="key=path/to/your/state.tfstate" \
+  -backend-config="region=eu-central-1" \
+  -backend-config="profile=Your_Profile"
+```
+
+3. Interactively
+
+Terraform will prompt you to enter the values.
 
 ### `provider`
 
@@ -538,6 +601,8 @@ Other code written in HCL that's reusable and we call from our code. A library.
 
 ### `ephemeral` resources
 
+Introduced in [Terraform 1.10](https://github.com/hashicorp/terraform/releases/tag/v1.10.0) and [Terraform 1.11](https://github.com/hashicorp/terraform/releases/tag/v1.11.0).
+
 https://developer.hashicorp.com/terraform/language/block/ephemeral
 
 https://developer.hashicorp.com/terraform/language/manage-sensitive-data#use-the-ephemeral-block
@@ -552,9 +617,9 @@ Ephemeral values are available at the run time of an operation, but Terraform om
 
 You can only reference an `ephemeral` resource in other ephemeral contexts, such as a write-only argument in a managed resource or `provider` blocks (see [this](https://developer.hashicorp.com/terraform/language/block/ephemeral#refer-to-ephemeral-resources) and [this](https://developer.hashicorp.com/terraform/language/manage-sensitive-data#omit-values-from-state-and-plan-files)). The provider uses the write-only argument value to configure the resource, then Terraform discards the value without storing it. Note that write-only arguments accept both ephemeral and non-ephemeral values.
 
-Terraform does not store write-only arguments in state files, so Terraform has no way of knowing if a write-only argument value has changed. However, providers typically include version arguments alongside write-only arguments. Terraform stores version arguments in state, and can track if a version argument changes and trigger an update of a write-only argument.
+Terraform does not store write-only arguments in state files, so Terraform has no way of knowing if a write-only argument value has changed. However, providers typically include version arguments (`password_wo_version`) alongside write-only arguments (`password_wo`). Terraform stores version arguments in state, and can track if a version argument changes and trigger an update of a write-only argument.
 
-Example from https://developer.hashicorp.com/terraform/language/manage-sensitive-data/write-only#set-and-store-an-ephemeral-password-in-aws-secrets-manager:
+Example from https://developer.hashicorp.com/terraform/language/manage-sensitive-data/write-only#set-and-store-an-ephemeral-password-in-aws-secrets-manager and https://developer.hashicorp.com/terraform/language/manage-sensitive-data/ephemeral#write-only-arguments:
 
 ```hcl
 # Used to create the password without storing it in state, passing the value to
@@ -591,7 +656,11 @@ resource "aws_db_instance" "example" {
 }
 ```
 
-If you get this error:
+:::tip
+Instead of doing all this, consider using [`manage_master_user_password`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#manage_master_user_password-1) to enable managing the master password with Secrets Manager. See [Password management with Amazon RDS and AWS Secrets Manager](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-secrets-manager.html).
+:::
+
+If you get this error when running `terraform apply`:
 
 ```
 │ Error: reading AWS Secrets Manager Secret Versions Data Source (<null>): couldn't find resource
