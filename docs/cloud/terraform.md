@@ -676,12 +676,19 @@ The issue is that we're trying to read the secret from AWS Secrets Manager (with
 The solution is to delete the `ephemeral "aws_secretsmanager_secret_version"` resource and use the `ephemeral "random_password"` result directly instead of reading it back from Secrets Manager:
 
 ```hcl
-# Remove ephemeral "aws_secretsmanager_secret_version" "db_password"
+# Remove this:
+# highlight-start-red
+ephemeral "aws_secretsmanager_secret_version" "db_password" {
+  secret_id = aws_secretsmanager_secret_version.db_password.secret_id
+}
+# highlight-end-red
 
 resource "aws_db_instance" "example" {
   # Change this:
+  # highlight-next-line-red
   password_wo = ephemeral.aws_secretsmanager_secret_version.db_password.secret_string
   # To this:
+  # highlight-next-line-green
   password_wo = ephemeral.random_password.db_password.result
 }
 ```

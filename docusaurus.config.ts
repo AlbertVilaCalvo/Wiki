@@ -272,6 +272,27 @@ const config: Config = {
       // Base set of languages: https://github.com/FormidableLabs/prism-react-renderer/blob/master/packages/generate-prism-languages/index.ts#L9-L25
       // All supported languages: https://prismjs.com/#supported-languages
       additionalLanguages: ['bash', 'json', 'hcl'],
+      // https://docusaurus.io/docs/markdown-features/code-blocks#custom-magic-comments
+      // Styles are defined at src/css/custom.css
+      magicComments: [
+        // This is the default line highlighting, we need to add it, otherwise stops working
+        // Since this is the first entry, it will be used when highlighting using number ranges (the {1,3-4} syntax)
+        {
+          className: 'theme-code-block-highlighted-line',
+          line: 'highlight-next-line',
+          block: { start: 'highlight-start', end: 'highlight-end' },
+        },
+        {
+          className: 'code-block-red-line',
+          line: 'highlight-next-line-red',
+          block: { start: 'highlight-start-red', end: 'highlight-end-red' },
+        },
+        {
+          className: 'code-block-green-line',
+          line: 'highlight-next-line-green',
+          block: { start: 'highlight-start-green', end: 'highlight-end-green' },
+        },
+      ],
     },
     docs: {
       // https://docusaurus.io/docs/sidebar#theme-configuration
