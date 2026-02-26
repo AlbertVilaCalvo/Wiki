@@ -57,7 +57,7 @@ export KUBE_EDITOR="vim"
 
 `kubectl api-versions` → List supported API versions
 
-`kubectl explain pod.spec.restartPolicy` → Get documentation for a resource - [see this](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
+`kubectl explain pod` - `kubectl explain pod.spec.restartPolicy` → Get documentation for a resource - [Very useful in exams](https://www.linkedin.com/posts/carlosbedoya_kubernetes-activity-7208528891882209280-ryFq)
 
 `kubectl version`
 
@@ -99,7 +99,7 @@ Fields:
 
 `kubectl config delete-user <user>`
 
-`kubectl config set-context --current --namespace myns` → Set namespace for all subsequent kubectl commands in the current context. To see the namespace run `kubectl config view | grep namespace:`
+`kubectl config set-context --current --namespace <namespace>` → Set namespace for all subsequent kubectl commands in the current context. To see the namespace run `kubectl config view | grep namespace:`
 
 `kubectl cluster-info`
 
@@ -241,6 +241,8 @@ Is declarative: we can apply the manifests multiple times and expect that, becau
 
 `kubectl delete pod --all -n <namespace>` → Kill all pods in namespace
 
+`kubectl delete all --all -n <namespace>` → Delete _all_ resources in namespace
+
 ## Describe
 
 `kubectl describe <resource-type> <resource-name>`
@@ -250,6 +252,8 @@ Is declarative: we can apply the manifests multiple times and expect that, becau
 `kubectl describe pod <pod-name> -n <namespace>` → Useful to diagnose errors when creating a pod, like `ErrImagePull` or `FailedScheduling` (look at the Events section)
 
 `kubectl describe services` → Show cluster services information
+
+`kubectl describe crd applications.argoproj.io`
 
 ## Run
 
@@ -355,9 +359,11 @@ kubectl expose deployment <deployment> -n <namespace> --name <myapp-service> --p
 
 Expose an internal pod locally. Use this when the service is of type `ClusterIP`, which is only accessible from within the cluster.
 
-`kubectl port-forward <pod-name> 6000:80` → We can access the service locally at http://localhost:6000, and requests are forwarded to port 80 on the pod in our cluster
-
 `kubectl port-forward <pod-name> [<local-port>:]<pod-port>`
+
+`kubectl port-forward <pod-name> 8080:80` → We can access the service/pod locally at http://localhost:8080, and requests are forwarded to port 80 on the service/pod in our cluster
+
+`kubectl port-forward svc/<service-name> 8080:80`
 
 ```shell
 kubectl port-forward $(kubectl get pods \

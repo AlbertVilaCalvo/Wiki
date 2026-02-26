@@ -63,3 +63,38 @@ https://en.wikipedia.org/wiki/Blue%E2%80%93green_deployment
 https://docs.aws.amazon.com/whitepapers/latest/overview-deployment-options/bluegreen-deployments.html
 
 > A deployment strategy in which you create two separate, but identical environments. One environment (blue) is running the current application version and one environment (green) is running the new application version.
+
+## Push vs pull model
+
+https://itnext.io/gitops-pull-based-vs-push-based-959c50feca78 - See comments at https://www.reddit.com/r/kubernetes/comments/15jjv7d/gitops_pullbased_vs_pushbased/
+
+Push:
+
+- CI/CD has cluster credentials
+- CI/CD pushes to cluster using `kubectl` or Helm
+
+Pull:
+
+- Cluster has Git repository credentials
+- Argo CD runs in the cluster, monitoring the Git repository for changes continuously
+- Cluster pulls from Git using Argo CD
+- Self-healing: if a change is made directly to the cluster with `kubectl`, Argo CD will detect the drift and revert it to match the Git repository
+
+## GitOps
+
+https://docs.cloud.google.com/kubernetes-engine/config-sync/docs/concepts/gitops-best-practices
+
+### Principles
+
+https://opengitops.dev
+
+- Declarative: the desired state of the system is described in a declarative way, using configuration files like YAML or JSON.
+- Versioned and immutable: the desired state is stored in a version control system (Git) and is immutable. Git history becomes your audit log.
+- Pull-based: instead of CI pushing changes into a cluster, an agent inside the cluster pulls from Git, applies changes and keeps the system in sync.
+- Continuously reconciled: the cluster continuously compares the actual state of the system with the desired state defined in the version control system, ensuring that the system is always in the desired state.
+
+## Separate repo for configuration
+
+https://argo-cd.readthedocs.io/en/stable/user-guide/best_practices/#separating-config-vs-source-code-repositories
+
+https://stackoverflow.com/questions/63184279/gitops-config-in-same-repo-or-seperate-repo

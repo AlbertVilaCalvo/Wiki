@@ -24,13 +24,15 @@ https://github.com/arttor/helmify - Creates Helm chart from Kubernetes yaml
 
 See comments at https://news.ycombinator.com/item?id=45902604 about using CUE or Terraform
 
+https://github.com/lm-academy/helm-course
+
 ## Commands
 
 https://docs.helm.sh/docs/helm/
 
 Cheatsheet - https://helm.sh/docs/intro/cheatsheet/
 
-To get **help** on a command just run the command, for example `helm get`. Adding `-h` or `--help` also works (eg `helm get -h`).
+To get **help** on a command add `-h` or `--help` (eg `helm get -h`).
 
 ```shell
 helm version
@@ -44,7 +46,8 @@ helm repo add eks https://aws.github.io/eks-charts
 helm repo list
 # NAME	URL
 # eks 	https://aws.github.io/eks-charts
-helm search repo eks
+helm search repo eks # Search for charts in the eks repo
+helm search repo eks/aws-load-balancer-controller --versions # List all versions
 ```
 
 Install a chart release:
@@ -53,7 +56,7 @@ Install a chart release:
 # Get the latest list of charts
 helm repo update
 
-helm install <release> <chart> [-n <namespace>] [--create-namespace]
+helm install <release> <chart> [--version <version>] [-n <namespace>] [--create-namespace]
 # Install with custom values
 helm install <release> <chart> -f <values-file.yaml> [-n <namespace>] [--create-namespace]
 helm install <release> <chart> --set <key1>=<value1> --set <key2>=<value2> [-n <namespace>] [--create-namespace]
@@ -81,6 +84,8 @@ helm upgrade <release> <chart> [-n <namespace>]
 # Upgrade with custom values
 helm upgrade <release> <chart> -f <values-file.yaml> [-n <namespace>]
 helm upgrade <release> <chart> --set <key1>=<value1>,<key2>=<value2> [-n <namespace>]
+# Upgrade or install if the release doesn't exist
+helm upgrade <release> <chart> --install [-n <namespace>] [--create-namespace]
 ```
 
 View release history (revisions):
@@ -248,6 +253,19 @@ This generates:
     ├── serviceaccount.yaml
     └── tests/
         └── test-connection.yaml
+```
+
+Generate the Kubernetes manifest files from the chart templates without deploying them to a cluster:
+
+```shell
+helm template <release-name> <chart-directory>
+helm template <release-name> <chart-directory> --values <values-file.yaml>
+```
+
+This will render all the YAML files. To render a specific template, use the `-s` (`--show-only`) flag (see https://stackoverflow.com/questions/63157235/how-to-render-only-selected-template-in-helm):
+
+```shell
+helm template <release-name> <chart-directory> -s templates/deployment.yaml
 ```
 
 Package the chart into a versioned chart archive file (`.tgz`):
