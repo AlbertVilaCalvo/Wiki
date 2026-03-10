@@ -14,6 +14,11 @@ https://gallery.ecr.aws/eks-distro/
 
 Amazon Inspector provides advanced image scanning capabilities.
 
+AWS Finally Listens: After 5+ Years, ECR Gets Two Game-Changing Features - https://vrabbi.cloud/post/ecr-is-finally-usable/
+
+1. Automatic repository creation on image push (December 19th, 2025)
+2. Cross-repository layer sharing via blob mounting (January 20th, 2026)
+
 ## Workflow
 
 :::tip

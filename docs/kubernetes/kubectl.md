@@ -118,6 +118,22 @@ kubectl auth can-i create namespace
 kubectl auth can-i create pods --all-namespaces
 ```
 
+## Manifest
+
+https://github.com/itaysk/kubectl-neat - Remove unnecessary fields like `creationTimestamp` and `resourceVersion` from manifests
+
+Get manifest of a resource:
+
+```shell
+kubectl get pod <pod-name> -o yaml
+```
+
+Tip to create a yaml manifest file:
+
+```shell
+kubectl run nginx --image=nginx --dry-run=client -o yaml > nginx-pod.yaml
+```
+
 ## Get
 
 `kubectl get <resource-type> <resource-name>`
@@ -276,7 +292,7 @@ Use `--rm` to delete the pod after it exits:
 kubectl run busybox --image=busybox --rm -it --restart=Never -- wget 10.1.0.41
 ```
 
-Tip to create a yaml file:
+Tip to create a yaml manifest file:
 
 ```shell
 kubectl run nginx --image=nginx --dry-run=client -o yaml > nginx-pod.yaml
@@ -329,8 +345,8 @@ kubectl -n catalog exec -i \
 
 View pod environment variables:
 
-- `kubectl exec <pod-name> -- printenv`
-- `kubectl exec <pod-name> -- env`
+- `kubectl exec <pod-name> -- printenv | sort`
+- `kubectl exec <pod-name> -- env | sort`
 - `kubectl get pods -n <namespace> -l app=<my-app> | grep Running | head -1 | awk '{print $1}' | xargs -I {} kubectl exec {} -n <namespace> -- printenv | grep -E "DB_|SERVER_|JWT_|EMAIL_|NODE_ENV" | sort`
 
 ## Scale

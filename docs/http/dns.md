@@ -39,3 +39,22 @@ dig example.com A
 dig example.com CNAME
 dig example.com MX
 ```
+
+## Flush DNS cache on a Mac
+
+_This doesn't always work. If it doesn't, then wait a few minutes until the DNS changes propagate. Or try with a different browser (Chrome usually works before Firefox)._
+
+If you deploy a Load Balancer with a domain to AWS sometimes you get errors, for example `NS_ERROR_UNKNOWN_HOST` at the browser (Firefox), and this error with `curl`:
+
+```shell
+$ curl https://api.myapp.com/products
+curl: (6) Could not resolve host: api.myapp.com
+```
+
+To fix it, try to flush the DNS cache on your local machine:
+
+```shell
+dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+```
+
+It asks for the administrator password. This forces your system to re-query DNS servers for domain name resolutions, which can resolve issues caused by stale or incorrect DNS entries.

@@ -56,6 +56,10 @@ https://instances.vantage.sh - https://github.com/vantage-sh/ec2instances.info
 - `2` is the generation
 - `micro` is the size (CPU, memory, storage and network)
 
+`t3a.micro` → the `a` means that it uses AMD EPYC 7000 processors instead of Intel. It's 10% cheaper than `t3.micro`, but it has a slightly lower performance.
+
+`t4g.micro` → the `g` means that it uses ARM-based Graviton2 processors, which are more energy efficient and cost effective than x86-based instances. They can be up to 40% cheaper than comparable x86-based instances, but they may not be compatible with all applications, so you need to test them first.
+
 :::tip
 
 > **Our experience indicates that you'll overestimate the resource requirements for your applications.** We recommend that you try to start your application with a smaller instance type than you think you need at first and change the instance type later if needed. (AWS in Action p. 63)

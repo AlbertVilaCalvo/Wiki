@@ -222,6 +222,38 @@ Data
 release:  79768 bytes
 ```
 
+## Download a chart
+
+Download and extract a chart from a Helm repository:
+
+```shell
+helm pull <chart> [--version <version>] --untar [--untardir <directory>]
+
+# Download and extract the latest version of the AWS Load Balancer Controller chart
+helm pull eks/aws-load-balancer-controller --untar
+# Creates directory aws-load-balancer-controller with the chart files
+```
+
+Download `.tgz` archive file from a Helm repository (like Artifact Hub or EKS Charts):
+
+```shell
+# Download external-dns-1.20.0.tgz to the current directory
+helm pull "external-dns" --repo "https://kubernetes-sigs.github.io/external-dns" --version "1.20.0" --destination .
+
+# Download external-secrets-2.0.1.tgz to the current directory
+helm pull "external-secrets" --repo "https://charts.external-secrets.io" --version "2.0.1" --destination .
+
+# Download aws-load-balancer-controller-1.17.1.tgz to the current directory
+helm pull "aws-load-balancer-controller" --repo "https://aws.github.io/eks-charts" --version "1.17.1" --destination .
+```
+
+Download `.tgz` archive file from an OCI registry (eg Amazon ECR Public Gallery):
+
+```shell
+# Download karpenter-1.8.3.tgz to the current directory
+helm pull "oci://public.ecr.aws/karpenter/karpenter" --version "1.8.3" --destination .
+```
+
 ## Create a chart
 
 Examples:
@@ -280,7 +312,7 @@ Lint the chart to verify it is valid:
 helm lint <chart-directory>
 ```
 
-## Install
+## Install Helm
 
 https://docs.helm.sh/docs/intro/install
 

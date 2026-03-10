@@ -2,6 +2,8 @@
 title: Commands
 ---
 
+https://explainshell.com
+
 tldr man pages: https://tldr.sh
 
 List of POSIX commands: https://en.wikipedia.org/wiki/List_of_POSIX_commands

@@ -16,6 +16,14 @@ https://github.com/kisielk/godepgraph - A Go dependency graph visualization tool
 
 Go Anti-Patterns - https://www.youtube.com/watch?v=ltqV6pDKZD8
 
+From https://external-secrets.io/latest/introduction/glossary:
+
+> An open-source programming language created by Google, known for its simplicity, performance, clarity, and conciseness.
+>
+> Used in the development of applications, backend systems, and tools, especially in cloud and Kubernetes environments. It's a language that offers concurrency mechanisms that facilitate writing programs capable of taking full advantage of multi-core machines and networks, while its innovative type system enables the construction of flexible and modular programs.
+>
+> Go compiles quickly to machine code and, at the same time, offers convenience with garbage collection and the power of runtime reflection. It's a compiled, statically typed language that has the agility of dynamically typed and interpreted languages.
+
 ## Learn
 
 https://www.reddit.com/r/golang/comments/18ujt6g/new_at_go_start_here/

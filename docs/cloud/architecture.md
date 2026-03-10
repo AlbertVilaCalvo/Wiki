@@ -34,6 +34,13 @@ https://www.linkedin.com/posts/raul-junco_system-design-is-the-art-of-making-sca
 
 Every system has a hot path - https://www.linkedin.com/posts/raul-junco_every-system-has-a-hot-path-and-its-the-activity-7396182757405638656-lpWS/
 
+Change Data Capture (CDC) - Outbox Pattern - https://www.linkedin.com/posts/raul-junco_i-have-seen-this-mistake-in-production-the-activity-7434222637809033216-dUU3/
+
+<figure>
+  <img src="/img/rauljunco-3-patterns-to-deal-with-eventual-consistency.jpg" alt="3 patterns to deal with Eventual Consistency" title="3 patterns to deal with Eventual Consistency" width="850" loading="lazy"/>
+  <figcaption>Source: <a href="https://www.linkedin.com/posts/raul-junco_i-have-seen-this-mistake-in-production-the-activity-7434222637809033216-dUU3/">LinkedIn</a></figcaption>
+</figure>
+
 ## System Design
 
 System Design Staircase - https://www.linkedin.com/posts/raul-junco_system-design-isnt-one-big-concept-it-activity-7386008937277472768-Xfnq/
@@ -139,6 +146,10 @@ Compensating updates can fail.
 https://aphyr.com/posts/313-strong-consistency-models
 
 https://jepsen.io/consistency
+
+https://www.linkedin.com/posts/raul-junco_i-have-seen-this-mistake-in-production-the-activity-7434222637809033216-dUU3/
+
+> Remember, without transactions, we can only build “eventually consistent” systems.
 
 ## ACID vs BASE transactions
 

@@ -198,6 +198,16 @@ Requires a successful run of `terraform init` (i.e. local installation of all pr
 
 Gotcha: sometimes a single syntax error can generate multiple errors.
 
+:::tip
+If you have a backend configuration but it's not working yet, you can run `terraform init -backend=false` to skip the backend initialization and be able to run `validate` and other commands that require `init`. For example, if you have an S3 backend but you haven't created the S3 bucket yet, you can run:
+
+```shell
+terraform init -backend=false
+terraform validate
+```
+
+:::
+
 ### `graph`
 
 https://developer.hashicorp.com/terraform/cli/commands/graph

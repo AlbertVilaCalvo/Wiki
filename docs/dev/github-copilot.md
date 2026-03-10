@@ -20,6 +20,8 @@ GitHub Copilot in VS Code playlist - https://www.youtube.com/playlist?list=PLj6Y
 Use VSCode, it has the latest features. Other editors are behind.
 :::
 
+How to prevent "enter" from sending text to Copilot chat and instead create a new line? - https://github.com/orgs/community/discussions/86624
+
 ## Custom instructions
 
 https://github.com/github/awesome-copilot/blob/main/instructions/instructions.instructions.md

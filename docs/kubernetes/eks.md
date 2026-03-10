@@ -1047,18 +1047,18 @@ eksctl delete cluster --name MyCluster --region us-east-1
 
 https://docs.aws.amazon.com/eks/latest/userguide/workloads-add-ons-available-eks.html
 
-| Name                           | Name                              | Category      | Description                                                             | Comment                                                                                                        |
-| ------------------------------ | --------------------------------- | ------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Amazon VPC CNI                 | `vpc-cni`                         | networking    | Enable pod networking within your cluster                               |                                                                                                                |
-| CoreDNS                        | `coredns`                         | networking    | Enable service discovery within your cluster                            |                                                                                                                |
-| kube-proxy                     | `kube-proxy`                      | networking    | Enable service networking within your cluster                           |                                                                                                                |
-| EKS Pod Identity Agent         | `eks-pod-identity-agent`          | security      | Grant AWS IAM permissions to pods through Kubernetes service accounts   |                                                                                                                |
-| CloudWatch Observability agent | `amazon-cloudwatch-observability` | observability | Enable Container Insights and Application Signals within your cluster   |                                                                                                                |
-| Metrics Server                 | `metrics-server`                  | observability | Collect cluster-wide resource usage data for autoscaling and monitoring | For autoscaling purposes (HPA and VPA) and the `kubectl top nodes` and `kubectl top pods` commands             |
-| Node Monitoring Agent          | `eks-node-monitoring-agent`       | observability | Enable automatic detection of node health issues                        |                                                                                                                |
-| External DNS                   | `external-dns`                    | networking    | Control DNS records with Kubernetes resources                           | Only needed if you want automatic DNS record management in Route 53. You can manage DNS with Terraform instead |
-| EBS CSI Driver                 | `aws-ebs-csi-driver`              | storage       | Enable Elastic Block Storage (EBS) within your cluster                  | To use StatefulSets or persistent volumes for your database or stateful applications                           |
-| EFS CSI Driver                 | `aws-efs-csi-driver`              | storage       | Enable Elastic File System (EFS) within your cluster                    |                                                                                                                |
+| Name                           | Name                              | Category      | Description                                                             | Comment                                                                                            |
+| ------------------------------ | --------------------------------- | ------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Amazon VPC CNI                 | `vpc-cni`                         | networking    | Enable pod networking within your cluster                               |                                                                                                    |
+| CoreDNS                        | `coredns`                         | networking    | Enable service discovery within your cluster                            |                                                                                                    |
+| kube-proxy                     | `kube-proxy`                      | networking    | Enable service networking within your cluster                           |                                                                                                    |
+| EKS Pod Identity Agent         | `eks-pod-identity-agent`          | security      | Grant AWS IAM permissions to pods through Kubernetes service accounts   |                                                                                                    |
+| CloudWatch Observability agent | `amazon-cloudwatch-observability` | observability | Enable Container Insights and Application Signals within your cluster   |                                                                                                    |
+| Metrics Server                 | `metrics-server`                  | observability | Collect cluster-wide resource usage data for autoscaling and monitoring | For autoscaling purposes (HPA and VPA) and the `kubectl top nodes` and `kubectl top pods` commands |
+| Node Monitoring Agent          | `eks-node-monitoring-agent`       | observability | Enable automatic detection of node health issues                        |                                                                                                    |
+| External DNS                   | `external-dns`                    | networking    | Control DNS records with Kubernetes resources                           | Automatic DNS record management in Route 53. You can also manage DNS with Terraform                |
+| EBS CSI Driver                 | `aws-ebs-csi-driver`              | storage       | Enable Elastic Block Storage (EBS) within your cluster                  | To use StatefulSets or persistent volumes for your database or stateful applications               |
+| EFS CSI Driver                 | `aws-efs-csi-driver`              | storage       | Enable Elastic File System (EFS) within your cluster                    |                                                                                                    |
 
 The required add ons are:
 
@@ -1257,13 +1257,13 @@ See:
 - https://github.com/terraform-aws-modules/terraform-aws-eks/blob/d57cdac936efe7ae3b0edbb75340b70c6774d4f3/examples/karpenter/main.tf#L151-L152
 - https://github.com/Apress/AWS-EKS-Essentials/blob/2a1965d3140df4c076ca89bf7f2909e52c94876b/chapter19-karpenter/control-plane/addons.tf#L23-L32
 
-Note that you need to apply the toleration to the AWS Load Balancer Controller if you are using it, otherwise the controller pods won't be scheduled (you'll get the error `0/2 nodes are available: 2 node(s) had untolerated taint(s)`):
+Note that you need to apply the toleration to any controller you want to run on the managed node group nodes, like the AWS Load Balancer Controller, otherwise the controller pods won't be scheduled on them (you'll get the error `0/2 nodes are available: 2 node(s) had untolerated taint(s)`):
 
-```yaml
+```hcl
 resource "helm_release" "aws_load_balancer_controller" {
   values = [
     yamlencode({
-      # Allow scheduling on the bootstrap nodes of the node group
+      # Allow scheduling on the bootstrap nodes of the managed node group
       # (same nodes used by Karpenter controller)
       tolerations = [{
         key      = "karpenter.sh/controller"

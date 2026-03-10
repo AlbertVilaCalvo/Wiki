@@ -2,7 +2,7 @@
 title: GitHub Pull Request
 ---
 
-https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests
+https://docs.github.com/en/pull-requests/collaborating-with-pull-requests
 
 https://github.com/susam/gitpr
 

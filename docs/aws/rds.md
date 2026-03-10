@@ -191,6 +191,7 @@ Get engine versions with [describe-db-engine-versions](https://docs.aws.amazon.c
 
 ```shell
 aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"
+aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion" --engine-version 18
 aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].DBParameterGroupFamily"
 ```
 
