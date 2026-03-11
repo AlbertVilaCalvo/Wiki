@@ -31,6 +31,7 @@ const sidebars: SidebarsConfig = {
     'dev/jetbrains',
     'dev/vscode',
     'dev/emacs',
+    'dev/iterm2',
     'dev/go',
     'dev/php',
     'dev/ruby',
