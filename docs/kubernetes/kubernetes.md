@@ -47,8 +47,6 @@ Kubernetes Distributions & Platforms - https://docs.google.com/spreadsheets/d/1u
 
 https://github.com/GoogleCloudPlatform/microservices-demo - Sample cloud-first application with 10 microservices showcasing Kubernetes, Istio, and gRPC
 
-For the Love of God, Stop Using CPU Limits on Kubernetes - https://home.robusta.dev/blog/stop-using-cpu-limits
-
 Does Kubernetes really give you multicloud portability? - https://medium.com/digital-mckinsey/does-kubernetes-really-give-you-multicloud-portability-476270a0acc7
 
 Y tú, ¿odias o amas Kubernetes? - https://dev.to/aws-espanol/y-tu-odias-o-amas-kubernetes-ind - https://www.paradigmadigital.com/dev/odias-amas-kubernetes
@@ -64,18 +62,6 @@ Y tú, ¿odias o amas Kubernetes? - https://dev.to/aws-espanol/y-tu-odias-o-amas
 > Estamos en 2023, la división entre infraestructura y desarrollo es algo del pasado, debemos de pensar en la carga que vamos a desarrollar y elegir el lugar más optimo para ejecutarla.
 
 > Aunque ECS, EKS y Kubernetes permiten montar discos persistentes en los pods no es algo recomendado, es más se debería de evitar al máximo.
-
-## Validators / linters / vulnerabilities
-
-https://github.com/stackrox/kube-linter
-
-https://github.com/datreeio/datree
-
-Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
-
-Security risk analysis for Kubernetes resources - https://kubesec.io - https://github.com/controlplaneio/kubesec
-
-https://github.com/aquasecurity/trivy - https://trivy.dev/latest/tutorials/kubernetes/cluster-scanning/
 
 ## What is Kubernetes?
 
@@ -349,11 +335,118 @@ livenessProbe:
 - readiness might still say OK
 - liveness fails → pod restarted
 
-### Resource limits
+### Resource requests and limits
 
 https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
 Requests a specific amount of CPU and memory so the Kubernetes scheduler can place it on a node with enough available resources.
+
+Tool to determine CPU and memory requests based on historical Prometheus data - https://github.com/robusta-dev/krr
+
+#### Don't use CPU limits, set memory limit = request
+
+For the Love of God, Stop Using CPU Limits on Kubernetes - https://home.robusta.dev/blog/stop-using-cpu-limits
+
+> Pods always get the CPU requested by their CPU request! They can take advantage of excess CPU too if they have no limit.
+
+> Disable your CPU limits! If you give all your K8s pods accurate CPU requests, then no-one can throttle them because CPU is reserved for them if they need it. This has nothing to do with limits.
+
+> Memory is different because it is non-compressible - once you give memory you can't take it away without killing the process.
+
+<figure>
+  <img src="/img/Kubernetes-CPU-limits.webp" alt="Kubernetes CPU limits" title="Kubernetes CPU limits" loading="lazy"/>
+  <figcaption>Source: <a href="https://home.robusta.dev/blog/stop-using-cpu-limits">For the Love of God, Stop Using CPU Limits on Kubernetes (Updated)</a></figcaption>
+</figure>
+
+> Our bottom line recommendation is:
+>
+> 1. Always use memory limits
+> 2. Always use memory requests
+> 3. Always set your memory requests equal to your limits
+
+Comments on Reddit - https://www.reddit.com/r/kubernetes/comments/wgztqh/for_the_love_of_god_stop_using_cpu_limits_on/
+
+What Everyone Should Know About Kubernetes Memory Limits, OOMKilled Pods, and Pizza Parties - https://home.robusta.dev/blog/kubernetes-memory-limit
+
+> CPU is fundamentally different than memory. CPU is a compressible resource and memory is not. In simpler terms, you can give someone spare CPU in one moment when it's free, but that does not obligate you to continue giving them CPU in the next moment when another pod needs it. There is no downside to giving away idle CPU, because it's easy and non-violent to reclaim it.
+
+> Why is memory different than CPU on Kubernetes? Because memory is a non-compressible resource. Once you give a pod memory, you can only take it away by killing the pod. This is the cause of OOM Kills.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: proper-resource-configuration
+spec:
+  containers:
+    - name: app
+      image: this.part-isnt.interesting/robustadev:keepreading
+      resources:
+        requests:
+          memory: '64Mi'
+          cpu: '250m'
+        limits:
+          memory: '64Mi' # the memory limit equals the above request!
+          # no cpu limit! this is excluded on purpose
+```
+
+In VSCode, this will trigger the warning "No CPU limit specified for this container - this could starve other processes" ([see lint rule](https://github.com/vscode-kubernetes-tools/vscode-kubernetes-tools/blob/67aaada3acd9637c1118f4625461d42e06422520/src/components/lint/resourcelimits.ts#L67-L69)). Open `settings.json` (Cmd + Shift + P → Preferences: Open Settings (JSON)) and add ([source](https://stackoverflow.com/q/64080471/4034572) and [source](https://github.com/vscode-kubernetes-tools/vscode-kubernetes-tools/issues/408):
+
+```json
+"vs-kubernetes": {
+  "disable-linters": [
+    "resource-limits",
+  ]
+},
+```
+
+https://github.com/robusta-dev/alert-explanations/wiki/CPUThrottlingHigh-(Prometheus-Alert)
+
+https://x.com/thockin/status/1134193838841401345
+
+> This is why I always advise:
+>
+> 1. Always set memory limit == request
+> 2. Never set CPU limit
+
+https://x.com/thockin/status/1587192963926327297
+
+> Could you please explain why you believe setting a memory limit == request is a good practise?
+
+> Memory can't always be reclaimed.
+>
+> Consider a 4GiB node w/ 4 pods, each request=1GiB and limit=3GiB
+>
+> Scheduler is happy: sum(requests[memory]) \<= 4GiB
+>
+> Pod0 uses 3GiB in anon pages
+> Pod1 uses 512MiB (ok)
+> Pod2 uses 512 MiB (ok)
+> Pod3 crashes
+>
+> Pod0 caused a DoS for other pods.
+
+> Even if the OOM killer kills pod0, when it comes back and eats memory again, it will cause another OOM, and those things are painful. The kernel tries desperately to find pages to release before ultimately killing.
+
+https://x.com/pracucci/status/1134313587177009154
+
+> Setting memory request==limit prevents memory overcommit and helped us to reduce killed pods due to high node memory pressure.
+
+https://x.com/mono_tek/status/1559607584981647360
+
+> IMHO current best practice is no CPU limit and memory request = memory limit. After that configure your service with low requests and let horizontal pod autoscaling do the rest.
+
+https://www.reddit.com/r/kubernetes/comments/all1vg/comment/efgyygu/
+
+> If your app depends on extra idle cycles to meet your SLOs, then your request is wrong.
+>
+> If your app takes advantage of extra idle cycles but doesn't NEED them, you are doing it right.
+>
+> If you request your worst-case needs (peak) it will be expensive and your average utilization will be low.
+>
+> If you request your average needs, it will be cheap, but a lot of your work will be out of SLO.
+>
+> You need to decide how much you are willing to pay to improve your SLO.
 
 ### Topology spread constraints
 
@@ -392,8 +485,13 @@ Transport layer (4): TCP, UDP and TLS.
 Types:
 
 - ClusterIP: internal, not accessible from outside the cluster.
-- NodePort: accessible from outside the cluster. For development.
+- NodePort: accessible from outside the cluster. For development. Port is randomly assigned from a range 30000-32767 and is the same on all nodes.
+  - The URL is `http://<NODE_IP>:<NODE_PORT>`.
+  - Get the `NODE_PORT` with `kubectl get svc <svc_name> -n <namespace>` (will be a number from 30000 to 32767) and the `NODE_IP` with `kubectl get nodes -o wide` (is the `EXTERNAL-IP`).
+  - At the browser, use `http://`, not `https://`. You'll need to trust the self-signed certificate.
+  - In AWS, the EC2 node must be in a public subnet and have a public IP ("Public IPv4 address" at the console). Important: the `NODE_PORT` must open in the security group, for example with an inbound rule that allows "Custom TCP" traffic at port `NODE_PORT` from source `0.0.0.0/0`, or a rule with "All TCP" to avoid specifying the port.
 - LoadBalancer: external load balancer, of a cloud provider.
+  - In AWS, `EXTERNAL-IP` is like `a00c514b2b8402baff3e63ad1a2d812a-157193451.us-east-1.elb.amazonaws.com`.
 
 ClusterIP services are internal to the cluster, so we cannot access them from the Internet or even the VPC. However, we can use exec to access an existing pod in the EKS cluster to check the catalog API is working ([source](https://www.eksworkshop.com/docs/introduction/getting-started/first)):
 
@@ -478,7 +576,7 @@ Use cases:
 - Pod-to-K8s API access. Give an app permission to list/watch ConfigMaps, Secrets, or Pods.
 - Pod-to-cloud access. For example, with AWS IRSA, access AWS resources securely (S3, DynamoDB, Secrets Manager, etc.) without embedding static credentials.
 - Fine-grained security. Restrict what workloads can do in Kubernetes (eg read-only, namespace-limited).
-- Automation tools. CI/CD or monitoring agents (eg ArgoCD, Prometheus) use ServiceAccounts for scoped permissions.
+- Automation tools. CI/CD or monitoring agents (eg Argo CD, Prometheus) use ServiceAccounts for scoped permissions.
 
 Every namespace gets a `default` ServiceAccount upon creation (run `kubectl get serviceaccounts -n <namespace>` and `kubectl describe sa default` to see it). If you don't manually assign a ServiceAccount to a Pod, Kubernetes assigns the `default` ServiceAccount for that namespace to the Pod.
 
@@ -498,11 +596,22 @@ Used to store non-confidential data in key-value pairs, and expose it to a pod.
 
 https://kubernetes.io/docs/concepts/configuration/secret/
 
-https://github.com/bitnami-labs/sealed-secrets
-
-https://external-secrets.io/latest/
-
 To avoid including confidential data in application code or a container image.
+
+To use services like AWS Secrets Manager, Azure Key Vault and Google Secret Manager see:
+
+- External Secrets Operator
+  - https://external-secrets.io
+  - https://github.com/external-secrets/external-secrets
+- Secrets Store CSI Driver
+  - https://secrets-store-csi-driver.sigs.k8s.io
+  - https://github.com/kubernetes-sigs/secrets-store-csi-driver
+  - https://github.com/aws/secrets-store-csi-driver-provider-aws
+
+Other options are:
+
+- https://github.com/bitnami-labs/sealed-secrets
+- HashiCorp Vault - https://www.vaultproject.io
 
 ## Volume
 
@@ -563,7 +672,7 @@ https://collabnix.github.io/kubetools
 
 https://velero.io - Backup and migrate Kubernetes resources and persistent volumes
 
-Secrets management - https://external-secrets.io/latest
+Secrets management: [see secrets](#secrets)
 
 TLS certificates management - https://cert-manager.io
 
@@ -580,7 +689,25 @@ https://kubernetes.io/docs/tasks/tools/
   - Does not support macOS
 - Skaffold - https://skaffold.dev - https://github.com/GoogleContainerTools/skaffold
 
-### Lens (GUI)
+### Validators / linters / vulnerabilities
+
+https://github.com/stackrox/kube-linter
+
+https://github.com/datreeio/datree (deprecated)
+
+Static analysis to find misconfigurations and vulnerabilities - https://www.checkov.io - https://github.com/bridgecrewio/checkov
+
+Security risk analysis for Kubernetes resources - https://kubesec.io - https://github.com/controlplaneio/kubesec
+
+https://github.com/aquasecurity/trivy - https://trivy.dev/docs/latest/tutorials/kubernetes/cluster-scanning/
+
+### UI
+
+#### Headlamp
+
+https://headlamp.dev - https://github.com/kubernetes-sigs/headlamp
+
+#### Lens
 
 https://k8slens.dev
 
@@ -592,7 +719,7 @@ open -a lens
 
 Extensions - Not working in latest Lens version - https://github.com/lensapp/lens-extensions - Lens Resource Map - https://github.com/nevalla/lens-resource-map-extension
 
-### Dashboard
+#### Dashboard (unmaintained)
 
 https://github.com/kubernetes/dashboard
 
