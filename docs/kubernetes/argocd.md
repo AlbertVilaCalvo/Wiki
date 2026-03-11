@@ -30,13 +30,17 @@ https://akuity.io
 
 https://kargo.io - https://github.com/akuity/kargo
 
-https://blog.argoproj.io/argo-cd-2025-user-survey-results-ab045f7d5d9a
+Survey results - https://blog.argoproj.io/argo-cd-2025-user-survey-results-ab045f7d5d9a
 
 > Helm is by far the most popular Argo CD installation method (71%)
 
 > More and more teams are following Argo CD’s recommended practices. App-of-Apps, ApplicationSets, and built-in self-healing are now widely used to manage complex GitOps setups.
 
 > Image Updater is the most adopted sub-project (used by 34% of respondents).
+
+:::tip
+Karpenter and the bootstrap Nodepool is the only K8s resource I ran on Terraform. Everything else is ArgoCD. [source](https://www.reddit.com/r/kubernetes/comments/1itumdr/eks_auto_mode_aka_managed_karpenter/)
+:::
 
 ## Install Argo CD
 
@@ -85,15 +89,18 @@ kubectl edit svc argocd-server -n argocd
 
 At the browser, use `http://`, not `https://`. You'll need to trust the self-signed certificate.
 
-To log in at the UI, the username is `admin` and the password is the field `password` of the secret `argocd-initial-admin-secret`. Get the password with (ignore the `%` at the end):
+To log in using the UI, the username is `admin` and the password is the field `password` of the secret `argocd-initial-admin-secret`. Get the password with either:
 
 ```shell
 argocd admin initial-password -n argocd
 # or
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+# ignore the `%` at the end
 ```
 
 Change the initial password from the UI (at User Info) or with `argocd account update-password` ([docs](https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_account_update-password/)).
+
+To log in using the CLI [see below](#cli).
 
 #### Uninstall Argo CD using manifests
 
@@ -141,6 +148,16 @@ helm uninstall argocd -n argocd
 kubectl delete namespace argocd
 ```
 
+### Install using EKS Capabilities
+
+https://docs.aws.amazon.com/eks/latest/userguide/argocd.html
+
+> AWS handles security patching, updates, and operational management, freeing your teams to focus on building with AWS rather than on cluster operations. Unlike traditional Kubernetes add-ons that consume cluster resources, capabilities run in EKS rather than on your worker nodes.
+
+> With the EKS Capability for Argo CD, the Argo CD software runs in the AWS control plane, not on your worker nodes. This means your worker nodes don’t need direct access to Git repositories or Helm registries—the capability handles source access from the AWS account.
+
+> The UI integrates with AWS Identity Center (formerly AWS SSO) for seamless authentication and authorization, enabling you to control access using your existing identity management infrastructure.
+
 ## Components
 
 https://argo-cd.readthedocs.io/en/stable/developer-guide/architecture/components/
@@ -156,6 +173,8 @@ https://argo-cd.readthedocs.io/en/stable/developer-guide/architecture/components
 ## Concepts
 
 https://argo-cd.readthedocs.io/en/stable/core_concepts/
+
+https://docs.aws.amazon.com/eks/latest/userguide/argocd-concepts.html
 
 View CRDs: `kubectl get crds -n argocd` or `kubectl api-resources | grep argo`
 
@@ -226,9 +245,9 @@ https://argo-cd.readthedocs.io/en/stable/user-guide/app_deletion/
 
 ## Sync
 
-Sync status can be `Synced`, `OutOfSync` or `Progressing` (sync operation in progress).
+Application sync status can be `Synced`, `OutOfSync` or `Unknown` (see [Go code](https://github.com/argoproj/argo-cd/blob/ff8305694f52b509fa2534fbf14d7d4e56657bf7/pkg/apis/application/v1alpha1/types.go#L1804-L1815) [TypeScript code](https://github.com/argoproj/argo-cd/blob/ff8305694f52b509fa2534fbf14d7d4e56657bf7/ui/src/app/shared/models.ts#L384-L390)).
 
-Health status can be `Healthy` or `Degraded`.
+Resource health status can be `Healthy`, `Suspended`, `Progressing`, `Missing`, `Degraded` or `Unknown` ([see Argo docs](https://argo-cd.readthedocs.io/en/stable/operator-manual/health/), [AWS docs](https://github.com/awsdocs/amazon-eks-user-guide/blob/4087415baafa91baa8689987284b5c868ac62d75/latest/ug/capabilities/argocd-concepts.adoc?plain=1#L187-L192), [Go code](https://github.com/argoproj/argo-cd/blob/ff8305694f52b509fa2534fbf14d7d4e56657bf7/gitops-engine/pkg/health/health.go#L16-L31) and [TypeScript code](https://github.com/argoproj/argo-cd/blob/ff8305694f52b509fa2534fbf14d7d4e56657bf7/ui/src/app/shared/models.ts#L398)).
 
 ### Sync policy
 
@@ -268,6 +287,85 @@ spec:
 - https://argo-cd.readthedocs.io/en/stable/user-guide/application-specification/
 
 `kubectl explain applications.spec.syncPolicy.syncOptions`
+
+### Sync phases and hooks
+
+https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/
+
+Diagram - https://www.youtube.com/watch?v=usj6RP6uzUc&t=659s
+
+You can use hooks to send notifications to Slack if the deployment succeeds or fails, run database migrations, send an event to PagerDuty, run tests, etc. during the sync process.
+
+Hooks can be any type of Kubernetes resource kind, but usually are Job, Pod or Argo Workflows. You add the annotation `argocd.argoproj.io/hook: <hook_type>` to the resource manifest.
+
+Hook resources are defined in your Git repository, together with the other app manifests (Deployment, Service, ConfigMap, etc.), not in the Argo CD configuration (ie the Application, AppProject and ApplicationSet manifests).
+
+The annotation `argocd.argoproj.io/hook-delete-policy` controls how hook resources are deleted:
+
+- `BeforeHookCreation` deletes the previous hook resource before creating a new one with the same `metadata.name`. This keeps the job until next execution. Is the default policy if not specified.
+- `HookSucceeded` deletes the hook resource after it succeeds. Commonly used for tasks you don't need to keep after a successful rollout.
+- `HookFailed` deletes the hook resource after it fails.
+
+We can have multiple values in `argocd.argoproj.io/hook-delete-policy`, for example `BeforeHookCreation,HookSucceeded` to delete the previous hook resource either before creating a new one or after it succeeds. You can clean up a hook resource manually with `kubectl delete job <job_name>`.
+
+:::warning
+If you use `HookSucceeded` and `HookFailed` you will not have access to the resource logs to see what happened because the resource will be deleted after execution. For example, if you use `HookFailed` and the job fails, you will not be able to check the job logs to see why it failed unless you are sending the logs to an external system.
+:::
+
+:::warning
+If you execute multiple times a job _with the same name_ without a `HookSucceeded` or `BeforeHookCreation` policy that deletes it after each execution, Kubernetes will run the job only the first time (unless you manually delete the previous job with `kubectl delete job <job_name>` or change the job manifest). This is because the Job resource remains in the cluster in a `Completed` status and Kubernetes sees it as already executed.
+
+Note that most job fields are immutable, so if you change something in the job manifest (like the `command` argument) and the job is not deleted, the next time it runs Kubernetes will try to update the existing job and the sync may fail with an error like _"Sync operation to b2823d06ce0997dd37da8bb63a0bc88507cf5b6f failed: one or more objects failed to apply, reason: error when patching ... field is immutable"_.
+:::
+
+Watch the job execution with `kubectl get job -w -n <namespace>` (run this before a sync starts).
+
+Test hooks with `argocd app sync <app_name> --dry-run` ([source](https://almogshoshan.dev/devops/argocd-hooks/)).
+
+#### Examples
+
+- https://codefresh.io/learn/argo-cd/argo-cd-hooks-the-basics-and-a-quick-tutorial/
+- https://oneuptime.com/blog/post/2026-02-02-argocd-sync-hooks/view
+
+Example from [here](https://github.com/PacktPublishing/GitOps-in-Practice-with-Argo-CD-and-Argo-Rollouts-The-Complete-Guide/blob/main/argocd-example-apps-labs-master/helm-guestbook/templates/db-migration.yaml) and [here](https://github.com/lm-academy/argocd-course/blob/main/sync-phases-hooks/external-job.yaml):
+
+```yaml title="db-migration.yaml"
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
+spec:
+  # If the job fails, Argo CD will retry it 2 times before consider it failed.
+  # Since this is a PreSync hook, if the job fails the deployment will not take
+  # place and the sync operation will be marked as failed.
+  backoffLimit: 2
+  template:
+    spec:
+      # We want the job to run only once and exit with an exit code, instead of being
+      # restarted if it fails. If we set it to Always, the job will be restarted
+      # indefinitely until it succeeds.
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: busybox
+          command:
+            - 'sh'
+            - '-c'
+            - "echo 'Running db migration...'; sleep 10; echo 'Done!'"
+```
+
+### Sync waves
+
+https://argo-cd.readthedocs.io/en/stable/user-guide/sync-waves/
+
+https://github.com/argoproj/argocd-example-apps/tree/master/sync-waves
+
+Example: https://redhat-scholars.github.io/argocd-tutorial/argocd-tutorial/04-syncwaves-hooks.html
+
+Define the order of resource application during a sync phase using the `argocd.argoproj.io/sync-wave` annotation. Default value if not specified is 0, and can be negative. Resources with lower value are applied first. Resources with the same number are applied in parallel.
 
 ### Reconciliation interval
 
@@ -333,11 +431,85 @@ Example manifest - https://argo-cd.readthedocs.io/en/stable/operator-manual/decl
 
 A project is a logical grouping of applications. It provides a way to organize applications and apply common policies to them.
 
-Projects control the source repositories, destination clusters, resources that can be deployed and roles.
+Projects control the source repositories, destination clusters and namespaces, which resources can be deployed and roles.
 
 By default, all applications belong to the `default` project, which is permissive and allows deployment from any source repo to any cluster.
 
+You can see the default project manifest with `kubectl get appproj default -n argocd -o yaml`:
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: default
+  namespace: argocd # Must be argocd
+spec:
+  # Allowed source repositories for applications of this project
+  sourceRepos:
+    - '*'
+  # Allowed destination clusters and namespaces for applications of this project
+  destinations:
+    - namespace: '*'
+      server: '*'
+  # Allowed resource types that can be deployed in applications of this project
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+```
+
+Example ([source](https://github.com/lm-academy/argocd-course/tree/main/projects)):
+
+```yaml title="project.yaml"
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: team-finance
+  namespace: argocd
+spec:
+  description: Project for Finance team
+  sourceRepos:
+    - 'https://github.com/user/repo.git'
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: finance
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+```
+
+```yaml title="application.yaml"
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  # We are not using the default project
+  project: team-finance
+  source:
+    repoURL: https://github.com/user/repo.git
+    path: guestbook
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    # Must match the namespace defined in the project destinations.namespace
+    namespace: finance
+```
+
+:::info
 If you add resources to the "Namespace resource allow list", for example a Deployment, you also need to add a ReplicaSet (a Deployment manages ReplicaSets), otherwise the ReplicaSets will not show on the application diagram.
+:::
+
+With `kubectl`, use `appproj` or `appprojects` to refer to the AppProject CRD:
+
+```shell
+kubectl get appproj -n argocd
+kubectl get appproj <project> -n argocd -o yaml
+kubectl describe appproj <project> -n argocd
+```
 
 ## Webhook
 
@@ -458,9 +630,103 @@ Example: https://github.com/argoproj/argocd-example-apps/tree/master/apps - Live
 argocd app create -f app-of-apps.yaml
 ```
 
-## Sync waves
+## Private repositories
 
-https://github.com/argoproj/argocd-example-apps/tree/master/sync-waves
+https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/
+
+https://docs.aws.amazon.com/eks/latest/userguide/argocd-configure-repositories.html
+
+https://docs.aws.amazon.com/eks/latest/userguide/argocd-concepts.html
+
+> For private repositories, configure access using AWS Secrets Manager, CodeConnections, or Kubernetes Secrets.
+
+> For AWS services (ECR for Helm charts, CodeConnections, and CodeCommit), you can reference them directly in Application resources without creating a Repository.
+
+Argo CD looks for Kubernetes secrets in the `argocd` namespace with the label `argocd.argoproj.io/secret-type=repository`.
+
+If we try to access a private repository without proper credentials we get this error:
+
+- For HTTP: ComparisonError
+  Failed to load target state: failed to generate manifest for source 1 of 1: rpc error: code = Unknown desc = failed to list refs: authentication required: Repository not found.
+- For SSH: ComparisonError
+  Failed to load target state: failed to generate manifest for source 1 of 1: rpc error: code = Unknown desc = failed to list refs: error creating SSH agent: "SSH agent requested but SSH_AUTH_SOCK not-specified"
+
+### HTTPS with username and access token
+
+https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/#access-token
+
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+
+At GitHub, navigate to Settings → Developer settings → Personal access tokens → Fine-grained tokens. Click "Generate new token".
+Give it a name. Set an expiration date. At "Repository access" choose "Only select repositories", then select your repository.
+At "Permissions", click "+ Add permissions" and select "Contents" with Access "Read-only".
+Then click "Generate token" and copy the generated token.
+
+Once we have the token, you can add the repository using the CLI or the UI.
+
+1. Using the CLI ([docs](https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_repo_add/)):
+
+```shell
+argocd repo add <repository_url> --username <username> --password <token>
+```
+
+We can add ` --type git`, but it's not necessary since it's the default.
+
+2. Using the UI, go to Settings → Repositories, click "+ Connect Repo" and set:
+
+- Connection method: VIA HTTP/HTTPS
+- Type: git
+- Repository URL: `https://github.com/user/repo.git`
+- Username: the GitHub username
+- Password: the generated token
+
+After creating the repository, Argo CD creates a new secret. You can see it with `kubectl get secret -n argocd` and `kubectl describe secret <secret_name> -n argocd`. It has a name like 'repo-1699345013' and 4 data (password, type, url and username). It has a label `argocd.argoproj.io/secret-type=repository`.
+
+You could also create the secret manually with:
+
+```shell
+kubectl create secret generic <secret_name> -n argocd \
+  --from-literal type=git \
+  --from-literal url=<repository_url> \
+  --from-literal username=<username> \
+  --from-literal password=<token> \
+  --type Opaque
+```
+
+Then you must add the label:
+
+```shell
+kubectl label secret <secret_name> -n argocd argocd.argoproj.io/secret-type=repository
+```
+
+### SSH using deploy keys
+
+:::important
+GitHub recommends using [GitHub Apps](https://docs.github.com/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps) instead for fine grained control over repositories and [enhanced security](https://docs.github.com/apps/creating-github-apps/about-creating-github-apps/deciding-when-to-build-a-github-app#github-apps-offer-enhanced-security).
+
+See https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/#github-app-credential
+:::
+
+The URL starts with `git@` or `ssh://` rather than `https://`.
+
+Advantages of SSH over HTTPS:
+
+- Not tied to an individual's user account. With HTTPS username + token, authentication is tied to your GitHub user account. If you leave the company and your account is removed from the organization or deactivated, Argo CD will lose access to the repository.
+- Tokens expire, but SSH keys do not, so there's no need to update them.
+
+Generate a new SSH key pair with `ssh-keygen -t ed25519 -C "Argo CD deploy key" -f argocd_deploy_key`. This creates two files: a private key (`argocd_deploy_key`) and a public key (`argocd_deploy_key.pub`). Go to the GitHub _repository settings_ (not the user settings!) → Deploy keys and click "Add deploy key". Give it a name and paste the public key content. Do _not_ allow write access. Then add the private key to Argo CD using the CLI or the UI.
+
+You can add the repository using the CLI with:
+
+```shell
+argocd repo add git@github.com:user/repo.git --ssh-private-key-path path/to/argocd_deploy_key
+```
+
+And also using the UI. Go to the Argo CD Settings → Repositories, click "+ Connect Repo" and set:
+
+- Connection method: VIA SSH
+- Repository URL: `git@github.com:user/repo.git`
+- SSH private key data: paste the content of the private key (`-----BEGIN OPENSSH PRIVATE KEY-----`...)
 
 ## CLI
 
@@ -532,8 +798,12 @@ Once created, you can see it with `argocd app list` and `argocd app get <app>`.
 [App operations](https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app/):
 
 ```shell
+argocd app list
+argocd app get <app>
 argocd app diff <app>
 argocd app sync <app> # Apply the manifests with `kubectl apply`
+# After doing a sync, run `argocd app get <app>` to see the updated status
+# If the sync was successful, the status should be `Synced` and `Healthy`
 argocd app set <app> --sync-policy automated
 argocd app delete <app>
 ```
@@ -585,3 +855,26 @@ https://codefresh.io/learn/argo-cd/
 - https://learning.octopus.com/course/gitops-fundamentals
 - https://learning.octopus.com/course/gitops-scale
 - https://learning.octopus.com/course/gitops-enterprise
+
+## Self managed Argo CD
+
+https://medium.com/@jojoooo/deploy-infra-stack-using-self-managed-argocd-with-cert-manager-externaldns-external-secrets-op-640fe8c1587b
+
+https://www.pimwiddershoven.nl/entry/building-self-managing-argocd-cluster/
+
+## VS Flux
+
+https://www.linkedin.com/posts/vtmocanu_wanted-to-test-out-flux-and-the-new-web-ui-activity-7432062173067218944-DLAM/
+
+> After watching Scott Rosenberg being vehement so many times that ArgoCD is a bad implementation while Flux is the right way to do GitOps, I finally gave in and had to try it.
+>
+> What sold me:
+>
+> - Flux actually reconciles. ArgoCD gives up on failed syncs and waits. Flux keeps retrying until it converges. That's how GitOps > should work.
+> - Helm charts are actual Helm releases. No more helm template + kubectl apply behind the scenes.
+> - Proper dependsOn instead of sync waves. Explicit dependency graphs instead of numbering annotations and hoping for the best.
+> - Runs as lightweight controllers, not a monolithic server with its own API, Redis, and Dex.
+>
+> Wrote about the full migration — the why, the how, and what I learned: https://hai.wxs.ro/migrations/argocd-to-flux/
+
+Comparison with Flux - FluxCD: Why the GitOps Pioneer Remains Its Future - https://rawkode.academy/read/fluxcd-the-inevitable-choice/
