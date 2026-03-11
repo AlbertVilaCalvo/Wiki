@@ -91,6 +91,12 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: 'ai/ai-tools',
+          activeBaseRegex: 'ai/.+',
+          label: 'AI',
+          position: 'left',
+        },
+        {
           to: 'javascript',
           activeBasePath: 'js',
           label: 'JS',

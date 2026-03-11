@@ -19,8 +19,6 @@ const sidebars: SidebarsConfig = {
   ],
   dev: [
     'dev/tools-and-resources',
-    'dev/ai-tools',
-    'dev/github-copilot',
     'dev/testing',
     'dev/netlify',
     'dev/astro',
@@ -44,6 +42,7 @@ const sidebars: SidebarsConfig = {
     'dev/gradle',
     'dev/nx',
   ],
+  ai: ['ai/ai-tools', 'ai/github-copilot'],
   js: [
     'javascript/javascript',
     'javascript/array',
