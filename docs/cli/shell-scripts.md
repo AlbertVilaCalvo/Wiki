@@ -2,9 +2,11 @@
 title: Shell Scripts
 ---
 
-https://www.shellcheck.net - finds bugs in your shell scripts
+https://explainshell.com
 
-https://github.com/mvdan/sh - A shell parser, formatter, and interpreter with bash support; includes shfmt
+https://www.shellcheck.net - finds bugs in your shell scripts - [see below](#shellcheck)
+
+https://github.com/mvdan/sh - A shell parser, formatter, and interpreter with bash support; includes shfmt - [see `shfmt` below](#shfmt)
 
 Google Shell Style Guide: https://google.github.io/styleguide/shellguide.html
 
@@ -20,6 +22,8 @@ https://github.com/sandervanvugt/bash-scripting - https://learning.oreilly.com/c
 
 :::tip
 Validate the syntax of a Bash script without running it with the "noexec" option: `bash -n myscript.sh`
+
+`shfmt` can also replace `bash -n` to check shell scripts for syntax errors. It is more exhaustive, as it parses all syntax statically and requires valid UTF-8, [see docs](https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd).
 :::
 
 :::tip
@@ -52,7 +56,9 @@ chmod +x myscript.sh
 
 ## Shebang
 
-`#!/bin/bash` or `#!/usr/bin/env bash`
+https://en.wikipedia.org/wiki/Shebang_(Unix)
+
+Use `#!/bin/bash` or `#!/usr/bin/env bash`.
 
 :::info
 `sh` is not `bash`, so don't use `#!/bin/sh`
@@ -62,9 +68,15 @@ chmod +x myscript.sh
 [source](https://mywiki.wooledge.org/BashGuide/CommandsAndArguments#Scripts)
 :::
 
-Bash is the default shell in Linux, whereas zsh is the default in macOS. And we may be using another shell (run `echo $SHELL` to know which). Every shell comes with a specific feature set. Bash features might not exist in other shells. To ensure that we run the scripts with bash, we add the shebang on the first line.
+Why do we need a shebang? Bash is the default shell in Linux, whereas zsh is the default in macOS. And we may be using another shell (run `echo $SHELL` to know which). Every shell comes with a specific feature set. Bash features might not exist in other shells. To ensure that we run the scripts with bash, we add the shebang on the first line.
 
-What is the preferred Bash shebang ("#!")? - https://stackoverflow.com/questions/10376206/what-is-the-preferred-bash-shebang
+Should use `#!/bin/bash` or `#!/usr/bin/env bash`?
+
+- `#!/bin/bash`: hardcoded executable location. Assumes that bash is installed at `/bin/bash`, which is the case on macOS, but not always. Most Linux distros have a symlink tough.
+- `#!/usr/bin/env bash`: more portable. Searches your current `$PATH` for `bash`, but note that it picks the _first_ one. Works on almost all Unix-like systems (macOS, Linux, BSD) because while `bash` might move, `env` is almost always at `/usr/bin/env`.
+- See discussion at:
+  - What is the preferred Bash shebang ("#!")? - https://stackoverflow.com/questions/10376206/what-is-the-preferred-bash-shebang
+  - Why is it better to use "#!/usr/bin/env NAME" instead of "#!/path/to/NAME" as my shebang? - https://unix.stackexchange.com/questions/29608/why-is-it-better-to-use-usr-bin-env-name-instead-of-path-to-name-as-my
 
 ## Internal Commands and Builtins
 
@@ -310,6 +322,129 @@ do
 done
 ```
 
+## while loop
+
+```shell
+while true; do
+  echo "Running..."
+  sleep 5
+done
+```
+
+Can be done as one line, which is useful at the console to check something periodically:
+
+```shell
+while true; do kubectl describe some-resource | grep some-string; sleep 5; done
+```
+
+### Example: retry a command n times with exponential backoff
+
+```shell
+# Retry a command with exponential backoff
+# Arguments:
+#   $1 - Maximum number of retries
+#   $2 - Operation name
+#   $3+ - Command to execute (all remaining arguments)
+# Returns:
+#   0 on success, exits with 1 on failure after max retries
+# Example:
+#   retry_with_backoff 3 "Terraform apply" terraform apply -auto-approve
+retry_with_backoff() {
+  local max_retries="$1"
+  local operation_name="$2"
+  shift 2
+  local command=("$@")
+
+  local retry_count=0
+  local wait_time=10
+
+  while [ $retry_count -lt "$max_retries" ]; do
+    if "${command[@]}"; then
+      log_info "${operation_name} succeeded"
+      return 0
+    else
+      retry_count=$((retry_count + 1))
+      if [ $retry_count -lt "$max_retries" ]; then
+        log_warn "${operation_name} failed (attempt $retry_count/$max_retries). Retrying in ${wait_time} seconds..."
+        sleep "$wait_time"
+        wait_time=$((wait_time * 2))
+      else
+        log_error "${operation_name} failed after $max_retries attempts"
+        return 1
+      fi
+    fi
+  done
+}
+```
+
+### Example: wait for a command to succeed with a timeout
+
+```shell
+# Wait for a command to succeed with a timeout
+# Arguments:
+#   $1 - Timeout in seconds
+#   $2 - Operation name
+#   $3+ - Command to execute (all remaining arguments)
+# Returns:
+#   0 on success, exits with 1 on timeout
+# Example:
+#   wait_for_command 300 "Wait for EKS cluster" aws eks describe-cluster --name my-cluster
+wait_for_command() {
+  local timeout="$1"
+  local operation_name="$2"
+  shift 2
+  local command=("$@")
+  local start_time
+  start_time=$(date +%s)
+  local end_time=$((start_time + timeout))
+
+  while [ "$(date +%s)" -lt "$end_time" ]; do
+    if "${command[@]}"; then
+      log_info "${operation_name} succeeded"
+      return 0
+    else
+      log_warn "${operation_name} failed. Retrying in 10 seconds..."
+      sleep 10
+    fi
+  done
+
+  log_error "${operation_name} failed after $timeout seconds"
+  return 1
+}
+```
+
+### Example: wait with timeout
+
+```shell
+WAIT_TIMEOUT=600
+START_TIME=$(date +%s)
+while true; do
+  CURRENT_TIME=$(date +%s)
+  ELAPSED=$((CURRENT_TIME - START_TIME))
+
+  if [ $ELAPSED -gt $WAIT_TIMEOUT ]; then
+    log_warn "Timeout ($WAIT_TIMEOUT seconds) waiting for Karpenter nodes to terminate. Proceeding anyway..."
+    break
+  fi
+
+  # Check for EC2 instances with Karpenter tags
+  KARPENTER_INSTANCES=$(aws ec2 describe-instances \
+    --region "${AWS_REGION}" \
+    --filters "Name=tag:karpenter.sh/nodepool,Values=*" "Name=instance-state-name,Values=pending,running,stopping,stopped" \
+    --query 'Reservations[*].Instances[*].InstanceId' \
+    --output text)
+
+  if [[ -z "${KARPENTER_INSTANCES}" ]]; then
+    log_info "All Karpenter-provisioned instances have been terminated."
+    break
+  fi
+
+  log_info "Karpenter instances still terminating: ${KARPENTER_INSTANCES}"
+  log_info "Checking again in 10s (Elapsed: ${ELAPSED}s)"
+  sleep 10
+done
+```
+
 ## Test
 
 https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html
@@ -484,3 +619,52 @@ EOF
 ```
 
 You can also use `tee` for this, see https://stackoverflow.com/questions/2953081/how-can-i-write-a-heredoc-to-a-file-in-bash-script
+
+## Shellcheck
+
+https://www.shellcheck.net - finds bugs in your shell scripts
+
+https://github.com/koalaman/shellcheck
+
+VSCode extension - https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck - https://github.com/vscode-shellcheck/vscode-shellcheck
+
+Install it with Brew: `brew install shellcheck` - Formulae: https://formulae.brew.sh/formula/shellcheck#default
+
+Run it with `shellcheck myscript.sh`
+
+You can also do `echo '${foo:1 2}' | shfmt >/dev/null`.
+
+## shfmt
+
+https://github.com/mvdan/sh - A shell parser, formatter, and interpreter with bash support; includes shfmt
+
+Install it with Brew: `brew install shfmt` - Formulae: https://formulae.brew.sh/formula/shfmt#default
+
+`man shfmt` → More detailed explanation of all options, including EditorConfig and examples. Available here: https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd
+
+`shfmt --help` → List available options (not as detailed as `man shfmt`)
+
+`shfmt -w myscript.sh` → Format script in place (overwrite)
+
+`shfmt -w dir` → Format all shell scripts in the directory in place (overwrite)
+
+You can process multiple files and directories, even mixed: `shfmt -w script1.sh script2.sh dir1 dir2`
+
+`shfmt -l dir` (`--list`) → List all shell scripts in the directory that are not properly formatted
+
+`shfmt -d dir` (`--diff`) → Show diff current vs formatted
+
+### Format like Google Shell Style Guide
+
+https://google.github.io/styleguide/shellguide.html#formatting
+
+https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd#examples
+
+`shfmt -i 2 -ci -bn`
+
+For example:
+
+```shell
+shfmt -w -i 2 -ci -bn myscript.sh
+shfmt -w -i 2 -ci -bn dir
+```
