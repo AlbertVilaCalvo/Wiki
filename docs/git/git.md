@@ -69,20 +69,66 @@ If not pushed yet:
 git reset --soft HEAD^
 
 # Discard changes
-# WARNING: THIS ALSO DISCARDS ANY CHANGES ON TRACKED FILES!
+# WARNING: THIS DISCARDS ANY CHANGES ON TRACKED FILES!
 # TO AVOID LOOSING CHANGES DO 'git stash push' BEFORE
 git reset --hard HEAD^
 ```
 
 [source](https://stackoverflow.com/a/6376039/4034572)
 
-On a public commit:
+On a public (pushed) commit
 
 ```shell
 git revert HEAD
 ```
 
 Also see: [git undo: We can do better](https://blog.waleedkhan.name/git-undo/)
+
+## Undo undo commit - Recover lost commit
+
+See [How can I recover a lost commit in Git?](https://stackoverflow.com/questions/10099258/how-can-i-recover-a-lost-commit-in-git)
+
+If we undo a commit with `git reset --soft HEAD^`, the commit is still there, you can see it with `git reflog`.
+There are various ways to recover it (take note of the SHA of the commit you want to recover):
+
+1. Create a branch (safe option, no need to stash):
+
+```shell
+git checkout -b restore <SHA>
+# If you are recovering the last commit you can instead just do:
+# git checkout -b restore HEAD@{1}
+git checkout main
+git merge restore
+git branch -d restore
+```
+
+2. Cherry-pick the commit (creates a new commit with a new hash):
+
+```shell
+git cherry-pick <SHA>
+```
+
+`git cherry-pick` expects a clean working tree. Since your soft reset left changes staged, you should stash or commit them:
+
+```shell
+git stash push -m "WIP before recovering commit <SHA>"
+git cherry-pick <SHA>
+git stash pop
+```
+
+3. Dangerous (don't do this if you have uncommitted work):
+
+```shell
+git reset --hard <SHA> # WARNING: THIS DISCARDS ANY CHANGES ON TRACKED FILES!
+```
+
+Better do this:
+
+```shell
+git stash push -m "WIP before recovering commit <SHA>"
+git reset --hard <SHA>
+git stash pop
+```
 
 ## Undo merge (eg if we commit on the `main` branch by mistake)
 
