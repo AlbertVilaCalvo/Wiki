@@ -2,7 +2,9 @@
 title: MongoDB
 ---
 
-https://www.mongodb.com/
+https://www.mongodb.com
+
+MCP - https://github.com/mongodb-js/mongodb-mcp-server - https://github.com/mcp/mongodb-js/mongodb-mcp-server
 
 ## Install on macOS with Homebrew
 

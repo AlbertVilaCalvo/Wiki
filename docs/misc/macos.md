@@ -222,6 +222,42 @@ Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → 
 
 https://cleanmymac.com
 
+## `system_profiler`
+
+```shell
+system_profiler SPInstallHistoryDataType
+```
+
+Use `system_profiler -listDataTypes` to list all data types.
+
+Use `-detailLevel mini`, `-detailLevel basic` or `-detailLevel full` to adjust the amount of information shown (eg `system_profiler SPSoftwareDataType -detailLevel full`).
+
+Interesting ones:
+
+- `SPInstallHistoryDataType`: List all installed software updates.
+- `SPFontsDataType`: List all installed fonts.
+- `SPUSBDataType`: List all USB devices.
+- `SPHardwareDataType`: Hardware information, eg model name, processor, memory, serial number etc.
+- `SPSoftwareDataType`: Tells you time since boot.
+- `SPEthernetDataType`: Ethernet information, eg MAC address.
+- `SPPowerDataType`: Power information, eg battery health, cycle count, sleep timer (minutes) etc.
+
+Note that you can get multiple types, for example: `system_profiler SPSoftwareDataType SPHardwareDataType`.
+
+### USB
+
+From https://developer.android.com/studio/releases/past-releases/as-koala-feature-drop-release-notes#usb-check
+
+:::Connection speed warning
+'realme RMX3301' is capable of faster USB connectivity. Upgrade the cable/hub from USB 2 (480 Mbps) to USB 3.1 (10,000 Mbps).
+:::
+
+The information provided by Android Studio is similar to the information you can get using:
+
+```shell
+system_profiler SPUSBDataType
+```
+
 ## Port 5000 used
 
 Si tens aquest error:

@@ -6,6 +6,8 @@ https://prometheus.io
 
 https://promcon.io
 
+MCP - https://github.com/pab1it0/prometheus-mcp-server
+
 Amazon Managed Service for Prometheus - https://aws.amazon.com/prometheus
 
 Deploy Prometheus using Helm - https://docs.aws.amazon.com/eks/latest/userguide/deploy-prometheus.html
@@ -21,3 +23,7 @@ https://github.com/robusta-dev/robusta - https://home.robusta.dev - Better Prome
 https://thanos.io - Highly available Prometheus setup with long term storage capabilities
 
 https://grafana.com/oss/mimir/ - TSDB for long-term storage for Prometheus
+
+https://training.linuxfoundation.org/training/monitoring-systems-and-services-with-prometheus-lfs241/
+
+Monitoring Kubernetes with Prometheus & Robusta - https://rawkode.academy/watch/monitoring-kubernetes-with-prometheus-and-robusta - https://www.youtube.com/watch?v=9MbkYNpoKC4

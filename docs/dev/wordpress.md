@@ -8,6 +8,8 @@ https://github.com/topics/wordpress
 
 Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/wordpress.instructions.md
 
+MCP - https://github.com/WordPress/mcp-adapter
+
 WordPress starter theme with Laravel Blade components and templates, Tailwind CSS, and a modern development workflow - https://github.com/roots/sage - https://roots.io/sage/
 
 WordPress boilerplate with Composer, easier configuration, and an improved folder structure - https://github.com/roots/bedrock - https://roots.io/bedrock/

@@ -152,7 +152,7 @@ Supports routing based on the request HTTP headers, URL path, host (ie domain na
 
 Targets can be EC2 instances, containers, a single lambda function and IP addresses.
 
-Supports WebSockets, HTTP/2 and gRPC.
+Supports WebSockets, [HTTP/2 and gRPC](https://aws.amazon.com/blogs/aws/new-application-load-balancer-support-for-end-to-end-http-2-and-grpc/).
 
 You must enable at least two AZs. Cross-zone load balancing is always enabled, but you can disable it at the target group.
 

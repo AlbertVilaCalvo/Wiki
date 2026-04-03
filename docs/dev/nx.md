@@ -12,6 +12,8 @@ Good intro video: https://www.youtube.com/watch?v=E188J7E_MDU
 
 https://dev.to/this-is-learning/architects-delight-enforcing-layers-and-project-boundaries-with-nx-2d8o
 
+A New Nx Experience for TypeScript Monorepos and Beyond (2025) - https://nx.dev/blog/new-nx-experience-for-typescript-monorepos
+
 ## 3 different ways to use Nx
 
 https://nx.dev/getting-started/intro

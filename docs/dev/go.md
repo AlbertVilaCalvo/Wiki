@@ -30,6 +30,11 @@ https://www.reddit.com/r/golang/comments/18ujt6g/new_at_go_start_here/
 
 https://quii.gitbook.io/learn-go-with-tests/
 
+https://academy.jetbrains.com/course/23135 - Tour of Go
+
+- https://hyperskill.org/courses/81 - Introduction to Go
+- https://hyperskill.org/courses/25 - Go Developer
+
 ## Sample code repos
 
 - https://github.com/gothinkster/golang-gin-realworld-example-app - Gin

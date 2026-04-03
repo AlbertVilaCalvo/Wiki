@@ -2,6 +2,10 @@
 title: NextJS
 ---
 
+https://nextjs.org
+
+https://github.com/vercel/next.js
+
 https://github.com/unicodeveloper/awesome-nextjs
 
 Official examples: https://github.com/vercel/next.js/tree/canary/examples
@@ -9,6 +13,8 @@ Official examples: https://github.com/vercel/next.js/tree/canary/examples
 Curs interessant: https://react2025.com/
 
 Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/nextjs.instructions.md
+
+Next.js DevTools MCP - https://github.com/vercel/next-devtools-mcp - https://github.com/mcp/vercel/next-devtools-mcp
 
 Blog posts i altres recursos: https://reactresources.com/topics/nextjs
 
@@ -59,6 +65,7 @@ Self-Hosting Next.js - https://www.youtube.com/watch?v=sIVL4JMqRfc - Learn how t
 
 ## Learn
 
+- https://www.road-to-next.com
 - Introduction to Next.js and React - https://www.youtube.com/watch?v=h2BcitZPMn4
 - Next.js: Authentication (Best Practices for Server Components, Actions, Middleware) - https://www.youtube.com/watch?v=N_sUsq_y10U
 - Next.js App Router Authentication (Sessions, Cookies, JWTs) - https://www.youtube.com/watch?v=DJvM2lSPn6w

@@ -58,6 +58,26 @@ https://kodekloud.com/courses/event-streaming-with-kafka
 
 ## Queues
 
-https://cwiki.apache.org/confluence/display/KAFKA/KIP-932%3A+Queues+for+Kafka
+KIP-932: Queues for Kafka - https://cwiki.apache.org/confluence/display/KAFKA/KIP-932%3A+Queues+for+Kafka
 
 https://news.ycombinator.com/item?id=37677341
+
+Early access in 4.0 - https://www.confluent.io/blog/latest-apache-kafka-release/
+
+> This KIP introduces the concept of a share group as a way of enabling cooperative consumption using Kafka topics. It does not add the concept of a “queue” to Kafka per se, but rather introduces cooperative consumption to accommodate these queuing use-cases, using regular Kafka topics. Share groups make this possible. You can think of a share group as roughly equivalent to a “durable shared subscription” in existing systems.
+
+Introduced in 4.2 - https://kafka.apache.org/blog/2026/02/17/apache-kafka-4.2.0-release-announcement/
+
+> Introduces share groups, a new cooperative consumption model where multiple consumers can concurrently process records from the same partitions with individual acknowledgment and delivery counting - enabling queue-like use cases without strict partition-to-consumer assignment.
+
+## Apache Kafka vs RabbitMQ
+
+https://www.linkedin.com/posts/sahnlam_apache-kafka-vs-rabbitmq-kafka-and-rabbitmq-activity-7442061433485508608-mXes/
+
+> Kafka and RabbitMQ both handle messages, but they solve different problems.
+>
+> Kafka is a distributed log. Producers append messages to partitions. Those messages are stored based on retention policy. Consumers pull messages using offsets. You can rewind, replay, reprocess everything. It is designed for high throughput event streaming where multiple consumers consume the same data independently.
+>
+> RabbitMQ is a message broker. Producers publish messages to exchanges. Those exchanges route to queues based on binding keys and patterns (direct, topic, fanout). Messages get pushed to consumers and then deleted once acknowledged. It is built for task distribution and traditional messaging workflows.
+>
+> The common mistake is using Kafka like a queue or RabbitMQ like an event log. They're different tools built for different use cases.

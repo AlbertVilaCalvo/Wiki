@@ -52,6 +52,8 @@ https://github.com/GoogleContainerTools/container-diff
 
 https://github.com/aquasecurity/trivy - https://trivy.dev/latest/docs/target/container_image/
 
+https://github.com/hadolint/hadolint - Dockerfile linter
+
 ## Learn
 
 https://docs.docker.com/get-started/resources

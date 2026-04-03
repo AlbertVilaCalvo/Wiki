@@ -106,6 +106,7 @@ Do not install `react-native-cli` as a global package, use `npx @react-native-co
 
 ```shell
 npx @react-native-community/cli@latest init MyApp
+npx @react-native-community/cli@latest init MyApp --pm npm
 ```
 
 See [Get Started Without a Framework](https://reactnative.dev/docs/getting-started-without-a-framework).
@@ -315,6 +316,40 @@ Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. 
   - Recommendation to use a React Native Framework (eg Expo). See [Use a framework to build React Native apps](https://reactnative.dev/blog/2024/06/25/use-a-framework-to-build-react-native-apps) and [RFC0759: React Native Frameworks](https://github.com/react-native-community/discussions-and-proposals/blob/main/proposals/0759-react-native-frameworks.md)
     - The template was moved to a new repository https://github.com/react-native-community/template and package [@react-native-community/template](https://www.npmjs.com/package/@react-native-community/template)
     - Sunsetting the `react-native init` command as of December 31st 2024. Should use `npx @react-native-community/cli@latest init MyApp` now
+- [0.76 2025/02](https://reactnative.dev/blog/2024/10/23/release-0.76-new-architecture)
+  - New Architecture by default, see [The New Architecture is here](https://reactnative.dev/blog/2024/10/23/the-new-architecture-is-here)
+  - React Native DevTools first release
+  - `boxShadow` and `filter` style props
+  - Remove `@react-native-community/cli` as a direct dependency of React Native. You need to explicitly add the dependency on the CLI in your `package.json`
+- [0.77 2025/02](https://reactnative.dev/blog/2025/01/21/version-0.77)
+- [0.78 2025/02](https://reactnative.dev/blog/2025/02/19/react-native-0.78)
+  - React 19 with Actions, `useActionState`, `useOptimistic`, `use`, `ref` as a `prop`...
+  - Android XML drawables support
+- [0.79 2025/04](https://reactnative.dev/blog/2025/04/08/react-native-0.79)
+  - Faster Metro
+  - JSC moved to a community package: https://github.com/react-native-community/javascriptcore
+- [0.80 2025/06](https://reactnative.dev/blog/2025/06/12/react-native-0.80)
+  - React 19.1
+  - New app screen moved to a package: https://www.npmjs.com/package/@react-native/new-app-screen
+- [0.81 2025/08](https://reactnative.dev/blog/2025/08/12/react-native-0.81)
+  - Android 16 support (API level 36)
+  - SafeAreaView deprecation. Use https://appandflow.github.io/react-native-safe-area-context/
+- [0.82 2025/10](https://reactnative.dev/blog/2025/10/08/react-native-0.82)
+  - New architecture only
+  - React 19.1.1
+  - Native components provide DOM-like node APIs
+  - Option to enable Hermes V1
+- [0.83 2025/12](https://reactnative.dev/blog/2025/12/10/react-native-0.83)
+  - React 19.2 with `<Activity>` and `useEffectEvent`
+  - New DevTools features:
+    - Network and Performance panels
+    - New desktop app (instead of Chrome)
+  - Web Performance APIs stable
+- [0.84 2026/02](https://reactnative.dev/blog/2026/02/11/react-native-0.84)
+  - React 19.2.3
+  - Hermes V1 as the default JavaScript engine
+  - Precompiled binaries on iOS by default
+  - Legacy architecture components removed
 
 ## Upgrading
 

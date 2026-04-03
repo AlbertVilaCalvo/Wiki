@@ -697,6 +697,8 @@ Ideal, because it avoids having secrets.
 
 The provider assumes an IAM role.
 
+See [GitHub Actions OIDC with Terraform](./github-actions.md#oidc-aws-with-terraform).
+
 ### Authentication with the `config` and `credentials` files
 
 If you are authenticated in the AWS CLI with the `~/.aws/config` and `~/.aws/credentials` files, it picks the credentials automatically. This is because the aws provider uses the [AWS SDK for Go](https://github.com/aws/aws-sdk-go-v2) under the hood.

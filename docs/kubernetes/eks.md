@@ -1856,6 +1856,12 @@ Correspondence:
 
 Note that at the [cluster role](#cluster-role) we have the policy [AmazonEKSClusterPolicy](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEKSClusterPolicy.html), which has many `elasticloadbalancing` permissions like `elasticloadbalancing:CreateLoadBalancer`. This allows EKS to create the load balancers.
 
+:::tip
+You don't need the annotation `alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:123456789012:certificate/xxxx`.
+Instead, use certificate discovery using `spec.rules.host` or `spec.tls.hosts` in the Ingress resource.
+See docs: https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/ingress/cert_discovery/
+:::
+
 ### Install using Helm and IRSA
 
 Instructions:

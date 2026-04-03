@@ -42,7 +42,11 @@ dig example.com MX
 
 ## Flush DNS cache on a Mac
 
-_This doesn't always work. If it doesn't, then wait a few minutes until the DNS changes propagate. Or try with a different browser (Chrome usually works before Firefox)._
+:::note
+This doesn't always work. If it doesn't, try with a different browser (Chrome usually works before Firefox).
+In Firefox, you can also go to Settings → Privacy & Security → DNS over HTTPS and change the provider (for example, from Cloudflare to NextDNS or vice-versa).
+If it still doesn't work, wait a few minutes until the DNS changes propagate.
+:::
 
 If you deploy a Load Balancer with a domain to AWS sometimes you get errors, for example `NS_ERROR_UNKNOWN_HOST` at the browser (Firefox), and this error with `curl`:
 

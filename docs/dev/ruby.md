@@ -27,6 +27,10 @@ To build ruby with ruby-build, also install the required dependencies [listed he
 
 ## rbenv
 
+https://rbenv.org
+
+https://github.com/rbenv/rbenv
+
 ```shell
 rbenv --help
 ```
@@ -74,6 +78,12 @@ Install specific version:
 rbenv install 3.4.4
 ```
 
+Uninstall version ([docs](https://github.com/rbenv/rbenv#uninstalling-ruby-versions)). Versions are installed at `~/.rbenv/versions`. You simply need to delete the directory with `rm -rf`. Doing `rbenv prefix <version>` gives you the path, so you can do:
+
+```shell
+rbenv prefix 3.4.4 | xargs rm -rf
+```
+
 Doing `rbenv init` adds the following to `~/.zprofile`:
 
 ```shell
@@ -87,7 +97,7 @@ If you instead add this to your `~/.zshrc`, when you do `rbenv shell 3.4.4` it s
 
 https://cocoapods.org
 
-Install cocoapods: `gem install cocoapods`. If using the macOS system ruby, you need to do `sudo gem install cocoapods`, see https://guides.cocoapods.org/using/getting-started.html#installation.
+Install cocoapods: `gem install cocoapods`. (If using the macOS system ruby, you need to do `sudo gem install cocoapods`, see https://guides.cocoapods.org/using/getting-started.html#installation.) After installing, doing `which pod` should output something like `/Users/albert/.rbenv/shims/pod`. Run `pod --version` to get the version.
 
 Install dependencies (on a folder with a `Podfile`):
 

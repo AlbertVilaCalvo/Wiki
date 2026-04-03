@@ -34,6 +34,8 @@ https://www.linkedin.com/posts/raul-junco_system-design-is-the-art-of-making-sca
 
 Every system has a hot path - https://www.linkedin.com/posts/raul-junco_every-system-has-a-hot-path-and-its-the-activity-7396182757405638656-lpWS/
 
+TODO mirar https://www.manning.com/books/the-coder-cafe
+
 Change Data Capture (CDC) - Outbox Pattern - https://www.linkedin.com/posts/raul-junco_i-have-seen-this-mistake-in-production-the-activity-7434222637809033216-dUU3/
 
 <figure>
@@ -253,6 +255,10 @@ Anthology
 
 https://microservices.io/patterns/data/cqrs.html
 
+https://www.linkedin.com/posts/alexandre-zajac_dont-learn-system-design-from-textbooks-share-7444767730609799168-iTLF/
+
+> Netflix separates read-heavy operations (streaming catalog) from write operations (user activity). Different databases optimized for different access patterns.
+
 ## Distributed Systems
 
 Avoiding fallback in distributed systems - https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/ - https://d1.awsstatic.com/builderslibrary/pdfs/avoiding-fallback-in-distributed-systems.pdf
@@ -404,6 +410,10 @@ https://github.com/cer/event-sourcing-examples
 
 https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
 
+https://www.linkedin.com/posts/alexandre-zajac_dont-learn-system-design-from-textbooks-share-7444767730609799168-iTLF/
+
+> Every user action, play, pause, skip, rate, is stored as an immutable event. Netflix replays these events to rebuild state and power recommendations.
+
 ## Circuit Breaker
 
 https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-circuit-breaker-pattern
@@ -424,11 +434,19 @@ https://microservices.io/patterns/reliability/circuit-breaker.html
 
 https://github.com/netflix/hystrix
 
+https://www.linkedin.com/posts/alexandre-zajac_dont-learn-system-design-from-textbooks-share-7444767730609799168-iTLF/
+
+> When a downstream service fails, Netflix stops calling it instead of cascading failures. Every microservice has a circuit breaker. No exceptions.
+
 ## DDD
 
 https://github.com/github/awesome-copilot/blob/main/instructions/dotnet-architecture-good-practices.instructions.md
 
 https://frontendmasters.com/courses/domain-modeling/
+
+https://ddd.academy
+
+https://exploreddd.com - Conference
 
 ## Queue
 
@@ -517,3 +535,24 @@ https://www.linkedin.com/posts/raul-junco_most-engineering-teams-screw-up-messag
 >
 > Ledger first.
 > Assembly line second.
+
+## Load Balancer vs API Gateway
+
+https://www.linkedin.com/posts/alexxubyte_systemdesign-coding-interviewtips-activity-7441872725410824192-LYfd/
+
+A load balancer has one job: distribute traffic. Clients send HTTP(s) requests from web, mobile, or IoT apps, and the load balancer spreads those requests across multiple server instances so no single server takes all the load.
+
+Load balancer:
+
+- Traffic distribution
+- Health checks to detect downed servers
+- Failover when something breaks
+- L4/L7 balancing depending on whether you're routing by IP or by actual HTTP content.
+
+API gateway:
+
+- Rate limiting to prevent abuse.
+- API aggregation so your client doesn't need to call five different services.
+- Observability for logging and monitoring.
+- Authentication and authorization before a request even touches your backend.
+- Request and response transformation to reshape payloads between client and service formats.

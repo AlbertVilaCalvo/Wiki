@@ -37,18 +37,32 @@ Apktool - https://apktool.org - https://github.com/iBotPeaches/Apktool - Install
 
 https://developer.android.com/tools
 
+> We recommend setting the environment variable for `ANDROID_HOME` when using the command line. Also, set your command search path to include `ANDROID_HOME/tools`, `ANDROID_HOME/tools/bin`, and `ANDROID_HOME/platform-tools` to find the most common tools.
+
 https://developer.android.com/tools/variables
 
-They recommend:
+> To run tools from the command line without including the full path to the executable, set your command search path environment variable to include `ANDROID_HOME/tools`, `ANDROID_HOME/tools/bin`, and `ANDROID_HOME/platform-tools`.
+
+The docs recommend:
 
 - `ANDROID_HOME/tools` → `emulator`
 - `ANDROID_HOME/tools/bin` → `avdmanager`, `apkanalyzer`
 - `ANDROID_HOME/platform-tools` → `adb`
 
+_But the folder `tools` does not exist now (2026)._
+
+This is what you need to set (from the [React Native docs](https://reactnative.dev/docs/set-up-your-environment?platform=android&os=macos)):
+
 ```shell
 export ANDROID_HOME=$HOME/Library/Android/sdk
 path+=("$ANDROID_HOME/emulator")
 path+=("$ANDROID_HOME/platform-tools")
+```
+
+Additionally, you can install the "Android SDK Command-line Tools". The [React Native docs](https://reactnative.dev/docs/set-up-your-environment?platform=android&os=macos) tell you to do this. Go to the SDK Manager (at Settings → Languages & Frameworks → Android SDK), and at the tab "SDK Tools" check the latest version of "Android SDK Command-line Tools (latest)". This adds a new folder at `ANDROID_HOME/cmdline-tools` with the tools `apkanalyzer`, `avdmanager`, `d8`, `lint`, `profgen`, `r8`, `resourceshrinker`, `retrace`, `screenshot2` and `sdkmanager`. You can add the tools to the path with:
+
+```shell
+path+=("$ANDROID_HOME/cmdline-tools/latest/bin")
 ```
 
 ### `JAVA_HOME`
@@ -272,3 +286,7 @@ See [this StackOverflow answer](https://stackoverflow.com/a/72031644/4034572):
 - Anyone can join
 - Limited and unlimited users (you choose)
 - End user reviews are only visible to you
+
+## Jetpack Compose
+
+https://github.com/android/nowinandroid

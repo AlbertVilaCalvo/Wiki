@@ -147,6 +147,7 @@ Show values you can override:
 
 ```shell
 helm show values eks/aws-calico
+helm show values oci://ghcr.io/argoproj/argo-helm/argo-cd --version 9.4.15
 ```
 
 Get user supplied values (during install/upgrade):

@@ -6,6 +6,8 @@ https://www.figma.com/best-practices/
 
 Smart Selection + Tidy Up - https://www.figma.com/blog/introducing-smart-selection/
 
+MCP - https://github.com/figma/mcp-server-guide - https://github.com/mcp/com.figma.mcp/mcp
+
 ## Frame vs Group
 
 https://www.reddit.com/r/FigmaDesign/comments/of5dz7/why_you_should_use_frames_not_groups_in_figma/

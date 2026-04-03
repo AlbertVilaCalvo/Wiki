@@ -24,6 +24,10 @@ https://github.com/topics/github-actions
 
 https://github.com/sdras/awesome-actions
 
+https://depot.dev - Faster execution of GitHub Actions
+
+https://github.com/rhysd/actionlint - Static checker for GitHub Actions workflow files
+
 Run your GitHub Actions locally - https://github.com/nektos/act
 
 GitHub hosted runners preinstalled software: https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#preinstalled-software
@@ -305,13 +309,15 @@ https://docs.github.com/en/actions/reference/evaluate-expressions-in-workflows-a
 environment: ${{ contains(inputs.profile, 'dev') && 'dev' || inputs.profile }}
 ```
 
-## Environments
+## Environment protection rules
 
-:::info
 When environments are used in workflows or in OIDC policies, we recommend adding protection rules to the environment for additional security. For example, you can configure deployment rules on an environment to restrict which branches and tags can deploy to the environment or access environment secrets. For more information, see [Managing environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/managing-environments-for-deployment#deployment-protection-rules). [source](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws#configuring-the-role-and-trust-policy)
 
-Also see [Deployments and environments](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments) for information about deployment protection rules.
-:::
+You can configure environments with protection rules and secrets. When a workflow job references an environment, the job won't start until all of the environment's protection rules pass. A job also cannot access secrets that are defined in an environment until all the deployment protection rules pass. [source](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/control-deployments#using-environments)
+
+Deployments and environments - https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments
+
+How to Configure Environment Protection Rules in GitHub Actions - https://oneuptime.com/blog/post/2026-01-25-github-actions-environment-protection-rules/view
 
 ## Status check functions
 
@@ -580,7 +586,7 @@ Use `printf` instead of `echo` to deal with new lines [source](https://stackover
 
 ### For jobs
 
-https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/pass-job-outputs
 
 ## Artifacts
 

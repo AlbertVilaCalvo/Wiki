@@ -122,6 +122,8 @@ az acr repository show-tags --name <registry-name> --repository <repository-name
 
 https://learn.microsoft.com/en-us/azure/aks/
 
+MCP - https://github.com/Azure/aks-mcp - https://github.com/mcp/azure/aks-mcp
+
 The quick guide to creating a production Kubernetes cluster - https://www.codecapers.com.au/kub-cluster-quick-2/
 
 Authenticate to the cluster:

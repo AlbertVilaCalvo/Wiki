@@ -18,6 +18,8 @@ To make compilation faster, enable incremental compilation with `"incremental": 
 
 ## CLI
 
+`tsc` CLI Options - https://www.typescriptlang.org/docs/handbook/compiler-options.html
+
 Setup: https://www.typescriptlang.org/download
 
 Install locally, don't use a global install:
@@ -37,7 +39,7 @@ yarn tsc
 
 ### `--noEmit`
 
-Use [`--noEmit`](https://www.typescriptlang.org/tsconfig/#noEmit) to only typecheck, without outputting JS files:
+Use [`--noEmit`](https://www.typescriptlang.org/tsconfig/#noEmit) to only typecheck, without outputting JS files, source-maps or declarations (`.d.ts`).
 
 ```shell
 npx tsc --noEmit
@@ -55,6 +57,32 @@ It's common to have a 'typecheck' script on `package.json`:
 ```
 
 Run it with `npm run typecheck`.
+
+### `-b` or `--build` for project references
+
+> Build one or more projects and their dependencies, if out of date
+
+- https://www.typescriptlang.org/docs/handbook/project-references.html
+- https://nx.dev/blog/typescript-project-references
+
+The build mode (`tsc -b`/`tsc --build`) was introduced in TypeScript 3.0 to support project references, which allow you to structure your codebase into multiple projects with separate `tsconfig.json` files that reference each other.
+
+```json title="tsconfig.json"
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
+```
+
+`tsc` only looks at one `tsconfig.json`, whereas `tsc -b` looks at `tsconfig.json` _and_ all referenced projects, only recompiling what has changed (incremental builds) in the correct order.
+It generates build artifacts (like `.tsbuildinfo` files) to track incremental build state, though it can also be used to type-check all sub-projects.
+
+To **type-check** frontend projects that use **Vite** (like a React app), instead of using `tsc --noEmit`, you use `tsc -b` (or `tsc --build`).
+This is because Vite projects use project references (ie projects with multiple `tsconfig.json` configuration files).
+In Vite projects, project references are used to separate configuration for the application code (`tsconfig.app.json`) and the build tools (`tsconfig.node.json`).
 
 ### `--generateTrace` to understand why compilation is slow
 

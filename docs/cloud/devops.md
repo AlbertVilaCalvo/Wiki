@@ -8,6 +8,8 @@ https://www.gruntwork.io/fundamentals-of-devops
 
 How they DevOps? - https://github.com/bregman-arie/howtheydevops
 
+DevOps Interview Questions - https://github.com/bregman-arie/devops-exercises
+
 Reflections on 10,000 Hours of DevOps - https://matt-rickard.com/reflections-on-10-000-hours-of-devops
 
 > The value of a CI/CD Pipeline is inversely proportional to how long the pipeline takes to run.
@@ -83,6 +85,8 @@ Pull:
 ## GitOps
 
 https://docs.cloud.google.com/kubernetes-engine/config-sync/docs/concepts/gitops-best-practices
+
+https://rawkode.academy/learning-paths/gitops-landscape
 
 ### Principles
 

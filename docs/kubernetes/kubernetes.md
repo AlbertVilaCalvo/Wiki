@@ -691,7 +691,13 @@ https://kubernetes.io/docs/tasks/tools/
 
 ### Validators / linters / vulnerabilities
 
+https://github.com/PacktPublishing/ArgoCD-in-Practice/tree/main/ch08
+
+https://github.com/yannh/kubeconform - An alternative to the deprecated https://github.com/instrumenta/kubeval - See an example of how to use it at https://github.com/PacktPublishing/ArgoCD-in-Practice/blob/main/ch08/kubeconform/validate-schema.sh
+
 https://github.com/stackrox/kube-linter
+
+https://github.com/zegl/kube-score - https://kube-score.com
 
 https://github.com/datreeio/datree (deprecated)
 

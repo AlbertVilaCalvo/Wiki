@@ -499,6 +499,7 @@ https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/
 - [SDK 52](https://expo.dev/changelog/2024-11-12-sdk-52) - 2024-11
 - [SDK 53](https://expo.dev/changelog/sdk-53) - 2025-04
 - [SDK 54](https://expo.dev/changelog/sdk-54) - 2025-09
+- [SDK 55](https://expo.dev/changelog/sdk-55) - 2026-02
 
 ## Unimodules → Expo modules
 

@@ -10,6 +10,8 @@ https://blog.sentry.io/web-fonts-and-the-dreaded-cumulative-layout-shift
 
 Modern Font Stacks - https://modernfontstacks.com
 
+On a Mac, use `system_profiler SPFontsDataType` to get a list of all installed fonts.
+
 ## Responsive typography
 
 From https://github.com/netlify-templates/astro-toolbox/blob/2f41e9f4099f456bd897f88375ccaed4bb2cb371/src/components/Layout.astro#L23-L54

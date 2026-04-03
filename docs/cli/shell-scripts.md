@@ -307,7 +307,39 @@ for i in {1..5}; do
 done
 ```
 
-Example to attach the required IAM policies to the EKS cluster role for Auto Mode ([see docs](https://docs.aws.amazon.com/eks/latest/userguide/auto-cluster-iam-role.html)):
+```shell
+for i in `seq 1 5`; do
+  echo "Iteration $i"
+done
+```
+
+### Example: retry a command n times with a for loop
+
+```shell
+MAX_ATTEMPTS=3
+for attempt in $(seq 1 ${MAX_ATTEMPTS}); do
+  if curl --fail --silent --show-error https://example.com/healthz > /dev/null; then
+    break
+  fi
+
+  if [[ ${attempt} -lt ${MAX_ATTEMPTS} ]]; then
+    log_warn "Command failed (attempt ${attempt}/${MAX_ATTEMPTS}). Retrying..."
+  else
+    log_error "Command failed after ${MAX_ATTEMPTS} attempts."
+    exit 1
+  fi
+done
+```
+
+### Example: string array
+
+```shell
+for color in red green blue; do
+  echo "Color: $color"
+done
+```
+
+Attach the required IAM policies to the EKS cluster role for Auto Mode ([see docs](https://docs.aws.amazon.com/eks/latest/userguide/auto-cluster-iam-role.html)):
 
 ```shell
 for POLICY in \

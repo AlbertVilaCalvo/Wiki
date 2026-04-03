@@ -21,6 +21,8 @@ Examples:
 
 - https://github.com/kubernetes-sigs/kustomize/tree/master/examples
 
+Install it with Brew: `brew install kustomize`
+
 Use `kubectl kustomize` to render the final output of an overlay without applying it.
 
 ```shell
@@ -35,4 +37,21 @@ Save the rendered output to a file:
 
 ```shell
 kubectl kustomize server/kubernetes/overlays/dev > dev-manifest.yaml
+```
+
+Generate a ConfigMap from a file:
+
+```yaml title="kustomization.yaml"
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+configMapGenerator:
+  - name: my-config
+    behavior: create
+    literals:
+      - NODE_ENV=production
+      - DB_NAME=app_dev
+
+generatorOptions:
+  disableNameSuffixHash: true
 ```
