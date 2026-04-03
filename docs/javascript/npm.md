@@ -2,9 +2,7 @@
 title: npm
 ---
 
-`package.json` docs: https://docs.npmjs.com/cli/v10/configuring-npm/package-json
-
-Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html → Outdated! New link is https://exploringjs.com/nodejs-shell-scripting/ch_package-scripts.html, so it's a chapter of the book [Shell scripting with Node.js](https://exploringjs.com/nodejs-shell-scripting/index.html)
+`package.json` docs: https://docs.npmjs.com/cli/v11/configuring-npm/package-json
 
 https://npmtrends.com - Compare package download counts over time
 
@@ -18,7 +16,12 @@ For example, `corepack enable yarn`.
 
 CLI docs: https://docs.npmjs.com/cli-documentation
 
-**Options**: https://docs.npmjs.com/cli/v10/using-npm/config
+Commands: https://docs.npmjs.com/cli/v11/commands
+
+- List all commands: `npm`.
+- List all commands with usage info: `npm -l`. Very long output, better use next option (`-h`):
+- See options for a command: `npm <command> -h` or `npm <command> --help` (eg `npm install -h`).
+- Get help for a command (a man page, very long): `npm help <command>` (eg `npm help install`).
 
 npm ←→ yarn:
 
@@ -31,15 +34,11 @@ Upgrade npm itself: `npm install npm@latest -g`
 
 (If this command fails and we then get `zsh: command not found: npm` we can fix it with `brew reinstall node`.)
 
-List all commands: `npm`. List commands with details: `npm -l`.
-
 List packages: `npm list` or `npm list --depth=0`
 
 Find version of an installed package: `npm list <package> --depth=0` [source](https://stackoverflow.com/a/16704412/4034572)
 
-List all outdated packages: `npm outdated`
-
-Also see: https://github.com/raineorshine/npm-check-updates - `npx npm-check-updates`
+List all outdated packages: `npm outdated`. Also see https://github.com/raineorshine/npm-check-updates - `npx npm-check-updates`
 
 Uninstall a package: `npm uninstall <package>`
 
@@ -47,23 +46,33 @@ Show package info: `npm info <package>`
 
 Open docs (eg README) in the browser: `npm docs <package>`
 
-To pass arguments to a script you need to add `--` ([see `npm run` docs](https://docs.npmjs.com/cli/v10/commands/npm-run-script)). Eg if we have the script `"test": "jest"` and we want to run Jest in watch mode, we need to do `npm test -- --watch`. Note: in this case doing `npx jest --watch` also works.
+To pass arguments to a script you need to add `--` ([see `npm run` docs](https://docs.npmjs.com/cli/v11/commands/npm-run-script)). Eg if we have the script `"test": "jest"` and we want to run Jest in watch mode, we need to do `npm test -- --watch`. Note: in this case doing `npx jest --watch` also works.
 
-`npx` command runs a binary or package. It can be a local package (eg a binary in ./node_modules/.bin/) or fetched remotely. See https://docs.npmjs.com/cli/v10/commands/npx
+Report vulnerabilities: `npm audit`. Fix them with `npm audit fix`. Use `--audit-level=<level>` to set the minimum vulnerability level that will cause the command to fail (eg `npm audit fix --audit-level=high` will only fix vulnerabilities with severity "high" or above).
 
-### Install
+### `npm init`
 
-Install to devDependencies: `npm i -D webpack` or `npm install --save-dev webpack`
+https://docs.npmjs.com/cli/v11/commands/npm-init
 
-Exact version: `npm i -E express` or `npm install --save-exact express`
+Creates `package.json`.
 
-Suppress output like '204 packages are looking for funding' and '8 high severity vulnerabilities': `npm i --no-audit --no-fund`
+Init without questions: `npm init -y`
 
-Install only "dependencies" but not "devDependencies" packages: `npm i --omit=dev`. [See `omit` docs](https://docs.npmjs.com/cli/v10/using-npm/config#omit). Note that "If the resulting omit list includes 'dev', then the `NODE_ENV` environment variable will be set to 'production' for all lifecycle scripts"
+### `npm install`
 
-### `npm i --force` vs `--legacy-peer-deps`
+Install only "dependencies" but not "devDependencies" packages: `npm install --omit=dev`. [See `omit` docs](https://docs.npmjs.com/cli/v11/using-npm/config#omit). Note that "If the resulting omit list includes 'dev', then the `NODE_ENV` environment variable will be set to 'production' for all lifecycle scripts"
+
+#### `npm install --force` vs `npm install --legacy-peer-deps`
 
 Important: use `--force`, not `--legacy-peer-deps`.
+
+`--force` was introduced in npm 7, see https://github.blog/news-insights/product-news/npm-7-is-now-generally-available/#peer-dependencies
+
+> Automatically installing peer dependencies is an exciting new feature introduced in npm 7. In previous versions of npm (4-6), peer dependencies conflicts presented a warning that versions were not compatible, but would still install dependencies without an error. npm 7 will block installations if an upstream dependency conflict is present that cannot be automatically resolved.
+>
+> You have the option to retry with `--force` to bypass the conflict or `--legacy-peer-deps` command to ignore peer dependencies entirely (this behavior is similar to versions 4-6).
+>
+> Since many packages in the ecosystem have come to rely on loose peer dependencies resolutions, npm 7 will print a warning and work around most peer conflicts that exist deep within the package tree, since you can’t fix those anyway. To enforce strictly correct peer dependency resolutions at all levels, use the `--strict-peer-deps` flag.
 
 https://stackoverflow.com/questions/66020820/npm-when-to-use-force-and-legacy-peer-deps
 
@@ -72,7 +81,9 @@ https://stackoverflow.com/questions/66020820/npm-when-to-use-force-and-legacy-pe
 > `--legacy-peer-deps` ignores peer dependencies entirely, which can screw up your dependency resolution.
 > `--force` on the other hand simply sets a different peer dependency version for conflicting dependencies.
 
-### `npm ci` (clean install)
+There is also `--strict-peer-deps` which is the opposite of `--legacy-peer-deps` and will cause installation to fail if there are any peer dependency conflicts.
+
+### `npm install` vs `npm ci` (clean install)
 
 Better use `npm ci --no-audit --no-fund`. Also, consider adding `--omit=dev` if `NODE_ENV` is not 'production' to avoid installing dev dependencies.
 
@@ -90,19 +101,19 @@ Better use `npm ci --no-audit --no-fund`. Also, consider adding `--omit=dev` if 
 
 https://www.stefanjudis.com/today-i-learned/how-to-override-your-dependencys-dependencies/
 
+### Install a package
+
+Install to devDependencies: `npm i -D webpack` or `npm install --save-dev webpack`
+
+Exact version: `npm i -E express` or `npm install --save-exact express`
+
+Suppress output like '204 packages are looking for funding' and '8 high severity vulnerabilities': `npm i --no-audit --no-fund`
+
 ### Update a package
 
 Just use `npm i [-D] [-E] somepackage@latest` (eg `npm i -D -E typescript@latest`) because using [`npm update`](https://docs.npmjs.com/cli/v8/commands/npm-update) doesn't update `package.json`:
 
 > Note that by default `npm update` will not update the semver values of direct dependencies in your project `package.json`, if you want to also update values in `package.json` you can run: `npm update --save` (or add the `save=true` option to a [configuration file](https://docs.npmjs.com/cli/v8/configuring-npm/npmrc) to make that the default behavior).
-
-### Init `npm init`
-
-https://docs.npmjs.com/cli/v10/commands/npm-init
-
-Creates `package.json`.
-
-Init without questions: `npm init -y`
 
 ### Global
 
@@ -138,7 +149,7 @@ Everything goes into dependencies? - https://github.com/facebook/create-react-ap
 
 ## Dependency version
 
-https://docs.npmjs.com/cli/v10/configuring-npm/package-json#dependencies
+https://docs.npmjs.com/cli/v11/configuring-npm/package-json#dependencies
 
 semver calculator: https://semver.npmjs.com
 
@@ -226,12 +237,29 @@ Never delete it: https://tkdodo.eu/blog/solving-conflicts-in-package-lock-json _
 
 ## .npmrc
 
+Set config settings.
+
 https://docs.npmjs.com/cli/v11/configuring-npm/npmrc
 
-Options: https://docs.npmjs.com/cli/v10/using-npm/config
+Configuration options: https://docs.npmjs.com/cli/v11/using-npm/config
+
+There are 4 levels of config files:
+
+- Project: `/path/to/my/project/.npmrc`
+- User: `$HOME/.npmrc`, `~/.npmrc`
+- Global: `$PREFIX/etc/npmrc`
+- Builtin: internal defaults
 
 ```shell
 touch .npmrc && echo 'save-exact=true' > .npmrc
+```
+
+You can use [`npm config`](https://docs.npmjs.com/cli/v11/commands/npm-config) to set config values:
+
+```shell
+npm config set save-exact true # Modify user config file
+npm config set save-exact true --location=global # Modify global config file
+npm config set save-exact true --location=project # Modify project config file
 ```
 
 ## Find unused packages
@@ -250,4 +278,53 @@ npm config set fund false
 npm config get fund
 ```
 
-https://docs.npmjs.com/cli/v10/commands/npm-install#fund
+https://docs.npmjs.com/cli/v11/commands/npm-install#fund
+
+## npx
+
+`npx` runs a binary or package. It can be a local package (eg a binary in `./node_modules/.bin/`) or fetched remotely. See https://docs.npmjs.com/cli/v11/commands/npx
+
+## npm scripts
+
+:::info
+Do not use `npx <package>` in npm scripts. Just use `<package>`.
+
+```json
+{
+  "scripts": {
+    "ok": "prettier --write .",
+    "unnecessary-npx": "npx prettier --write ."
+  }
+}
+```
+
+When you run a command via `npm run`, npm automatically adds `node_modules/.bin` to the `PATH` for that specific execution.
+It temporarily updates your shell's environment variables so that the local project binaries are prioritized.
+This means any package installed in your project can be called by its name directly, without needing `npx`.
+
+In addition, if `prettier` is not installed, `npx` will fall back to downloading it; without `npx`, the script will just fail.
+Also, `npx` adds a bit of startup overhead (checking/installing).
+It also guarantees that you're using the version in your devDependencies (`npx` might download the latest version).
+In a monorepo, `npx` may resolve binaries from the root workspace, current package or even fetch remotely.
+:::
+
+Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html → Outdated! New link is https://exploringjs.com/nodejs-shell-scripting/ch_package-scripts.html, so it's a chapter of the book [Shell scripting with Node.js](https://exploringjs.com/nodejs-shell-scripting/index.html)
+
+You can run `npm test`, `npm start`, `npm stop` and `npm restart` without the `run`. For other scripts you need to do `npm run <script>`.
+
+You can have pre and post scripts:
+
+```json
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "preformat": "echo 'Running pre-format script...'",
+    "postformat": "echo 'Running post-format script...'"
+  }
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}
+```
+
+When you run `npm run format`, it will first run `preformat`, then `format`, and finally `postformat`.
