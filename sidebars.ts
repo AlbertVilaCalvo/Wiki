@@ -54,6 +54,7 @@ const sidebars: SidebarsConfig = {
     'javascript/eslint',
     'javascript/node',
     'javascript/express',
+    'javascript/nest',
     'javascript/jest',
     {
       type: 'html',
