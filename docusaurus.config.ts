@@ -91,7 +91,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: 'ai/ai-tools',
+          to: 'ai',
           activeBaseRegex: 'ai/.+',
           label: 'AI',
           position: 'left',

@@ -44,7 +44,16 @@ const sidebars: SidebarsConfig = {
     'dev/gradle',
     'dev/nx',
   ],
-  ai: ['ai/ai-tools', 'ai/github-copilot'],
+  ai: [
+    'ai/ai',
+    'ai/ai-tools',
+    'ai/github-copilot',
+    'ai/codex',
+    'ai/agents',
+    'ai/llm',
+    'ai/mcp',
+    'ai/rag',
+  ],
   js: [
     'javascript/javascript',
     'javascript/array',
