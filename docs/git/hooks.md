@@ -23,6 +23,10 @@ Why We Abandoned Git Hooks for Quality Gating (and What We Use Instead) - https:
 
 ## Apply a git hook to all repositories
 
+:::note
+Git 2.54 added the ability to define hooks outside your repository, see [Config-based hooks](#config-based-hooks):
+:::
+
 https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath
 
 ```shell
@@ -32,6 +36,20 @@ git config --global core.hooksPath ~/githooks
 https://stackoverflow.com/questions/2293498/applying-a-git-post-commit-hook-to-all-current-and-future-repositories
 
 https://stackoverflow.com/questions/1977610/change-default-git-hooks
+
+## Config-based hooks
+
+Git 2.54 added the ability to define hooks outside your repository and to have multiple hooks for the same event, see https://github.blog/open-source/git/highlights-from-git-2-54/#h-config-based-hooks:
+
+```
+[hook "linter"]
+   event = pre-commit
+   command = ~/bin/linter --cpp20
+
+[hook "no-leaks"]
+   event = pre-commit
+   command = ~/bin/leak-detector
+```
 
 ## pre-commit hook
 

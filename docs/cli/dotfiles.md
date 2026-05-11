@@ -6,6 +6,8 @@ https://github.com/webpro/awesome-dotfiles
 
 https://github.com/topics/dotfiles
 
+Curso Todo sobre los dotfiles - https://pro.codely.com/library/todo-sobre-los-dotfiles-54672/137187/about/
+
 ## Guides
 
 https://dotfiles.github.io - Your unofficial guide to doing dotfiles on GitHub.

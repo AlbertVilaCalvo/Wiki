@@ -253,7 +253,7 @@ Add scripts to `package.json`:
   "scripts": {
     "start": "node build/index.js",
     "dev": "ts-node-dev src/index.ts",
-    "build": "npx tsc"
+    "build": "tsc"
   }
 }
 ```

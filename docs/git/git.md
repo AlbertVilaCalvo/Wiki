@@ -246,6 +246,10 @@ https://github.blog/2022-10-03-highlights-from-git-2-38/#rebase-dependent-branch
 
 ## Rebase interactive
 
+:::tip
+Git 2.54 added a new [`history` command](https://git-scm.com/docs/git-history). See https://github.blog/open-source/git/highlights-from-git-2-54/#h-rewrite-history-with-git-history
+:::
+
 TODO check for interactive rebase https://github.com/jesseduffield/lazygit
 
 https://git-scm.com/docs/git-rebase
@@ -732,7 +736,7 @@ https://git-scm.com/docs/gitignore
 
 To match a directory only (but not files) add a slash at the end, eg `build/`. _If there is a separator at the end of the pattern then the pattern will only match directories, otherwise the pattern can match both files and directories_ ([source](https://git-scm.com/docs/gitignore#_pattern_format)). You can also do `/build` if the directory is at the same level of the `.gitignore`, see https://github.com/github/gitignore/blob/main/Elixir.gitignore
 
-## Reduce the `.git` folder with `git gc`
+## Reduce the `.git` folder size with `git gc`
 
 :::warning
 `git gc` can also make the `.git` folder larger. I had a repo growing from 115 MB to 230 MB.

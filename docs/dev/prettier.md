@@ -10,7 +10,7 @@ https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style/Fo
 
 ## Install
 
-https://prettier.io/docs/en/install.html
+https://prettier.io/docs/install.html
 
 ```shell
 npm install --save-dev --save-exact prettier
@@ -20,7 +20,7 @@ yarn add --dev --exact prettier
 
 echo {}> .prettierrc.json
 # or
-echo '{\n  "semi": false,\n  "singleQuote": true\n}' >> .prettierrc.json
+echo '{\n  "semi": false,\n  "singleQuote": true,\n  "trailingComma": "es5"\n}' >> .prettierrc.json
 
 touch .prettierignore
 ```
@@ -28,6 +28,8 @@ touch .prettierignore
 > Note: If you forget to install Prettier first, npx will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your package.json. And it’s faster, too.
 
 > Tip! Base your .prettierignore on .gitignore and .eslintignore.
+
+> Prettier will follow rules specified in .gitignore if it exists in the same directory from which it is run. You can also base your .prettierignore on .eslintignore (if you have one).
 
 Finally, edit your `.eslintrc.js` so that it extends 'prettier' - see [ESLint](/javascript/eslint#eslintrcjs).
 
@@ -60,7 +62,7 @@ Add the following scripts (`npm run format` and `npm run format:check`):
 
 ## Options
 
-https://prettier.io/docs/en/options.html
+https://prettier.io/docs/options.html
 
 ```json title=".prettierrc.json"
 {

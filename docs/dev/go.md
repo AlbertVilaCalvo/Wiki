@@ -4,6 +4,8 @@ title: Go
 
 https://go.dev
 
+https://github.com/avelino/awesome-go
+
 https://gobyexample.com
 
 Oh My Zsh plugin - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/golang
@@ -24,6 +26,8 @@ From https://external-secrets.io/latest/introduction/glossary:
 >
 > Go compiles quickly to machine code and, at the same time, offers convenience with garbage collection and the power of runtime reflection. It's a compiled, statically typed language that has the agility of dynamically typed and interpreted languages.
 
+Modernize Go code: https://github.com/external-secrets/external-secrets/pull/6114
+
 ## Learn
 
 https://www.reddit.com/r/golang/comments/18ujt6g/new_at_go_start_here/
@@ -35,11 +39,40 @@ https://academy.jetbrains.com/course/23135 - Tour of Go
 - https://hyperskill.org/courses/81 - Introduction to Go
 - https://hyperskill.org/courses/25 - Go Developer
 
+https://frontendmasters.com/courses/complete-go/
+
 ## Sample code repos
 
 - https://github.com/gothinkster/golang-gin-realworld-example-app - Gin
 - Event-driven microservices demo built with Golang. Nomad, Consul Connect, Vault, and Terraform for deployment - https://github.com/thangchung/go-coffeeshop
 - https://github.com/harbur/golang-gin-starter
+- https://github.com/sagikazarmark/modern-go-application - Boilerplate and example applying modern practices
+
+## Errors
+
+https://github.com/emperror/emperror
+
+https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully
+
+https://8thlight.com/insights/exploring-error-handling-patterns-in-go
+
+## Logging
+
+https://awesome-go.com/logging/
+
+https://github.com/sirupsen/logrus
+
+https://github.com/uber-go/zap
+
+https://github.com/rs/zerolog
+
+## Frameworks
+
+https://github.com/gin-gonic/gin
+
+https://goframe.org/en/ - https://github.com/gogf/gf
+
+https://gofr.dev - https://github.com/gofr-dev/gofr
 
 ## Enums
 

@@ -10,11 +10,6 @@ https://github.com/veggiemonk/awesome-docker
 
 Newsletter - https://www.docker.com/newsletter-subscription/
 
-Dockerfile linters:
-
-- https://github.com/hadolint/hadolint
-- https://www.checkov.io - https://github.com/bridgecrewio/checkov
-
 Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See Thoughtworks Technology Radar 27:
 
 > is becoming a popular open alternative to Docker Desktop. It provisions the Docker container
@@ -22,11 +17,9 @@ Colima - Docker Desktop alternative - https://github.com/abiosoft/colima - See T
 > volume mounts. Colima uses containerd as its run time, which is also the run time on most managed
 > Platform - improving the important dev-prod parity.
 
-https://github.com/jesseduffield/lazydocker
-
 https://frontendmasters.com/courses/complete-intro-containers-v2/
 
-https://depot.dev
+https://depot.dev - Faster execution of GitHub Actions and `docker build`
 
 ## Cheatsheets
 
@@ -42,17 +35,27 @@ https://depot.dev
 
 https://github.com/jesseduffield/lazydocker
 
+https://github.com/amir20/dozzle - https://dozzle.dev - Realtime log viewer for containers. Supports Docker, Swarm and K8s
+
 https://github.com/dwmkerr/wait-port
 
 https://github.com/wagoodman/dive - Explore layers in a docker image
 
-https://github.com/containrrr/watchtower
+https://github.com/containrrr/watchtower - Not maintained - A container-based solution for automating Docker container base image updates
 
 https://github.com/GoogleContainerTools/container-diff
+
+### Linters
+
+https://www.checkov.io - https://github.com/bridgecrewio/checkov
 
 https://github.com/aquasecurity/trivy - https://trivy.dev/latest/docs/target/container_image/
 
 https://github.com/hadolint/hadolint - Dockerfile linter
+
+https://github.com/goodwithtech/dockle - Container image linter for security
+
+[Top 10 common Dockerfile linting issues](https://depot.dev/blog/dockerfile-linting-issues)
 
 ## Learn
 
@@ -75,6 +78,8 @@ https://learn.cantrill.io/p/docker-fundamentals
 https://nickjanetakis.com/blog/best-practices-around-production-ready-web-apps-with-docker-compose
 
 https://testdriven.io/blog/docker-best-practices/
+
+[Top 10 common Dockerfile linting issues](https://depot.dev/blog/dockerfile-linting-issues)
 
 ## Advantages
 
@@ -811,12 +816,11 @@ Reference: https://docs.docker.com/engine/reference/builder
 
 Examples: https://github.com/jessfraz/dockerfiles
 
-Linter: https://github.com/hadolint/hadolint
-
-Best practices:
+Linters: [see Tools → Linters section](#linters).
 
 - https://docs.docker.com/build/building/best-practices
 - https://github.com/hexops/dockerfile
+- [Top 10 common Dockerfile linting issues](https://depot.dev/blog/dockerfile-linting-issues)
 - Node.js - https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md
 
 Optimization:
@@ -1036,6 +1040,8 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 ```
 
+See [Multiple consecutive `RUN` instructions](https://depot.dev/blog/dockerfile-linting-issues#1-multiple-consecutive-run-instructions).
+
 _A single `RUN` command also has the advantage that it creates one layer instead of three!_ See next point for how this can impact image size when cleaning.
 
 #### Cleaning with multiple `RUN` gotcha
@@ -1043,6 +1049,10 @@ _A single `RUN` command also has the advantage that it creates one layer instead
 :::warning
 Deleting in later layers doesn’t shrink images.
 To reduce size, you must remove unnecessary files in the same layer they were created.
+:::
+
+:::tip
+Hadolint [rule DL3059](https://github.com/hadolint/hadolint/wiki/DL3059) catches this.
 :::
 
 An example of how doing things in multiple `RUN` instructions can be pointless.
@@ -1367,7 +1377,7 @@ React application with a Node.js backend and a MySQL database - https://github.c
 
 Example from https://www.youtube.com/watch?v=iqqDU2crIEQ
 
-```yml
+```yaml
 version: '2' # This field is deprecated now
 
 services:

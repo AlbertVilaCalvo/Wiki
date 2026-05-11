@@ -82,7 +82,7 @@ It generates build artifacts (like `.tsbuildinfo` files) to track incremental bu
 
 To **type-check** frontend projects that use **Vite** (like a React app), instead of using `tsc --noEmit`, you use `tsc -b` (or `tsc --build`).
 This is because Vite projects use project references (ie projects with multiple `tsconfig.json` configuration files).
-In Vite projects, project references are used to separate configuration for the application code (`tsconfig.app.json`) and the build tools (`tsconfig.node.json`).
+In Vite projects, project references are used to separate configuration for the application code (`tsconfig.app.json`) and the build tools (`tsconfig.node.json`). Note that you can combine `-b` and `--noEmit`: `tsc -b --noEmit`.
 
 ### `--generateTrace` to understand why compilation is slow
 

@@ -666,6 +666,13 @@ Run it with `shellcheck myscript.sh`
 
 You can also do `echo '${foo:1 2}' | shfmt >/dev/null`.
 
+To scan a directory run:
+
+```shell
+find my-scripts-folder -type f -name '*.sh' -exec shellcheck {} +
+find my-scripts-folder -type f -name '*.sh' -print0 | xargs -0 shellcheck
+```
+
 ## shfmt
 
 https://github.com/mvdan/sh - A shell parser, formatter, and interpreter with bash support; includes shfmt

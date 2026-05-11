@@ -47,7 +47,7 @@ Initially, a hosted zone has 2 records:
 | recipemanager.link | NS   | Simple  | No    | ns-314.awsdns-39.com. ns-1822.awsdns-35.co.uk. ns-524.awsdns-01.net. ns-1029.awsdns-00.org. | 172800        |
 | recipemanager.link | SOA  | Simple  | No    | ns-314.awsdns-39.com. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400                | 900           |
 
-When you configure a domain to be used with CloudFront with an ACM SSL/TLS Certificate you have these records:
+When you [configure a domain](s3.md#custom-domain) to be used with CloudFront with an ACM SSL/TLS Certificate you have these records:
 
 | Record name                                               | Type  | Routing | Alias | Value/Route traffic to                                                                      | TTL (seconds) |
 | --------------------------------------------------------- | ----- | ------- | ----- | ------------------------------------------------------------------------------------------- | ------------- |

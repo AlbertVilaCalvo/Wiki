@@ -343,3 +343,7 @@ Are Your React Components Too BIG? - https://www.youtube.com/watch?v=NsFmOttIW9Y
 ## Portals
 
 https://marvinh.dev/blog/portals-considered-harmful/
+
+## Interview questions
+
+https://scrimba.com/react-interview-questions-c01t:toc

@@ -44,6 +44,8 @@ Monitoring in the time of Cloud Native - https://copyconstruct.medium.com/monito
 
 Example of using OpenTelementry (with Honeycomb) across Node.js microservices - https://github.com/ashleydavis/open-telemetry-nodejs-microservices-example - https://www.youtube.com/watch?v=alkBpw2U7rA
 
+https://kodekloud.com/courses/prep-course-opentelemetry-certified-associate-certification-otca
+
 ## Definition
 
 https://opentelemetry.io/docs/concepts/observability-primer/#what-is-observability

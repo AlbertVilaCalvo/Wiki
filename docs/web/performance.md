@@ -10,6 +10,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/Performance_API
 
 https://web.dev/learn/performance
 
+https://www.patterns.dev - Design, rendering and performance patterns for modern web development
+
 https://csswizardry.com/2024/08/cache-grab-how-much-are-you-leaving-on-the-table/
 
 Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instructions/performance-optimization.instructions.md

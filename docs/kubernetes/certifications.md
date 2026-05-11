@@ -81,4 +81,8 @@ https://www.cncf.io/training/certification/cks/
 
 https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/
 
+https://kodekloud.com/courses/certified-kubernetes-security-specialist-cks
+
+https://kodekloud.com/courses/ultimate-certified-kubernetes-security-specialist-cks-mock-exam-series
+
 Must have taken and passed the CKA exam prior to attempting the CKS exam. The hardest.

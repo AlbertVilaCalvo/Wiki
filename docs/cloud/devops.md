@@ -24,6 +24,8 @@ https://en.wikipedia.org/wiki/Continuous_integration
 
 Developers integrate source code changes frequently into a central repository, after which automated builds and tests are run, ensuring that the integrated codebase is in a workable state.
 
+Top 10 Rules For Continuous Integration - https://www.youtube.com/watch?v=Xl62gQpAl1w&list=PLwLLcwQlnXBwYldncW6PcnscoqiFsH7un
+
 ## Continuous delivery
 
 https://en.wikipedia.org/wiki/Continuous_delivery

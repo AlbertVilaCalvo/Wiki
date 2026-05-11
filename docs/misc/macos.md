@@ -4,6 +4,8 @@ title: macOS
 
 https://medium.com/@simpleandkind788/7-macos-tahoe-settings-you-should-turn-off-right-now-fed342f8a70e
 
+https://github.com/drduh/macOS-Security-and-Privacy-Guide
+
 |     Name     | Character |     kbd      | Physical key |
 | :----------: | :-------: | :----------: | :----------: |
 |   Command    |     ⌘     | <kbd>⌘</kbd> |  ⊞ Windows   |
@@ -27,6 +29,8 @@ See https://osxdaily.com/2012/07/11/mac-wont-sleep-heres-how-to-find-out-why-and
 ## Defaults
 
 https://macos-defaults.com
+
+https://github.com/drduh/macOS-Security-and-Privacy-Guide#miscellaneous
 
 ```shell
 defaults help
@@ -202,6 +206,7 @@ Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → 
   - Android Studio is located at `~/Library/Application Support/Google` (`cd ~/Library/Application\ Support/Google`).
 - Clear `~/Library/Caches/Google`. Contains data of old versions of Android Studio.
 - Docker:
+  - Docker Desktop: install the [Disk Usage](https://hub.docker.com/extensions/docker/disk-usage-extension) extension. It shows the space used by the build cache, local volumes and images. There is a "Reclaim space" button to delete resources.
   - Docs: Prune unused Docker objects: https://docs.docker.com/config/pruning.
   - Remove dangling images (images with `<none>` in `docker image ls`): `docker image prune` ([docs](https://docs.docker.com/engine/reference/commandline/image_prune/))
     - IMPORTANT: be careful with `docker image prune -a` because it deletes plenty of stuff, eg it has deleted all images shown by `docker image ls`, not only the ones with `<none>`! It says `WARNING! This will remove all images without at least one container associated to them.`.
@@ -256,6 +261,36 @@ The information provided by Android Studio is similar to the information you can
 
 ```shell
 system_profiler SPUSBDataType
+```
+
+## Security & Privacy
+
+https://github.com/drduh/macOS-Security-and-Privacy-Guide
+
+https://paretosecurity.com/mac/checks
+
+### Firewall and Stealth Mode
+
+Activar a Configuració del Sistema → Xarxa → Tallafoc.
+
+From [Use stealth mode to keep your Mac more secure](https://support.apple.com/en-ca/guide/mac-help/mh17133/mac):
+
+> If you’re concerned about security, you can use stealth mode to make it more difficult for hackers and malware to find your Mac. When stealth mode is on, your Mac doesn’t respond to either “ping” requests or connection attempts from a closed TCP or UDP network.
+
+https://paretosecurity.com/mac/checks/firewall
+
+Check if firewall is enabled:
+
+```shell
+/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+# Firewall is enabled. (State = 1)
+```
+
+Check if firewall stealth mode is enabled:
+
+```shell
+/usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode
+# Firewall stealth mode is on
 ```
 
 ## Port 5000 used

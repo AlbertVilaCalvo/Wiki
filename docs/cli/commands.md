@@ -273,6 +273,15 @@ diff -qr Dir1 Dir2
 diff -qr Dir1 Dir2 --exclude=.git --exclude=node_modules
 ```
 
+## du - disk usage
+
+```shell
+du -sh . # Size of current folder
+du -sh * # Size of each file and folder in current folder
+du -sh somefolder # Size of somefolder
+du -h -d1 . # Size of each file and folder in current folder, but only 1 level deep
+```
+
 ## tree
 
 ```shell

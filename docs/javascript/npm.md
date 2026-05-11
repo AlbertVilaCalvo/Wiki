@@ -111,6 +111,10 @@ Suppress output like '204 packages are looking for funding' and '8 high severity
 
 ### Update a package
 
+:::tip
+Use `npx npm-check-updates -u && npm install` to update all packages to the latest version. See https://github.com/raineorshine/npm-check-updates for more.
+:::
+
 Just use `npm i [-D] [-E] somepackage@latest` (eg `npm i -D -E typescript@latest`) because using [`npm update`](https://docs.npmjs.com/cli/v8/commands/npm-update) doesn't update `package.json`:
 
 > Note that by default `npm update` will not update the semver values of direct dependencies in your project `package.json`, if you want to also update values in `package.json` you can run: `npm update --save` (or add the `save=true` option to a [configuration file](https://docs.npmjs.com/cli/v8/configuring-npm/npmrc) to make that the default behavior).
@@ -286,31 +290,11 @@ https://docs.npmjs.com/cli/v11/commands/npm-install#fund
 
 ## npm scripts
 
-:::info
-Do not use `npx <package>` in npm scripts. Just use `<package>`.
-
-```json
-{
-  "scripts": {
-    "ok": "prettier --write .",
-    "unnecessary-npx": "npx prettier --write ."
-  }
-}
-```
-
-When you run a command via `npm run`, npm automatically adds `node_modules/.bin` to the `PATH` for that specific execution.
-It temporarily updates your shell's environment variables so that the local project binaries are prioritized.
-This means any package installed in your project can be called by its name directly, without needing `npx`.
-
-In addition, if `prettier` is not installed, `npx` will fall back to downloading it; without `npx`, the script will just fail.
-Also, `npx` adds a bit of startup overhead (checking/installing).
-It also guarantees that you're using the version in your devDependencies (`npx` might download the latest version).
-In a monorepo, `npx` may resolve binaries from the root workspace, current package or even fetch remotely.
-:::
-
 Running cross-platform tasks via npm package scripts: https://2ality.com/2022/08/npm-package-scripts.html → Outdated! New link is https://exploringjs.com/nodejs-shell-scripting/ch_package-scripts.html, so it's a chapter of the book [Shell scripting with Node.js](https://exploringjs.com/nodejs-shell-scripting/index.html)
 
-You can run `npm test`, `npm start`, `npm stop` and `npm restart` without the `run`. For other scripts you need to do `npm run <script>`.
+You can run `npm test`, `npm start`, `npm stop` and `npm restart` without `run`. For other scripts you need to do `npm run <script>`.
+
+### Pre and post scripts
 
 You can have pre and post scripts:
 
@@ -328,3 +312,27 @@ You can have pre and post scripts:
 ```
 
 When you run `npm run format`, it will first run `preformat`, then `format`, and finally `postformat`.
+
+### Do not use `npx` in npm scripts
+
+Do not use `npx <package>` in npm scripts. Just use `<package>`.
+
+```json
+{
+  "scripts": {
+    "ok": "prettier --write .",
+    "wrong": "npx prettier --write ."
+  }
+}
+```
+
+When you run a command via `npm run`, npm automatically adds `node_modules/.bin` to the `PATH` for that specific execution.
+It temporarily updates your shell's environment variables so that the local project binaries are prioritized.
+This means any package installed in your project can be called by its name directly, without needing `npx`.
+
+It is unnecessary, but it can also cause problems:
+
+- If `prettier` is not installed, `npx` will fall back to downloading it; without `npx`, the script will just fail.
+- `npx` adds a bit of startup overhead (checking/installing).
+- It also guarantees that you're using the version in your devDependencies (`npx` might download the latest version).
+- In a monorepo, `npx` may resolve binaries from the root workspace, current package or even fetch remotely.

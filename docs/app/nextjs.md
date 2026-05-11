@@ -65,6 +65,7 @@ Self-Hosting Next.js - https://www.youtube.com/watch?v=sIVL4JMqRfc - Learn how t
 
 ## Learn
 
+- Next.js Explained - Delba de Oliveira - https://www.youtube.com/playlist?list=PLo9a4XFa98CCzPdpRpdu7zV6KjOvss8-u
 - https://www.road-to-next.com
 - Introduction to Next.js and React - https://www.youtube.com/watch?v=h2BcitZPMn4
 - Next.js: Authentication (Best Practices for Server Components, Actions, Middleware) - https://www.youtube.com/watch?v=N_sUsq_y10U
@@ -75,3 +76,9 @@ Self-Hosting Next.js - https://www.youtube.com/watch?v=sIVL4JMqRfc - Learn how t
 ## MDX
 
 https://www.joshwcomeau.com/blog/how-i-built-my-blog/#using-mdx-with-nextjs
+
+## Adapter API
+
+https://nextjs.org/blog/nextjs-across-platforms
+
+https://firebase.blog/posts/2026/03/nextjs-adapters

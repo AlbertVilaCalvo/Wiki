@@ -49,6 +49,8 @@ https://github.com/GoogleCloudPlatform/microservices-demo - Sample cloud-first a
 
 Does Kubernetes really give you multicloud portability? - https://medium.com/digital-mckinsey/does-kubernetes-really-give-you-multicloud-portability-476270a0acc7
 
+Controlling outbound traffic from Kubernetes - https://monzo.com/blog/controlling-outbound-traffic-from-kubernetes
+
 Y tú, ¿odias o amas Kubernetes? - https://dev.to/aws-espanol/y-tu-odias-o-amas-kubernetes-ind - https://www.paradigmadigital.com/dev/odias-amas-kubernetes
 
 > Se ha dado tanta flexibilidad a Kubernetes que se puede ejecutar cualquier carga. Esto en principio parece bueno, pero el que se pueda ejecutar, no significa que sea lo más optimo, y menos si queremos evolucionar. Un claro ejemplo serían las BBDD en Kubernetes. Es posible ejecutar una BBDD en Kubernetes, pero no tiene sentido. Al final no estás contenerizado un microservicio, sino que estás contenerizado un servidor entero de BBDD.
@@ -93,6 +95,19 @@ History: https://cloud.google.com/blog/products/containers-kubernetes/from-googl
 https://jessitron.com/2022/10/02/why-we-use-kubernetes
 
 What is Kubernetes? - https://www.youtube.com/watch?v=a2gfpZE8vXY
+
+From https://kubernetes.io/docs/concepts/overview/
+
+- Service discovery and load balancing
+- Storage orchestration
+- Automated rollouts and rollbacks
+- Automatic bin packing
+- Self-healing
+- Secret and configuration management
+- Batch execution
+- Horizontal scaling
+- IPv4/IPv6 dual-stack
+- Designed for extensibility
 
 ## Concepts and components
 
@@ -693,9 +708,11 @@ https://kubernetes.io/docs/tasks/tools/
 
 https://github.com/PacktPublishing/ArgoCD-in-Practice/tree/main/ch08
 
-https://github.com/yannh/kubeconform - An alternative to the deprecated https://github.com/instrumenta/kubeval - See an example of how to use it at https://github.com/PacktPublishing/ArgoCD-in-Practice/blob/main/ch08/kubeconform/validate-schema.sh
+https://github.com/kubescape/kubescape - https://kubescape.io
 
-https://github.com/stackrox/kube-linter
+https://github.com/yannh/kubeconform - Schema validation - An alternative to the deprecated https://github.com/instrumenta/kubeval - See an example of how to use it at https://github.com/PacktPublishing/ArgoCD-in-Practice/blob/main/ch08/kubeconform/validate-schema.sh
+
+https://github.com/stackrox/kube-linter - Best practices and security checks
 
 https://github.com/zegl/kube-score - https://kube-score.com
 
@@ -741,6 +758,7 @@ https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
   - https://www.pluralsight.com/cloud-guru/courses/kubernetes-the-hard-way
   - https://napo.io/posts/kubernetes-the-real-hard-way-on-aws/ - https://github.com/hajowieland/cdk-py-k8s-the-real-hard-way-aws
 - https://github.com/stefanprodan/podinfo - Go microservice template for Kubernetes
+- Docker and Kubernetes Masterclass: From Beginner to Advanced - https://www.oreilly.com/videos/docker-and-kubernetes/9781837025077/
 
 ## Security
 

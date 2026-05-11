@@ -1846,7 +1846,11 @@ tfenv use 1.9.5
 
 ## Free up disk space
 
-The aws provider (terraform-provider-aws_v5.67.0_x5) is 586 MB.
+:::important
+Terraform does not clean up _old_ provider versions (see [this](https://vhiairrassary.com/engineer/2023-08-21-til-terraform-does-not-clean-old-providers/)).
+:::
+
+The aws provider (terraform-provider-aws_v6.26.0_x5) is 700 MB.
 
 ```shell
 # See if there are files to delete

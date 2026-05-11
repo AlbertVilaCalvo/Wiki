@@ -6,6 +6,8 @@ title: Python Tools
 
 [Python Package Index - pypi.org](https://pypi.org)
 
+PyPI Package Statistics & Analytics - https://pepy.tech
+
 https://github.com/vinta/awesome-python
 
 [python.libhunt.com](https://python.libhunt.com/)

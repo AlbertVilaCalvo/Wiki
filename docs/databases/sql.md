@@ -20,6 +20,8 @@ Components of the SQL language [source](from https://www.linkedin.com/posts/alex
 - DCL: data control language, such as GRANT, REVOKE
 - TCL: transaction control language, such as COMMIT, ROLLBACK
 
+https://pragprog.com/titles/bksap2/more-sql-antipatterns/
+
 ## Reserved words
 
 https://en.wikipedia.org/wiki/SQL_reserved_words

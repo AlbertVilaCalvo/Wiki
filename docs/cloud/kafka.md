@@ -56,6 +56,16 @@ https://university.redpanda.com
 
 https://kodekloud.com/courses/event-streaming-with-kafka
 
+Kafka in Action (2022) - https://www.manning.com/books/kafka-in-action
+
+Apache Kafka in Action (2025) - https://www.manning.com/books/apache-kafka-in-action
+
+Kafka Streams in Action, Second Edition (2024) - Event-driven applications and microservices - https://www.manning.com/books/kafka-streams-in-action-second-edition
+
+Kafka for Architects - Event-driven architecture, logs, microservices, real-time event processing (2026) - https://www.manning.com/books/kafka-for-architects - Video Edition: https://www.oreilly.com/videos/kafka-for-architects/9781633436411VE/
+
+https://www.packtpub.com/en-es/product/cloud-native-microservices-kubernetes-service-mesh-cicd-9781837023332 - https://www.packtpub.com/en-es/product/cloud-native-microservices-kubernetes-service-mesh-cicd-video-9781837023332/chapter/hands-on-deploy-cloud-native-kafka-message-brokers-on-a-kubernetes-cluster-p21/section/introduction-hands-on-deploy-kafka-in-kubernetes-cluster-with-minikube-and-helm-video21_1
+
 ## Queues
 
 KIP-932: Queues for Kafka - https://cwiki.apache.org/confluence/display/KAFKA/KIP-932%3A+Queues+for+Kafka
