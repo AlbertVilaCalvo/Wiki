@@ -97,6 +97,7 @@ const sidebars: SidebarsConfig = {
     'cloud/observability',
     'cloud/prometheus',
     'cloud/grpc',
+    'cloud/rabbitmq',
     'cloud/kafka',
     'cloud/gcp',
     'cloud/azure',
