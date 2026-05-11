@@ -86,19 +86,19 @@ const config: Config = {
         },
         {
           to: 'dev/tools-and-resources',
-          activeBaseRegex: 'dev/.+',
+          activeBasePath: 'dev',
           label: 'Dev',
           position: 'left',
         },
         {
           to: 'ai',
-          activeBaseRegex: 'ai/.+',
+          activeBasePath: 'ai',
           label: 'AI',
           position: 'left',
         },
         {
           to: 'javascript',
-          activeBasePath: 'js',
+          activeBasePath: 'javascript',
           label: 'JS',
           position: 'left',
         },
@@ -184,7 +184,7 @@ const config: Config = {
         },
         {
           to: 'ux',
-          activeBasePath: 'uxs',
+          activeBasePath: 'ux',
           label: 'UX',
           position: 'left',
         },
