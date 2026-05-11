@@ -60,7 +60,35 @@ https://code.visualstudio.com/docs/copilot/language-models#_choose-the-right-mod
 
 OpenVLM Leaderboard - https://huggingface.co/spaces/opencompass/open_vlm_leaderboard
 
+https://llm-stats.com - Compare 300+ Top AI Models
+
+Android Bench - https://developer.android.com/bench - https://android-developers.googleblog.com/2026/03/elevating-ai-assisted-androi.html
+
 GPT-4o → o means omni. Is [multimodal](https://en.wikipedia.org/wiki/Multimodal_learning): it accepts as input any combination of text, audio, image and video and generates any combination of text, audio and image outputs.
+
+https://factory.ai/news/code-review-benchmark
+
+> GPT-5.2 and Claude Opus 4.6 lead the pack at ~60% F1, but GPT-5.2 does it at $1.25/PR vs $3.11 for Opus.
+>
+> Newer doesn't always mean better. GPT-5.4 (47.5% F1) is too conservative -- high precision (59.6%) but low recall (41.8%), missing bugs it should catch. GPT-5.5 (47.9% F1) has the opposite problem: it comments at the right rate but half are false positives (47.5% precision). Both trail GPT-5.2 significantly.
+>
+> Open-source models punch above their weight. Kimi K2.5 (51.9% F1 at $0.41/PR) and GLM-5.1 (55.8% at $1.06/PR) compete with frontier models at a fraction of the price. For teams that want broader review coverage with multiple passes, these models make intensive workflows economically viable.
+
+> Our Picks
+>
+> - Best Overall: GPT-5.2 - $1.25/PR - 60.5% F1 - Top-tier quality at half the cost of Opus 4.6.
+> - Best Value: Kimi K2.5 - $0.41/PR - 51.9% F1 - 85%+ of top-tier quality for a fraction of the price.
+> - Budget Pick: MiniMax M2.7 - $0.15/PR - 45.6% F1 - Run eight review passes for less than one GPT-5.2 run.
+
+## Run AI models locally
+
+https://www.canirun.ai
+
+https://ollama.com
+
+https://lmstudio.ai
+
+https://www.jan.ai
 
 ## Prompts
 
@@ -164,15 +192,23 @@ Copilot uses your examples to generate a matching function.
 
 ## Claude Code
 
+https://github.com/topics/claude
+
 https://github.com/anthropics/claude-code
 
 https://docs.anthropic.com/en/docs/claude-code/overview
+
+https://anthropic.skilljar.com
 
 https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor
 
 https://github.com/ryoppippi/ccusage
 
 https://github.com/daaain/claude-code-log
+
+Project structure - https://www.linkedin.com/posts/brijpandeyji_you-wont-need-any-other-project-structure-share-7442428028791554048-Ykwx/
+
+https://github.com/delbaoliveira/learn-claude-code
 
 Announcements
 
@@ -185,7 +221,9 @@ Announcements
 
 https://github.com/timothywarner-org/prompt-pro/blob/main/CLAUDE.md
 
-You can simlink the file `CLAUDE.md` to your `.github/copilot-instructions.md`, see https://github.com/microsoft/vscode/tree/main/.claude.
+You can simlink the file `CLAUDE.md` to `.github/copilot-instructions.md`, see https://github.com/microsoft/vscode/tree/main/.claude.
+
+You can also simlink the file `CLAUDE.md` to `AGENTS.md`, see https://github.com/vercel/next.js/blob/canary/CLAUDE.md.
 
 VSCode extension - https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code
 
@@ -203,9 +241,29 @@ https://x.com/bcherny/status/2007179832300581177 - I'm Boris and I created Claud
 
 ### Skills
 
+https://github.com/Jeffallan/claude-skills
+
 Examples:
 
+- https://github.com/Jeffallan/claude-skills/tree/main/skills
 - https://github.com/microsoft/vscode/tree/main/.github/skills
+- https://github.com/vercel/next.js/tree/canary/.agents/skills
+
+https://www.patterns.dev/ai/skills/
+
+## AGENTS.md
+
+https://agents.md
+
+https://developer.android.com/studio/gemini/agent-files
+
+Examples:
+
+- https://github.com/openai/codex/blob/main/AGENTS.md
+- https://github.com/apache/airflow/blob/main/AGENTS.md
+- https://github.com/temporalio/sdk-java/blob/master/AGENTS.md
+- https://github.com/facebook/docusaurus/blob/main/AGENTS.md
+- https://github.com/vercel/next.js/blob/canary/AGENTS.md
 
 ## ChatGPT
 
@@ -217,9 +275,13 @@ To open the app in the Canvas use `/canvas`, eg:
 
 ## JetBrains
 
+https://blog.jetbrains.com/ai/
+
 https://www.jetbrains.com/help/ai-assistant/
 
 https://www.jetbrains.com/help/junie/
+
+JetBrains AI Assistant in Visual Studio Code - https://marketplace.visualstudio.com/items?itemName=jetbrains.jetbrains-ai-assistant
 
 When using GitHub Copilot, use `@project` instead of `@workspace`.
 
@@ -231,3 +293,5 @@ Guidelines file is `.junie/guidelines.md`, but you can change it to `.github/cop
 - `.junie/guidelines.md` Examples: https://github.com/JetBrains/junie-guidelines
 
 Use `.aiignore` file to restrict Junie from processing the contents of specific files or folders ([docs](https://www.jetbrains.com/help/junie/aiignore.html)).
+
+https://hyperskill.org/courses/143-coding-with-junie-for-developers

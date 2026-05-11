@@ -24,6 +24,8 @@ How to prevent "enter" from sending text to Copilot chat and instead create a ne
 
 ## Custom instructions
 
+Customization options at a glance - https://code.visualstudio.com/docs/copilot/concepts/customization#_customization-options-at-a-glance
+
 https://github.com/github/awesome-copilot/blob/main/instructions/instructions.instructions.md
 
 :::tip
@@ -33,21 +35,19 @@ Note that `github.copilot.chat.codeGeneration.instructions` is deprecated as of 
 :::
 
 - Workspace instructions:
-  - Repository-wide instructions: `.github/copilot-instructions.md`
-  - Path-specific instructions: `.github/instructions/NAME.instructions.md`
+  - Always-on, project-wide instructions that apply to every request: `.github/copilot-instructions.md`
+  - File-based, path-specific instructions: `.github/instructions/NAME.instructions.md`
     - See example at https://docs.github.com/en/copilot/tutorials/coding-agent/get-the-best-results#path-specific-instructions
     - By using path-specific instructions you can avoid overloading your repository-wide instructions with information that only applies to files of certain types, or in certain directories. [source](https://docs.github.com/en/copilot/concepts/prompting/response-customization#about-repository-custom-instructions-1)
 - User instructions: available across multiple workspaces. They are stored in the current [VS Code profile](https://code.visualstudio.com/docs/configure/profiles), so they are synced with Settings Sync.
 
-In VScode:
+In VScode, to generate a `.github/copilot-instructions.md` instructions file you can either:
 
-- To generate instructions file for your workspace, at the Chat view, select Configure Chat > Generate Instructions.
-- You can manually attach an instructions file to a specific chat prompt by using the Add Context > Instructions option in the Chat view.
-- You can choose if the instructions are added to Copilot request at the Settings, at "Use Instruction Files".
+- Type `/init` in chat. See [Use the /init slash command](https://code.visualstudio.com/docs/copilot/customization/custom-instructions#_use-the-init-slash-command). The `/init` command is implemented as a [prompt file](https://code.visualstudio.com/docs/copilot/customization/prompt-files), you can see the file at Configure Chat → Prompt Files.
+  - Other commands are: `/create-prompt`, `/create-instruction`, `/create-skill`, `/create-agent` and `/create-hook`
+- At the Chat view, select Configure Chat → Instructions & Rules.
 
-At https://github.com/copilot:
-
-- Add instructions by clicking on your profile picture in the bottom left of the page, then click "Personal instructions".
+At https://github.com/copilot, add instructions by clicking on your profile picture in the bottom left of the page, then click "Personal instructions".
 
 https://docs.github.com/en/copilot/how-tos/configure-custom-instructions
 
