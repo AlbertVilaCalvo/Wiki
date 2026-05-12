@@ -109,6 +109,12 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: 'architecture',
+          activeBasePath: 'architecture',
+          label: 'Arch',
+          position: 'left',
+        },
+        {
           to: 'cloud',
           activeBasePath: 'cloud',
           label: 'Cloud',

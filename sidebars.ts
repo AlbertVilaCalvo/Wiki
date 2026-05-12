@@ -93,9 +93,16 @@ const sidebars: SidebarsConfig = {
     'app/nextjs',
     'app/mobx',
   ],
+  architecture: [
+    'architecture/architecture',
+    'architecture/microservices',
+    'architecture/ddd',
+    'architecture/cqrs',
+    'architecture/event-sourcing',
+    'architecture/circuit-breaker',
+  ],
   cloud: [
     'cloud/cloud',
-    'cloud/architecture',
     'cloud/devops',
     'cloud/backend',
     'cloud/docker',
