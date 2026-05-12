@@ -2,6 +2,12 @@
 title: Architecture
 ---
 
+TODO mirar:
+
+- https://www.manning.com/books/the-coder-cafe
+- https://www.manning.com/books/grokking-software-architecture
+- Software Architecture Fundamentals, Third Edition - https://www.oreilly.com/videos/software-architecture-fundamentals/0642572016094/
+
 https://c4model.com
 
 https://bytebytego.com - https://highscalability.com
@@ -34,14 +40,18 @@ https://www.linkedin.com/posts/raul-junco_system-design-is-the-art-of-making-sca
 
 Every system has a hot path - https://www.linkedin.com/posts/raul-junco_every-system-has-a-hot-path-and-its-the-activity-7396182757405638656-lpWS/
 
-TODO mirar https://www.manning.com/books/the-coder-cafe
-
 Change Data Capture (CDC) - Outbox Pattern - https://www.linkedin.com/posts/raul-junco_i-have-seen-this-mistake-in-production-the-activity-7434222637809033216-dUU3/
 
 <figure>
   <img src="/img/rauljunco-3-patterns-to-deal-with-eventual-consistency.jpg" alt="3 patterns to deal with Eventual Consistency" title="3 patterns to deal with Eventual Consistency" width="850" loading="lazy"/>
   <figcaption>Source: <a href="https://www.linkedin.com/posts/raul-junco_i-have-seen-this-mistake-in-production-the-activity-7434222637809033216-dUU3/">LinkedIn</a></figcaption>
 </figure>
+
+How to retry payments - https://newsletter.systemdesignclassroom.com/p/every-backend-engineer-needs-to-know
+
+## Diagrams
+
+Software Architecture Fundamentals—Diagramming and Documenting Architecture - https://www.oreilly.com/videos/software-architecture-fundamentals-diagramming/0636920342540/
 
 ## System Design
 
@@ -177,6 +187,8 @@ From https://chrisrichardson.net/virtual-bootcamp-distributed-data-management.ht
 
 ## Orchestration vs choreography coordination
 
+https://learn.microsoft.com/en-us/azure/architecture/patterns/choreography
+
 Orchestration:
 
 - The orchestrator owns the state. For example, the state of an order in the orchestrator can be created, payment_applied, order_shipped, order_complete...
@@ -198,6 +210,8 @@ Choreography:
 https://learn.microsoft.com/en-us/azure/architecture/patterns/saga
 
 https://microservices.io/patterns/data/saga.html
+
+https://learn.microsoft.com/en-us/azure/architecture/patterns/compensating-transaction
 
 **Avoid atomic + async together, and choreography + sync.**
 
@@ -253,7 +267,11 @@ Anthology
 
 ## CQRS
 
+https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs
+
 https://microservices.io/patterns/data/cqrs.html
+
+Message- and Event-Driven Systems with CQRS and Event Sourcing: Web and Cloud Architecture, 1st edition - https://www.pearson.com/en-us/subject-catalog/p/message--and-event-driven-systems-with-cqrs-and-event-sourcing-web-and-cloud-architecture/P200000009712/9780137998715 - https://www.oreilly.com/library/view/message-and-event-driven/9780137998654/
 
 https://www.linkedin.com/posts/alexandre-zajac_dont-learn-system-design-from-textbooks-share-7444767730609799168-iTLF/
 
@@ -313,6 +331,12 @@ Chris Richardson - https://chrisrichardson.net - https://microservices.io - http
 https://martinfowler.com/articles/microservices.html
 
 https://www.developertoarchitect.com/lessons-microservices.html - Software Architecture Monday - Microservices Lessons
+
+David Farley - https://www.youtube.com/playlist?list=PLwLLcwQlnXBxyKJ7Bsr5AtpQrhgFHdSRf
+
+Microservices interview questions - https://www.linkedin.com/posts/petarivanovv9_ive-been-building-microservices-for-5-years-share-7455951504722583553-ETvj/
+
+https://pact.io - Contract testing framework for HTTP APIs and non-HTTP asynchronous messaging systems
 
 Demos:
 
@@ -410,11 +434,15 @@ https://github.com/cer/event-sourcing-examples
 
 https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
 
+Message- and Event-Driven Systems with CQRS and Event Sourcing: Web and Cloud Architecture, 1st edition - https://www.pearson.com/en-us/subject-catalog/p/message--and-event-driven-systems-with-cqrs-and-event-sourcing-web-and-cloud-architecture/P200000009712/9780137998715 - https://www.oreilly.com/library/view/message-and-event-driven/9780137998654/
+
 https://www.linkedin.com/posts/alexandre-zajac_dont-learn-system-design-from-textbooks-share-7444767730609799168-iTLF/
 
 > Every user action, play, pause, skip, rate, is stored as an immutable event. Netflix replays these events to rebuild state and power recommendations.
 
 ## Circuit Breaker
+
+https://learn.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker
 
 https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-circuit-breaker-pattern
 
@@ -449,6 +477,8 @@ https://ddd.academy
 https://exploreddd.com - Conference
 
 ## Queue
+
+Kafka vs RabbitMQ vs SQS vs Solace - https://www.linkedin.com/posts/rocky-bhatia-a4801010_kafka-vs-rabbitmq-vs-sqs-vs-solace-choosing-share-7455218155771260928-3Inx/
 
 https://www.linkedin.com/posts/raul-junco_you-dont-pick-tools-based-on-whats-cool-activity-7393634074793521152-ITB_/
 
@@ -556,3 +586,11 @@ API gateway:
 - Observability for logging and monitoring.
 - Authentication and authorization before a request even touches your backend.
 - Request and response transformation to reshape payloads between client and service formats.
+
+## Backends for Frontends
+
+https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends
+
+## Rate Limiting
+
+https://learn.microsoft.com/en-us/azure/architecture/patterns/rate-limiting-pattern
