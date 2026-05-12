@@ -410,7 +410,7 @@ https://github.com/withastro/astro/blob/main/packages/astro/CHANGELOG.md
   - Beta: https://astro.build/blog/astro-5-beta/
   - Content Layer stable. Instead of local markdown files, get the content from a CMS, a REST API or an asset management system like Cloudinary.
   - Server Islands stable. Best of both worlds: fast, CDN-cached static pages, with personalized and dynamic content.
-  - `astro:env` module stable: a type-safe way to define and access environment variables.
+  - `astro:env` module stable: a type-safe way to define and access environment variables. [see docs](https://docs.astro.build/en/guides/environment-variables/#type-safe-environment-variables)
   - The output modes hybrid and static options have been merged into the default static option.
   - Experimental:
     - Image cropping
@@ -418,6 +418,75 @@ https://github.com/withastro/astro/blob/main/packages/astro/CHANGELOG.md
     - SVG components
 - 5.1 - 2024/12 - https://astro.build/blog/astro-510/ - https://github.com/withastro/astro/releases/tag/astro%405.1.0
   - Sessions (experimental). Stores data on the server and sends the session ID as a cookie to the client.
+- 5.2 - 2025/01 - https://astro.build/blog/astro-520/ - https://github.com/withastro/astro/releases/tag/astro%405.2.0
+  - Tailwind 4 support
+  - Trailing slash redirects
+  - External redirects
+- 5.3 - 2025/02 - https://astro.build/blog/astro-530/ - https://github.com/withastro/astro/releases/tag/astro%405.3.0
+- 5.4 - 2025/02 - https://astro.build/blog/astro-540/ - https://github.com/withastro/astro/releases/tag/astro%405.4.0
+  - Remote image optimization in Markdown files
+    - Enabled by default. If you need to opt out for specific images, you can use HTML `<img>` tags instead of Markdown syntax.
+  - Experimental responsive image support in Markdown (not just in `Image` and `Picture` components)
+- 5.5 - 2025/03 - https://astro.build/blog/astro-550/ - https://github.com/withastro/astro/releases/tag/astro%405.5.0
+  - Better support for diagramming tools in Markdown
+  - TypeScript typing for your session data (experimental)
+- 5.6 - 2025/03 - https://astro.build/blog/astro-560/ - https://github.com/withastro/astro/releases/tag/astro%405.6.0
+  - Prefetch eagerness option: control how aggressively the browser should prefetch or prerender your links
+- 5.7 - 2025/04 - https://astro.build/blog/astro-570/ - https://github.com/withastro/astro/releases/tag/astro%405.7.0
+  - Experimental fonts API.
+    - Use fonts from both your file system and built-in supported providers (e.g. Google) through a unified API.
+    - Keep your site performant thanks to sensible defaults and automatic optimizations including fallback font generation.
+  - Sessions API stable
+    - Securely store data tied to a specific user as they navigate between pages on your site.
+    - Unlike cookies, sessions are stored on the server, so you can store larger amounts of data without worrying about size limits or security issues.
+    - They are useful for storing things like user data, shopping carts and form state.
+    - They work without any client-side JavaScript.
+    - Can be type-safe (TypeScript).
+  - SVG components
+    - Local SVG files as components.
+    - Inline SVGs directly into your HTML.
+- 5.8 - 2025-05 - https://astro.build/blog/astro-580/ - https://github.com/withastro/astro/releases/tag/astro%405.8.0
+- 5.9 - 2025-06 - https://astro.build/blog/astro-590/ - https://github.com/withastro/astro/releases/tag/astro%405.9.0
+  - Content Security Policy (CSP) using `<meta>` element (experimental) to protect against XSS
+- 5.10 - 2025-06 - https://astro.build/blog/astro-5100/ - https://github.com/withastro/astro/releases/tag/astro%405.10.0
+  - Live content collections (experimental). Fetch content at runtime instead of build time.
+  - Responsive images are now stable. See https://astro.build/blog/year-in-review-2025/#responsive-images
+- 5.11 - 2025-07 - https://astro.build/blog/astro-5110/ - https://github.com/withastro/astro/releases/tag/astro%405.11.0
+  - Content Security Policy (CSP) using headers in adapters (experimental)
+- 5.12 - 2025-07 - https://astro.build/blog/astro-5120/ - https://github.com/withastro/astro/releases/tag/astro%405.12.0
+  - TOML support for content loaders
+  - Netlify Vite plugin for development
+    - A local Netlify Image CDN server. This is used for images by default
+    - A local Netlify Blobs server. This is used for sessions by default
+    - Redirects, rewrites and headers from your Netlify config
+    - The Netlify Edge Context in on-demand pages
+    - Environment variables populated from your linked Netlify site
+- 5.13 - 2025-08 - https://astro.build/blog/astro-5130/ - https://github.com/withastro/astro/releases/tag/astro%405.13.0
+- 5.14 - 2025-09 - https://astro.build/blog/astro-5140/ - https://github.com/withastro/astro/releases/tag/astro%405.14.0
+  - React 19 `useActionState()` integration with Astro Actions, to build forms
+- 5.15 - 2025-10 - https://astro.build/blog/astro-5150/ - https://github.com/withastro/astro/releases/tag/astro%405.15.0
+- 5.16 - 2025-11 - https://astro.build/blog/astro-5160/ - https://github.com/withastro/astro/releases/tag/astro%405.16.0
+  - SVG optimization with SVGO (experimental)
+- 5.17 - 2026-01 - https://astro.build/blog/astro-5170/ - https://github.com/withastro/astro/releases/tag/astro%405.17.0
+  - Background color for image transformations
+- 6.0 - 2026/03 - https://astro.build/blog/astro-6/ - https://github.com/withastro/astro/releases/tag/astro%406.0.0
+  - **Upgrade guide**: https://docs.astro.build/en/guides/upgrade-to/v6/
+  - Fonts API stable
+  - Live content collections stable.
+    - Fetch content at request time instead, using the same APIs, with no rebuild step required.
+    - Your content updates the moment it’s published, without touching your build pipeline. That means CMS content, API data, and editorial updates all go live instantly.
+  - Content Security Policy API stable
+  - Route caching API (experimental)
+- 6.1 - 2026/03 - https://astro.build/blog/astro-610/ - https://github.com/withastro/astro/releases/tag/astro%406.1.0
+  - Sharp codec-specific image defaults
+  - SmartyPants configuration
+- 6.2 - 2026/04 - https://astro.build/blog/astro-620/ - https://github.com/withastro/astro/releases/tag/astro%406.2.0
+  - SVG optimizer: use the built-in SVGO, but you can now swap in alternatives like OxVG.
+  - Custom logger (experimental). See RFC https://github.com/withastro/roadmap/blob/logger/proposals/0059-custom-logger.md
+  - New Rust compiler. See https://astro.build/blog/astro-6/#experimental-rust-compiler and https://github.com/withastro/roadmap/discussions/1306
+- 6.3 - 2026/05 - https://astro.build/blog/astro-630/ - https://github.com/withastro/astro/releases/tag/astro%406.3.0
+  - SVG image processing disabled by default
+    - This change does not affect importing SVGs as components. It only applies to rasterizing SVG sources through the image optimization pipeline (e.g. converting an SVG to PNG via `<Image />`).
 
 ## Islands architecture
 
@@ -570,3 +639,16 @@ _SSR is required only if you want to have dynamic features -like shopping cart, 
 SSR adapter: https://docs.astro.build/en/guides/integrations-guide/netlify/
 
 Announcement: https://www.netlify.com/blog/astro-ssr/
+
+## Starlight
+
+https://starlight.astro.build
+
+Examples:
+
+- https://docs.netlify.com
+- https://developers.cloudflare.com
+- https://geminicli.com
+- https://aspire.dev
+- https://openai.github.io/openai-agents-js
+- https://developers.wpengine.com/docs
