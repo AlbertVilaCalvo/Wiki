@@ -10,7 +10,7 @@ https://github.com/gnachman/iTerm2
 
 https://github.com/gnachman/iterm2-website
 
-### Color schemes
+## Color schemes
 
 https://iterm2colorschemes.com - https://github.com/mbadolato/iTerm2-Color-Schemes
 
@@ -18,7 +18,7 @@ Changed in Settings → Profiles → Colors, at the dropdown 'Color presets...'.
 
 Tip: duplicate the current profile to make tests.
 
-### Shortcuts
+## Shortcuts
 
 Cheatsheet - https://gist.github.com/squarism/ae3613daf5c01a98ba3a
 
@@ -29,7 +29,7 @@ Cheatsheet - https://gist.github.com/squarism/ae3613daf5c01a98ba3a
 - Hold <kbd>⌘</kbd> + <kbd>Option</kbd> to select text with the mouse doing a rectangle.
 - When shell integration is enabled, you can navigate to previous shell prompts with ⇧⌘↑ and ⇧⌘↓.
 
-### My shortcuts
+## My shortcuts
 
 :::note
 
@@ -51,7 +51,7 @@ Click the + button.
 
 https://stackoverflow.com/questions/6205157/how-to-set-keyboard-shortcuts-to-jump-to-beginning-end-of-line/29403520#29403520
 
-### "send hex code" vs "send escape sequence"
+## "send hex code" vs "send escape sequence"
 
 From https://sergeemond.ca/en/articles/iterm-extend-send-text-action
 
@@ -59,11 +59,35 @@ From https://sergeemond.ca/en/articles/iterm-extend-send-text-action
 - “send hex code” scans for one 8-bit code, and sends that
 - “send text” allows for “\e” (escape), “\n” (newline), “\a” (bell), and “\t” (tab), and normal text
 
-### Finder integration (New iTerm Window here)
+## Emacs
+
+This is needed if you use Emacs in the terminal with the "no window" option (`-nw`), not when using the standalone GUI app.
+
+### Fix the "Meta" (M) Key in iTerm2
+
+https://stackoverflow.com/questions/196357/making-iterm-to-translate-meta-key-in-the-same-way-as-in-other-oses
+
+By default, macOS uses the Option key (<kbd>⌥</kbd> or Alt) for special characters (like symbols). For Emacs to see it as "Meta" you must tell iTerm2 to send an `Esc+` sequence instead. To fit it do:
+
+- Open iTerm2 Settings (Cmd + ,).
+- Go to Profiles → Keys. Choose the "Key Bindings" tab.
+-
+
+Once this is set, M-w may not work immediately in existing tabs, you need to open a new tab.
+
+### Fix C+w not working
+
+If cutting text (Ctrl-w) is not working, do:
+
+- Open iTerm2 Settings (Cmd + ,).
+- Go to Profiles → Keys.
+- At the list, delete the entry "Ignore" - "^w".
+
+## Finder integration (New iTerm Window here)
 
 Click the 'iTerm2' menu bar item (at the top left) and then do Services → Services Settings... This opens the 'Configuració del Sistema' → Teclat → Dreceres de teclat... Once there, on 'Arxius i carpetes' check 'New iTerm Window here'.
 
-### Shell integration
+## Shell integration
 
 https://iterm2.com/documentation-shell-integration.html
 
@@ -157,7 +181,7 @@ It adds the following line to `~/.zshrc`:
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 ```
 
-### AI
+## AI
 
 https://iterm2.com/documentation-ai-chat.html
 
@@ -167,7 +191,7 @@ Important: you need an API key to use the AI features. For OpenAI, you can gener
 
 You also need to install the plugin available at https://iterm2.com/ai-plugin.html by dragging the `.app` file to the Applications folder. At the iTerm2 settings → General → AI it should say "Plugin installed and working".
 
-### Full disk access
+## Full disk access
 
 If a dialog pops up every time you run `docker compose up --build`, you need to give iTerm2 full disk access at the macOS settings → Privacy and security. See:
 
