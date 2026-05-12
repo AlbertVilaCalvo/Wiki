@@ -191,6 +191,10 @@ magick image.jpeg -gravity center -background black -resize 1080x1080 -extent 10
 
 ## sips
 
+:::danger
+By default, `sips` will destructively overwrite the input image. Use the `-o` flag to specify a different output file path (which must have the same file extension as the input image).
+:::
+
 Comes installed in macOS.
 
 From https://saurabhs.org/advanced-macos-commands:
@@ -202,8 +206,6 @@ From https://saurabhs.org/advanced-macos-commands:
 `sips -c <height> <width> <image>` crops the specified image to the given dimensions (relative to the center of the original image).
 
 `sips -r <degrees> <image>` rotates the image by the specified degrees.
-
-By default, `sips` will destructively overwrite the input image. Use the `-o` flag to specify a different output file path (which must have the same file extension as the input image).
 
 ## Avoid layout shift
 
@@ -218,3 +220,9 @@ img {
   object-fit: cover;
 }
 ```
+
+## `Cache-Control` headers
+
+https://neciudan.dev/how-i-cut-250gb-of-bandwidth-from-my-website
+
+> Then open devtools, go to the Network tab, and click on any image. If you don’t see a `Cache-Control` header in the response, every visitor is downloading that file fresh. Every time.

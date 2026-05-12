@@ -573,28 +573,41 @@ https://github.com/withastro/astro/issues/6388
 
 ## Images
 
-### Old
-
-Images: https://docs.astro.build/en/guides/images/
-
-https://www.npmjs.com/package/@astrojs/image
-
-https://docs.astro.build/en/guides/integrations-guide/image/
-
-Removed in Astro 3.
-
-### New (assets)
+https://docs.astro.build/en/guides/images/
 
 RFC: https://github.com/withastro/roadmap/blob/main/proposals/0030-core-image-story.md
 
-Assets (Experimental) - https://docs.astro.build/en/guides/assets/
-
 Image service API: https://docs.astro.build/en/reference/image-service-reference/
+
+Introduced in Astro 2.1, stable in 3.0:
 
 - 2023-03 https://astro.build/blog/astro-210/
 - 2023-06 https://astro.build/blog/images/
 
-See version 3 upgrade guide: https://docs.astro.build/en/guides/upgrade-to/v3/#upgrade-images-to-v3
+Images in your `public/` folder are never processed.
+
+:::info
+We recommend that local images are kept in `src/` when possible so that Astro can transform, optimize, and bundle them. Files in the `public/` directory are always served or copied into the build folder as-is, with no processing. [source](https://docs.astro.build/en/guides/images/#where-to-store-images)
+:::
+
+See "Why `public/` is a trap" at "My blog got popular, and my bandwidth exploded to ~300GB in just 10 days" - https://neciudan.dev/how-i-cut-250gb-of-bandwidth-from-my-website#why-public-is-a-trap
+
+`<Image>` component: https://neciudan.dev/how-i-cut-250gb-of-bandwidth-from-my-website#6-move-images-to-astros-image-component
+
+### Responsive images
+
+https://astro.build/blog/year-in-review-2025/#responsive-images
+
+### Deprecated `@astrojs/image`
+
+https://www.npmjs.com/package/@astrojs/image
+
+Removed in Astro 3, replaced by `astro:assets`.
+
+See upgrade guide:
+
+- https://docs.astro.build/en/guides/upgrade-to/v3/#removed-astrojsimage
+- https://docs.astro.build/en/guides/upgrade-to/v3/#upgrade-images-to-v3
 
 ## View Transitions
 
