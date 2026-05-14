@@ -20,8 +20,6 @@ A Visual Guide to React Rendering - It Always Re-renders - https://alexsidorenko
 
 The Interactive Guide to Rendering in React - https://ui.dev/why-react-renders
 
-When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecallback
-
 Preguntas típicas sobre React para entrevistas de trabajo - https://github.com/midudev/preguntas-entrevista-react
 
 TODO read: https://vercel.com/blog/whats-new-in-react-19
@@ -36,7 +34,9 @@ https://imgur.com/bmfcRQm
 
 https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
-## `&&` gotchas
+## `&&` gotcha
+
+Don't do this:
 
 ```jsx
 {
@@ -46,21 +46,174 @@ https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 
 If the condition evaluates to `true` or `false` then `&&` is fine, but you can have trouble with falsy values like 0 or `undefined` (eg a `<div>0</div>` being rendered).
 
+Do this instead:
+
+```jsx
+{
+  condition ? <SomeComponent /> : null
+}
+```
+
 https://reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator
 
 https://medium.com/geekculture/stop-using-for-conditional-rendering-in-react-a0f7b96200f8
 
 ## Hooks
 
+When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecallback
+
 https://labs.factorialhr.com/posts/hooks-considered-harmful
 
 > Most bugs can be solved by moving hooks away from the components and using primitives as the only dependencies
 
-### Cancel async operations done in useEffect
+### `useEffect`
 
-To avoid updating the UI if the component is unmounted.
+:::tip
+When you’re not sure whether some code should be in an Effect or in an event handler, ask yourself why this code needs to run. **Use Effects only for code that should run because the component was displayed to the user.** [source](https://react.dev/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers)
+:::
 
-Using an `unmounted` variable: https://stackoverflow.com/questions/53861916/canceling-an-axios-rest-call-in-react-hooks-useeffects-cleanup-failing
+https://react.dev/reference/react/useEffect
+
+https://react.dev/learn/synchronizing-with-effects
+
+> Don’t rush to add Effects to your components. Keep in mind that Effects are typically used to “step out” of your React code and synchronize with some external system. This includes browser APIs, third-party widgets, network, and so on. **If your Effect only adjusts some state based on other state, you might not need an Effect.**
+
+https://react.dev/learn/you-might-not-need-an-effect
+
+> You do need Effects to [synchronize](https://react.dev/learn/synchronizing-with-effects#what-are-effects-and-how-are-they-different-from-events) with external systems. For example, you can write an Effect that keeps a jQuery widget synchronized with the React state. You can also fetch data with Effects: for example, you can synchronize the search results with the current search query. Keep in mind that modern [frameworks](https://react.dev/learn/creating-a-react-app#full-stack-frameworks) provide more efficient built-in data fetching mechanisms than writing Effects directly in your components.
+
+> When something can be calculated from the existing props or state, [don’t put it in state](https://react.dev/learn/choosing-the-state-structure#avoid-redundant-state). Instead, calculate it during rendering. [Thinking in React](https://react.dev/learn/thinking-in-react#step-3-find-the-minimal-but-complete-representation-of-ui-state) explains what should go into state.
+
+Why we banned React's `useEffect` - https://x.com/alvinsng/status/2033969062834045089
+
+> Most `useEffect` usage is compensating for something React already gives you better primitives for: derived state, event handlers, and data-fetching abstractions.
+
+https://github.com/nickjvandyke/eslint-plugin-react-you-might-not-need-an-effect
+
+https://github.com/victorpatru/biome-plugin-no-use-effect
+
+https://x.com/steipete/status/1982011815069634878
+
+> Refactored 141 `useEffect` calls today after feeding my agent this: https://react.dev/learn/you-might-not-need-an-effect
+
+https://x.com/theo/status/1788327745925390571
+
+> Things React should rename
+>
+> "use server" -> "use action" (it used to be this lol)\
+> "use client" -> "use interactive"\
+> React.cache -> React.dedupe\
+> useEffect -> DO_NOT_USE_EFFECT_OR_YOU_WILL_BE_FIRED
+
+#### Cancel async operations done in `useEffect`
+
+Use a cleanup function to avoid updating the UI if the component is unmounted. Or in a search component, to avoid updating the UI with results from a previous search query when the user is typing fast.
+
+https://react.dev/learn/synchronizing-with-effects#fetching-data
+
+> If your Effect fetches something, the cleanup function should either abort the fetch or ignore its result
+
+Example from https://react.dev/learn/you-might-not-need-an-effect#fetching-data
+
+> However, the code above has a bug. Imagine you type "hello" fast. Then the query will change from "h", to "he", "hel", "hell", and "hello". This will kick off separate fetches, but there is no guarantee about which order the responses will arrive in. For example, the "hell" response may arrive after the "hello" response. Since it will call `setResults()` last, you will be displaying the wrong search results. This is called a “race condition”: two different requests “raced” against each other and came in a different order than you expected.
+>
+> To fix the race condition, you need to add a cleanup function to ignore stale responses:
+
+```jsx
+function SearchResults({ query }) {
+  const [results, setResults] = useState([])
+  const [page, setPage] = useState(1)
+  useEffect(() => {
+    // highlight-next-line-green
+    let ignore = false
+    fetchResults(query, page).then((json) => {
+      // highlight-next-line-green
+      if (!ignore) {
+        setResults(json)
+        // highlight-next-line-green
+      }
+    })
+    // highlight-start-green
+    return () => {
+      ignore = true
+    }
+    // highlight-end-green
+  }, [query, page])
+
+  function handleNextPageClick() {
+    setPage(page + 1)
+  }
+  // ...
+}
+```
+
+> This ensures that when your Effect fetches data, all responses except the last requested one will be ignored.
+
+Cancel Axios request using an `unmounted` variable: https://stackoverflow.com/questions/53861916/canceling-an-axios-rest-call-in-react-hooks-useeffects-cleanup-failing. Note that you need to use `AbortController`, not `CancelToken`, see https://axios.rest/pages/advanced/cancellation
+
+#### Do not call `setState` synchronously in `useEffect`
+
+Inside `useEffect`, you can only call `setState` in a callback function, not synchronously.
+
+The rule `react-hooks/set-state-in-effect` of the ESLint plugin [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks) catches this.
+
+```
+/Users/albert/Programming/Node/Projects/RecipeManager/web/src/recipe/useGetAllRecipes.ts
+  11:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/albert/Programming/Node/Projects/RecipeManager/web/src/recipe/useGetAllRecipes.ts:11:5
+   9 |
+  10 |   React.useEffect(() => {
+> 11 |     setResult('loading')
+     |     ^^^^^^^^^ Avoid calling setState() directly within an effect
+  12 |     RecipeApi.getAllRecipes()
+  13 |       .then((recipes) => {
+  14 |         setResult(recipes)  react-hooks/set-state-in-effect
+```
+
+See how to fix it at https://github.com/AlbertVilaCalvo/RecipeManager/pull/58
+
+### `useCallback`
+
+https://react.dev/reference/react/useCallback
+
+When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecallback
+
+> There are specific reasons both of these hooks are built-into React:
+>
+> 1.  Referential equality
+> 2.  Computationally expensive calculations
+
+### `useMemo`
+
+https://react.dev/reference/react/useMemo
+
+When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecallback
+
+> `useMemo` is similar to `useCallback` except it allows you to apply memoization to any value type (not just functions). It does this by accepting a function which returns the value and then that function is _only_ called when the value needs to be retrieved (which typically will only happen once each time an element in the dependencies array changes between renders).
+
+Example from https://react.dev/learn/you-might-not-need-an-effect#caching-expensive-calculations
+
+```jsx
+import { useMemo, useState } from 'react'
+
+function TodoList({ todos, filter }) {
+  const [newTodo, setNewTodo] = useState('')
+  const visibleTodos = useMemo(() => {
+    // ✅ Does not re-run unless todos or filter change
+    return getFilteredTodos(todos, filter)
+  }, [todos, filter])
+  // ...
+}
+```
+
+> This tells React that you don’t want the inner function to re-run unless either `todos` or `filter` have changed. React will remember the return value of `getFilteredTodos()` during the initial render. During the next renders, it will check if `todos` or `filter` are different. If they’re the same as last time, `useMemo` will return the last result it has stored. But if they are different, React will call the inner function again (and store its result).
 
 ## Create React App
 
