@@ -28,6 +28,8 @@ SVGOMG - https://jakearchibald.github.io/svgomg
 
 https://svgo.dev - https://github.com/svg/svgo
 
+https://github.com/noahbald/oxvg
+
 ## Display SVG in HTML
 
 SVG triangle of compromise - https://me.micahrl.com/blog/svg-triangle-of-compromise - https://news.ycombinator.com/item?id=41070709

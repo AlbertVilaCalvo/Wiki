@@ -350,6 +350,10 @@ Fix scroll bar in the middle of screen: `scrollIndicatorInsets={{ right: 1 }}`. 
   - Hermes V1 as the default JavaScript engine
   - Precompiled binaries on iOS by default
   - Legacy architecture components removed
+- [0.85 2026/04](https://reactnative.dev/blog/2026/04/07/react-native-0.85)
+  - New Shared Animation Backend (experimental)
+  - New DevTools features
+  - Metro dev server can now accept a TLS configuration object, enabling HTTPS (and WSS for Fast Refresh) during development — useful for testing APIs that enforce secure connections
 
 ## Upgrading
 

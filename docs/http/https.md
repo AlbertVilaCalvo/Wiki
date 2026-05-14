@@ -13,3 +13,5 @@ HTTP Strict Transport Security (HSTS): https://developer.mozilla.org/en-US/docs/
 https://infosec.mozilla.org/guidelines/web_security.html#transport-layer-security-tlsssl
 
 https://badssl.com - https://github.com/chromium/badssl.com
+
+https://github.com/FiloSottile/mkcert

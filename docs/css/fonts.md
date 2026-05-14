@@ -10,6 +10,10 @@ https://blog.sentry.io/web-fonts-and-the-dreaded-cumulative-layout-shift
 
 Modern Font Stacks - https://modernfontstacks.com
 
+https://github.com/seek-oss/capsize
+
+https://github.com/unjs/unifont/
+
 On a Mac, use `system_profiler SPFontsDataType` to get a list of all installed fonts.
 
 ## Responsive typography

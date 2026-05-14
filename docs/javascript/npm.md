@@ -313,6 +313,22 @@ You can have pre and post scripts:
 
 When you run `npm run format`, it will first run `preformat`, then `format`, and finally `postformat`.
 
+### Disable postinstall scripts
+
+Prevent all lifecycle scripts (preinstall, install, postinstall, prepare) from running during package installation.
+
+```shell
+npm ci --ignore-scripts
+```
+
+```title=".npmrc"
+ignore-scripts=true
+```
+
+https://github.com/LavaMoat/LavaMoat/tree/main/packages/allow-scripts - https://www.npmjs.com/package/@lavamoat/allow-scripts
+
+https://github.com/naugtur/can-i-ignore-scripts
+
 ### Do not use `npx` in npm scripts
 
 Do not use `npx <package>` in npm scripts. Just use `<package>`.

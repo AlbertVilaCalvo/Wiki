@@ -295,3 +295,21 @@ Guidelines file is `.junie/guidelines.md`, but you can change it to `.github/cop
 Use `.aiignore` file to restrict Junie from processing the contents of specific files or folders ([docs](https://www.jetbrains.com/help/junie/aiignore.html)).
 
 https://hyperskill.org/courses/143-coding-with-junie-for-developers
+
+## Design
+
+https://www.aura.build
+
+https://stitch.withgoogle.com - Transform ideas into UI designs for mobile and web applications
+
+https://openai.com/ca-ES/index/introducing-chatgpt-images-2-0/
+
+Claude Design - https://www.anthropic.com/news/claude-design-anthropic-labs
+
+### DESIGN.md
+
+https://github.com/google-labs-code/design.md
+
+https://stitch.withgoogle.com/docs/design-md/overview
+
+Google's Design.md is a design team in a file - https://www.youtube.com/watch?v=oLu32YpiIJw
