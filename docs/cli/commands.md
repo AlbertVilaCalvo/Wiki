@@ -431,3 +431,35 @@ Since **you can use any delimiter**, to fix it do for example:
 ```shell
 sed -i "s|THE_VALUE|$SOME_VAR|" file.txt
 ```
+
+## Managing processes
+
+### top
+
+Real-time view of running processes.
+
+```shell
+top
+```
+
+### ps
+
+```shell
+ps
+ps aux
+```
+
+### kill
+
+```shell
+kill <pid>
+kill -9 <pid> # Force kill
+```
+
+### killall
+
+```shell
+killall node # Kills all processes with name 'node'
+killall Dock
+killall Finder
+```

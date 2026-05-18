@@ -342,6 +342,18 @@ https://docs.github.com/en/copilot/how-tos/chat-with-copilot/get-started-with-ch
 - `/new python django web application`
 - `/new node.js express server`
 
+## CLI
+
+https://github.com/github/copilot-cli
+
+https://github.com/features/copilot/cli/
+
+https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli
+
+https://docs.github.com/copilot/how-tos/copilot-cli
+
+Course - Build an app with Copilot CLI - https://github.com/skills/create-applications-with-the-copilot-cli?locale=en-US
+
 ## JetBrains IDEs
 
 https://plugins.jetbrains.com/plugin/17718-github-copilot--your-ai-pair-programmer
