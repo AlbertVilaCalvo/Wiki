@@ -182,7 +182,7 @@ Alternatives (from https://news.ycombinator.com/item?id=32681319):
 
 ## Shortcuts
 
-https://docs.github.com/en/get-started/using-github/keyboard-shortcuts
+https://docs.github.com/en/get-started/accessibility/keyboard-shortcuts
 
 Press ? to view the shortcuts.
 
@@ -203,7 +203,136 @@ https://github.com/cli/cli
 
 ## Markdown
 
+It does not accept inline styles (`style="margin-right: 10px;"`), see https://github.com/github/markup
+
+> The HTML is sanitized, aggressively removing things that could harm you and your kin—such as `script` tags, inline-styles, and `class` or `id` attributes.
+
 Alerts:
 
 - https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
 - https://github.com/orgs/community/discussions/16925
+
+## Repository settings
+
+### General
+
+Pull requests
+
+[ ] Allow merge commits\
+[✓] Allow squash merging\
+Default commit message: `Pull request title and commit details` → With this setting you need to copy-paste the PR description to the commit message, which is a bit annoying, but you get all the commit history.\
+[✓] Allow rebase merging
+
+[✓] Always suggest updating pull request branches
+
+[✓] Allow auto-merge → This is only enabled for public repositories or if you have GitHub Pro/Team/etc.
+
+[✓] Automatically delete head branches
+
+### Advanced Security
+
+TODO
+
+## Rulesets
+
+Prebuilt rulesets ready to import - https://github.com/github/ruleset-recipes
+
+Define whether collaborators can delete or force push to the branch and set requirements for any pushes to the branch, such as passing status checks or a linear commit history.
+
+There are two ways to make a branch protected:
+
+1. Classic branch protection rules. See [About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+2. Rulesets (new). See [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
+
+The advantages of rulesets over branch protection rules are listed at [About rulesets and protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets#about-rulesets-and-protected-branches).
+
+There are two types of rulesets: branch and tag.
+
+### Protect main branch ruleset
+
+GitHub Branch Protection Setup: Securing Your Main Branch with the New UI - https://tech-bridge-log.com/blog/github-branch-protection-setup
+
+When you create a new repository, you'll see an alert with a button:
+
+:::info
+Your main branch isn't protected
+Protect this branch from force pushing or deletion, or require status checks before merging. [View documentation.](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
+
+[Protect this branch](https://github.com/AlbertVilaCalvo/RecipeManager/settings/rules/new?target=branch&enforcement=disabled)
+:::
+
+To fix the issue, go to Settings → Rules → Rulesets and click "New ruleset". Select "New branch ruleset". Set this:
+
+- Ruleset name: Protect main branch
+- Enforcement status: Active
+- Target branches: Include default branch
+- Branch rules. Check the following:
+  - Restrict deletions (checked by default)
+  - Require linear history
+  - Require a pull request before merging
+    - Require conversation resolution before merging
+    - Allowed merge methods: Squash and Rebase
+  - Block force pushes (checked by default)
+
+This creates the following JSON:
+
+```json
+{
+  "id": 15207640,
+  "name": "Protect main branch",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "AlbertVilaCalvo/RecipeManager",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": ["~DEFAULT_BRANCH"]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "required_linear_history"
+    },
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": true,
+        "allowed_merge_methods": ["squash", "rebase"]
+      }
+    }
+  ],
+  "bypass_actors": []
+}
+```
+
+### Status checks and path filters
+
+From https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/troubleshooting-required-status-checks#handling-skipped-but-required-checks and https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#example-including-paths
+
+> If a workflow is skipped due to path filtering, branch filtering or a commit message, then checks associated with that workflow will remain in a "Pending" state. A pull request that requires those checks to be successful will be blocked from merging.
+
+> Due to path filtering, a pull request that only changes a file in the root of the repository will not trigger this workflow and is blocked from merging. On the pull request, you would see "Waiting for status to be reported."
+
+Allow required checks to pass/skip, not fail, when using path filtering - https://github.com/orgs/community/discussions/44490
+
+Path filtering on required pull request checks - https://github.com/orgs/community/discussions/26857
+
+How can I handle a required check that isn't always triggered? - https://stackoverflow.com/questions/77996177/how-can-i-handle-a-required-check-that-isnt-always-triggered
+
+Branch protection: status checks for workflows with path conditions - https://stackoverflow.com/questions/79348923/branch-protection-status-checks-for-workflows-with-path-conditions
+
+## Merge queue
+
+https://humanwhocodes.com/blog/2026/04/improving-developer-velocity-github-merge-queue/
