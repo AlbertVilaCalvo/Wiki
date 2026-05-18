@@ -26,6 +26,65 @@ TODO read: https://vercel.com/blog/whats-new-in-react-19
 
 Scan for React performance issues and eliminate slow renders in your app - https://github.com/aidenybai/react-scan - https://react-scan.million.dev/
 
+## Releases
+
+https://github.com/facebook/react/blob/main/CHANGELOG.md
+
+### 18.0 - 2022/03
+
+https://react.dev/blog/2022/03/29/react-v18
+
+- Concurrent React.
+  - Rendering is interruptible. React may start rendering an update, pause in the middle, then continue later. It may even abandon an in-progress render altogether.
+  - React can prepare new screens in the background without blocking the main thread.
+  - The UI can respond immediately to user input even if it’s in the middle of a large rendering task, creating a fluid user experience.
+  - Concurrent React can remove sections of the UI from the screen, then add them back later while reusing the previous state.
+  - Use [`<StrictMode>`](https://react.dev/reference/react/StrictMode) to help surface concurrency-related bugs during development.
+- Automatic batching.
+- `startTransition` and [`useTransition`](https://react.dev/reference/react/useTransition)
+  - Navigate between screens without blocking user input. Updates wrapped in startTransition are handled as non-urgent and will be interrupted if more urgent updates like clicks or key presses come in.
+- New hooks:
+  - `useId`: unique IDs on both the client and server, while avoiding hydration mismatches.
+  - `useTransition`: to start transitions, including a value to track the pending state.
+  - `useDeferredValue`: defer re-rendering a non-urgent part of the tree. Throttle expensive re-renders.
+  - `useSyncExternalStore`: allows external stores to support concurrent reads by forcing updates to the store to be synchronous. Is intended to be used by libraries, not application code.
+  - `useInsertionEffect`: allows CSS-in-JS libraries to address performance issues of injecting styles in render.
+
+### 19 - 2024/12
+
+https://react.dev/blog/2024/12/05/react-19
+
+React 19 Upgrade Guide - https://react.dev/blog/2024/04/25/react-19-upgrade-guide
+
+- Actions:
+  - `useTransition` and `startTransition` to handle pending (loading) state
+  - `useOptimistic`: show the final state optimistically while the async request is underway.
+  - `useActionState`
+  - `useFormStatus`
+  - React DOM `<form>` Actions
+- `use`: to read resources in render.
+  - You can read a promise with `use`, and React will Suspend until the promise resolves.
+  - You can also read context with `use`, allowing you to read Context conditionally such as after early returns.
+- `ref` as a prop
+- `<Context>` as a provider.
+  - In future versions we will deprecate `<Context.Provider>`.
+- Support for stylesheets.
+- Support for async scripts.
+- Support for preloading resources.
+- Removed `ReactDOM.render`, use [`ReactDOM.createRoot`](https://react.dev/reference/react-dom/client/createRoot)
+
+### 19.2 - 2025/10
+
+https://react.dev/blog/2025/10/01/react-19-2
+
+`<Activity />` component. To render hidden parts of the app that a user is likely to navigate to next, or to save the state of parts the user navigates away from. This helps make navigations quicker by loading data, css, and images in the background, and allows back navigations to maintain state such as input fields. See https://www.youtube.com/watch?v=loAuSFtNuc4
+
+`useEffectEvent`. Wrap functions that are used in `useEffect` to exclude it from the dependencies array.
+
+`cacheSignal`. For use with React Server Components.
+
+Partial Pre-rendering. Pre-render the static parts of your app and serve it from a CDN, and then resume rendering the shell to fill it in with dynamic content later.
+
 ## Lifecycle
 
 https://twitter.com/dan_abramov/status/981712092611989509
@@ -161,11 +220,15 @@ The rule `react-hooks/set-state-in-effect` of the ESLint plugin [eslint-plugin-r
 /Users/albert/Programming/Node/Projects/RecipeManager/web/src/recipe/useGetAllRecipes.ts
   11:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
 
-Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+Effects are intended to synchronize state between React and external systems such as manually
+updating the DOM, state management libraries, or other platform APIs.
+In general, the body of an effect should do one or both of the following:
 * Update external systems with the latest state from React.
-* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+* Subscribe for updates from some external system, calling setState in a callback function when
+external state changes.
 
-Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+Calling setState synchronously within an effect body causes cascading renders that can hurt
+performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
 
 /Users/albert/Programming/Node/Projects/RecipeManager/web/src/recipe/useGetAllRecipes.ts:11:5
    9 |
@@ -496,6 +559,12 @@ Are Your React Components Too BIG? - https://www.youtube.com/watch?v=NsFmOttIW9Y
 ## Portals
 
 https://marvinh.dev/blog/portals-considered-harmful/
+
+## Server components
+
+https://react.dev/reference/rsc/server-components
+
+https://stackoverflow.com/questions/76325862/what-is-the-difference-between-react-server-components-rsc-and-server-side-ren
 
 ## Interview questions
 
