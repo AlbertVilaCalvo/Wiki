@@ -141,12 +141,25 @@ We can also do:
 helm upgrade argocd argo/argo-cd --version <version> --install -n argocd --create-namespace
 ```
 
+To see the values you can override, check the [values.yaml](https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml) file or run:
+
+```shell
+helm show values oci://ghcr.io/argoproj/argo-helm/argo-cd --version 9.4.15
+# Use grep to filter the output:
+helm show values oci://ghcr.io/argoproj/argo-helm/argo-cd --version 9.4.15 | grep -A 5 -B 2 'server:'
+helm show values oci://ghcr.io/argoproj/argo-helm/argo-cd --version 9.4.15 | grep -A 5 -B 2 'tolerations\|pre-install\|redisSecretInit\|crds\.' | head -80
+```
+
 #### Uninstall Argo CD using Helm
 
 ```shell
 helm uninstall argocd -n argocd
 kubectl delete namespace argocd
 ```
+
+### Install Argo CD with Terraform using the Helm provider
+
+https://github.com/alphagov/govuk-infrastructure/blob/main/terraform/deployments/cluster-services/argo.tf
 
 ### Install using EKS Capabilities
 
@@ -208,10 +221,17 @@ Use `kubectl explain applications` to see the Application CRD fields.
 
 There are 3 ways to create an Application: UI, `argocd` CLI and manifest.
 
-CLI:
+CLI with [`argocd app create`](https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_create/):
 
 ```shell
-argocd app create demo --repo https://github.com/user/repo.git --path path/to/manifests --dest-server https://kubernetes.default.svc --dest-namespace default
+argocd app create demo \
+ --repo https://github.com/user/repo.git \
+ --path path/to/manifests \
+ --dest-server https://kubernetes.default.svc \
+ --dest-namespace default \
+ --sync-policy automated
+ --auto-prune
+ --self-heal
 ```
 
 Manifest:
@@ -242,6 +262,31 @@ An Argo CD Application lives in the `argocd` namespace, but the Kubernetes resou
 ### Delete an Application
 
 https://argo-cd.readthedocs.io/en/stable/user-guide/app_deletion/
+
+When you delete an Application, you can choose to delete the objects it manages (cascade) or not (non-cascade, which leaves the objects orphaned):
+
+```shell
+argocd app delete <app_name> --cascade
+argocd app delete <app_name> --cascade=false
+```
+
+When using `kubectl delete`, use a finalizer to perform a cascade delete:
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demoapp
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+```
+
+```shell
+kubectl delete application demoapp -n argocd --ignore-not-found=true --wait --timeout=300s
+```
+
+With the finalizer, Argo CD will not allow the `Application` object to be fully removed until it has successfully deleted every resource associated with that application.
 
 ## Sync
 
@@ -667,7 +712,7 @@ Once we have the token, you can add the repository using the CLI or the UI.
 1. Using the CLI ([docs](https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_repo_add/)):
 
 ```shell
-argocd repo add <repository_url> --username <username> --password <token>
+argocd repo add <repository_url> --username <username> --password <token> [--name <repository_name>]
 ```
 
 We can add ` --type git`, but it's not necessary since it's the default.
@@ -716,10 +761,10 @@ Advantages of SSH over HTTPS:
 
 Generate a new SSH key pair with `ssh-keygen -t ed25519 -C "Argo CD deploy key" -f argocd_deploy_key`. This creates two files: a private key (`argocd_deploy_key`) and a public key (`argocd_deploy_key.pub`). Go to the GitHub _repository settings_ (not the user settings!) → Deploy keys and click "Add deploy key". Give it a name and paste the public key content. Do _not_ allow write access. Then add the private key to Argo CD using the CLI or the UI.
 
-You can add the repository using the CLI with:
+Add the repository using the CLI with [`argocd repo add`](https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_repo_add/):
 
 ```shell
-argocd repo add git@github.com:user/repo.git --ssh-private-key-path path/to/argocd_deploy_key
+argocd repo add git@github.com:user/repo.git --ssh-private-key-path path/to/argocd_deploy_key [--name <repository_name>]
 ```
 
 And also using the UI. Go to the Argo CD Settings → Repositories, click "+ Connect Repo" and set:
@@ -837,6 +882,8 @@ https://www.packtpub.com/en-es/product/gitops-in-practice-with-argo-cd-and-argo-
 - https://github.com/lm-academy/argo-rollouts-course
 - https://github.com/lm-academy/argocd-example-apps-labs
 - https://github.com/lm-academy/argocd-example-apps
+
+https://github.com/PacktPublishing/ArgoCD-in-Practice - https://www.packtpub.com/en-es/product/argo-cd-in-practice-9781803232829
 
 https://developers.redhat.com/courses/gitops/getting-started-argocd-and-openshift-gitops-operator
 
