@@ -3,7 +3,7 @@ title: GitHub Actions
 ---
 
 :::warning
-Always specify the action version, eg `actions/checkout@v3` instead of `actions/checkout`, otherwise the pipeline can suddenly break with a new release of the action. [Rationale](https://youtu.be/sIhm4YOMK6Q?t=2819)
+Always specify the action version (eg `uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2` instead of `uses: actions/checkout`), otherwise the pipeline can suddenly break with a new release of the action, and is the most secure approach. See [Rationale](https://youtu.be/sIhm4YOMK6Q?t=2819) and [Pin actions to a full-length commit SHA](#pin-actions-to-a-full-length-commit-sha).
 :::
 
 Docs: https://docs.github.com/en/actions
@@ -24,7 +24,7 @@ https://github.com/topics/github-actions
 
 https://github.com/sdras/awesome-actions
 
-https://depot.dev - Faster execution of GitHub Actions
+https://depot.dev - Faster execution of GitHub Actions and `docker build`
 
 https://github.com/rhysd/actionlint - Static checker for GitHub Actions workflow files
 
@@ -132,10 +132,12 @@ Curated list of useful Github actions - https://github.com/GuillaumeFalourd/usef
 - Checkout: https://github.com/marketplace/actions/checkout ([code](https://github.com/actions/checkout))
 - Setup Node.js environment: https://github.com/marketplace/actions/setup-node-js-environment ([code](https://github.com/actions/setup-node/))
 - Upload artifact: https://github.com/actions/upload-artifact
+- Download artifact: https://github.com/actions/download-artifact
 
 ### Useful actions
 
 - [paths-filter](https://github.com/dorny/paths-filter): Conditionally run actions based on files modified by PR, feature branch or pushed commits
+- [changed-files](https://github.com/tj-actions/changed-files): Similar to paths-filter.
 - [Secrets Sync Action](https://github.com/marketplace/actions/secrets-sync-action): Define and rotate secrets in a single repository and have them synced to all other repositories in the Github organization or beyond
 
 ### AWS actions
@@ -365,16 +367,12 @@ jobs:
 
 You need the on [`workflow_dispatch`](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch) event, see https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow
 
-Note that the workflow needs to be merged on a main branch, otherwise you won't see it on the Actions page: _This event will only trigger a workflow run if the workflow file is on the default branch._ [source](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_dispatch)
+Note that the workflow needs to be merged to the `main` branch, otherwise you won't see the "Run workflow" button/dropdown on the Actions page: _This event will only trigger a workflow run if the workflow file exists on the default branch._ [source](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_dispatch)
 
 Example of a dropdown:
 
 ```yml
 name: Native Apps Build
-
-defaults:
-  run:
-    working-directory: apps/patient
 
 on:
   workflow_dispatch:
@@ -388,11 +386,9 @@ on:
           - ios
           - android
           - ios-and-android
-
-jobs:
 ```
 
-`type` can be `string`, `choice`, `boolean` and `environment` - see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onworkflow_dispatchinputs
+`type` can be `string`, `choice`, `boolean` and `environment` - see https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onworkflow_dispatchinputs
 
 ## Run a single workflow or job at a time
 
@@ -432,35 +428,70 @@ There's also `paths-ignore` that instead excludes.
 
 Note that "You cannot use both the `paths` and `paths-ignore` filters for the same event in a workflow", but you can use `!` to negate/exclude and achieve the same.
 
-## Change directory
+## `working-directory`
 
-Use `working-directory`, eg:
+To change the working directory for a job or step, use `working-directory`.
+You can set it at the workflow level, job level or step level ([see docs](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)):
 
-```yml
-# If you use 'defaults' it applies to all 'run' steps in a workflow
-defaults:
-  run:
-    working-directory: web
-```
+- `defaults.run.working-directory`
+- `jobs.<job_id>.defaults.run.working-directory`
+- `jobs.<job_id>.steps[*].working-directory`
+
+Setting a default shell and working directory - https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/set-default-values-for-jobs
 
 Running actions in another directory - https://stackoverflow.com/questions/58139175/running-actions-in-another-directory
 
-Docs (search for `working-directory`):
+```yml
+# Applies to all 'run' steps in a workflow
+defaults:
+  run:
+    working-directory: server
+    shell: bash
+jobs:
+  update_image_tag:
+    name: Update image tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Update image tag
+        # Override the default working directory for this step
+        working-directory: kubernetes/server/overlays/dev
+        run: kustomize edit set image my-app=ghcr.io/my-org/my-app:${{ github.sha }}
+```
 
-- https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
-- Default values: https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
+:::important
+`working-directory` only applies to `run` steps (shell commands), not to `uses` steps.
+
+For example, to run `hadolint` on a `Dockerfile` that is not in the root of the repository, you need to specify the full path to the `Dockerfile` in the `hadolint` action despite having set the default `working-directory` to `server`:
+
+```yml
+defaults:
+  run:
+    working-directory: server
+jobs:
+  hadolint:
+    name: Hadolint (Dockerfile lint)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: hadolint/hadolint-action@v3.3.0
+        with:
+          dockerfile: server/Dockerfile # Full path, default working-directory does not apply here
+```
+
+:::
 
 ## Create custom actions and reuse workflows
 
-Reusing workflows - https://docs.github.com/en/actions/using-workflows/reusing-workflows
+Reuse workflows - https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows
 
-About custom actions - https://docs.github.com/en/actions/creating-actions/about-custom-actions
+About custom actions - https://docs.github.com/en/actions/concepts/workflows-and-actions/custom-actions
 
-Creating and publishing actions - https://docs.github.com/en/actions/how-tos/creating-and-publishing-actions
+Creating and publishing actions - https://docs.github.com/en/actions/how-tos/create-and-publish-actions
 
 GitHub Actions: reusable workflows is generally available - https://github.blog/2021-11-29-github-actions-reusable-workflows-is-generally-available/
 
-You can call a workflow on the same repository with [`uses`](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_iduses.
+You can call a workflow or action in the same repository with [`uses`](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_iduses).
 
 Overview: https://stackoverflow.com/questions/59757355/reuse-portion-of-github-action-across-jobs
 
@@ -472,25 +503,38 @@ https://michaelcurrin.github.io/dev-cheatsheets/cheatsheets/ci-cd/github-actions
 
 ### Composite actions
 
-> A composite action allows you to combine multiple workflow steps within one action. For example, you can use this feature to bundle together multiple run commands into an action, and then have a workflow that executes the bundled commands as a single step using that action. [source](https://docs.github.com/en/actions/creating-actions/about-custom-actions#composite-actions)
+A composite action is a step within a job. It's a reusable bundle of multiple steps. If you need job-level behavior, use reusable workflows, not composite actions.
 
-Creating a composite action - https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+> A composite action allows you to combine multiple workflow steps within one action. For example, you can use this feature to bundle together multiple run commands into an action, and then have a workflow that executes the bundled commands as a single step using that action. [source](https://docs.github.com/en/actions/concepts/workflows-and-actions/custom-actions#composite-actions)
+
+Creating a composite action - https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action
 
 GitHub Actions: Reduce duplication with action composition - https://github.blog/changelog/2021-08-25-github-actions-reduce-duplication-with-action-composition/
 
-It can be saved locally on the same repository, see [Example: Using an action in the same repository as the workflow](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-an-action-in-the-same-repository-as-the-workflow). The file name must be `action.yml`, eg `github/actions/lighthouse/action.yml`.
+`outputs` for composite actions - https://docs.github.com/en/actions/reference/workflows-and-actions/metadata-syntax#outputs-for-composite-actions
+
+It can be saved locally on the same repository, see [Example: Using an action in the same repository as the workflow](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#example-using-an-action-in-the-same-repository-as-the-workflow). In this case, you need to checkout the code first. The file name must be `action.yml`, eg `github/actions/lighthouse/action.yml`.
+
+```
+.github
+├── workflows
+│   └── my-workflow.yml
+└── actions
+    └── lighthouse
+        └── action.yml
+```
 
 This is the local action:
 
 ```yml title="./.github/actions/lighthouse/action.yml"
-name: 'Lighthouse'
-description: 'Run Lighthouse'
+name: Lighthouse
+description: Run Lighthouse
 inputs:
   some_parameter:
-    description: 'The description'
+    description: The description
     required: true
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - name: Run Lighthouse
       uses: treosh/lighthouse-ci-action@v10
@@ -504,11 +548,12 @@ runs:
 And this is how you call it:
 
 <!-- prettier-ignore -->
-```yml title="./.github/workflows/some-workflow.yml"
+```yml title="./.github/workflows/my-workflow.yml"
   lighthouse:
     name: Feature Environment Lighthouse
     runs-on: ubuntu-latest
     steps:
+      # You must checkout the code first to use a local action
       - name: Checkout
         uses: actions/checkout@v3
       - name: Download build artifact
@@ -521,6 +566,96 @@ And this is how you call it:
         with:
           some_parameter: "some_value"
 ```
+
+#### Limitations of composite actions
+
+##### `working-directory` and `shell` do not propagate
+
+You cannot set `defaults.run.working-directory` nor `defaults.run.shell` in composite actions. Moreover, the default `working-directory` and `shell` defined in the caller workflow via `defaults.run` do not propagate to the composite action. Thus, you must specify `shell: bash` for every `run` step in a composite action, and you must specify `working-directory` if you want to run commands in a specific directory other than the root. You should get a red squiggly line in VSCode if you forget to specify the shell (Required property is missing: shell) or if you set `defaults` (Unexpected value 'defaults'). If you don't get the red squiggly line, install the [GitHub Actions VSCode extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-github-actions).
+
+> Every `run` step in a composite action must specify `shell:`. This is required because composite actions don't inherit the workflow's default shell. [source](https://dev.to/thesius_code_7a136ae718b7/github-actions-workflows-github-actions-patterns-best-practices-pge)
+
+It makes sense that composite actions don't inherit the workflow's default shell and working directory, because they are meant to be reusable in different workflows with different defaults. If they inherited the caller workflow's defaults, they would break easily. If you want the working directory to be dynamic, you must pass it as an input to the composite action.
+
+##### You cannot set `permissions`, they are inherited from the caller job
+
+You cannot set `permissions` in composite actions. Composite actions inherit the caller job's permissions. Again, you should get a red squiggly line in VSCode with the error "Unexpected value 'permissions'. Property permissions is not allowed".
+
+##### `vars` and `secrets` contexts are not available
+
+The `vars` and `secrets` contexts are not available in composite actions. You cannot do `${{ vars.AWS_ACCOUNT_ID }}` nor `${{ secrets.API_TOKEN }}`. You need to pass them explicitly as inputs and then use them as `${{ inputs.AWS_ACCOUNT_ID }}` and `${{ inputs.API_TOKEN }}`.
+
+> The `secrets` context is not available for composite actions due to security reasons. If you want to pass a secret to a composite action, you need to do it explicitly as an input. [source](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#secrets-context)
+
+If you try to use an unavailable context like `vars`, you should see a red squiggly line in VSCode with an error like "Unrecognized named-value: 'vars'". And if you push the code to GitHub, you'll get the following exception: `GitHub.DistributedTask.ObjectTemplating.TemplateValidationException: The template is not valid. /home/runner/work/RecipeManager/RecipeManager/./.github/actions/deploy-web/action.yml (Line: 43, Col: 12): Unrecognized named-value: 'vars'. Located at position 1 within expression: vars.AWS_ACCOUNT_ID`.
+
+##### Available contexts
+
+When you hover the a step in VSCode the pop-up says:
+
+> Available expression contexts: `github`, `inputs`, `strategy`, `matrix`, `steps`, `job`, `runner`, `env`.
+> Available expression functions: `hashFiles`
+
+So the following [contexts](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts) are _not_ available : `secrets`, `vars`, `needs`, `jobs` (is only available in reusable workflows).
+
+You can verify that a context is available by printing it like this:
+
+```yml
+- name: Print contexts
+  shell: bash
+  run: |
+    echo "env: ${{ env }}"
+    echo "github.repository: ${{ github.repository }}"
+    echo "inputs.some_parameter: ${{ inputs.some_parameter }}"
+    echo "strategy.matrix: ${{ strategy.matrix }}"
+    echo "matrix.os: ${{ matrix.os }}"
+    echo "steps.step_id.outputs.output_name: ${{ steps.step_id.outputs.output_name }}"
+    echo "job.job_id: ${{ job.job_id }}"
+    echo "runner.os: ${{ runner.os }}"
+```
+
+The `env` context is available. You can do the following:
+
+```yml title="./.github/workflows/my-workflow.yml"
+env:
+  SOMETHING: 'whatever'
+jobs:
+  deploy:
+    steps:
+      - uses: actions/checkout@v6
+      - name: Deploy web app
+        uses: ./.github/actions/deploy-web
+```
+
+```yml title="./.github/actions/deploy-web/action.yml"
+runs:
+  using: composite
+  steps:
+    - name: Print SOMETHING env variable
+      shell: bash
+      # Both options work, they print "SOMETHING: whatever"
+      run: |
+        echo "SOMETHING: ${{ env.SOMETHING }}"
+        echo "SOMETHING: $SOMETHING"
+```
+
+### JavaScript actions
+
+```yml
+name: My JavaScript Action
+description: Some description
+runs:
+  using: node24
+  main: dist/index.js
+```
+
+Creating a JavaScript action - https://docs.github.com/en/actions/tutorials/create-actions/create-a-javascript-action
+
+GitHub Actions ToolKit Node.js modules - https://github.com/actions/toolkit
+
+Example using TypeScript - https://github.com/tailscale/github-action
+
+> To ensure your JavaScript actions are compatible with all GitHub-hosted runners (Ubuntu, Windows, and macOS), the packaged JavaScript code you write should be pure JavaScript and not rely on other binaries. JavaScript actions run directly on the runner and use binaries that already exist in the runner image. [source](https://docs.github.com/en/actions/concepts/workflows-and-actions/custom-actions#composite-actions)
 
 ## Setting output parameters with `$GITHUB_OUTPUT`
 
@@ -630,9 +765,15 @@ https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-arti
           path: backend/src/build
 ```
 
-## Comment on a pull request
+## actions/github-script - GitHub API in JavaScript
+
+https://github.com/actions/github-script
+
+### Example: Comment on a pull request
 
 From https://github.com/actions/github-script/blob/main/.github/workflows/pull-request-test.yml
+
+Note: I've changed `uses: ./` to `uses: actions/github-script@v7`.
 
 ```yml
 name: Pull Request Test
@@ -647,7 +788,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - uses: actions/github-script@v7
         with:
           script: |
             // Get the existing comments.
@@ -685,10 +826,6 @@ jobs:
 https://stackoverflow.com/questions/58066966/commenting-a-pull-request-in-a-github-action
 
 https://dev.to/zirkelc/trigger-github-workflow-for-comment-on-pull-request-45l2
-
-## JavaScript
-
-https://github.com/actions/github-script
 
 ## OIDC
 
@@ -1117,6 +1254,22 @@ output "oidc_role_arn" {
   value       = aws_iam_role.github_actions.arn
 }
 ```
+
+## Security
+
+### Pin actions to a full-length commit SHA
+
+https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions
+
+> Pinning an action to a full-length commit SHA is currently the only way to use an action as an immutable release. Pinning to a particular SHA helps mitigate the risk of a bad actor adding a backdoor to the action's repository.
+
+> When selecting a SHA, you should verify it is from the action's repository and not a repository fork.
+
+:::info
+You can require actions to be pinned to a full-length commit SHA at the [repository level](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#managing-github-actions-permissions-for-your-repository) or [organization level](https://docs.github.com/en/organizations/managing-organization-settings/disabling-or-limiting-github-actions-for-your-organization#managing-github-actions-permissions-for-your-organization).
+
+At the repository, go to Settings → Actions → General, check "Require actions to be pinned to a full-length commit SHA" and click Save.
+:::
 
 ## Badge
 
