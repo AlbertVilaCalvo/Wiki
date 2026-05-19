@@ -358,6 +358,13 @@ uv: running a script with dependencies - https://news.ycombinator.com/item?id=44
 
 uv is the best thing to happen to the Python ecosystem in a decade - https://news.ycombinator.com/item?id=45751400
 
+Minimum Release Age is an Underrated Supply Chain Defense - https://daniakash.com/posts/simplest-supply-chain-defense/
+
+```toml title="pyproject.toml"
+[tool.uv]
+exclude-newer = "7d"
+```
+
 ## Black
 
 https://github.com/psf/black

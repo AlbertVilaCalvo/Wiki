@@ -241,7 +241,7 @@ Never delete it: https://tkdodo.eu/blog/solving-conflicts-in-package-lock-json _
 
 ## .npmrc
 
-Set config settings.
+Set config settings. A ini-formatted list of `key = value` parameters.
 
 https://docs.npmjs.com/cli/v11/configuring-npm/npmrc
 
@@ -255,7 +255,12 @@ There are 4 levels of config files:
 - Builtin: internal defaults
 
 ```shell
-touch .npmrc && echo 'save-exact=true' > .npmrc
+touch .npmrc && echo 'save-exact=true\nmin-release-age=7' > .npmrc
+```
+
+```ini title=".npmrc"
+save-exact=true
+min-release-age=7 # days
 ```
 
 You can use [`npm config`](https://docs.npmjs.com/cli/v11/commands/npm-config) to set config values:
@@ -313,7 +318,17 @@ You can have pre and post scripts:
 
 When you run `npm run format`, it will first run `preformat`, then `format`, and finally `postformat`.
 
-### Disable postinstall scripts
+### Disable lifecycle scripts
+
+https://pnpm.io/blog/2025/12/05/newsroom-npm-supply-chain-security
+
+> The attack used preinstall scripts to steal credentials, install persistent backdoors, and in some cases wipe entire developer environments.
+
+> These scripts can access your credentials (npm, GitHub, AWS, databases), your source code, your cloud infrastructure, and your entire filesystem.
+
+https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/
+
+> it injects two malicious files, which it triggers by adding a new preinstall script.
 
 Prevent all lifecycle scripts (preinstall, install, postinstall, prepare) from running during package installation.
 
@@ -321,7 +336,7 @@ Prevent all lifecycle scripts (preinstall, install, postinstall, prepare) from r
 npm ci --ignore-scripts
 ```
 
-```title=".npmrc"
+```ini title=".npmrc"
 ignore-scripts=true
 ```
 
@@ -352,3 +367,31 @@ It is unnecessary, but it can also cause problems:
 - `npx` adds a bit of startup overhead (checking/installing).
 - It also guarantees that you're using the version in your devDependencies (`npx` might download the latest version).
 - In a monorepo, `npx` may resolve binaries from the root workspace, current package or even fetch remotely.
+
+## Security
+
+https://github.com/lirantal/npm-security-best-practices
+
+How We're Protecting Our Newsroom from npm Supply Chain Attacks - https://pnpm.io/blog/2025/12/05/newsroom-npm-supply-chain-security
+
+- Block lifecycle scripts
+- minimumReleaseAge
+- trustPolicy
+
+https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/
+
+Configuring minimum release age across npm, pnpm, and yarn - Matteo Collina - https://gist.github.com/mcollina/b294a6c39ee700d24073c0e5a4e93104
+
+Minimum Release Age is an Underrated Supply Chain Defense - https://daniakash.com/posts/simplest-supply-chain-defense/
+
+> a 7-day release-age gate would likely have blocked installs in 11 short-lived malicious publish cases
+
+> It’s not a substitute for:
+>
+> - Lockfiles and `npm ci` / `pnpm install --frozen-lockfile`
+> - `--ignore-scripts` in CI/CD to block postinstall hooks
+> - SHA-pinned GitHub Actions
+> - Provenance verification and artifact attestations
+> - Behavioral analysis tools like Socket.dev
+
+https://socket.dev
