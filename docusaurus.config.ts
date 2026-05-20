@@ -12,6 +12,16 @@ const config: Config = {
   tagline: 'Albert Vila Calvo',
   favicon: 'img/favicon.ico',
 
+  // Enable Docusaurus faster
+  // https://docusaurus.io/docs/api/docusaurus-config#future
+  // https://docusaurus.io/blog/releases/3.10#v4-future-flags
+  future: {
+    v4: {
+      fasterByDefault: true,
+      removeLegacyPostBuildHeadAttribute: true, // Required, otherwise throws error
+    },
+  },
+
   // Set the production url of your site here
   url: 'https://albert.wiki',
   // Set the /<baseUrl>/ pathname under which your site is served
