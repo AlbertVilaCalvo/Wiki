@@ -331,3 +331,11 @@ https://twitter.com/sebastienlorber/status/1598615824927002624
   - Feature flags to enable v4 breaking changes
 - [3.9](https://github.com/facebook/docusaurus/releases/tag/v3.9.0) - [Announcement](https://docusaurus.io/blog/releases/3.9) - [Twitter](https://x.com/sebastienlorber/status/1971479834749698441)
   - Support for Mermaid ELK layout algorithm
+- [3.10](https://github.com/facebook/docusaurus/releases/tag/v3.10.0) - [Announcement](https://docusaurus.io/blog/releases/3.10) - [Twitter](https://x.com/sebastienlorber/status/2041532494076371044)
+  - Prepares for Docusaurus v4 with feature flags
+  - Docusaurus Faster is stable
+  - Strict MDX:
+    - HTML comments (`<!-- -->`) not supported, use JSX comments (`{/* */}`) instead
+    - Admonitions like `:::danger Take care` should be rewritten as `:::danger[Take care]`
+    - It recommends converting all `.md` files to `.mdx`, for blog and docs: _In reality, Docusaurus has only ever supported MDX, and we should have used the `.mdx` extension from the start. Newly initialized sites now use `.mdx` by default ([#11897](https://github.com/facebook/docusaurus/pull/11897)). We encourage you to rename your existing files to `.mdx` as well, so that external tools can understand your content is MDX._
+  - Security: recommends using pnpm with `minimumReleaseAge`, `allowBuilds` etc.

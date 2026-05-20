@@ -3,6 +3,8 @@ import { themes as prismThemes } from 'prism-react-renderer'
 import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
 
+// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+
 // API reference: https://docusaurus.io/docs/api/docusaurus-config
 
 const config: Config = {
@@ -26,9 +28,9 @@ const config: Config = {
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
+  // Even if you don't use internationalization, you can use this field to set
+  // useful metadata like html lang. For example, if your site is Chinese, you
+  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -53,9 +55,19 @@ const config: Config = {
         },
         blog: {
           showReadingTime: true,
+          feedOptions: {
+            // Disable RSS feed generation, since I don't use the blog.
+            // See https://docusaurus.io/docs/blog#feed and
+            // https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#feedOptions
+            type: null,
+          },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl: 'https://github.com/AlbertVilaCalvo/Wiki/edit/main/',
+          // Useful options to enforce blogging best practices
+          onInlineTags: 'warn',
+          onInlineAuthors: 'warn',
+          onUntruncatedBlogPosts: 'warn',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -65,6 +77,19 @@ const config: Config = {
   ],
 
   themeConfig: {
+    // Replace with your project's social card
+    // When set, generates the following meta tags in the HTML head:
+    // <meta data-rh=true property=og:image content=https://docusaurus.io/img/docusaurus-social-card.jpg />
+    // <meta data-rh=true name=twitter:image content=https://docusaurus.io/img/docusaurus-social-card.jpg />
+    // Image should be 1200×630 pixels, 1.91:1 aspect ratio, see https://www.getrediate.com/blog/og-image-size-guide
+    // I'm using /Pictures/Foto carnet/2023 15 DSC03082 fixed-1200x630.jpg
+    image: 'img/social-card.jpg',
+    colorMode: {
+      // Respect the user's system preference for dark/light mode, instead of
+      // using the default 'light' mode.
+      // https://docusaurus.io/docs/api/themes/configuration#respectPrefersColorScheme
+      respectPrefersColorScheme: true,
+    },
     navbar: {
       title: 'Home',
       logo: {
@@ -309,7 +334,7 @@ const config: Config = {
     docs: {
       // https://docusaurus.io/docs/sidebar#theme-configuration
       sidebar: {
-        // Show 'Collapse sidebar' button
+        // Show 'Collapse sidebar' button at the bottom of the left sidebar
         hideable: true,
       },
     },
@@ -325,7 +350,7 @@ const config: Config = {
   // ADDED BY ME
   // ***********
 
-  // https://docusaurus.io/docs/api/docusaurus-config#customfields
+  // https://docusaurus.io/docs/api/docusaurus-config#customFields
   customFields: {
     description: 'The personal Wiki of Albert Vila Calvo',
   },
