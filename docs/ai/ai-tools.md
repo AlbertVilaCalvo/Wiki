@@ -2,6 +2,8 @@
 title: AI Tools
 ---
 
+How fast is N tokens per second really? - https://mikeveerman.github.io/tokenspeed/ - https://news.ycombinator.com/item?id=48174920
+
 https://github.com/open-webui/open-webui
 
 https://github.com/openai/codex
@@ -62,9 +64,15 @@ OpenVLM Leaderboard - https://huggingface.co/spaces/opencompass/open_vlm_leaderb
 
 https://llm-stats.com - Compare 300+ Top AI Models
 
+https://www.voxelbench.ai/leaderboard
+
 Android Bench - https://developer.android.com/bench - https://android-developers.googleblog.com/2026/03/elevating-ai-assisted-androi.html
 
 GPT-4o → o means omni. Is [multimodal](https://en.wikipedia.org/wiki/Multimodal_learning): it accepts as input any combination of text, audio, image and video and generates any combination of text, audio and image outputs.
+
+https://x.com/EpochAIResearch/status/2060451576779886942
+
+> We took another look at the capability gap between open-weight and proprietary models. Since the start of the year, open-weight models have lagged the state of the art by four months.
 
 https://factory.ai/news/code-review-benchmark
 
@@ -221,9 +229,9 @@ Announcements
 
 https://github.com/timothywarner-org/prompt-pro/blob/main/CLAUDE.md
 
-You can simlink the file `CLAUDE.md` to `.github/copilot-instructions.md`, see https://github.com/microsoft/vscode/tree/main/.claude.
+You can symlink the file `CLAUDE.md` to `.github/copilot-instructions.md`, see https://github.com/microsoft/vscode/tree/main/.claude.
 
-You can also simlink the file `CLAUDE.md` to `AGENTS.md`, see https://github.com/vercel/next.js/blob/canary/CLAUDE.md.
+You can also symlink the file `CLAUDE.md` to `AGENTS.md`, see https://github.com/vercel/next.js/blob/canary/CLAUDE.md.
 
 VSCode extension - https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code
 
@@ -243,6 +251,8 @@ https://x.com/bcherny/status/2007179832300581177 - I'm Boris and I created Claud
 
 https://github.com/Jeffallan/claude-skills
 
+https://github.com/vercel-labs/agent-skills/
+
 Examples:
 
 - https://github.com/Jeffallan/claude-skills/tree/main/skills
@@ -259,6 +269,7 @@ https://developer.android.com/studio/gemini/agent-files
 
 Examples:
 
+- https://github.com/steipete/agent-scripts/blob/main/AGENTS.MD
 - https://github.com/openai/codex/blob/main/AGENTS.md
 - https://github.com/apache/airflow/blob/main/AGENTS.md
 - https://github.com/temporalio/sdk-java/blob/master/AGENTS.md
@@ -297,6 +308,8 @@ Use `.aiignore` file to restrict Junie from processing the contents of specific 
 https://hyperskill.org/courses/143-coding-with-junie-for-developers
 
 ## Design
+
+https://stateofaidesign.com
 
 https://www.aura.build
 

@@ -16,6 +16,8 @@ Copilot instructions:
 - https://github.com/github/awesome-copilot/blob/main/instructions/nextjs.instructions.md
 - https://github.com/github/awesome-copilot/blob/main/instructions/performance-optimization.instructions.md
 
+https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices
+
 A Visual Guide to React Rendering - It Always Re-renders - https://alexsidorenko.com/blog/react-render-always-rerenders/
 
 The Interactive Guide to Rendering in React - https://ui.dev/why-react-renders

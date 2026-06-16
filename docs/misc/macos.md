@@ -71,7 +71,13 @@ Finder
 defaults write com.apple.finder ShowPathbar -bool true
 ```
 
-## `caffeinate` - Prevent Mac from sleeping
+## Prevent Mac from sleeping
+
+https://sindresorhus.com/lungo
+
+https://sindresorhus.com/supercharge#keep-awake
+
+### `caffeinate`
 
 Man page - https://ss64.com/osx/caffeinate.html
 
@@ -199,6 +205,7 @@ Això mostra fitxers com `Docker.raw` que no apareixen a "Sobre aquest Mac" → 
   - Delete Xcode caches with 'DevCleaner for Xcode' - https://apps.apple.com/us/app/devcleaner/id1388020431.
   - Delete Xcode caches with Storage app (Sobre aquest Mac → Emmagatzematge → Gestionar... i seleccionar Desenvolupador al menú de l'esquerra) - https://stackoverflow.com/a/69623427/4034572
   - Delete old Xcode archives. Use the Organizer (Window → Organizer).
+  - Xcode build caches are located at `~/Library/Developer/Xcode/DerivedData/`.
 - JetBrains IDEs, delete old versions: Help → Delete Leftover IDE Directories…
   - JetBrains IDEs are located at `~/Library/Application Support/JetBrains` (`cd ~/Library/Application\ Support/JetBrains`).
   - There are also really big files at `~/Library/Caches/JetBrains`.

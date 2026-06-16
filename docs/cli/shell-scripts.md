@@ -33,7 +33,7 @@ Use `caffeinate` to prevent a Mac from sleeping while a script is running:
 caffeinate -i ./myscript.sh
 ```
 
-[See how to use `caffeinate`](../misc/macos.md#caffeinate---prevent-mac-from-sleeping)
+[See how to use `caffeinate`](../misc/macos.md#caffeinate)
 :::
 
 :::important

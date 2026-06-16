@@ -49,6 +49,12 @@ Change Data Capture (CDC) - Outbox Pattern - https://www.linkedin.com/posts/raul
 
 How to retry payments - https://newsletter.systemdesignclassroom.com/p/every-backend-engineer-needs-to-know
 
+https://www.linkedin.com/posts/raul-junco_ive-seen-engineers-with-a-decade-of-experience-share-7470821243060031488-OAbD/
+
+❌ "Our data architecture is React + Node.js + MongoDB"
+
+✅ "We use a microservices architecture with event-driven communication, RESTful APIs, and a document-oriented database for scalability and flexibility"
+
 ## Diagrams
 
 Software Architecture Fundamentals—Diagramming and Documenting Architecture - https://www.oreilly.com/videos/software-architecture-fundamentals-diagramming/0636920342540/
@@ -313,6 +319,16 @@ https://en.wikipedia.org/wiki/Event-driven_architecture
 ## Queue
 
 Kafka vs RabbitMQ vs SQS vs Solace - https://www.linkedin.com/posts/rocky-bhatia-a4801010_kafka-vs-rabbitmq-vs-sqs-vs-solace-choosing-share-7455218155771260928-3Inx/
+
+https://www.linkedin.com/feed/update/urn:li:activity:7467372636730343424
+
+- Use idempotent consumers → prevents double processing.
+- Define retry policies (exponential backoff, max attempts).
+- Monitor queue length & processing lag as health indicators.
+- Use dead letter queues for failed messages.
+- Ensure message ordering only when business-critical (ordering adds cost/complexity).
+- Keep messages small & self-contained.
+- Always include correlation IDs for traceability.
 
 https://www.linkedin.com/posts/raul-junco_you-dont-pick-tools-based-on-whats-cool-activity-7393634074793521152-ITB_/
 

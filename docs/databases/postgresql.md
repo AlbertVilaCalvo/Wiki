@@ -14,6 +14,14 @@ Learn Postgres at the Playground - https://www.crunchydata.com/developers/tutori
 
 https://www.manning.com/books/just-use-postgres
 
+https://www.linkedin.com/feed/update/urn:li:activity:7462660707449225216/
+
+- MongoDB for JSON storage → JSONB with GIN indexes on nested fields
+- Pinecone or Chroma for vector search → pgvector extension
+- Elasticsearch for full-text search → pg_trgm + tsvector + GIN indexes
+- InfluxDB for time series → TimescaleDB extension
+- Redis for pub/sub or lightweight queuing → pg_notify + LISTEN/NOTIFY / [PGMQ](https://github.com/pgmq/pgmq) / [pg-boss](https://github.com/timgit/pg-boss)
+
 https://www.manning.com/books/postgresql-mistakes-and-how-to-avoid-them
 
 Postgres WASM - https://news.ycombinator.com/item?id=33067962

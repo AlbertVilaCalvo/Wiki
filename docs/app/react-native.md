@@ -16,6 +16,8 @@ Clean Project: https://github.com/pmadruga/react-native-clean-project
 
 Rename app, package name or bundle id: https://github.com/junedomingo/react-native-rename
 
+https://github.com/vercel-labs/agent-skills/tree/main/skills/react-native-skills
+
 :::info
 On Android negative margin is not supported. [source](https://reactnative.dev/docs/style)
 :::

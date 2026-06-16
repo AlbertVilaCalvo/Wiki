@@ -32,6 +32,8 @@ https://www.joshwcomeau.com/snippets/html/html-skeleton
 
 HTML Head Elements Cheat Sheet: https://kapeli.com/cheat_sheets/HTML_Head_Elements.docset/Contents/Resources/Documents/index
 
+https://gist.github.com/galvez/57eb9b51b45d956af40551e830f16825 - https://gist.github.com/mcollina/6f314ee544b34513092459caadace425
+
 ## `<img>`
 
 `alt` is required - see https://html.spec.whatwg.org/multipage/images.html#alt

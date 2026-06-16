@@ -208,7 +208,7 @@ A recommended approach (best practice) is:
 ## Find version of an installed package
 
 ```shell
-npm list <package> --depth=0
+npm list <package> [--depth=0]
 ```
 
 [source](https://stackoverflow.com/a/16704412/4034572)

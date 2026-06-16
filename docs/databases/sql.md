@@ -10,6 +10,10 @@ https://www.metabase.com/learn/sql-questions/sql-best-practices
 
 https://hakibenita.com/sql-for-data-analysis
 
+https://fagnerbrack.com/learn-sql-once-use-it-for-30-years-9aceb0bdee03 - Learn SQL Once, Use It for 30 Years - https://news.ycombinator.com/item?id=48347483
+
+> SQL endures because relational algebra is mathematics, and mathematics does not have release cycles.
+
 https://animatesql.com/
 
 Components of the SQL language [source](from https://www.linkedin.com/posts/alexxubyte_systemdesign-coding-interviewtips-activity-7046145129413255168-VvqB/):

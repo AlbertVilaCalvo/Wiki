@@ -17,6 +17,14 @@ Change bundle id: https://github.com/junedomingo/react-native-rename
 
 https://www.macstadium.com
 
+## Xcode
+
+https://xcodereleases.com
+
+https://www.xcodes.app - Install and manage multiple versions of Xcode
+
+https://github.com/XcodesOrg/xcodes - Command-line tool to install and switch between multiple versions of Xcode
+
 ## CLI
 
 simctl commands: `xcrun simctl` or `xcrun simctl help`
