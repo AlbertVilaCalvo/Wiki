@@ -106,3 +106,113 @@ bundle exec pod install
 ```
 
 This creates a `Podfile.lock`.
+
+## gem
+
+https://rubygems.org
+
+Gemfile:
+
+- https://guides.rubygems.org/gemfile/
+- https://bundler.io/man/gemfile.5.html
+
+Display information about the RubyGems environment:
+
+```shell
+gem environment
+```
+
+List all installed gems:
+
+```shell
+gem list
+```
+
+Install a gem:
+
+```shell
+gem install <gem-name>
+gem install <gem-name> -v <version>
+gem install rails -v 8.0.2
+```
+
+### Version constraints
+
+https://rubylearning.com/guides/ruby-gems-guide.html
+
+| Specifier           | Example             | Meaning                                     |
+| ------------------- | ------------------- | ------------------------------------------- |
+| Exact               | `"2.1.0"`           | Only version 2.1.0                          |
+| Pessimistic (~>)    | `"~> 2.1"`          | Any version >= 2.1 and < 3.0                |
+| Pessimistic (patch) | `"~> 2.1.0"`        | Any version >= 2.1.0 and < 2.2.0            |
+| Greater or equal    | `">= 1.0"`          | Any version 1.0 or higher                   |
+| Combined            | `">= 1.0", "< 3.0"` | Between 1.0 (inclusive) and 3.0 (exclusive) |
+
+## bundle
+
+Ruby Dependency Management
+
+https://bundler.io
+
+https://guides.rubygems.org/getting_started/ - What is Bundler?
+
+Install the exact gem versions.
+
+Bundler reads a `Gemfile` that declares which gems your project needs, resolves compatible versions, and locks them in a `Gemfile.lock` ([source](https://rubylearning.com/guides/ruby-gems-guide.html)).
+
+Always commit both `Gemfile` and `Gemfile.lock` to version control ([source](https://betterstack.com/community/guides/scaling-ruby/ruby-gems-guide/)).
+
+:::important
+`Gemfile.lock` pins Bundler to a version using the `BUNDLED WITH` section. It's recommended to install Bundler with the same version, like this: `gem install bundler -v '4.0.12'`. Otherwise, on machines that have an older Bundler major installed, `bundle install` can fail due to an incompatible Bundler version. Pinning the install command to the lockfile’s Bundler version makes setup deterministic.
+:::
+
+Install bundler: `gem install bundler -v 4.0.12` or `gem install bundler`. After installing, doing `which bundle` should output something like `/Users/albert/.rbenv/shims/bundle`. After installing, you may get a message like this:
+
+```
+A new release of RubyGems is available: 3.6.9 → 4.0.15!
+Run `gem update --system 4.0.15` to update your installation.
+```
+
+Run `bundle --version` to get the version.
+
+Help:
+
+```shell
+bundle help
+```
+
+Display detailed help for each subcommand:
+
+```shell
+bundle help <command>
+bundle help install
+
+bundle <command> --help
+bundle install --help
+```
+
+Install the gems specified by the `Gemfile` or `Gemfile.lock` ([docs](https://bundler.io/man/bundle-install.1.html)):
+
+```shell
+bundle install
+```
+
+Update dependencies to their latest versions ([docs](https://bundler.io/man/bundle-update.1.html)):
+
+```shell
+bundle update
+```
+
+Execute a script in the current bundle ([docs](https://bundler.io/man/bundle-exec.1.html)):
+
+```shell
+bundle exec <command>
+bundle exec pod install
+```
+
+Show all the gems in your bundle, or the path to a gem ([docs](https://bundler.io/man/bundle-show.1.html)):
+
+```shell
+bundle show
+bundle show fastlane
+```
