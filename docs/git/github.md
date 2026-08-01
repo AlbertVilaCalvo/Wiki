@@ -193,13 +193,111 @@ Press ? to view the shortcuts.
 
 Docs: https://docs.github.com/en/codespaces/the-githubdev-web-based-editor
 
-## CLI
+## `gh` CLI
 
 https://cli.github.com/
+
+Commands: https://cli.github.com/manual/gh
+
+Usage examples: https://cli.github.com/manual/examples
 
 https://docs.github.com/en/github-cli
 
 https://github.com/cli/cli
+
+Install: `brew install gh`
+
+Help: use `gh <command> <subcommand> --help` (e.g. `gh pr --help` or `gh pr view --help`).
+
+Tips
+
+- Add `--web` to almost any command to open it in the browser instead.
+- Target another repo with `-R owner/repo`.
+- `--json <fields> --jq '<filter>'` gives machine-readable output (great for scripting).
+- In Claude, prefix any in-session command with `!` (e.g. `! gh pr view 960 --web`) to run it yourself.
+
+Authenticate: `gh auth login`. Choose:
+
+- Where do you use GitHub? GitHub.com
+- What is your preferred protocol for Git operations on this host? SSH
+- Upload your SSH public key to your GitHub account? Select the public key file, for example `/Users/albert/.ssh/id_ed25519.pub`
+- Title for your SSH key: GitHub CLI
+- How would you like to authenticate GitHub CLI? Login with a web browser
+
+### Auth
+
+```sh
+gh auth status            # who am I, which scopes
+gh auth refresh -s repo   # add a scope later if something 404s
+```
+
+### Pull requests
+
+```shell
+gh pr list            # open PRs in this repo
+gh pr status          # PRs relevant to you (yours, review-requested)
+gh pr view 960        # PR title, body, state, checks
+gh pr view 960 --web  # open PR #960 in the browser
+gh pr view            # PR for the CURRENT branch (no number needed)
+gh pr diff 960        # the diff
+gh pr checks 960      # CI status
+gh pr checkout 960    # check out a PR's branch locally
+```
+
+### Reading review comments
+
+There are two kinds of comments, from two places:
+
+1. Conversation comments (general PR discussion) → `gh pr view 960 --comments`
+2. Inline review comments (anchored to a file + line — the `#discussion_r3556229001` ones) → these live on a different endpoint, so use the API for precise path/line/body:
+
+```shell
+# all inline review comments on the PR
+gh api repos/user-org/repo/pulls/960/comments \
+  --jq '.[] | {id, path, line, body}'
+
+# just specific ones (by the r… id in the URL)
+gh api repos/user-org/repo/pulls/960/comments \
+  --jq '.[] | select(.id==3556229001 or .id==3552213941)'
+
+# filter fields
+gh api repos/user-org/repo/pulls/960/comments \
+  --jq '.[] | select(.id==3556229001 or .id==3552213941) | {path, line, body}'
+
+gh api --paginate repos/user-org/repo/pulls/960/comments \
+    --jq '.[] | select(.id==3556229001 or .id==3552213941) | "\n────────────────────────────────────────\nfile: \(.path):\(.line // .original_line)\nid:   \(.id)\nby:   \(.user.login)\n\n\(.body)"'
+```
+
+### Replying / submitting a review
+
+```shell
+gh pr comment 960 --body "Fixed in <commit>."                # PR-level comment
+gh pr review 960 --comment --body "Addressed all comments."  # review summary
+gh pr review 960 --approve                                   # approve
+# reply to a specific inline thread (advanced, via API):
+gh api repos/user-org/repo/pulls/960/comments/3552392095/replies \
+  -f body="Done 👍"
+```
+
+### `gh api`
+
+The power tool. When a command doesn't exist for what you need, hit the REST API directly:
+
+```shell
+gh api <path>                       # GET by default
+gh api <path> --paginate            # follow all pages
+gh api <path> --jq '<filter>'       # filter/format with jq syntax
+gh api <path> -X POST -f key=value  # POST with fields
+```
+
+### Handy
+
+```shell
+gh browse                     # open the repo in the browser
+gh browse src/.../index.tsx   # open a specific file
+gh run list                   # recent CI runs;  gh run watch to follow one
+gh search prs --author @me --state open
+```
 
 ## Markdown
 
