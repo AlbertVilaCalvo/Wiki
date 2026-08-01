@@ -98,6 +98,30 @@ Documenting a service using the microservice canvas - https://microservices.io/p
 
 Microservices rules - https://microservices.io/articles/microservices-rules/index.html
 
+https://www.linkedin.com/posts/petarivanovv9_ive-been-building-microservices-for-5-years-share-7480592542846164992-rYen/
+
+1. How do you decide where to draw service boundaries?
+
+Most people say "one service per entity". That's wrong. You split by business capability, not data model. If two services always change together, they're a distributed monolith.
+The answer involves bounded contexts: each service owns its own language, data, and reason to exist.
+
+2. REST, gRPC, or message queues — how do you choose?
+
+REST for public-facing APIs. gRPC or tRPC for internal sync calls where performance and type safety matter. Message queues when you need async, decoupling, or event-driven workflows.
+"We use REST for everything" is the wrong answer. It depends on coupling and latency requirements.
+
+3. A downstream service is failing. What happens to yours?
+
+If your service fails too, you haven't built resilience. Circuit breakers to stop calling a dead service. Retries with exponential backoff and jitter. Timeouts: never wait forever. Fallbacks and graceful degradation. Dead letter queues for failed async messages.
+
+4. Two services need to update data consistently. How?
+
+Distributed transactions are a trap. The answer: the Saga pattern. A sequence of local transactions, each with a compensating action if something fails. Eventual consistency is the reality of microservices. If you can't accept that, you probably don't need them.
+
+5. When would you NOT use microservices?
+
+This separates experience from hype. Don't use them when your team is < 5 engineers, you're building an MVP, you don't have CI/CD and monitoring in place, or you can't articulate clear service boundaries yet. Start with a well-structured monolith. Extract when you have a concrete reason.
+
 ## Antipatterns
 
 https://microservices.io/microservices/antipatterns/-/the/series/2019/06/18/microservices-adoption-antipatterns.html

@@ -201,6 +201,9 @@ To view the **JavaScript** logs do:
 ```shell
 npx react-native log-android
 npx react-native log-ios
+
+# For Android, you can also use adb directly — JS logs are tagged ReactNativeJS
+adb logcat -s ReactNativeJS:V
 ```
 
 To view the **native Android** logs do:
@@ -209,7 +212,15 @@ To view the **native Android** logs do:
 adb logcat --pid=$(adb shell pidof -s com.example.myapp) -v color
 ```
 
-[See logcat docs](https://developer.android.com/tools/logcat) for more options. (Note that the app needs to be running on the phone or emulator, otherwise `pidof` will return nothing.)
+Note that the app needs to be running on the phone or emulator, otherwise `pidof` will return nothing.
+
+If you want to filter the logs for a specific thing, you can clear the logcat (`-c`) and then filter for relevant tags:
+
+```shell
+adb logcat -c && adb logcat | grep -iE "SYNC_BIM_MODEL|Folder files path|No files found|xkt"
+```
+
+Use `adb logcat --help` to see all the options, or see the [logcat docs](https://developer.android.com/tools/logcat) and [View logs with Logcat](https://developer.android.com/studio/debug/logcat) for more.
 
 To view the **native iOS** use the Console app as [explained in this video](https://www.youtube.com/watch?v=LvCci4Bwmpc) (at 2nd half) and here: https://docs.expo.dev/debugging/runtime-issues/#crash-reports-using-console-app
 

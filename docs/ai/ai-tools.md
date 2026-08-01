@@ -54,7 +54,7 @@ Why I'm Betting Against AI Agents in 2025 (Despite Building Them) - https://utka
 
 ## Models
 
-**AI model comparison** - https://docs.github.com/en/copilot/reference/ai-models/model-comparison
+AI model comparison - https://docs.github.com/en/copilot/reference/ai-models/model-comparison
 
 https://docs.github.com/en/copilot/tutorials/compare-ai-models
 
@@ -65,6 +65,14 @@ OpenVLM Leaderboard - https://huggingface.co/spaces/opencompass/open_vlm_leaderb
 https://llm-stats.com - Compare 300+ Top AI Models
 
 https://www.voxelbench.ai/leaderboard
+
+https://arena.ai/leaderboard/agent
+
+https://artificialanalysis.ai
+
+https://benchlm.ai
+
+https://stateofopensource.ai
 
 Android Bench - https://developer.android.com/bench - https://android-developers.googleblog.com/2026/03/elevating-ai-assisted-androi.html
 

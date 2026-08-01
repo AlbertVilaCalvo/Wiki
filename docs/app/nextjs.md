@@ -44,6 +44,12 @@ Next.js 12 → Next.js 13: https://twitter.com/lydiahallie/status/15911202151897
 
 Self-Hosting Next.js - https://www.youtube.com/watch?v=sIVL4JMqRfc - Learn how to deploy Next.js, Postgres, and Nginx to a $4 VPS with Docker. I'll explain how to use and configure Next.js features like image optimization, caching & ISR, streaming, middleware, server components, and more.
 
+https://notesofdev.com/blog/migrating-a-62000-page-multisite-from-next.js-to-astro/
+
+> Many developers struggle with understanding server/client boundaries in Next.js and the implications of the `use client` directive.
+
+> I still enjoy working with React components, but once a project reaches the point where server and client boundaries become unclear, Astro starts looking very attractive.
+
 ## Site examples and repos
 
 - Next.js Commerce: https://github.com/vercel/commerce

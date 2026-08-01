@@ -20,6 +20,8 @@ GitHub Copilot in VS Code playlist - https://www.youtube.com/playlist?list=PLj6Y
 Use VSCode, it has the latest features. Other editors are behind.
 :::
 
+GitHub Copilot is moving to usage-based billing - https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/
+
 How to prevent "enter" from sending text to Copilot chat and instead create a new line? - https://github.com/orgs/community/discussions/86624
 
 ## Custom instructions
@@ -341,6 +343,16 @@ https://docs.github.com/en/copilot/how-tos/chat-with-copilot/get-started-with-ch
 - `/new react app with typescript`
 - `/new python django web application`
 - `/new node.js express server`
+
+## Add models
+
+https://code.visualstudio.com/docs/agent-customization/language-models
+
+Install model providers from the Language Models editor - https://code.visualstudio.com/updates/v1_125#_install-model-providers-from-the-language-models-editor
+
+DeepSeek V4 - https://github.com/Vizards/deepseek-v4-for-copilot - https://marketplace.visualstudio.com/items?itemName=Vizards.deepseek-v4-for-copilot
+
+Known limitation: Selecting DeepSeek does not guarantee all Copilot internal requests avoid Copilot models/credits - https://github.com/Vizards/deepseek-v4-for-copilot/issues/142
 
 ## CLI
 

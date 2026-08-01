@@ -254,6 +254,10 @@ https://github.com/FormidableLabs/prism-react-renderer/blob/master/src/vendor/pr
 
 https://docusaurus.io/docs/markdown-features/code-blocks#supported-languages
 
+## Search
+
+https://github.com/easyops-cn/docusaurus-search-local
+
 ## Server components
 
 https://twitter.com/sebastienlorber/status/1598615824927002624
