@@ -83,6 +83,27 @@ If cutting text (Ctrl-w) is not working, do:
 - Go to Profiles → Keys.
 - At the list, delete the entry "Ignore" - "^w".
 
+## Open file with Cmd + click
+
+Can I click on a filename and line number in iterm2 to open that file in Visual Studio Code at the correct line number in OS X - https://stackoverflow.com/questions/38906815/can-i-click-on-a-filename-and-line-number-in-iterm2-to-open-that-file-in-visual
+
+https://iterm2.com/documentation-preferences-profiles-advanced.html
+
+> For more flexibility, choose "Run command..." and specify a command to execute. `\1` will be replaced with the file name, `\2` will be replaced with the line number (if applicable), `\3` with text in the line prior to the click location, `\4` with text in the line subsequent to the click location, and `\5` for the working directory of the line clicked on.
+
+Use the Semantic History setting, which controls what happens when you Cmd+click a file path like `src/test/jest.config.js`:
+
+- Open iTerm2 Settings (⌘,)
+- Go to Profiles → select your profile → Advanced tab
+- At "Semantic History" section (_⌘-Click on a filename referring to an existing file performs an action on that file_), change the dropdown from "Open with default app" to "Open with editor..." and select Visual Studio Code
+
+A better solution is to choose "Run command..." and specify a command to execute.
+For VSCode, it has the advantage that you can use `-r` to force it to reuse the last active window.
+To open the file with VSCode set "Run command..." to `/usr/local/bin/code -g -r \1:\2`.
+The option `-g` (`--goto <file:line[:character]>`) opens the file.
+The option `-r` (`--reuse-window`) forces to open a file or folder in an already opened window.
+(Tip: use `code --help` to see all the options.)
+
 ## Finder integration (New iTerm Window here)
 
 Click the 'iTerm2' menu bar item (at the top left) and then do Services → Services Settings... This opens the 'Configuració del Sistema' → Teclat → Dreceres de teclat... Once there, on 'Arxius i carpetes' check 'New iTerm Window here'.
