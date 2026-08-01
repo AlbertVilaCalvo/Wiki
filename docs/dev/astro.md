@@ -10,7 +10,10 @@ VSCode official extension: https://marketplace.visualstudio.com/items?itemName=a
 
 Roadmap: https://github.com/orgs/withastro/projects/11/
 
-Templates: https://vercel.com/templates?framework=astro
+Templates:
+
+- https://vercel.com/templates?framework=astro
+- https://github.com/cassidoo/blahg - Blog, uses TinaCMS
 
 https://twitter.com/t3dotgg/status/1437195415439360003
 
@@ -31,6 +34,16 @@ TODO check: https://github.com/astro-community/AstroCompress
 TODO mirar: https://github.com/onwidget/astrowind
 
 TODO mirar: https://frontendmasters.com/courses/astro/
+
+https://tina.io/blog/astro-is-becoming-the-default-tinacms-starter - See template https://github.com/cassidoo/blahg
+
+https://notesofdev.com/blog/migrating-a-62000-page-multisite-from-next.js-to-astro/
+
+> Many developers struggle with understanding server/client boundaries in Next.js and the implications of the `use client` directive.
+
+> I still enjoy working with React components, but once a project reaches the point where server and client boundaries become unclear, Astro starts looking very attractive.
+
+https://github.com/delucis/astro-og-canvas - How I generate an Open Graph image for every post - https://flaviocopes.com/generate-og-images-astro/
 
 ## Front matter
 
@@ -487,6 +500,36 @@ https://github.com/withastro/astro/blob/main/packages/astro/CHANGELOG.md
 - 6.3 - 2026/05 - https://astro.build/blog/astro-630/ - https://github.com/withastro/astro/releases/tag/astro%406.3.0
   - SVG image processing disabled by default
     - This change does not affect importing SVGs as components. It only applies to rasterizing SVG sources through the image optimization pipeline (e.g. converting an SVG to PNG via `<Image />`).
+- 6.4 - 2026/05 - https://astro.build/blog/astro-640/ - https://github.com/withastro/astro/releases/tag/astro%406.4.0
+  - New `markdown.processor` API. An alternative to the current remark/rehype (unified) pipeline
+  - Faster Markdown builds with Sätteri. Doesn’t run remark or rehype plugins
+- 7.0 - 2026/06 - https://astro.build/blog/astro-7/ - https://github.com/withastro/astro/releases/tag/astro%407.0.0
+  - **Upgrade guide**: https://docs.astro.build/en/guides/upgrade-to/v7/
+  - This release is all about speed
+  - Upgrades to Vite 8 and its new Rolldown Rust-based bundler
+  - New compiler for `.astro` components written in Rust
+    - No more HTML correction
+    - Unclosed tags like `<div>Hello` and unterminated attributes like `<div class="Hello >` now produce errors instead of being silently corrected
+    - Whitespace between elements is now collapsed following JSX conventions, see [Whitespace in Astro 7.0](https://cassidoo.co/post/astro-7-whitespace/)
+  - Replaces the unified (remark, rehype) Markdown and MDX processing pipeline with Sätteri, written in Rust
+    - Sätteri was added in Astro 6.4, Astro 7 makes it the default
+    - Doesn’t run remark or rehype plugins, but Sätteri implements many Markdown features natively that previously required separate plugins (em dashes, tables, math, frontmatter, etc.). Non-default features are enabled through the features option
+  - Queued rendering. Introduced in Astro 6.0, much faster
+  - Advanced routing
+    - New `src/fetch.ts` file
+    - Instead of using the file-based routing, `src/fetch.ts` gives full control over the request lifecycle
+    - Use it for server-side features like middleware, redirects, rewrites, Actions, sessions, and i18n
+  - Route caching
+    - Caching on-demand rendered responses
+    - Released experimentally in Astro 6.0, now stable
+    - Integration with live content collections: a live loader can attach a cache hint to the data it returns, with tags for invalidation and a last-modified time for freshness
+    - Experimental CDN cache providers for Netlify, Vercel and Cloudflare
+  - AI enhancements
+    - Background dev server for AI agents: `astro dev --background`
+      - _Every command is idempotent and forgiving. Stopping when not running succeeds silently, and starting when already running returns the existing instance. Agents often lose track of process state, and the CLI doesn’t punish them for it._
+      - All running dev servers also expose a `/_astro/status` health endpoint that agents can query to confirm the server is alive and ready to accept requests.
+    - JSON logging for agents and aggregation services like Kibana, CloudWatch and Grafana/Loki when doing SSR: `astro dev --json`
+- 7.1 - 2026/07 - https://astro.build/blog/astro-710/ - https://github.com/withastro/astro/releases/tag/astro%407.1.0
 
 ## Islands architecture
 
