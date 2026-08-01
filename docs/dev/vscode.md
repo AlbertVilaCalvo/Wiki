@@ -18,13 +18,39 @@ code --diff file1 file2
 
 Word wrap: Alt+Z (⌥+Z). [source](https://stackoverflow.com/questions/31025502/how-can-i-switch-word-wrap-on-and-off-in-visual-studio-code)
 
+:::tip
+Do <kbd>⌘P</kbd> and then type `?` to get the following list.
+:::
+
+Search and navigation:
+
+- <kbd>⌘P</kbd> Go to File
+- <kbd>⇧⌘P</kbd> Run commands (>)
+- <kbd>^G</kbd> Go to Line/Column
+- <kbd>@</kbd> Go to Symbol in File (<kbd>⇧⌘O</kbd>)
+- <kbd>@:</kbd> Go to Symbol in File with Type (Category)
+- <kbd>#</kbd> Go to Symbol in Workspace (<kbd>⌘T</kbd>)
+- <kbd>%</kbd> Search for Text
+- Tabs:
+  - <kbd>^Tab</kbd> Switch tabs in most recently used order
+    - You can change <kbd>^Tab</kbd> to cycle through tabs in visible order, see https://stackoverflow.com/questions/38957302/is-there-a-quick-change-tabs-function-in-visual-studio-code
+  - <kbd>⌘⌥←/⌘⌥→</kbd> Switch to previous/next tabs
+  - <kbd>^n</kbd> Switch to tab number n (1-9)
+
+From https://stackoverflow.com/questions/46504190/how-to-quickly-find-files-or-symbols-in-a-project-in-visual-studio-code:
+
+- <kbd>⌘P</kbd> searches for files by name.
+- <kbd>⌘P</kbd> followed by `@` only searches for symbol in the currently opened file.
+- <kbd>⌘P</kbd> followed by `#` only searches for symbol in all files.
+- <kbd>⌘P</kbd> followed by `%` searches for text across files.
+
 ## Code Snippets
 
 https://code.visualstudio.com/docs/editing/userdefinedsnippets
 
 https://stackoverflow.com/questions/29995863/how-to-add-custom-code-snippets-in-vscode
 
-To create a snipped, type Shift+Cmd+P and type "snippets". Select "Snippets: Configure Snippets", and then select a language (eg Markdown) from the list.
+To create a snippet, type Shift+Cmd+P and type "snippets". Select "Snippets: Configure Snippets", and then select a language (eg Markdown) from the list.
 
 By default you need to do Ctrl+Space to trigger it, and then return/tab to expand! You can enable tab completion, which expands the snippet automatically, with `"editor.tabCompletion": "on"` or `"editor.tabCompletion": "onlySnippets"`.
 
