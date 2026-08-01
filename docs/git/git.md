@@ -6,6 +6,8 @@ Source code mirror: https://github.com/git/git
 
 Git tips -https://github.com/git-tips/tips
 
+https://github.com/GitAlias/gitalias - Aliases for Git commands
+
 Quickly rewrite git repository history (filter-branch replacement) - https://github.com/newren/git-filter-repo
 
 Ask HN: Apps that are built with Git as the back end? - https://news.ycombinator.com/item?id=33261862
@@ -312,6 +314,13 @@ https://git-scm.com/docs/git-commit
 
 'gca!'='git commit -v -a --amend'
 'gcan!'='git commit -v -a --no-edit --amend'
+```
+
+When you amend a commit, it keeps the first commit's date. To amend a commit changing the **date** to now do ([source](https://stackoverflow.com/questions/454734/how-can-one-change-the-timestamp-of-an-old-commit-in-git#comment96782614_454734)):
+
+```shell
+git commit --amend --reset-author
+git commit --amend --reset-author --no-edit
 ```
 
 ### Amend undo
@@ -734,7 +743,29 @@ https://github.com/github/gitignore - A collection of useful .gitignore template
 
 https://git-scm.com/docs/gitignore
 
-To match a directory only (but not files) add a slash at the end, eg `build/`. _If there is a separator at the end of the pattern then the pattern will only match directories, otherwise the pattern can match both files and directories_ ([source](https://git-scm.com/docs/gitignore#_pattern_format)). You can also do `/build` if the directory is at the same level of the `.gitignore`, see https://github.com/github/gitignore/blob/main/Elixir.gitignore
+- `/leading` = only at root
+- `trailing/` = directory only
+- `/both/` = only at root and directory only
+
+To match a directory only (but not files), add a slash at the end, eg `build/`. _If there is a separator at the end of the pattern then the pattern will only match directories, otherwise the pattern can match both files and directories_ ([source](https://git-scm.com/docs/gitignore#_pattern_format)).
+
+To match only a file or directory at the root (same level as the `.gitignore`), add a slash at the beginning, eg `/build`. For example, in https://github.com/github/gitignore/blob/main/Elixir.gitignore:
+
+```
+/_build
+/cover
+/.fetch
+erl_crash.dump
+*.ez
+*.beam
+/config/*.secret.exs
+.elixir_ls/
+```
+
+- `/cover` matches only a directory _or file_ at the top-level, next to the `.gitignore`.
+- `.elixir_ls/` matches only directories named `.elixir_ls`, but they can be anywhere in the repo, not just at the root.
+
+So to match only directories (but not files) at the root we need to use `/folder/`, not just `/folder`.
 
 ## Reduce the `.git` folder size with `git gc`
 

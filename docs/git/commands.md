@@ -3,6 +3,46 @@ title: Git Commands
 sidebar_label: Commands
 ---
 
+https://github.com/GitAlias/gitalias - Aliases for Git commands
+
+## The git commands I run before reading any code
+
+https://piechowski.io/post/git-commands-before-reading-code - https://news.ycombinator.com/item?id=47687273
+
+Who built this. Every contributor ranked by commit count. If one person accounts for 60% or more, that’s your bus factor.
+
+```shell
+git shortlog -sn --no-merges
+```
+
+Also see https://github.com/GitAlias/gitalias/tree/main/doc/git-who and https://github.com/GitAlias/gitalias/tree/main/doc/git-chart
+
+What changes the most. The 20 most-changed files in the last year. Run this from `app/` or `src/`, not the repo root, otherwise lockfiles, changelogs and generated code will dominate the list.
+
+```shell
+git log --format=format: --name-only --since="1 year ago" | sort | uniq -c | sort -nr | head -20
+```
+
+Also see https://github.com/GitAlias/gitalias/tree/main/doc/git-churn
+
+Where do bugs cluster:
+
+```shell
+git log -i -E --grep="fix|bug|broken" --name-only --format='' | sort | uniq -c | sort -nr | head -20
+```
+
+Is this project accelerating or dying. Commit count by month, for the entire history of the repo:
+
+```shell
+git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c
+```
+
+How often is the team firefighting:
+
+```shell
+git log --oneline --since="1 year ago" | grep -iE 'revert|hotfix|emergency|rollback'
+```
+
 ## `remote`
 
 View:
@@ -178,4 +218,22 @@ git stash push --staged
 git stash push -S
 git stash save --staged
 git stash save -S
+```
+
+## `commit`
+
+Multiline commit in the terminal:
+
+```shell
+git commit -F - <<'EOF'
+The title
+The description
+More description
+EOF
+```
+
+Useful for scripts. You can also do:
+
+```shell
+git commit -m "The title" -m "The description" -m "More description"
 ```
