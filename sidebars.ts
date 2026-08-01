@@ -50,6 +50,7 @@ const sidebars: SidebarsConfig = {
     'ai/ai',
     'ai/ai-tools',
     'ai/github-copilot',
+    'ai/claude',
     'ai/codex',
     'ai/agents',
     'ai/llm',
