@@ -123,9 +123,96 @@ https://medium.com/geekculture/stop-using-for-conditional-rendering-in-react-a0f
 
 When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecallback
 
-https://labs.factorialhr.com/posts/hooks-considered-harmful
+### Prefer primitive values in hook dependencies
 
-> Most bugs can be solved by moving hooks away from the components and using primitives as the only dependencies
+React compares every Hook dependency with [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) ([see docs](https://react.dev/reference/react/useEffect#parameters)). Primitives such as strings, numbers and booleans are compared by value. Arrays, objects, and functions are compared by reference, so creating one during render can rerun an Effect even when the values the Effect uses have not changed. This can cause unnecessary work or infinite update loops.
+
+**Objects.** Depend on the primitive fields the Effect actually uses, such as `user.id` instead of the complete `user` object.
+
+**Arrays.** Derive a primitive based on the reason the Effect should run. In the following examples, the Effect currently depends on `[items]`, but it only needs to react to one specific aspect of that array:
+
+| The Effect should run when...             | Derive...                                                             | Depend on...       |
+| ----------------------------------------- | --------------------------------------------------------------------- | ------------------ |
+| The array changes between empty/non-empty | `const hasItems = items.length > 0`                                   | `[hasItems]`       |
+| The number of items changes               | `const itemCount = items.length`                                      | `[itemCount]`      |
+| The item IDs or their order change        | `const itemIdsOrdered = JSON.stringify(items.map((item) => item.id))` | `[itemIdsOrdered]` |
+| The item IDs change, ignoring order       | `const itemIds = JSON.stringify(items.map((item) => item.id).sort())` | `[itemIds]`        |
+
+For example, this Effect runs whenever the `items` array receives a new reference, even if the IDs have not changed:
+
+```tsx
+useEffect(() => {
+  localStorage.setItem(
+    'selectedIds',
+    JSON.stringify(items.map((item) => item.id))
+  )
+}, [items])
+```
+
+If only the IDs and their order should trigger the Effect, derive that string first and have the Effect use it directly:
+
+```tsx
+const itemIdsOrdered = JSON.stringify(items.map((item) => item.id))
+
+useEffect(() => {
+  localStorage.setItem('selectedIds', itemIdsOrdered)
+}, [itemIdsOrdered])
+```
+
+**Functions.** A helper created during render also receives a new reference on every render. If the helper does not use props or state, move it outside the component. If it is only used by the Effect, move its code inside the Effect. Use `useCallback` when another component or Hook requires a stable function reference, not merely to silence the dependency linter.
+
+Instead of creating `createOptions` during every render:
+
+```tsx
+const createOptions = (): ConnectionOptions => ({ serverUrl, roomId })
+
+useEffect(() => {
+  const connection = createConnection(createOptions())
+  connection.connect()
+  return () => connection.disconnect()
+}, [createOptions])
+```
+
+Move its code inside the Effect and depend on the primitive values it uses:
+
+```tsx
+useEffect(() => {
+  const options: ConnectionOptions = { serverUrl, roomId }
+  const connection = createConnection(options)
+  connection.connect()
+  return () => connection.disconnect()
+}, [serverUrl, roomId])
+```
+
+Primitive dependencies are necessary, but not sufficient. The derived value must change for every change the Effect should handle and remain the same for changes it should ignore. Avoid ambiguous conversions: `['a,b'].join(',')` and `['a', 'b'].join(',')` both produce `a,b` even though the arrays are different (prefer `JSON.stringify` in this case).
+
+Do not include unrelated data in the derived value, because unrelated changes can rerun the Effect and overwrite newer state. Keep dependency arrays inline and exhaustive. If the Effect still reads the original object or array, do not hide it from the linter; restructure the code so it consumes the primitives, or reconsider whether an Effect is needed ([see `useEffect` below](#useeffect)).
+
+[Hooks Considered Harmful](https://labs.factorialhr.com/posts/hooks-considered-harmful) has useful explanations of closure dependencies, reference identity, and using primitives to avoid over-subscription. Take that principle, but not every proposed implementation. Its generic `createEffect` and `createUnsafeEffect` factories pass a dynamic dependency array that React's linter cannot verify. Current React guidance says that [the dependency list must have a constant number of items and be written inline](https://react.dev/reference/react/useEffect#parameters), and newer React lint rules also [discourage Hook factories](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories).
+
+State-management libraries do not automatically solve reference-identity problems. This Zustand selector creates a new array whenever it runs, even when the selected IDs have not changed:
+
+```tsx
+const selectedIds = useItemsStore((state) =>
+  state.items.filter((item) => item.selected).map((item) => item.id)
+)
+```
+
+If the component needs the array, use [Zustand's `useShallow`](https://zustand.docs.pmnd.rs/reference/hooks/use-shallow) to reuse the previous array when its items are unchanged:
+
+```tsx
+const selectedIds = useItemsStore(
+  useShallow((state) =>
+    state.items.filter((item) => item.selected).map((item) => item.id)
+  )
+)
+```
+
+Alternatively, select a primitive directly if the Effect only needs a change signal. React Redux has the same concern and recommends primitive selectors, memoized selectors, or [`shallowEqual`](https://react-redux.js.org/api/hooks#equality-comparisons-and-updates) when returning arrays or objects.
+
+Before replacing an object or array dependency with a derived primitive, check whether the value can instead be [derived during rendering or updated from an event](https://react.dev/learn/you-might-not-need-an-effect).
+
+See also [Removing Effect Dependencies](https://react.dev/learn/removing-effect-dependencies).
 
 ### `useEffect`
 
