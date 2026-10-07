@@ -69,11 +69,92 @@ Remove:
 git remote remove origin
 ```
 
+## `diff`
+
+View number of lines added and removed in the staged files:
+
+```shell
+# Per file
+git diff --cached --numstat
+git diff --staged --numstat
+# 177     10      src/logic.test.ts
+# 82      35      src/logic.ts
+# 6       1       src/types.ts
+
+# Total
+git diff --cached --shortstat
+git diff --staged --shortstat
+# 3 files changed, 265 insertions(+), 46 deletions(-)
+
+git diff --cached --stat
+# src/logic.test.ts | 187 ++++++++++++++++++++++++++++++++++++++++++---
+# src/logic.ts      | 117 +++++++++++++++++--------
+# src/types.ts      |   7 ++++-
+# 3 files changed, 265 insertions(+), 46 deletions(-)
+```
+
+### `diff` between two branches
+
+:::tip
+If we are on the feature-branch, we can use `HEAD` instead of the branch name:
+
+```shell
+git diff dev...HEAD
+git diff --stat dev...HEAD
+```
+
+:::
+
+View **code** difference between two branches:
+
+```shell
+git diff dev...feature-branch
+```
+
+View **file** difference between two branches:
+
+```shell
+git diff --stat dev...feature-branch
+# src/hooks/useCheckStatus.ts   | 135 +++++++++++++++++-----------
+# src/core/utils/string.ts      |  45 ++++++--
+# 2 files changed, 140 insertions(+), 40 deletions(-)
+```
+
+View **size** difference between two branches:
+
+```shell
+git diff --shortstat dev...HEAD
+# 29 files changed, 3992 insertions(+), 406 deletions(-)
+
+# To compare with a remote branch, use origin/ref:
+git diff --shortstat origin/dev...HEAD
+```
+
+### `git diff A..B` vs `git diff A...B`
+
+https://www.baeldung.com/ops/git-double-vs-triple-dot
+
+https://www.dolthub.com/blog/2022-11-11-two-and-three-dot-diff-and-log
+
+In `git diff`, the two-dot (`..`) and three-dot (`...`) notations determine which commits are compared to show changes.
+
+- Two-dot (`git diff A..B`): Shows _all_ the differences between the final states of branch A and branch B. This is equivalent to `git diff A B`. Displays all changes between the two tips, **including changes made to A** after the branches diverged.
+- Three-dot (`git diff A...B`): Shows the difference between the tip of branch B and the common ancestor (merge base) of A and B. This isolates **only the changes introduced by B since it branched off**, excluding any changes made to A. This is used in **pull requests**.
+
+Note that `git log` uses these notations in the opposite manner: `git log A..B` shows commits in B but not A, while `git log A...B` shows commits in either A or B but not both. See [Two dot vs three dot diff and log](https://www.reddit.com/r/git/comments/ysgu23/two_dot_vs_three_dot_diff_and_log/).
+
 ## `log`
 
 Docs: https://git-scm.com/docs/git-log
 
 Viewing the Commit History: https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
+
+### View commit difference between two branches
+
+```shell
+git log --oneline main..HEAD
+git log --oneline main..feature-branch
+```
 
 ### View file line history/changes
 
@@ -236,4 +317,34 @@ Useful for scripts. You can also do:
 
 ```shell
 git commit -m "The title" -m "The description" -m "More description"
+```
+
+## `checkout`, `switch` and `restore`
+
+What's the difference between 'git switch' and 'git checkout' `<branch>`? - https://stackoverflow.com/questions/57265785/whats-the-difference-between-git-switch-and-git-checkout-branch
+
+https://www.infoq.com/news/2019/08/git-2-23-switch-restore/
+
+https://github.com/git/git/blob/v2.23.0/Documentation/RelNotes/2.23.0.txt?plain=1#L61-L65
+
+> Two new commands "git switch" and "git restore" are introduced to
+> split "checking out a branch to work on advancing its history" and
+> "checking out paths out of the index and/or a tree-ish to work on
+> advancing the current history" out of the single "git checkout"
+> command.
+
+Docs:
+
+- https://git-scm.com/docs/git-switch
+- https://git-scm.com/docs/git-restore
+- https://git-scm.com/docs/git-checkout
+
+```shell
+git checkout <branch>
+git switch <branch>
+```
+
+```shell
+git checkout -b <branch>
+git switch -c <branch>
 ```
