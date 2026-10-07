@@ -86,6 +86,47 @@ git revert HEAD
 
 Also see: [git undo: We can do better](https://blog.waleedkhan.name/git-undo/)
 
+## Split the last commit into two commits
+
+Only do this if the commit has not been pushed. Amending it changes its hash, so splitting a public commit would require rewriting remote history.
+
+Suppose the last commit changes `app.ts` and `types.ts`, but the `types.ts` change should become a separate commit. Reset only the indexed version of that file to its state before the last commit:
+
+```shell
+git reset HEAD^ -- types.ts
+```
+
+After doing this:
+
+- In the staged area, `types.ts` reverts the change. Use `git diff --cached`.
+- In the unstaged area, `types.ts` contains the change you want to extract into a new commit. Use `git diff -- types.ts`.
+
+Before amending, check both sides before continuing, especially if other work is already staged:
+
+```shell
+git diff --cached
+git diff -- types.ts
+```
+
+Amend the original commit with only the remaining changes and update its message:
+
+```shell
+git commit --amend \
+  -m "Update application behavior" \
+  -m "Explain the changes that remain in this commit."
+```
+
+Then stage and commit the extracted file separately:
+
+```shell
+git add -- types.ts
+git commit \
+  -m "Update application types" \
+  -m "Explain why the type changes are separate."
+```
+
+The amended commit gets a new hash, and the extracted change becomes a second commit. Use `git log --oneline -2` and `git show` to verify the result.
+
 ## Undo undo commit - Recover lost commit
 
 See [How can I recover a lost commit in Git?](https://stackoverflow.com/questions/10099258/how-can-i-recover-a-lost-commit-in-git)
@@ -407,7 +448,8 @@ git merge --ff-only feature-branch
 
 ```shell
 # commits
-git log main..feature-branch
+git log --oneline main..feature-branch
+git log --oneline main..HEAD # if we are on the feature-branch
 # code
 git diff main..feature-branch
 # code for specific file, if we are on the feature-branch
@@ -419,6 +461,37 @@ git diff --name-status main..feature-branch
 Note that you can have 3 dots (`...`). And if you've already switched to `feature-branch` you can use `git log main..`.
 
 [See source](https://stackoverflow.com/q/13965391/4034572)
+
+## Search for text introduced or removed by a branch
+
+This is useful after renaming or removing something, to verify that the old name is no longer present. Use `main...HEAD` to compare the current branch with its merge base, as a pull request normally does.
+
+Show changed hunks where a regular expression was added or removed:
+
+```shell
+git diff -G'oldName' main...HEAD
+```
+
+Search only added lines, excluding Git's `+++` file headers:
+
+```shell
+git diff --unified=0 main...HEAD | rg -i '^\+[^+].*oldName'
+```
+
+Search the final contents of a directory on the current branch:
+
+```shell
+git grep -ni 'oldName' HEAD -- path/to/directory
+```
+
+Useful regular expressions:
+
+- `oldName`: substring match; with `-i`, it also finds different casing and names embedded in identifiers.
+- `\boldName\b`: standalone word only.
+- `oldName|legacyName`: either expression.
+- `old(Name|Type)`: grouped alternatives such as `oldName` and `oldType`.
+
+No output from the last two commands means no matching added line or final occurrence was found.
 
 ## Squash all commits on a branch
 
