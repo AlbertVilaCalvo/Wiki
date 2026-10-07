@@ -286,6 +286,12 @@ https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context#_reference-
 
 `What are the highlights of VS Code 1.100 #fetch https://code.visualstudio.com/updates/v1_100`
 
+### `/btw` side chats
+
+Ask a question without interrupting. See [Side chats with `/btw`](https://code.visualstudio.com/updates/v1_132#_side-chats-with-btw).
+
+> You can also share context by referencing chats in other chats, either by dragging the chat tabs into the input box, or typing `#chat:` and then picking the title of the chat to include.
+
 ## Chat variables
 
 https://docs.github.com/en/copilot/reference/cheat-sheet#chat-variables

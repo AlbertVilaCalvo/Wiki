@@ -742,6 +742,12 @@ open -a lens
 
 Extensions - Not working in latest Lens version - https://github.com/lensapp/lens-extensions - Lens Resource Map - https://github.com/nevalla/lens-resource-map-extension
 
+##### k9s
+
+https://k9scli.io - https://github.com/derailed/k9s
+
+Terminal based UI.
+
 #### Dashboard (unmaintained)
 
 https://github.com/kubernetes/dashboard

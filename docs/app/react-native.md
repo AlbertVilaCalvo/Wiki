@@ -106,6 +106,8 @@ Do not install `react-native-cli` as a global package, use `npx @react-native-co
 
 ### Create app
 
+https://github.com/react-native-community/template
+
 ```shell
 npx @react-native-community/cli@latest init MyApp
 npx @react-native-community/cli@latest init MyApp --pm npm
@@ -206,11 +208,15 @@ npx react-native log-ios
 adb logcat -s ReactNativeJS:V
 ```
 
+These are the same logs you can see in the DevTools console by pressing `j`.
+
 To view the **native Android** logs do:
 
 ```shell
 adb logcat --pid=$(adb shell pidof -s com.example.myapp) -v color
 ```
+
+When doing this, the JavaScript logs are tagged with `ReactNativeJS`.
 
 Note that the app needs to be running on the phone or emulator, otherwise `pidof` will return nothing.
 

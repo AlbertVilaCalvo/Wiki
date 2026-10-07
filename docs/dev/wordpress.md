@@ -10,6 +10,8 @@ Copilot instructions - https://github.com/github/awesome-copilot/blob/main/instr
 
 MCP - https://github.com/WordPress/mcp-adapter
 
+WordPress Browser Extension - https://github.com/WordPress/browser-extension/ - https://chromewebstore.google.com/detail/wordpress-browser-extensi/apaakgfongbkeecchhhjocpgjchbdenl - https://apps.apple.com/us/app/wordpress-browser-extension/id6794460913?mt=12
+
 WordPress starter theme with Laravel Blade components and templates, Tailwind CSS, and a modern development workflow - https://github.com/roots/sage - https://roots.io/sage/
 
 WordPress boilerplate with Composer, easier configuration, and an improved folder structure - https://github.com/roots/bedrock - https://roots.io/bedrock/

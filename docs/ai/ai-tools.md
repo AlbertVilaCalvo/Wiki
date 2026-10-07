@@ -72,6 +72,10 @@ https://artificialanalysis.ai
 
 https://benchlm.ai
 
+https://deepswe.datacurve.ai
+
+https://opencode.ai/data
+
 https://stateofopensource.ai
 
 Android Bench - https://developer.android.com/bench - https://android-developers.googleblog.com/2026/03/elevating-ai-assisted-androi.html
@@ -105,6 +109,15 @@ https://ollama.com
 https://lmstudio.ai
 
 https://www.jan.ai
+
+## Harness
+
+https://github.com/earendil-works/pi
+
+- I found oh-my-pi with [Paseo](https://github.com/getpaseo/paseo) to be my personal sweet spot. Checks all of the boxes I want and is the most consistent set of AI tools I've used thus far - https://news.ycombinator.com/item?id=49926400
+- Fork: https://omp.sh/ - https://github.com/can1357/oh-my-pi
+
+https://code.visualstudio.com/blogs/2026/05/15/agent-harnesses-github-copilot-vscode
 
 ## Prompts
 
@@ -255,11 +268,17 @@ https://news.ycombinator.com/item?id=46256606 - Hey, Boris from the Claude Code 
 
 https://x.com/bcherny/status/2007179832300581177 - I'm Boris and I created Claude Code. Lots of people have asked how I use Claude Code
 
-### Skills
+## Skills
+
+https://www.skills.sh
+
+https://agentskills.io/home
+
+https://github.com/mattpocock/skills
 
 https://github.com/Jeffallan/claude-skills
 
-https://github.com/vercel-labs/agent-skills/
+https://github.com/vercel-labs/agent-skills/ - https://www.skills.sh/vercel-labs/agent-skills
 
 Examples:
 
@@ -272,6 +291,8 @@ https://www.patterns.dev/ai/skills/
 ## AGENTS.md
 
 https://agents.md
+
+https://learn.chatgpt.com/docs/agent-configuration/agents-md
 
 https://developer.android.com/studio/gemini/agent-files
 

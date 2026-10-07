@@ -244,6 +244,19 @@ gh pr checks 960      # CI status
 gh pr checkout 960    # check out a PR's branch locally
 ```
 
+When you ask Claude to review PRs, it runs:
+
+```shell
+gh pr view 960 --json number,title,headRefName,baseRefName,state,additions,deletions,changedFiles,commits 2>&1 | head -60
+gh pr view 960 --json number,title,body,state,createdAt,headRefName,baseRefName,additions,deletions,changedFiles 2>&1 | head -300
+```
+
+GPT does:
+
+```shell
+gh pr view 960 --repo owner/repo --json number,title,url,state,baseRefName,baseRefOid,headRefName,headRefOid,author,commits,files
+```
+
 ### Reading review comments
 
 There are two kinds of comments, from two places:
@@ -318,7 +331,7 @@ Pull requests
 
 [ ] Allow merge commits\
 [✓] Allow squash merging\
-Default commit message: `Pull request title and commit details` → With this setting you need to copy-paste the PR description to the commit message, which is a bit annoying, but you get all the commit history.\
+Default commit message: `Pull request title and description` is the best choice, but using `Pull request title and commit details` is nice too since you get all commit history, but then you need to manually copy-paste the PR description, which is annoying and easy to forget.\
 [✓] Allow rebase merging
 
 [✓] Always suggest updating pull request branches
@@ -339,8 +352,8 @@ Define whether collaborators can delete or force push to the branch and set requ
 
 There are two ways to make a branch protected:
 
-1. Classic branch protection rules. See [About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
-2. Rulesets (new). See [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
+1. Classic branch protection rules. Configured at Settings -> Branches (https://github.com/org/repo/settings/branches). See [About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+2. Rulesets (new). Configured at Settings -> Rulesets (https://github.com/org/repo/settings/rules). See [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
 
 The advantages of rulesets over branch protection rules are listed at [About rulesets and protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets#about-rulesets-and-protected-branches).
 
@@ -434,3 +447,22 @@ Branch protection: status checks for workflows with path conditions - https://st
 ## Merge queue
 
 https://humanwhocodes.com/blog/2026/04/improving-developer-velocity-github-merge-queue/
+
+## Slack
+
+https://docs.github.com/en/integrations/how-tos/slack
+
+https://slack.com/marketplace/A01BP7R4KNY
+
+To subscribe to a GitHub repository's notifications in Slack, you can use the GitHub app for Slack. Here's how to set it up:
+
+```
+/github subscribe organization/repository
+```
+
+It will say:
+
+✅ Subscribed to [AlbertVilaCalvo/RecipeManager](https://github.com/AlbertVilaCalvo/RecipeManager). This channel will receive notifications for
+`issues`, `pulls`, `commits`, `releases`, `deployments` [Learn more](https://docs.github.com/en/integrations/how-tos/slack/use-github-in-slack)
+
+This can be done in any channel, or in the GitHub app.

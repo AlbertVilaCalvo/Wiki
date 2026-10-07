@@ -31,6 +31,12 @@ return Promise.reject(Error('reason'))
 
 ## Promise.all() and Promise.allSettled()
 
+:::important
+We also have [`Promise.allKeyed()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allKeyed) and [`Promise.allSettledKeyed()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettledKeyed) static methods. They behave like `Promise.all()` and `Promise.allSettled()`, respectively, except that they take an object of promises instead of an iterable. They fulfill with an object that has the same keys, so results can be read by name instead of by position.
+
+Introduced in Firefox 155 on September 2026, see the [release notes](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/155).
+:::
+
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled

@@ -63,17 +63,19 @@ From https://sergeemond.ca/en/articles/iterm-extend-send-text-action
 
 This is needed if you use Emacs in the terminal with the "no window" option (`-nw`), not when using the standalone GUI app.
 
-### Fix the "Meta" (M) Key in iTerm2
+### Fix the "Meta" (M) key
 
 https://stackoverflow.com/questions/196357/making-iterm-to-translate-meta-key-in-the-same-way-as-in-other-oses
+
+https://emacs.stackexchange.com/questions/8068/emacs-on-terminal-does-not-recognise-option-as-alt-key-on-mac
 
 By default, macOS uses the Option key (<kbd>⌥</kbd> or Alt) for special characters (like symbols). For Emacs to see it as "Meta" you must tell iTerm2 to send an `Esc+` sequence instead. To fit it do:
 
 - Open iTerm2 Settings (Cmd + ,).
-- Go to Profiles → Keys. Choose the "Key Bindings" tab.
--
+- Go to Profiles → Keys. Choose the "General" tab.
+- At "Left Option (⌥) key" and (optionally also) "Right Option (⌥) key", select `Esc+`. Also check the checkbox "Apps can change this".
 
-Once this is set, M-w may not work immediately in existing tabs, you need to open a new tab.
+Once this is set, `M-w` may not work immediately in existing tabs, you need to open a new tab.
 
 ### Fix C+w not working
 

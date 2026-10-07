@@ -330,6 +330,10 @@ https://www.linkedin.com/feed/update/urn:li:activity:7467372636730343424
 - Keep messages small & self-contained.
 - Always include correlation IDs for traceability.
 
+https://www.reddit.com/r/node/comments/1phg6gf/comment/nt356u7/
+
+> from an architectural point of view these systems sit in a different place than RabbitMQ or Kafka. RabbitMQ and Kafka are intended to send messages _between services_, but job queues like pg-boss are to facilitate background processing _within a service_. Most applications need job queues like pg-boss; only very large applications need message queues like rabbit or kafka. The kind of job queue that pg-boss provides can actually scale extremely well, I've used similar systems with hundreds of microservices, millions of customers and billions (trillions?) transactions. It also cannot typically be replaced by redis-backed queues, because one of the key benefits of doing this in your DB is that scheduling jobs is transactional, i.e. it works as a transactional outbox. This fundamentally can't be done with external infra like redis.
+
 https://www.linkedin.com/posts/raul-junco_you-dont-pick-tools-based-on-whats-cool-activity-7393634074793521152-ITB_/
 
 > You don’t pick tools based on what’s cool. You pick based on constraints.

@@ -10,17 +10,19 @@ https://modelcontextprotocol.io
 
 https://github.com/modelcontextprotocol
 
+https://mcpservers.org
+
+https://github.com/topics/mcp
+
 https://github.com/modelcontextprotocol/servers
 
 MCP Registry - https://github.com/mcp
 
-- Up-to-date code docs for any prompt - https://github.com/mcp/io.github.upstash/context7
+- Up-to-date code docs for any prompt - https://context7.com - https://github.com/upstash/context7 - https://github.com/mcp/io.github.upstash/context7
 - Terraform - https://github.com/hashicorp/terraform-mcp-server - https://github.com/mcp/hashicorp/terraform-mcp-server
 - Figma - https://github.com/figma/mcp-server-guide - https://github.com/mcp/com.figma.mcp/mcp
 - Playwright - https://github.com/microsoft/playwright-mcp
 - GitHub - https://github.com/github/github-mcp-server
-
-MCP in Android Studio - https://developer.android.com/studio/gemini/add-mcp-server
 
 https://www.youtube.com/watch?v=B-wzYo7pXaA
 
@@ -31,3 +33,11 @@ https://www.coursera.org/learn/intro-to-model-context-protocol-mcp?specializatio
 https://scrimba.com/intro-to-model-context-protocol-mcp-c0sake4uir
 
 https://opendata.cat/mcp/ - https://github.com/xaviviro/Opendata.cat-MCP-Server - https://x.com/xaviviro/status/2043360830758990055
+
+## Mobile apps
+
+MCP in Android Studio - https://developer.android.com/studio/gemini/add-mcp-server
+
+https://github.com/mobile-next/mobile-mcp
+
+https://github.com/callstack/agent-device

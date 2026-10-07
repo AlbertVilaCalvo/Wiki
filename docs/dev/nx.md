@@ -14,6 +14,8 @@ https://dev.to/this-is-learning/architects-delight-enforcing-layers-and-project-
 
 A New Nx Experience for TypeScript Monorepos and Beyond (2025) - https://nx.dev/blog/new-nx-experience-for-typescript-monorepos
 
+https://platzi.com/cursos/monorepo/
+
 ## 3 different ways to use Nx
 
 https://nx.dev/getting-started/intro
