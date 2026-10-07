@@ -14,6 +14,39 @@ https://emacsrocks.com
 
 Emacs cheatsheet - https://quickref.me/emacs.html
 
+Open with now window: `emacs -nw <filename>`
+
+## Meta key on macOS
+
+:::info
+On iTerm2, you need to change the left option (<kbd>⌥</kbd> or Alt) key as explained in [Fix the Emacs "Meta" (M) key in iTerm2](iterm2.md#fix-the-meta-m-key).
+:::
+
+https://www.reddit.com/r/emacs/comments/mu12y7/best_mapping_for_m_meta_key/
+
+On macOS, Meta is usually Option (⌥), not Command (⌘). So `M-q` normally means Option + Q.
+
+You can also use the universal alternative:
+
+```text
+Esc, then Q
+```
+
+Press and release `Esc`, then press `q`. Emacs interprets that as `M-q`.
+
+## Manage windows
+
+Emacs calls panes windows.
+
+| Shortcut | Action                                        |
+| -------- | --------------------------------------------- |
+| `C-x o`  | Move to the next window                       |
+| `C-x 0`  | Close the current window                      |
+| `C-x 1`  | Keep the current window and close all others  |
+| `q`      | Close many help windows when they are focused |
+
+If a help window opens beside your file (at the right), move to your file with `C-x o` if necessary, then press `C-x 1`.
+
 ## Init file
 
 You can use `~/.emacs`, `~/.emacs.el`, `~/.emacs.d/init.el` and others.
