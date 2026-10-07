@@ -123,9 +123,27 @@ https://medium.com/geekculture/stop-using-for-conditional-rendering-in-react-a0f
 
 When to useMemo and useCallback - https://kentcdodds.com/blog/usememo-and-usecallback
 
+### Hooks Considered Harmful
+
+https://labs.factorialhr.com/posts/hooks-considered-harmful
+
+This article has useful explanations of closures, reference identity, and over- versus under-subscription. Its `createEffect` factory makes closure dependencies explicit, which can reduce under-subscription, but the article acknowledges that it remains vulnerable to over-subscription from object and array identity.
+
+Take the principle, but not the proposed factory. `createEffect` and `createUnsafeEffect` pass a dynamic dependency array that React's linter cannot verify. Current React guidance says that [the dependency list must have a constant number of items and be written inline](https://react.dev/reference/react/useEffect#parameters). The former `component-hook-factories` rule is [deprecated and retained only as a no-op for backwards compatibility](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/CHANGELOG.md#711), so it does not enforce this advice.
+
 ### Prefer primitive values in hook dependencies
 
+Before changing an Effect's dependencies, ask [whether the Effect is needed](https://react.dev/learn/you-might-not-need-an-effect). Calculate values from props and state during rendering, and handle user interactions in event handlers. Use the techniques below when an Effect is genuinely needed to synchronize with an external system.
+
 React compares every Hook dependency with [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) ([see docs](https://react.dev/reference/react/useEffect#parameters)). Primitives such as strings, numbers and booleans are compared by value. Arrays, objects, and functions are compared by reference, so creating one during render can rerun an Effect even when the values the Effect uses have not changed. This can cause unnecessary work or infinite update loops.
+
+Under-subscription means an Effect does not rerun when a value it uses changes. Over-subscription means it reruns for changes that should not affect its work, commonly because an object, array, or function receives a new reference. The dependency linter detects missing reactive values, but it cannot decide which parts of an object or array should trigger the Effect. Change the surrounding code instead of suppressing the linter. See also [Removing Effect Dependencies](https://react.dev/learn/removing-effect-dependencies).
+
+A particularly risky feedback loop is:
+
+`prop → Effect → callback or state update → parent render → changed dependency → Effect`
+
+The loop becomes infinite when the update causes a render and that render changes a dependency. If the update writes the same value according to `Object.is`, React can skip the render and break the loop. See [React's infinite-cycle troubleshooting](https://react.dev/reference/react/useEffect#my-effect-keeps-re-running-in-an-infinite-cycle).
 
 **Objects.** Depend on the primitive fields the Effect actually uses, such as `user.id` instead of the complete `user` object.
 
@@ -159,6 +177,21 @@ useEffect(() => {
 }, [itemIdsOrdered])
 ```
 
+Sometimes the trigger depends on the relationship between two arrays. To run only when the availability of selected IDs changes, derive their intersection instead of depending on every item:
+
+```tsx
+const availableItemIds = new Set(items.map((item) => item.id))
+const availableSelectedIds = JSON.stringify(
+  selectedIds.filter((id) => availableItemIds.has(id))
+)
+
+useEffect(() => {
+  localStorage.setItem('availableSelectedIds', availableSelectedIds)
+}, [availableSelectedIds])
+```
+
+Wrapping an array in `useMemo` can stabilize it at one call site, but React says [`useMemo` should only be relied on as a performance optimization](https://react.dev/reference/react/useMemo#caveats). A shared component's correctness should not depend on every caller remembering to memoize otherwise valid input.
+
 **Functions.** A helper created during render also receives a new reference on every render. If the helper does not use props or state, move it outside the component. If it is only used by the Effect, move its code inside the Effect. Use `useCallback` when another component or Hook requires a stable function reference, not merely to silence the dependency linter.
 
 Instead of creating `createOptions` during every render:
@@ -184,13 +217,11 @@ useEffect(() => {
 }, [serverUrl, roomId])
 ```
 
-Primitive dependencies are necessary, but not sufficient. The derived value must change for every change the Effect should handle and remain the same for changes it should ignore. Avoid ambiguous conversions: `['a,b'].join(',')` and `['a', 'b'].join(',')` both produce `a,b` even though the arrays are different (prefer `JSON.stringify` in this case).
+**Derived keys.** With this approach, using a primitive is necessary but not sufficient. The derived value must change for every change the Effect should handle and remain the same for changes it should ignore. Avoid ambiguous conversions: `['a,b'].join(',')` and `['a', 'b'].join(',')` both produce `a,b` even though the arrays are different (prefer `JSON.stringify` in this case)..
 
-Do not include unrelated data in the derived value, because unrelated changes can rerun the Effect and overwrite newer state. Keep dependency arrays inline and exhaustive. If the Effect still reads the original object or array, do not hide it from the linter; restructure the code so it consumes the primitives, or reconsider whether an Effect is needed ([see `useEffect` below](#useeffect)).
+`JSON.stringify` preserves those array boundaries, but use it only with normalized, JSON-safe values. For example, both `JSON.stringify([undefined])` and `JSON.stringify([null])` produce `"[null]"`, while `JSON.stringify(undefined)` returns `undefined` rather than a string. Serialization also processes the whole array on every render, so avoid using large payloads as dependency keys.
 
-[Hooks Considered Harmful](https://labs.factorialhr.com/posts/hooks-considered-harmful) has useful explanations of closure dependencies, reference identity, and using primitives to avoid over-subscription. Take that principle, but not every proposed implementation. Its generic `createEffect` and `createUnsafeEffect` factories pass a dynamic dependency array that React's linter cannot verify. Current React guidance says that [the dependency list must have a constant number of items and be written inline](https://react.dev/reference/react/useEffect#parameters), and newer React lint rules also [discourage Hook factories](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories).
-
-State-management libraries do not automatically solve reference-identity problems. This Zustand selector creates a new array whenever it runs, even when the selected IDs have not changed:
+**State managers.** State-management libraries do not automatically solve reference-identity problems. This Zustand selector creates a new array whenever it runs, even when the selected IDs have not changed:
 
 ```tsx
 const selectedIds = useItemsStore((state) =>
@@ -209,10 +240,6 @@ const selectedIds = useItemsStore(
 ```
 
 Alternatively, select a primitive directly if the Effect only needs a change signal. React Redux has the same concern and recommends primitive selectors, memoized selectors, or [`shallowEqual`](https://react-redux.js.org/api/hooks#equality-comparisons-and-updates) when returning arrays or objects.
-
-Before replacing an object or array dependency with a derived primitive, check whether the value can instead be [derived during rendering or updated from an event](https://react.dev/learn/you-might-not-need-an-effect).
-
-See also [Removing Effect Dependencies](https://react.dev/learn/removing-effect-dependencies).
 
 ### `useEffect`
 
