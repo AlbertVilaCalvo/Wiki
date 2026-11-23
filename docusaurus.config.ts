@@ -132,6 +132,12 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: 'python',
+          activeBasePath: 'python',
+          label: 'Py',
+          position: 'left',
+        },
+        {
           to: 'javascript',
           activeBasePath: 'javascript',
           label: 'JS',
@@ -197,12 +203,6 @@ const config: Config = {
           to: 'css',
           activeBasePath: 'css',
           label: 'CSS',
-          position: 'left',
-        },
-        {
-          to: 'python',
-          activeBasePath: 'python',
-          label: 'Py',
           position: 'left',
         },
         {

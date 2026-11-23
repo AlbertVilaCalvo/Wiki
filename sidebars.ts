@@ -57,6 +57,7 @@ const sidebars: SidebarsConfig = {
     'ai/mcp',
     'ai/rag',
   ],
+  python: ['python/python', 'python/tools'],
   js: [
     'javascript/javascript',
     'javascript/array',
@@ -260,7 +261,6 @@ const sidebars: SidebarsConfig = {
     'css/dark-mode',
     'css/cascade-layers',
   ],
-  python: ['python/python', 'python/tools'],
   auth: [
     'auth/authentication',
     'auth/authorization',
