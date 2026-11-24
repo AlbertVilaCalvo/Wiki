@@ -2,6 +2,8 @@
 title: LLM
 ---
 
+Let's build GPT: from scratch, in code, spelled out. - https://www.youtube.com/watch?v=kCc8FmEb1nY
+
 https://blog.kagi.com/llms - LLMs are bullshitters. But that doesn't mean they're not useful.
 
 > Simplifying a little, LLMs have always been trained in the same two steps:

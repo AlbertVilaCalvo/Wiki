@@ -8,6 +8,10 @@ Write tests. Not too many. Mostly integration. - https://twitter.com/rauchg/stat
 
 > Think less about the code you are testing and more about the use cases that code supports.
 
+https://www.linkedin.com/posts/anton-martyniuk_i-stopped-writing-unit-tests-and-replaced-share-7530223770167382016-v_x9/
+
+> I stopped writing unit tests and replaced them with integration tests. Our tests now find 300% more issues.
+
 The more your tests resemble the way your software is used, the more confidence they can give you. - https://twitter.com/kentcdodds/status/977018512689455106
 
 Coverage is not strongly correlated with test suite effectiveness, by Laura Inozemtseva and Reid Holmes - https://www.cs.ubc.ca/~rtholmes/papers/icse_2014_inozemtseva.pdf

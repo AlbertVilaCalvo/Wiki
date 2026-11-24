@@ -18,11 +18,13 @@ https://github.com/modelcontextprotocol/servers
 
 MCP Registry - https://github.com/mcp
 
-- Up-to-date code docs for any prompt - https://context7.com - https://github.com/upstash/context7 - https://github.com/mcp/io.github.upstash/context7
+- Up-to-date code docs for any prompt - https://context7.com - https://github.com/upstash/context7 - https://github.com/mcp/io.github.upstash/context7 - Also see https://github.com/GoogleChrome/modern-web-guidance
 - Terraform - https://github.com/hashicorp/terraform-mcp-server - https://github.com/mcp/hashicorp/terraform-mcp-server
 - Figma - https://github.com/figma/mcp-server-guide - https://github.com/mcp/com.figma.mcp/mcp
 - Playwright - https://github.com/microsoft/playwright-mcp
 - GitHub - https://github.com/github/github-mcp-server
+
+https://mcp-explained.com - https://news.ycombinator.com/item?id=50379249
 
 https://www.youtube.com/watch?v=B-wzYo7pXaA
 

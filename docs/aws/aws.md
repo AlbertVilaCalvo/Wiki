@@ -102,6 +102,8 @@ AWS guides and templates - https://aws.amazon.com/startups/build
 
 https://aws.amazon.com/about-aws/global-infrastructure/
 
+https://infrastructure.aws
+
 https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/aws-infrastructure.html
 
 AWS service types (AZ, regional and global) - https://docs.aws.amazon.com/whitepapers/latest/aws-fault-isolation-boundaries/aws-service-types.html

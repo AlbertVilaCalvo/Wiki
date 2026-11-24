@@ -24,6 +24,8 @@ https://www.linkedin.com/feed/update/urn:li:activity:7462660707449225216/
 
 https://www.manning.com/books/postgresql-mistakes-and-how-to-avoid-them
 
+The startup's Postgres survival guide - https://hatchet.run/blog/postgres-survival-guide - https://news.ycombinator.com/item?id=49005787
+
 Postgres WASM - https://news.ycombinator.com/item?id=33067962
 
 https://www.crunchydata.com
