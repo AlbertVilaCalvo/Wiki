@@ -64,21 +64,31 @@ https://stackoverflow.com/questions/1911109/how-do-i-clone-a-specific-git-branch
 
 ## Undo last commit
 
-If not pushed yet:
+If not pushed yet, use `git reset [--soft|--mixed|--hard] HEAD^`, which moves `HEAD` back to the previous commit:
 
 ```shell
-# Keep changes
+# Keep the changes staged
 git reset --soft HEAD^
 
-# Discard changes
+# Keep the changes unstaged (default if unspecified)
+git reset --mixed HEAD^
+git reset HEAD^
+
+# Discard all tracked changes
 # WARNING: THIS DISCARDS ANY CHANGES ON TRACKED FILES!
 # TO AVOID LOOSING CHANGES DO 'git stash push' BEFORE
 git reset --hard HEAD^
 ```
 
-[source](https://stackoverflow.com/a/6376039/4034572)
+The three modes differ in what happens to the changes from the undone commit:
 
-On a public (pushed) commit
+- `--soft`: keeps the working tree and keeps changes from the undone commit staged.
+- `--mixed`: keeps the working tree and leaves the changes in the working tree as unstaged edits. Default if no mode is specified.
+- `--hard`: discards tracked changes in the index (staging area) and working tree (unstaged changes are lost). Only affects tracked files; untracked files (files not added with `git add`) are not touched.
+
+Source: [How do I undo the most recent local commits in Git?](https://stackoverflow.com/a/6376039/4034572)
+
+On a public (pushed) commit:
 
 ```shell
 git revert HEAD

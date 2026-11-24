@@ -262,6 +262,8 @@ Add portions of file: `git add -p` [see commands here](https://stackoverflow.com
 
 https://git-scm.com/docs/git-reset
 
+See [Undo last commit](git.md#undo-last-commit).
+
 Unstage _all_ staged files:
 
 ```shell
