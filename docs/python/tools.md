@@ -334,37 +334,6 @@ https://github.com/microsoft/pyright
 
 In VSCode, should be used with the [Pylance extension](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance).
 
-## uv
-
-https://github.com/astral-sh/uv
-
-Fast Python package manager, drop-in replacement for common `pip` workflows.
-
-https://astral.sh/blog/uv-unified-python-packaging
-
-Recommended in the Technology Radar - https://www.thoughtworks.com/radar/tools/summary/uv - https://www.thoughtworks.com/radar/tools/uv
-
-By [Astral](https://astral.sh), the same company of ruff (linter) and ty (type checker).
-
-Fun with uv and PEP 723 - https://news.ycombinator.com/item?id=44369388
-
-Switching from Pyenv to Uv - https://news.ycombinator.com/item?id=43307563
-
-Switching Pip to Uv in a Dockerized Flask / Django App (nickjanetakis.com) - https://news.ycombinator.com/item?id=44364406
-
-> It's worth noting that uv also supports a workflow that directly replaces pyenv, virtualenv and pip without mandating a change to a lockfile/pyproject.toml approach.
-
-uv: running a script with dependencies - https://news.ycombinator.com/item?id=44641521
-
-uv is the best thing to happen to the Python ecosystem in a decade - https://news.ycombinator.com/item?id=45751400
-
-Minimum Release Age is an Underrated Supply Chain Defense - https://daniakash.com/posts/simplest-supply-chain-defense/
-
-```toml title="pyproject.toml"
-[tool.uv]
-exclude-newer = "7d"
-```
-
 ## Black
 
 https://github.com/psf/black

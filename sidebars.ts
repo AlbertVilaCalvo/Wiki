@@ -57,7 +57,7 @@ const sidebars: SidebarsConfig = {
     'ai/mcp',
     'ai/rag',
   ],
-  python: ['python/python', 'python/tools'],
+  python: ['python/python', 'python/tools', 'python/uv', 'python/fastapi'],
   js: [
     'javascript/javascript',
     'javascript/array',
