@@ -2,6 +2,12 @@
 title: AI Tools
 ---
 
+A year after the 100% AI mandate nobody understands our code - https://www.reddit.com/r/ClaudeCode/comments/1xq2n3t/a_year_after_the_100_ai_mandate_nobody/
+
+https://context7.com - https://github.com/upstash/context7 - - Up-to-date code docs for any prompt -
+
+https://github.com/GoogleChrome/modern-web-guidance
+
 How fast is N tokens per second really? - https://mikeveerman.github.io/tokenspeed/ - https://news.ycombinator.com/item?id=48174920
 
 https://github.com/open-webui/open-webui
@@ -102,13 +108,17 @@ https://factory.ai/news/code-review-benchmark
 
 ## Run AI models locally
 
-https://www.canirun.ai
+https://canirun.ai - https://github.com/midudev/canirun.ai
+
+https://www.llmfit.org - https://github.com/AlexsJones/llmfit - Hundreds of models and providers. One command to find what runs on your hardware.
 
 https://ollama.com
 
 https://lmstudio.ai
 
 https://www.jan.ai
+
+https://github.com/JustVugg/colibri - https://justvugg.github.io/colibri/ - https://news.ycombinator.com/item?id=48842459
 
 ## Harness
 
@@ -118,6 +128,31 @@ https://github.com/earendil-works/pi
 - Fork: https://omp.sh/ - https://github.com/can1357/oh-my-pi
 
 https://code.visualstudio.com/blogs/2026/05/15/agent-harnesses-github-copilot-vscode
+
+Addy Osmani - Agent Harness Engineering - https://x.com/addyosmani/status/2053231239721885918
+
+> Agent = Model + Harness
+
+> The model is merely one input into a running agent. The rest is the harness: the prompts, tools, context policies, hooks, sandboxes, subagents, feedback loops, and recovery paths wrapped around the model so it can actually complete tasks.
+
+> The underlying model might be identical across platforms, but the behavior you experience is dominated by the harness.
+
+> The gap between what today's models can theoretically do and what you actually see them doing is largely a harness gap.
+
+> A decent model with a great harness consistently beats a great model with a bad harness.
+
+> Concretely, a harness includes:
+>
+> - System prompts, CLAUDE.md, AGENTS.md, skill files, and subagent instructions.
+> - Tools, skills, MCP servers, and their technical descriptions.
+> - Bundled infrastructure, such as the filesystem, sandboxes, and headless browsers.
+> - Orchestration logic for spawning subagents, handling handoffs, and routing models.
+> - Hooks and middleware for deterministic execution, like lint checks or context compaction.
+> - Observability tools for logs, traces, cost, and latency metering.
+
+> If the agent ignored a convention, add it to AGENTS.md. If it ran a destructive command, write a hook to block it. If it got lost in a 40-step task, split the architecture into a planner and an executor. If it consistently finishes with broken code, wire a type-checking back-pressure signal into the loop.
+
+> The right harness for a specific codebase is entirely shaped by its unique failure history.
 
 ## Prompts
 

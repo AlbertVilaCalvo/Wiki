@@ -2,6 +2,12 @@
 title: Claude
 ---
 
+:::danger
+opus 5.5 XHIGH just deleted all my apps data, passwords and macOS configs [link](https://www.reddit.com/r/ClaudeCode/comments/1xqfp7m/opus_55_xhigh_just_deleted_all_my_apps_data/)
+
+I was running with `--dangerously-skip-permissions`.
+:::
+
 System prompts - https://platform.claude.com/docs/en/release-notes/system-prompts/overview - https://news.ycombinator.com/item?id=49319556 - With git history: https://github.com/simonw/research/tree/main/extract-system-prompts
 
 From the release notes of the macOS app (September 21, 2026):
@@ -131,4 +137,12 @@ Do this when you first install Claude Code ([source](https://www.youtube.com/liv
 - `/config`
 
 Code is not indexed, is not uploaded anywhere, there is no remote database with your code. Thus, there is no setup, no wait for indexing, you can start using it right away.
+
+## Figma
+
+At Settings > Customize, if you search for "Figma" there is a Plugin and a Connector.
+Choose the Plugin, which includes the Connector plus skills.
+The Connector provides the connection and is available on all tiers. The Plugin provides requires a paid Claude subscription.
+
+https://help.figma.com/hc/en-us/articles/39888612464151-Claude-Code-and-Figma-Set-up-the-MCP-server
 
